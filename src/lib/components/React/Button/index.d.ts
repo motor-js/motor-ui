@@ -6,4 +6,4 @@ export interface ButtonProps {
 declare const Button: React.FC<ButtonProps & Omit<JSX.IntrinsicElements['button'], 'color'>>;
 export type ButtonType = ButtonProps & Omit<JSX.IntrinsicElements['button'], 'color'>
 
-export { Button };
+export default Button
