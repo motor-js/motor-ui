@@ -6,9 +6,10 @@ import resolve from '@rollup/plugin-node-resolve'
 import url from '@rollup/plugin-url'
 import svgr from '@svgr/rollup'
 import { terser } from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript2'
 
 export default [{
-  input: 'src/lib/index.js',
+  input: 'src/lib/index.ts',
   output: [
     {
       file: 'dist/index.js',
@@ -22,6 +23,9 @@ export default [{
     },
   ],
   plugins: [
+    typescript({
+      typescript: require('typescript'),
+    }),
     postcss({
       plugins: [],
       minimize: false,
