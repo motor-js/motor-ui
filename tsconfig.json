@@ -1,14 +1,40 @@
 {
+  {
+    "compilerOptions": {
+      "declaration": true,
+      "declarationDir": "./dist",
+      "module": "es6",
+      "noImplicitAny": true,
+      "outDir": "./dist",
+      "target": "es5"
+    },
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": ["node_modules"]
+  }
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "esnext",
+    "target": "es6",
+    "jsx": "react",
+    "strictPropertyInitialization": false,
     "declaration": true,
-    "declarationDir": "./dist",
-    "module": "es6",
-    "noImplicitAny": true,
-    "outDir": "./dist",
-    "target": "es6"
+    "strict": false,
+    "baseUrl": "./",
+    "paths": {
+      "grommet": ["src/js"],
+      "grommet/themes": ["src/js/themes"],
+      "grommet/utils": ["src/js/utils"]
+    },
+    "typeRoots": ["./node_modules/@types/", "./src/@types/"]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
 }
+
