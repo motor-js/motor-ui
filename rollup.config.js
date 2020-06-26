@@ -9,7 +9,7 @@ import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
 
 export default [{
-  input: 'src/lib/index.ts',
+  input: 'src/lib/index.js',
   output: [
     {
       file: 'dist/index.js',
