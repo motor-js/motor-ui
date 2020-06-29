@@ -44,9 +44,7 @@
     "lodash.throttle": "^4.1.1",
     "open-color": "^1.7.0",
     "react-contextmenu": "^2.13.0",
-    "react-feather": "^2.0.3",
     "react-loader-spinner": "^3.1.14",
-    "react-scroll": "^1.7.16",
     "rollup-plugin-typescript2": "^0.27.1",
     "styled-components": "^5.1.0",
     "uuid": "^3.3.2"
