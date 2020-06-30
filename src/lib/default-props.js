@@ -1,5 +1,5 @@
 import { deepMerge } from './utils/object'
-import base from './themes/themes/base'
+import base from './themes/base'
 
 export const defaultProps = {
   theme: base,

@@ -1,7 +1,7 @@
-import { base, ThemeType } from "./themes/base";
+import { base } from "./themes/base";
 
 export namespace defaultProps {
   export { base as theme };
 }
 
-export function extendDefaultTheme(theme: ThemeType): void;
+export function extendDefaultTheme(theme: Object): void;

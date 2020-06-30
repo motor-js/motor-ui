@@ -1,4 +1,4 @@
-import '../colors/open-color.css';
+import './colors/open-color.css';
 
 const colorPalette = [
   'var(--oc-pink-4)',

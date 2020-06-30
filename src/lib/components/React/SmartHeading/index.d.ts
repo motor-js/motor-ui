@@ -1,10 +1,11 @@
 import * as React from "react";
 import {
+  configType,
   sizeType
 } from '../../../utils'
 
 export interface SmartHeadingProps {
-  children:
+  children: React.ReactNode,
   config: configType,
   size: sizeType,
   type: 'free' | 'lastReload' | 'appName',

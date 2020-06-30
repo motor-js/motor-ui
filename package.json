@@ -1,6 +1,6 @@
 {
   "name": "motor-ui",
-  "version": "0.1.5-alpha.1",
+  "version": "0.1.6-alpha.1",
   "description": "Test Library",
   "author": "Luke Reilly",
   "license": "",
@@ -20,7 +20,7 @@
     "docz:server": "NODE_ENV=production BABEL_ENV=production docz build && docz serve",
     "start": "docz dev",
     "docz:build": "NODE_ENV=production BABEL_ENV=production docz build",
-    "build": "NODE_ENV=production BABEL_ENV=production rollup -c",
+    "build": "tsc -p . && NODE_ENV=production BABEL_ENV=production rollup -c",
     "watch": "NODE_ENV=development BABEL_ENV=development rollup -c -w",
     "test": "jest",
     "coverage": "jest --coverage",
@@ -36,6 +36,7 @@
     "deploy": ""
   },
   "dependencies": {
+    "@babel/types": "^7.10.3",
     "@styled-icons/feather": "^10.0.0",
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
