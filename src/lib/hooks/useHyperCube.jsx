@@ -1,22 +1,18 @@
-import {
-  useCallback, useRef, useReducer, useEffect,
-} from 'react'
-import { deepMerge } from '../utils/object'
+import { useCallback, useRef, useReducer, useEffect } from 'react';
+import { deepMerge } from '../utils/object';
 
 const initialState = {
   qData: null,
   qRData: null,
   qLayout: null,
   selections: null,
-}
+};
 
 function reducer(state, action) {
   const {
-    payload: {
-      qData, qRData, qLayout, selections,
-    },
+    payload: { qData, qRData, qLayout, selections },
     type,
-  } = action
+  } = action;
   switch (type) {
     case 'update':
       return {
@@ -24,14 +20,14 @@ function reducer(state, action) {
         qData,
         qLayout,
         selections,
-      }
+      };
     case 'updateReducedData':
       return {
         ...state,
         qRData,
-      }
+      };
     default:
-      throw new Error()
+      throw new Error();
   }
 }
 
@@ -56,9 +52,9 @@ const initialProps = {
   qColumnOrder: [],
   qCalcCondition: undefined,
   qOtherTotalSpec: '',
-}
+};
 
-const useHyperCube = props => {
+const useHyperCube = (props) => {
   const {
     cols,
     qHyperCubeDef,
@@ -75,76 +71,76 @@ const useHyperCube = props => {
     qCalcCondition,
     getQRData,
     qOtherTotalSpec,
-  } = deepMerge(initialProps, props)
+  } = deepMerge(initialProps, props);
 
-  const _isMounted = useRef(true)
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const _isMounted = useRef(true);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const {
-    qData, qRData, qLayout, selections,
-  } = state
+  const { qData, qRData, qLayout, selections } = state;
 
   // load engine from props
-  const myEngine = props.engine
+  const myEngine = props.engine;
 
-  const qObject = useRef(null)
+  const qObject = useRef(null);
 
-  const qPage = useRef(qPageProp)
+  const qPage = useRef(qPageProp);
 
   // Build qOtherTotalSpec object
-  let totalSpec
+  let totalSpec;
 
   if (typeof qOtherTotalSpec === 'object') {
     totalSpec = {
       qOtherMode: 'OTHER_COUNTED',
       qOtherCounted: qOtherTotalSpec.qOtherCount,
-    }
+    };
   } else if (qOtherTotalSpec) {
-    totalSpec = { qOtherMode: 'OTHER_COUNTED', qOtherCounted: '8' }
+    totalSpec = { qOtherMode: 'OTHER_COUNTED', qOtherCounted: '8' };
   } else if (!qOtherTotalSpec) {
-    totalSpec = { qOtherMode: 'OTHER_OFF', qOtherCounted: '' }
+    totalSpec = { qOtherMode: 'OTHER_OFF', qOtherCounted: '' };
   }
 
   const generateQProp = useCallback(() => {
     const qProp = {
       qInfo: { qType: 'visualization' },
-    }
+    };
 
     if (qHyperCubeDef) {
-      const _qHyperCubeDef = qHyperCubeDef
+      const _qHyperCubeDef = qHyperCubeDef;
       if (cols && cols[1]) {
         _qHyperCubeDef.qMeasures[0].qDef = {
           qDef: cols[1],
-        }
+        };
       }
-      if (cols && cols[0]) _qHyperCubeDef.qDimensions[0].qDef.qFieldDefs = [cols[0]]
-      qProp.qInfo.qType = 'HyperCube'
-      qProp.qHyperCubeDef = _qHyperCubeDef
+      if (cols && cols[0])
+        _qHyperCubeDef.qDimensions[0].qDef.qFieldDefs = [cols[0]];
+      qProp.qInfo.qType = 'HyperCube';
+      qProp.qHyperCubeDef = _qHyperCubeDef;
 
-      return qProp
+      return qProp;
     }
-    const myqInterColumnSortOrder = qInterColumnSortOrder || []
-    const qInterColumnSortOrderSet = !!qInterColumnSortOrder
-    let sortIndex = 0
+    const myqInterColumnSortOrder = qInterColumnSortOrder || [];
+    const qInterColumnSortOrderSet = !!qInterColumnSortOrder;
+    let sortIndex = 0;
 
     const qDimensions = cols
       .filter((col, i) => {
-        const isDimension = (typeof col === 'string' && !col.startsWith('='))
-          || (typeof col === 'object' && col.qDef && col.qDef.qFieldDefs)
-          || (typeof col === 'object'
-            && col.qLibraryId
-            && col.qType
-            && col.qType === 'dimension')
-          || (typeof col === 'object' && !col.qField.startsWith('='))
+        const isDimension =
+          (typeof col === 'string' && !col.startsWith('=')) ||
+          (typeof col === 'object' && col.qDef && col.qDef.qFieldDefs) ||
+          (typeof col === 'object' &&
+            col.qLibraryId &&
+            col.qType &&
+            col.qType === 'dimension') ||
+          (typeof col === 'object' && !col.qField.startsWith('='));
 
         if (isDimension && !qInterColumnSortOrderSet) {
-          myqInterColumnSortOrder[i] = sortIndex
-          sortIndex += 1
+          myqInterColumnSortOrder[i] = sortIndex;
+          sortIndex += 1;
         }
 
-        return isDimension
+        return isDimension;
       })
-      .map(col => {
+      .map((col) => {
         if (typeof col === 'string') {
           return {
             qDef: {
@@ -159,7 +155,7 @@ const useHyperCube = props => {
             qNullSuppression: true,
             qSuppressMissing: true,
             qShowTotalsAbove: true,
-          }
+          };
         }
         if (typeof col === 'object') {
           return {
@@ -169,11 +165,11 @@ const useHyperCube = props => {
               qSortCriterias: col.qSortCriterias
                 ? [col.qSortCriterias]
                 : [
-                  {
-                    qSortByLoadOrder,
-                    qSortByAscii,
-                  },
-                ],
+                    {
+                      qSortByLoadOrder,
+                      qSortByAscii,
+                    },
+                  ],
             },
             qOtherTotalSpec: totalSpec,
             qOtherLabel: 'Others',
@@ -205,29 +201,30 @@ const useHyperCube = props => {
               : true,
             qSuppressMissing: true,
             qShowTotalsAbove: true,
-          }
+          };
         }
 
-        return col
-      })
+        return col;
+      });
 
     const qMeasures = cols
       .filter((col, i) => {
-        const isMeasure = (typeof col === 'string' && col.startsWith('='))
-          || (typeof col === 'object' && col.qDef && col.qDef.qDef)
-          || (typeof col === 'object'
-            && col.qLibraryId
-            && col.qType
-            && col.qType === 'measure')
-          || (typeof col === 'object' && col.qField.startsWith('='))
+        const isMeasure =
+          (typeof col === 'string' && col.startsWith('=')) ||
+          (typeof col === 'object' && col.qDef && col.qDef.qDef) ||
+          (typeof col === 'object' &&
+            col.qLibraryId &&
+            col.qType &&
+            col.qType === 'measure') ||
+          (typeof col === 'object' && col.qField.startsWith('='));
         if (isMeasure && !qInterColumnSortOrderSet) {
-          myqInterColumnSortOrder[i] = sortIndex
-          sortIndex += 1
+          myqInterColumnSortOrder[i] = sortIndex;
+          sortIndex += 1;
         }
 
-        return isMeasure
+        return isMeasure;
       })
-      .map(col => {
+      .map((col) => {
         if (typeof col === 'string') {
           return {
             qDef: { qDef: col, qNumFormat: col.qNumFormat },
@@ -237,7 +234,7 @@ const useHyperCube = props => {
               qExpression,
               qSuppressMissing,
             },
-          }
+          };
         }
         if (typeof col === 'object') {
           return {
@@ -275,11 +272,11 @@ const useHyperCube = props => {
                 id: 'chartColor',
               },
             ],
-          }
+          };
         }
 
-        return col
-      })
+        return col;
+      });
 
     qProp.qHyperCubeDef = {
       qDimensions,
@@ -289,9 +286,9 @@ const useHyperCube = props => {
       qSuppressMissing,
       qColumnOrder,
       qCalcCondition,
-    }
+    };
 
-    return qProp
+    return qProp;
   }, [
     cols,
     qExpression,
@@ -302,45 +299,45 @@ const useHyperCube = props => {
     qSortByLoadOrder,
     qSuppressMissing,
     qSuppressZero,
-  ])
+  ]);
 
-  const getLayout = useCallback(() => qObject.current.getLayout(), [])
+  const getLayout = useCallback(() => qObject.current.getLayout(), []);
 
   const getData = useCallback(async () => {
     const qDataPages = await qObject.current.getHyperCubeData(
       '/qHyperCubeDef',
-      [qPage.current],
-    )
+      [qPage.current]
+    );
 
-    return qDataPages[0]
-  }, [])
+    return qDataPages[0];
+  }, []);
 
   const getReducedData = useCallback(
     () => async () => {
-      const { qWidth } = qPage.current
+      const { qWidth } = qPage.current;
       const _qPage = {
         qTop: 0,
         qLeft: 0,
         qWidth,
         qHeight: Math.round(10000 / qWidth),
-      }
+      };
       const qDataPages = await qObject.current.getHyperCubeReducedData(
         '/qHyperCubeDef',
         [_qPage],
         -1,
-        'D1',
-      )
+        'D1'
+      );
 
-      return qDataPages[0]
+      return qDataPages[0];
     },
-    [],
-  )
+    []
+  );
 
   const update = useCallback(async () => {
-    const _qLayout = await getLayout()
-    const _qData = await getData()
+    const _qLayout = await getLayout();
+    const _qData = await getData();
     if (_qData && _isMounted.current) {
-      const _selections = _qData.qMatrix.filter(row => row[0].qState === 'S')
+      const _selections = _qData.qMatrix.filter((row) => row[0].qState === 'S');
       dispatch({
         type: 'update',
         payload: {
@@ -348,7 +345,7 @@ const useHyperCube = props => {
           qLayout: _qLayout,
           selections: _selections,
         },
-      })
+      });
     } else if (_isMounted.current) {
       dispatch({
         type: 'update',
@@ -356,73 +353,83 @@ const useHyperCube = props => {
           qData: _qData,
           qLayout: _qLayout,
         },
-      })
+      });
     }
     if (getQRData) {
-      const _qRData = await getReducedData()
+      const _qRData = await getReducedData();
       if (_isMounted.current) {
         dispatch({
           type: 'updateReducedData',
           payload: { qRData: _qRData },
-        })
+        });
       }
     }
-  }, [getData, getLayout, getQRData, getReducedData])
+  }, [getData, getLayout, getQRData, getReducedData]);
 
   const changePage = useCallback(
-    newPage => {
+    (newPage) => {
       qPage.current = {
         ...qPage.current,
         ...newPage,
-      }
-      update()
+      };
+      update();
     },
-    [update],
-  )
+    [update]
+  );
 
   const beginSelections = useCallback(
     () => qObject.current.beginSelections(['/qHyperCubeDef']),
-    [true],
-  )
+    [true]
+  );
 
   const endSelections = useCallback(
-    qAccept => qObject.current.endSelections(qAccept),
-    [],
-  )
+    (qAccept) => qObject.current.endSelections(qAccept),
+    []
+  );
 
+  // const select = useCallback(
+  //   (qElemNumber, _selections, toggle = false) => qObject.current.selectHyperCubeValues(
+  //     '/qHyperCubeDef',
+  //     qElemNumber,
+  //     _selections,
+  //     toggle,
+  //   ),
+  //   [],
+  // )
   const select = useCallback(
-    (qElemNumber, _selections, toggle = false) => qObject.current.selectHyperCubeValues(
-      '/qHyperCubeDef',
-      qElemNumber,
-      _selections,
-      toggle,
-    ),
-    [],
-  )
+    (qElemNumber, _selections, toggle = true) =>
+      qObject.current.selectHyperCubeValues(
+        '/qHyperCubeDef',
+        qElemNumber,
+        _selections,
+        toggle
+      ),
+    []
+  );
 
   const applyPatches = useCallback(
-    patches => qObject.current.applyPatches(patches),
-    [],
-  )
+    (patches) => qObject.current.applyPatches(patches),
+    []
+  );
 
   useEffect(() => {
     if (myEngine === undefined) {
     } else {
       if (qObject.current) return;
       (async () => {
-        const qProp = generateQProp()
-        const qDoc = await myEngine
-        qObject.current = await qDoc.createSessionObject(qProp)
+        const qProp = generateQProp();
+        const qDoc = await myEngine;
+        qObject.current = await qDoc.createSessionObject(qProp);
         qObject.current.on('changed', () => {
-          update()
-        })
-        update()
-      })()
+          update();
+        });
+        update();
+      })();
     }
-  }, [generateQProp, myEngine, update])
+  }, [generateQProp, myEngine, update]);
 
-  useEffect(() => () => (_isMounted.current = false), [])
-  
+  useEffect(() => () => (_isMounted.current = false), []);
+
   return {
     beginSelections,
     endSelections,
@@ -433,7 +440,7 @@ const useHyperCube = props => {
     selections,
     select,
     applyPatches,
-  }
-}
+  };
+};
 
-export default useHyperCube
+export default useHyperCube;

@@ -1,7 +1,7 @@
-import { useState } from 'react'
-const enigma = require('enigma.js')
-const schema = require('enigma.js/schemas/12.170.2.json')
-const SenseUtilities = require('enigma.js/sense-utilities')
+import { useState } from 'react';
+const enigma = require('enigma.js');
+const schema = require('enigma.js/schemas/12.170.2.json');
+const SenseUtilities = require('enigma.js/sense-utilities');
 
 const MAX_RETRIES = 3;
 
@@ -34,6 +34,7 @@ function useEngine(config) {
     },
   ];
 
+  const [engineError, setEngineError] = useState(false);
   const [engine, setEngine] = useState(() => {
     (async () => {
       if (config) {
@@ -56,6 +57,7 @@ function useEngine(config) {
         } catch (err) {
           console.log('Error', err);
           if (err.code === 1003) {
+            setEngineError(`No engine. App Not found.`);
             console.warn('App Not Found'); /*cogoToast.error('App Not Found')*/
           }
         }
@@ -63,7 +65,7 @@ function useEngine(config) {
     })();
   }, []);
 
-  return { engine };
+  return { engine, engineError };
 }
 
 export default useEngine;

@@ -1,0 +1,1 @@
+export type sizeType = 'tiny' | 'small' | 'medium' | 'large' | 'xlarge';
