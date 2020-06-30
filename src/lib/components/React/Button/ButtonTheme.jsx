@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { globalStyle, borderStyle } from '../../../utils/styles'
+import { globalStyle } from '../../../utils/styles'
 import { defaultProps } from '../../../default-props'
 import { selectColor } from '../../../utils/colors'
 
