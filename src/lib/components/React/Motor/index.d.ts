@@ -5,6 +5,7 @@ import {
 
 export interface MotorProps {
   config: configType,
+  children: React.ReactNode
 }
 
 declare const Motor: React.FC<MotorProps>;
