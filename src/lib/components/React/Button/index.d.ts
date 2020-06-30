@@ -1,16 +1,11 @@
 import * as React from "react";
-import{
+import {
+  configType,
   sizeType
 } from '../../../utils'
 
 export interface ButtonProps {
-  config: { 
-    host: string,
-    secure: boolean,
-    port: number,
-    prefix: string,
-    appId: string
-  },
+  config: configType,
   type: 'clearSelections' | 'back' | 'forward' | 'default';
   block: boolean,
   onClick: () => void,
