@@ -1,0 +1,340 @@
+/*
+ *
+ *  𝗖 𝗢 𝗟 𝗢 𝗥
+ *  https://material-ui.com/customization/color/#color-palette
+ *  https://htmlcolorcodes.com/color-chart/material-design-color-chart/
+ *  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:root {
+  /*  General
+ *  ─────────────────────────────────── */
+
+  --oc-white: #ffffff;
+  --oc-white-rgb: 255, 255, 255;
+  --oc-black: #000000;
+  --oc-black-rgb: 0, 0, 0;
+
+  /*  Gray
+ *  ─────────────────────────────────── */
+
+  /* --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #eeeeee;
+  --gray-300: #e0e0e0;
+  --gray-400: #bdbdbd;
+  --gray-500: #9e9e9e;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #212121; */
+
+  /*  Red
+ *  ─────────────────────────────────── */
+
+  --oc-red-0: #ffebee;
+  --oc-red-0-rgb: rgb(255, 235, 238);
+  --oc-red-1: #ffcdd2;
+  --oc-red-1-rgb: rgb(255, 205, 210);
+  --oc-red-2: #ef9a9a;
+  --oc-red-2-rgb: rgb(239, 154, 154);
+  --oc-red-3: #e57373;
+  --oc-red-3-rgb: rgb(229, 115, 115);
+  --oc-red-4: #ef5350;
+  --oc-red-4-rgb: rgb(239, 83, 80);
+  --oc-red-5: #f44336;
+  --oc-red-5-rgb: rgb(244, 67, 54);
+  --oc-red-6: #e53935;
+  --oc-red-6-rgb: rgb(229, 57, 53);
+  --oc-red-7: #d32f2f;
+  --oc-red-7-rgb: rgb(211, 47, 47);
+  --oc-red-8: #c62828;
+  --oc-red-8-rgb: rgb(198, 40, 40);
+  --oc-red-9: #b71c1c;
+  --oc-red-9-rgb: rgb(183, 28, 28);
+  --oc-red-10: #ff8a80;
+  --oc-red-10-rgb: rgb(255, 138, 128);
+  --oc-red-11: #ff5252;
+  --oc-red-11-rgb: rgb(255, 82, 82);
+  --oc-red-12: #ff1744;
+  --oc-red-12-rgb: rgb(255, 23, 68);
+  --oc-red-13: #d50000;
+  --oc-red-13-rgb: rgb(213, 0, 0);
+
+  /*  Pink
+ *  ─────────────────────────────────── */
+
+  /* --pink-50: #fce4ec;
+  --pink-100: #f8bbd0;
+  --pink-200: #f48fb1;
+  --pink-300: #f06292;
+  --pink-400: #ec407a;
+  --pink-500: #e91e63;
+  --pink-600: #d81b60;
+  --pink-700: #c2185b;
+  --pink-800: #ad1457;
+  --pink-900: #880e4f; */
+
+  /*  Grape
+ *  ─────────────────────────────────── */
+
+  /* --oc-grape-0: #f8f0fc;
+  --oc-grape-0-rgb: 248, 240, 252;
+  --oc-grape-1: #f3d9fa;
+  --oc-grape-1-rgb: 243, 217, 250;
+  --oc-grape-2: #eebefa;
+  --oc-grape-2-rgb: 238, 190, 250;
+  --oc-grape-3: #e599f7;
+  --oc-grape-3-rgb: 229, 153, 247;
+  --oc-grape-4: #da77f2;
+  --oc-grape-4-rgb: 218, 119, 242;
+  --oc-grape-5: #cc5de8;
+  --oc-grape-5-rgb: 204, 93, 232;
+  --oc-grape-6: #be4bdb;
+  --oc-grape-6-rgb: 190, 75, 219;
+  --oc-grape-7: #ae3ec9;
+  --oc-grape-7-rgb: 174, 62, 201;
+  --oc-grape-8: #9c36b5;
+  --oc-grape-8-rgb: 156, 54, 181;
+  --oc-grape-9: #862e9c;
+  --oc-grape-9-rgb: 134, 46, 156; */
+
+  /*  Violet
+ *  ─────────────────────────────────── */
+
+  /* --oc-violet-0: #f3f0ff;
+  --oc-violet-0-rgb: 243, 240, 255;
+  --oc-violet-1: #e5dbff;
+  --oc-violet-1-rgb: 229, 219, 255;
+  --oc-violet-2: #d0bfff;
+  --oc-violet-2-rgb: 208, 191, 255;
+  --oc-violet-3: #b197fc;
+  --oc-violet-3-rgb: 177, 151, 252;
+  --oc-violet-4: #9775fa;
+  --oc-violet-4-rgb: 151, 117, 250;
+  --oc-violet-5: #845ef7;
+  --oc-violet-5-rgb: 132, 94, 247;
+  --oc-violet-6: #7950f2;
+  --oc-violet-6-rgb: 121, 80, 242;
+  --oc-violet-7: #7048e8;
+  --oc-violet-7-rgb: 112, 72, 232;
+  --oc-violet-8: #6741d9;
+  --oc-violet-8-rgb: 103, 65, 217;
+  --oc-violet-9: #5f3dc4;
+  --oc-violet-9-rgb: 95, 61, 196; */
+
+  /*  Indigo
+ *  ─────────────────────────────────── */
+
+  --oc-indigo-0: #e8eaf6;
+  --oc-indigo-0-rgb: rgb(232, 234, 246);
+  --oc-indigo-1: #c5cae9;
+  --oc-indigo-1-rgb: rgb(197, 202, 233);
+  --oc-indigo-2: #9fa8da;
+  --oc-indigo-2-rgb: rgb(159, 168, 218);
+  --oc-indigo-3: #7986cb;
+  --oc-indigo-3-rgb: rgb(121, 134, 203);
+  --oc-indigo-4: #5c6bc0;
+  --oc-indigo-4-rgb: rgb(92, 107, 192);
+  --oc-indigo-5: #3f51b5;
+  --oc-indigo-5-rgb: rgb(63, 81, 181);
+  --oc-indigo-6: #3949ab;
+  --oc-indigo-6-rgb: rgb(57, 73, 171);
+  --oc-indigo-7: #303f9f;
+  --oc-indigo-7-rgb: rgb(48, 63, 159);
+  --oc-indigo-8: #283593;
+  --oc-indigo-8-rgb: rgb(40, 53, 147);
+  --oc-indigo-9: #1a237e;
+  --oc-indigo-9-rgb: rgb(26, 35, 126);
+  --oc-indigo-10: #8c9eff;
+  --oc-indigo-10-rgb: rgb(140, 158, 255);
+  --oc-indigo-11: #536dfe;
+  --oc-indigo-11-rgb: rgb(83, 109, 254);
+  --oc-indigo-12: #3d5afe;
+  --oc-indigo-12-rgb: rgb(61, 90, 254);
+  --oc-indigo-13: #304ffe;
+  --oc-indigo-13-rgb: rgb(48, 79, 254);
+
+  /*  Blue
+ *  ─────────────────────────────────── */
+
+  /* --oc-blue-0: #e7f5ff;
+  --oc-blue-0-rgb: 231, 245, 255;
+  --oc-blue-1: #d0ebff;
+  --oc-blue-1-rgb: 208, 235, 255;
+  --oc-blue-2: #a5d8ff;
+  --oc-blue-2-rgb: 165, 216, 255;
+  --oc-blue-3: #74c0fc;
+  --oc-blue-3-rgb: 116, 192, 252;
+  --oc-blue-4: #4dabf7;
+  --oc-blue-4-rgb: 77, 171, 247;
+  --oc-blue-5: #339af0;
+  --oc-blue-5-rgb: 51, 154, 240;
+  --oc-blue-6: #228be6;
+  --oc-blue-6-rgb: 34, 139, 230;
+  --oc-blue-7: #1c7ed6;
+  --oc-blue-7-rgb: 28, 126, 214;
+  --oc-blue-8: #1971c2;
+  --oc-blue-8-rgb: 25, 113, 194;
+  --oc-blue-9: #1864ab;
+  --oc-blue-9-rgb: 24, 100, 171; */
+
+  /*  Cyan
+ *  ─────────────────────────────────── */
+
+  /* --oc-cyan-0: #e3fafc;
+  --oc-cyan-0-rgb: 227, 250, 252;
+  --oc-cyan-1: #c5f6fa;
+  --oc-cyan-1-rgb: 197, 246, 250;
+  --oc-cyan-2: #99e9f2;
+  --oc-cyan-2-rgb: 153, 233, 242;
+  --oc-cyan-3: #66d9e8;
+  --oc-cyan-3-rgb: 102, 217, 232;
+  --oc-cyan-4: #3bc9db;
+  --oc-cyan-4-rgb: 59, 201, 219;
+  --oc-cyan-5: #22b8cf;
+  --oc-cyan-5-rgb: 34, 184, 207;
+  --oc-cyan-6: #15aabf;
+  --oc-cyan-6-rgb: 21, 170, 191;
+  --oc-cyan-7: #1098ad;
+  --oc-cyan-7-rgb: 16, 152, 173;
+  --oc-cyan-8: #0c8599;
+  --oc-cyan-8-rgb: 12, 133, 153;
+  --oc-cyan-9: #0b7285;
+  --oc-cyan-9-rgb: 11, 114, 133; */
+
+  /*  Teal
+ *  ─────────────────────────────────── */
+
+  /* --oc-teal-0: #e6fcf5;
+  --oc-teal-0-rgb: 230, 252, 245;
+  --oc-teal-1: #c3fae8;
+  --oc-teal-1-rgb: 195, 250, 232;
+  --oc-teal-2: #96f2d7;
+  --oc-teal-2-rgb: 150, 242, 215;
+  --oc-teal-3: #63e6be;
+  --oc-teal-3-rgb: 99, 230, 190;
+  --oc-teal-4: #38d9a9;
+  --oc-teal-4-rgb: 56, 217, 169;
+  --oc-teal-5: #20c997;
+  --oc-teal-5-rgb: 32, 201, 151;
+  --oc-teal-6: #12b886;
+  --oc-teal-6-rgb: 18, 184, 134;
+  --oc-teal-7: #0ca678;
+  --oc-teal-7-rgb: 12, 166, 120;
+  --oc-teal-8: #099268;
+  --oc-teal-8-rgb: 9, 146, 104;
+  --oc-teal-9: #087f5b;
+  --oc-teal-9-rgb: 8, 127, 91; */
+
+  /*  Green
+ *  ─────────────────────────────────── */
+
+  --oc-green-0: #e8f5e9;
+  --oc-green-0-rgb: rgb(232, 245, 233);
+  --oc-green-1: #c8e6c9;
+  --oc-green-1-rgb: rgb(200, 230, 201);
+  --oc-green-2: #a5d6a7;
+  --oc-green-2-rgb: rgb(165, 214, 167);
+  --oc-green-3: #81c784;
+  --oc-green-3-rgb: rgb(129, 199, 132);
+  --oc-green-4: #66bb6a;
+  --oc-green-4-rgb: rgb(102, 187, 106);
+  --oc-green-5: #4caf50;
+  --oc-green-5-rgb: rgb(76, 175, 80);
+  --oc-green-6: #43a047;
+  --oc-green-6-rgb: rgb(67, 160, 71);
+  --oc-green-7: #388e3c;
+  --oc-green-7-rgb: rgb(56, 142, 60);
+  --oc-green-8: #2e7d32;
+  --oc-green-8-rgb: rgb(46, 125, 50);
+  --oc-green-9: #1b5e20;
+  --oc-green-9-rgb: rgb(27, 94, 32);
+  --oc-green-10: #b9f6ca;
+  --oc-green-10-rgb: rgb(185, 246, 202);
+  --oc-green-11: #69f0ae;
+  --oc-green-11-rgb: rgb(105, 240, 174);
+  --oc-green-12: #00e676;
+  --oc-green-12-rgb: rgb(0, 230, 118);
+  --oc-green-13: #00c853;
+  --oc-green-13-rgb: rgb(0, 200, 83);
+
+  /*  Lime
+ *  ─────────────────────────────────── */
+
+  /* --oc-lime-0: #f4fce3;
+  --oc-lime-0-rgb: 244, 252, 227;
+  --oc-lime-1: #e9fac8;
+  --oc-lime-1-rgb: 233, 250, 200;
+  --oc-lime-2: #d8f5a2;
+  --oc-lime-2-rgb: 216, 245, 162;
+  --oc-lime-3: #c0eb75;
+  --oc-lime-3-rgb: 192, 235, 117;
+  --oc-lime-4: #a9e34b;
+  --oc-lime-4-rgb: 169, 227, 75;
+  --oc-lime-5: #94d82d;
+  --oc-lime-5-rgb: 148, 216, 45;
+  --oc-lime-6: #82c91e;
+  --oc-lime-6-rgb: 130, 201, 30;
+  --oc-lime-7: #74b816;
+  --oc-lime-7-rgb: 116, 184, 22;
+  --oc-lime-8: #66a80f;
+  --oc-lime-8-rgb: 102, 168, 15;
+  --oc-lime-9: #5c940d;
+  --oc-lime-9-rgb: 92, 148, 13; */
+
+  /*  Yellow
+ *  ─────────────────────────────────── */
+
+  /* --oc-yellow-0: #fff9db;
+  --oc-yellow-0-rgb: 255, 249, 219;
+  --oc-yellow-1: #fff3bf;
+  --oc-yellow-1-rgb: 255, 243, 191;
+  --oc-yellow-2: #ffec99;
+  --oc-yellow-2-rgb: 255, 236, 153;
+  --oc-yellow-3: #ffe066;
+  --oc-yellow-3-rgb: 255, 224, 102;
+  --oc-yellow-4: #ffd43b;
+  --oc-yellow-4-rgb: 255, 212, 59;
+  --oc-yellow-5: #fcc419;
+  --oc-yellow-5-rgb: 252, 196, 25;
+  --oc-yellow-6: #fab005;
+  --oc-yellow-6-rgb: 250, 176, 5;
+  --oc-yellow-7: #f59f00;
+  --oc-yellow-7-rgb: 245, 159, 0;
+  --oc-yellow-8: #f08c00;
+  --oc-yellow-8-rgb: 240, 140, 0;
+  --oc-yellow-9: #e67700;
+  --oc-yellow-9-rgb: 230, 119, 0; */
+
+  /*  Orange
+ *  ─────────────────────────────────── */
+
+  --oc-orange-0: #fff3e0;
+  --oc-orange-0-rgb: rgb(255, 243, 224);
+  --oc-orange-1: #ffe0b2;
+  --oc-orange-1-rgb: rgb(255, 224, 178);
+  --oc-orange-2: #ffcc80;
+  --oc-orange-2-rgb: rgb(255, 204, 128);
+  --oc-orange-3: #ffb74d;
+  --oc-orange-3-rgb: rgb(255, 183, 77);
+  --oc-orange-4: #ffa726;
+  --oc-orange-4-rgb: rgb(255, 167, 38);
+  --oc-orange-5: #ff9800;
+  --oc-orange-5-rgb: rgb(255, 152, 0);
+  --oc-orange-6: #fb8c00;
+  --oc-orange-6-rgb: rgb(251, 140, 0);
+  --oc-orange-7: #f57c00;
+  --oc-orange-7-rgb: rgb(245, 124, 0);
+  --oc-orange-8: #ef6c00;
+  --oc-orange-8-rgb: rgb(239, 108, 0);
+  --oc-orange-9: #e65100;
+  --oc-orange-9-rgb: rgb(230, 81, 0);
+  --oc-orange-10: #ff8a80;
+  --oc-orange-10-rgb: rgb(255, 209, 128);
+  --oc-orange-11: #ffab40;
+  --oc-orange-11-rgb: rgb(255, 171, 64);
+  --oc-orange-12: #ff9100;
+  --oc-orange-12-rgb: rgb(255, 145, 0);
+  --oc-orange-13: #ff6d00;
+  --oc-orange-13-rgb: rgb(255, 109, 0);
+}
