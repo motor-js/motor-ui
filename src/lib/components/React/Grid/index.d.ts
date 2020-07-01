@@ -1,26 +1,21 @@
 import * as React from "react";
-import {
-  configType,
-  sizeType
-} from '../../../utils'
 
-export interface FilterProps {
-  config?: configType
-  label: string
-  dimension?: Array<string>
-  size?: sizeType
-  width?: string
-  dropHeight?: string
-  margin?: string
-  onSelectionChange?: () => {}
-  onSearch?: () => {}
-  single?: boolean
-  sortByState?: boolean
-  selectionsTitle?: boolean
+export interface GridProps {
+  areas?: {name?: string,start?: number[],end?: number[]}[] | string[][];
+  rows: Array<string>
+  columns: Array<string>
+  fill: boolean | 'horizontal' | 'vertical'
+  overflow?:  "auto" | "hidden" | "scroll" | "visible" | {horizontal?: "auto" | "hidden" | "scroll" | "visible",vertical?: "auto" | "hidden" | "scroll" | "visible"} | string;
+  gap?: string
+  backgroundColor?: string
+  justify?: 'start' | 'center' | 'end' | 'stretch'
+  justifyContent?: 'start'| 'center' | 'end' | 'between' | 'around' | 'stretch'
+  align?: 'start' | 'center' | 'end' | 'stretch'
+  alignContent?: 'start'| 'center'| 'end'| 'between'| 'around'| 'stretch'
 }
 
-declare const Filter: React.FC<FilterProps>;
+declare const Grid: React.FC<GridProps>;
 
-export type FilterType = FilterProps
+export type GridType = GridProps
 
-export default Filter
+export default Grid
