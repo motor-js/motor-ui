@@ -99,7 +99,6 @@ Box.propTypes = {
     }),
   ]),
   /** box width, set either a string, min or max */
-
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
