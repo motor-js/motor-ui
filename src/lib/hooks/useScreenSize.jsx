@@ -1,6 +1,6 @@
 // Media Queries
 import useMediaQuery from './useMediaQuery'
-import base from '../themes/themes/base'
+import base from '../themes/base'
 
 const useScreenSize = () => {
 
