@@ -54,13 +54,13 @@ const BORDER_SHAPE = PropTypes.shape({
 KPI.propTypes = {
   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   config: PropTypes.object,
+  /** KPI label  */
+  label: PropTypes.string,
   /** Calculation Condition */
   calcCondition: PropTypes.shape({
     qCond: PropTypes.string,
     qMsg: PropTypes.string,
   }),
-  /** KPI label  */
-  label: PropTypes.string.isRequired,
   /** cols from Qlik Data Model to render in the KPI  */
   cols: PropTypes.array.isRequired,
   /** The amount of margin around the component */
@@ -145,6 +145,7 @@ KPI.propTypes = {
 
 KPI.defaultProps = {
   config: null,
+  label: null,
   calcCondition: undefined,
   margin: null,
   width: '100%',
