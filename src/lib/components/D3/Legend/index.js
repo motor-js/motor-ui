@@ -1,0 +1,1 @@
+export { addLegend } from './Legend'

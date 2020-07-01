@@ -1,0 +1,1 @@
+export { setStyle } from './Styles'
