@@ -1,0 +1,23 @@
+    <Filter
+        label='Province'
+        dimension='province'
+        size='small'
+    />
+    <Filter
+        label='Country'
+        dimension='country'
+        size='small'
+    />
+    <Table />  
+    <Button
+        title='Red'
+        backgroundColor='var(--oc-red-6)'
+    />
+    <Button
+        title='Orange'
+        backgroundColor='var(--oc-orange-6)'
+    />
+    <Button
+        title='Yellow'
+        backgroundColor='var(--oc-yellow-6)'
+    />

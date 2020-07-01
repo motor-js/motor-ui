@@ -1,0 +1,115 @@
+---
+name: Button
+route: /button
+menu: Components
+---
+
+<h1 style={{ margin: '0px' }}>Button</h1>
+<h3 style={{ margin: '0px' }}><em>A button.</em></h3>
+
+<br />
+
+## Import
+
+```javascript
+  import { Button } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+Here is a button. Handle selections, or easily apply custom callbacks for data export or patching properties.
+Check out the props and example usage below 💡
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Button from '../../lib/components/React/Button/Button.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import { config } from '../config/config.js'
+import { google } from '../../lib/themes'
+
+<Playground>
+    <Motor config={config} 
+        theme={google}>
+        <Button color='brand'>Brand</Button>
+        <Button color='var(--oc-red-6)'>Red</Button>
+        <Button color='var(--oc-orange-6)'>Orange</Button>
+        <Button color='var(--oc-yellow-6)'>Yellow</Button>
+        <Button color='var(--oc-green-6)'>Green</Button>
+        <Button color='var(--oc-teal-6)'>Teal</Button>
+        <Button color='var(--oc-blue-6)'>Blue</Button>
+        <Button color='var(--oc-violet-6)'>Violet</Button>
+        <Button color='var(--oc-pink-6)'>Pink</Button>
+        <Button color='var(--oc-gray-6)'>Gray</Button>
+        <Button color='black'>Black</Button>
+    </Motor>
+</Playground>
+
+<br />
+
+## Props
+
+<Props of={Button} />
+
+<br />
+
+## Theming
+
+
+### Entry Point
+
+```javascript
+theme.button
+```
+
+### Object
+
+Example below is taken from the Motor Theme.
+
+```javascript
+
+button: {
+    // Takes background color prop, if null takes theme value
+    backgroundColor: null,
+    // Takes font color prop, if null takes theme value
+    fontColor: "white",
+    // Takes border prop, if null takes theme value
+    border: 0,
+    // Takes margin prop, if null takes theme value
+    margin: null,
+    // Takes border radius prop, if null takes theme value
+    radius: "15px",
+    // Takes box shadow radius prop, if null takes theme value
+    shadow: null,
+    padding: "0.7em 1.7em",
+    transform: null,
+    fontWeight: null,
+    hover: {
+      borderColor: null,
+      //Takes hover box shadow prop, if null takes theme value
+      boxShadow: "inset 0 0 0 10em rgba(255, 255, 255, 0.3)",
+      backgroundColor: "transparent",
+      border: 0
+    }
+  },
+
+```
+
+
+### Example: Change Button font color to red
+
+<Playground>
+    <Motor
+        config={config}
+        theme={{
+            button: {
+                fontColor: 'red',
+            }
+        }}>
+    <Button color='var(--oc-pink-2)'>Red with Pink Background</Button>
+    </Motor>
+</Playground>
+
+
+

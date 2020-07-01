@@ -1,0 +1,23 @@
+---
+name: KPI
+route: /kpi
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>KPI</h1>
+<h3 style={{ margin: '0px' }}><em>KPI object</em></h3>
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import KPI from '../../lib/components/React/KPI/KPI.jsx';
+import { config } from '../config/config.js'
+
+<Playground>
+    <KPI
+        config={config}
+        cols={["=Count(distinct country)"]}
+        label='Count of Countries'
+        size='medium'
+    />
+
+</Playground>

@@ -1,0 +1,30 @@
+---
+name: Responsive
+route: /responsive
+menu: Contexts
+---
+
+<h1 style={{ margin: '0px' }}>Responsive Context</h1>
+<h3 style={{ margin: '0px' }}><em>Sets screen size context for dynamic component sizing</em></h3>
+
+<br />
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import ResponsiveContext from '../../lib/contexts/ResponsiveContext/ResponsiveContext.jsx'
+import { ResponsiveProvider } from '../../lib/contexts/ResponsiveContext/ResponsiveProvider.jsx'
+import useScreenSize from '../../lib/hooks/useScreenSize.jsx'
+
+<Playground>
+    {() => {
+      const { screen } = useScreenSize()
+      
+      return ( 
+        <>
+          <h2>{screen}</h2> 
+        </> 
+      )
+    }}
+</Playground>
+

@@ -1,0 +1,75 @@
+---
+name: Bar Brushing Single Dim
+route: /Bar_Test_single_Dim
+menu: Visualisations Test
+---
+
+<h1 style={{ margin: '0px' }}>Bar Chart</h1>
+
+<br />
+
+## Import
+
+```javascript
+  import { Bar } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Bar from '../../lib/components/React/Bar/Bar.jsx';
+import Column from '../../lib/components/React/Column/Column.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+
+<Playground>
+<Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "0a6aaa49-cb0d-4b0c-8bd3-07c38878d318"
+  }}>
+      <Bar
+            cols={[
+     //    { qField: 'Year', qLabel: 'Year' },
+        { qField: '[OICA region]', qLabel: 'OICA region' },
+      { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' },
+      { qField: '=Avg([Car sales])*if(Year=2011,1,1)', qLabel: 'Avg sales' },
+      {
+        qField: '=Sum([Commercial vehicle sales])',
+        qLabel: 'Commercial vehicles sales',
+      },
+            ]}
+            // title="Vehicle Sales by Region"
+            // subTitle="Vehicle Sales by Region"
+                        tickSpacing="narrow"
+           // showGridlines={true}
+            showGridlines={'none'}
+            textOnAxis='both'
+            // showLegend={true}
+            suppressZero={true}
+         //   suppressScroll={true}
+         //   stacked={true}
+            // percentStacked={true}
+            height="410px"
+            // border = {false}
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}
+     //        otherTotalSpec={{
+     //         qOtherLabel: 'Other',
+     //         qOtherCount: '5'
+     //       }}
+            />
+  </Motor>
+</Playground>
+
+<br />
+
+## Props

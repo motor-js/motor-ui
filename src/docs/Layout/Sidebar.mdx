@@ -1,0 +1,38 @@
+---
+name: Sidebar
+route: /sidebar
+menu: Layout
+---
+
+<h1 style={{ margin: '0px' }}>Sidebar</h1>
+<h3 style={{ margin: '0px' }}><em>A Collapsable Sidebar</em></h3>
+
+<br />
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Sidebar from '../../lib/components/React/Sidebar/Sidebar.jsx'
+import useSidebar from '../../lib/hooks/useSidebar.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+  {() => {
+    const {isOpen, toggle} = useSidebar();
+    return (
+      <>
+        <Motor  
+          config={config}>
+          <div style={{overflow: 'hidden', height: '300px', width: '500px'}}>
+          <Sidebar collapsable padding='100px 5px' isOpen={isOpen} backgroundColor='lightblue'>
+            Sidebar Content
+          </Sidebar>
+          <Button onClick={toggle}>Toggle Sidebar</Button>
+          </div>
+        </Motor>
+      </>
+    )
+  }}
+</Playground>

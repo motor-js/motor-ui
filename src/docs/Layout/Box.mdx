@@ -1,0 +1,41 @@
+---
+name: Box
+route: /box
+menu: Layout
+---
+
+<h1 style={{ margin: '0px' }}>Box</h1>
+<h3 style={{ margin: '0px' }}><em>A Box Wrapper for Components</em></h3>
+
+<br />
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Box from '../../lib/components/React/Box/Box.jsx'
+
+<Playground>
+    <Box
+      width='400px'
+      backgroundColor='white'
+      border
+      direction='row'
+      focusable={false}
+      wrapProp
+    >
+      <Box
+        height='80px'
+        backgroundColor='#FF6961'
+        margin='10px'
+      />
+    </Box>
+</Playground>
+
+<br />
+
+
+## Props
+
+<Props of={Box} />
+
+<br />
+

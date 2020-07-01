@@ -1,0 +1,66 @@
+---
+name: Modal
+route: /modal
+menu: Layout
+---
+
+<h1 style={{ margin: '0px' }}>Modal</h1>
+<h3 style={{ margin: '0px' }}><em>A Modal</em></h3>
+
+<br />
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Modal from '../../lib/components/React/Modal/Modal.jsx'
+import useModal from '../../lib/hooks/useModal.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import { config } from '../config/config.js'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import { google } from '../../lib/themes'
+
+<Playground>
+  {() => {
+    const {isShowing, toggle} = useModal();
+    console.log(google)
+    return (
+      <>
+      <Motor config={config}>
+        <Modal 
+          header={
+            <div style={{fontSize: '20px', fontWeight: 'bold'}}>
+              Modal Title
+            </div>
+          }
+          footer={
+            <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <Button width='100px' onClick={toggle}>Close</Button>
+            </div>
+          }
+          isShowing={isShowing}
+        >
+          Modal Content, like some filters...
+          <div style={{ display:'flex', height:'50px', padding:'20px 0px' }}>
+          <Filter
+            label='Province'
+            dimension={['province']}
+            size='small'
+          />
+          <Filter
+            label='Country'
+            dimension={['country']}
+            size='small'
+          />
+          <Filter
+            label='Region'
+            dimension={['region_1']}
+            size='small'
+          />
+          </div>
+        </Modal>
+        <Button onClick={toggle}>Show Modal</Button>
+      </Motor>
+      </>
+    )
+  }}
+</Playground>

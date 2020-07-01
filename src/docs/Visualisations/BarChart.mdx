@@ -1,0 +1,175 @@
+---
+name: Bar
+route: /barchart
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>Bar Chart</h1>
+
+<br />
+
+## Import
+
+```javascript
+  import { Bar } from 'motor-ui'
+```
+<br />
+
+## Usage
+
+Here is a bar chart.
+Check out the props and example usage below 💡
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Bar from '../../lib/components/React/Bar/Bar.jsx';
+import { config } from '../config/config.js'
+
+<Playground>
+          <Bar
+           config={config}
+            cols={[
+              { qField: 'country', qLabel: 'Country' },
+            //  { qField: '=Count(winery)', qLabel: 'No of Wineries' },
+                    { qField: '=Avg(price)', qLabel: 'Average Price' }
+            ]}
+            // title="Vehicle Sales by Region"
+            showGridlines={true}
+            // suppressScroll={true}
+            // barPadding={5}
+            // zoomScrollOnBarWidth={10} //to add?
+            // textOnAxis='none'
+            // showLegend={false}
+            //suppressZero={true}
+            stacked={true}
+            // percentStacked={true}
+            height="410px"
+            // border = {false}
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}>
+    </Bar>
+</Playground>
+
+<br />
+
+Here is a stacked bar chart.
+Check out the props and example usage below 💡
+
+<Playground>
+          <Bar
+          config={config}
+            cols={[
+           //   { qField: 'country', qLabel: 'Country' },
+           //  { qField: 'variety', qLabel: 'Province' },
+           //   { qField: '=Count(distinct winery)', qLabel: 'No of Wineries' },
+                         { qField: 'country', qLabel: 'Country' },
+             { qField: 'province', qLabel: 'Province' },
+              { qField: '=Avg(price)', qLabel: 'Average Price' }
+            ]}
+            // title="Stacked Bar Chart"
+            showGridlines={true}
+           //  suppressScroll={true}
+            // barPadding={5}
+            // zoomScrollOnBarWidth={10} 
+            // textOnAxis='none'
+            // showLegend={false}
+            //suppressZero={true}
+            stacked={true}
+           // tickSpacing="wide"
+            // percentStacked={true}
+            height="410px"
+            // border = {false}
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}>
+    </Bar>
+</Playground>
+
+<br />
+
+## Props
+
+<Props of={Bar} />
+
+<br />
+
+## Theming
+
+
+### Entry Point
+
+```javascript
+theme.bar
+```
+
+### Object
+
+Example below is taken from the Motor Theme.
+
+```javascript
+
+bar: {
+/** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
+  config: PropTypes.object,
+  /** Bar label  */
+  label: PropTypes.string,
+  /** cols from Qlik Data Model to render in the Bar  */
+  cols: PropTypes.array.isRequired,
+  /** Calc condition for the chart  */
+  calcCondition: PropTypes.object,
+  /** Supress zeo vlaues in the the chart  */
+  suppressZero: PropTypes.bool,
+  /** Bar Sort Order */
+  columnSortOrder: PropTypes.array,
+  /** Sort Ascending or descending */
+  sortDirection: PropTypes.string,
+  /** Bar theme try juno, classic or night. Default theme is 'classic' */
+  theme: PropTypes.string,
+  /** Bar width */
+  width: PropTypes.string,
+  /** The height of the Bar */
+  height: PropTypes.string,
+  /** The amount of margin around the component */
+  margin: PropTypes.string,
+  /** Whether the KPI size should scale for tablet and mobile */
+  responsive: PropTypes.bool,
+  /** Size of the Bar */
+  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  /** Label position */
+  showLabels: PropTypes.oneOf(['top', 'none']),
+  /** Show text on Axis */
+  textOnAxis: PropTypes.bool,
+  /** Show gridlines on Axis */
+  showGridlines: PropTypes.bool,
+  /** Color of the Bar label */
+  fontColor: PropTypes.string,
+  /** Border of the chart */
+  chartBorder: PropTypes.string,
+  /** Background Color of the chart */
+  backgroundColor: PropTypes.string,
+  /** Stacked Chart  */
+  stacked: PropTypes.bool,
+  /** Stacked Chart  */
+  percentStacked: PropTypes.bool,
+  /** RoundNum of the Bar */
+  roundNum: PropTypes.bool,
+  /** Title of the Bar */
+  title: PropTypes.string,
+  /** Sub Title of the Bar */
+  subTitle: PropTypes.string,
+  /** Legend of the Bar */
+  showLegend: PropTypes.bool,
+  /** Offset of the selction panel */
+  offset: PropTypes.number,
+  /** Allow for bushes to be resized on chart */
+  allowZoom: PropTypes.bool,
+  /** Force supression of Scroll / Overview chart */
+  suppressScroll: PropTypes.bool,
+  /** Pddding for each bar */
+  barPadding: PropTypes.number,
+  },
+
+```
