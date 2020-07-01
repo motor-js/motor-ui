@@ -1,4 +1,4 @@
-import './colors/open-color.css';
+import '../colors/open-color.css';
 
 const colorPalette = [
   'var(--oc-pink-4)',
@@ -117,6 +117,7 @@ const fontSizing = factor => ({
 const base = {
   global: {
     backgroundColor: 'white',
+    colorTheme: 'goya',
     fontFamily: 'Inter, sans-serif' /* 'Roboto, sans-serif' */,
     color,
     border: {
@@ -190,6 +191,9 @@ const base = {
     chart: {
       allowSelections: true,
       allowSlantedYAxis: true,
+      backgroundColor: 'white',
+      borderRadius: '10px',
+      userSelect: 'none',
       suppressZero: false,
       suppressScroll: false,
       allowZoom: false,
@@ -586,9 +590,6 @@ const base = {
       // try apply this padding to inclrease thier size
       columnPaddingNarrow: 10,
       maxWidth: 150,
-      backgroundColor: 'white',
-      borderRadius: '10px',
-      userSelect: 'none',
     },
     columns: {
       stroke: 'var(--oc-gray-5)',
@@ -603,7 +604,6 @@ const base = {
       stroke: 'var(--oc-gray-5)',
       strokeWidth: 0.5,
     },
-    colorTheme: 'goya',
   },
   bar: {
     main: {
@@ -614,9 +614,6 @@ const base = {
       // try apply this padding to inclrease thier size
       barPaddingNarrow: 10,
       maxWidth: 100,
-      backgroundColor: 'white',
-      borderRadius: '10px',
-      userSelect: 'none',
     },
     bars: {
       stroke: 'var(--oc-gray-5)',
@@ -631,15 +628,11 @@ const base = {
       stroke: 'var(--oc-gray-5)',
       strokeWidth: 0.5,
     },
-    colorTheme: 'goya',
   },
   line: {
     main: {
       dataPointsToShow: 30,
       otherTotalSpec: undefined,
-      backgroundColor: 'white',
-      borderRadius: '10px',
-      userSelect: 'none',
     },
     lines: {
       strokeWidth: 1,
@@ -664,14 +657,10 @@ const base = {
       selectedFont: 'white',
       selectionBackground: 'var(--oc-pink-4)',
     },
-    colorTheme: 'goya',
   },
   scatter: {
     main: {
       otherTotalSpec: undefined,
-      backgroundColor: 'white',
-      borderRadius: '10px',
-      userSelect: 'none',
     },
     scatters: {
       fill: 'none',
@@ -692,33 +681,21 @@ const base = {
       stroke: 'var(--oc-gray-5)',
       strokeWidth: 0.5,
     },
-    colorTheme: 'goya',
   },
   pie: {
     main: {
       otherTotalSpec: { qOtherLabel: 'Other', qOtherCount: '9' },
-      borderRadius: '8px',
-      userSelect: 'none',
     },
-    colorTheme: 'goya',
   },
   barplot: {
     main: {
       otherTotalSpec: { qOtherLabel: 'Other', qOtherCount: '5' },
-      backgroundColor: 'white',
-      borderRadius: '10px',
-      userSelect: 'none',
     },
-    colorTheme: 'goya',
   },
   wordcloud: {
     main: {
       otherTotalSpec: { qOtherLabel: 'Other', qOtherCount: '5' },
-      backgroundColor: 'white',
-      borderRadius: '10px',
-      userSelect: 'none',
     },
-    colorTheme: 'goya',
   },
   tooltip: {
     position: 'absolute',
