@@ -10,7 +10,7 @@ import {
 } from '../../../utils'
 
 export interface PieProps {
-  config?: configType,
+  config?: configType
   cols: Array<string>
   calcCondition?: calcCondType
   suppressZero?: boolean
@@ -19,7 +19,7 @@ export interface PieProps {
   margin?: string
   size?: sizeType
   allowSelections?: boolean
-  fontColor?: string,
+  fontColor?: string
   border?: borderType
   backgroundColor?: string
   chartColor?: chartColorType
