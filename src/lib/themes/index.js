@@ -1,3 +1,3 @@
-export { default as base } from './themes/base'
+export { default as base } from './base'
 
 // https://community.powerbi.com/t5/Themes-Gallery/bd-p/ThemesGallery
