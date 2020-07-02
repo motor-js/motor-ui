@@ -1,13 +1,13 @@
 // help.qlik.com/en-US/sense/April2020/Subsystems/Hub/Content/Sense_Hub/Visualizations/Bar-Chart/bar-chart.htm
 
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledColumn from './StyledColumn';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import defaultTheme from '../../../themes/defaultTheme';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledColumn from "./StyledColumn";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import defaultTheme from "../../../themes/defaultTheme";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
 function Column({ config, ...rest }) {
   const myConfig = config || useContext(ConfigContext);
@@ -28,36 +28,34 @@ function Column({ config, ...rest }) {
 const BORDER_SHAPE = PropTypes.shape({
   color: PropTypes.oneOfType([PropTypes.string]),
   side: PropTypes.oneOf([
-    'top',
-    'left',
-    'bottom',
-    'right',
-    'start',
-    'end',
-    'horizontal',
-    'vertical',
-    'all',
-    'between',
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
   ]),
   size: PropTypes.oneOfType([PropTypes.string]),
   style: PropTypes.oneOf([
-    'solid',
-    'dashed',
-    'dotted',
-    'double',
-    'groove',
-    'ridge',
-    'inset',
-    'outset',
-    'hidden',
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
   ]),
 });
 
 Column.propTypes = {
   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   config: PropTypes.object,
-  /** Column label  */
-  label: PropTypes.string,
   /** cols from Qlik Data Model to render in the Column  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
@@ -77,20 +75,20 @@ Column.propTypes = {
   /** The amount of margin around the component */
   margin: PropTypes.string,
   /** Size of the Column */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /** Label position */
-  showLabels: PropTypes.oneOf(['top', 'none', 'inside']),
+  showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   /** Show text on Axis */
   textOnAxis: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['both', 'yAxis', 'xAxis', 'none']),
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Spacing of Ticks on Y Axis */
-  tickSpacing: PropTypes.oneOf(['wide', 'normal', 'narrow']),
+  tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
   /** Show gridlines on Axis */
   showGridlines: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['solid', 'dashes', 'dots', 'none']),
+    PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
   ]),
   /** Color of the Column label */
   fontColor: PropTypes.string,
@@ -98,42 +96,42 @@ Column.propTypes = {
   border: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf([
-      'top',
-      'left',
-      'bottom',
-      'right',
-      'start',
-      'end',
-      'horizontal',
-      'vertical',
-      'all',
-      'between',
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
       side: PropTypes.oneOf([
-        'top',
-        'left',
-        'bottom',
-        'right',
-        'start',
-        'end',
-        'horizontal',
-        'vertical',
-        'all',
-        'between',
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
       ]),
       size: PropTypes.oneOfType([PropTypes.string]),
       style: PropTypes.oneOf([
-        'solid',
-        'dashed',
-        'dotted',
-        'double',
-        'groove',
-        'ridge',
-        'inset',
-        'outset',
-        'hidden',
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
       ]),
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
@@ -143,24 +141,24 @@ Column.propTypes = {
   /** color scheme of the chart */
   chartColor: PropTypes.oneOfType([
     PropTypes.oneOf([
-      'divergent13',
-      'divergent9',
-      'goya',
-      'red',
-      'blue',
-      'gray',
-      'pink',
-      'grape',
-      'violet',
-      'indigo',
-      'blue',
-      'cyan',
-      'teal',
-      'green',
-      'lime',
-      'yellow',
-      'orange',
-      'base',
+      "divergent13",
+      "divergent9",
+      "goya",
+      "red",
+      "blue",
+      "gray",
+      "pink",
+      "grape",
+      "violet",
+      "indigo",
+      "blue",
+      "cyan",
+      "teal",
+      "green",
+      "lime",
+      "yellow",
+      "orange",
+      "base",
     ]),
     PropTypes.array,
   ]),
@@ -177,7 +175,7 @@ Column.propTypes = {
   /** Legend of the Column */
   showLegend: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['right', 'bottom']),
+    PropTypes.oneOf(["right", "bottom"]),
   ]),
   /** Allow Selections */
   allowSelections: PropTypes.bool,
@@ -186,7 +184,7 @@ Column.propTypes = {
   /** Display Axis and ticks  */
   showAxis: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['both', 'yAxis', 'xAxis', 'none']),
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Max length of chart axis (in pixels) */
   maxAxisLength: PropTypes.number,
@@ -215,11 +213,11 @@ Column.propTypes = {
 Column.defaultProps = {
   config: null,
   calcCondition: undefined,
-  width: '100%',
-  height: '315px',
-  margin: '5px',
-  size: 'medium',
-  fontColor: '',
+  width: "100%",
+  height: "315px",
+  margin: "5px",
+  size: "medium",
+  fontColor: "",
   border: true,
   backgroundColor: null,
   tickSpacing: undefined,
@@ -229,7 +227,7 @@ Column.defaultProps = {
   showAxis: undefined,
   roundNum: true,
   columnSortOrder: [],
-  sortDirection: '',
+  sortDirection: "",
   stacked: false,
   percentStacked: false,
 };

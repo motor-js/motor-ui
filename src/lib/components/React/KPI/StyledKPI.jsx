@@ -2,10 +2,10 @@
 // openbase.io/
 // openbase.io/js/neon-colors
 
-import React, { useRef, useEffect, useState } from 'react';
-import UseHyperCube from '../../../hooks/useHyperCube';
-import { roundNumber, validData } from '../../../utils';
-import useScreenSize from '../../../hooks/useScreenSize';
+import React, { useRef, useEffect, useState } from "react";
+import UseHyperCube from "../../../hooks/useHyperCube";
+import { roundNumber, validData } from "../../../utils";
+import useScreenSize from "../../../hooks/useScreenSize";
 import {
   KPIWrapper,
   KPIWrapperNoData,
@@ -13,8 +13,8 @@ import {
   KPIValueWrapper,
   KPIValue,
   KPIGroup,
-} from './KPITheme';
-import Spinner from '../Spinner';
+} from "./KPITheme";
+import Spinner from "../Spinner";
 
 function StyledKPI({
   engine,
@@ -53,7 +53,6 @@ function StyledKPI({
   const { qLayout, qData } = UseHyperCube({
     engine,
     cols,
-    label,
     qCalcCondition,
   });
   const { screen } = useScreenSize();
@@ -85,7 +84,7 @@ function StyledKPI({
         parseInt(
           getComputedStyle(
             kpiValueWrapperRef.current.children[0]
-          ).getPropertyValue('font-size'),
+          ).getPropertyValue("font-size"),
           10
         );
 
@@ -116,7 +115,7 @@ function StyledKPI({
     <>
       {qData && qLayout && isValid ? (
         <KPIWrapper
-          data-testid='kpiWrapper'
+          data-testid="kpiWrapper"
           onClick={() => onClick()}
           margin={margin}
           border={border}
@@ -131,7 +130,7 @@ function StyledKPI({
         >
           <KPIGroup>
             <KPILabel
-              data-testid='kpiLabel'
+              data-testid="kpiLabel"
               labelColor={labelColor}
               alignSelf={alignSelf}
               screen={screen}
@@ -142,7 +141,7 @@ function StyledKPI({
             </KPILabel>
             <KPIValueWrapper ref={kpiValueWrapperRef}>
               <KPIValue
-                data-testid='kpiValue'
+                data-testid="kpiValue"
                 color={color}
                 screen={screen}
                 size={size}

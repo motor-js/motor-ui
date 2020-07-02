@@ -1,30 +1,29 @@
-import React, { useRef, useEffect, useState } from 'react';
-import UseHyperCube from '../../../hooks/useHyperCube';
-import useOutsideClick from '../../../hooks/useOutsideClick';
-import SelectionModal from '../SelectionModal';
+import React, { useRef, useEffect, useState } from "react";
+import UseHyperCube from "../../../hooks/useHyperCube";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import SelectionModal from "../SelectionModal";
 import ColumnTheme, {
   ColumnWrapper,
   ColumnWrapperNoData,
   ColumnNoDataContent,
-} from './ColumnTheme';
-import TooltipTheme from '../../D3/Tooltip/TooltipTheme';
-import TitleTheme from '../../D3/Title/TitleTheme';
-import LegendTheme from '../../D3/Legend/LegendTheme';
+} from "./ColumnTheme";
+import TooltipTheme from "../../D3/Tooltip/TooltipTheme";
+import TitleTheme from "../../D3/Title/TitleTheme";
+import LegendTheme from "../../D3/Legend/LegendTheme";
 import {
   numericSortDirection,
   validData,
   calcDisplayOption,
   legendPosition,
-} from '../../../utils';
-import CreateColumn from './CreateColumn';
-import Spinner from '../Spinner';
+} from "../../../utils";
+import CreateColumn from "./CreateColumn";
+import Spinner from "../Spinner";
 
 function StyledColumn({
   engine,
   engineError,
   theme,
   cols,
-  label,
   width,
   height,
   margin,
@@ -87,7 +86,6 @@ function StyledColumn({
   } = UseHyperCube({
     engine,
     cols,
-    label,
     qSortByNumeric: numericSortDirection(sortDirection, -1),
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: columnSortOrder,
@@ -115,8 +113,8 @@ function StyledColumn({
 
   useOutsideClick(ref, () => {
     if (
-      event.target.classList.contains('cancelSelections') ||
-      event.target.parentNode.classList.contains('cancelSelections')
+      event.target.classList.contains("cancelSelections") ||
+      event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
     if (isSelectionColumnVisible) {
@@ -126,7 +124,7 @@ function StyledColumn({
   });
 
   const handleResize = () => {
-    if (typeof calcCond === 'undefined' && dataError.length === 0) {
+    if (typeof calcCond === "undefined" && dataError.length === 0) {
       CreateColumn({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
@@ -203,10 +201,10 @@ function StyledColumn({
       CreateColumn(chartSettings);
     }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [qLayout, qData, d3Container.current]);
 
@@ -222,21 +220,21 @@ function StyledColumn({
           <div
             ref={ref}
             style={{
-              position: 'relative',
+              position: "relative",
               height,
-              margin: '10px',
+              margin: "10px",
             }}
           >
             <div
               style={{
-                border: isSelectionColumnVisible ? '1px solid #CCCCCC' : 'none',
-                overflowX: isSelectionColumnVisible ? 'hidden' : 'auto',
-                overflowY: isSelectionColumnVisible ? 'hidden' : 'auto',
+                border: isSelectionColumnVisible ? "1px solid #CCCCCC" : "none",
+                overflowX: isSelectionColumnVisible ? "hidden" : "auto",
+                overflowY: isSelectionColumnVisible ? "hidden" : "auto",
                 // width,
               }}
             >
               <div
-                className='d3-component'
+                className="d3-component"
                 height={height}
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}

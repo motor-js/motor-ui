@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledBar from './StyledBar';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import defaultTheme from '../../../themes/defaultTheme';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledBar from "./StyledBar";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import defaultTheme from "../../../themes/defaultTheme";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
 function Bar({ config, ...rest }) {
   const myConfig = config || useContext(ConfigContext);
@@ -26,36 +26,34 @@ function Bar({ config, ...rest }) {
 const BORDER_SHAPE = PropTypes.shape({
   color: PropTypes.oneOfType([PropTypes.string]),
   side: PropTypes.oneOf([
-    'top',
-    'left',
-    'bottom',
-    'right',
-    'start',
-    'end',
-    'horizontal',
-    'vertical',
-    'all',
-    'between',
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
   ]),
   size: PropTypes.oneOfType([PropTypes.string]),
   style: PropTypes.oneOf([
-    'solid',
-    'dashed',
-    'dotted',
-    'double',
-    'groove',
-    'ridge',
-    'inset',
-    'outset',
-    'hidden',
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
   ]),
 });
 
 Bar.propTypes = {
   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   config: PropTypes.object,
-  /** Bar label  */
-  label: PropTypes.string,
   /** cols from Qlik Data Model to render in the Bar  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
@@ -76,20 +74,20 @@ Bar.propTypes = {
   /** The amount of margin around the component */
   margin: PropTypes.string,
   /** Size of the Bar */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /** Size of the Bar */
-  showLabels: PropTypes.oneOf(['top', 'none', 'inside']),
+  showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   /** Show text on Axis */
   textOnAxis: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['both', 'yAxis', 'xAxis', 'none']),
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Spacing of Ticks on Y Axis */
-  tickSpacing: PropTypes.oneOf(['wide', 'normal', 'narrow']),
+  tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
   /** Display Axis and ticks  */
   showAxis: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['both', 'yAxis', 'xAxis', 'none']),
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Max length of chart axis (in pixels) */
   maxAxisLength: PropTypes.number,
@@ -98,7 +96,7 @@ Bar.propTypes = {
   /** Show gridlines on Axis */
   showGridlines: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['solid', 'dashes', 'dots', 'none']),
+    PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
   ]),
   /** Color of the Bar label */
   fontColor: PropTypes.string,
@@ -106,42 +104,42 @@ Bar.propTypes = {
   border: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf([
-      'top',
-      'left',
-      'bottom',
-      'right',
-      'start',
-      'end',
-      'horizontal',
-      'vertical',
-      'all',
-      'between',
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
       side: PropTypes.oneOf([
-        'top',
-        'left',
-        'bottom',
-        'right',
-        'start',
-        'end',
-        'horizontal',
-        'vertical',
-        'all',
-        'between',
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
       ]),
       size: PropTypes.oneOfType([PropTypes.string]),
       style: PropTypes.oneOf([
-        'solid',
-        'dashed',
-        'dotted',
-        'double',
-        'groove',
-        'ridge',
-        'inset',
-        'outset',
-        'hidden',
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
       ]),
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
@@ -151,24 +149,24 @@ Bar.propTypes = {
   /** color scheme of the chart */
   chartColor: PropTypes.oneOfType([
     PropTypes.oneOf([
-      'divergent13',
-      'divergent9',
-      'goya',
-      'red',
-      'blue',
-      'gray',
-      'pink',
-      'grape',
-      'violet',
-      'indigo',
-      'blue',
-      'cyan',
-      'teal',
-      'green',
-      'lime',
-      'yellow',
-      'orange',
-      'base',
+      "divergent13",
+      "divergent9",
+      "goya",
+      "red",
+      "blue",
+      "gray",
+      "pink",
+      "grape",
+      "violet",
+      "indigo",
+      "blue",
+      "cyan",
+      "teal",
+      "green",
+      "lime",
+      "yellow",
+      "orange",
+      "base",
     ]),
     PropTypes.array,
   ]),
@@ -185,7 +183,7 @@ Bar.propTypes = {
   /** Legend of the Bar */
   showLegend: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['right', 'bottom']),
+    PropTypes.oneOf(["right", "bottom"]),
   ]),
   /** Allow Selections */
   allowSelections: PropTypes.bool,
@@ -216,11 +214,11 @@ Bar.propTypes = {
 Bar.defaultProps = {
   config: null,
   calcCondition: undefined,
-  width: '100%',
-  height: '315px',
-  margin: '5px',
-  size: 'medium',
-  fontColor: '',
+  width: "100%",
+  height: "315px",
+  margin: "5px",
+  size: "medium",
+  fontColor: "",
   border: true,
   allowSelections: true,
   showAxis: undefined,
@@ -231,7 +229,7 @@ Bar.defaultProps = {
   backgroundColor: null,
   roundNum: true,
   columnSortOrder: [],
-  sortDirection: '',
+  sortDirection: "",
   stacked: false,
   percentStacked: false,
 };

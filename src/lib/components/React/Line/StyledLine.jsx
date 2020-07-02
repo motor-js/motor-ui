@@ -1,23 +1,23 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
-import UseHyperCube from '../../../hooks/useHyperCube';
-import useOutsideClick from '../../../hooks/useOutsideClick';
-import SelectionModal from '../SelectionModal';
+import React, { useRef, useEffect, useState, useContext } from "react";
+import UseHyperCube from "../../../hooks/useHyperCube";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import SelectionModal from "../SelectionModal";
 import LineTheme, {
   LineWrapper,
   LineWrapperNoData,
   LineNoDataContent,
-} from './LineTheme';
-import TooltipTheme from '../../D3/Tooltip/TooltipTheme';
-import TitleTheme from '../../D3/Title/TitleTheme';
-import LegendTheme from '../../D3/Legend/LegendTheme';
+} from "./LineTheme";
+import TooltipTheme from "../../D3/Tooltip/TooltipTheme";
+import TitleTheme from "../../D3/Title/TitleTheme";
+import LegendTheme from "../../D3/Legend/LegendTheme";
 import {
   numericSortDirection,
   validData,
   calcDisplayOption,
   legendPosition,
-} from '../../../utils';
-import CreateLine from './CreateLine';
-import Spinner from '../Spinner';
+} from "../../../utils";
+import CreateLine from "./CreateLine";
+import Spinner from "../Spinner";
 
 function StyledLine(props) {
   // Ref for d3 object
@@ -38,7 +38,6 @@ function StyledLine(props) {
     engine,
     engineError,
     cols,
-    label,
     theme,
     width,
     height,
@@ -82,7 +81,6 @@ function StyledLine(props) {
   } = UseHyperCube({
     engine,
     cols,
-    label,
     qSortByNumeric: numericSortDirection(sortDirection, -1),
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterLineSortOrder: columnSortOrder,
@@ -110,8 +108,8 @@ function StyledLine(props) {
 
   useOutsideClick(ref, () => {
     if (
-      event.target.classList.contains('cancelSelections') ||
-      event.target.parentNode.classList.contains('cancelSelections')
+      event.target.classList.contains("cancelSelections") ||
+      event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
     if (isSelectionLineVisible) {
@@ -121,7 +119,7 @@ function StyledLine(props) {
   });
 
   const handleResize = () => {
-    if (typeof calcCond === 'undefined' && dataError.length === 0) {
+    if (typeof calcCond === "undefined" && dataError.length === 0) {
       CreateLine({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
@@ -188,10 +186,10 @@ function StyledLine(props) {
       CreateLine(chartSettings);
     }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [qLayout, qData, d3Container.current]);
 
@@ -207,21 +205,21 @@ function StyledLine(props) {
           <div
             ref={ref}
             style={{
-              position: 'relative',
+              position: "relative",
               height,
-              margin: '10px',
+              margin: "10px",
             }}
           >
             <div
               style={{
-                border: isSelectionLineVisible ? '1px solid #CCCCCC' : 'none',
-                overflowX: isSelectionLineVisible ? 'hidden' : 'auto',
-                overflowY: isSelectionLineVisible ? 'hidden' : 'auto',
+                border: isSelectionLineVisible ? "1px solid #CCCCCC" : "none",
+                overflowX: isSelectionLineVisible ? "hidden" : "auto",
+                overflowY: isSelectionLineVisible ? "hidden" : "auto",
                 // width,
               }}
             >
               <div
-                className='d3-component'
+                className="d3-component"
                 height={height}
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
