@@ -91,6 +91,8 @@ const wrapStyle = css`
 const directionStyle = direction => {
   const styles = [
     css`
+      min-width: 0;
+      min-height: 0;
       flex-direction: ${direction === 'row-responsive' ? 'row' : direction};
     `,
   ]
