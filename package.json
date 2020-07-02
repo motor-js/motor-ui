@@ -1,5 +1,8 @@
 {
   "name": "motor-ui",
+  "np": {
+		"tests": false
+	},
   "version": "0.2.3-alpha.1",
   "description": "Test Library",
   "author": "Luke Reilly",
