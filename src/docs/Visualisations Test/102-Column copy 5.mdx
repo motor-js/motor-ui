@@ -1,0 +1,84 @@
+---
+name: Consumer Sales multiple dimensions
+route: /Column_Test_Doc
+menu: Visualisations Test
+---
+
+<h1 style={{ margin: '0px' }}>Column Chart</h1>
+
+<br />
+
+## Import
+
+```javascript
+  import { Column } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Column from '../../lib/components/React/Column/Column.jsx';
+import Bar from '../../lib/components/React/Bar/Bar.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+import { config } from '../config/config.js'
+
+<Playground>
+<Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "de8b2fd6-f9d3-48c3-878b-849317369bfb"
+  }}>
+
+                <Column
+        title="Revenue and Sales $ by Product Sub Group"
+        cols={[
+          { qField: "[Product Sub Group Desc]", qLabel: "Product Sub Group" },
+          {
+            qField: "=Sum( [Sales Quantity]*[Sales Price])",
+            qLabel: "Revenue",
+          },
+          {
+            qField: "=Sum ([Sales Amount])",
+            qLabel: "Sales",
+          },
+        ]}
+      />
+
+           
+     
+  </Motor>
+</Playground>
+
+<Playground>
+<Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "de8b2fd6-f9d3-48c3-878b-849317369bfb"
+  }}>
+
+               <Column
+        title="Revenue by Year and Product"
+        cols={[
+          { qField: "[Year]", qLabel: "Year" },
+          { qField: "[Line Desc 1]", qLabel: "Product" },
+          {
+            qField: "=Sum( [Sales Quantity]*[Sales Price])",
+            qLabel: "Revenue",
+          },
+        ]}
+      />
+
+           
+     
+  </Motor>
+</Playground>
