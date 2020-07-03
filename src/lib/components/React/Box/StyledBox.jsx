@@ -151,7 +151,7 @@ const heightObjectStyle = css`
 `
 
 const heightStyle = css`
-max-height: ${props => props.heightProp};
+  height: ${props => props.heightProp};
 `
 
 const widthObjectStyle = css`
