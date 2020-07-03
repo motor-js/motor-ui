@@ -1627,7 +1627,7 @@ export default function CreateBar({
     const barSettings = (settings) => {
       const { padding, height } = settings;
 
-      // barWidth = height;
+      barWidth = height;
       let i = 1;
 
       while (i <= yScale.range()[1]) {
