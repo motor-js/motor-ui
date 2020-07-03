@@ -1931,7 +1931,10 @@ export default function CreateBar({
       node[i].transform.baseVal[0].matrix.f = titleHeights;
     });
     diagram.selectAll(".bar-labels").each(function(item, i, node) {
-      node[i].transform.baseVal[0].matrix.f = titleHeights;
+      node[i].transform.baseVal[0].matrix.f =
+        chartDataShape === "singleDimensionMeasure"
+          ? titleHeights + padding
+          : titleHeights;
     });
     diagram.selectAll(".bar-group").each(function(item, i, node) {
       node[i].transform.baseVal[0].matrix.f = yScale(i);
