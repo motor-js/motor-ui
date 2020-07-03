@@ -19,3 +19,4 @@ export { default as Table } from './components/React/Table'
 
 export { default as useHyperCube } from './hooks/useHyperCube';
 export { default as useScreenSize } from './hooks/useScreenSize';
+export { default as useSidebar } from './hooks/useSidebar';
