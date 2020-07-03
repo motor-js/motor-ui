@@ -246,7 +246,6 @@ Line.defaultProps = {
   showGridlines: 'solid',
   showAxis: undefined,
   textOnAxis: undefined,
-  showGridlines: undefined,
   curve: 'Linear',
   symbol: 'circle',
   roundNum: true,
