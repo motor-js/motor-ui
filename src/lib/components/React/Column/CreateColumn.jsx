@@ -640,28 +640,28 @@ export default function CreateColumn({
 
     setSelectionColumnVisible(true);
 
-    if (!selections) return;
-    let itemsSelected = null;
-    if (selections.length !== 0) {
-      itemsSelected = [
-        ...new Set(
-          selections.map((d, i) => {
-            return d[Object.keys(d)[0]].qElemNumber;
-          })
-        ),
-      ];
+    // if (!selections) return;
+    // let itemsSelected = null;
+    // if (selections.length !== 0) {
+    //   itemsSelected = [
+    //     ...new Set(
+    //       selections.map((d, i) => {
+    //         return d[Object.keys(d)[0]].qElemNumber;
+    //       })
+    //     ),
+    //   ];
 
-      if (pendingSelections.length !== 1) {
-        select(0, [dim[Object.keys(dim)[1]]]);
-      } else {
-        select(
-          0,
-          itemsSelected.filter((e) => e !== dim[Object.keys(dim)[1]])
-        );
-      }
-    } else {
-      select(0, [dim[Object.keys(dim)[1]]]);
-    }
+    //   if (pendingSelections.length !== 1) {
+    //     select(0, [dim[Object.keys(dim)[1]]]);
+    //   } else {
+    //     select(
+    //       0,
+    //       itemsSelected.filter((e) => e !== dim[Object.keys(dim)[1]])
+    //     );
+    //   }
+    // } else {
+    //   select(0, [dim[Object.keys(dim)[1]]]);
+    // }
 
     // buildSelections(pendingSelections);
 

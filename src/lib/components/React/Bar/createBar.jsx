@@ -124,9 +124,6 @@ export default function CreateBar({
 
   // Check if width is % or number in px
   let width = screenWidth;
-  // let width = /^\d+(\.\d+)?%$/.test(propsWidth)
-  //   ? (+parseInt(propsWidth, 10) / 100) * screenWidth
-  //   : +parseInt(propsWidth, 10);
 
   // Check if height is % or number in px
   const heightValue = /^\d+(\.\d+)?%$/.test(propsHeight)
@@ -239,7 +236,6 @@ export default function CreateBar({
   // Width and Height of text labels
   let labelTextWidth = 0;
   let labelTextWidthNegative = 0;
-  // let labelTextHeight = 0;
 
   const yAxis = d3
     .axisLeft(yScale)
@@ -301,17 +297,6 @@ export default function CreateBar({
       container.text(longest + "...");
     } while (newItem.node().getBBox().width > maxAxisLength);
 
-    // If labels are longer than bandwidth wrap them
-    // container.call(wrap, barHeight * qMeasureCount);
-    // yAxisOrientation = 'Wrapped';
-
-    // if (barHeight * qMeasureCount >= newItem.node().getBBox().height) {
-    //   const size = newItem.node().getBBox();
-    //   newItem.remove();
-
-    //   return size;
-    // }
-
     if (allowSlantedYAxis) {
       container.attr("transform", "translate(0,2) rotate(-45)");
 
@@ -326,7 +311,6 @@ export default function CreateBar({
   }
 
   const yAxisLableSize = getYAxisLabelSize();
-  // const yAxisLableSize = 0;
 
   yAxisWidth =
     yAxisLableSize.width - (isScrollDisplayed ? marginOverview.right : 0);
@@ -474,8 +458,6 @@ export default function CreateBar({
     const multiDimWidth =
       height - margin.top - titleHeights - legendHeight - xAxisHeight;
 
-    // const multiDimWidth = yScale.range()[1];
-
     barWidth = multiDimWidth / (data.length + items.length);
     let noOfItems = 0;
     let paddingItem = -1;
@@ -501,7 +483,6 @@ export default function CreateBar({
       typeof barPadding === "undefined" &&
       barWidth < BarDefault.zoomScrollOnBarHeight
     ) {
-      // const chartWidth = height - titleHeights - legendHeight - xAxisHeight;
       const chartWidth = yScale.range()[1];
       barWidth =
         (chartWidth - BarDefault.barPaddingNarrow * data.length) /
@@ -808,44 +789,6 @@ export default function CreateBar({
     }
   };
 
-  // // Create Event Handlers for mouse
-  // function handleClick(d, i) {
-  //   let dim = d;
-
-  //   d = d3.select(this).attr('data-parent') || d;
-
-  //   if (typeof d !== 'object') {
-  //     dim = getDimension(d);
-  //   }
-
-  //   if (typeof d === 'number') {
-  //     dim = new_data
-  //       ? new_data[Object.keys(new_data)[d]]
-  //       : data[Object.keys(data)[d]];
-  //   }
-
-  //   setRefreshChart(false);
-  //   useSelectionColours = true;
-
-  //   let updateList = [];
-  //   const selectionValue = dim[Object.keys(dim)[1]];
-
-  //   if (pendingSelections.includes(selectionValue)) {
-  //     updateList = pendingSelections.filter((item) => item != selectionValue);
-  //     pendingSelections = updateList;
-  //   } else {
-  //     pendingSelections = [...pendingSelections, selectionValue];
-  //   }
-
-  //   setBarColors(diagram);
-
-  //   beginSelections();
-
-  //   setSelectionBarVisible(true);
-
-  //   buildSelections(pendingSelections);
-  // }
-
   // Create Event Handlers for mouse
   function handleClick(d, i) {
     let dim = d;
@@ -880,31 +823,6 @@ export default function CreateBar({
     beginSelections();
 
     setSelectionBarVisible(true);
-
-    // if (!selections) return;
-    // let itemsSelected = null;
-    // if (selections.length !== 0) {
-    //   itemsSelected = [
-    //     ...new Set(
-    //       selections.map((d, i) => {
-    //         return d[Object.keys(d)[0]].qElemNumber;
-    //       })
-    //     ),
-    //   ];
-
-    //   if (pendingSelections.length !== 1) {
-    //     select(0, [dim[Object.keys(dim)[1]]]);
-    //   } else {
-    //     select(
-    //       0,
-    //       itemsSelected.filter((e) => e !== dim[Object.keys(dim)[1]])
-    //     );
-    //   }
-    // } else {
-    //   select(0, [dim[Object.keys(dim)[1]]]);
-    // }
-
-    // buildSelections(pendingSelections);
 
     select(0, pendingSelections);
   }
