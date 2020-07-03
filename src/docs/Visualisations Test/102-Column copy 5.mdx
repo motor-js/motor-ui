@@ -36,7 +36,7 @@ import { config } from '../config/config.js'
             appId: "de8b2fd6-f9d3-48c3-878b-849317369bfb"
   }}>
 
-                <Column
+          <Column
         title="Revenue and Sales $ by Product Sub Group"
         cols={[
           { qField: "[Product Sub Group Desc]", qLabel: "Product Sub Group" },
@@ -47,33 +47,6 @@ import { config } from '../config/config.js'
           {
             qField: "=Sum ([Sales Amount])",
             qLabel: "Sales",
-          },
-        ]}
-      />
-
-           
-     
-  </Motor>
-</Playground>
-
-<Playground>
-<Motor  
-  config={{
-            host: "localhost",
-            secure: false,
-            port: 19077,
-            prefix: "",
-            appId: "de8b2fd6-f9d3-48c3-878b-849317369bfb"
-  }}>
-
-               <Column
-        title="Revenue by Year and Product"
-        cols={[
-          { qField: "[Year]", qLabel: "Year" },
-          { qField: "[Line Desc 1]", qLabel: "Product" },
-          {
-            qField: "=Sum( [Sales Quantity]*[Sales Price])",
-            qLabel: "Revenue",
           },
         ]}
       />
