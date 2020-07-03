@@ -16,3 +16,12 @@ export { default as Sidebar } from './components/React/Sidebar'
 export { default as SmartHeading } from './components/React/SmartHeading'
 export { default as Spinner } from './components/React/Spinner'
 export { default as Table } from './components/React/Table'
+
+// hooks
+export { default as useEngine } from './hooks/useEngine';
+export { default as useHyperCube } from './hooks/useHyperCube';
+export { default as useSearch } from './hooks/useSearch';
+export { default as useSelectionObject } from './hooks/useSelectionObject';
+export { default as useScreenSize } from './hooks/useScreenSize'
+export { default as useSidebar } from './hooks/useSidebar'
+export { default as useModal } from './hooks/useModal'
