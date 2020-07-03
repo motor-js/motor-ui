@@ -51,6 +51,7 @@ export default function CreateColumn({
   showLabels,
   allowZoom,
   suppressScroll,
+  scrollRatio,
   columnPadding,
   textOnAxis,
   tickSpacing,
@@ -308,8 +309,12 @@ export default function CreateColumn({
 
   if (columnWidth > maxColumnWidth) columnWidth = maxColumnWidth;
 
+  // const isScrollDisplayed =
+  //   showScroll && columnWidth < ColumnDefault.zoomScrollOnColumnWidth;
+
   const isScrollDisplayed =
-    showScroll && columnWidth < ColumnDefault.zoomScrollOnColumnWidth;
+    (showScroll && columnWidth < ColumnDefault.zoomScrollOnColumnWidth) ||
+    (showScroll && scrollRatio);
 
   switch (chartDataShape) {
     case "singleDimension":
@@ -1076,7 +1081,7 @@ export default function CreateColumn({
             ) {
               yValue = `${yScale(d[Object.keys(d)[index]]) + labelShift[1]}`;
             } else {
-              // if showLables = "inside" and label larger than bar, move lable outside of bar
+              // if showLables = "inside" and label larger than column, move lable outside of column
               yValue = `${yScale(d[Object.keys(d)[index]]) +
                 labelTextHeightNegative}`;
             }
@@ -1087,7 +1092,7 @@ export default function CreateColumn({
             ) {
               yValue = `${yScale(d[Object.keys(d)[index]]) + labelShift[0]}`;
             } else {
-              // if showLables = "inside" and label larger than bar, move lable outside of bar
+              // if showLables = "inside" and label larger than column, move lable outside of column
               yValue = `${yScale(d[Object.keys(d)[index]]) - 5}`;
             }
           }
@@ -1115,7 +1120,7 @@ export default function CreateColumn({
             ) {
               xValue = -`${yScale(d[Object.keys(d)[index]]) - labelShift[0]}`;
             } else {
-              // if showLables = "inside" and label larger than bar, move lable outside of bar
+              // if showLables = "inside" and label larger than column, move lable outside of column
               xValue = -`${yScale(d[Object.keys(d)[index]]) + 5}`;
             }
           } else {
@@ -1126,7 +1131,7 @@ export default function CreateColumn({
             ) {
               xValue = -`${yScale(d[Object.keys(d)[index]]) + 5}`;
             } else {
-              // if showLables = "inside" and label larger than bar, move lable outside of bar
+              // if showLables = "inside" and label larger than column, move lable outside of column
               xValue = -`${yScale(d[Object.keys(d)[index]]) - 5}`;
             }
           }
@@ -1603,6 +1608,8 @@ export default function CreateColumn({
     ])
     .on("brush", brushed);
 
+  let scrollColumnRatio = scrollRatio;
+
   function setupMiniChart() {
     if (
       chartDataShape === "stackedChart" ||
@@ -1713,31 +1720,72 @@ export default function CreateColumn({
       )
       .call(xAxisOverview);
 
-    let scrollColumnRatio = 1;
-    if (columnWidth < ColumnDefault.zoomScrollOnColumnWidth) {
-      // scrollColumnRatio =
-      //   (chartDataShape === 'multipleDimensions'
-      //     ? xScale.range()[1] / (data.length + items.length)
-      //     : columnWidth) / ColumnDefault.zoomScrollOnColumnWidth;
+    const columnSettings = (settings) => {
+      const { padding, width } = settings;
 
-      padding = ColumnDefault.columnPaddingNarrow;
-      let scrollItem = null;
+      // columnWidth = width;
       let i = 1;
 
       while (i <= xScale.range()[1]) {
-        scrollItem = i;
         if (
-          (xScale(1) / i) * xScale.range()[1] <=
-          ColumnDefault.zoomScrollOnColumnWidth +
-            ColumnDefault.columnPaddingNarrow
+          (xScale(1 / qMeasureCount) / i) * xScale.range()[1] <=
+          width + padding
         ) {
+          scrollColumnRatio = i / xScale.range()[1];
           break;
         }
-
         i++;
       }
+    };
 
-      scrollColumnRatio = scrollItem / xScale.range()[1];
+    if (
+      columnWidth < ColumnDefault.zoomScrollOnColumnWidth &&
+      isScrollDisplayed
+    ) {
+      // padding = ColumnDefault.columnPaddingNarrow;
+      // let scrollItem = null;
+      // let i = 1;
+
+      // while (i <= xScale.range()[1]) {
+      //   scrollItem = i;
+      //   if (
+      //     (xScale(1) / i) * xScale.range()[1] <=
+      //     ColumnDefault.zoomScrollOnColumnWidth +
+      //       ColumnDefault.columnPaddingNarrow
+      //   ) {
+      //     break;
+      //   }
+
+      //   i++;
+      // }
+
+      // scrollColumnRatio = scrollItem / xScale.range()[1];
+      if (!scrollRatio) {
+        columnSettings({
+          padding: columnPadding || ColumnDefault.columnPaddingNarrow,
+          width: ColumnDefault.zoomScrollOnColumnWidth,
+        });
+      } else {
+        (padding = columnPadding || ColumnDefault.columnPaddingNarrow),
+          (columnWidth = ColumnDefault.zoomScrollOnColumnWidth);
+
+        padding = ColumnDefault.columnPaddingNarrow;
+        let scrollItem = null;
+        let i = 1;
+
+        while (i <= xScale.range()[1]) {
+          scrollItem = i;
+          if (
+            (xScale(1) / i) * xScale.range()[1] <=
+            ColumnDefault.zoomScrollOnColumnWidth +
+              ColumnDefault.columnPaddingNarrow
+          ) {
+            break;
+          }
+
+          i++;
+        }
+      }
     }
 
     context

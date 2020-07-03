@@ -378,13 +378,12 @@ export default function CreateBar({
 
   function setHeight() {
     height = +parseInt(heightValue, 10) - margin.top - margin.bottom;
-    // heightOverview = height;
 
     svg.attr("height", height + margin.top + margin.bottom);
 
     const xAxisHeightText = svg.append("text").text(formatValue(qMax));
 
-    xAxisHeight = xAxisHeightText.node().getBBox().height; //+ (showScroll ? 10 : 0);
+    xAxisHeight = xAxisHeightText.node().getBBox().height;
 
     xAxisHeightText.remove();
 
@@ -1628,7 +1627,7 @@ export default function CreateBar({
     const barSettings = (settings) => {
       const { padding, height } = settings;
 
-      barWidth = height;
+      // barWidth = height;
       let i = 1;
 
       while (i <= yScale.range()[1]) {
