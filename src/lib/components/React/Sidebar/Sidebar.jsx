@@ -6,6 +6,7 @@ const Sidebar = ({
   children,
   isOpen,
   collapsable,
+  width,
   ...rest
 }) => {
 
@@ -14,6 +15,7 @@ const Sidebar = ({
       collapsable={collapsable}
       height={{ min: '100%' }}
       open={isOpen}
+      width={width}
       {...rest}
     >
       {children}
@@ -28,10 +30,12 @@ Sidebar.propTypes = {
   children: PropTypes.node,
   /** whether the sidebar is collapsable */
   collapsable: PropTypes.bool,
+  width: PropTypes.string,
 }
 
 Sidebar.defaultProps = {
   children: undefined,
   collapsable: false,
+  width: '100%',
 }
 
