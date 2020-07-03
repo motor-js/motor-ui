@@ -9,8 +9,8 @@
 // Animation
 //medium.com/@louisemoxy/create-a-d3-line-chart-animation-336f1cb7dd61
 
-import { v4 as uuidv4 } from 'uuid';
-import * as d3 from 'd3';
+import { v4 as uuidv4 } from "uuid";
+import * as d3 from "d3";
 import {
   addTitle,
   addSubTitle,
@@ -18,16 +18,16 @@ import {
   addTooltip,
   showTooltip,
   hideTooltip,
-} from '../../D3';
+} from "../../D3";
 
-import { setStyle } from '../../D3/Helpers';
+import { setStyle } from "../../D3/Helpers";
 import {
   roundNumber,
   hyperCubeTransform,
   getMeasureNames,
   stackHyperCubeData,
   colorByExpression,
-} from '../../../utils';
+} from "../../../utils";
 
 export default function createLine({
   qLayout,
@@ -86,25 +86,25 @@ export default function createLine({
   let markerShape = null;
 
   switch (symbol) {
-    case 'circle':
+    case "circle":
       markerShape = d3.symbolCircle;
       break;
-    case 'cross':
+    case "cross":
       markerShape = d3.symbolCross;
       break;
-    case 'diamond':
+    case "diamond":
       markerShape = d3.symbolDiamond;
       break;
-    case 'square':
+    case "square":
       markerShape = d3.symbolSquare;
       break;
-    case 'star':
+    case "star":
       markerShape = d3.symbolStar;
       break;
-    case 'triangle':
+    case "triangle":
       markerShape = d3.symbolTriangle;
       break;
-    case 'wye':
+    case "wye":
       markerShape = d3.symbolWye;
       break;
     default:
@@ -130,14 +130,14 @@ export default function createLine({
 
   const chartDataShape =
     qDimensionInfo.length === 1 && qMeasureInfo.length === 2 && dualAxis
-      ? 'dualAxis'
+      ? "dualAxis"
       : qDimensionInfo.length === 1 && qMeasureInfo.length === 1
-      ? 'singleDimensionMeasure'
+      ? "singleDimensionMeasure"
       : qDimensionInfo.length == 1
-      ? 'singleDimension'
-      : 'multipleDimensions';
+      ? "singleDimension"
+      : "multipleDimensions";
 
-  const dualAxisChart = chartDataShape === 'dualAxis' ? true : false;
+  const dualAxisChart = chartDataShape === "dualAxis" ? true : false;
 
   let pendingSelections = [];
 
@@ -169,11 +169,11 @@ export default function createLine({
     left: 50,
   };
 
-  if (['both', 'yAxis'].some((substring) => textOnAxis.includes(substring)))
+  if (["both", "yAxis"].some((substring) => textOnAxis.includes(substring)))
     margin.left += 10;
   if (
-    qMeasureInfo[0].qNumFormat.qType !== 'U' &&
-    qMeasureInfo[0].qNumFormat.qFmt.includes('%')
+    qMeasureInfo[0].qNumFormat.qType !== "U" &&
+    qMeasureInfo[0].qNumFormat.qFmt.includes("%")
   )
     margin.left += 20;
 
@@ -193,40 +193,40 @@ export default function createLine({
   };
 
   const drawLineLabels = () => {
-    const labels = Line_chart.append('g')
-      .attr('class', 'line-labels')
+    const labels = Line_chart.append("g")
+      .attr("class", "line-labels")
       .selectAll(`.label-${focusLineIndex}`)
       .data(data, (d) => d[Object.keys(d)[0]])
       .enter()
-      .append('text')
-      .attr('transform', `translate(0,${titleHeights})`)
-      .attr('class', `label-${focusLineIndex}`) // Assign a class for styling
-      .attr('text-anchor', 'middle')
-      .attr('x', (d, i) => {
-        return chartType === 'DISCRETE'
+      .append("text")
+      .attr("transform", `translate(0,${titleHeights})`)
+      .attr("class", `label-${focusLineIndex}`) // Assign a class for styling
+      .attr("text-anchor", "middle")
+      .attr("x", (d, i) => {
+        return chartType === "DISCRETE"
           ? categories
             ? x(parseInt(i / categories.length))
             : x(i)
           : x(d[Object.keys(d)[0]]);
       })
       .attr(
-        'y',
+        "y",
         (d) =>
           height - titleHeights - xAxisHeight - xAxisTextHeight - legendHeight
       )
-      .attr('height', 0)
+      .attr("height", 0)
       .transition()
       .duration(750)
       .delay((d, i) => delayMilliseconds / qItems)
       .text((d, i) => {
-        return qMeasureInfo[focusLineIndex].qNumFormat.qType === 'U' ||
-          qMeasureInfo[focusLineIndex].qNumFormat.qFmt === '##############' ||
-          qMeasureInfo[focusLineIndex].qNumFormat.qFmt === '########' ||
-          qMeasureInfo[focusLineIndex].qNumFormat.qFmt === '###0'
+        return qMeasureInfo[focusLineIndex].qNumFormat.qType === "U" ||
+          qMeasureInfo[focusLineIndex].qNumFormat.qFmt === "##############" ||
+          qMeasureInfo[focusLineIndex].qNumFormat.qFmt === "########" ||
+          qMeasureInfo[focusLineIndex].qNumFormat.qFmt === "###0"
           ? formatValue(d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]])
           : qMatrix[i][qDimensionCount + focusLineIndex].qText;
       })
-      .attr('y', (d) => {
+      .attr("y", (d) => {
         if (dualAxisChart) {
           if (focusLineIndex == 0) {
             return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
@@ -239,7 +239,7 @@ export default function createLine({
           );
         }
       })
-      .attr('dy', '-.7em');
+      .attr("dy", "-.7em");
 
     setStyle(labels, LineLabelStyle);
   };
@@ -255,14 +255,14 @@ export default function createLine({
   const color = d3.scaleOrdinal(colorPalette); // color for lines
 
   d3.select(d3Container.current)
-    .select('svg')
+    .select("svg")
     .remove();
 
   const svg = d3
     .select(d3Container.current)
-    .append('svg')
-    .attr('width', width)
-    .attr('height', heightValue);
+    .append("svg")
+    .attr("width", width)
+    .attr("height", heightValue);
 
   setStyle(svg, LineChartStyle);
 
@@ -271,7 +271,7 @@ export default function createLine({
   let qDataSet = hyperCubeTransform(
     qData,
     qLayout.qHyperCube,
-    (DimensionInfo.qDimensionType === 'N' &&
+    (DimensionInfo.qDimensionType === "N" &&
       DimensionInfo.qMax.toString().length === 4) ||
       DimensionInfo.qMax.toString().length === 5
   );
@@ -289,7 +289,7 @@ export default function createLine({
   ];
 
   let categories =
-    chartDataShape === 'multipleDimensions'
+    chartDataShape === "multipleDimensions"
       ? getDimensionCategories(data, 2)
       : null;
 
@@ -305,7 +305,7 @@ export default function createLine({
     (showScroll && scrollRatio);
 
   const { legendWidth, legendHeight } = addLegend({
-    showLegend: conditionalColors.length === 0 ? showLegend : 'none',
+    showLegend: conditionalColors.length === 0 ? showLegend : "none",
     svg,
     dataKeys: categories || rangeBands,
     color,
@@ -334,36 +334,36 @@ export default function createLine({
 
   const formatDimToolTip = (val) => {
     switch (chartType) {
-      case 'YearDate':
+      case "YearDate":
         // Formatting for 4 digit number in tooltip
         return val.getFullYear();
-      case 'numDate':
+      case "numDate":
         // Formatting tooltip date to local Date.
-        return val.toLocaleString().split(',')[0];
+        return val.toLocaleString().split(",")[0];
       default:
         return val;
     }
   };
 
-  let chartType = 'DISCRETE';
+  let chartType = "DISCRETE";
   let x = d3.scaleLinear();
   let x2 = d3.scaleLinear();
 
   if (
-    DimensionInfo.qDimensionType === 'N' &&
+    DimensionInfo.qDimensionType === "N" &&
     DimensionInfo.qMax.toString().length === 4
   ) {
-    chartType = 'YearDate';
+    chartType = "YearDate";
     x = d3.scaleTime();
     x2 = d3.scaleTime();
     qDataSet.map(
       (d) => (d[Object.keys(d)[0]] = convertDate(d[Object.keys(d)[0]]))
     );
   } else if (
-    DimensionInfo.qDimensionType === 'N' &&
+    DimensionInfo.qDimensionType === "N" &&
     DimensionInfo.qMax.toString().length === 5
   ) {
-    chartType = 'numDate';
+    chartType = "numDate";
     x = d3.scaleTime();
     x2 = d3.scaleTime();
     qDataSet.map((d) => {
@@ -423,25 +423,25 @@ export default function createLine({
 
   if (dualAxisChart) {
     const sampleText = svg
-      .selectAll('.sampleText')
+      .selectAll(".sampleText")
       .data([qMaxRight])
       .enter()
-      .append('text')
+      .append("text")
       .text((d) => d);
 
     const numFormat = qMeasureInfo[1].qNumFormat;
     const decimals = `,.${
       numFormat.qFmt.slice(
         numFormat.qFmt.indexOf(numFormat.qDec) + 1,
-        numFormat.qFmt.indexOf('%')
+        numFormat.qFmt.indexOf("%")
       ).length
     }%`;
 
     const newValue =
-      qMeasureInfo[1].qNumFormat.qType !== 'U' &&
-      qMeasureInfo[1].qNumFormat.qFmt.includes('%')
-        ? d3.format(decimals)(sampleText.text().replace(/,/g, ''))
-        : formatValue(parseFloat(sampleText.text().replace(/,/g, '')), true);
+      qMeasureInfo[1].qNumFormat.qType !== "U" &&
+      qMeasureInfo[1].qNumFormat.qFmt.includes("%")
+        ? d3.format(decimals)(sampleText.text().replace(/,/g, ""))
+        : formatValue(parseFloat(sampleText.text().replace(/,/g, "")), true);
     sampleText.text(newValue);
 
     rightAxisWidth = sampleText.node().getBBox().width;
@@ -450,7 +450,7 @@ export default function createLine({
   }
 
   const textOnAxisSpacing =
-    ['both', 'yAxis'].some((substring) => textOnAxis.includes(substring)) &&
+    ["both", "yAxis"].some((substring) => textOnAxis.includes(substring)) &&
     dualAxisChart
       ? 25
       : 0;
@@ -482,17 +482,17 @@ export default function createLine({
 
   const line = d3
     .line()
-    .x((d, i) => (chartType === 'DISCRETE' ? x(i) : x(d[Object.keys(d)[0]])))
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y((d) => {
       switch (chartDataShape) {
-        case 'singleDimensionMeasure':
-        case 'singleDimension':
+        case "singleDimensionMeasure":
+        case "singleDimension":
           return yScale(
             d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
           );
-        case 'multipleDimensions':
+        case "multipleDimensions":
           return yScale(+d[Object.keys(d)[4]]);
-        case 'dualAxis':
+        case "dualAxis":
           return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
       }
     })
@@ -500,25 +500,25 @@ export default function createLine({
 
   const lineR = d3
     .line()
-    .x((d, i) => (chartType === 'DISCRETE' ? x(i) : x(d[Object.keys(d)[0]])))
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]))
     .curve(d3[`curve${curve}`]);
 
   const line2 = d3
     .line()
     // .x((d) => x2(d[Object.keys(d)[0]]))
-    .x((d, i) => (chartType === 'DISCRETE' ? x2(i) : x2(d[Object.keys(d)[0]])))
+    .x((d, i) => (chartType === "DISCRETE" ? x2(i) : x2(d[Object.keys(d)[0]])))
     .y((d) => {
       switch (chartDataShape) {
-        case 'singleDimensionMeasure':
-        case 'singleDimension':
+        case "singleDimensionMeasure":
+        case "singleDimension":
           return (
             yOverview(d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]) -
             legendHeight
           );
-        case 'multipleDimensions':
+        case "multipleDimensions":
           return yOverview(+d[Object.keys(d)[4]]) - legendHeight;
-        case 'dualAxis':
+        case "dualAxis":
           return (
             yOverview(d[Object.keys(d)[qDimensionCount * 2]]) - legendHeight
           );
@@ -528,7 +528,7 @@ export default function createLine({
 
   const line2R = d3
     .line()
-    .x((d, i) => (chartType === 'DISCRETE' ? x2(i) : x2(d[Object.keys(d)[0]])))
+    .x((d, i) => (chartType === "DISCRETE" ? x2(i) : x2(d[Object.keys(d)[0]])))
     .y(
       (d) =>
         yOverviewR(d[Object.keys(d)[qDimensionCount * 2 + 1]]) - legendHeight
@@ -536,15 +536,15 @@ export default function createLine({
     .curve(d3[`curve${curve}`]);
 
   var Line_chart = svg
-    .append('g')
-    .attr('class', 'focus')
-    .attr('transform', `translate(${margin.left},${margin.top})`)
-    .attr('clip-path', isScrollDisplayed ? `url(#${uuid})` : null);
+    .append("g")
+    .attr("class", "focus")
+    .attr("transform", `translate(${margin.left},${margin.top})`)
+    .attr("clip-path", isScrollDisplayed ? `url(#${uuid})` : null);
 
   const focus = svg
-    .append('g')
-    .attr('class', 'focus-svg')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
+    .append("g")
+    .attr("class", "focus-svg")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
   let titleHeight = 0;
   if (title) {
@@ -575,7 +575,7 @@ export default function createLine({
       .entries(data);
   }
 
-  if (chartType === 'DISCRETE') {
+  if (chartType === "DISCRETE") {
     x.domain([0, bands.length - 1]);
     xAxis.ticks(bands.length);
   } else {
@@ -599,15 +599,15 @@ export default function createLine({
   function calcXAxisLabelHeight() {
     let itemWidths = [];
 
-    const newItem = svg.append('g');
+    const newItem = svg.append("g");
 
-    let longest = '';
+    let longest = "";
     let longestLength = 0;
 
     const container = newItem
-      .append('text')
-      .attr('y', 0)
-      .attr('dy', 0)
+      .append("text")
+      .attr("y", 0)
+      .attr("dy", 0)
       .text(longest);
 
     bands.map((d) => {
@@ -624,17 +624,17 @@ export default function createLine({
     if (x(1) >= newItem.width) {
       return;
     }
-    if (chartType !== 'DISCRETE') {
+    if (chartType !== "DISCRETE") {
       xAxisHeight = newItem.node().getBBox().height;
       return;
     }
-    newItem.attr('transform', 'translate(0,2) rotate(-45)');
+    newItem.attr("transform", "translate(0,2) rotate(-45)");
 
     longAxisLabels = true;
     do {
       longest = longest.substring(0, longest.length - 1);
 
-      container.text(longest + '...');
+      container.text(longest + "...");
     } while (newItem.node().getBBox().width > maxAxisLength);
 
     xAxisHeight = newItem.node().getBBox().width;
@@ -647,20 +647,20 @@ export default function createLine({
   function redrawXAxis() {
     let itemWidths = [];
 
-    let ticks = focus.select('.axis--x').selectAll('g.tick');
+    let ticks = focus.select(".axis--x").selectAll("g.tick");
     ticks.each(function(i) {
       const self = d3.select(this);
-      self.select('text').text(bands[i]);
+      self.select("text").text(bands[i]);
       itemWidths.push(self.node().getBBox().width);
     });
 
     if (x(1) < d3.max(itemWidths)) {
       const xAxisLabels = focus
-        .select('.axis--x')
-        .selectAll('text')
-        .attr('dy', '.35em')
-        .attr('transform', 'translate(0,2) rotate(-45)')
-        .style('text-anchor', 'end');
+        .select(".axis--x")
+        .selectAll("text")
+        .attr("dy", ".35em")
+        .attr("transform", "translate(0,2) rotate(-45)")
+        .style("text-anchor", "end");
 
       if (longAxisLabels) {
         xAxisLabels.each(function(i) {
@@ -670,7 +670,7 @@ export default function createLine({
             let axisText = self.text();
             do {
               axisText = axisText.substring(0, axisText.length - 1);
-              self.text(axisText + '...');
+              self.text(axisText + "...");
             } while (self.node().getBBox().width > maxAxisLength);
           }
         });
@@ -687,18 +687,18 @@ export default function createLine({
       height = +parseInt(heightValue, 10) - margin.top - margin.bottom;
     }
 
-    svg.attr('height', height + margin.top + margin.bottom);
+    svg.attr("height", height + margin.top + margin.bottom);
 
     let textHeight = 0;
 
-    if (showLabels !== 'none') {
+    if (showLabels !== "none") {
       const textValue = formatValue(qMax);
 
       const sampleText = svg
-        .selectAll('.sampleText')
+        .selectAll(".sampleText")
         .data([textValue])
         .enter()
-        .append('text')
+        .append("text")
         .text((d) => d);
 
       textHeight = sampleText.node().getBBox().height;
@@ -743,11 +743,11 @@ export default function createLine({
   let xAxisTextHeight = 0;
   let xAxisText = null;
 
-  if (['both', 'xAxis'].some((substring) => textOnAxis.includes(substring))) {
+  if (["both", "xAxis"].some((substring) => textOnAxis.includes(substring))) {
     // text label for the x axis
     xAxisText = focus
-      .append('text')
-      .style('text-anchor', 'middle')
+      .append("text")
+      .style("text-anchor", "middle")
       .text(qDimensionInfo[0].qFallbackTitle);
 
     setStyle(xAxisText, axisTitleStyle);
@@ -757,9 +757,9 @@ export default function createLine({
 
   setHeight();
 
-  if (['both', 'xAxis'].some((substring) => textOnAxis.includes(substring))) {
+  if (["both", "xAxis"].some((substring) => textOnAxis.includes(substring))) {
     xAxisText.attr(
-      'transform',
+      "transform",
       `translate(${width / 2} ,${height +
         margin.top -
         legendHeight +
@@ -773,14 +773,14 @@ export default function createLine({
     .y0(yScale(0))
     .y1((d) => {
       switch (chartDataShape) {
-        case 'singleDimensionMeasure':
-        case 'singleDimension':
+        case "singleDimensionMeasure":
+        case "singleDimension":
           return yScale(
             d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
           );
-        case 'multipleDimensions':
+        case "multipleDimensions":
           return yScale(+d[Object.keys(d)[4]]);
-        case 'dualAxis':
+        case "dualAxis":
           return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
       }
     });
@@ -803,31 +803,31 @@ export default function createLine({
     .y1((d) => yOverview(d[1]));
 
   focus
-    .append('g')
-    .attr('class', 'axis axis--x')
+    .append("g")
+    .attr("class", "axis axis--x")
     .attr(
-      'transform',
+      "transform",
       `translate(0,${height - xAxisHeight - xAxisTextHeight - legendHeight})`
     )
     .call(xAxis);
 
-  if (['none', 'yAxis'].some((substring) => showAxis.includes(substring))) {
+  if (["none", "yAxis"].some((substring) => showAxis.includes(substring))) {
     focus
-      .select('.axis--x')
-      .select('.domain')
+      .select(".axis--x")
+      .select(".domain")
       .remove();
 
     focus
-      .select('.axis--x')
-      .selectAll('.tick')
-      .selectAll('line')
+      .select(".axis--x")
+      .selectAll(".tick")
+      .selectAll("line")
       .remove();
   }
 
-  if (chartType === 'DISCRETE') redrawXAxis();
+  if (chartType === "DISCRETE") redrawXAxis();
 
   setXAxisInteractivity(focus);
-  setStyle(focus.select('.axis--x'), xAxisStyle);
+  setStyle(focus.select(".axis--x"), xAxisStyle);
   // }
 
   function createYAxis(data) {
@@ -845,59 +845,59 @@ export default function createLine({
     yOverviewR.domain([qMinRight, qMaxRight]);
 
     switch (tickSpacing) {
-      case 'wide':
+      case "wide":
         yAxis.ticks(yScale.ticks().length * 0.5);
         yAxisR.ticks(yScaleR.ticks().length * 0.5);
         break;
-      case 'normal':
+      case "normal":
         break;
-      case 'narrow':
+      case "narrow":
         yAxis.ticks(yScale.ticks().length * 1.5);
         yAxisR.ticks(yScaleR.ticks().length * 1.5);
         break;
     }
 
     const yax = focus
-      .append('g')
-      .attr('class', 'y axis')
-      .attr('transform', `translate(0,${titleHeights})`);
+      .append("g")
+      .attr("class", "y axis")
+      .attr("transform", `translate(0,${titleHeights})`);
 
     yax.call(yAxis);
 
     setStyle(yax, yAxisStyle);
 
-    if (['none', 'xAxis'].some((substring) => showAxis.includes(substring))) {
-      yax.select('.domain').remove();
+    if (["none", "xAxis"].some((substring) => showAxis.includes(substring))) {
+      yax.select(".domain").remove();
 
       yax
-        .selectAll('g.tick')
-        .selectAll('line')
+        .selectAll("g.tick")
+        .selectAll("line")
         .remove();
     }
 
-    yax.selectAll('g.tick').each(function(i) {
-      const textItem = d3.select(this).select('text');
+    yax.selectAll("g.tick").each(function(i) {
+      const textItem = d3.select(this).select("text");
 
       const numFormat = qMeasureInfo[0].qNumFormat;
       let decimals = 0;
 
       if (
-        qMeasureInfo[0].qNumFormat.qType !== 'U' &&
-        qMeasureInfo[0].qNumFormat.qFmt.includes('%')
+        qMeasureInfo[0].qNumFormat.qType !== "U" &&
+        qMeasureInfo[0].qNumFormat.qFmt.includes("%")
       ) {
         decimals = `,.${
           numFormat.qFmt.slice(
             numFormat.qFmt.indexOf(numFormat.qDec) + 1,
-            numFormat.qFmt.indexOf('%')
+            numFormat.qFmt.indexOf("%")
           ).length
         }%`;
       }
 
       const newValue =
-        qMeasureInfo[0].qNumFormat.qType !== 'U' &&
-        qMeasureInfo[0].qNumFormat.qFmt.includes('%')
-          ? d3.format(decimals)(textItem.text().replace(/,/g, ''))
-          : formatValue(parseFloat(textItem.text().replace(/,/g, '')), true);
+        qMeasureInfo[0].qNumFormat.qType !== "U" &&
+        qMeasureInfo[0].qNumFormat.qFmt.includes("%")
+          ? d3.format(decimals)(textItem.text().replace(/,/g, ""))
+          : formatValue(parseFloat(textItem.text().replace(/,/g, "")), true);
 
       textItem.text(newValue);
     });
@@ -905,59 +905,59 @@ export default function createLine({
     if (dualAxisChart) {
       // Get the width of the values on the right Y axis
       const yaxR = focus
-        .append('g')
-        .attr('class', 'y axisR')
-        .attr('transform', `translate(${x.range()[1]},${titleHeights})`);
+        .append("g")
+        .attr("class", "y axisR")
+        .attr("transform", `translate(${x.range()[1]},${titleHeights})`);
 
       yaxR.call(yAxisR);
 
       setStyle(yaxR, yAxisStyle);
 
-      if (['none', 'xAxis'].some((substring) => showAxis.includes(substring))) {
-        yaxR.select('.domain').remove();
+      if (["none", "xAxis"].some((substring) => showAxis.includes(substring))) {
+        yaxR.select(".domain").remove();
 
         yaxR
-          .selectAll('.tick')
-          .selectAll('line')
+          .selectAll(".tick")
+          .selectAll("line")
           .remove();
       }
 
-      yaxR.selectAll('g.tick').each(function(i, a, b) {
+      yaxR.selectAll("g.tick").each(function(i, a, b) {
         const self = d3.select(this);
-        const textItem = self.select('text');
+        const textItem = self.select("text");
 
         const numFormat = qMeasureInfo[1].qNumFormat;
         let decimals = 0;
         if (
-          qMeasureInfo[1].qNumFormat.qType !== 'U' &&
-          qMeasureInfo[1].qNumFormat.qFmt.includes('%')
+          qMeasureInfo[1].qNumFormat.qType !== "U" &&
+          qMeasureInfo[1].qNumFormat.qFmt.includes("%")
         ) {
           decimals = `,.${
             numFormat.qFmt.slice(
               numFormat.qFmt.indexOf(numFormat.qDec) + 1,
-              numFormat.qFmt.indexOf('%')
+              numFormat.qFmt.indexOf("%")
             ).length
           }%`;
         }
 
         const newValue =
-          qMeasureInfo[1].qNumFormat.qType !== 'U' &&
-          qMeasureInfo[1].qNumFormat.qFmt.includes('%')
-            ? d3.format(decimals)(textItem.text().replace(/,/g, ''))
-            : formatValue(parseFloat(textItem.text().replace(/,/g, '')), true);
+          qMeasureInfo[1].qNumFormat.qType !== "U" &&
+          qMeasureInfo[1].qNumFormat.qFmt.includes("%")
+            ? d3.format(decimals)(textItem.text().replace(/,/g, ""))
+            : formatValue(parseFloat(textItem.text().replace(/,/g, "")), true);
 
         textItem.text(newValue);
       });
     }
 
-    if (['both', 'yAxis'].some((substring) => textOnAxis.includes(substring))) {
+    if (["both", "yAxis"].some((substring) => textOnAxis.includes(substring))) {
       // text label for the y axis
       const yAxisText = focus
-        .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 0 - margin.left)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
         .attr(
-          'x',
+          "x",
           0 -
             (height -
               xAxisHeight +
@@ -966,22 +966,22 @@ export default function createLine({
               legendHeight) /
               2
         )
-        .attr('dy', '1em')
-        .style('text-anchor', 'middle')
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
         .text(
           dualAxisChart
             ? qMeasureInfo[0].qFallbackTitle
-            : qMeasureInfo.map((measure) => measure.qFallbackTitle).join(', ')
+            : qMeasureInfo.map((measure) => measure.qFallbackTitle).join(", ")
         );
 
       setStyle(yAxisText, axisTitleStyle);
       if (dualAxisChart) {
         const yAxisTextRight = focus
-          .append('text')
-          .attr('transform', 'rotate(-90)')
-          .attr('y', `${x.range()[1] + rightAxisWidth + 20}`)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", `${x.range()[1] + rightAxisWidth + 20}`)
           .attr(
-            'x',
+            "x",
             0 -
               (height -
                 xAxisHeight +
@@ -990,8 +990,8 @@ export default function createLine({
                 legendHeight) /
                 2
           )
-          .attr('dy', '1em')
-          .style('text-anchor', 'middle')
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
           .text(qMeasureInfo[1].qFallbackTitle);
 
         setStyle(yAxisTextRight, axisTitleStyle);
@@ -999,53 +999,53 @@ export default function createLine({
     }
 
     if (
-      ['solid', 'dashes', 'dots', 'default'].some((substring) =>
+      ["solid", "dashes", "dots", "default"].some((substring) =>
         showGridlines.includes(substring)
       )
     ) {
       // Y Gridline
       const gridlines = d3
         .axisLeft()
-        .tickFormat('')
+        .tickFormat("")
         .tickSize(-x.range()[1])
         .scale(yScale);
 
       switch (tickSpacing) {
-        case 'wide':
+        case "wide":
           gridlines.ticks(yScale.ticks().length * 0.5);
           break;
-        case 'normal':
+        case "normal":
           break;
-        case 'narrow':
+        case "narrow":
           gridlines.ticks(yScale.ticks().length * 1.5);
           break;
       }
 
-      const y_gridlines = Line_chart.append('g')
-        .attr('class', 'grid')
-        .attr('transform', `translate(0,${titleHeights})`)
+      const y_gridlines = Line_chart.append("g")
+        .attr("class", "grid")
+        .attr("transform", `translate(0,${titleHeights})`)
         .call(gridlines);
       // .selectAll('.domain').remove();
 
-      setStyle(y_gridlines.selectAll('g.tick line'), GridLineStyle);
-      setStyle(y_gridlines.selectAll('.domain'), GridLineStyle);
+      setStyle(y_gridlines.selectAll("g.tick line"), GridLineStyle);
+      setStyle(y_gridlines.selectAll(".domain"), GridLineStyle);
 
       switch (showGridlines) {
-        case 'dashes':
-          y_gridlines.style('stroke-dasharray', '13, 13');
+        case "dashes":
+          y_gridlines.style("stroke-dasharray", "13, 13");
           break;
-        case 'solid':
-          y_gridlines.style('stroke-dasharray', '0, 0');
+        case "solid":
+          y_gridlines.style("stroke-dasharray", "0, 0");
           break;
-        case 'dots':
-          y_gridlines.style('stroke-dasharray', '3,3');
+        case "dots":
+          y_gridlines.style("stroke-dasharray", "3,3");
           break;
-        case 'default':
-          setStyle(y_gridlines.selectAll('g.tick line'), GridLineStyle);
-          setStyle(y_gridlines.selectAll('.domain'), GridLineStyle);
+        case "default":
+          setStyle(y_gridlines.selectAll("g.tick line"), GridLineStyle);
+          setStyle(y_gridlines.selectAll(".domain"), GridLineStyle);
           break;
       }
-      y_gridlines.selectAll('.domain').remove();
+      y_gridlines.selectAll(".domain").remove();
     }
   }
   createYAxis(data);
@@ -1056,15 +1056,15 @@ export default function createLine({
     .y0(yOverview(0))
     .y1((d) => {
       switch (chartDataShape) {
-        case 'singleDimensionMeasure':
-        case 'singleDimension':
+        case "singleDimensionMeasure":
+        case "singleDimension":
           return (
             yOverview(d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]) -
             legendHeight
           );
-        case 'multipleDimensions':
+        case "multipleDimensions":
           return yOverview(+d[Object.keys(d)[4]]) - legendHeight;
-        case 'dualAxis':
+        case "dualAxis":
           yOverview(d[Object.keys(d)[qDimensionCount * 2]]) - legendHeight;
       }
     });
@@ -1080,17 +1080,17 @@ export default function createLine({
   const setLineColors = (focus) => {
     // const { selectionBackground, nonSelectionBackground } = LineSelectionStyle;
 
-    const circles = Line_chart.selectAll('.marker');
+    const circles = Line_chart.selectAll(".marker");
 
     circles.each(function(d, i) {
       const self = d3.select(this);
-      self.style('fill', (d, index, node) => {
+      self.style("fill", (d, index, node) => {
         const elemNumber = stacked ? d.data.elemNumber : d.elemNumber;
 
         if (
           stacked ||
-          chartDataShape === 'singleDimension' ||
-          chartDataShape === 'dualAxis'
+          chartDataShape === "singleDimension" ||
+          chartDataShape === "dualAxis"
         ) {
           if (pendingSelections.includes(elemNumber)) {
             setStyle(self, SelectedMarker);
@@ -1102,7 +1102,7 @@ export default function createLine({
           }
         } else {
           if (
-            chartDataShape === 'multipleDimensions' &&
+            chartDataShape === "multipleDimensions" &&
             pendingSelections.includes(elemNumber)
           ) {
             setStyle(self, SelectedMarker);
@@ -1130,8 +1130,8 @@ export default function createLine({
     let xAxisElemNumber = null;
 
     if (
-      chartType !== 'DISCRETE' &&
-      typeof d.elemNumber === 'undefined' &&
+      chartType !== "DISCRETE" &&
+      typeof d.elemNumber === "undefined" &&
       !stacked
     ) {
       dataElemNumber = data.filter((item) => {
@@ -1140,7 +1140,7 @@ export default function createLine({
       xAxisElemNumber = dataElemNumber[0].elemNumber;
     }
 
-    const index = chartType === 'DISCRETE' ? d : i;
+    const index = chartType === "DISCRETE" ? d : i;
 
     setRefreshChart(false);
     useSelectionColours = true;
@@ -1186,6 +1186,8 @@ export default function createLine({
     }
 
     // buildSelections(pendingSelections);
+
+    select(0, pendingSelections);
   }
 
   const tooltipContainer = d3.select(d3Container.current);
@@ -1195,11 +1197,11 @@ export default function createLine({
   });
 
   function handleMouseOver() {
-    d3.select(this).style('cursor', 'pointer');
+    d3.select(this).style("cursor", "pointer");
   }
 
   function handleMouseMove(d, i) {
-    d3.select(this).style('cursor', 'pointer');
+    d3.select(this).style("cursor", "pointer");
 
     /*
     const cursorLocation = [
@@ -1212,53 +1214,53 @@ export default function createLine({
     let data = {};
 
     switch (chartDataShape) {
-      case 'singleDimensionMeasure':
+      case "singleDimensionMeasure":
         data = {
           key: formatDimToolTip(d[Object.keys(d)[0]]),
 
           value:
-            qMeasureInfo[0].qNumFormat.qType === 'U' ||
-            qMeasureInfo[0].qNumFormat.qFmt === '##############' ||
-            qMeasureInfo[0].qNumFormat.qFmt === '########' ||
-            qMeasureInfo[0].qNumFormat.qFmt === '###0'
+            qMeasureInfo[0].qNumFormat.qType === "U" ||
+            qMeasureInfo[0].qNumFormat.qFmt === "##############" ||
+            qMeasureInfo[0].qNumFormat.qFmt === "########" ||
+            qMeasureInfo[0].qNumFormat.qFmt === "###0"
               ? formatValue(d[Object.keys(d)[2]])
               : qMatrix[i][qDimensionCount].qText,
         };
         break;
-      case 'singleDimension':
-      case 'dualAxis':
+      case "singleDimension":
+      case "dualAxis":
         const measureNo = rangeBands.indexOf(
-          d3.select(this).attr('data-legend')
+          d3.select(this).attr("data-legend")
         );
 
         const toolTipValue =
-          qMeasureInfo[measureNo].qNumFormat.qType === 'U' ||
-          qMeasureInfo[measureNo].qNumFormat.qFmt === '##############' ||
-          qMeasureInfo[measureNo].qNumFormat.qFmt === '########' ||
-          qMeasureInfo[measureNo].qNumFormat.qFmt === '###0'
-            ? formatValue(d3.select(this).attr('data-value'))
+          qMeasureInfo[measureNo].qNumFormat.qType === "U" ||
+          qMeasureInfo[measureNo].qNumFormat.qFmt === "##############" ||
+          qMeasureInfo[measureNo].qNumFormat.qFmt === "########" ||
+          qMeasureInfo[measureNo].qNumFormat.qFmt === "###0"
+            ? formatValue(d3.select(this).attr("data-value"))
             : qMatrix[i][qDimensionCount + measureNo].qText;
 
         data = {
           key: formatDimToolTip(d[Object.keys(d)[0]]),
-          value: `${d3.select(this).attr('data-legend')} : ${toolTipValue}`,
+          value: `${d3.select(this).attr("data-legend")} : ${toolTipValue}`,
         };
         break;
-      case 'multipleDimensions':
+      case "multipleDimensions":
         const key = stacked
           ? formatDimToolTip(d.data[Object.keys(d.data)[0]])
           : formatDimToolTip(d[Object.keys(d)[0]]);
 
         const legendItem = stacked
-          ? d3.select(this).attr('data-legend')
+          ? d3.select(this).attr("data-legend")
           : d[Object.keys(d)[2]];
 
         const value =
-          qMeasureInfo[0].qNumFormat.qType === 'U' ||
-          qMeasureInfo[0].qNumFormat.qFmt === '##############' ||
-          qMeasureInfo[0].qNumFormat.qFmt === '########' ||
-          qMeasureInfo[0].qNumFormat.qFmt === '###0'
-            ? formatValue(d3.select(this).attr('data-value'))
+          qMeasureInfo[0].qNumFormat.qType === "U" ||
+          qMeasureInfo[0].qNumFormat.qFmt === "##############" ||
+          qMeasureInfo[0].qNumFormat.qFmt === "########" ||
+          qMeasureInfo[0].qNumFormat.qFmt === "###0"
+            ? formatValue(d3.select(this).attr("data-value"))
             : qMatrix[i][qDimensionCount].qText;
 
         data = {
@@ -1281,9 +1283,9 @@ export default function createLine({
 
   function setXAxisInteractivity() {
     focus
-      .selectAll('.axis--x .tick')
-      .on('click', allowSelections ? handleClick : null)
-      .on('mouseover', handleMouseOver);
+      .selectAll(".axis--x .tick")
+      .on("click", allowSelections ? handleClick : null)
+      .on("mouseover", handleMouseOver);
   }
 
   qMeasureInfo.forEach((measure, i) => {
@@ -1291,48 +1293,48 @@ export default function createLine({
     let lines = null;
 
     switch (chartDataShape) {
-      case 'singleDimensionMeasure':
-      case 'singleDimension':
-        lines = Line_chart.append('path')
-          .attr('transform', `translate(0,${titleHeights})`)
+      case "singleDimensionMeasure":
+      case "singleDimension":
+        lines = Line_chart.append("path")
+          .attr("transform", `translate(0,${titleHeights})`)
           .datum(data)
-          .attr('class', `line-${focusLineIndex}`)
-          .attr('data-legend', rangeBands[focusLineIndex])
-          .attr('d', areaChart ? area : line);
+          .attr("class", `line-${focusLineIndex}`)
+          .attr("data-legend", rangeBands[focusLineIndex])
+          .attr("d", areaChart ? area : line);
 
         setStyle(lines, {
           ...LineStyle,
           stroke: color(rangeBands[focusLineIndex]),
-          fill: areaChart ? color(rangeBands[focusLineIndex]) : 'none',
+          fill: areaChart ? color(rangeBands[focusLineIndex]) : "none",
         });
         break;
-      case 'dualAxis':
+      case "dualAxis":
         // case 'singleDimension':
-        lines = Line_chart.append('path')
-          .attr('transform', `translate(0,${titleHeights})`)
+        lines = Line_chart.append("path")
+          .attr("transform", `translate(0,${titleHeights})`)
           .datum(data)
-          .attr('class', `line-${focusLineIndex}`)
-          .attr('data-legend', rangeBands[focusLineIndex])
+          .attr("class", `line-${focusLineIndex}`)
+          .attr("data-legend", rangeBands[focusLineIndex])
           .attr(
-            'd',
+            "d",
             areaChart ? (i === 0 ? area : areaR) : i === 0 ? line : lineR
           );
 
         setStyle(lines, {
           ...LineStyle,
           stroke: color(rangeBands[focusLineIndex]),
-          fill: areaChart ? color(rangeBands[focusLineIndex]) : 'none',
+          fill: areaChart ? color(rangeBands[focusLineIndex]) : "none",
         });
         break;
-      case 'multipleDimensions':
+      case "multipleDimensions":
         // Loop through each symbol / key
         multiDimData.forEach((item, index) => {
-          lines = Line_chart.append('path')
-            .attr('transform', `translate(0,${titleHeights})`)
-            .attr('class', `line-${index}`)
-            .attr('data-legend', categories[index])
+          lines = Line_chart.append("path")
+            .attr("transform", `translate(0,${titleHeights})`)
+            .attr("class", `line-${index}`)
+            .attr("data-legend", categories[index])
             .attr(
-              'd',
+              "d",
               stacked
                 ? stackedArea(item)
                 : areaChart
@@ -1343,7 +1345,7 @@ export default function createLine({
           setStyle(lines, {
             ...LineStyle,
             stroke: color(categories[index]),
-            fill: areaChart ? color(categories[index]) : 'none',
+            fill: areaChart ? color(categories[index]) : "none",
           });
         });
 
@@ -1352,58 +1354,58 @@ export default function createLine({
 
     if (stacked) {
       let labels = null;
-      if (symbol !== 'none') {
+      if (symbol !== "none") {
         multiDimData.forEach((s, i) => {
           Line_chart.selectAll(`.dot-${i}`)
             .data(s)
             .enter()
-            .append('path') // Uses the enter().append() method
-            .attr('class', `dot-${i} marker`) // Assign a class for styling
+            .append("path") // Uses the enter().append() method
+            .attr("class", `dot-${i} marker`) // Assign a class for styling
             .attr(
-              'fill',
+              "fill",
               conditionalColors.length === 0 ? color(categories[i]) : color(i)
             )
-            .attr('stroke', color(categories[i]))
-            .attr('data-legend', s.key)
-            .attr('data-value', (d, index) => s[index].data[s.key])
-            .attr('d', d3.symbol().type(markerShape))
-            .attr('transform', function(d, i) {
+            .attr("stroke", color(categories[i]))
+            .attr("data-legend", s.key)
+            .attr("data-value", (d, index) => s[index].data[s.key])
+            .attr("d", d3.symbol().type(markerShape))
+            .attr("transform", function(d, i) {
               const xValue =
-                chartType === 'DISCRETE'
+                chartType === "DISCRETE"
                   ? categories
                     ? x(parseInt(i / categories.length))
                     : x(i)
                   : x(d.data[Object.keys(d.data)[0]]);
 
               let yValue = titleHeights + yScale(d[1]);
-              return 'translate(' + xValue + ',' + yValue + ')';
+              return "translate(" + xValue + "," + yValue + ")";
             })
-            .on('mousemove', handleMouseMove)
-            .on('click', allowSelections ? handleClick : null)
-            .on('mouseout', handleMouseOut)
-            .on('mouseover', handleMouseOver);
+            .on("mousemove", handleMouseMove)
+            .on("click", allowSelections ? handleClick : null)
+            .on("mouseout", handleMouseOut)
+            .on("mouseover", handleMouseOver);
         });
       }
-      if (showLabels !== 'none') {
+      if (showLabels !== "none") {
         multiDimData.forEach((s, i) => {
-          labels = Line_chart.append('g')
-            .attr('class', 'line-labels')
+          labels = Line_chart.append("g")
+            .attr("class", "line-labels")
             .selectAll(`.label-${i}`)
             .data(s)
             .enter()
-            .append('text')
-            .attr('transform', `translate(0,${titleHeights})`)
-            .attr('class', `label-${i}`) // Assign a class for styling
-            .attr('text-anchor', 'middle')
-            .attr('x', (d, i) => {
-              return chartType === 'DISCRETE'
+            .append("text")
+            .attr("transform", `translate(0,${titleHeights})`)
+            .attr("class", `label-${i}`) // Assign a class for styling
+            .attr("text-anchor", "middle")
+            .attr("x", (d, i) => {
+              return chartType === "DISCRETE"
                 ? categories
                   ? x(parseInt(i / categories.length))
                   : x(i)
                 : x(d.data[Object.keys(d.data)[0]]);
             })
             .attr(
-              'y',
+              "y",
               (d) =>
                 height -
                 titleHeights -
@@ -1411,61 +1413,61 @@ export default function createLine({
                 xAxisTextHeight -
                 legendHeight
             )
-            .attr('height', 0)
+            .attr("height", 0)
             .transition()
             .duration(750)
             .delay((d, i) => delayMilliseconds / qItems)
 
             .text((d, index) => {
-              return qMeasureInfo[0].qNumFormat.qType === 'U' ||
-                qMeasureInfo[0].qNumFormat.qFmt === '##############' ||
-                qMeasureInfo[0].qNumFormat.qFmt === '########' ||
-                qMeasureInfo[0].qNumFormat.qFmt === '###0'
+              return qMeasureInfo[0].qNumFormat.qType === "U" ||
+                qMeasureInfo[0].qNumFormat.qFmt === "##############" ||
+                qMeasureInfo[0].qNumFormat.qFmt === "########" ||
+                qMeasureInfo[0].qNumFormat.qFmt === "###0"
                 ? formatValue(s[index].data[s.key])
                 : qMatrix[index * categories.length + i][qDimensionCount].qText;
             })
 
-            .attr('y', (d) => yScale(d[1]))
-            .attr('dy', '-.7em');
+            .attr("y", (d) => yScale(d[1]))
+            .attr("dy", "-.7em");
           setStyle(labels, LineLabelStyle);
         });
       }
     } else {
-      if (symbol !== 'none') {
+      if (symbol !== "none") {
         Line_chart.selectAll(`.dot-${focusLineIndex}`)
           .data(data)
           .enter()
-          .append('path') // Uses the enter().append() method
-          .attr('class', `dot-${focusLineIndex} marker`) // Assign a class for styling
-          .attr('fill', (d, index) => {
+          .append("path") // Uses the enter().append() method
+          .attr("class", `dot-${focusLineIndex} marker`) // Assign a class for styling
+          .attr("fill", (d, index) => {
             if (conditionalColors.length === 0) {
-              return chartDataShape === 'multipleDimensions'
+              return chartDataShape === "multipleDimensions"
                 ? color(d[Object.keys(d)[qDimensionCount]])
                 : color(rangeBands[focusLineIndex]);
             } else {
               return markerColor(index);
             }
           })
-          .attr('stroke', (d, index) => {
-            return chartDataShape === 'multipleDimensions'
+          .attr("stroke", (d, index) => {
+            return chartDataShape === "multipleDimensions"
               ? color(d[Object.keys(d)[qDimensionCount]])
               : color(rangeBands[focusLineIndex]);
           })
           .attr(
-            'data-value',
+            "data-value",
             (d, index) =>
               d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
           )
-          .attr('data-legend', (d, index) =>
-            chartDataShape === 'singleDimension' ||
-            chartDataShape === 'dualAxis'
+          .attr("data-legend", (d, index) =>
+            chartDataShape === "singleDimension" ||
+            chartDataShape === "dualAxis"
               ? Object.keys(d)[qDimensionCount * 2 + focusLineIndex]
               : null
           )
-          .attr('d', d3.symbol().type(markerShape))
-          .attr('transform', function(d, i) {
+          .attr("d", d3.symbol().type(markerShape))
+          .attr("transform", function(d, i) {
             const xValue =
-              chartType === 'DISCRETE'
+              chartType === "DISCRETE"
                 ? categories
                   ? x(parseInt(i / categories.length))
                   : x(i)
@@ -1483,101 +1485,101 @@ export default function createLine({
                 d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
               );
             }
-            return 'translate(' + xValue + ',' + yValue + ')';
+            return "translate(" + xValue + "," + yValue + ")";
           })
 
-          .on('mousemove', handleMouseMove)
-          .on('click', allowSelections ? handleClick : null)
-          .on('mouseout', handleMouseOut)
-          .on('mouseover', handleMouseOver);
+          .on("mousemove", handleMouseMove)
+          .on("click", allowSelections ? handleClick : null)
+          .on("mouseout", handleMouseOut)
+          .on("mouseover", handleMouseOver);
       }
-      if (showLabels !== 'none') drawLineLabels();
+      if (showLabels !== "none") drawLineLabels();
     }
   });
 
   if (
-    ['both', 'xAxis'].some((substring) => showAxis.includes(substring)) &&
+    ["both", "xAxis"].some((substring) => showAxis.includes(substring)) &&
     yScale(0) === 0 &&
     !dualAxis
   ) {
     focus
-      .append('line')
-      .attr('transform', `translate(0,${titleHeights})`)
-      .attr('y1', yScale(0))
-      .attr('y2', yScale(0))
-      .attr('x1', 0)
-      .attr('x2', x.range()[1])
-      .attr('stroke', 'black');
+      .append("line")
+      .attr("transform", `translate(0,${titleHeights})`)
+      .attr("y1", yScale(0))
+      .attr("y2", yScale(0))
+      .attr("x1", 0)
+      .attr("x2", x.range()[1])
+      .attr("stroke", "black");
 
     focus
-      .select('.axis--x')
-      .select('.domain')
+      .select(".axis--x")
+      .select(".domain")
       .remove();
   }
 
   if (isScrollDisplayed) {
     const context = svg
-      .append('g')
-      .attr('class', 'context')
-      .attr('transform', `translate(${margin2.left},${margin2.top})`);
+      .append("g")
+      .attr("class", "context")
+      .attr("transform", `translate(${margin2.left},${margin2.top})`);
     const clip = svg
-      .append('defs')
-      .append('svg:clipPath')
+      .append("defs")
+      .append("svg:clipPath")
       // .attr("id", "clip")
-      .attr('id', uuid)
-      .append('svg:rect')
+      .attr("id", uuid)
+      .append("svg:rect")
       // .attr('width', width - margin.right - margin.left)
-      .attr('width', x.range()[1])
-      .attr('height', heightValue)
-      .attr('x', 0)
-      .attr('y', 0);
+      .attr("width", x.range()[1])
+      .attr("height", heightValue)
+      .attr("x", 0)
+      .attr("y", 0);
 
     qMeasureInfo.forEach((measure, i) => {
       focusLineIndex = i;
       let lines = null;
 
       switch (chartDataShape) {
-        case 'singleDimensionMeasure':
-        case 'singleDimension':
+        case "singleDimensionMeasure":
+        case "singleDimension":
           lines = context
-            .append('path')
+            .append("path")
             .datum(data)
-            .attr('class', 'line')
-            .attr('data-legend', rangeBands[focusLineIndex])
-            .attr('d', areaChart ? area2 : line2);
+            .attr("class", "line")
+            .attr("data-legend", rangeBands[focusLineIndex])
+            .attr("d", areaChart ? area2 : line2);
 
           setStyle(lines, {
             ...LineStyle,
             stroke: color(rangeBands[focusLineIndex]),
-            fill: areaChart ? color(rangeBands[focusLineIndex]) : 'none',
+            fill: areaChart ? color(rangeBands[focusLineIndex]) : "none",
           });
           break;
-        case 'dualAxis':
+        case "dualAxis":
           lines = context
-            .append('path')
+            .append("path")
             .datum(data)
-            .attr('class', 'line')
-            .attr('data-legend', rangeBands[focusLineIndex])
+            .attr("class", "line")
+            .attr("data-legend", rangeBands[focusLineIndex])
             .attr(
-              'd',
+              "d",
               areaChart ? (i === 0 ? area2 : area2R) : i === 0 ? line2 : line2R
             );
 
           setStyle(lines, {
             ...LineStyle,
             stroke: color(rangeBands[focusLineIndex]),
-            fill: areaChart ? color(rangeBands[focusLineIndex]) : 'none',
+            fill: areaChart ? color(rangeBands[focusLineIndex]) : "none",
           });
           break;
 
-        case 'multipleDimensions':
+        case "multipleDimensions":
           multiDimData.forEach((d, i) => {
             lines = context
-              .append('path')
-              .attr('class', `line-${i}`)
-              .attr('data-legend', categories[i])
+              .append("path")
+              .attr("class", `line-${i}`)
+              .attr("data-legend", categories[i])
               .attr(
-                'd',
+                "d",
                 stacked
                   ? stackedArea2(d)
                   : areaChart
@@ -1588,7 +1590,7 @@ export default function createLine({
             setStyle(lines, {
               ...LineStyle,
               stroke: color(categories[i]),
-              fill: areaChart ? color(categories[i]) : 'none',
+              fill: areaChart ? color(categories[i]) : "none",
             });
           });
 
@@ -1597,9 +1599,9 @@ export default function createLine({
     });
 
     context
-      .append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', `translate(0,${height2 - legendHeight})`)
+      .append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", `translate(0,${height2 - legendHeight})`)
       .call(xAxis2);
 
     const brush = d3
@@ -1608,7 +1610,7 @@ export default function createLine({
         [0, -legendHeight],
         [x.range()[1], height2 - legendHeight],
       ])
-      .on('brush end', brushed);
+      .on("brush end", brushed);
 
     const scrollLineRatio =
       scrollRatio ||
@@ -1617,8 +1619,8 @@ export default function createLine({
         : 1);
 
     context
-      .append('g')
-      .attr('class', 'brush')
+      .append("g")
+      .attr("class", "brush")
       .call(brush)
       // .call(brush.move, x.range());
       .call(brush.move, [x.range()[0], x.range()[1] * scrollLineRatio]);
@@ -1626,36 +1628,36 @@ export default function createLine({
     if (allowZoom || LineDefault.allowZoom) {
     } else {
       // removes handle to resize the brush
-      context.selectAll('.brush>.handle').remove();
+      context.selectAll(".brush>.handle").remove();
       // removes crosshair cursor
-      context.selectAll('.brush>.overlay').remove();
+      context.selectAll(".brush>.overlay").remove();
     }
 
     function brushed() {
-      if (d3.event.sourceEvent && d3.event.sourceEvent.type === 'zoom') return; // ignore brush-by-zoom
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
       const s = d3.event.selection || x2.range();
       x.domain(s.map(x2.invert, x2));
 
       qMeasureInfo.forEach((measure, i) => {
         focusLineIndex = i;
         switch (chartDataShape) {
-          case 'singleDimensionMeasure':
-          case 'singleDimension':
+          case "singleDimensionMeasure":
+          case "singleDimension":
             Line_chart.select(`.line-${focusLineIndex}`).attr(
-              'd',
+              "d",
               areaChart ? area : line
             );
             break;
-          case 'dualAxis':
+          case "dualAxis":
             Line_chart.select(`.line-${focusLineIndex}`).attr(
-              'd',
+              "d",
               areaChart ? (i === 0 ? area : areaR) : i === 0 ? line : lineR
             );
             break;
-          case 'multipleDimensions':
+          case "multipleDimensions":
             multiDimData.forEach((d, index) => {
               Line_chart.selectAll(`.line-${index}`).attr(
-                'd',
+                "d",
                 stacked
                   ? stackedArea(d)
                   : areaChart
@@ -1666,8 +1668,8 @@ export default function createLine({
         }
         if (stacked) {
           multiDimData.forEach((s, i) => {
-            Line_chart.selectAll(`text.label-${i}`).attr('x', (d, i) => {
-              return chartType === 'DISCRETE'
+            Line_chart.selectAll(`text.label-${i}`).attr("x", (d, i) => {
+              return chartType === "DISCRETE"
                 ? categories
                   ? x(parseInt(i / categories.length))
                   : x(i)
@@ -1676,9 +1678,9 @@ export default function createLine({
           });
         } else {
           Line_chart.selectAll(`text.label-${focusLineIndex}`).attr(
-            'x',
+            "x",
             (d, i) => {
-              return chartType === 'DISCRETE'
+              return chartType === "DISCRETE"
                 ? categories
                   ? x(parseInt(i / categories.length))
                   : x(i)
@@ -1689,24 +1691,24 @@ export default function createLine({
 
         if (stacked) {
           multiDimData.forEach((s, i) => {
-            Line_chart.selectAll(`.dot-${i}`).attr('transform', function(d, i) {
+            Line_chart.selectAll(`.dot-${i}`).attr("transform", function(d, i) {
               const xValue =
-                chartType === 'DISCRETE'
+                chartType === "DISCRETE"
                   ? categories
                     ? x(parseInt(i / categories.length))
                     : x(i)
                   : x(d.data[Object.keys(d.data)[0]]);
 
               let yValue = titleHeights + yScale(d[1]);
-              return 'translate(' + xValue + ',' + yValue + ')';
+              return "translate(" + xValue + "," + yValue + ")";
             });
           });
         } else {
           Line_chart.selectAll(`.dot-${focusLineIndex}`).attr(
-            'transform',
+            "transform",
             function(d, i) {
               const xValue =
-                chartType === 'DISCRETE'
+                chartType === "DISCRETE"
                   ? categories
                     ? x(parseInt(i / categories.length))
                     : x(i)
@@ -1724,44 +1726,44 @@ export default function createLine({
                   d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
                 );
               }
-              return 'translate(' + xValue + ',' + yValue + ')';
+              return "translate(" + xValue + "," + yValue + ")";
             }
           );
         }
       });
-      focus.select('.axis--x').call(xAxis);
+      focus.select(".axis--x").call(xAxis);
 
-      if (['none', 'yAxis'].some((substring) => showAxis.includes(substring))) {
+      if (["none", "yAxis"].some((substring) => showAxis.includes(substring))) {
         focus
-          .select('.axis--x')
-          .select('.domain')
+          .select(".axis--x")
+          .select(".domain")
           .remove();
 
         focus
-          .select('.axis--x')
-          .selectAll('.tick')
-          .selectAll('line')
+          .select(".axis--x")
+          .selectAll(".tick")
+          .selectAll("line")
           .remove();
       }
 
       if (
-        ['both', 'xAxis'].some((substring) => showAxis.includes(substring)) &&
+        ["both", "xAxis"].some((substring) => showAxis.includes(substring)) &&
         yScale(0) === 0 &&
         !dualAxis
       ) {
         focus
-          .select('.axis--x')
-          .select('.domain')
+          .select(".axis--x")
+          .select(".domain")
           .remove();
 
         focus
-          .select('.axis--x')
-          .selectAll('.tick')
-          .selectAll('line')
+          .select(".axis--x")
+          .selectAll(".tick")
+          .selectAll("line")
           .remove();
       }
 
-      if (chartType === 'DISCRETE') redrawXAxis();
+      if (chartType === "DISCRETE") redrawXAxis();
       setXAxisInteractivity(focus);
     }
   }

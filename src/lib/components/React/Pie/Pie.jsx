@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledPie from './StyledPie';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import defaultTheme from '../../../themes/defaultTheme';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledPie from "./StyledPie";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import defaultTheme from "../../../themes/defaultTheme";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
 function Pie({ config, ...rest }) {
   const myConfig = config || useContext(ConfigContext);
@@ -26,28 +26,28 @@ function Pie({ config, ...rest }) {
 const BORDER_SHAPE = PropTypes.shape({
   color: PropTypes.oneOfType([PropTypes.string]),
   side: PropTypes.oneOf([
-    'top',
-    'left',
-    'bottom',
-    'right',
-    'start',
-    'end',
-    'horizontal',
-    'vertical',
-    'all',
-    'between',
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
   ]),
   size: PropTypes.oneOfType([PropTypes.string]),
   style: PropTypes.oneOf([
-    'solid',
-    'dashed',
-    'dotted',
-    'double',
-    'groove',
-    'ridge',
-    'inset',
-    'outset',
-    'hidden',
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
   ]),
 });
 
@@ -67,47 +67,47 @@ Pie.propTypes = {
   /** The amount of margin around the component */
   margin: PropTypes.string,
   /** Size of the Pie */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf([
-      'top',
-      'left',
-      'bottom',
-      'right',
-      'start',
-      'end',
-      'horizontal',
-      'vertical',
-      'all',
-      'between',
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
       side: PropTypes.oneOf([
-        'top',
-        'left',
-        'bottom',
-        'right',
-        'start',
-        'end',
-        'horizontal',
-        'vertical',
-        'all',
-        'between',
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
       ]),
       size: PropTypes.oneOfType([PropTypes.string]),
       style: PropTypes.oneOf([
-        'solid',
-        'dashed',
-        'dotted',
-        'double',
-        'groove',
-        'ridge',
-        'inset',
-        'outset',
-        'hidden',
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
       ]),
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
@@ -119,24 +119,24 @@ Pie.propTypes = {
   /** color scheme of the chart */
   chartColor: PropTypes.oneOfType([
     PropTypes.oneOf([
-      'divergent13',
-      'divergent9',
-      'goya',
-      'red',
-      'blue',
-      'gray',
-      'pink',
-      'grape',
-      'violet',
-      'indigo',
-      'blue',
-      'cyan',
-      'teal',
-      'green',
-      'lime',
-      'yellow',
-      'orange',
-      'base',
+      "divergent13",
+      "divergent9",
+      "goya",
+      "red",
+      "blue",
+      "gray",
+      "pink",
+      "grape",
+      "violet",
+      "indigo",
+      "blue",
+      "cyan",
+      "teal",
+      "green",
+      "lime",
+      "yellow",
+      "orange",
+      "base",
     ]),
     PropTypes.array,
   ]),
@@ -149,7 +149,7 @@ Pie.propTypes = {
   /** Legend of the Pie */
   showLegend: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['right', 'bottom']),
+    PropTypes.oneOf(["right", "bottom"]),
   ]),
   /** Allow Selections */
   allowSelections: PropTypes.bool,
@@ -174,7 +174,7 @@ Pie.propTypes = {
   /** Show chart values */
   showLabels: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(['inside', 'outside', 'altStyle']),
+    PropTypes.oneOf(["inside", "outside", "altStyle"]),
   ]),
 };
 
@@ -182,10 +182,10 @@ Pie.defaultProps = {
   config: null,
   calcCondition: undefined,
   suppressZero: false,
-  width: '100%',
-  height: '415px',
-  margin: '5px',
-  size: 'medium',
+  width: "100%",
+  height: "100%",
+  margin: "5px",
+  size: "medium",
   allowSelections: true,
   fontColor: null,
   border: true,

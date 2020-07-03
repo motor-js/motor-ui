@@ -215,7 +215,7 @@ Bar.defaultProps = {
   config: null,
   calcCondition: undefined,
   width: "100%",
-  height: "315px",
+  height: "100%",
   margin: "5px",
   size: "medium",
   fontColor: "",

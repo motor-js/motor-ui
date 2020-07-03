@@ -1,5 +1,5 @@
-import { useCallback, useRef, useReducer, useEffect } from 'react';
-import { deepMerge } from '../utils/object';
+import { useCallback, useRef, useReducer, useEffect } from "react";
+import { deepMerge } from "../utils/object";
 
 const initialState = {
   qData: null,
@@ -14,14 +14,14 @@ function reducer(state, action) {
     type,
   } = action;
   switch (type) {
-    case 'update':
+    case "update":
       return {
         ...state,
         qData,
         qLayout,
         selections,
       };
-    case 'updateReducedData':
+    case "updateReducedData":
       return {
         ...state,
         qRData,
@@ -51,7 +51,7 @@ const initialProps = {
   qSortByNumeric: -1,
   qColumnOrder: [],
   qCalcCondition: undefined,
-  qOtherTotalSpec: '',
+  qOtherTotalSpec: "",
 };
 
 const useHyperCube = (props) => {
@@ -88,20 +88,20 @@ const useHyperCube = (props) => {
   // Build qOtherTotalSpec object
   let totalSpec;
 
-  if (typeof qOtherTotalSpec === 'object') {
+  if (typeof qOtherTotalSpec === "object") {
     totalSpec = {
-      qOtherMode: 'OTHER_COUNTED',
+      qOtherMode: "OTHER_COUNTED",
       qOtherCounted: qOtherTotalSpec.qOtherCount,
     };
   } else if (qOtherTotalSpec) {
-    totalSpec = { qOtherMode: 'OTHER_COUNTED', qOtherCounted: '8' };
+    totalSpec = { qOtherMode: "OTHER_COUNTED", qOtherCounted: "8" };
   } else if (!qOtherTotalSpec) {
-    totalSpec = { qOtherMode: 'OTHER_OFF', qOtherCounted: '' };
+    totalSpec = { qOtherMode: "OTHER_OFF", qOtherCounted: "" };
   }
 
   const generateQProp = useCallback(() => {
     const qProp = {
-      qInfo: { qType: 'visualization' },
+      qInfo: { qType: "visualization" },
     };
 
     if (qHyperCubeDef) {
@@ -113,7 +113,7 @@ const useHyperCube = (props) => {
       }
       if (cols && cols[0])
         _qHyperCubeDef.qDimensions[0].qDef.qFieldDefs = [cols[0]];
-      qProp.qInfo.qType = 'HyperCube';
+      qProp.qInfo.qType = "HyperCube";
       qProp.qHyperCubeDef = _qHyperCubeDef;
 
       return qProp;
@@ -125,13 +125,13 @@ const useHyperCube = (props) => {
     const qDimensions = cols
       .filter((col, i) => {
         const isDimension =
-          (typeof col === 'string' && !col.startsWith('=')) ||
-          (typeof col === 'object' && col.qDef && col.qDef.qFieldDefs) ||
-          (typeof col === 'object' &&
+          (typeof col === "string" && !col.startsWith("=")) ||
+          (typeof col === "object" && col.qDef && col.qDef.qFieldDefs) ||
+          (typeof col === "object" &&
             col.qLibraryId &&
             col.qType &&
-            col.qType === 'dimension') ||
-          (typeof col === 'object' && !col.qField.startsWith('='));
+            col.qType === "dimension") ||
+          (typeof col === "object" && !col.qField.startsWith("="));
 
         if (isDimension && !qInterColumnSortOrderSet) {
           myqInterColumnSortOrder[i] = sortIndex;
@@ -141,7 +141,7 @@ const useHyperCube = (props) => {
         return isDimension;
       })
       .map((col) => {
-        if (typeof col === 'string') {
+        if (typeof col === "string") {
           return {
             qDef: {
               qFieldDefs: [col],
@@ -157,7 +157,7 @@ const useHyperCube = (props) => {
             qShowTotalsAbove: true,
           };
         }
-        if (typeof col === 'object') {
+        if (typeof col === "object") {
           return {
             qDef: {
               qFieldDefs: [col.qField],
@@ -172,28 +172,28 @@ const useHyperCube = (props) => {
                   ],
             },
             qOtherTotalSpec: totalSpec,
-            qOtherLabel: 'Others',
+            qOtherLabel: "Others",
             qAttributeExpressions: [
               {
                 // cell background color
                 qExpression: col.qCondBackgroundFormat,
-                qLibraryId: '',
+                qLibraryId: "",
                 qAttribute: false,
-                id: 'cellBackgroundColor',
+                id: "cellBackgroundColor",
               },
               {
                 // cell text color
                 qExpression: col.qCondTextFormat,
-                qLibraryId: '',
+                qLibraryId: "",
                 qAttribute: false,
-                id: 'cellForegroundColor',
+                id: "cellForegroundColor",
               },
               {
                 // chart fill color
                 qExpression: col.qCondChartColor,
-                qLibraryId: '',
+                qLibraryId: "",
                 qAttribute: false,
-                id: 'chartColor',
+                id: "chartColor",
               },
             ],
             qNullSuppression: col.qNullSuppression
@@ -210,13 +210,13 @@ const useHyperCube = (props) => {
     const qMeasures = cols
       .filter((col, i) => {
         const isMeasure =
-          (typeof col === 'string' && col.startsWith('=')) ||
-          (typeof col === 'object' && col.qDef && col.qDef.qDef) ||
-          (typeof col === 'object' &&
+          (typeof col === "string" && col.startsWith("=")) ||
+          (typeof col === "object" && col.qDef && col.qDef.qDef) ||
+          (typeof col === "object" &&
             col.qLibraryId &&
             col.qType &&
-            col.qType === 'measure') ||
-          (typeof col === 'object' && col.qField.startsWith('='));
+            col.qType === "measure") ||
+          (typeof col === "object" && col.qField.startsWith("="));
         if (isMeasure && !qInterColumnSortOrderSet) {
           myqInterColumnSortOrder[i] = sortIndex;
           sortIndex += 1;
@@ -225,7 +225,7 @@ const useHyperCube = (props) => {
         return isMeasure;
       })
       .map((col) => {
-        if (typeof col === 'string') {
+        if (typeof col === "string") {
           return {
             qDef: { qDef: col, qNumFormat: col.qNumFormat },
             qSortBy: {
@@ -236,7 +236,7 @@ const useHyperCube = (props) => {
             },
           };
         }
-        if (typeof col === 'object') {
+        if (typeof col === "object") {
           return {
             qDef: {
               qDef: col.qField,
@@ -253,23 +253,23 @@ const useHyperCube = (props) => {
               {
                 // cell background color
                 qExpression: col.qCondBackgroundFormat,
-                qLibraryId: '',
+                qLibraryId: "",
                 qAttribute: false,
-                id: 'cellBackgroundColor',
+                id: "cellBackgroundColor",
               },
               {
                 // cell text color
                 qExpression: col.qCondTextFormat,
-                qLibraryId: '',
+                qLibraryId: "",
                 qAttribute: false,
-                id: 'cellForegroundColor',
+                id: "cellForegroundColor",
               },
               {
                 // chart fill color
                 qExpression: col.qCondChartColor,
-                qLibraryId: '',
+                qLibraryId: "",
                 qAttribute: false,
-                id: 'chartColor',
+                id: "chartColor",
               },
             ],
           };
@@ -305,7 +305,7 @@ const useHyperCube = (props) => {
 
   const getData = useCallback(async () => {
     const qDataPages = await qObject.current.getHyperCubeData(
-      '/qHyperCubeDef',
+      "/qHyperCubeDef",
       [qPage.current]
     );
 
@@ -322,10 +322,10 @@ const useHyperCube = (props) => {
         qHeight: Math.round(10000 / qWidth),
       };
       const qDataPages = await qObject.current.getHyperCubeReducedData(
-        '/qHyperCubeDef',
+        "/qHyperCubeDef",
         [_qPage],
         -1,
-        'D1'
+        "D1"
       );
 
       return qDataPages[0];
@@ -337,9 +337,9 @@ const useHyperCube = (props) => {
     const _qLayout = await getLayout();
     const _qData = await getData();
     if (_qData && _isMounted.current) {
-      const _selections = _qData.qMatrix.filter((row) => row[0].qState === 'S');
+      const _selections = _qData.qMatrix.filter((row) => row[0].qState === "S");
       dispatch({
-        type: 'update',
+        type: "update",
         payload: {
           qData: _qData,
           qLayout: _qLayout,
@@ -348,7 +348,7 @@ const useHyperCube = (props) => {
       });
     } else if (_isMounted.current) {
       dispatch({
-        type: 'update',
+        type: "update",
         payload: {
           qData: _qData,
           qLayout: _qLayout,
@@ -359,7 +359,7 @@ const useHyperCube = (props) => {
       const _qRData = await getReducedData();
       if (_isMounted.current) {
         dispatch({
-          type: 'updateReducedData',
+          type: "updateReducedData",
           payload: { qRData: _qRData },
         });
       }
@@ -378,7 +378,7 @@ const useHyperCube = (props) => {
   );
 
   const beginSelections = useCallback(
-    () => qObject.current.beginSelections(['/qHyperCubeDef']),
+    () => qObject.current.beginSelections(["/qHyperCubeDef"]),
     [true]
   );
 
@@ -387,25 +387,26 @@ const useHyperCube = (props) => {
     []
   );
 
-  // const select = useCallback(
-  //   (qElemNumber, _selections, toggle = false) => qObject.current.selectHyperCubeValues(
-  //     '/qHyperCubeDef',
-  //     qElemNumber,
-  //     _selections,
-  //     toggle,
-  //   ),
-  //   [],
-  // )
   const select = useCallback(
-    (qElemNumber, _selections, toggle = true) =>
+    (qElemNumber, _selections, toggle = false) =>
       qObject.current.selectHyperCubeValues(
-        '/qHyperCubeDef',
+        "/qHyperCubeDef",
         qElemNumber,
         _selections,
         toggle
       ),
     []
   );
+  // const select = useCallback(
+  //   (qElemNumber, _selections, toggle = true) =>
+  //     qObject.current.selectHyperCubeValues(
+  //       '/qHyperCubeDef',
+  //       qElemNumber,
+  //       _selections,
+  //       toggle
+  //     ),
+  //   []
+  // );
 
   const applyPatches = useCallback(
     (patches) => qObject.current.applyPatches(patches),
@@ -420,7 +421,7 @@ const useHyperCube = (props) => {
         const qProp = generateQProp();
         const qDoc = await myEngine;
         qObject.current = await qDoc.createSessionObject(qProp);
-        qObject.current.on('changed', () => {
+        qObject.current.on("changed", () => {
           update();
         });
         update();

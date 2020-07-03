@@ -1,6 +1,6 @@
-import * as d3 from 'd3';
-import { hyperCubeTransform, colorByExpression } from '../../../utils';
-import { roundNumber } from '../../../utils';
+import * as d3 from "d3";
+import { hyperCubeTransform, colorByExpression } from "../../../utils";
+import { roundNumber } from "../../../utils";
 
 import {
   addTitle,
@@ -9,9 +9,9 @@ import {
   addTooltip,
   showTooltip,
   hideTooltip,
-} from '../../D3';
+} from "../../D3";
 
-import { setStyle } from '../../D3/Helpers';
+import { setStyle } from "../../D3/Helpers";
 
 export default function CreatePie({
   qLayout,
@@ -109,7 +109,7 @@ export default function CreatePie({
   };
 
   function handleMouseMove(d, i) {
-    d3.select(this).style('cursor', 'pointer');
+    d3.select(this).style("cursor", "pointer");
 
     const cursorLocation = [d3.event.layerX + 5, d3.event.layerY + 10];
 
@@ -131,10 +131,10 @@ export default function CreatePie({
   }
 
   const setPieColors = () => {
-    svg.selectAll('path').each(function() {
+    svg.selectAll("path").each(function() {
       const self = d3.select(this);
       const selected = pendingSelections.includes(
-        parseInt(this.getAttribute('elemNumber'))
+        parseInt(this.getAttribute("elemNumber"))
       );
       if (useSelectionColours) {
         selected ? setStyle(self, SelectedPie) : setStyle(self, NonSelectedPie);
@@ -164,53 +164,55 @@ export default function CreatePie({
 
     setSelectionPieVisible(true);
 
-    if (!selections) return;
-    let itemsSelected = null;
-    if (selections.length !== 0) {
-      itemsSelected = [
-        ...new Set(
-          selections.map((d, i) => {
-            return d[Object.keys(d)[0]].qElemNumber;
-          })
-        ),
-      ];
+    // if (!selections) return;
+    // let itemsSelected = null;
+    // if (selections.length !== 0) {
+    //   itemsSelected = [
+    //     ...new Set(
+    //       selections.map((d, i) => {
+    //         return d[Object.keys(d)[0]].qElemNumber;
+    //       })
+    //     ),
+    //   ];
 
-      if (pendingSelections.length !== 1) {
-        select(0, [selectionValue]);
-      } else {
-        select(
-          0,
-          itemsSelected.filter((e) => e !== selectionValue)
-        );
-      }
-    } else {
-      select(0, [selectionValue]);
-    }
+    //   if (pendingSelections.length !== 1) {
+    //     select(0, [selectionValue]);
+    //   } else {
+    //     select(
+    //       0,
+    //       itemsSelected.filter((e) => e !== selectionValue)
+    //     );
+    //   }
+    // } else {
+    //   select(0, [selectionValue]);
+    // }
 
     // buildSelections(pendingSelections);
+
+    select(0, pendingSelections);
   }
 
   d3.select(d3Container.current)
-    .select('svg')
+    .select("svg")
     .remove();
 
   const svg = d3
     .select(d3Container.current)
-    .append('svg')
-    .attr('width', screenWidth)
-    .attr('height', heightValue);
+    .append("svg")
+    .attr("width", screenWidth)
+    .attr("height", heightValue);
 
   setStyle(svg, PieChartStyle);
 
   const diagram = svg
-    .append('g')
-    .attr('class', 'focus')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
+    .append("g")
+    .attr("class", "focus")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
   const dataKeys = qDataSet.map((d) => d[Object.keys(d)[0]]);
 
   const { legendWidth, legendHeight } = addLegend({
-    showLegend: conditionalColors.length === 0 ? showLegend : 'none',
+    showLegend: conditionalColors.length === 0 ? showLegend : "none",
     svg,
     dataKeys,
     color,
@@ -259,39 +261,39 @@ export default function CreatePie({
     .outerRadius(radius * 0.9)
     .innerRadius(radius * 0.9);
 
-  const pieContainer = diagram.append('g').attr('class', 'pie');
+  const pieContainer = diagram.append("g").attr("class", "pie");
 
   const g = pieContainer.attr(
-    'transform',
+    "transform",
     `translate(${screenWidth / 2},${heightValue / 2 +
       titleHeight +
       subTitleHeight})`
   );
 
-  g.selectAll('arc')
+  g.selectAll("arc")
     .data(pie)
     .enter()
-    .append('g')
-    .attr('class', 'arc')
-    .append('path')
-    .attr('d', arc)
-    .style('fill', (d, i) => color(dataKeys[i]))
-    .attr('elemNumber', (d) => d.data.elemNumber)
-    .on('mousemove', handleMouseMove)
-    .on('mouseout', handleMouseOut)
-    .on('click', allowSelections ? handleClick : null);
+    .append("g")
+    .attr("class", "arc")
+    .append("path")
+    .attr("d", arc)
+    .style("fill", (d, i) => color(dataKeys[i]))
+    .attr("elemNumber", (d) => d.data.elemNumber)
+    .on("mousemove", handleMouseMove)
+    .on("mouseout", handleMouseOut)
+    .on("click", allowSelections ? handleClick : null);
 
   // Add the chart labels
   const addLabels = (style) => {
     const labels = g
-      .selectAll('allLabels')
+      .selectAll("allLabels")
       .data(pie)
       .enter()
-      .append('text')
+      .append("text")
       .text((d) => d.data[Object.keys(d.data)[0]])
-      .attr('class', (d, i) => `label-text${i}`)
-      .attr('x', (d) => {
-        if (style === 'in') {
+      .attr("class", (d, i) => `label-text${i}`)
+      .attr("x", (d) => {
+        if (style === "in") {
           const a = arc.centroid(d)[0];
           d.x = a;
 
@@ -305,8 +307,8 @@ export default function CreatePie({
 
         return x;
       })
-      .attr('y', (d) => {
-        if (style === 'in') {
+      .attr("y", (d) => {
+        if (style === "in") {
           const a = arc.centroid(d)[1];
           d.y = a;
 
@@ -318,24 +320,24 @@ export default function CreatePie({
 
         return y;
       })
-      .attr('text-anchor', (d) => {
+      .attr("text-anchor", (d) => {
         const center = arc.centroid(d);
         const midAngle = Math.atan2(center[1], center[0]);
         const x = Math.cos(midAngle) * 180;
         //  if (style === 'in') return 'middle'
-        return x > 0 ? 'start' : 'end';
+        return x > 0 ? "start" : "end";
       });
 
     const lines = g
-      .selectAll('allLines')
+      .selectAll("allLines")
       .data(pie)
       .enter()
-      .append(style !== 'in' && style !== 'altStyle' && 'line')
-      .attr('class', 'label-line')
-      .attr('stroke', (d, i) => color(dataKeys[i]))
-      .attr('x1', (d) => outerArc.centroid(d)[0])
-      .attr('y1', (d) => outerArc.centroid(d)[1])
-      .attr('x2', (d) => {
+      .append(style !== "in" && style !== "altStyle" && "line")
+      .attr("class", "label-line")
+      .attr("stroke", (d, i) => color(dataKeys[i]))
+      .attr("x1", (d) => outerArc.centroid(d)[0])
+      .attr("y1", (d) => outerArc.centroid(d)[1])
+      .attr("x2", (d) => {
         const centroid = outerArc.centroid(d);
         const midAngle = Math.atan2(centroid[1], centroid[0]);
         const mid = Math.cos(midAngle) * 180;
@@ -344,7 +346,7 @@ export default function CreatePie({
 
         return x;
       })
-      .attr('y2', (d) => {
+      .attr("y2", (d) => {
         const centroid = outerArc.centroid(d);
         const midAngle = Math.atan2(centroid[1], centroid[0]);
         const y = Math.sin(midAngle) * radius;
@@ -364,18 +366,18 @@ export default function CreatePie({
       labels.each((d, i) => {
         const da = d3.select(d3Container.current).select(`.label-text${i}`);
         if (da._groups[0][0]) {
-          const y1 = da.attr('y');
-          const a = da.attr('class');
+          const y1 = da.attr("y");
+          const a = da.attr("class");
           labels.each((d, i) => {
             const db = d3.select(d3Container.current).select(`.label-text${i}`);
-            const y2 = db.attr('y');
-            const b = db.attr('class');
+            const y2 = db.attr("y");
+            const b = db.attr("class");
             // if the nodes are the same, do nothing
             if (a === b) {
               return;
             }
             // if the nodes are on opposite sides of the pivot, do nothing
-            if (da.attr('text-anchor') !== db.attr('text-anchor')) {
+            if (da.attr("text-anchor") !== db.attr("text-anchor")) {
               return;
             }
             // calculate delta spacing
@@ -385,7 +387,7 @@ export default function CreatePie({
               return;
             }
             // if the labels are in the pivot and overlapping, remove overlapping labels
-            if (style === 'in') {
+            if (style === "in") {
               da.text(null);
             }
 
@@ -394,36 +396,36 @@ export default function CreatePie({
             // otherwise, adjust the y position of the text labels
             const sign = deltaY > 0 ? 1 : -1;
             const adjust = sign * alpha;
-            da.attr('y', +y1 + adjust);
-            db.attr('y', +y2 - adjust);
+            da.attr("y", +y1 + adjust);
+            db.attr("y", +y2 - adjust);
           });
         }
       });
-      style === 'in' && labels.attr('text-anchor', 'middle');
+      style === "in" && labels.attr("text-anchor", "middle");
 
-      if (style !== 'in' && style !== 'altStyle' && again) {
-        lines.attr('y2', (d, i) => {
+      if (style !== "in" && style !== "altStyle" && again) {
+        lines.attr("y2", (d, i) => {
           const labelForLine = d3
             .select(d3Container.current)
             .select(`.label-text${i}`);
 
-          return labelForLine.attr('y');
+          return labelForLine.attr("y");
         });
         setTimeout(adjustLabels, 20);
       }
     };
     setStyle(labels, PieLabelStyle);
-    style !== 'in' ? adjustLabels() : adjustLabels('in');
+    style !== "in" ? adjustLabels() : adjustLabels("in");
   };
 
   switch (showLabels) {
-    case 'inside':
-      addLabels('in');
+    case "inside":
+      addLabels("in");
       break;
-    case true || 'outside':
+    case true || "outside":
       addLabels();
       break;
-    case 'altStyle':
+    case "altStyle":
       addAltLabels();
       break;
     case false:
