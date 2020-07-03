@@ -1082,7 +1082,8 @@ export default function CreateBar({
           case "singleDimension":
             return yScaleSecondary(measureName); //+ padding;
           case "multipleDimensions":
-            return d.x - barWidth;
+            // return d.x - barWidth;
+            return d.x;
         }
       })
       .attr("height", barWidth)
@@ -1181,7 +1182,7 @@ export default function CreateBar({
             return yScaleSecondary(measureName) + barWidth / 2;
           case "multipleDimensions":
             // return d.x - barWidth / 2;
-            return d.x - barWidth / 2;
+            return d.x + barWidth / 2;
         }
       })
       .transition()
