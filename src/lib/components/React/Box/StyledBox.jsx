@@ -166,7 +166,7 @@ const widthObjectStyle = css`
 `
 
 const widthStyle = css`
-  max-width: ${props => props.widthProp};
+  width: ${props => props.widthProp};
 `
 
 const StyledBox = styled.div`

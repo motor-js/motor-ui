@@ -237,7 +237,7 @@ Box.defaultProps = {
   justify: null,
   justifyContent: null,
   direction: 'row',
-  flex: true,
+  flex: false,
   focusable: false,
   basis: null,
   wrapProp: false,
