@@ -216,7 +216,7 @@ function StyledLine(props) {
               style={{
                 border: isSelectionLineVisible ? "1px solid #CCCCCC" : "none",
                 overflowX: isSelectionLineVisible ? "hidden" : "auto",
-                overflowY: isSelectionLineVisible ? "hidden" : "auto",
+                overflowY: isSelectionLineVisible ? "hidden" : "visible",
                 // width,
               }}
             >

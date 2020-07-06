@@ -187,7 +187,7 @@ function StyledBarPlot(props) {
                   ? "1px solid #CCCCCC"
                   : "none",
                 overflowX: isSelectionBarPlotVisible ? "hidden" : "auto",
-                overflowY: isSelectionBarPlotVisible ? "hidden" : "auto",
+                overflowY: isSelectionBarPlotVisible ? "hidden" : "visible",
                 // width,
               }}
             >

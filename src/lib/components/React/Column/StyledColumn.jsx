@@ -231,7 +231,7 @@ function StyledColumn({
               style={{
                 border: isSelectionColumnVisible ? "1px solid #CCCCCC" : "none",
                 overflowX: isSelectionColumnVisible ? "hidden" : "auto",
-                overflowY: isSelectionColumnVisible ? "hidden" : "auto",
+                overflowY: isSelectionColumnVisible ? "hidden" : "visible",
                 // width,
               }}
             >

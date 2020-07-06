@@ -189,7 +189,7 @@ function StyledPie({
               style={{
                 border: isSelectionPieVisible ? "1px solid #CCCCCC" : "none",
                 overflowX: isSelectionPieVisible ? "hidden" : "auto",
-                overflowY: isSelectionPieVisible ? "hidden" : "auto",
+                overflowY: isSelectionPieVisible ? "hidden" : "visible",
                 // width,
               }}
             >

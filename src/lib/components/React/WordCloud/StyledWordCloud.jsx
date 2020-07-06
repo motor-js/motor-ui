@@ -183,7 +183,7 @@ function StyledWordCloud(props) {
                   ? "1px solid #CCCCCC"
                   : "none",
                 overflowX: isSelectionWordCloudVisible ? "hidden" : "auto",
-                overflowY: isSelectionWordCloudVisible ? "hidden" : "auto",
+                overflowY: isSelectionWordCloudVisible ? "hidden" : "visible",
                 // width,
               }}
             >

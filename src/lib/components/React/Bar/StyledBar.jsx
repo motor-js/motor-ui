@@ -221,7 +221,7 @@ function StyledBar(props) {
               style={{
                 border: isSelectionBarVisible ? "1px solid #CCCCCC" : "none",
                 overflowX: isSelectionBarVisible ? "hidden" : "auto",
-                overflowY: isSelectionBarVisible ? "hidden" : "auto",
+                overflowY: isSelectionBarVisible ? "hidden" : "visible",
               }}
             >
               <div
