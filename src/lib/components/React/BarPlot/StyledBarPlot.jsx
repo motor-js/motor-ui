@@ -43,6 +43,7 @@ function StyledBarPlot(props) {
     fontColor,
     border,
     backgroundColor,
+    borderRadius,
     chartColor,
     showLegend,
     allowSelections,
@@ -170,6 +171,7 @@ function StyledBarPlot(props) {
           backgroundColor={backgroundColor}
           margin={margin}
           width={width}
+          borderRadius={borderRadius}
         >
           <div
             ref={ref}
@@ -207,6 +209,7 @@ function StyledBarPlot(props) {
       ) : (
         <BarPlotWrapperNoData
           border={border}
+          borderRadius={borderRadius}
           size={size}
           width={width}
           margin={margin}

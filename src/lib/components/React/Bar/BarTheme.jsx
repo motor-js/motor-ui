@@ -13,7 +13,8 @@ const BarWrapper = styled.div`
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
-  border-radius: ${(props) => props.theme.global.chart.borderRadius};
+  border-radius: ${(props) =>
+    props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
     props.backgroundColor || props.theme.global.chart.backgroundColor};
   margin: ${(props) => props.margin};
@@ -32,7 +33,8 @@ const BarWrapperNoData = styled.div`
       : borderStyle(props.border, props.theme))};
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
-  border-radius: ${(props) => props.theme.global.chart.noData.borderRadius};
+  border-radius: ${(props) =>
+    props.borderRadius || props.theme.global.chart.noData.borderRadius};
   background-color: ${(props) =>
     props.theme.global.chart.noData.backgroundColor};
   border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};

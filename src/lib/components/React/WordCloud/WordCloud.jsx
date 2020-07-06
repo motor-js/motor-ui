@@ -117,6 +117,8 @@ WordCloud.propTypes = {
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
+  /** Border Radius of the chart */
+  borderRadius: PropTypes.string,
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */

@@ -42,6 +42,7 @@ function StyledWordCloud(props) {
     allowSelections,
     border,
     backgroundColor,
+    borderRadius,
     chartColor,
     calcCondition,
     suppressZero,
@@ -163,6 +164,7 @@ function StyledWordCloud(props) {
       {qData && qLayout && !dataError ? (
         <WordCloudWrapper
           border={border}
+          borderRadius={borderRadius}
           backgroundColor={backgroundColor}
           margin={margin}
           width={width}
@@ -203,6 +205,7 @@ function StyledWordCloud(props) {
       ) : (
         <WordCloudWrapperNoData
           border={border}
+          borderRadius={borderRadius}
           size={size}
           width={width}
           margin={margin}

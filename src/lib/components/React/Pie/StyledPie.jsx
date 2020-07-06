@@ -1,18 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react';
-import UseHyperCube from '../../../hooks/useHyperCube';
-import useOutsideClick from '../../../hooks/useOutsideClick';
-import { validData, legendPosition } from '../../../utils';
-import SelectionModal from '../SelectionModal';
+import React, { useRef, useEffect, useState } from "react";
+import UseHyperCube from "../../../hooks/useHyperCube";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import { validData, legendPosition } from "../../../utils";
+import SelectionModal from "../SelectionModal";
 import PieTheme, {
   PieWrapper,
   PieWrapperNoData,
   PieNoDataContent,
-} from './PieTheme';
-import TooltipTheme from '../../D3/Tooltip/TooltipTheme';
-import TitleTheme from '../../D3/Title/TitleTheme';
-import LegendTheme from '../../D3/Legend/LegendTheme';
-import CreatePie from './CreatePie';
-import Spinner from '../Spinner';
+} from "./PieTheme";
+import TooltipTheme from "../../D3/Tooltip/TooltipTheme";
+import TitleTheme from "../../D3/Title/TitleTheme";
+import LegendTheme from "../../D3/Legend/LegendTheme";
+import CreatePie from "./CreatePie";
+import Spinner from "../Spinner";
 
 function StyledPie({
   engine,
@@ -26,6 +26,7 @@ function StyledPie({
   fontColor,
   border,
   backgroundColor,
+  borderRadius,
   chartColor,
   showLegend,
   allowSelections,
@@ -90,8 +91,8 @@ function StyledPie({
 
   useOutsideClick(ref, () => {
     if (
-      event.target.classList.contains('cancelSelections') ||
-      event.target.parentNode.classList.contains('cancelSelections')
+      event.target.classList.contains("cancelSelections") ||
+      event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
     if (isSelectionPieVisible) {
@@ -101,7 +102,7 @@ function StyledPie({
   });
 
   const handleResize = () => {
-    if (typeof calcCond === 'undefined' && dataError.length === 0) {
+    if (typeof calcCond === "undefined" && dataError.length === 0) {
       CreatePie({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
@@ -152,10 +153,10 @@ function StyledPie({
       CreatePie(chartSettings);
     }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [qData, d3Container.current]);
 
@@ -164,6 +165,7 @@ function StyledPie({
       {qData && qLayout && !dataError ? (
         <PieWrapper
           border={border}
+          borderRadius={borderRadius}
           backgroundColor={backgroundColor}
           margin={margin}
           width={width}
@@ -172,9 +174,9 @@ function StyledPie({
           <div
             ref={ref}
             style={{
-              position: 'relative',
+              position: "relative",
               height,
-              margin: '10px',
+              margin: "10px",
             }}
           >
             <SelectionModal
@@ -185,14 +187,14 @@ function StyledPie({
             />
             <div
               style={{
-                border: isSelectionPieVisible ? '1px solid #CCCCCC' : 'none',
-                overflowX: isSelectionPieVisible ? 'hidden' : 'auto',
-                overflowY: isSelectionPieVisible ? 'hidden' : 'auto',
+                border: isSelectionPieVisible ? "1px solid #CCCCCC" : "none",
+                overflowX: isSelectionPieVisible ? "hidden" : "auto",
+                overflowY: isSelectionPieVisible ? "hidden" : "auto",
                 // width,
               }}
             >
               <div
-                className='d3-component'
+                className="d3-component"
                 height={height}
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
@@ -203,6 +205,7 @@ function StyledPie({
       ) : (
         <PieWrapperNoData
           border={border}
+          borderRadius={borderRadius}
           size={size}
           width={width}
           margin={margin}

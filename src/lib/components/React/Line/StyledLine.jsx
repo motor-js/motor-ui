@@ -45,6 +45,7 @@ function StyledLine(props) {
     size,
     fontColor,
     border,
+    borderRadius,
     backgroundColor,
     chartColor,
     showLegend,
@@ -198,6 +199,7 @@ function StyledLine(props) {
       {qData && qLayout && !dataError ? (
         <LineWrapper
           border={border}
+          borderRadius={borderRadius}
           backgroundColor={backgroundColor}
           margin={margin}
           width={width}
@@ -236,6 +238,7 @@ function StyledLine(props) {
       ) : (
         <LineWrapperNoData
           border={border}
+          borderRadius={borderRadius}
           size={size}
           width={width}
           margin={margin}

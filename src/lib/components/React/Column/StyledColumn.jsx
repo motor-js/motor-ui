@@ -30,6 +30,7 @@ function StyledColumn({
   size,
   fontColor,
   border,
+  borderRadius,
   backgroundColor,
   chartColor,
   stacked,
@@ -214,6 +215,7 @@ function StyledColumn({
         <ColumnWrapper
           border={border}
           backgroundColor={backgroundColor}
+          borderRadius={borderRadius}
           margin={margin}
           width={width}
         >
@@ -251,6 +253,7 @@ function StyledColumn({
       ) : (
         <ColumnWrapperNoData
           border={border}
+          borderRadius={borderRadius}
           size={size}
           width={width}
           margin={margin}

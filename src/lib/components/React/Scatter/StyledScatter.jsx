@@ -48,6 +48,7 @@ function StyledScatter(props) {
     fontColor,
     border,
     backgroundColor,
+    borderRadius,
     chartColor,
     showLegend,
     allowSelections,
@@ -199,6 +200,7 @@ function StyledScatter(props) {
       {qData && qLayout && !dataError ? (
         <ScatterWrapper
           border={border}
+          borderRadius={borderRadius}
           backgroundColor={backgroundColor}
           margin={margin}
           width={width}
@@ -238,6 +240,7 @@ function StyledScatter(props) {
       ) : (
         <ScatterWrapperNoData
           border={border}
+          borderRadius={borderRadius}
           size={size}
           width={width}
           margin={margin}

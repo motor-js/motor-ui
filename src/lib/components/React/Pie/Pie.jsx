@@ -113,6 +113,8 @@ Pie.propTypes = {
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
+  /** Border Radius on the Pie */
+  borderRadius: PropTypes.string,
   /** Color of the Labels on the Pie */
   fontColor: PropTypes.string,
   /** Background Color of the chart */

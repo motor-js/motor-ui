@@ -164,6 +164,8 @@ Box.propTypes = {
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
+  /** border radius */
+  borderRadius: PropTypes.string,
   /** padding */
   padding: PropTypes.string,
   /** How to align the contents along the cross axis */

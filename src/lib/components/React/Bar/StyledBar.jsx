@@ -45,6 +45,7 @@ function StyledBar(props) {
     size,
     fontColor,
     border,
+    borderRadius,
     backgroundColor,
     chartColor,
     showLegend,
@@ -204,6 +205,7 @@ function StyledBar(props) {
         <BarWrapper
           border={border}
           backgroundColor={backgroundColor}
+          borderRadius={borderRadius}
           margin={margin}
           width={width}
         >
