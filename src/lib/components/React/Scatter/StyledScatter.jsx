@@ -219,7 +219,7 @@ function StyledScatter(props) {
                   ? "1px solid #CCCCCC"
                   : "none",
                 overflowX: isSelectionScatterVisible ? "hidden" : "auto",
-                overflowY: isSelectionScatterVisible ? "hidden" : "visible",
+                overflowY: isSelectionScatterVisible ? "hidden" : "auto",
               }}
             >
               <div
