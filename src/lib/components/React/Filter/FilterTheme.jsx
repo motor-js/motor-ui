@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { ChevronUp } from '@styled-icons/feather/ChevronUp';
-import { ChevronDown } from '@styled-icons/feather/ChevronDown';
-import { Search } from '@styled-icons/feather/Search';
-import { X } from '@styled-icons/feather/X';
-import { defaultProps } from '../../../default-props';
-import { globalStyle } from '../../../utils/styles';
-import { selectColor } from '../../../utils/colors';
+import styled from "styled-components";
+import { ChevronUp } from "@styled-icons/feather/ChevronUp";
+import { ChevronDown } from "@styled-icons/feather/ChevronDown";
+import { Search } from "@styled-icons/feather/Search";
+import { X } from "@styled-icons/feather/X";
+import { defaultProps } from "../../../default-props";
+import { globalStyle } from "../../../utils/styles";
+import { selectColor } from "../../../utils/colors";
 
 const FilterWrapper = styled.div`
   ${globalStyle};
@@ -43,7 +43,11 @@ const FilterTitle = styled.div`
   border-radius: ${(props) => props.theme.filter.title.radius};
   padding: 0.6em 0 0.6em 0em;
   cursor: pointer;
-  user-select: none;
+    "-webkit-user-select": "none",
+    "-khtml-user-select": "none",
+    "-moz-user-select": "none",
+    "-ms-user-select": "none",
+    "user-select": "none",
   white-space: nowrap;
   overflow-x: hidden;
   &:hover {
@@ -130,19 +134,19 @@ const StyledFilterListItem = styled.div.attrs((props) => {
   let bkgClr;
   let txtClr;
   switch (props.selected) {
-    case 'S':
+    case "S":
       bkgClr = selectColor(props.theme.filter.color.selected, props.theme);
       txtClr = selectColor(props.theme.filter.color.selectedFont, props.theme);
       break;
-    case 'O':
+    case "O":
       bkgClr = props.theme.global.backgroungColor;
       txtClr = props.theme.global.color.font;
       break;
-    case 'A':
+    case "A":
       bkgClr = selectColor(props.theme.filter.color.altSelection, props.theme);
       txtClr = props.theme.global.color.font;
       break;
-    case 'X':
+    case "X":
       bkgClr = selectColor(props.theme.filter.color.notSelected, props.theme);
       txtClr = props.theme.global.color.font;
       break;

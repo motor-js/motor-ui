@@ -25,7 +25,11 @@ const KPIWrapper = styled.div`
     props.backgroundColor || props.theme.kpi.wrapper.backgroundColor};
   position: relative;
   word-wrap: break-word;
-  user-select: none;
+    "-webkit-user-select": "none",
+    "-khtml-user-select": "none",
+    "-moz-user-select": "none",
+    "-ms-user-select": "none",
+    "user-select": "none",
   display: inline-flex;
   text-align: ${(props) =>
     props.textAlign || props.theme.kpi.wrapper.textAlign};

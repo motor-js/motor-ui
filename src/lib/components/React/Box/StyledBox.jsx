@@ -184,6 +184,11 @@ const StyledBox = styled.div`
     props.widthProp &&
     (typeof props.widthProp === "object" ? widthObjectStyle : widthStyle)}
   display: flex;
+    "-webkit-user-select": "none",
+    "-khtml-user-select": "none",
+    "-moz-user-select": "none",
+    "-ms-user-select": "none",
+    "user-select": "none",
   box-sizing: border-box;
   background-color: ${(props) =>
     selectColor(props.backgroundColor, props.theme)};

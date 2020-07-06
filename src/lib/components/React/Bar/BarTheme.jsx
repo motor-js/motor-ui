@@ -125,6 +125,10 @@ function BarTheme(theme, size, fontColor, colorArray) {
   const yAxisStyle = {
     "font-family": fontFamily,
     "font-size": fontSize.font[size],
+    "-webkit-user-select": "none",
+    "-khtml-user-select": "none",
+    "-moz-user-select": "none",
+    "-ms-user-select": "none",
     "user-select": "none",
     color: yAxisColor,
   };
