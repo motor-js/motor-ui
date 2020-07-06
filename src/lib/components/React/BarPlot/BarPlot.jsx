@@ -84,6 +84,7 @@ BarPlot.propTypes = {
       "vertical",
       "all",
       "between",
+      "none",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),

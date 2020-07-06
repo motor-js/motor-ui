@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledKPI from './StyledKPI';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import defaultTheme from '../../../themes/defaultTheme';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledKPI from "./StyledKPI";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import defaultTheme from "../../../themes/defaultTheme";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
 function KPI({ config, ...rest }) {
   const myConfig = config || useContext(ConfigContext);
@@ -26,28 +26,28 @@ function KPI({ config, ...rest }) {
 const BORDER_SHAPE = PropTypes.shape({
   color: PropTypes.oneOfType([PropTypes.string]),
   side: PropTypes.oneOf([
-    'top',
-    'left',
-    'bottom',
-    'right',
-    'start',
-    'end',
-    'horizontal',
-    'vertical',
-    'all',
-    'between',
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
   ]),
   size: PropTypes.oneOfType([PropTypes.string]),
   style: PropTypes.oneOf([
-    'solid',
-    'dashed',
-    'dotted',
-    'double',
-    'groove',
-    'ridge',
-    'inset',
-    'outset',
-    'hidden',
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
   ]),
 });
 
@@ -71,52 +71,53 @@ KPI.propTypes = {
   border: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf([
-      'top',
-      'left',
-      'bottom',
-      'right',
-      'start',
-      'end',
-      'horizontal',
-      'vertical',
-      'all',
-      'between',
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+      "none",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
       side: PropTypes.oneOf([
-        'top',
-        'left',
-        'bottom',
-        'right',
-        'start',
-        'end',
-        'horizontal',
-        'vertical',
-        'all',
-        'between',
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
       ]),
       size: PropTypes.oneOfType([PropTypes.string]),
       style: PropTypes.oneOf([
-        'solid',
-        'dashed',
-        'dotted',
-        'double',
-        'groove',
-        'ridge',
-        'inset',
-        'outset',
-        'hidden',
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
       ]),
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
   /** The alignment of the text within the component */
-  justifyContent: PropTypes.oneOf(['flex-start', 'center', 'flex-end']),
+  justifyContent: PropTypes.oneOf(["flex-start", "center", "flex-end"]),
   /** Alignment of KPI label and Value relative to their container */
-  textAlign: PropTypes.oneOf(['left', 'center', 'right']),
+  textAlign: PropTypes.oneOf(["left", "center", "right"]),
   /** Size of the KPI */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /** RoundNum of the KPI */
   roundNum: PropTypes.bool,
   /** Color of the KPI Value */
@@ -126,7 +127,7 @@ KPI.propTypes = {
   /** Color of the KPI Label */
   labelColor: PropTypes.string,
   /** Alignment of the KPI Label */
-  alignSelf: PropTypes.oneOf(['flex-start', 'center', 'flex-end']),
+  alignSelf: PropTypes.oneOf(["flex-start", "center", "flex-end"]),
   /** Padding of the KPI  */
   padding: PropTypes.string,
   /** Color of the KPI background */
@@ -148,11 +149,11 @@ KPI.defaultProps = {
   label: null,
   calcCondition: undefined,
   margin: null,
-  width: '100%',
+  width: "100%",
   border: true,
-  justifyContent: 'center',
+  justifyContent: "center",
   textAlign: null,
-  size: 'medium',
+  size: "medium",
   roundNum: true,
   color: null,
   precision: true,
@@ -163,7 +164,7 @@ KPI.defaultProps = {
   maxWidth: null,
   responsive: true,
   onClick: () => {},
-  cursor: 'default',
+  cursor: "default",
   autoSizeValue: true,
 };
 

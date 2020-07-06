@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import StyledBox from './StyledBox';
+import React, { useState, useMemo } from "react";
+import PropTypes from "prop-types";
+import StyledBox from "./StyledBox";
 
 /*
  *  REVISIT:
@@ -59,33 +59,33 @@ const Box = ({
 
 export default Box;
 
-const OVERFLOW_VALUES = ['auto', 'hidden', 'scroll', 'visible'];
+const OVERFLOW_VALUES = ["auto", "hidden", "scroll", "visible"];
 
 const BORDER_SHAPE = PropTypes.shape({
   color: PropTypes.oneOfType([PropTypes.string]),
   side: PropTypes.oneOf([
-    'top',
-    'left',
-    'bottom',
-    'right',
-    'start',
-    'end',
-    'horizontal',
-    'vertical',
-    'all',
-    'between',
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
   ]),
   size: PropTypes.oneOfType([PropTypes.string]),
   style: PropTypes.oneOf([
-    'solid',
-    'dashed',
-    'dotted',
-    'double',
-    'groove',
-    'ridge',
-    'inset',
-    'outset',
-    'hidden',
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
   ]),
 });
 
@@ -123,42 +123,43 @@ Box.propTypes = {
   border: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf([
-      'top',
-      'left',
-      'bottom',
-      'right',
-      'start',
-      'end',
-      'horizontal',
-      'vertical',
-      'all',
-      'between',
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+      "none",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
       side: PropTypes.oneOf([
-        'top',
-        'left',
-        'bottom',
-        'right',
-        'start',
-        'end',
-        'horizontal',
-        'vertical',
-        'all',
-        'between',
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
       ]),
       size: PropTypes.oneOfType([PropTypes.string]),
       style: PropTypes.oneOf([
-        'solid',
-        'dashed',
-        'dotted',
-        'double',
-        'groove',
-        'ridge',
-        'inset',
-        'outset',
-        'hidden',
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
       ]),
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
@@ -166,44 +167,44 @@ Box.propTypes = {
   /** padding */
   padding: PropTypes.string,
   /** How to align the contents along the cross axis */
-  align: PropTypes.oneOf(['start', 'center', 'end', 'baseline', 'stretch']),
+  align: PropTypes.oneOf(["start", "center", "end", "baseline", "stretch"]),
   /** How to align the contents when there is extra space in the cross axis */
   alignContent: PropTypes.oneOf([
-    'start',
-    'center',
-    'end',
-    'between',
-    'around',
-    'stretch',
+    "start",
+    "center",
+    "end",
+    "between",
+    "around",
+    "stretch",
   ]),
   justify: PropTypes.oneOf([
-    'around',
-    'between',
-    'center',
-    'end',
-    'evenly',
-    'start',
-    'stretch',
+    "around",
+    "between",
+    "center",
+    "end",
+    "evenly",
+    "start",
+    "stretch",
   ]),
   justifyContent: PropTypes.oneOf([
-    'around',
-    'between',
-    'center',
-    'end',
-    'start',
-    'stretch',
+    "around",
+    "between",
+    "center",
+    "end",
+    "start",
+    "stretch",
   ]),
   /** sets flex-direction. The direction to layout child components */
   direction: PropTypes.oneOf([
-    'row',
-    'column',
-    'row-responsive',
-    'row-reverse',
-    'column-reverse',
+    "row",
+    "column",
+    "row-responsive",
+    "row-reverse",
+    "column-reverse",
   ]),
   /** Whether flex-grow and/or flex-shrink is true and at a desired factor */
   flex: PropTypes.oneOfType([
-    PropTypes.oneOf(['grow', 'shrink']),
+    PropTypes.oneOf(["grow", "shrink"]),
     PropTypes.bool,
     PropTypes.shape({
       grow: PropTypes.number,
@@ -215,7 +216,7 @@ Box.propTypes = {
   /** A fixed or relative size along its container's main axis */
   basis: PropTypes.string,
   /** whether children are wrapped in the box container */
-  wrapProp: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['reverse'])]),
+  wrapProp: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(["reverse"])]),
   /** Setting the box shadow css property */
   elevation: PropTypes.string,
   /** OnClick callback function */
@@ -228,7 +229,7 @@ Box.defaultProps = {
   height: null,
   width: null,
   margin: null,
-  overflow: 'auto',
+  overflow: "auto",
   backgroundColor: null,
   border: null,
   padding: null,
@@ -236,12 +237,12 @@ Box.defaultProps = {
   alignContent: null,
   justify: null,
   justifyContent: null,
-  direction: 'row',
+  direction: "row",
   flex: false,
   focusable: false,
   basis: null,
   wrapProp: false,
-  elevation: '',
+  elevation: "",
   onClick: null,
   gridArea: null,
 };

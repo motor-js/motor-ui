@@ -1,14 +1,15 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle, borderStyle } from '../../../utils/styles';
-import { createColorArray } from '../../../utils/colors';
-import { selectColor } from '../../../utils/colors';
-import { componentWidth } from '../../../utils';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { createColorArray } from "../../../utils/colors";
+import { selectColor } from "../../../utils/colors";
+import { componentWidth } from "../../../utils";
 
 const PieWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
@@ -85,32 +86,32 @@ function PieTheme(theme, size, fontColor, chartColor) {
   };
 
   const PieChartStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
   };
 
   const PieLabelStyle = {
-    'font-size': fontSize.font[size],
+    "font-size": fontSize.font[size],
     fill: fontColor || labelColor,
   };
 
   const PieStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'left',
-    maxhighlightColor: '#006593',
-    padding: '10px 0px 10px 15px',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "left",
+    maxhighlightColor: "#006593",
+    padding: "10px 0px 10px 15px",
     fontFamily,
     fontSize: fontSize.font[size],
-    chartValueSize: '15px',
-    cursor: 'pointer',
-    userSelect: 'none',
+    chartValueSize: "15px",
+    cursor: "pointer",
+    userSelect: "none",
   };
 
   const SelectedPie = {
     opacity: chart.selection.opacity,
     stroke: chart.selection.stroke,
-    'stroke-width': chart.selection.strokeWidth,
+    "stroke-width": chart.selection.strokeWidth,
   };
 
   const NonSelectedPie = {

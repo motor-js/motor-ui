@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle, borderStyle } from '../../../utils/styles';
-import { selectColor } from '../../../utils/colors';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { selectColor } from "../../../utils/colors";
 
 const KPIWrapper = styled.div`
   ${globalStyle}
@@ -13,6 +13,7 @@ const KPIWrapper = styled.div`
     props.theme.kpi.medium.padding};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
@@ -30,14 +31,14 @@ const KPIWrapper = styled.div`
     props.textAlign || props.theme.kpi.wrapper.textAlign};
   justify-content: ${(props) => {
     switch (props.justifyContent) {
-      case 'flex-start':
-        return 'flex-start';
-      case 'center':
-        return 'center';
-      case 'flex-end':
-        return 'flex-end';
+      case "flex-start":
+        return "flex-start";
+      case "center":
+        return "center";
+      case "flex-end":
+        return "flex-end";
       default:
-        return 'center';
+        return "center";
     }
   }};
 `;

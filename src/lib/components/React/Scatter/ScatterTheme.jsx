@@ -1,14 +1,15 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle, borderStyle } from '../../../utils/styles';
-import { createColorArray } from '../../../utils/colors';
-import { selectColor } from '../../../utils/colors';
-import { componentWidth } from '../../../utils';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { createColorArray } from "../../../utils/colors";
+import { selectColor } from "../../../utils/colors";
+import { componentWidth } from "../../../utils";
 
 const ScatterWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
@@ -100,46 +101,46 @@ function ScatterTheme(theme, size, fontColor, colorArray) {
   const GridLineStyle = {
     show: gridlines.show,
     stroke: gridlines.stroke,
-    'stroke-dasharray': gridlines.strokeDasharray,
+    "stroke-dasharray": gridlines.strokeDasharray,
   };
 
   const ScatterOverviewScatter = {
     opacity: overview.opacity,
     stroke: overview.stroke,
-    'stroke-width': overview.strokeWidth,
+    "stroke-width": overview.strokeWidth,
   };
 
   const ScatterChartStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
   };
 
   const yAxisStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
     color: yAxisColor,
   };
 
   const xAxisStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
     color: xAxisColor,
   };
 
   const axisTitleStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
     fill: axisTitleColor,
   };
 
   const ScatterLabelStyle = {
-    'font-size': fontSize.subFont[size],
+    "font-size": fontSize.subFont[size],
     fill: fontColor || labelColor,
   };
 
   const ScatterStyle = {
     fill: scatters.fill,
-    'stroke-width': scatters.strokeWidth,
+    "stroke-width": scatters.strokeWidth,
   };
 
   const ScatterMarkerStyle = {
@@ -150,7 +151,7 @@ function ScatterTheme(theme, size, fontColor, colorArray) {
   const SelectedScatter = {
     opacity: chart.selection.opacity,
     stroke: chart.selection.stroke,
-    'stroke-width': chart.selection.strokeWidth,
+    "stroke-width": chart.selection.strokeWidth,
   };
 
   const NonSelectedScatter = {

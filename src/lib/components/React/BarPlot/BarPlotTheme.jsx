@@ -1,14 +1,15 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle, borderStyle } from '../../../utils/styles';
-import { createColorArray } from '../../../utils/colors';
-import { selectColor } from '../../../utils/colors';
-import { componentWidth } from '../../../utils';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { createColorArray } from "../../../utils/colors";
+import { selectColor } from "../../../utils/colors";
+import { componentWidth } from "../../../utils";
 
 const BarPlotWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
@@ -85,20 +86,20 @@ function BarPlotTheme(theme, size, fontColor, colorArray) {
   };
 
   const BarPlotChartStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
   };
 
   const BarPlotLabelStyle = {
-    'font-size': fontSize.subFont[size],
-    'alignment-baseline': 'middle',
+    "font-size": fontSize.subFont[size],
+    "alignment-baseline": "middle",
     fill: fontColor || labelColor,
   };
 
   const SelectedBarPlot = {
     opacity: chart.selection.opacity,
     stroke: chart.selection.stroke,
-    'stroke-width': chart.selection.strokeWidth,
+    "stroke-width": chart.selection.strokeWidth,
   };
 
   const NonSelectedBarPlot = {

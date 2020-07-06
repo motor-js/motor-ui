@@ -104,6 +104,7 @@ Line.propTypes = {
       "vertical",
       "all",
       "between",
+      "none",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
@@ -246,8 +247,8 @@ Line.defaultProps = {
   showGridlines: "solid",
   showAxis: undefined,
   textOnAxis: undefined,
-  curve: 'Linear',
-  symbol: 'circle',
+  curve: "Linear",
+  symbol: "circle",
   roundNum: true,
   columnSortOrder: [],
   sortDirection: "",

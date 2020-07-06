@@ -1,14 +1,15 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle, borderStyle } from '../../../utils/styles';
-import { createColorArray } from '../../../utils/colors';
-import { selectColor } from '../../../utils/colors';
-import { componentWidth } from '../../../utils';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { createColorArray } from "../../../utils/colors";
+import { selectColor } from "../../../utils/colors";
+import { componentWidth } from "../../../utils";
 
 const ColumnWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
@@ -104,56 +105,56 @@ function ColumnTheme(theme, size, fontColor, colorArray) {
   const ColumnOverviewColumn = {
     opacity: overview.opacity,
     stroke: overview.stroke,
-    'stroke-width': overview.strokeWidth,
+    "stroke-width": overview.strokeWidth,
   };
 
   const ColumnChartStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
   };
 
   const yAxisStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
-    'user-select': 'none',
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
+    "user-select": "none",
     color: yAxisColor,
   };
 
   const xAxisStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
-    'user-select': 'none',
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
+    "user-select": "none",
     color: xAxisColor,
   };
 
   const axisTitleStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
-    'user-select': 'none',
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
+    "user-select": "none",
     fill: axisTitleColor,
   };
 
   const ColumnLabelStyle = {
-    'font-size': fontSize.subFont[size],
-    'user-select': 'none',
+    "font-size": fontSize.subFont[size],
+    "user-select": "none",
     fill: fontColor || labelColor,
   };
 
   const ColumnStyle = {
     stroke: columns.stroke,
-    'stroke-width': columns.strokeWidth,
+    "stroke-width": columns.strokeWidth,
   };
 
   const GridLineStyle = {
     show: gridlines.show,
     stroke: gridlines.stroke,
-    'stroke-dasharray': gridlines.strokeDasharray,
+    "stroke-dasharray": gridlines.strokeDasharray,
   };
 
   const SelectedColumn = {
     opacity: chart.selection.opacity,
     stroke: chart.selection.stroke,
-    'stroke-width': chart.selection.strokeWidth,
+    "stroke-width": chart.selection.strokeWidth,
   };
 
   const NonSelectedColumn = {

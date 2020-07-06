@@ -1,14 +1,15 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle, borderStyle } from '../../../utils/styles';
-import { createColorArray } from '../../../utils/colors';
-import { selectColor } from '../../../utils/colors';
-import { componentWidth } from '../../../utils';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { createColorArray } from "../../../utils/colors";
+import { selectColor } from "../../../utils/colors";
+import { componentWidth } from "../../../utils";
 
 const BarWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
@@ -111,55 +112,55 @@ function BarTheme(theme, size, fontColor, colorArray) {
   const BarOverviewBar = {
     opacity: overview.opacity,
     stroke: overview.stroke,
-    'stroke-width': overview.strokeWidth,
+    "stroke-width": overview.strokeWidth,
   };
 
   const BarChartStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
   };
 
   const yAxisStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
-    'user-select': 'none',
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
+    "user-select": "none",
     color: yAxisColor,
   };
 
   const xAxisStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
-    'user-select': 'none',
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
+    "user-select": "none",
     color: xAxisColor,
   };
 
   const axisTitleStyle = {
-    'font-family': fontFamily,
-    'font-size': fontSize.font[size],
-    'user-select': 'none',
+    "font-family": fontFamily,
+    "font-size": fontSize.font[size],
+    "user-select": "none",
     fill: axisTitleColor,
   };
 
   const BarLabelStyle = {
-    'font-size': fontSize.subFont[size],
+    "font-size": fontSize.subFont[size],
     fill: fontColor || labelColor,
   };
 
   const BarStyle = {
     stroke: bars.stroke,
-    'stroke-width': bars.strokeWidth,
+    "stroke-width": bars.strokeWidth,
   };
 
   const GridLineStyle = {
     show: gridlines.show,
     stroke: gridlines.stroke,
-    'stroke-dasharray': gridlines.strokeDasharray,
+    "stroke-dasharray": gridlines.strokeDasharray,
   };
 
   const SelectedBar = {
     opacity: chart.selection.opacity,
     stroke: chart.selection.stroke,
-    'stroke-width': chart.selection.strokeWidth,
+    "stroke-width": chart.selection.strokeWidth,
   };
 
   const NonSelectedBar = {
