@@ -184,21 +184,14 @@ const StyledBox = styled.div`
     props.widthProp &&
     (typeof props.widthProp === "object" ? widthObjectStyle : widthStyle)}
   display: flex;
-    "-webkit-user-select": "none",
-    "-khtml-user-select": "none",
-    "-moz-user-select": "none",
-    "-ms-user-select": "none",
-    "user-select": "none",
   box-sizing: border-box;
   background-color: ${(props) =>
     selectColor(props.backgroundColor, props.theme)};
   ${(props) =>
     props.border &&
-    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))}
- border-radius: ${(props) => props.borderRadius};
   padding: ${(props) => props.padding};
   ${(props) => props.align && alignStyle}
   ${(props) => props.alignContent && alignContentStyle}
