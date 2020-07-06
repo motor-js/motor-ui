@@ -133,6 +133,7 @@ Box.propTypes = {
       "vertical",
       "all",
       "between",
+      "none",
     ]),
     PropTypes.shape({
       color: PropTypes.oneOfType([PropTypes.string]),
@@ -163,6 +164,8 @@ Box.propTypes = {
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
+  /** border radius */
+  borderRadius: PropTypes.string,
   /** padding */
   padding: PropTypes.string,
   /** How to align the contents along the cross axis */

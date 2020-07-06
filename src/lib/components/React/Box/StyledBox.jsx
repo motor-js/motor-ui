@@ -189,9 +189,11 @@ const StyledBox = styled.div`
     selectColor(props.backgroundColor, props.theme)};
   ${(props) =>
     props.border &&
+    props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))}
+ border-radius: ${(props) => props.borderRadius};
   padding: ${(props) => props.padding};
   ${(props) => props.align && alignStyle}
   ${(props) => props.alignContent && alignContentStyle}
