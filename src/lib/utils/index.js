@@ -11,3 +11,4 @@ export { colorByExpression } from './colorByExpression';
 export { calcDisplayOption } from './calcDisplayOption';
 export { legendPosition } from './legendPosition';
 export { componentWidth } from './componentWidth';
+export { default as exportData } from './exportData';

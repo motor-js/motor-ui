@@ -54,5 +54,45 @@ export default [{
     commonjs(),
     terser(),
   ],
+},
+{
+  input: 'src/lib/themes/index.ts',
+  output: [
+    {
+      file: 'dist/themes/index.js',
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: 'dist/themes/index.es.js',
+      format: 'es',
+      sourcemap: true,
+    },
+  ],
+  plugins: [
+    typescript({
+      typescript: require('typescript'),
+    }),
+  ],
+},
+{
+  input: 'src/lib/utils/index.js',
+  output: [
+    {
+      file: 'dist/utils/index.js',
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: 'dist/utils/index.es.js',
+      format: 'es',
+      sourcemap: true,
+    },
+  ],
+  plugins: [
+    typescript({
+      typescript: require('typescript'),
+    }),
+  ],
 }]
 
