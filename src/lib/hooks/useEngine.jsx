@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 const enigma = require('enigma.js');
 const schema = require('enigma.js/schemas/12.170.2.json');
 const SenseUtilities = require('enigma.js/sense-utilities');
