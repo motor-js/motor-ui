@@ -421,60 +421,16 @@ export default function CreatePie({
   switch (showLabels) {
     case "inside":
       addLabels("in");
-      break;
+      break
     case true || "outside":
       addLabels();
-      break;
+      break
     case "altStyle":
       addAltLabels();
-      break;
-    case false:
+      break
+    case false || 'none':
       // don't add labels
-      break;
+      break
     default:
-      addLabels();
   }
 }
-
-/*
-
- //Alternate Label Style
-  const addAltLabels = () => {
-    const labels = svg
-      .selectAll('allLabels')
-      .data(pie)
-      .enter()
-      .append('text')
-      .text((d) => d.data[Object.keys(d.data)[0]])
-      .attr('class', (d, i) => `label-text${i}`)
-      .attr('transform', (d) => {
-        var pos = arc.centroid(d);
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-        pos[0] = radius * 0.8 * (midangle < Math.PI ? 1 : -1);
-        return 'translate(' + pos + ')';
-      })
-      .style('text-anchor', (d) => {
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-        return midangle < Math.PI ? 'start' : 'end';
-      });
-
-    const lines = g
-      .selectAll('allLines')
-      .data(pie)
-      .enter()
-      .append('polyline')
-      .attr('stroke', 'black')
-      .style('fill', 'none')
-      .attr('stroke-width', 1)
-      .attr('points', (d) => {
-        const posA = arc.centroid(d);
-        const posB = labelAltArc.centroid(d);
-        const posC = labelAltArc.centroid(d);
-        const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-        posC[0] = radius * 1.3 * (midangle < Math.PI ? 1 : -1);
-
-        return [posA, posB, posC];
-      });
-  };
-
-*/

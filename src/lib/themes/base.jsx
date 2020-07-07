@@ -602,16 +602,16 @@ const base = {
       maxWidth: 150,
     },
     columns: {
-      stroke: "var(--oc-gray-5)",
+      stroke: "var(--oc-gray-4)",
       strokeWidth: 0.5,
     },
     gridlines: {
-      stroke: "var(--oc-gray-5)",
-      strokeDasharray: "3,3",
+      stroke: "var(--oc-gray-4)",
+      strokeDasharray: null,
     },
     overview: {
       opacity: 0.5,
-      stroke: "var(--oc-gray-5)",
+      stroke: "var(--oc-gray-4)",
       strokeWidth: 0.5,
     },
   },
@@ -626,16 +626,16 @@ const base = {
       maxWidth: 100,
     },
     bars: {
-      stroke: "var(--oc-gray-5)",
+      stroke: "var(--oc-gray-4)",
       strokeWidth: 0.5,
     },
     gridlines: {
-      stroke: "var(--oc-gray-5)",
-      strokeDasharray: "3,3",
+      stroke: "var(--oc-gray-4)",
+      strokeDasharray: null,
     },
     overview: {
       opacity: 0.5,
-      stroke: "var(--oc-gray-5)",
+      stroke: "var(--oc-gray-4)",
       strokeWidth: 0.5,
     },
   },
@@ -682,8 +682,8 @@ const base = {
       overview: { radius: 3 },
     },
     gridlines: {
-      stroke: "var(--oc-gray-5)",
-      strokeDasharray: "3,3",
+      stroke: "var(--oc-gray-4)",
+      strokeDasharray: null,
     },
     overview: {
       opacity: 1,

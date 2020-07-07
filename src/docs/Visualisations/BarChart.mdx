@@ -30,28 +30,15 @@ import { config } from '../config/config.js'
            config={config}
             cols={[
               { qField: 'country', qLabel: 'Country' },
-            //  { qField: '=Count(winery)', qLabel: 'No of Wineries' },
-                    { qField: '=Avg(price)', qLabel: 'Average Price' }
+              { qField: '=Avg(price)', qLabel: 'Average Price' }
             ]}
-            // title="Vehicle Sales by Region"
             showGridlines={true}
-            // suppressScroll={true}
-            // barPadding={5}
-            // zoomScrollOnBarWidth={10} //to add?
-            // textOnAxis='none'
-            // showLegend={false}
-            //suppressZero={true}
+            size='small'
             stacked={true}
-            // percentStacked={true}
             height="410px"
-            // border = {false}
             calcCondition={{
               qCond: '1+1=2',
               qMsg: 'Calculation condition has not been met'
-            }}
-            chartColor={{
-             type: 'array',
-             color: 'red'
             }}
             >
     </Bar>
@@ -73,19 +60,8 @@ Check out the props and example usage below 💡
              { qField: 'province', qLabel: 'Province' },
               { qField: '=Avg(price)', qLabel: 'Average Price' }
             ]}
-            // title="Stacked Bar Chart"
-            showGridlines={true}
-           //  suppressScroll={true}
-            // barPadding={5}
-            // zoomScrollOnBarWidth={10} 
-            // textOnAxis='none'
-            // showLegend={false}
-            //suppressZero={true}
             stacked={true}
-           // tickSpacing="wide"
-            // percentStacked={true}
             height="410px"
-            // border = {false}
             calcCondition={{
               qCond: '1+1=2',
               qMsg: 'Calculation condition has not been met'

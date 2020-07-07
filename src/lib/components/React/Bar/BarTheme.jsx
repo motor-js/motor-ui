@@ -153,8 +153,8 @@ function BarTheme(theme, size, fontColor, colorArray) {
   };
 
   const BarStyle = {
-    stroke: bars.stroke,
-    "stroke-width": bars.strokeWidth,
+  // stroke: bars.stroke,
+  // "stroke-width": bars.strokeWidth,
   };
 
   const GridLineStyle = {

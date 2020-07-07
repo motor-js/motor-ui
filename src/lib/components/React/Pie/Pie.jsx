@@ -177,7 +177,7 @@ Pie.propTypes = {
   /** Show chart values */
   showLabels: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(["inside", "outside", "altStyle"]),
+    PropTypes.oneOf(["inside", "outside", "altStyle", 'none']),
   ]),
 };
 

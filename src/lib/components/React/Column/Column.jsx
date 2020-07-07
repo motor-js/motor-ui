@@ -66,8 +66,6 @@ Column.propTypes = {
   columnSortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
-  /** Column theme try juno, classic or night. Default theme is 'classic' */
-  theme: PropTypes.string,
   /** Column width */
   width: PropTypes.string,
   /** The height of the Column */
@@ -216,13 +214,17 @@ Column.propTypes = {
 Column.defaultProps = {
   config: null,
   calcCondition: undefined,
+  suppressZero: null,
   width: "100%",
   height: "100%",
   margin: "5px",
   size: "medium",
-  fontColor: "",
+  showLabels: null,
+  fontColor: null,
   border: true,
+  borderRadius: null,
   backgroundColor: null,
+  chartColor: null,
   tickSpacing: undefined,
   allowSelections: true,
   textOnAxis: undefined,
@@ -233,6 +235,16 @@ Column.defaultProps = {
   sortDirection: "",
   stacked: false,
   percentStacked: false,
+  title: null,
+  subTitle: null,
+  showLegend: null,
+  maxWidth: null,
+  maxAxisLength: null,
+  suppressScroll: null,
+  columnPadding: null,
+  dimensionErrMsg: null,
+  measureErrMsg: null,
+  otherTotalSpec: null,
 };
 
 export default Column;

@@ -37,21 +37,15 @@ import { config } from '../config/config.js'
               { qField: '=Avg(price)', qLabel: 'Average Price' },
              // { qField: '=sum(price)', qLabel: 'Total Price' }
             ]}
-            chartColor={['red', 'blue']}
+            chartColor={'divergent9'}
+            size='small'
             showLabels='none'
             tickSpacing="wide"
-            // suppressScroll={true}
+            showGridlines='solid'
             responsive={true}
-             columnPadding={5}
-           //  size='medium'
-            // zoomScrollOnColumnWidth={10} //to add?
-            // textOnAxis='none'
-            // showLegend={false}
-            //suppressZero={true}
+            columnPadding={10}
             stacked={false}
-            // percentStacked={true}
             height="410px"
-            // border = {false}
             calcCondition={{
               qCond: '1+1=2',
               qMsg: 'Calculation condition has not been met'
