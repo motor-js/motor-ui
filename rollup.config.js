@@ -56,7 +56,7 @@ export default [{
   ],
 },
 {
-  input: 'src/lib/themes/index.ts',
+  input: 'src/lib/themes/index.js',
   output: [
     {
       file: 'dist/themes/index.js',
@@ -73,6 +73,33 @@ export default [{
     typescript({
       typescript: require('typescript'),
     }),
+    postcss({
+      plugins: [],
+      minimize: false,
+      sourceMap: 'inline',
+    }),
+    external({
+      includeDependencies: true,
+    }),
+    url(),
+    svgr(),
+    resolve({ extensions: ['.jsx', '.js'] }),
+    babel({
+      presets: [
+        'react-app',
+      ],
+      plugins: [
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-proposal-class-properties',
+        'transform-react-remove-prop-types',
+      ],
+      exclude: 'node_modules/**',
+      runtimeHelpers: true,
+    }),
+    commonjs(),
+    terser(),
   ],
 },
 {
@@ -93,6 +120,33 @@ export default [{
     typescript({
       typescript: require('typescript'),
     }),
+    postcss({
+      plugins: [],
+      minimize: false,
+      sourceMap: 'inline',
+    }),
+    external({
+      includeDependencies: true,
+    }),
+    url(),
+    svgr(),
+    resolve({ extensions: ['.jsx', '.js'] }),
+    babel({
+      presets: [
+        'react-app',
+      ],
+      plugins: [
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-proposal-class-properties',
+        'transform-react-remove-prop-types',
+      ],
+      exclude: 'node_modules/**',
+      runtimeHelpers: true,
+    }),
+    commonjs(),
+    terser(),
   ],
 }]
 
