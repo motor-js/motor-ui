@@ -77,7 +77,7 @@ function ColumnTheme(theme, size, fontColor, colorArray) {
   // if the prop is undefined, use the base theme
   const color = colorArray || colorTheme;
   const colorPalette = createColorArray(color, theme);
-
+  console.log(colorPalette)
   const xAxisColor = selectColor(xAxis.color, theme);
   const yAxisColor = selectColor(yAxis.color, theme);
   const axisTitleColor = selectColor(axisTitle.color, theme);
@@ -159,8 +159,8 @@ function ColumnTheme(theme, size, fontColor, colorArray) {
   };
 
   const ColumnStyle = {
-    stroke: columns.stroke,
-    "stroke-width": columns.strokeWidth,
+  //  stroke: columns.stroke,
+  //  "stroke-width": columns.strokeWidth,
   };
 
   const GridLineStyle = {

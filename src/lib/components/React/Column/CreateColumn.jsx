@@ -507,7 +507,7 @@ export default function CreateColumn({
           y_gridlines_lines.style("stroke-dasharray", "13, 13");
           break;
         case "solid":
-          x_gridlines_lines.style("stroke-dasharray", "0, 0");
+          y_gridlines_lines.style("stroke-dasharray", "0, 0");
           break;
         case "dots":
           y_gridlines_lines.style("stroke-dasharray", "3,3");

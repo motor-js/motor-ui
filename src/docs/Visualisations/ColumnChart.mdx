@@ -37,8 +37,8 @@ import { config } from '../config/config.js'
               { qField: '=Avg(price)', qLabel: 'Average Price' },
              // { qField: '=sum(price)', qLabel: 'Total Price' }
             ]}
+            chartColor={['red', 'blue']}
             showLabels='none'
-            showGridlines={true}
             tickSpacing="wide"
             // suppressScroll={true}
             responsive={true}
@@ -65,6 +65,33 @@ import { config } from '../config/config.js'
 Here is a stacked column chart.
 Check out the props and example usage below 💡
 
+
+
+<br />
+
+## Props
+
+<Props of={Column} />
+
+<br />
+
+## Theming
+
+
+### Entry Point
+
+```javascript
+theme.column
+```
+
+### Object
+
+Example below is taken from the Motor Theme.
+
+```javascript
+
+column: {
+/** 
 <Playground>
 <Motor  
  config={config}>  
@@ -98,31 +125,9 @@ Check out the props and example usage below 💡
   </Motor>
 </Playground>
 
-<br />
-
-## Props
-
-<Props of={Column} />
-
-<br />
-
-## Theming
 
 
-### Entry Point
-
-```javascript
-theme.column
-```
-
-### Object
-
-Example below is taken from the Motor Theme.
-
-```javascript
-
-column: {
-/** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
+Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   config: PropTypes.object,
   /** Column label  */
   label: PropTypes.string,
