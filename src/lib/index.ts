@@ -18,5 +18,6 @@ export { default as Spinner } from './components/React/Spinner'
 export { default as Table } from './components/React/Table'
 
 export { default as useHyperCube } from './hooks/useHyperCube';
+export { default as useEngine } from './hooks/useEngine';
 export { default as useScreenSize } from './hooks/useScreenSize';
 export { default as useSidebar } from './hooks/useSidebar';
