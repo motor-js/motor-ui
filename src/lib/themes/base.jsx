@@ -331,7 +331,7 @@ const base = {
       },
     },
     chart: {
-      allowSelections: false,
+      allowSelections: true,
       allowSlantedYAxis: true,
       backgroundColor: "white",
       borderRadius: "10px",
@@ -791,6 +791,7 @@ const base = {
       fill: "brandLight",
       stroke: "brand",
       radius: 4,
+      symbol: "circle",
     },
     overview: {
       opacity: 0.5,

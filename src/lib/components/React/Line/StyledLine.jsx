@@ -61,6 +61,7 @@ function StyledLine(props) {
     showGridlines,
     otherTotalSpec,
     tickSpacing,
+    symbol,
     ...rest
   } = props;
 
@@ -161,6 +162,7 @@ function StyledLine(props) {
           allowSelections === null
             ? LineDefault.allowSelections
             : allowSelections,
+        symbol: symbol === null ? LineDefault.symbol : symbol,
         maxAxisLength: maxAxisLength || LineDefault.maxAxisLength,
         LineThemes,
         ToolTipThemes,

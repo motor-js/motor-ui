@@ -110,6 +110,7 @@ function LineTheme(theme, size, fontColor, colorArray) {
     dimensionErrMsg: chart.error.dimensionErrMsg,
     measureErrMsg: chart.error.measureErrMsg,
     maxAxisLength: chart.maxAxisLength,
+    symbol: markers.symbol,
   };
 
   const GridLineStyle = {
