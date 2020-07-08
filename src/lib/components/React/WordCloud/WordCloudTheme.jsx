@@ -10,8 +10,8 @@ const WordCloudWrapper = styled.div`
     props.border &&
     props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
@@ -28,8 +28,8 @@ const WordCloudWrapperNoData = styled.div`
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>

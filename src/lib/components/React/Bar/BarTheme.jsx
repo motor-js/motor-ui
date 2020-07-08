@@ -11,8 +11,8 @@ const BarWrapper = styled.div`
     props.border &&
     props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
@@ -29,8 +29,8 @@ const BarWrapperNoData = styled.div`
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>
@@ -68,15 +68,18 @@ export { BarWrapper, BarWrapperNoData, BarNoDataContent };
 function BarTheme(theme, size, fontColor, colorArray) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const {
-    global: { fontFamily, chart, size: fontSize, colorTheme },
-    bar: { main, overview, bars, gridlines },
+    global: {
+      fontFamily,
+      chart,
+      size: fontSize,
+      colorTheme,
+      chart: { gridlines, selection, nonSelection },
+    },
+    bar: { main, overview, bars },
     xAxis,
     yAxis,
     axisTitle,
   } = theme;
-
-  // global settings (cannot be overridden by filter)
-  // const { fontFamily, chart } = global;
 
   // if the prop is undefined, use the base theme
   const color = colorArray || colorTheme;
@@ -86,8 +89,6 @@ function BarTheme(theme, size, fontColor, colorArray) {
   const yAxisColor = selectColor(yAxis.color, theme);
   const axisTitleColor = selectColor(axisTitle.color, theme);
   const labelColor = selectColor(chart.label.fontColor, theme);
-
-  // const { main, overview, bars, gridlines } = bar;
 
   const BarDefault = {
     allowSelections: chart.allowSelections,
@@ -153,8 +154,8 @@ function BarTheme(theme, size, fontColor, colorArray) {
   };
 
   const BarStyle = {
-  // stroke: bars.stroke,
-  // "stroke-width": bars.strokeWidth,
+    stroke: bars.stroke,
+    "stroke-width": bars.strokeWidth,
   };
 
   const GridLineStyle = {
@@ -164,13 +165,13 @@ function BarTheme(theme, size, fontColor, colorArray) {
   };
 
   const SelectedBar = {
-    opacity: chart.selection.opacity,
-    stroke: chart.selection.stroke,
-    "stroke-width": chart.selection.strokeWidth,
+    opacity: selection.opacity,
+    stroke: selection.stroke,
+    "stroke-width": selection.strokeWidth,
   };
 
   const NonSelectedBar = {
-    opacity: chart.nonSelection.opacity,
+    opacity: nonSelection.opacity,
   };
 
   const BarThemes = {

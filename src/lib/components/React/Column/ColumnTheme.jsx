@@ -11,8 +11,8 @@ const ColumnWrapper = styled.div`
     props.border &&
     props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
@@ -29,8 +29,8 @@ const ColumnWrapperNoData = styled.div`
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>
@@ -67,8 +67,18 @@ export { ColumnWrapper, ColumnWrapperNoData, ColumnNoDataContent };
 function ColumnTheme(theme, size, fontColor, colorArray) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const {
-    global: { fontFamily, chart, size: fontSize, colorTheme },
-    column: { main, overview, columns, gridlines },
+    global: {
+      fontFamily,
+      chart,
+      size: fontSize,
+      colorTheme,
+      chart: { gridlines, selection, nonSelection },
+    },
+    column: {
+      main,
+      overview,
+      columns: { stroke, strokeWidth },
+    },
     xAxis,
     yAxis,
     axisTitle,
@@ -77,7 +87,7 @@ function ColumnTheme(theme, size, fontColor, colorArray) {
   // if the prop is undefined, use the base theme
   const color = colorArray || colorTheme;
   const colorPalette = createColorArray(color, theme);
-  console.log(colorPalette)
+
   const xAxisColor = selectColor(xAxis.color, theme);
   const yAxisColor = selectColor(yAxis.color, theme);
   const axisTitleColor = selectColor(axisTitle.color, theme);
@@ -159,8 +169,8 @@ function ColumnTheme(theme, size, fontColor, colorArray) {
   };
 
   const ColumnStyle = {
-  //  stroke: columns.stroke,
-  //  "stroke-width": columns.strokeWidth,
+    stroke: stroke,
+    "stroke-width": strokeWidth,
   };
 
   const GridLineStyle = {
@@ -170,13 +180,13 @@ function ColumnTheme(theme, size, fontColor, colorArray) {
   };
 
   const SelectedColumn = {
-    opacity: chart.selection.opacity,
-    stroke: chart.selection.stroke,
-    "stroke-width": chart.selection.strokeWidth,
+    opacity: selection.opacity,
+    stroke: selection.stroke,
+    "stroke-width": selection.strokeWidth,
   };
 
   const NonSelectedColumn = {
-    opacity: chart.nonSelection.opacity,
+    opacity: nonSelection.opacity,
   };
 
   const ColumnThemes = {

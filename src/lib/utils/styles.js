@@ -24,12 +24,23 @@ export const focusStyles = (props) => {
   `;
 };
 
-export const borderStyle = (data, theme) => {
+export const borderStyle = (data, theme, type = null) => {
+  let border = null;
+
+  switch (type) {
+    case "chart":
+      border = theme.global.chart.border;
+      break;
+    default:
+      border = theme.global.border;
+      break;
+  }
+
   const styles = [];
-  const color = selectColor(data.color || theme.global.border.color, theme);
-  const borderSize = data.size || theme.global.border.size;
-  const style = data.style || theme.global.border.style;
-  // const radius = data.radius || theme.global.border.radius
+  const color = selectColor(data.color || border.color, theme);
+  const borderSize = data.size || border.size;
+  const style = data.style || border.style;
+  // const radius = data.radius || border.radius
   const side = typeof data === "string" ? data : data.side || "all";
   const value = `${style} ${borderSize} ${color}`;
   if (
