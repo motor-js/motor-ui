@@ -75,7 +75,9 @@ function LineTheme(theme, size, fontColor, colorArray) {
       colorTheme,
       chart: { gridlines, selection, nonSelection },
     },
-    line: { main, overview, lines, markers },
+    line: {
+      main: { otherTotalSpec, dataPointsToShow, symbol, strokeWidth },
+    },
     xAxis,
     yAxis,
     axisTitle,
@@ -102,15 +104,15 @@ function LineTheme(theme, size, fontColor, colorArray) {
     showLabels: chart.showLabels,
     allowZoom: chart.allowZoom,
     showLegend: chart.showLegend,
-    otherTotalSpec: main.otherTotalSpec,
-    dataPointsToShow: main.dataPointsToShow,
+    otherTotalSpec: otherTotalSpec,
+    dataPointsToShow: dataPointsToShow,
     textOnAxis: chart.textOnAxis,
     showAxis: chart.showAxis,
     showGridlines: chart.showGridlines,
     dimensionErrMsg: chart.error.dimensionErrMsg,
     measureErrMsg: chart.error.measureErrMsg,
     maxAxisLength: chart.maxAxisLength,
-    symbol: markers.symbol,
+    symbol: symbol,
   };
 
   const GridLineStyle = {
@@ -118,12 +120,6 @@ function LineTheme(theme, size, fontColor, colorArray) {
     stroke: gridlines.stroke,
     "stroke-dasharray": gridlines.strokeDasharray,
   };
-
-  // const LineOverviewLine = {
-  //   opacity: overview.opacity,
-  //   stroke: overview.stroke,
-  //   "stroke-width": overview.strokeWidth,
-  // };
 
   const LineChartStyle = {
     "font-family": fontFamily,
@@ -154,7 +150,7 @@ function LineTheme(theme, size, fontColor, colorArray) {
   };
 
   const LineStyle = {
-    "stroke-width": lines.strokeWidth,
+    "stroke-width": strokeWidth,
   };
 
   const SelectedMarker = {

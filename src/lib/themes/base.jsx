@@ -783,26 +783,8 @@ const base = {
     main: {
       dataPointsToShow: 30,
       otherTotalSpec: undefined,
-    },
-    lines: {
-      strokeWidth: 1,
-    },
-    markers: {
-      fill: "brandLight",
-      stroke: "brand",
-      radius: 4,
       symbol: "circle",
-    },
-    overview: {
-      opacity: 0.5,
-      fill: "none",
-      stroke: "fontAlt",
-      strokeWidth: 0.5,
-    },
-    color: {
-      selected: null,
-      selectedFont: "white",
-      selectionBackground: "var(--oc-pink-4)",
+      strokeWidth: 1,
     },
   },
   scatter: {
