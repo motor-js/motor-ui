@@ -23,6 +23,18 @@ const goya = [
   "#ffa600",
 ];
 
+const brandArray = [
+  '#ed5d1d',
+  '#add1ff',
+  '#f7fff8',
+  '#0c58bb',
+  '#5d1909',
+]
+//engine names
+// classic -> 
+// =>  e34234
+
+
 // const goya = [
 //   '#dcdbd6',
 //   '#fada5e',
@@ -67,6 +79,10 @@ const divergent9 = [
   "#ff7c3f",
   "#f94144",
 ];
+
+
+
+
 /*
 const divergent9 = [
   '#2ec4b6',
@@ -106,9 +122,13 @@ const color = {
   danger: "red",
   warning: "yellow",
   colorPalette,
+  brandArray,
   goya,
   divergent9,
   divergent13,
+
+
+
 };
 
 /*
