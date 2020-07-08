@@ -172,7 +172,7 @@ WordCloud.defaultProps = {
   height: "100%",
   margin: "5px",
   size: "medium",
-  allowSelections: true,
+  allowSelections: null,
   border: true,
   backgroundColor: null,
   roundNum: true,

@@ -138,7 +138,7 @@ function StyledWordCloud(props) {
         beginSelections,
         setSelectionWordCloudVisible,
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? WordCloudDefault.allowSelections
             : allowSelections,
         // buildSelections,

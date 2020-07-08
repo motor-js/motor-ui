@@ -144,7 +144,7 @@ function StyledBarPlot(props) {
         select,
         showLegend: legendPosition(showLegend, BarPlotDefault.showLegend),
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? BarPlotDefault.allowSelections
             : allowSelections,
         BarPlotThemes,

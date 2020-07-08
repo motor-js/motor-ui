@@ -140,7 +140,7 @@ function StyledPie({
         // buildSelections,
         showLegend: legendPosition(showLegend, PieDefault.showLegend),
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? PieDefault.allowSelections
             : allowSelections,
         PieThemes,
