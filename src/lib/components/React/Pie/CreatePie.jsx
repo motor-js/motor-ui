@@ -418,13 +418,14 @@ export default function CreatePie({
     style !== "in" ? adjustLabels() : adjustLabels("in");
   };
 
-  console.log(showLabels);
-
   switch (showLabels) {
     case "inside":
       addLabels("in");
       break;
-    case true || "outside":
+    case "outside":
+      addLabels();
+      break;
+    case true:
       addLabels();
       break;
     case "altStyle":
