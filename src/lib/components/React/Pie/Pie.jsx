@@ -201,7 +201,7 @@ Pie.defaultProps = {
   innerRadius: 0,
   cornerRadius: 0,
   padAngle: 0,
-  showLabels: false,
+  showLabels: null,
 };
 
 export default Pie;

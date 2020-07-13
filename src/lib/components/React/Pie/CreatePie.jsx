@@ -418,19 +418,21 @@ export default function CreatePie({
     style !== "in" ? adjustLabels() : adjustLabels("in");
   };
 
+  console.log(showLabels);
+
   switch (showLabels) {
     case "inside":
       addLabels("in");
-      break
+      break;
     case true || "outside":
       addLabels();
-      break
+      break;
     case "altStyle":
       addAltLabels();
-      break
-    case false || 'none':
+      break;
+    case false || "none":
       // don't add labels
-      break
+      break;
     default:
   }
 }
