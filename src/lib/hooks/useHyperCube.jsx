@@ -87,9 +87,6 @@ const useHyperCube = (props) => {
 
   // Build qOtherTotalSpec object
   let totalSpec;
-  // Build qOtherTotalSpec object
-  const otherLabel =
-    qOtherTotalSpec !== undefined ? qOtherTotalSpec.qOtherLabel : null;
 
   if (typeof qOtherTotalSpec === "object") {
     totalSpec = {
@@ -181,7 +178,10 @@ const useHyperCube = (props) => {
                   ],
             },
             qOtherTotalSpec: totalSpec,
-            qOtherLabel: otherLabel || "Others",
+            qOtherLabel:
+              qOtherTotalSpec !== undefined
+                ? qOtherTotalSpec.qOtherLabel
+                : "Others",
             qAttributeExpressions: [
               {
                 // cell background color
