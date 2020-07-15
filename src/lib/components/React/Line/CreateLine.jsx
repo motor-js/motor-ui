@@ -769,7 +769,7 @@ export default function createLine({
 
   const area = d3
     .area()
-    .x((d) => x(d[Object.keys(d)[0]]))
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y0(yScale(0))
     .y1((d) => {
       switch (chartDataShape) {
@@ -787,7 +787,7 @@ export default function createLine({
 
   const areaR = d3
     .area()
-    .x((d) => x(d[Object.keys(d)[0]]))
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y0(yScaleR(0))
     .y1((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]));
 
