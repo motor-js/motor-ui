@@ -76,3 +76,4 @@ export type showLegendType = boolean | "right" | "bottom";
 export type otherTotalSpecType =
   | boolean
   | { qOtherLabel: string; qOtherCount: string };
+  
