@@ -20,8 +20,8 @@ const SearchBar = ({ config, ...rest }) => {
       engineError={engineError}
       {...rest}
     />
-  );
-};
+  )
+}
 
 SearchBar.propTypes = {
   /* Configure connection to the Qlik engine */
