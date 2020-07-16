@@ -10,9 +10,7 @@ const SelectionModalWrapper = styled.div`
   position: absolute;
   z-index: 100;
   box-sizing: border-box;
-  border-top: 1px solid #CCCCCC;
-  border-left: 1px solid #CCCCCC;
-  border-right: 1px solid #CCCCCC;
+  border: 1px solid #CCCCCC;
   background-color: white;
   display: flex;
   justify-content: flex-end;

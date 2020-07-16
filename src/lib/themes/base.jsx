@@ -262,6 +262,17 @@ const color = {
 };
 
 /*
+
+turbo
+wind
+eco
+jet
+dodge
+electric
+
+*/
+
+/*
 const fontSizing = factor => ({
   size: `${baseFontSize + factor * fontScale}px`,
 });
@@ -849,9 +860,9 @@ const base = {
     borderRadius: "6px",
     boxShadow: "4px 4px 12px rgba(0, 0, 0, .5)",
   },
-  xAxis: { color: "fontAlt" },
-  yAxis: { color: "fontAlt" },
-  axisTitle: { color: "fontAlt" },
+  xAxis: { color: "altDark" },
+  yAxis: { color: "altDark" },
+  axisTitle: { color: "altDark" },
   title: {
     textPostion: "middle",
     main: {
