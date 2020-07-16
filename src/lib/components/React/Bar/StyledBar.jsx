@@ -161,27 +161,24 @@ function StyledBar(props) {
         TitleThemes,
         LegendThemes,
         allowSlantedYAxis:
-          allowSlantedYAxis === undefined
+          allowSlantedYAxis === null
             ? BarDefault.allowSlantedYAxis
             : allowSlantedYAxis,
         tickSpacing: tickSpacing || BarDefault.tickSpacing,
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? BarDefault.allowSelections
             : allowSelections,
-        showLabels:
-          showLabels === undefined ? BarDefault.showLabels : showLabels,
+        showLabels: showLabels === null ? BarDefault.showLabels : showLabels,
         showLegend: legendPosition(showLegend, BarDefault.showLegend),
         showAxis: calcDisplayOption(
-          showAxis === undefined ? BarDefault.showAxis : showAxis
+          showAxis === null ? BarDefault.showAxis : showAxis
         ),
         textOnAxis: calcDisplayOption(
-          textOnAxis === undefined ? BarDefault.textOnAxis : textOnAxis
+          textOnAxis === null ? BarDefault.textOnAxis : textOnAxis
         ),
         showGridlines: calcDisplayOption(
-          showGridlines === undefined
-            ? BarDefault.showGridlines
-            : showGridlines,
+          showGridlines === null ? BarDefault.showGridlines : showGridlines,
           true
         ),
         selections,

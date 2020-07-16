@@ -61,6 +61,7 @@ function StyledLine(props) {
     showGridlines,
     otherTotalSpec,
     tickSpacing,
+    symbol,
     ...rest
   } = props;
 
@@ -158,27 +159,25 @@ function StyledLine(props) {
         select,
         showLegend: legendPosition(showLegend, LineDefault.showLegend),
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? LineDefault.allowSelections
             : allowSelections,
+        symbol: symbol === null ? LineDefault.symbol : symbol,
         maxAxisLength: maxAxisLength || LineDefault.maxAxisLength,
         LineThemes,
         ToolTipThemes,
         TitleThemes,
         LegendThemes,
         tickSpacing: tickSpacing || LineDefault.tickSpacing,
-        showLabels:
-          showLabels === undefined ? LineDefault.showLabels : showLabels,
+        showLabels: showLabels === null ? LineDefault.showLabels : showLabels,
         showAxis: calcDisplayOption(
-          showAxis === undefined ? LineDefault.showAxis : showAxis
+          showAxis === null ? LineDefault.showAxis : showAxis
         ),
         textOnAxis: calcDisplayOption(
-          textOnAxis === undefined ? LineDefault.textOnAxis : textOnAxis
+          textOnAxis === null ? LineDefault.textOnAxis : textOnAxis
         ),
         showGridlines: calcDisplayOption(
-          showGridlines === undefined
-            ? LineDefault.showGridlines
-            : showGridlines,
+          showGridlines === null ? LineDefault.showGridlines : showGridlines,
           true
         ),
         ...rest,

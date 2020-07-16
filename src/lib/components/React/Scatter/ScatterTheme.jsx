@@ -11,8 +11,8 @@ const ScatterWrapper = styled.div`
     props.border &&
     props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
@@ -29,8 +29,8 @@ const ScatterWrapperNoData = styled.div`
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>
@@ -68,8 +68,14 @@ export { ScatterWrapper, ScatterWrapperNoData, ScatterNoDataContent };
 function ScatterTheme(theme, size, fontColor, colorArray) {
   // eslint-disable-next-scatter react-hooks/rules-of-hooks
   const {
-    global: { fontFamily, chart, size: fontSize, colorTheme },
-    scatter: { main, overview, scatters, markers, gridlines },
+    global: {
+      fontFamily,
+      chart,
+      size: fontSize,
+      colorTheme,
+      chart: { gridlines, selection, nonSelection },
+    },
+    scatter: { main, overview, scatters, markers },
     xAxis,
     yAxis,
     axisTitle,
@@ -151,13 +157,13 @@ function ScatterTheme(theme, size, fontColor, colorArray) {
   };
 
   const SelectedScatter = {
-    opacity: chart.selection.opacity,
-    stroke: chart.selection.stroke,
-    "stroke-width": chart.selection.strokeWidth,
+    opacity: selection.opacity,
+    stroke: selection.stroke,
+    "stroke-width": selection.strokeWidth,
   };
 
   const NonSelectedScatter = {
-    opacity: chart.nonSelection.opacity,
+    opacity: nonSelection.opacity,
   };
 
   const ScatterThemes = {

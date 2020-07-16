@@ -177,7 +177,7 @@ Pie.propTypes = {
   /** Show chart values */
   showLabels: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(["inside", "outside", "altStyle", 'none']),
+    PropTypes.oneOf(["inside", "outside", "altStyle", "none"]),
   ]),
 };
 
@@ -189,7 +189,7 @@ Pie.defaultProps = {
   height: "100%",
   margin: "5px",
   size: "medium",
-  allowSelections: true,
+  allowSelections: null,
   fontColor: null,
   border: true,
   backgroundColor: null,
@@ -201,7 +201,7 @@ Pie.defaultProps = {
   innerRadius: 0,
   cornerRadius: 0,
   padAngle: 0,
-  showLabels: false,
+  showLabels: null,
 };
 
 export default Pie;

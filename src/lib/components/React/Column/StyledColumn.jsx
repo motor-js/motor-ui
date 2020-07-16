@@ -65,7 +65,7 @@ function StyledColumn({
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   // const [sel, setSel] = useState([]);
-console.log('styled',chartColor)
+  console.log("styled", chartColor);
   let useSelectionColours = false;
   let chartSettings = {};
 
@@ -175,26 +175,23 @@ console.log('styled',chartColor)
         TitleThemes,
         LegendThemes,
         roundNum,
-        showLabels:
-          showLabels === undefined ? ColumnDefault.showLabels : showLabels,
+        showLabels: showLabels === null ? ColumnDefault.showLabels : showLabels,
         allowZoom,
         suppressScroll,
         columnPadding,
         tickSpacing: tickSpacing || ColumnDefault.tickSpacing,
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? ColumnDefault.allowSelections
             : allowSelections,
         showAxis: calcDisplayOption(
-          showAxis === undefined ? ColumnDefault.showAxis : showAxis
+          showAxis === null ? ColumnDefault.showAxis : showAxis
         ),
         textOnAxis: calcDisplayOption(
-          textOnAxis === undefined ? ColumnDefault.textOnAxis : textOnAxis
+          textOnAxis === null ? ColumnDefault.textOnAxis : textOnAxis
         ),
         showGridlines: calcDisplayOption(
-          showGridlines === undefined
-            ? ColumnDefault.showGridlines
-            : showGridlines,
+          showGridlines === null ? ColumnDefault.showGridlines : showGridlines,
           true
         ),
       };

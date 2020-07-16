@@ -11,8 +11,8 @@ const LineWrapper = styled.div`
     props.border &&
     props.border !== "none" &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
@@ -29,8 +29,8 @@ const LineWrapperNoData = styled.div`
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme))
-      : borderStyle(props.border, props.theme))};
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>
@@ -68,8 +68,16 @@ export { LineWrapper, LineWrapperNoData, LineNoDataContent };
 function LineTheme(theme, size, fontColor, colorArray) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const {
-    global: { fontFamily, chart, size: fontSize, colorTheme },
-    line: { main, overview, lines, markers, gridlines },
+    global: {
+      fontFamily,
+      chart,
+      size: fontSize,
+      colorTheme,
+      chart: { gridlines, selection, nonSelection },
+    },
+    line: {
+      main: { otherTotalSpec, dataPointsToShow, symbol, strokeWidth },
+    },
     xAxis,
     yAxis,
     axisTitle,
@@ -96,14 +104,15 @@ function LineTheme(theme, size, fontColor, colorArray) {
     showLabels: chart.showLabels,
     allowZoom: chart.allowZoom,
     showLegend: chart.showLegend,
-    otherTotalSpec: main.otherTotalSpec,
-    dataPointsToShow: main.dataPointsToShow,
+    otherTotalSpec: otherTotalSpec,
+    dataPointsToShow: dataPointsToShow,
     textOnAxis: chart.textOnAxis,
     showAxis: chart.showAxis,
     showGridlines: chart.showGridlines,
     dimensionErrMsg: chart.error.dimensionErrMsg,
     measureErrMsg: chart.error.measureErrMsg,
     maxAxisLength: chart.maxAxisLength,
+    symbol: symbol,
   };
 
   const GridLineStyle = {
@@ -111,12 +120,6 @@ function LineTheme(theme, size, fontColor, colorArray) {
     stroke: gridlines.stroke,
     "stroke-dasharray": gridlines.strokeDasharray,
   };
-
-  // const LineOverviewLine = {
-  //   opacity: overview.opacity,
-  //   stroke: overview.stroke,
-  //   'stroke-width': overview.strokeWidth,
-  // };
 
   const LineChartStyle = {
     "font-family": fontFamily,
@@ -147,23 +150,17 @@ function LineTheme(theme, size, fontColor, colorArray) {
   };
 
   const LineStyle = {
-    "stroke-width": lines.strokeWidth,
+    "stroke-width": strokeWidth,
   };
 
-  // const LineMarkerStyle = {
-  //   fill: markers.fill,
-  //   stroke: markers.stroke,
-  //   radius: markers.radius,
-  // };
-
   const SelectedMarker = {
-    opacity: chart.selection.opacity,
-    stroke: chart.selection.stroke,
-    "stroke-width": chart.selection.strokeWidth,
+    opacity: selection.opacity,
+    stroke: selection.stroke,
+    "stroke-width": selection.strokeWidth,
   };
 
   const NonSelectedMarker = {
-    opacity: chart.nonSelection.opacity,
+    opacity: nonSelection.opacity,
     backgroundColor: nonSelectionBackground,
   };
 
@@ -176,8 +173,6 @@ function LineTheme(theme, size, fontColor, colorArray) {
     axisTitleStyle,
     LineLabelStyle,
     LineStyle,
-    // LineMarkerStyle,
-    // LineOverviewLine,
     colorPalette,
     SelectedMarker,
     NonSelectedMarker,

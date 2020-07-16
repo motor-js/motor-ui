@@ -421,16 +421,19 @@ export default function CreatePie({
   switch (showLabels) {
     case "inside":
       addLabels("in");
-      break
-    case true || "outside":
+      break;
+    case "outside":
       addLabels();
-      break
+      break;
+    case true:
+      addLabels();
+      break;
     case "altStyle":
       addAltLabels();
-      break
-    case false || 'none':
+      break;
+    case false || "none":
       // don't add labels
-      break
+      break;
     default:
   }
 }

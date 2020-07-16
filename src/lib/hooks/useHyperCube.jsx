@@ -94,9 +94,15 @@ const useHyperCube = (props) => {
       qOtherCounted: qOtherTotalSpec.qOtherCount,
     };
   } else if (qOtherTotalSpec) {
-    totalSpec = { qOtherMode: "OTHER_COUNTED", qOtherCounted: "8" };
+    totalSpec = {
+      qOtherMode: "OTHER_COUNTED",
+      qOtherCounted: "8",
+    };
   } else if (!qOtherTotalSpec) {
-    totalSpec = { qOtherMode: "OTHER_OFF", qOtherCounted: "" };
+    totalSpec = {
+      qOtherMode: "OTHER_OFF",
+      qOtherCounted: "",
+    };
   }
 
   const generateQProp = useCallback(() => {
@@ -172,7 +178,10 @@ const useHyperCube = (props) => {
                   ],
             },
             qOtherTotalSpec: totalSpec,
-            qOtherLabel: "Others",
+            qOtherLabel:
+              qOtherTotalSpec !== undefined
+                ? qOtherTotalSpec.qOtherLabel
+                : "Others",
             qAttributeExpressions: [
               {
                 // cell background color
@@ -227,7 +236,10 @@ const useHyperCube = (props) => {
       .map((col) => {
         if (typeof col === "string") {
           return {
-            qDef: { qDef: col, qNumFormat: col.qNumFormat },
+            qDef: {
+              qDef: col,
+              qNumFormat: col.qNumFormat,
+            },
             qSortBy: {
               qSortByNumeric,
               qSortByExpression,

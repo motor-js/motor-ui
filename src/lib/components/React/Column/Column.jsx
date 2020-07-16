@@ -60,7 +60,7 @@ Column.propTypes = {
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
   calcCondition: PropTypes.object,
-  /** Supress zeo vlaues in the the chart  */
+  /** Supress zeo values in the the chart  */
   suppressZero: PropTypes.bool,
   /** Column Sort Order */
   columnSortOrder: PropTypes.array,
@@ -226,10 +226,10 @@ Column.defaultProps = {
   backgroundColor: null,
   chartColor: null,
   tickSpacing: undefined,
-  allowSelections: true,
-  textOnAxis: undefined,
-  showGridlines: undefined,
-  showAxis: undefined,
+  allowSelections: null,
+  textOnAxis: null,
+  showGridlines: null,
+  showAxis: null,
   roundNum: true,
   columnSortOrder: [],
   sortDirection: "",

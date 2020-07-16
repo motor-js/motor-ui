@@ -166,21 +166,19 @@ function StyledScatter(props) {
         LegendThemes,
         tickSpacing: tickSpacing || ScatterDefault.tickSpacing,
         allowSelections:
-          allowSelections === undefined
+          allowSelections === null
             ? ScatterDefault.allowSelections
             : allowSelections,
         showLabels:
-          showLabels === undefined ? ScatterDefault.showLabels : showLabels,
+          showLabels === null ? ScatterDefault.showLabels : showLabels,
         showAxis: calcDisplayOption(
-          showAxis === undefined ? ScatterDefault.showAxis : showAxis
+          showAxis === null ? ScatterDefault.showAxis : showAxis
         ),
         textOnAxis: calcDisplayOption(
-          textOnAxis === undefined ? ScatterDefault.textOnAxis : textOnAxis
+          textOnAxis === null ? ScatterDefault.textOnAxis : textOnAxis
         ),
         showGridlines: calcDisplayOption(
-          showGridlines === undefined
-            ? ScatterDefault.showGridlines
-            : showGridlines,
+          showGridlines === null ? ScatterDefault.showGridlines : showGridlines,
           true
         ),
         ...rest,

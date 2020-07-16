@@ -769,7 +769,7 @@ export default function createLine({
 
   const area = d3
     .area()
-    .x((d) => x(d[Object.keys(d)[0]]))
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y0(yScale(0))
     .y1((d) => {
       switch (chartDataShape) {
@@ -787,18 +787,27 @@ export default function createLine({
 
   const areaR = d3
     .area()
-    .x((d) => x(d[Object.keys(d)[0]]))
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y0(yScaleR(0))
     .y1((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]));
 
   const stackedArea = d3
     .area()
-    .x((d) => x(d.data[Object.keys(d.data)[0]]))
+    .x((d, i) => {
+      return chartType === "DISCRETE"
+        ? x(i)
+        : x(d.data[Object.keys(d.data)[0]]);
+    })
+    // .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
     .y0((d) => yScale(d[0]))
     .y1((d) => yScale(d[1]));
+
   const stackedArea2 = d3
     .area()
-    .x((d) => x(d.data[Object.keys(d.data)[0]]))
+    // .x((d) => x(d.data[Object.keys(d.data)[0]]))
+    .x((d, i) =>
+      chartType === "DISCRETE" ? x(i) : x(d.data[Object.keys(d.data)[0]])
+    )
     .y0((d) => yOverview(d[0]))
     .y1((d) => yOverview(d[1]));
 
@@ -1372,12 +1381,11 @@ export default function createLine({
             .attr("transform", function(d, i) {
               const xValue =
                 chartType === "DISCRETE"
-                  ? categories
-                    ? x(parseInt(i / categories.length))
-                    : x(i)
+                  ? x(i)
                   : x(d.data[Object.keys(d.data)[0]]);
 
-              let yValue = titleHeights + yScale(d[1]);
+              // let yValue = titleHeights + yScale(d[1]);
+              let yValue = titleHeights + yScale(d[0]);
               return "translate(" + xValue + "," + yValue + ")";
             })
             .on("mousemove", handleMouseMove)
@@ -1398,10 +1406,13 @@ export default function createLine({
             .attr("class", `label-${i}`) // Assign a class for styling
             .attr("text-anchor", "middle")
             .attr("x", (d, i) => {
+              // return chartType === "DISCRETE"
+              //   ? categories
+              //     ? x(parseInt(i / categories.length))
+              //     : x(i)
+              //   : x(d.data[Object.keys(d.data)[0]]);
               return chartType === "DISCRETE"
-                ? categories
-                  ? x(parseInt(i / categories.length))
-                  : x(i)
+                ? x(i)
                 : x(d.data[Object.keys(d.data)[0]]);
             })
             .attr(

@@ -178,7 +178,7 @@ BarPlot.propTypes = {
 BarPlot.defaultProps = {
   config: null,
   calcCondition: undefined,
-  allowSelections: true,
+  allowSelections: null,
   width: "100%",
   height: "100%",
   margin: "5px",
