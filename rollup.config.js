@@ -56,7 +56,7 @@ export default [{
   ],
 },
 {
-  input: 'src/lib/themes/index.js',
+  input: 'src/lib/themes/index.ts',
   output: [
     {
       file: 'dist/themes/index.js',
