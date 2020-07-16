@@ -6,7 +6,7 @@ import useEngine from '../../../hooks/useEngine';
 import { StyledHeading } from './HeadingTheme';
 import Spinner from '../Spinner';
 
-const SmartHeading = ({ children, config, size, type, level, margin }) => {
+const SmartHeading = ({ children, config, size, type, level, margin, color }) => {
   const myConfig = config || useContext(ConfigContext);
   const { engine, engineError } =
     useContext(EngineContext) || useEngine(myConfig);
@@ -40,7 +40,12 @@ const SmartHeading = ({ children, config, size, type, level, margin }) => {
   return (
     <div>
       {!loading ? (
-        <StyledHeading as={`h${level}`} size={size} margin={margin}>
+        <StyledHeading
+          as={`h${level}`}
+          size={size}
+          margin={margin}
+          color={color}
+        >
           {text}
         </StyledHeading>
       ) : (
@@ -61,6 +66,7 @@ SmartHeading.propTypes = {
   level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
   /* Margin */
   margin: PropTypes.string,
+  color: PropTypes.string,
 };
 
 SmartHeading.defaultProps = {
@@ -69,6 +75,7 @@ SmartHeading.defaultProps = {
   size: null,
   level: 1,
   margin: '5px',
+  color: null,
 };
 
 export default SmartHeading;

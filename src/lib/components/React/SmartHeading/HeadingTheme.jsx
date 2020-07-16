@@ -5,7 +5,7 @@ import { selectColor } from '../../../utils/colors'
 
 const StyledHeading = styled.h1`
   ${globalStyle};
-  color: ${props => selectColor(props.theme.smartHeading.color, props.theme)};
+  color: ${props => props.color || selectColor(props.theme.smartHeading.color, props.theme)};
   font-size: ${props => props.size};
   margin: ${props => props.margin};
 `
