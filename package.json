@@ -1,6 +1,6 @@
 {
   "name": "motor-ui",
-  "version": "0.3.7-alpha.1",
+  "version": "0.3.8-alpha.1",
   "description": "The React Framework for Qlik Sense Mashups",
   "author": "Luke Reilly",
   "license": "",
@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "@babel/types": "^7.10.3",
-    "@styled-icons/feather": "^10.0.0",
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
     "enigma.js": "^2.6.3",
@@ -53,7 +52,8 @@
   },
   "peerDependencies": {
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "@styled-icons/feather": "^10.0.0",
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
