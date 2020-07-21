@@ -11,6 +11,7 @@ const collapsableStyle = css`
   width:  ${(props) => props.width} 
   transition: transform 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
+  display: ${({ open }) => (open ? "flex" : "none")};
 `;
 
 const StyledSidebar = styled(Box)`
