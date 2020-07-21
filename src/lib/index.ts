@@ -25,3 +25,5 @@ export { default as useScreenSize } from './hooks/useScreenSize';
 export { default as useSearch } from './hooks/useSearch';
 export { default as useSelectionObject } from './hooks/useSelectionObject';
 export { default as useSidebar } from './hooks/useSidebar';
+
+export { default as base } from './themes/base'

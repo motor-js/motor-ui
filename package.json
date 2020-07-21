@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "@motor-js/core",
   "version": "0.3.9-alpha.1",
   "description": "The React Framework for Qlik Sense Mashups",
   "author": "Luke Reilly",
@@ -31,10 +31,10 @@
     "lint": "esw --ext .jsx --ext .js --color",
     "lint:fix": "npm run lint --fix",
     "prepare": "npm run build",
-    "prerelease": "npm run lint:fix && npm run test:coverage && npm run build",
-    "release": "npm publish",
+    "prerelease": "npm run build",
+    "release": "standard-version",
     "predeploy": "",
-    "deploy": ""
+    "deploy": "npm publish"
   },
   "dependencies": {
     "@babel/types": "^7.10.3",
@@ -114,6 +114,7 @@
     "rollup-plugin-terser": "^5.1.3",
     "sass-loader": "^8.0.0",
     "semantic-release": "^17.0.6",
+    "standard-version": "^8.0.2",
     "style-loader": "^1.0.1",
     "typescript": "^3.7.3"
   },
