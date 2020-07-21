@@ -1,9 +1,9 @@
 {
-  "name": "motor-ui",
+  "name": "core",
   "version": "0.3.9-alpha.1",
   "description": "The React Framework for Qlik Sense Mashups",
   "author": "Luke Reilly",
-  "license": "",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": ""
@@ -193,5 +193,12 @@
       "@babel/plugin-proposal-class-properties",
       "transform-react-remove-prop-types"
     ]
-  }
+  },
+  "keywords": [
+    "Qlik",
+    "Sense",
+    "Mashups",
+    "React",
+    "Library"
+  ]
 }
