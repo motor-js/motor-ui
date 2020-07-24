@@ -332,7 +332,7 @@ const base = {
     },
     chart: {
       allowSelections: true,
-      allowSlantedYAxis: true,
+      allowSlantedYAxis: false,
       backgroundColor: "white",
       borderRadius: "10px",
       userSelect: "none",
