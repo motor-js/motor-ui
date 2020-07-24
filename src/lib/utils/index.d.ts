@@ -54,9 +54,11 @@ export type borderType =
     }[];
 export type chartColorType =
   | Array<string>
-  | "divergent13"
+  | "motor"
   | "divergent9"
-  | "goya"
+  | "divergent13"
+  | "eco"
+  | "bio"
   | "red"
   | "blue"
   | "gray"

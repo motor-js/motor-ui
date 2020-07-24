@@ -142,9 +142,11 @@ Line.propTypes = {
   /** color scheme of the chart */
   chartColor: PropTypes.oneOfType([
     PropTypes.oneOf([
-      "divergent13",
+      "motor",
       "divergent9",
-      "goya",
+      "divergent13",
+      "eco",
+      "bio",
       "red",
       "blue",
       "gray",

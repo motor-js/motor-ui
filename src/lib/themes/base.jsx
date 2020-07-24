@@ -1,26 +1,6 @@
 import "./colors/open-color.css";
 
-const brandArray = [
-  '#ed5d1d',
-  '#add1ff',
-  '#f7fff8',
-  '#0c58bb',
-  '#5d1909',
-]
-
-const colorPalette = [
-  "var(--oc-pink-4)",
-  "var(--oc-pink-9)",
-  "var(--oc-pink-0)",
-  "var(--oc-pink-2)",
-  "var(--oc-pink-3)",
-  "var(--oc-pink-5)",
-  "var(--oc-pink-6)",
-  "var(--oc-pink-7)",
-  "var(--oc-pink-8)",
-];
-
-const goya = [
+const motor = [
   "#003f5c",
   "#2f4b7c",
   "#665191",
@@ -60,51 +40,7 @@ const divergent9 = [
 ];
 
 
-
-/*
-const divergent9 = [
-  '#2ec4b6',
-  '#66d4aa',
-  '#98e29d',
-  '#cbee94',
-  '#fff693',
-  '#ffce6a',
-  '#ffa255',
-  '#ff7056',
-  '#ff3366',
-]
-*/
-
-const petrol = [
-  "#dcdbd6",
-  "#fada5e",
-  "#cb9d06",
-  "#826644",
-  "#8a3324",
-  "#e97451",
-  "#c80815",
-  "#cc7722",
-  "#ffcccb",
-  "#e34234",
-  "#98182F",
-  "#758b72",
-  "#0047ab",
-  "#282422",
-];
-
-const diesel = [
-  "#D81C23",
-  "#4FA8C2",
-  "#D97441",
-  "#D29849",
-  "var(--oc-pink-3)",
-  "var(--oc-pink-5)",
-  "var(--oc-pink-6)",
-  "var(--oc-pink-7)",
-  "var(--oc-pink-8)",
-];
-
-const gas = [
+const eco = [
   "#3366CC",
   "#DC3912",
   "#FF9900",
@@ -128,18 +64,6 @@ const gas = [
 ];
 
 const bio = [
-  "#1A76D2",
-  "#DC004E",
-  "#F44335",
-  "#FF9801",
-  "#2296F3",
-  "#4CAF50",
-  "#212121",
-  "#757575",
-  "#9E9E9E",
-];
-
-const bikes = [
   "#03B8AA",
   "#374649",
   "#FD625E",
@@ -167,68 +91,11 @@ const bikes = [
   "#475052",
 ];
 
-const passenger = [
-  "#4E79A8",
-  "#A0CBE8",
-  "#F28E2B",
-  "#FFBE7D",
-  "#59A14F",
-  "#8CD17D",
-  "#B6992D",
-  "#F1CE63",
-  "#499894",
-  "#86BCB6",
-  "#E15759",
-  "#FF9D9A",
-  "#79706E",
-  "#BAB0AD",
-  "#D47295",
-  "#FABFD2",
-  "#B07AA2",
-  "#D4A6C9",
-  "#946B51",
-  "#D7B5A6",
-];
-
-const racing = [
-  "#99ca3b",
-  "#999999",
-  "#454545",
-  "#B3B3B3",
-  "#CCCCCC",
-  "#8AD4EB",
-  "#FE9666",
-  "#A66999",
-  "#3599B8",
-  "#DFBFBF",
-  "#4AC5BB",
-  "#454545",
-  "#FB8280",
-];
-
-const cylinder1 = [
-  "#00876c",
-  "#439981",
-  "#6aaa96",
-  "#8cbcac",
-  "#aecdc2",
-  "#cfdfd9",
-  "#f1f1f1",
-  "#f1d4d4",
-  "#f0b8b8",
-  "#ec9c9d",
-  "#e67f83",
-  "#de6069",
-  "#d43d51",
-];
-
 const color = {
   brand: "#000aee",
   brandLight: "#eeefff",
   accent1: "var(--oc-pink-6)",
   accent2: "#000aee",
-  neutral1: "",
-  neutral2: "",
   altDark: "#272727",
   altGray1: "var(--oc-gray-1)",
   altGray2: "var(--oc-gray-2)",
@@ -242,49 +109,30 @@ const color = {
   font: "var(--oc-gray-9)",
   fontAlt: "var(--oc-gray-7)",
   fontLight: "var(--oc-gray-2)",
+  motor,
+  divergent9,
+  divergent13,
+  eco,
+  bio,
+  /** Below not documented, are they used? */
   gauge: "var(--oc-pink-4)",
   success: "green",
   danger: "red",
   warning: "yellow",
-  colorPalette,
-  brandArray,
-  goya,
-  divergent9,
-  divergent13,
-  petrol,
-  diesel,
-  gas,
-  bio,
-  bikes,
-  passenger,
-  racing,
-  cylinder1,
 };
 
 /*
-
-
-
-
 turbo
 wind
 eco
 jet
 dodge
 electric
-
-*/
-
-/*
-const fontSizing = factor => ({
-  size: `${baseFontSize + factor * fontScale}px`,
-});
 */
 
 const base = {
   global: {
     backgroundColor: "white",
-    colorTheme: "goya",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
     color,
     border: {
@@ -320,7 +168,7 @@ const base = {
         small: "14px",
         medium: "16px",
         large: "18px",
-        xlarge: "22px",
+        xlarge: "20px",
       },
       tooltip: {
         tiny: "10px",
@@ -473,11 +321,7 @@ const base = {
         fontColor: "fontAlt",
       },
       noData: {
-        // display: 'flex',
         verticalAlign: "top",
-        display: "inline-block",
-        // alignItems: 'center',
-        // justifyContent: 'center',
         borderRadius: "10px",
         backgroundColor: "var(--oc-gray-1)",
         borderCollapse: "collapse",
@@ -487,9 +331,6 @@ const base = {
         alignItems: "center",
         justifyContent: "center",
         margin: "10px",
-        // borderRadius: '10px',
-        // backgroundColor: 'var(--oc-gray-1)',
-        // borderCollapse: 'collapse',
       },
       error: {
         // dataErrorMsg: 'Invalid Dimension or Measure.',

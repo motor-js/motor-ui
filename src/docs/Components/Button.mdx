@@ -31,7 +31,11 @@ import { google } from '../../lib/themes'
 
 <Playground>
     <Motor config={config} 
-        theme={google}>
+        theme={{
+            button: {
+                fontColor: 'red'
+            }
+        }}>
         <Button color='brand'>Brand</Button>
         <Button color='var(--oc-red-6)'>Red</Button>
         <Button color='var(--oc-orange-6)'>Orange</Button>
