@@ -785,6 +785,7 @@ const base = {
       otherTotalSpec: undefined,
       symbol: "circle",
       strokeWidth: 1,
+      fillOpacity: 0.7,
     },
   },
   scatter: {
