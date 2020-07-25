@@ -1,3 +1,3 @@
-declare const base: Object;
+export declare const base: Object;
 
-export default base
+export default base;

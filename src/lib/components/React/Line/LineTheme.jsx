@@ -76,7 +76,13 @@ function LineTheme(theme, size, fontColor, colorArray) {
       chart: { gridlines, selection, nonSelection },
     },
     line: {
-      main: { otherTotalSpec, dataPointsToShow, symbol, strokeWidth },
+      main: {
+        otherTotalSpec,
+        dataPointsToShow,
+        symbol,
+        strokeWidth,
+        fillOpacity,
+      },
     },
     xAxis,
     yAxis,
@@ -151,6 +157,7 @@ function LineTheme(theme, size, fontColor, colorArray) {
 
   const LineStyle = {
     "stroke-width": strokeWidth,
+    "fill-opacity": fillOpacity,
   };
 
   const SelectedMarker = {

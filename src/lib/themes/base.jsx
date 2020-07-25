@@ -205,7 +205,7 @@ const base = {
     },
     chart: {
       allowSelections: true,
-      allowSlantedYAxis: true,
+      allowSlantedYAxis: false,
       backgroundColor: "white",
       borderRadius: "10px",
       userSelect: "none",
@@ -651,6 +651,7 @@ const base = {
       otherTotalSpec: undefined,
       symbol: "circle",
       strokeWidth: 1,
+      fillOpacity: 0.7,
     },
   },
   scatter: {

@@ -65,7 +65,7 @@ function StyledColumn({
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   // const [sel, setSel] = useState([]);
-  console.log("styled", chartColor);
+  // console.log("styled", chartColor);
   let useSelectionColours = false;
   let chartSettings = {};
 
