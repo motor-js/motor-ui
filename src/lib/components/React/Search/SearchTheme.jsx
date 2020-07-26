@@ -13,6 +13,7 @@ const SearchWrapper = styled.div`
   flex-direction: column;
   position: relative;
 `;
+
 const SearchBar = styled.div`
   border: ${(props) => props.theme.search.title.border};
   border-color: ${(props) =>
@@ -45,6 +46,7 @@ const SearchInput = styled.input`
 
 const SearchIcon = styled(Search)`
   padding-left: 1em;
+  width: 15px;
   color: ${(props) => selectColor(props.theme.search.color.icon, props.theme)};
 `;
 
