@@ -54,13 +54,13 @@ const FilterTitle = styled.div`
 
 const FilterTitleDim = styled.span`
   padding-left: 1.2em;
-  max-width: 100%;
+  max-width: 75%;
   overflow-x: hidden;
 `;
 
 const FilterTitleItems = styled.span`
   padding-left: 1.2em;
-  max-width: 100%;
+  max-width: 75%;
   overflow-x: hidden;
   color: ${(props) => props.theme.global.color.font};
 `;
@@ -105,13 +105,14 @@ const FilterSearchGroup = styled.div`
 `;
 
 const SearchStyle = styled(Search)`
-  padding: 0 5px 0 10px;
+  padding: 0 0 0 5px;
   height: 15px;
+  width: 30px;
   color: ${(props) => selectColor(props.theme.filter.color.icon, props.theme)};
 `;
 
 const FilterSearch = styled.input`
-  width: 70%;
+  width: 80%;
   height: 32px;
   outline: none;
   border: none;
