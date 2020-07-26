@@ -46,7 +46,8 @@ const SearchInput = styled.input`
 
 const SearchIcon = styled(Search)`
   padding-left: 1em;
-  width: 15px;
+  height: 15px;
+  width: 30px;
   color: ${(props) => selectColor(props.theme.search.color.icon, props.theme)};
 `;
 
