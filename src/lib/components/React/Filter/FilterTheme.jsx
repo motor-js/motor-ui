@@ -54,13 +54,13 @@ const FilterTitle = styled.div`
 
 const FilterTitleDim = styled.span`
   padding-left: 1.2em;
-  max-width: 75%;
+  max-width: 85%;
   overflow-x: hidden;
 `;
 
 const FilterTitleItems = styled.span`
   padding-left: 1.2em;
-  max-width: 75%;
+  max-width: 85%;
   overflow-x: hidden;
   color: ${(props) => props.theme.global.color.font};
 `;
