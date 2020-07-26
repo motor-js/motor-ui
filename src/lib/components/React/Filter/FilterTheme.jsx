@@ -43,11 +43,6 @@ const FilterTitle = styled.div`
   border-radius: ${(props) => props.theme.filter.title.radius};
   padding: 0.6em 0 0.6em 0em;
   cursor: pointer;
-    "-webkit-user-select": "none",
-    "-khtml-user-select": "none",
-    "-moz-user-select": "none",
-    "-ms-user-select": "none",
-    "user-select": "none",
   white-space: nowrap;
   overflow-x: hidden;
   &:hover {
@@ -111,6 +106,7 @@ const FilterSearchGroup = styled.div`
 
 const SearchStyle = styled(Search)`
   padding: 0 5px 0 10px;
+  height: 15px;
   color: ${(props) => selectColor(props.theme.filter.color.icon, props.theme)};
 `;
 
