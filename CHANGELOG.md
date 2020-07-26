@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-alpha.4](https://github.com/motor-js/motor-ui/compare/v0.5.4-alpha.3...v0.6.0-alpha.4) (2020-07-26)
+
 ### [0.5.4-alpha.3](https://github.com/motor-js/motor-ui/compare/v0.5.3-alpha.2...v0.5.4-alpha.3) (2020-07-26)
 
 ### [0.5.3-alpha.2](https://github.com/motor-js/motor-ui/compare/v0.5.2-alpha.1...v0.5.3-alpha.2) (2020-07-26)
