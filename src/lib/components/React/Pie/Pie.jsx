@@ -195,7 +195,7 @@ Pie.defaultProps = {
   fontColor: null,
   border: true,
   backgroundColor: null,
-  chartColor: undefined,
+  chartColor: null,
   roundNum: true,
   title: null,
   subTitle: null,

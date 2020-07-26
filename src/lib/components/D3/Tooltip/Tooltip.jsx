@@ -11,8 +11,8 @@ export const addTooltip = ({ tooltipContainer, TooltipWrapper }) => {
 
     return tooltip
   } catch (err) {
-    console.log('Error in Tooltip.jsx : addTooltip function')
-    console.log(err)
+    console.warn('Error in Tooltip.jsx : addTooltip function')
+    console.warn(err)
   }
 }
 

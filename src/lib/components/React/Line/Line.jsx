@@ -142,6 +142,7 @@ Line.propTypes = {
   /** color scheme of the chart */
   chartColor: PropTypes.oneOfType([
     PropTypes.oneOf([
+      "brand",
       "motor",
       "divergent9",
       "divergent13",
@@ -247,6 +248,7 @@ Line.defaultProps = {
   fontColor: "",
   border: true,
   backgroundColor: null,
+  chartColor: null,
   tickSpacing: undefined,
   allowSelections: null,
   showGridlines: null,

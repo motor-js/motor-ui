@@ -1785,7 +1785,6 @@ export default function CreateBar({
   //Based on http://bl.ocks.org/mbostock/6498000
   //What to do when the user clicks on another location along the brushable bar chart
   function brushcenter() {
-    console.log("to do");
     // const target = d3.event.target;
     // const extent = brush.extent();
     // const size = extent[1] - extent[0];

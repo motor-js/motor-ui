@@ -92,10 +92,10 @@ const bio = [
 ];
 
 const color = {
-  brand: "#000aee",
-  brandLight: "#eeefff",
-  accent1: "var(--oc-pink-6)",
-  accent2: "#000aee",
+  brand: "",
+  brandLight: "",
+  accent1: "",
+  accent2: "",
   altDark: "#272727",
   altGray1: "var(--oc-gray-1)",
   altGray2: "var(--oc-gray-2)",
@@ -134,6 +134,7 @@ const base = {
   global: {
     backgroundColor: "white",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
+    colorTheme: 'motor',
     color,
     border: {
       color: "var(--oc-gray-4)",

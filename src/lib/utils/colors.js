@@ -26,6 +26,7 @@ export const createColorArray = (color, theme) => {
     return color
   } if (theme.global.color[color] !== undefined) {
     // if string and string matches a theme name
+
     return theme.global.color[color]
   }
   // if string and doesn't match a theme name, it is an open color array
