@@ -64,7 +64,7 @@ Bar.propTypes = {
   /** Supress zeo vlaues in the the chart  */
   suppressZero: PropTypes.bool,
   /** Bar Sort Order */
-  columnSortOrder: PropTypes.array,
+  barSortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
   /** Bar width */
@@ -237,7 +237,7 @@ Bar.defaultProps = {
   backgroundColor: null,
   chartColor: null,
   roundNum: true,
-  columnSortOrder: [],
+  barSortOrder: [],
   sortDirection: "",
   stacked: false,
   percentStacked: false,

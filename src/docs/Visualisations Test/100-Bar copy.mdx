@@ -32,41 +32,22 @@ import Motor from '../../lib/components/React/Motor/Motor.jsx';
             secure: false,
             port: 19077,
             prefix: "",
-            appId: "0a6aaa49-cb0d-4b0c-8bd3-07c38878d318"
+            appId: "fe191278-da6c-444d-a860-0ca05e075b03"
   }}>
-      <Bar
-            cols={[
-     //    { qField: 'Year', qLabel: 'Year' },
-        { qField: '[OICA region]', qLabel: 'OICA region' },
-      { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' },
-      { qField: '=Avg([Car sales])*if(Year=2011,1,1)', qLabel: 'Avg sales' },
-      {
-        qField: '=Sum([Commercial vehicle sales])',
-        qLabel: 'Commercial vehicles sales',
-      },
-            ]}
-            // title="Vehicle Sales by Region"
-            // subTitle="Vehicle Sales by Region"
-                        tickSpacing="narrow"
-           // showGridlines={true}
-            showGridlines={'none'}
-            textOnAxis='both'
-            // showLegend={true}
-            suppressZero={true}
-         //   suppressScroll={true}
-         //   stacked={true}
-            // percentStacked={true}
-            height="410px"
-            // border = {false}
-            calcCondition={{
-              qCond: '1+1=2',
-              qMsg: 'Calculation condition has not been met'
-            }}
-     //        otherTotalSpec={{
-     //         qOtherLabel: 'Other',
-     //         qOtherCount: '5'
-     //       }}
-            />
+       <Bar
+        title="Revenue by Product Sub Group"
+        subTitle="Revenue figures from the Consumer Sales Qlik Sense application"
+        height="50%"
+        cols={[
+          { qField: "[Product Sub Group Desc]", qLabel: "Product Sub Group" },
+          {
+            qField: "=Sum( [Sales Quantity]*[Sales Price])",
+            qLabel: "Revenue",
+          },
+        ]}
+        barSortOrder={[1,0]}
+        showLabels="top"
+      />
   </Motor>
 </Playground>
 

@@ -430,7 +430,6 @@ export default function createLine({
       .text((d) => d);
 
     const numFormat = qMeasureInfo[1].qNumFormat;
-    console.log(qMeasureInfo[1].qNumFormat);
     const decimals =
       qMeasureInfo[1].qNumFormat.qFmt &&
       qMeasureInfo[1].qNumFormat.qFmt.includes("%")
