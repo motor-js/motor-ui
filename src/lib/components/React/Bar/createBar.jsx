@@ -661,7 +661,9 @@ export default function CreateBar({
       const gridlines = d3
         .axisBottom()
         .tickFormat("")
-        .tickSize(-(height - margin.top - xAxisHeight - titleHeights))
+        .tickSize(
+          -(height - margin.top - xAxisHeight - titleHeights - legendHeight)
+        )
         .scale(xScale);
 
       switch (tickSpacing) {
@@ -1792,9 +1794,7 @@ export default function CreateBar({
     // const y0 = d3.min(range) + size / 2;
     // const y1 = d3.max(range) + yOverview.rangeBand() - size / 2; // here
     // const center = Math.max(y0, Math.min(y1, d3.mouse(target)[1]));
-
     // d3.event.stopPropagation();
-
     // context
     //   .call(brush.extent([center - size / 2, center + size / 2]))
     //   .call(brush.event);
