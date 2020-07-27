@@ -39,7 +39,6 @@ const divergent9 = [
   "#f94144",
 ];
 
-
 const eco = [
   "#3366CC",
   "#DC3912",
@@ -135,7 +134,7 @@ const base = {
   global: {
     backgroundColor: "white",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
-    colorTheme: 'motor',
+    colorTheme: "motor",
     color,
     border: {
       color: "var(--oc-gray-4)",
