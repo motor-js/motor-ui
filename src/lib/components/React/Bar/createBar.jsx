@@ -478,6 +478,7 @@ export default function CreateBar({
         `${padding * data.length * (data.length === 1 ? 1.5 : 1)}`) /
       data.length /
       qMeasureCount;
+    // console.log("2", barWidth);
 
     if (
       typeof barPadding === "undefined" &&
@@ -1439,6 +1440,7 @@ export default function CreateBar({
     .on("brush", brushed);
 
   let scrollBarRatio = scrollRatio;
+  // console.log(yScale.range()[1], scrollRatio);
 
   function setupMiniChart() {
     if (
@@ -1900,7 +1902,13 @@ export default function CreateBar({
           case "stackedChart":
           case "percentStacked":
             // return `translate(0,${yScale(i) + barWidth / 2 + padding})`;
-            return `translate(0,${yScale(i) + barWidth})`;
+            // return `translate(0,${yScale(i) + barWidth / 2 + padding / 2})`;
+            // return `translate(0,${yScale(i) + barWidth})`;
+            // return `translate(0,${yScale(i) + barWidth - padding})`;
+            return `translate(0,${yScale(i) +
+              (padding === BarDefault.barPadding
+                ? margin.top + xAxisHeight + barWidth / 2
+                : margin.top + barWidth / 2)})`;
           case "multipleDimensions":
             return `translate(0,${yScale(i) +
               (barWidth / 2) * qMeasureCount +
