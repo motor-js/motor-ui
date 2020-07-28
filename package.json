@@ -1,14 +1,14 @@
 {
   "name": "@motor-js/core",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.1-beta.0",
   "description": "The React Framework for Qlik Sense Mashups",
-  "author": "Luke Reilly",
-  "license": "ISC",
+  "author": "Motor JS",
+  "license": "https://motor-js.io/license",
   "repository": {
     "type": "git",
     "url": ""
   },
-  "homepage": "",
+  "homepage": "https://motor-js.io",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
