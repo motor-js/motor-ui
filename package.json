@@ -1,6 +1,6 @@
 {
   "name": "@motor-js/core",
-  "version": "0.6.0-alpha.4",
+  "version": "1.0.0-alpha.0",
   "description": "The React Framework for Qlik Sense Mashups",
   "author": "Luke Reilly",
   "license": "ISC",
