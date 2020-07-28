@@ -430,12 +430,16 @@ export default function createLine({
       .text((d) => d);
 
     const numFormat = qMeasureInfo[1].qNumFormat;
-    const decimals = `,.${
-      numFormat.qFmt.slice(
-        numFormat.qFmt.indexOf(numFormat.qDec) + 1,
-        numFormat.qFmt.indexOf("%")
-      ).length
-    }%`;
+    const decimals =
+      qMeasureInfo[1].qNumFormat.qFmt &&
+      qMeasureInfo[1].qNumFormat.qFmt.includes("%")
+        ? `,.${
+            numFormat.qFmt.slice(
+              numFormat.qFmt.indexOf(numFormat.qDec) + 1,
+              numFormat.qFmt.indexOf("%")
+            ).length
+          }%`
+        : 0;
 
     const newValue =
       qMeasureInfo[1].qNumFormat.qType !== "U" &&

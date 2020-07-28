@@ -479,18 +479,18 @@ export default function CreateBar({
       data.length /
       qMeasureCount;
 
-    if (
-      typeof barPadding === "undefined" &&
-      barWidth < BarDefault.zoomScrollOnBarHeight
-    ) {
-      const chartWidth = yScale.range()[1];
-      barWidth =
-        (chartWidth - BarDefault.barPaddingNarrow * data.length) /
-        data.length /
-        qMeasureCount;
+    // if (
+    //   typeof barPadding === "undefined" &&
+    //   barWidth < BarDefault.zoomScrollOnBarHeight
+    // ) {
+    const chartWidth = yScale.range()[1];
+    barWidth =
+      (chartWidth - BarDefault.barPaddingNarrow * data.length) /
+      data.length /
+      qMeasureCount;
 
-      padding = barPadding || BarDefault.barPaddingNarrow;
-    }
+    padding = barPadding || BarDefault.barPaddingNarrow;
+    // }
   } else {
     const chartWidth = height - titleHeights - legendHeight - xAxisHeight;
 
@@ -661,7 +661,9 @@ export default function CreateBar({
       const gridlines = d3
         .axisBottom()
         .tickFormat("")
-        .tickSize(-(height - margin.top - xAxisHeight - titleHeights))
+        .tickSize(
+          -(height - margin.top - xAxisHeight - titleHeights - legendHeight)
+        )
         .scale(xScale);
 
       switch (tickSpacing) {
@@ -1792,9 +1794,7 @@ export default function CreateBar({
     // const y0 = d3.min(range) + size / 2;
     // const y1 = d3.max(range) + yOverview.rangeBand() - size / 2; // here
     // const center = Math.max(y0, Math.min(y1, d3.mouse(target)[1]));
-
     // d3.event.stopPropagation();
-
     // context
     //   .call(brush.extent([center - size / 2, center + size / 2]))
     //   .call(brush.event);
@@ -1900,7 +1900,13 @@ export default function CreateBar({
           case "stackedChart":
           case "percentStacked":
             // return `translate(0,${yScale(i) + barWidth / 2 + padding})`;
-            return `translate(0,${yScale(i) + barWidth})`;
+            // return `translate(0,${yScale(i) + barWidth / 2 + padding / 2})`;
+            // return `translate(0,${yScale(i) + barWidth})`;
+            // return `translate(0,${yScale(i) + barWidth - padding})`;
+            return `translate(0,${yScale(i) +
+              (padding === BarDefault.barPadding
+                ? margin.top + xAxisHeight + barWidth / 2
+                : margin.top + barWidth / 2)})`;
           case "multipleDimensions":
             return `translate(0,${yScale(i) +
               (barWidth / 2) * qMeasureCount +

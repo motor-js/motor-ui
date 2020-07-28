@@ -134,7 +134,7 @@ const base = {
   global: {
     backgroundColor: "white",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
-    colorTheme: 'motor',
+    colorTheme: "motor",
     color,
     border: {
       color: "var(--oc-gray-4)",
