@@ -61,7 +61,7 @@ const TableBody = ({
             selCol={selCol}
             onClick={() => { handle(data[i][c].qElemNumber, col) }}
           >
-            {data[i][c].qText}
+            {col.qColumnType === 'dim' ? data[i][c].qText : data[i][c].qText}
           </TableCellStyle>
         ))}
       </TableRowStyle>

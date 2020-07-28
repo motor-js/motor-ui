@@ -35,28 +35,26 @@ import { config } from '../config/config.js'
       interactiveSort={true}
       tableWidth={'800px'}
       size='small'
-      columns={[{
-          dimensions: [
+      columns={[
+      {
+        dimensions: [
           {
-              qField: "country",
-              qLabel: "Country",
-              qNullSuppression: false,
-              width: '10%',            
-          },
+            qField: 'country',
+            qLabel: 'Country',
+            qNullSuppression: false,
+            width: '10%',
+          }
+        ],
+        measures: [
           {
-              qField: "province",
-              qLabel: "Province",
-              qCondBackgroundFormat:'',
-              qCondTextFormat:'',
-              width: "10%"
+            qField: '=count(country)',
+            qNumFormat: {
+              qFmt: '#,###',
+            },
           },
-          {
-              qField: "region_1",
-              qLabel: "Region",
-              width: "10%"
-          },
-          ],
-        }]}
+        ],
+      },
+    ]}
   />  
   </Motor>
 </Playground>

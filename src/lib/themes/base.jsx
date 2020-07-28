@@ -39,7 +39,6 @@ const divergent9 = [
   "#f94144",
 ];
 
-
 const eco = [
   "#3366CC",
   "#DC3912",
@@ -92,11 +91,11 @@ const bio = [
 ];
 
 const color = {
-  brand: "#ff7272",
+  brand: "#FF7272",
   brandLight: "#FFCCC7",
   accent1: "#007DC3",
   accent2: "#A08CFF",
-  accent3: "f3eed9",
+  accent3: "f3EED9",
   altDark: "#272727",
   altGray1: "var(--oc-gray-1)",
   altGray2: "var(--oc-gray-2)",

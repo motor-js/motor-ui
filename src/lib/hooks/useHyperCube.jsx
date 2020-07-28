@@ -253,7 +253,13 @@ const useHyperCube = (props) => {
             qDef: {
               qDef: col.qField,
               qLabel: col.qLabel,
-              qNumFormat: col.qNumFormat,
+              qNumFormat: {
+                qType: col.qNumType || 'U',
+                qUseThou: 1,
+                qFmt: col.qNumFmt,
+                qDec: '.',
+                qThou: ',',
+              },
             },
             qSortBy: {
               qSortByNumeric,
