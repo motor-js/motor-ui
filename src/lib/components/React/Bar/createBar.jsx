@@ -478,20 +478,19 @@ export default function CreateBar({
         `${padding * data.length * (data.length === 1 ? 1.5 : 1)}`) /
       data.length /
       qMeasureCount;
-    // console.log("2", barWidth);
 
-    if (
-      typeof barPadding === "undefined" &&
-      barWidth < BarDefault.zoomScrollOnBarHeight
-    ) {
-      const chartWidth = yScale.range()[1];
-      barWidth =
-        (chartWidth - BarDefault.barPaddingNarrow * data.length) /
-        data.length /
-        qMeasureCount;
+    // if (
+    //   typeof barPadding === "undefined" &&
+    //   barWidth < BarDefault.zoomScrollOnBarHeight
+    // ) {
+    const chartWidth = yScale.range()[1];
+    barWidth =
+      (chartWidth - BarDefault.barPaddingNarrow * data.length) /
+      data.length /
+      qMeasureCount;
 
-      padding = barPadding || BarDefault.barPaddingNarrow;
-    }
+    padding = barPadding || BarDefault.barPaddingNarrow;
+    // }
   } else {
     const chartWidth = height - titleHeights - legendHeight - xAxisHeight;
 
@@ -1440,7 +1439,6 @@ export default function CreateBar({
     .on("brush", brushed);
 
   let scrollBarRatio = scrollRatio;
-  // console.log(yScale.range()[1], scrollRatio);
 
   function setupMiniChart() {
     if (
