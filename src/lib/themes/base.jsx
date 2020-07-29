@@ -648,7 +648,7 @@ const base = {
   },
   line: {
     main: {
-      dataPointsToShow: 30,
+      dataPointsToShow: 100,
       otherTotalSpec: undefined,
       symbol: "circle",
       strokeWidth: 1,
