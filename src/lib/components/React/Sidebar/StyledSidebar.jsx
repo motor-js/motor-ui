@@ -6,7 +6,8 @@ const collapsableStyle = css`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: ${({ pullRight }) => (pullRight ? null : 0)};
+  right: ${({ pullRight }) => (pullRight ? 0 : null)};
   z-index: 999;
   width:  ${(props) => props.width} 
   transition: transform 0.3s ease-in-out;
