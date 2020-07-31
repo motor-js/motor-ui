@@ -24,7 +24,8 @@ import { config } from '../config/config.js'
   const { isOpen, toggle } = useSidebar();
   return (
     <Motor config={config}>
-      <div style={{ overflow: "hidden", height: "300px", width: "500px" }}>
+      {/* <div style={{ overflow: "hidden", height: "300px", width: "500px" }}> */}
+      <div style={{ overflow: "hidden", height: "300px"}}>
         <Sidebar
           width="30%"
           collapsable
@@ -43,6 +44,7 @@ import { config } from '../config/config.js'
         </Sidebar>
         <Button onClick={toggle}>Show Sidebar</Button>
         <h1>Hello World</h1>
+        <p>This is a test of what the sidebar would do if it had to work. Having a sidebar with an overlay.</p>
       </div>
     </Motor>
   );

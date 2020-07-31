@@ -1,18 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import StyledSidebar from "./StyledSidebar";
+import { StyledSidebar, SideBarOverlay } from "./StyledSidebar";
 
-const Sidebar = ({ children, isOpen, collapsable, width, ...rest }) => {
+const Sidebar = ({
+  children,
+  isOpen,
+  showOverlay,
+  collapsable,
+  width,
+  ...rest
+}) => {
   return (
-    <StyledSidebar
-      collapsable={collapsable}
-      height={{ min: "100%" }}
-      open={isOpen}
-      width={width}
-      {...rest}
-    >
-      {children}
-    </StyledSidebar>
+    <SideBarOverlay open={isOpen} overlay={showOverlay}>
+      <StyledSidebar
+        collapsable={collapsable}
+        height={{ min: "100%" }}
+        open={isOpen}
+        width={width}
+        {...rest}
+      >
+        {children}
+      </StyledSidebar>
+    </SideBarOverlay>
   );
 };
 
@@ -24,6 +33,7 @@ Sidebar.propTypes = {
   /** whether the sidebar is collapsable */
   collapsable: PropTypes.bool,
   pullRight: PropTypes.bool,
+  showOverlay: PropTypes.bool,
   width: PropTypes.string,
 };
 
@@ -31,5 +41,6 @@ Sidebar.defaultProps = {
   children: undefined,
   collapsable: false,
   pullRight: false,
+  showOverlay: false,
   width: "100%",
 };

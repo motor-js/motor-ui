@@ -19,7 +19,26 @@ const StyledSidebar = styled(Box)`
   ${(props) => props.collapsable && collapsableStyle}
 `;
 
+const SideBarOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 998;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ overlay }) =>
+    `rgba(105,105,105, ${overlay ? 0.3 : 0.0})`};
+  display: ${({ open }) => (open ? "block" : "none")};
+`;
+
+// const SideBarOverlay = styled.div`
+//   ${(props) => props.collapsable && overlayStyle}
+// `;
+
 StyledSidebar.defaultProps = {};
 Object.setPrototypeOf(StyledSidebar.defaultProps, defaultProps);
 
-export default StyledSidebar;
+SideBarOverlay.defaultProps = {};
+Object.setPrototypeOf(SideBarOverlay.defaultProps, defaultProps);
+
+export { StyledSidebar, SideBarOverlay };
