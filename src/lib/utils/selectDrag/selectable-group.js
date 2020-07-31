@@ -52,7 +52,7 @@ class SelectableGroup extends React.Component {
     this._applyMousedown(false)
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (nextProps.enabled !== this.props.enabled) {
       this._applyMousedown(nextProps.enabled)
     }
