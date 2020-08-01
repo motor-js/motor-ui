@@ -92,7 +92,7 @@ const bio = [
 
 const color = {
   brand: "#FF7272",
-  brandLight: "#FFCCC7",
+  brandLight: "#ffe3e1", //"#FFCCC7",
   accent1: "#007DC3",
   accent2: "#A08CFF",
   accent3: "f3EED9",

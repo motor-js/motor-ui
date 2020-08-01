@@ -29,6 +29,7 @@ class SelectableGroup extends React.Component {
     this._unregisterSelectable = this._unregisterSelectable.bind(this)
 
     this._throttledSelect = throttle(this._selectElements, 50)
+    
   }
 
   getChildContext() {
@@ -68,7 +69,8 @@ class SelectableGroup extends React.Component {
 
   _applyMousedown(apply) {
     const funcName = apply ? 'addEventListener' : 'removeEventListener'
-    ReactDOM.findDOMNode(this)[funcName]('mousedown', this._mouseDown)
+   // ReactDOM.findDOMNode(this)[funcName]('mousedown', this._mouseDown)
+    this.node[funcName]('mousedown', this._mouseDown)
   }
 
   /**
@@ -102,7 +104,9 @@ class SelectableGroup extends React.Component {
     const mTop = parseInt(t.slice(0, t.length - 2), 10)
 
     const bodyRect = document.body.getBoundingClientRect()
-    const elemRect = ReactDOM.findDOMNode(this).getBoundingClientRect()
+
+ //   var node = ReactDOM.findDOMNode(this);
+    const elemRect = this.node.getBoundingClientRect()
 
     return { x: Math.round(elemRect.left - bodyRect.left + mLeft), y: Math.round(elemRect.top - bodyRect.top + mTop) }
   }
@@ -115,7 +119,9 @@ class SelectableGroup extends React.Component {
     // Disable if target is control by react-dnd
     if (isNodeIn(e.target, node => !!node.draggable)) return
 
-    const node = ReactDOM.findDOMNode(this)
+    //const node = ReactDOM.findDOMNode(this)
+    const node = this.node
+    
     let collides; let offsetData; let
       distanceData
     window.addEventListener('mouseup', this._mouseUp)
@@ -187,7 +193,7 @@ class SelectableGroup extends React.Component {
 	 */
   _selectElements(e) {
 	    const currentItems = []
-		      const selectbox = ReactDOM.findDOMNode(this.refs.selectbox)
+		      const selectbox = this.refs.selectbox
 		      const { tolerance } = this.props
 
     if (!selectbox) return
@@ -244,7 +250,7 @@ class SelectableGroup extends React.Component {
     }
 
     return (
-      <Component className={this.props.className} style={wrapperStyle}>
+      <Component ref={(n) => this.node = n} className={this.props.className} style={wrapperStyle}>
         {this.state.isBoxSelecting
               && <div style={boxStyle} ref="selectbox"><span style={spanStyle} /></div>}
         {this.props.children}
