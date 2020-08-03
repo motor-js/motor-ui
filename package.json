@@ -38,6 +38,8 @@
   },
   "dependencies": {
     "@babel/types": "^7.10.3",
+    "@styled-icons/feather": "^10.0.0",
+    "cogo-toast": "^4.2.3",
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
     "enigma.js": "^2.6.3",
@@ -48,8 +50,7 @@
     "react-loader-spinner": "^3.1.14",
     "rollup-plugin-typescript2": "^0.27.1",
     "styled-components": "^5.1.0",
-    "uuid": "^3.3.2",
-    "@styled-icons/feather": "^10.0.0"
+    "uuid": "^3.3.2"
   },
   "peerDependencies": {
     "react": "^16.12.0",

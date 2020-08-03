@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import cogoToast from 'cogo-toast';
 
 const enigma = require('enigma.js');
 const schema = require('enigma.js/schemas/12.170.2.json');
@@ -59,7 +60,9 @@ function useEngine(config) {
           console.warn('Error', err);
           if (err.code === 1003) {
             setEngineError(`No engine. App Not found.`);
-            console.warn('App Not Found'); /*cogoToast.error('App Not Found')*/
+            cogoToast.error('App Not Found')
+          } else {
+            cogoToast.error('Enigma Error')
           }
         }
       }

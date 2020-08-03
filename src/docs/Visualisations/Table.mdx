@@ -25,6 +25,7 @@ import { Props } from 'docz'
 import { Playground } from 'docz'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import Table from '../../lib/components/React/Table/Table.jsx'
+import Pie from '../../lib/components/React/Pie/Pie.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import { config } from '../config/config.js'
 
@@ -55,7 +56,20 @@ import { config } from '../config/config.js'
         ],
       },
     ]}
-  />  
+  /> 
+  <Pie
+    size='small'
+    title='Donut Chart'
+    subTitle='Sub Title'
+    cols={[
+      { qField: 'province', qLabel: 'Province' },
+      { qField: '=Count(winery)', qLabel: 'No of Wineries' }
+    ]}
+    innerRadius={55}
+    cornerRadius={5}
+    padAngle={0.03}
+    showLabels="outside"
+  />
   </Motor>
 </Playground>
 
