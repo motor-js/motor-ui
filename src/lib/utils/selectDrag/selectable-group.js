@@ -29,6 +29,7 @@ class SelectableGroup extends React.Component {
 
     this._throttledSelect = throttle(this._selectElements, 50)
     
+    this.selectbox = React.createRef();
   }
 
   getChildContext() {
@@ -192,7 +193,7 @@ class SelectableGroup extends React.Component {
 	 */
   _selectElements(e) {
 	    const currentItems = []
-		      const selectbox = this.refs.selectbox
+		      const selectbox = this.selectbox.current
 		      const { tolerance } = this.props
 
     if (!selectbox) return
@@ -251,7 +252,7 @@ class SelectableGroup extends React.Component {
     return (
       <Component ref={(n) => this.node = n} className={this.props.className} style={wrapperStyle}>
         {this.state.isBoxSelecting
-              && <div style={boxStyle} ref="selectbox"><span style={spanStyle} /></div>}
+              && <div style={boxStyle} ref={this.selectbox}><span style={spanStyle} /></div>}
         {this.props.children}
       </Component>
     )
