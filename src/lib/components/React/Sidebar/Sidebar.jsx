@@ -11,17 +11,17 @@ const Sidebar = ({
   ...rest
 }) => {
   return (
-    // <SideBarOverlay open={isOpen} overlay={showOverlay}>
-    <StyledSidebar
-      collapsable={collapsable}
-      height={{ min: "100%" }}
-      open={isOpen}
-      width={width}
-      {...rest}
-    >
-      {children}
-    </StyledSidebar>
-    // </SideBarOverlay>
+    <SideBarOverlay open={isOpen} overlay={showOverlay}>
+      <StyledSidebar
+        collapsable={collapsable}
+        height={{ min: "100%" }}
+        open={isOpen}
+        width={width}
+        {...rest}
+      >
+        {children}
+      </StyledSidebar>
+    </SideBarOverlay>
   );
 };
 
@@ -41,6 +41,6 @@ Sidebar.defaultProps = {
   children: undefined,
   collapsable: false,
   pullRight: false,
-  showOverlay: false,
+  showOverlay: true,
   width: "100%",
 };
