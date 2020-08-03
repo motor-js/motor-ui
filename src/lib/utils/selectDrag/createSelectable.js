@@ -1,11 +1,15 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const createSelectable = WrappedComponent => {
   class SelectableItem extends React.Component {
+
+    childRef = React.createRef();
+
     componentDidMount() {
-      this.context.selectable.register(this.props.selectableKey, ReactDOM.findDOMNode(this))
+      //const element = ReactDOM.findDOMNode(this)
+      const element = this.childRef.current;
+      this.context.selectable.register(this.props.selectableKey, element)
     }
 
     componentWillUnmount() {
@@ -14,7 +18,7 @@ const createSelectable = WrappedComponent => {
 
     render() {
       return (
-        <WrappedComponent {...this.props}>
+        <WrappedComponent ref={this.childRef} {...this.props}>
           {this.props.children}
         </WrappedComponent>
       )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyledFilterListItem } from './FilterTheme'
 
-const FilterListItem = ({
+const FilterListItem = React.forwardRef(({
   data,
   selectMultipleCallback,
   selectableKey,
@@ -9,9 +9,10 @@ const FilterListItem = ({
   i,
   size,
   itemHeight,
-}) => (
+}, ref) => (
   <StyledFilterListItem
     id={`selectableItem-${selectableKey}`}
+    ref={ref}
     data-testid="items"
     onClick={() => (selectMultipleCallback(data[0]))}
     rowHeight={rowHeight}
@@ -22,6 +23,6 @@ const FilterListItem = ({
   >
     {data[0].qText}
   </StyledFilterListItem>
-)
+))
 
 export default FilterListItem
