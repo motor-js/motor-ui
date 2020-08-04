@@ -60,9 +60,9 @@ function useEngine(config) {
           console.warn('Error', err);
           if (err.code === 1003) {
             setEngineError(`No engine. App Not found.`);
-            cogoToast.error('App Not Found')
+          //  cogoToast.error('App Not Found')
           } else {
-            cogoToast.error('Enigma Error')
+         //   cogoToast.error('Enigma Error')
           }
         }
       }

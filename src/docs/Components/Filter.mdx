@@ -24,10 +24,13 @@ Here is a simple Filter component. Use it to make selections in your app.
 import { Props } from 'docz'
 import { Playground } from 'docz'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import { config } from '../config/config.js'
+import { night } from '../../lib/themes'
 
 <Playground>
     <div style={{width: "200px"}}>
+    <Motor theme={night}>
     <Filter
         config={config}
         label='Province'
@@ -35,6 +38,7 @@ import { config } from '../config/config.js'
         size='small'
         width='100%'
     />
+    </Motor>
     </div>
 </Playground>
 
