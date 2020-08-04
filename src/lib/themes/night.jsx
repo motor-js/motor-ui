@@ -130,7 +130,7 @@ dodge
 electric
 */
 
-const base = {
+const night = {
   global: {
     backgroundColor: "#0E121A",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
@@ -767,4 +767,4 @@ const base = {
   },
 };
 
-export default base;
+export default night;
