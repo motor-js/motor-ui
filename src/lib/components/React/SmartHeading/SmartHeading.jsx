@@ -1,12 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
-import { StyledHeading } from './HeadingTheme';
-import Spinner from '../Spinner';
+import React, { useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
+import { StyledHeading } from "./HeadingTheme";
+import Spinner from "../Spinner";
 
-const SmartHeading = ({ children, config, size, type, level, margin, color }) => {
+const SmartHeading = ({
+  children,
+  config,
+  size,
+  type,
+  level,
+  margin,
+  color,
+  locales,
+  options,
+}) => {
   const myConfig = config || useContext(ConfigContext);
   const { engine, engineError } =
     useContext(EngineContext) || useEngine(myConfig);
@@ -28,12 +38,18 @@ const SmartHeading = ({ children, config, size, type, level, margin, color }) =>
   }, [engine]);
 
   let text;
-  if (type === 'free') {
-    text = children || '';
-  } else if (type === 'appName') {
+  if (type === "free") {
+    text = children || "";
+  } else if (type === "appName") {
     text = children ? children + title : `${title}`;
-  } else if (type === 'lastReload') {
-    const ts = new Date(lastReload).toLocaleString();
+  } else if (type === "lastReload") {
+    // const ts = new Date(lastReload).toLocaleString();
+    let ts = new Date(lastReload).toLocaleString();
+    if (locales && options) {
+      ts = new Date(lastReload).toLocaleString(locales, options);
+    } else if (locales) {
+      ts = new Date(lastReload).toLocaleString(locales);
+    }
     text = children ? children + ts : `${ts}`;
   }
 
@@ -59,7 +75,7 @@ SmartHeading.propTypes = {
   /* Configure connection to the Qlik engine */
   config: PropTypes.object,
   /* Type of text, either free (free text), app last reload timestate, or the app name. */
-  type: PropTypes.oneOf(['free', 'lastReload', 'appName']),
+  type: PropTypes.oneOf(["free", "lastReload", "appName"]),
   /* Override size of the search bar by passing a pixel value */
   size: PropTypes.string,
   /* Heading */
@@ -67,15 +83,19 @@ SmartHeading.propTypes = {
   /* Margin */
   margin: PropTypes.string,
   color: PropTypes.string,
+  locales: PropTypes.string,
+  options: PropTypes.object,
 };
 
 SmartHeading.defaultProps = {
   config: null,
-  type: 'lastReload',
+  type: "lastReload",
   size: null,
   level: 1,
-  margin: '5px',
+  margin: "5px",
   color: null,
+  locales: null,
+  options: null,
 };
 
 export default SmartHeading;

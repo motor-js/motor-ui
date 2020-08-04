@@ -15,7 +15,15 @@ import { config } from '../config/config.js'
 <Playground>
     <KPI
         config={config}
-        cols={["=Count(distinct country)"]}
+                    cols={[
+              {
+                qField:
+                  "=Sum( { $< [Claim Notification Date.autoCalendar.InYTD]={1}, [Claim Notification Date.autoCalendar.YearsAgo]={0} > } [Total Claim Cost])/1000000",
+                qLabel: "Margin Amount",
+                qNumType: "M",qNumFmt: "£#,##0",
+              },
+            ]}
+            roundNum={false}
         label='Count of Countries'
         size='medium'
         border={{color:'brand'}}
