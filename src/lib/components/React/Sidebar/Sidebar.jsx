@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { StyledSidebar, SideBarOverlay } from "./StyledSidebar";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
 const Sidebar = ({
   children,
@@ -8,19 +9,31 @@ const Sidebar = ({
   showOverlay,
   collapsable,
   width,
+  onOutsideClick,
   ...rest
 }) => {
+  const ref = useRef();
+
+  useOutsideClick(ref, () => {
+    if (isOpen) {
+      const outsideClick = !ref.current.contains(event.target);
+      if (outsideClick) onOutsideClick();
+    }
+  });
+
   return (
     <SideBarOverlay open={isOpen} overlay={showOverlay}>
-      <StyledSidebar
-        collapsable={collapsable}
-        height={{ min: "100%" }}
-        open={isOpen}
-        width={width}
-        {...rest}
-      >
-        {children}
-      </StyledSidebar>
+      <div ref={ref}>
+        <StyledSidebar
+          collapsable={collapsable}
+          height={{ min: "100%" }}
+          open={isOpen}
+          width={width}
+          {...rest}
+        >
+          {children}
+        </StyledSidebar>
+      </div>
     </SideBarOverlay>
   );
 };
