@@ -63,6 +63,7 @@ function useEngine(config) {
           //  cogoToast.error('App Not Found')
           } else {
          //   cogoToast.error('Enigma Error')
+         console.warn('ERROR WARNING', err)
           }
         }
       }
