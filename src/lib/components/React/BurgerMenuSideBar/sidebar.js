@@ -2,6 +2,7 @@ import React from "react";
 // import { slide as Menu } from "react-burger-menu";
 import { slide as Menu } from "../BurgerMenu";
 import "./styles.css";
+// import { Home, X } from "react-feather";
 
 export default (props) => {
   const theme = "slide";
@@ -11,6 +12,7 @@ export default (props) => {
     // Pass on our props
     <Menu {...props}>
       <a className="menu-item" href="/">
+        {/* <Home /> */}
         Home
       </a>
 
