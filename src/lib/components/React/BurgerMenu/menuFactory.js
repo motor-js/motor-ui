@@ -1,29 +1,31 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import baseStyles from './baseStyles';
-import BurgerIcon from './BurgerIcon';
-import CrossIcon from './CrossIcon';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import baseStyles from "./baseStyles";
+import BurgerIcon from "./BurgerIcon";
+import CrossIcon from "./CrossIcon";
+import { selectColor } from "../../../utils/colors";
+import { defaultProps } from "../../../default-props";
 
-export default styles => {
+export default (styles) => {
   class Menu extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        isOpen: false
+        isOpen: false,
       };
 
       if (!styles) {
-        throw new Error('No styles supplied');
+        throw new Error("No styles supplied");
       }
     }
 
     toggleMenu(options = {}) {
       const { isOpen, noStateChange } = options;
       const newState = {
-        isOpen: typeof isOpen !== 'undefined' ? isOpen : !this.state.isOpen
+        isOpen: typeof isOpen !== "undefined" ? isOpen : !this.state.isOpen,
       };
 
       this.applyWrapperStyles();
@@ -35,8 +37,8 @@ export default styles => {
           // For accessibility reasons, ensures that when we toggle open,
           // we focus the first menu item if one exists.
           if (newState.isOpen) {
-            const firstItem = document.querySelector('.bm-item');
-            if (firstItem) {
+            const firstItem = document.querySelector(".bm-item");
+            if (firstItem && this.props.focusFirstItem) {
               firstItem.focus();
             }
           } else {
@@ -60,7 +62,7 @@ export default styles => {
     }
 
     open() {
-      if (typeof this.props.onOpen === 'function') {
+      if (typeof this.props.onOpen === "function") {
         this.props.onOpen();
       } else {
         this.toggleMenu();
@@ -68,7 +70,7 @@ export default styles => {
     }
 
     close() {
-      if (typeof this.props.onClose === 'function') {
+      if (typeof this.props.onClose === "function") {
         this.props.onClose();
       } else {
         this.toggleMenu();
@@ -78,7 +80,7 @@ export default styles => {
     overlayClick() {
       if (
         this.props.disableOverlayClick === true ||
-        (typeof this.props.disableOverlayClick === 'function' &&
+        (typeof this.props.disableOverlayClick === "function" &&
           this.props.disableOverlayClick())
       ) {
         return;
@@ -90,13 +92,13 @@ export default styles => {
     // Applies component-specific styles to external wrapper elements.
     applyWrapperStyles(set = true) {
       const applyClass = (el, className) =>
-        el.classList[set ? 'add' : 'remove'](className);
+        el.classList[set ? "add" : "remove"](className);
 
       if (this.props.htmlClassName) {
-        applyClass(document.querySelector('html'), this.props.htmlClassName);
+        applyClass(document.querySelector("html"), this.props.htmlClassName);
       }
       if (this.props.bodyClassName) {
-        applyClass(document.querySelector('body'), this.props.bodyClassName);
+        applyClass(document.querySelector("body"), this.props.bodyClassName);
       }
 
       if (styles.pageWrap && this.props.pageWrapId) {
@@ -128,7 +130,7 @@ export default styles => {
 
       for (const prop in builtStyles) {
         if (builtStyles.hasOwnProperty(prop)) {
-          wrapper.style[prop] = set ? builtStyles[prop] : '';
+          wrapper.style[prop] = set ? builtStyles[prop] : "";
         }
       }
 
@@ -137,20 +139,20 @@ export default styles => {
       // bodyClassName is not passed in. Otherwise, it is up to the caller to
       // decide if they want to set the overflow style in CSS using the custom
       // class names.
-      const applyOverflow = el =>
-        (el.style['overflow-x'] = set ? 'hidden' : '');
+      const applyOverflow = (el) =>
+        (el.style["overflow-x"] = set ? "hidden" : "");
       if (!this.props.htmlClassName) {
-        applyOverflow(document.querySelector('html'));
+        applyOverflow(document.querySelector("html"));
       }
       if (!this.props.bodyClassName) {
-        applyOverflow(document.querySelector('body'));
+        applyOverflow(document.querySelector("body"));
       }
     }
 
     // Builds styles incrementally for a given element.
     getStyles(el, index, inline) {
       const propName =
-        'bm' + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
+        "bm" + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
 
       // Set base styles.
       let output = baseStyles[el] ? this.getStyle(baseStyles[el]) : {};
@@ -159,7 +161,7 @@ export default styles => {
       if (styles[el]) {
         output = {
           ...output,
-          ...this.getStyle(styles[el], index + 1)
+          ...this.getStyle(styles[el], index + 1),
         };
       }
 
@@ -167,7 +169,7 @@ export default styles => {
       if (this.props.styles[propName]) {
         output = {
           ...output,
-          ...this.props.styles[propName]
+          ...this.props.styles[propName],
         };
       }
 
@@ -175,7 +177,7 @@ export default styles => {
       if (inline) {
         output = {
           ...output,
-          ...inline
+          ...inline,
         };
       }
 
@@ -190,7 +192,7 @@ export default styles => {
 
     getStyle(style, index) {
       const { width } = this.props;
-      const formattedWidth = typeof width !== 'string' ? `${width}px` : width;
+      const formattedWidth = typeof width !== "string" ? `${width}px` : width;
       return style(this.state.isOpen, formattedWidth, this.props.right, index);
     }
 
@@ -201,7 +203,7 @@ export default styles => {
       if (
         !this.props.disableCloseOnEsc &&
         this.state.isOpen &&
-        (e.key === 'Escape' || e.keyCode === 27)
+        (e.key === "Escape" || e.keyCode === 27)
       ) {
         this.close();
       }
@@ -232,7 +234,7 @@ export default styles => {
 
     componentDidUpdate(prevProps) {
       const wasToggled =
-        typeof this.props.isOpen !== 'undefined' &&
+        typeof this.props.isOpen !== "undefined" &&
         this.props.isOpen !== this.state.isOpen &&
         this.props.isOpen !== prevProps.isOpen;
       if (wasToggled) {
@@ -242,8 +244,8 @@ export default styles => {
       }
 
       if (styles.svg) {
-        const morphShape = ReactDOM.findDOMNode(this, 'bm-morph-shape');
-        const path = styles.svg.lib(morphShape).select('path');
+        const morphShape = ReactDOM.findDOMNode(this, "bm-morph-shape");
+        const path = styles.svg.lib(morphShape).select("path");
 
         if (this.state.isOpen) {
           // Animate SVG path.
@@ -251,7 +253,7 @@ export default styles => {
         } else {
           // Reset path (timeout ensures animation happens off screen).
           setTimeout(() => {
-            path.attr('d', styles.svg.pathInitial);
+            path.attr("d", styles.svg.pathInitial);
           }, 300);
         }
       }
@@ -264,18 +266,18 @@ export default styles => {
             <div
               className={`bm-overlay ${this.props.overlayClassName}`.trim()}
               onClick={() => this.overlayClick()}
-              style={this.getStyles('overlay')}
+              style={this.getStyles("overlay")}
             />
           )}
           <div
             id={this.props.id}
             className={`bm-menu-wrap ${this.props.className}`.trim()}
-            style={this.getStyles('menuWrap')}
+            style={this.getStyles("menuWrap")}
           >
             {styles.svg && (
               <div
                 className={`bm-morph-shape ${this.props.morphShapeClassName}`.trim()}
-                style={this.getStyles('morphShape')}
+                style={this.getStyles("morphShape")}
               >
                 <svg
                   width="100%"
@@ -289,26 +291,33 @@ export default styles => {
             )}
             <div
               className={`bm-menu ${this.props.menuClassName}`.trim()}
-              style={this.getStyles('menu')}
+              style={this.getStyles("menu")}
             >
               <nav
                 className={`bm-item-list ${this.props.itemListClassName}`.trim()}
-                style={this.getStyles('itemList')}
+                style={this.getStyles("itemList")}
               >
                 {React.Children.map(this.props.children, (item, index) => {
+                  const itemStyle = {
+                    ...item.props.style,
+                    color: item.props.style
+                      ? selectColor(item.props.style.color, defaultProps.theme)
+                      : null,
+                  };
+
                   if (item) {
                     const classList = [
-                      'bm-item',
+                      "bm-item",
                       this.props.itemClassName,
-                      item.props.className
+                      item.props.className,
                     ]
-                      .filter(className => !!className)
-                      .join(' ');
+                      .filter((className) => !!className)
+                      .join(" ");
                     const extraProps = {
                       key: index,
                       className: classList,
-                      style: this.getStyles('item', index, item.props.style),
-                      tabIndex: this.state.isOpen ? 0 : -1
+                      style: this.getStyles("item", index, itemStyle),
+                      tabIndex: this.state.isOpen ? 0 : -1,
                     };
                     return React.cloneElement(item, extraProps);
                   }
@@ -316,7 +325,7 @@ export default styles => {
               </nav>
             </div>
             {this.props.customCrossIcon !== false && (
-              <div style={this.getStyles('closeButton')}>
+              <div style={this.getStyles("closeButton")}>
                 <CrossIcon
                   onClick={() => this.close()}
                   styles={this.props.styles}
@@ -329,7 +338,7 @@ export default styles => {
             )}
           </div>
           {this.props.customBurgerIcon !== false && (
-            <div style={this.getStyles('burgerIcon')}>
+            <div style={this.getStyles("burgerIcon")}>
               <BurgerIcon
                 onClick={() => this.open()}
                 styles={this.props.styles}
@@ -354,11 +363,11 @@ export default styles => {
     crossClassName: PropTypes.string,
     customBurgerIcon: PropTypes.oneOfType([
       PropTypes.element,
-      PropTypes.oneOf([false])
+      PropTypes.oneOf([false]),
     ]),
     customCrossIcon: PropTypes.oneOfType([
       PropTypes.element,
-      PropTypes.oneOf([false])
+      PropTypes.oneOf([false]),
     ]),
     customOnKeyDown: PropTypes.func,
     disableAutoFocus: PropTypes.bool,
@@ -388,33 +397,35 @@ export default styles => {
         : PropTypes.string,
     right: PropTypes.bool,
     styles: PropTypes.object,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    focusFirstItem: PropTypes.bool,
   };
 
   Menu.defaultProps = {
-    bodyClassName: '',
-    burgerBarClassName: '',
-    burgerButtonClassName: '',
-    className: '',
-    crossButtonClassName: '',
-    crossClassName: '',
+    bodyClassName: "",
+    burgerBarClassName: "",
+    burgerButtonClassName: "",
+    className: "",
+    crossButtonClassName: "",
+    crossClassName: "",
     disableAutoFocus: false,
     disableCloseOnEsc: false,
-    htmlClassName: '',
-    id: '',
-    itemClassName: '',
-    itemListClassName: '',
-    menuClassName: '',
-    morphShapeClassName: '',
+    htmlClassName: "",
+    id: "",
+    itemClassName: "",
+    itemListClassName: "",
+    menuClassName: "",
+    morphShapeClassName: "",
     noOverlay: false,
     noTransition: false,
     onStateChange: () => {},
-    outerContainerId: '',
-    overlayClassName: '',
-    pageWrapId: '',
+    outerContainerId: "",
+    overlayClassName: "",
+    pageWrapId: "",
     styles: {},
     width: 300,
-    onIconHoverChange: () => {}
+    onIconHoverChange: () => {},
+    focusFirstItem: true,
   };
 
   return Menu;

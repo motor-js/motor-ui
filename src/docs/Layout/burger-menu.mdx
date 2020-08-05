@@ -21,12 +21,28 @@ import Button from '../../lib/components/React/Button/Button.jsx'
 // import "./styles.css";
 import SideBar from "../../lib/components/React/BurgerMenuSideBar";
 import { Filter } from "@styled-icons/feather/filter";
+import { Home, X } from "react-feather";
+
+
 
 <Playground>
   {() => {
   return (
     <div id="App">
-      <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} />
+      <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}>
+        <a className="menu-item" href="/" >
+        <Home /> Home
+      </a>
+      <a className="menu-item" href="/sidebar" style={{ color: "blue" , background :"yellow"}}>
+        Burgers
+      </a>
+      <a className="menu-item" href="/pizzas">
+        Pizzas
+      </a>
+      <a className="menu-item" href="/desserts"style={{ color: "brand" }}>
+        Desserts
+      </a>
+        </SideBar>
       {/* <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} customBurgerIcon={ <Filter/> } /> */}
       <div id="page-wrap">
         <h1>Cool Restaurant 🍔🍕</h1>
