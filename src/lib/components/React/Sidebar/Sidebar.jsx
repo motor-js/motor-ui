@@ -22,7 +22,8 @@ const Sidebar = ({
   });
 
   return (
-    <SideBarOverlay open={isOpen} overlay={showOverlay}>
+    <>
+      <SideBarOverlay open={isOpen} overlay={showOverlay} />
       <div ref={ref}>
         <StyledSidebar
           collapsable={collapsable}
@@ -34,7 +35,7 @@ const Sidebar = ({
           {children}
         </StyledSidebar>
       </div>
-    </SideBarOverlay>
+    </>
   );
 };
 
