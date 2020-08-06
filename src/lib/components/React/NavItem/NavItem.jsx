@@ -1,29 +1,20 @@
 import React, { useContext } from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import defaultTheme from "../../../themes/defaultTheme";
-import Box from "../box";
-import useOutsideClick from "../../../hooks/useOutsideClick";
 import { useLocation } from "react-router-dom";
 
 import { StyledNavItem } from "./NavItemTheme";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  withRouter,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavItem = (props) => {
   const theme = useContext(ThemeContext) || defaultTheme;
-  console.log(props);
+  // console.log(props);
 
   let location = useLocation();
 
   return (
     <StyledNavItem theme={theme} active={location.pathname === props.path}>
-      {/* <StyledNavItem active={active}> */}
       <Link to={props.path} className={props.css}>
         {/* <Link to={props.path} className={props.css} onClick={handleClick}> */}
         {/* <NavIcon></NavIcon> */}

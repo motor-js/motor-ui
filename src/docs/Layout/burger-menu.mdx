@@ -39,30 +39,21 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
       <Motor  config={config}>
       <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} type="push">
                   <NavItem
-                // data-path={item.path}
                 path="/"
                 name="Home"
                 css="fa fa-fw fa-home"
-                // onClick={itemClick} 
-                // active={"/" === activePath}
                 key={1}
               > <Home /> </NavItem>
                   <NavItem
-                // data-path={item.path}
                 path="/Grid"
                 name="Grid"
                 css="fa fa-fw fa-home"
-                // onClick={itemClick} 
-                // active={"/" === activePath}
                 key={2}
               />
                   <NavItem
-                // data-path={item.path}
                 path="/burger-menu"
                 name="Burger"
                 css="fa fa-fw fa-home"
-                // onClick={itemClick} 
-                // active={"/" === activePath}
                 key={3}
               />
         <a className="menu-item" href="/" >

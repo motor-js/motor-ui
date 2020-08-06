@@ -1,5 +1,4 @@
 import React from "react";
-// import { slide as Menu } from "react-burger-menu";
 import { slide as SlideMenu } from "../BurgerMenu";
 import { stack as StackMenu } from "../BurgerMenu";
 import { elastic as ElasticMenu } from "../BurgerMenu";
@@ -11,7 +10,6 @@ import { scaleRotate as ScaleRotateMenu } from "../BurgerMenu";
 import { fallDown as FallDownMenu } from "../BurgerMenu";
 import { reveal as RevealMenu } from "../BurgerMenu";
 import "./styles.css";
-// import { Home, X } from "react-feather";
 
 export default (props) => {
   return (
