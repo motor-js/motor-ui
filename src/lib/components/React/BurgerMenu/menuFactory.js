@@ -259,6 +259,10 @@ export default (styles) => {
       }
     }
 
+    // changeBackground(e) {
+    //   e.target.style.background = "red";
+    // }
+
     render() {
       return (
         <div>
@@ -314,6 +318,7 @@ export default (styles) => {
                       .filter((className) => !!className)
                       .join(" ");
                     const extraProps = {
+                      // onMouseOver: this.changeBackground,
                       key: index,
                       className: classList,
                       style: this.getStyles("item", index, itemStyle),
