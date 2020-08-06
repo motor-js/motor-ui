@@ -26,10 +26,16 @@ export const focusStyles = (props) => {
 
 export const borderStyle = (data, theme, type = null) => {
   let border = null;
+  console.log("border");
 
   switch (type) {
     case "chart":
       border = theme.global.chart.border;
+      break;
+    case "navItem":
+      console.log("navItem");
+      border = theme.global.navItem.border;
+      console.log(border);
       break;
     default:
       border = theme.global.border;
