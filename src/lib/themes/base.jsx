@@ -575,6 +575,7 @@ const base = {
   },
   navItem: {
     color: { active: "brand", inactive: "white" },
+    textAlign: "left",
     border: {
       hover: "border-right 5px solid #FF7272",
     },

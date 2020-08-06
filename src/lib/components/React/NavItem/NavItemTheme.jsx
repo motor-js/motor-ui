@@ -3,15 +3,13 @@ import { globalStyle, borderStyle } from "../../../utils/styles";
 import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
 
+// size to be added
+// bordre to be added
 const StyledNavItem = styled.div`
   ${globalStyle};
-  // height: 70px;
-  // width: 75px; /* width must be same size as NavBar to center */
-  width="30%"text-align: center; /* Aligns <a> inside of NavIcon div */
+  text-align: ${(props) => props.textAlign || props.theme.navItem.textAlign};
   margin-bottom: 0; /* Puts space between NavItems */
   :hover {
-    // opacity: 0.7;
-    //  border-right 5px solid dimgray;
     ${(props) =>
       props.border ? props.border.hover : props.theme.navItem.border.hover};
 
@@ -40,8 +38,6 @@ const StyledNavItem = styled.div`
     text-decoration: none; /* Gets rid of underlining of text */
     :hover {
       opacity: 0.7;
-      // border-right 5px solid dimgray;
-      // padding-left: 5px;
     }
   }
 `;

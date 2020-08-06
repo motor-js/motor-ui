@@ -21,21 +21,13 @@ const NavItem = (props) => {
 
   let location = useLocation();
 
-  // const NavItem {
-  // const handleClick = (e) => {
-  //   // const { path, onItemClick } = this.props;
-  //   // onItemClick(path);
-  //   console.log(e.target);
-  // };
-
-  // const { active } = this.props;
-
   return (
     <StyledNavItem theme={theme} active={location.pathname === props.path}>
       {/* <StyledNavItem active={active}> */}
       <Link to={props.path} className={props.css}>
         {/* <Link to={props.path} className={props.css} onClick={handleClick}> */}
         {/* <NavIcon></NavIcon> */}
+        {props.children}
         {props.name}
       </Link>
     </StyledNavItem>
@@ -43,7 +35,7 @@ const NavItem = (props) => {
 };
 
 NavItem.propTypes = {
-  // children: PropTypes.node,
+  children: PropTypes.node,
   // footer: PropTypes.node,
   // header: PropTypes.node,
   // zIndex: PropTypes.string,
@@ -52,10 +44,11 @@ NavItem.propTypes = {
   border: PropTypes.string,
   color: PropTypes.object,
   background: PropTypes.object,
+  textAlign: PropTypes.string,
 };
 
 NavItem.defaultProps = {
-  // children: undefined,
+  children: undefined,
   // footer: undefined,
   // header: undefined,
   // width: "70vw",
@@ -65,6 +58,7 @@ NavItem.defaultProps = {
   responsive: true,
   color: null,
   background: null,
+  textAlign: null,
   // border: null,
 };
 
