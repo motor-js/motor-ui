@@ -34,22 +34,22 @@ export default (styles) => {
       this.setState(newState, () => {
         !noStateChange && this.props.onStateChange(newState);
 
-        if (!this.props.disableAutoFocus) {
-          // For accessibility reasons, ensures that when we toggle open,
-          // we focus the first menu item if one exists.
-          if (newState.isOpen) {
-            const firstItem = document.querySelector(".bm-item");
-            if (firstItem && this.props.focusFirstItem) {
-              firstItem.focus();
-            }
-          } else {
-            if (document.activeElement) {
-              document.activeElement.blur();
-            } else {
-              document.body.blur(); // Needed for IE
-            }
-          }
-        }
+        // if (!this.props.disableAutoFocus) {
+        //   // For accessibility reasons, ensures that when we toggle open,
+        //   // we focus the first menu item if one exists.
+        //   if (newState.isOpen) {
+        //     const firstItem = document.querySelector(".bm-item");
+        //     if (firstItem && this.props.focusFirstItem) {
+        //       firstItem.focus();
+        //     }
+        //   } else {
+        //     if (document.activeElement) {
+        //       document.activeElement.blur();
+        //     } else {
+        //       document.body.blur(); // Needed for IE
+        //     }
+        //   }
+        // }
 
         // Timeout ensures wrappers are cleared after animation finishes.
         this.timeoutId && clearTimeout(this.timeoutId);
@@ -194,6 +194,7 @@ export default (styles) => {
     getStyle(style, index) {
       const { width } = this.props;
       const formattedWidth = typeof width !== "string" ? `${width}px` : width;
+
       return style(this.state.isOpen, formattedWidth, this.props.right, index);
     }
 
@@ -269,7 +270,7 @@ export default (styles) => {
         <div>
           {!this.props.noOverlay && (
             <div
-              className={`bm-overlay ${this.props.overlayClassName}`.trim()}
+              // className={`bm-overlay ${this.props.overlayClassName}`.trim()}
               onClick={() => this.overlayClick()}
               style={this.getStyles("overlay")}
             />
@@ -376,7 +377,7 @@ export default (styles) => {
       PropTypes.oneOf([false]),
     ]),
     customOnKeyDown: PropTypes.func,
-    disableAutoFocus: PropTypes.bool,
+    // disableAutoFocus: PropTypes.bool,
     disableCloseOnEsc: PropTypes.bool,
     disableOverlayClick: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     htmlClassName: PropTypes.string,
@@ -405,6 +406,8 @@ export default (styles) => {
     styles: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     focusFirstItem: PropTypes.bool,
+
+    // new props added to motor-js
   };
 
   Menu.defaultProps = {
@@ -414,7 +417,7 @@ export default (styles) => {
     className: "",
     crossButtonClassName: "",
     crossClassName: "",
-    disableAutoFocus: false,
+    // disableAutoFocus: false,
     disableCloseOnEsc: false,
     htmlClassName: "",
     id: "",
@@ -432,6 +435,8 @@ export default (styles) => {
     width: 300,
     onIconHoverChange: () => {},
     focusFirstItem: true,
+
+    // new props added to motor-js
   };
 
   return Menu;

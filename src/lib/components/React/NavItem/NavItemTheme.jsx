@@ -22,6 +22,9 @@ const StyledNavItem = styled.div`
       )};
     color: "white";
   }
+  :focus {
+    color: red;
+  }
   a {
     color: ${(props) =>
       props.active
