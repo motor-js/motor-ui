@@ -86,6 +86,18 @@ const ItemList = styled.nav`
   color: #b8b7ad;
 `;
 
+const BurgerButton = styled.div`
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+  zindex: 1000;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 const ButtonWrapper = styled.button`
   ${globalStyle};
   cursor: pointer;
@@ -140,4 +152,7 @@ Object.setPrototypeOf(MenuMain.defaultProps, defaultProps);
 ItemList.defaultProps = {};
 Object.setPrototypeOf(ItemList.defaultProps, defaultProps);
 
-export { Overlay, MenuWrap, MenuMain, ItemList };
+BurgerButton.defaultProps = {};
+Object.setPrototypeOf(BurgerButton.defaultProps, defaultProps);
+
+export { Overlay, MenuWrap, MenuMain, ItemList, BurgerButton };

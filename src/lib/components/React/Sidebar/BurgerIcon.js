@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { BurgerButton } from "./SideBarTheme";
 
 export default class BurgerIcon extends Component {
   constructor(props) {
