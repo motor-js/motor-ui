@@ -1,12 +1,14 @@
 import * as React from "react";
+import { borderType } from "../../../utils";
 
-export interface SidebarProps {
-  children: React.ReactNode
-  collapsable: boolean
+export interface BurgerMenuProps {
+  backgroundColor?: string;
+  border?: borderType;
+  padding?: string;
 }
 
-declare const Sidebar: React.FC<SidebarProps>;
+declare const BurgerMenu: React.FC<BurgerMenuProps>;
 
-export type SidebarType = SidebarProps
+export type BurgerMenuType = BurgerMenuProps;
 
-export default Sidebar
+export default BurgerMenu;

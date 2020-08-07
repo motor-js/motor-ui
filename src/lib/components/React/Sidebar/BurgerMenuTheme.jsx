@@ -12,7 +12,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color:${(props) =>
-    props.overlayBackground || props.theme.burgermenu.overlay.background};
+    props.overlayBackground || props.theme.sidebar.overlay.background};
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   moztransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
   mstransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};

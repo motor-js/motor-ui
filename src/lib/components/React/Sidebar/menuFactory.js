@@ -10,8 +10,8 @@ import { selectColor } from "../../../utils/colors";
 import { defaultProps } from "../../../default-props";
 import { Overlay } from "./BurgerMenuTheme";
 import "./styles.css";
-import { interpolateRgbBasis } from "d3";
-import { theme } from "docz";
+// import { interpolateRgbBasis } from "d3";
+// import { theme } from "docz";
 
 export default (styles) => {
   class Menu extends Component {

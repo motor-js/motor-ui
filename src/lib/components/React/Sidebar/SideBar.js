@@ -13,20 +13,14 @@ import { scaleRotate as ScaleRotateMenu } from "./menus";
 import { fallDown as FallDownMenu } from "./menus";
 import { reveal as RevealMenu } from "./menus";
 
-const BurgerMenu = (props) => {
-  // const myConfig = config || useContext(ConfigContext);
+const SideBar = (props) => {
   const theme = useContext(ThemeContext) || defaultTheme;
-  // const { engine, engineError } =
-  //   useContext(EngineContext) || useEngine(myConfig);
+
   return (
     <>
       {
         {
-          slide: (
-            <SlideMenu theme={theme} {...props}>
-              {props.children}
-            </SlideMenu>
-          ),
+          slide: <SlideMenu {...props}>{props.children}</SlideMenu>,
           stack: <StackMenu {...props}>{props.children}</StackMenu>,
           // elastic: <ElasticMenu {...props}>{props.children}</ElasticMenu>,
           // bubble: <BubbleMenu {...props}>{props.children}</BubbleMenu>,
@@ -46,4 +40,4 @@ const BurgerMenu = (props) => {
   );
 };
 
-export default BurgerMenu;
+export default SideBar;

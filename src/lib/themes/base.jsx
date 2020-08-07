@@ -681,18 +681,18 @@ const base = {
       },
     },
   },
-  burgermenu: {
-    color: { active: "brand", inactive: "white" },
-    textAlign: "left",
-    border: {
-      hover: "border-right 5px solid #FF7272",
-    },
+  sidebar: {
     overlay: {
-      background: `rgba(0,0,0,0.3)`,
+      background: `rgba(255,0,0,0.3)`,
     },
-    background: {
-      color: { hover: "none" },
-    },
+    // color: { active: "brand", inactive: "white" },
+    // textAlign: "left",
+    // border: {
+    //   hover: "border-right 5px solid #FF7272",
+    // },
+    // background: {
+    //   color: { hover: "none" },
+    // },
   },
   progress: {},
   table: {
