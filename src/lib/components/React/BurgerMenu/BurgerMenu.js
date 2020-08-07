@@ -1,15 +1,15 @@
 import React from "react";
-import { slide as SlideMenu } from "../BurgerMenu";
-import { stack as StackMenu } from "../BurgerMenu";
-import { elastic as ElasticMenu } from "../BurgerMenu";
-import { bubble as BubbleMenu } from "../BurgerMenu";
-import { push as PushMenu } from "../BurgerMenu";
-import { pushRotate as PushRotateMenu } from "../BurgerMenu";
-import { scaleDown as ScaleDownMenu } from "../BurgerMenu";
-import { scaleRotate as ScaleRotateMenu } from "../BurgerMenu";
-import { fallDown as FallDownMenu } from "../BurgerMenu";
-import { reveal as RevealMenu } from "../BurgerMenu";
-import "./styles.css";
+import { slide as SlideMenu } from "./menus";
+import { stack as StackMenu } from "./menus";
+import { elastic as ElasticMenu } from "./menus";
+import { bubble as BubbleMenu } from "./menus";
+import { push as PushMenu } from "./menus";
+import { pushRotate as PushRotateMenu } from "./menus";
+import { scaleDown as ScaleDownMenu } from "./menus";
+import { scaleRotate as ScaleRotateMenu } from "./menus";
+import { fallDown as FallDownMenu } from "./menus";
+import { reveal as RevealMenu } from "./menus";
+// import "./styles.css";
 
 export default (props) => {
   return (

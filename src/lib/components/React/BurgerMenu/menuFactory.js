@@ -8,6 +8,7 @@ import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { selectColor } from "../../../utils/colors";
 import { defaultProps } from "../../../default-props";
+import "./styles.css";
 
 export default (styles) => {
   class Menu extends Component {
