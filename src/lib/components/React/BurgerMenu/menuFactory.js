@@ -270,7 +270,7 @@ export default (styles) => {
         <div>
           {!this.props.noOverlay && (
             <div
-              // className={`bm-overlay ${this.props.overlayClassName}`.trim()}
+              className={`bm-overlay ${this.props.overlayClassName}`.trim()}
               onClick={() => this.overlayClick()}
               style={this.getStyles("overlay")}
             />

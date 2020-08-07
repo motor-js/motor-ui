@@ -4,22 +4,22 @@ import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
 
 const Overlay = styled.div`
-    position: "absolute";
+  position: absolute;
   top: 0;
   left: 0;
-  zIndex: 1000;
-  width: "100%";
-  height: "100%";
-  background: "rgba(0, 0, 0, 0.3)";
-  opacity: isOpen ? 1 : 0;
-  opacity:   ${(props) =>
-    props.border ? props.border.hover : props.theme.navItem.border.hover};
-  MozTransform: isOpen ? "" : "translate3d(100%, 0, 0)";
-  MsTransform: isOpen ? "" : "translate3d(100%, 0, 0)";
-  OTransform: isOpen ? "" : "translate3d(100%, 0, 0)";
-  WebkitTransform: isOpen ? "" : "translate3d(100%, 0, 0)";
-  transform: isOpen ? "" : "translate3d(100%, 0, 0)";
-  transition: isOpen ? "opacity 0.3s" : "opacity 0.3s, transform 0s 0.3s";
+  z-index: : 1000 ;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: ${(state) => (state.isOpen ? 1 : 0)};
+  moztransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
+  mstransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
+  otransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
+  "-webkit-transform": ${(props) =>
+    props.isOpen ? "" : "translate3d(100%, 0, 0)"};
+  transform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
+  transition: ${(props) =>
+    props.isOpen ? "opacity 0.3s" : "opacity 0.3s, transform 0s 0.3s"};
 `;
 
 const ButtonWrapper = styled.button`
