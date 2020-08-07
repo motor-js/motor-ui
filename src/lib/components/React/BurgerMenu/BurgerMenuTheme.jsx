@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { globalStyle } from "../../../utils/styles";
 import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
+// import { globalStyle, borderStyle } from "../../../utils/styles";
 
 const Overlay = styled.div`
   position: absolute;
@@ -66,7 +67,8 @@ const ButtonWrapper = styled.button`
 `;
 ButtonWrapper.defaultProps = {};
 Object.setPrototypeOf(ButtonWrapper.defaultProps, defaultProps);
-// Overlay.defaultProps = {};
-// Object.setPrototypeOf(Overlay.defaultProps, defaultProps);
+
+Overlay.defaultProps = {};
+Object.setPrototypeOf(Overlay.defaultProps, defaultProps);
 
 export { Overlay };

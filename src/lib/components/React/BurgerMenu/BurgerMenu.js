@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
+import defaultTheme from "../../../themes/defaultTheme";
 
 import { slide as SlideMenu } from "./menus";
 import { stack as StackMenu } from "./menus";
@@ -12,11 +14,19 @@ import { fallDown as FallDownMenu } from "./menus";
 import { reveal as RevealMenu } from "./menus";
 
 const BurgerMenu = (props) => {
+  // const myConfig = config || useContext(ConfigContext);
+  const theme = useContext(ThemeContext) || defaultTheme;
+  // const { engine, engineError } =
+  //   useContext(EngineContext) || useEngine(myConfig);
   return (
     <>
       {
         {
-          slide: <SlideMenu {...props}>{props.children}</SlideMenu>,
+          slide: (
+            <SlideMenu theme={theme} {...props}>
+              {props.children}
+            </SlideMenu>
+          ),
           stack: <StackMenu {...props}>{props.children}</StackMenu>,
           // elastic: <ElasticMenu {...props}>{props.children}</ElasticMenu>,
           // bubble: <BubbleMenu {...props}>{props.children}</BubbleMenu>,

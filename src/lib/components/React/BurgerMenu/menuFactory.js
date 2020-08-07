@@ -11,6 +11,7 @@ import { defaultProps } from "../../../default-props";
 import { Overlay } from "./BurgerMenuTheme";
 import "./styles.css";
 import { interpolateRgbBasis } from "d3";
+import { theme } from "docz";
 
 export default (styles) => {
   class Menu extends Component {
@@ -273,6 +274,7 @@ export default (styles) => {
           {!this.props.noOverlay && (
             <Overlay
               isOpen={this.state.isOpen}
+              theme={this.props.theme}
               overlayBackground={this.props.overlayBackground}
               onClick={() => this.overlayClick()}
             />
@@ -440,7 +442,7 @@ export default (styles) => {
     focusFirstItem: true,
 
     // new props added to motor-js
-    overlayBackground: `rgba(0,0,0,0.3)`,
+    // overlayBackground: `rgba(0,0,0,0.3)`,
   };
 
   return Menu;
