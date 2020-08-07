@@ -9,15 +9,12 @@ import { Link } from "react-router-dom";
 
 const NavItem = (props) => {
   const theme = useContext(ThemeContext) || defaultTheme;
-  // console.log(props);
 
   let location = useLocation();
 
   return (
     <StyledNavItem theme={theme} active={location.pathname === props.path}>
       <Link to={props.path} className={props.css}>
-        {/* <Link to={props.path} className={props.css} onClick={handleClick}> */}
-        {/* <NavIcon></NavIcon> */}
         {props.children}
         {props.name}
       </Link>
