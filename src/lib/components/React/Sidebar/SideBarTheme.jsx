@@ -11,18 +11,65 @@ const Overlay = styled.div`
   z-index: 1000;
   width: 100%;
   height: 100%;
-  background-color:${(props) =>
-    props.overlayBackground || props.theme.sidebar.overlay.background};
-  opacity: ${(props) => (props.isOpen ? 1 : 0)};
-  moztransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
-  mstransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
-  otransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
-  "-webkit-transform": ${(props) =>
-    props.isOpen ? "" : "translate3d(100%, 0, 0)"};
-  transform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
-  transition: ${(props) =>
-    props.isOpen ? "opacity 0.3s" : "opacity 0.3s, transform 0s 0.3s"};
+  background-color:${({ overlayBackground, theme }) =>
+    overlayBackground || theme.sidebar.overlay.background};
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  "-moz-transform": ${({ isOpen }) =>
+    isOpen ? "" : "translate3d(100%, 0, 0)"};
+  "-ms-transform": ${({ isOpen }) => (isOpen ? "" : "translate3d(100%, 0, 0)")};
+  "-o-transform": ${({ isOpen }) => (isOpen ? "" : "translate3d(100%, 0, 0)")};
+  "-webkit-transform": ${({ isOpen }) =>
+    isOpen ? "" : "translate3d(100%, 0, 0)"};
+  transition: ${({ isOpen }) =>
+    isOpen ? "opacity 0.3s" : "opacity 0.3s, transform 0s 0.3s"};
 `;
+
+const MenuWrap = styled.div`
+      // position: 'fixed';
+      right: ${({ right }) => (right ? 0 : "")};
+      position: absolute;
+      // display: isOpen ? "block" : "none";
+      top: 0;
+      bottom: 0;
+      left: ${({ right }) => (right ? "" : 0)};
+      z-index:  1100;
+      width: ${({ sideBarWidth, theme }) =>
+        sideBarWidth || theme.sidebar.width};
+      height: 100%;
+      // opacity: isOpen ? 1 : 0;
+      "-moz-transform": ${({ isOpen, right }) =>
+        isOpen
+          ? ""
+          : right
+          ? "translate3d(100%, 0, 0)"
+          : "translate3d(-100%, 0, 0)"};
+      "-ms-transform": ${({ isOpen, right }) =>
+        isOpen
+          ? ""
+          : right
+          ? "translate3d(100%, 0, 0)"
+          : "translate3d(-100%, 0, 0)"};
+      "-o-transform": ${({ isOpen, right }) =>
+        isOpen
+          ? ""
+          : right
+          ? "translate3d(100%, 0, 0)"
+          : "translate3d(-100%, 0, 0)"};
+      "-webkit-transform":  ${({ isOpen, right }) =>
+        isOpen
+          ? ""
+          : right
+          ? "translate3d(100%, 0, 0)"
+          : "translate3d(-100%, 0, 0)"};
+      transform: ${({ isOpen, right }) =>
+        isOpen
+          ? ""
+          : right
+          ? "translate3d(100%, 0, 0)"
+          : "translate3d(-100%, 0, 0)"};
+      transition: all 0.5s;
+    };
+  }`;
 
 const ButtonWrapper = styled.button`
   ${globalStyle};
@@ -65,10 +112,11 @@ const ButtonWrapper = styled.button`
       props.activeTransition || props.theme.button.active.transition};
   }
 `;
-ButtonWrapper.defaultProps = {};
-Object.setPrototypeOf(ButtonWrapper.defaultProps, defaultProps);
 
 Overlay.defaultProps = {};
 Object.setPrototypeOf(Overlay.defaultProps, defaultProps);
 
-export { Overlay };
+MenuWrap.defaultProps = {};
+Object.setPrototypeOf(MenuWrap.defaultProps, defaultProps);
+
+export { Overlay, MenuWrap };

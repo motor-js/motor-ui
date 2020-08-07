@@ -8,10 +8,8 @@ import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { selectColor } from "../../../utils/colors";
 import { defaultProps } from "../../../default-props";
-import { Overlay } from "./BurgerMenuTheme";
+import { Overlay, MenuWrap } from "./SideBarTheme";
 import "./styles.css";
-// import { interpolateRgbBasis } from "d3";
-// import { theme } from "docz";
 
 export default (styles) => {
   class Menu extends Component {
@@ -279,10 +277,11 @@ export default (styles) => {
               onClick={() => this.overlayClick()}
             />
           )}
-          <div
+          <MenuWrap
             id={this.props.id}
-            className={`bm-menu-wrap ${this.props.className}`.trim()}
-            style={this.getStyles("menuWrap")}
+            isOpen={this.state.isOpen}
+            sideBarWidth={this.props.width}
+            right={this.props.right}
           >
             {styles.svg && (
               <div
@@ -347,7 +346,7 @@ export default (styles) => {
                 />
               </div>
             )}
-          </div>
+          </MenuWrap>
           {this.props.customBurgerIcon !== false && (
             <div style={this.getStyles("burgerIcon")}>
               <BurgerIcon
@@ -408,7 +407,7 @@ export default (styles) => {
         : PropTypes.string,
     right: PropTypes.bool,
     styles: PropTypes.object,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: PropTypes.string,
     focusFirstItem: PropTypes.bool,
 
     // new props added to motor-js
@@ -437,7 +436,7 @@ export default (styles) => {
     overlayClassName: "",
     pageWrapId: "",
     styles: {},
-    width: 300,
+    width: "300px",
     onIconHoverChange: () => {},
     focusFirstItem: true,
 

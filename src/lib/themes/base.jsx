@@ -682,6 +682,7 @@ const base = {
     },
   },
   sidebar: {
+    width: "300px",
     overlay: {
       background: `rgba(255,0,0,0.3)`,
     },
