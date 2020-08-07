@@ -20,7 +20,8 @@ const StyledNavItem = styled.div`
           : props.theme.navItem.background.color.hover,
         props.theme
       )};
-    color: "white";
+    color: white;
+    cursor: pointer;
   }
   :focus {
     color: red;

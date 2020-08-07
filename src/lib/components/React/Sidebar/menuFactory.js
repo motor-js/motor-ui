@@ -80,6 +80,7 @@ export default (styles) => {
     }
 
     overlayClick() {
+      if (!this.state.isOpen) return;
       if (
         this.props.disableOverlayClick === true ||
         (typeof this.props.disableOverlayClick === "function" &&
@@ -261,18 +262,15 @@ export default (styles) => {
       }
     }
 
-    // changeBackground(e) {
-    //   e.target.style.background = "red";
-    // }
-
     render() {
       return (
         <div>
           {!this.props.noOverlay && (
-            <div
-              className={`bm-overlay ${this.props.overlayClassName}`.trim()}
+            <Overlay
+              isOpen={this.state.isOpen}
+              theme={this.props.theme}
+              overlayBackground={this.props.overlayBackground}
               onClick={() => this.overlayClick()}
-              style={this.getStyles("overlay")}
             />
           )}
           <div
