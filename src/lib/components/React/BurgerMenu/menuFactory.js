@@ -8,7 +8,9 @@ import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { selectColor } from "../../../utils/colors";
 import { defaultProps } from "../../../default-props";
+import { Overlay } from "./BurgerMenuTheme";
 import "./styles.css";
+import { interpolateRgbBasis } from "d3";
 
 export default (styles) => {
   class Menu extends Component {
@@ -269,10 +271,10 @@ export default (styles) => {
       return (
         <div>
           {!this.props.noOverlay && (
-            <div
-              className={`bm-overlay ${this.props.overlayClassName}`.trim()}
+            <Overlay
+              isOpen={this.state.isOpen}
+              overlayBackground={this.props.overlayBackground}
               onClick={() => this.overlayClick()}
-              style={this.getStyles("overlay")}
             />
           )}
           <div
@@ -408,6 +410,7 @@ export default (styles) => {
     focusFirstItem: PropTypes.bool,
 
     // new props added to motor-js
+    overlayBackground: PropTypes.string,
   };
 
   Menu.defaultProps = {
@@ -437,6 +440,7 @@ export default (styles) => {
     focusFirstItem: true,
 
     // new props added to motor-js
+    overlayBackground: `rgba(0,0,0,0.3)`,
   };
 
   return Menu;

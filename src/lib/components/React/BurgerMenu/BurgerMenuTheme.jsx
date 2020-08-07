@@ -7,11 +7,12 @@ const Overlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: : 1000 ;
+  z-index: 1000;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  opacity: ${(state) => (state.isOpen ? 1 : 0)};
+  background-color:${(props) =>
+    props.overlayBackground || props.theme.burgermenu.overlay.background};
+  opacity: ${(props) => (props.isOpen ? 1 : 0)};
   moztransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
   mstransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
   otransform: ${(props) => (props.isOpen ? "" : "translate3d(100%, 0, 0)")};
