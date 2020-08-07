@@ -1,15 +1,3 @@
-html,
-body {
-  margin: 0;
-}
-
-#App {
-  font-family: sans-serif;
-
-  /* Give app full page to work with */
-  height: 100vh;
-}
-
 #page-wrap {
   text-align: center;
 
@@ -44,24 +32,7 @@ body {
   background: #bdc3c7;
 }
 
-/* General sidebar styles */
-.bm-menu {
-  background: #373a47;
-  padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
-}
-
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
   fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
 }

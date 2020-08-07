@@ -273,10 +273,11 @@ export default (styles) => {
               onClick={() => this.overlayClick()}
             />
           )}
-          <div
+          <MenuWrap
             id={this.props.id}
-            className={`bm-menu-wrap ${this.props.className}`.trim()}
-            style={this.getStyles("menuWrap")}
+            isOpen={this.state.isOpen}
+            sideBarWidth={this.props.width}
+            right={this.props.right}
           >
             {styles.svg && (
               <div
@@ -293,42 +294,13 @@ export default (styles) => {
                 </svg>
               </div>
             )}
-            <div
-              className={`bm-menu ${this.props.menuClassName}`.trim()}
-              style={this.getStyles("menu")}
-            >
-              <nav
-                className={`bm-item-list ${this.props.itemListClassName}`.trim()}
-                style={this.getStyles("itemList")}
-              >
-                {React.Children.map(this.props.children, (item, index) => {
-                  const itemStyle = {
-                    ...item.props.style,
-                    color: item.props.style
-                      ? selectColor(item.props.style.color, defaultProps.theme)
-                      : null,
-                  };
-
-                  if (item) {
-                    const classList = [
-                      "bm-item",
-                      this.props.itemClassName,
-                      item.props.className,
-                    ]
-                      .filter((className) => !!className)
-                      .join(" ");
-                    const extraProps = {
-                      // onMouseOver: this.changeBackground,
-                      key: index,
-                      className: classList,
-                      style: this.getStyles("item", index, itemStyle),
-                      tabIndex: this.state.isOpen ? 0 : -1,
-                    };
-                    return React.cloneElement(item, extraProps);
-                  }
+            <MenuMain>
+              <ItemList>
+                {React.Children.map(this.props.children, (item) => {
+                  return React.cloneElement(item);
                 })}
-              </nav>
-            </div>
+              </ItemList>
+            </MenuMain>
             {this.props.customCrossIcon !== false && (
               <div style={this.getStyles("closeButton")}>
                 <CrossIcon
@@ -341,7 +313,7 @@ export default (styles) => {
                 />
               </div>
             )}
-          </div>
+          </MenuWrap>
           {this.props.customBurgerIcon !== false && (
             <div style={this.getStyles("burgerIcon")}>
               <BurgerIcon
@@ -428,7 +400,7 @@ export default (styles) => {
     overlayClassName: "",
     pageWrapId: "",
     styles: {},
-    width: 300,
+    width: "300px",
     onIconHoverChange: () => {},
     focusFirstItem: true,
   };
