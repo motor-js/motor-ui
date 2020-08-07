@@ -110,6 +110,8 @@ const CloseIcon = styled(styledXCircle)`
   padding: 8px 8px 0px 5px;
   position: absolute;
   right: 0px;
+  left: ${({ right }) => (right ? "10px" : "")};
+  right: ${({ right }) => (right ? "" : "10px")};
   top: 0px;
   cursor: pointer;
   &:hover {
@@ -122,7 +124,8 @@ const MenuIcon = styled(styledMenu)`
     selectColor(props.theme.sidebar.color.openIcon, props.theme)};
   position: absolute;
   z-index: 1000;
-  left: 10px;
+  right: ${({ right }) => (right ? "10px" : "")};
+  left: ${({ right }) => (right ? "" : "10px")};
   top: 10px;
   // width: 10%;
   // height: 10%;
@@ -143,7 +146,8 @@ const FilterIcon = styled(styledFilter)`
     selectColor(props.theme.sidebar.color.openIcon, props.theme)};
   position: absolute;
   z-index: 1000;
-  left: 10px;
+  right: ${({ right }) => (right ? "10px" : "")};
+  left: ${({ right }) => (right ? "" : "10px")};
   top: 10px;
   // width: 10%;
   // height: 10%;

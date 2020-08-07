@@ -242,27 +242,19 @@ export default (styles) => {
                 })}
               </ItemList>
             </MenuMain>
-            {this.props.customCrossIcon !== false && (
-              <CloseIcon
-                onClick={() => this.close()}
-                theme={this.props.theme}
-                size={25}
-              />
-            )}
+            <CloseIcon
+              onClick={() => this.close()}
+              theme={this.props.theme}
+              size={25}
+              right={this.props.right}
+            />
           </MenuWrap>
-          {this.props.customBurgerIcon !== false && (
-            // <div style={this.getStyles("burgerIcon")}>
-            //   <BurgerIcon
-            //     onClick={() => this.open()}
-            //     styles={this.props.styles}
-            //     customIcon={this.props.customBurgerIcon}
-            //     className={this.props.burgerButtonClassName}
-            //     barClassName={this.props.burgerBarClassName}
-            //     onIconStateChange={this.props.onIconStateChange}
-            //   />
-            // </div>
-            <MenuIcon onClick={() => this.open()} size={35} />
-          )}
+
+          <MenuIcon
+            onClick={() => this.open()}
+            size={35}
+            right={this.props.right}
+          />
         </div>
       );
     }
@@ -275,14 +267,6 @@ export default (styles) => {
     className: PropTypes.string,
     crossButtonClassName: PropTypes.string,
     crossClassName: PropTypes.string,
-    customBurgerIcon: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.oneOf([false]),
-    ]),
-    customCrossIcon: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.oneOf([false]),
-    ]),
     customOnKeyDown: PropTypes.func,
     disableAutoFocus: PropTypes.bool,
     disableCloseOnEsc: PropTypes.bool,
