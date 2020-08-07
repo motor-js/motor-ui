@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
+import defaultTheme from "../../../themes/defaultTheme";
+
 import { slide as SlideMenu } from "./menus";
 import { stack as StackMenu } from "./menus";
-import { elastic as ElasticMenu } from "./menus";
-import { bubble as BubbleMenu } from "./menus";
+// import { elastic as ElasticMenu } from "./menus";  // requires snapsvg-cjs in package,json :  "snapsvg-cjs": "0.0.6"
+// import { bubble as BubbleMenu } from "./menus";    // requires snapsvg-cjs in package,json :  "snapsvg-cjs": "0.0.6"
 import { push as PushMenu } from "./menus";
 import { pushRotate as PushRotateMenu } from "./menus";
 import { scaleDown as ScaleDownMenu } from "./menus";
 import { scaleRotate as ScaleRotateMenu } from "./menus";
 import { fallDown as FallDownMenu } from "./menus";
 import { reveal as RevealMenu } from "./menus";
-// import "./styles.css";
 
-export default (props) => {
+const SideBar = (props) => {
+  const theme = useContext(ThemeContext) || defaultTheme;
+
   return (
     <>
       {
         {
           slide: <SlideMenu {...props}>{props.children}</SlideMenu>,
           stack: <StackMenu {...props}>{props.children}</StackMenu>,
-          elastic: <ElasticMenu {...props}>{props.children}</ElasticMenu>,
-          bubble: <BubbleMenu {...props}>{props.children}</BubbleMenu>,
+          // elastic: <ElasticMenu {...props}>{props.children}</ElasticMenu>,
+          // bubble: <BubbleMenu {...props}>{props.children}</BubbleMenu>,
           push: <PushMenu {...props}>{props.children}</PushMenu>,
           pushRotate: (
             <PushRotateMenu {...props}>{props.children}</PushRotateMenu>
@@ -35,3 +39,5 @@ export default (props) => {
     </>
   );
 };
+
+export default SideBar;
