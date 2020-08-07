@@ -21,7 +21,6 @@ const StyledNavItem = styled.div`
         props.theme
       )};
     color: white;
-    cursor: pointer;
   }
   :focus {
     color: red;

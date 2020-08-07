@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 // import baseStyles from "./baseStyles";
 import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
-import { selectColor } from "../../../utils/colors";
-import { defaultProps } from "../../../default-props";
 import { Overlay, MenuWrap, MenuMain, ItemList } from "./SideBarTheme";
 import "./styles.css";
 
