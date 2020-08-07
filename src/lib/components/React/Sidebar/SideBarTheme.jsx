@@ -136,8 +136,7 @@ const MenuIcon = styled(styledMenu)`
   background: transparent;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
-    cursor: pointer;
+    opacity: 0.6;
   }
 `;
 
@@ -158,8 +157,7 @@ const FilterIcon = styled(styledFilter)`
   background: transparent;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
-    cursor: pointer;
+    opacity: 0.6;
   }
 `;
 
