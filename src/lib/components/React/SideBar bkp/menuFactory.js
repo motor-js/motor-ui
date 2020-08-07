@@ -8,7 +8,6 @@ import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { selectColor } from "../../../utils/colors";
 import { defaultProps } from "../../../default-props";
-import { Overlay, MenuWrap, MenuMain, ItemList } from "./SideBarTheme";
 import "./styles.css";
 
 export default (styles) => {
