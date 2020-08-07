@@ -5,7 +5,16 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
-import { Overlay, MenuWrap, MenuMain, ItemList } from "./SideBarTheme";
+
+import {
+  Overlay,
+  MenuWrap,
+  MenuMain,
+  ItemList,
+  CloseIcon,
+  MenuIcon,
+  FilterIcon,
+} from "./SideBarTheme";
 import "./styles.css";
 
 export default (styles) => {
@@ -234,29 +243,25 @@ export default (styles) => {
               </ItemList>
             </MenuMain>
             {this.props.customCrossIcon !== false && (
-              <div style={this.getStyles("closeButton")}>
-                <CrossIcon
-                  onClick={() => this.close()}
-                  styles={this.props.styles}
-                  customIcon={this.props.customCrossIcon}
-                  className={this.props.crossButtonClassName}
-                  crossClassName={this.props.crossClassName}
-                  tabIndex={this.state.isOpen ? 0 : -1}
-                />
-              </div>
+              <CloseIcon
+                onClick={() => this.close()}
+                theme={this.props.theme}
+                size={25}
+              />
             )}
           </MenuWrap>
           {this.props.customBurgerIcon !== false && (
-            <div style={this.getStyles("burgerIcon")}>
-              <BurgerIcon
-                onClick={() => this.open()}
-                styles={this.props.styles}
-                customIcon={this.props.customBurgerIcon}
-                className={this.props.burgerButtonClassName}
-                barClassName={this.props.burgerBarClassName}
-                onIconStateChange={this.props.onIconStateChange}
-              />
-            </div>
+            // <div style={this.getStyles("burgerIcon")}>
+            //   <BurgerIcon
+            //     onClick={() => this.open()}
+            //     styles={this.props.styles}
+            //     customIcon={this.props.customBurgerIcon}
+            //     className={this.props.burgerButtonClassName}
+            //     barClassName={this.props.burgerBarClassName}
+            //     onIconStateChange={this.props.onIconStateChange}
+            //   />
+            // </div>
+            <MenuIcon onClick={() => this.open()} size={35} />
           )}
         </div>
       );

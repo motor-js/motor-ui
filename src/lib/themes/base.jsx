@@ -686,12 +686,19 @@ const base = {
   },
   sidebar: {
     width: "300px",
+    color: {
+      // background: "white",
+      // font: "altDark",
+      // placeholder: "altGray6",
+      closeIcon: "brand",
+      openIcon: "black",
+    },
+    border: {
+      hover: "border-right 5px solid #FF7272",
+    },
 
     // color: { active: "brand", inactive: "white" },
     // textAlign: "left",
-    // border: {
-    //   hover: "border-right 5px solid #FF7272",
-    // },
     // background: {
     //   color: { hover: "none" },
     // },
