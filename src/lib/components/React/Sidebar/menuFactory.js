@@ -8,7 +8,7 @@ import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { selectColor } from "../../../utils/colors";
 import { defaultProps } from "../../../default-props";
-import { Overlay, MenuWrap } from "./SideBarTheme";
+import { Overlay, MenuWrap, MenuMain } from "./SideBarTheme";
 import "./styles.css";
 
 export default (styles) => {
@@ -298,9 +298,9 @@ export default (styles) => {
                 </svg>
               </div>
             )}
-            <div
+            <MenuMain
               className={`bm-menu ${this.props.menuClassName}`.trim()}
-              style={this.getStyles("menu")}
+              // style={this.getStyles("menu")}
             >
               <nav
                 className={`bm-item-list ${this.props.itemListClassName}`.trim()}
@@ -333,7 +333,7 @@ export default (styles) => {
                   }
                 })}
               </nav>
-            </div>
+            </MenuMain>
             {this.props.customCrossIcon !== false && (
               <div style={this.getStyles("closeButton")}>
                 <CrossIcon

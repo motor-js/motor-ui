@@ -12,7 +12,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color:${({ overlayBackground, theme }) =>
-    overlayBackground || theme.sidebar.overlay.background};
+    overlayBackground || theme.global.overlay.background};
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   "-moz-transform": ${({ isOpen }) =>
     isOpen ? "" : "translate3d(100%, 0, 0)"};
@@ -71,6 +71,16 @@ const MenuWrap = styled.div`
     };
   }`;
 
+const MenuMain = styled.div`
+  ${globalStyle};
+  height: 100%;
+  boxsizing: border-box;
+  overflow: auto;
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+`;
+
 const ButtonWrapper = styled.button`
   ${globalStyle};
   cursor: pointer;
@@ -119,4 +129,7 @@ Object.setPrototypeOf(Overlay.defaultProps, defaultProps);
 MenuWrap.defaultProps = {};
 Object.setPrototypeOf(MenuWrap.defaultProps, defaultProps);
 
-export { Overlay, MenuWrap };
+MenuMain.defaultProps = {};
+Object.setPrototypeOf(MenuMain.defaultProps, defaultProps);
+
+export { Overlay, MenuWrap, MenuMain };

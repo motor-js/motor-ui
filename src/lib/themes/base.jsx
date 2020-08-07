@@ -136,6 +136,9 @@ const base = {
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
     colorTheme: "motor",
     color,
+    overlay: {
+      background: `rgba(255,0,0,0.3)`,
+    },
     border: {
       color: "var(--oc-gray-4)",
       size: "1px",
@@ -683,9 +686,7 @@ const base = {
   },
   sidebar: {
     width: "300px",
-    overlay: {
-      background: `rgba(255,0,0,0.3)`,
-    },
+
     // color: { active: "brand", inactive: "white" },
     // textAlign: "left",
     // border: {
