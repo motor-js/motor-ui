@@ -3,11 +3,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import baseStyles from "./baseStyles";
 import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
-import { selectColor } from "../../../utils/colors";
-import { defaultProps } from "../../../default-props";
+import { Overlay, MenuWrap, MenuMain, ItemList } from "./SideBarTheme";
 import "./styles.css";
 
 export default (styles) => {
@@ -33,23 +31,6 @@ export default (styles) => {
 
       this.setState(newState, () => {
         !noStateChange && this.props.onStateChange(newState);
-
-        if (!this.props.disableAutoFocus) {
-          // For accessibility reasons, ensures that when we toggle open,
-          // we focus the first menu item if one exists.
-          if (newState.isOpen) {
-            const firstItem = document.querySelector(".bm-item");
-            if (firstItem && this.props.focusFirstItem) {
-              firstItem.focus();
-            }
-          } else {
-            if (document.activeElement) {
-              document.activeElement.blur();
-            } else {
-              document.body.blur(); // Needed for IE
-            }
-          }
-        }
 
         // Timeout ensures wrappers are cleared after animation finishes.
         this.timeoutId && clearTimeout(this.timeoutId);
@@ -156,12 +137,11 @@ export default (styles) => {
         "bm" + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
 
       // Set base styles.
-      let output = baseStyles[el] ? this.getStyle(baseStyles[el]) : {};
+      let output = null;
 
       // Add animation-specific styles.
       if (styles[el]) {
         output = {
-          ...output,
           ...this.getStyle(styles[el], index + 1),
         };
       }
@@ -194,6 +174,7 @@ export default (styles) => {
     getStyle(style, index) {
       const { width } = this.props;
       const formattedWidth = typeof width !== "string" ? `${width}px` : width;
+
       return style(this.state.isOpen, formattedWidth, this.props.right, index);
     }
 
@@ -268,16 +249,18 @@ export default (styles) => {
       return (
         <div>
           {!this.props.noOverlay && (
-            <div
-              className={`bm-overlay ${this.props.overlayClassName}`.trim()}
+            <Overlay
+              isOpen={this.state.isOpen}
+              theme={this.props.theme}
+              overlayBackground={this.props.overlayBackground}
               onClick={() => this.overlayClick()}
-              style={this.getStyles("overlay")}
             />
           )}
-          <div
+          <MenuWrap
             id={this.props.id}
-            className={`bm-menu-wrap ${this.props.className}`.trim()}
-            style={this.getStyles("menuWrap")}
+            isOpen={this.state.isOpen}
+            sideBarWidth={this.props.width}
+            right={this.props.right}
           >
             {styles.svg && (
               <div
@@ -294,42 +277,13 @@ export default (styles) => {
                 </svg>
               </div>
             )}
-            <div
-              className={`bm-menu ${this.props.menuClassName}`.trim()}
-              style={this.getStyles("menu")}
-            >
-              <nav
-                className={`bm-item-list ${this.props.itemListClassName}`.trim()}
-                style={this.getStyles("itemList")}
-              >
-                {React.Children.map(this.props.children, (item, index) => {
-                  const itemStyle = {
-                    ...item.props.style,
-                    color: item.props.style
-                      ? selectColor(item.props.style.color, defaultProps.theme)
-                      : null,
-                  };
-
-                  if (item) {
-                    const classList = [
-                      "bm-item",
-                      this.props.itemClassName,
-                      item.props.className,
-                    ]
-                      .filter((className) => !!className)
-                      .join(" ");
-                    const extraProps = {
-                      // onMouseOver: this.changeBackground,
-                      key: index,
-                      className: classList,
-                      style: this.getStyles("item", index, itemStyle),
-                      tabIndex: this.state.isOpen ? 0 : -1,
-                    };
-                    return React.cloneElement(item, extraProps);
-                  }
+            <MenuMain>
+              <ItemList>
+                {React.Children.map(this.props.children, (item) => {
+                  return React.cloneElement(item);
                 })}
-              </nav>
-            </div>
+              </ItemList>
+            </MenuMain>
             {this.props.customCrossIcon !== false && (
               <div style={this.getStyles("closeButton")}>
                 <CrossIcon
@@ -342,7 +296,7 @@ export default (styles) => {
                 />
               </div>
             )}
-          </div>
+          </MenuWrap>
           {this.props.customBurgerIcon !== false && (
             <div style={this.getStyles("burgerIcon")}>
               <BurgerIcon
@@ -376,7 +330,7 @@ export default (styles) => {
       PropTypes.oneOf([false]),
     ]),
     customOnKeyDown: PropTypes.func,
-    disableAutoFocus: PropTypes.bool,
+    // disableAutoFocus: PropTypes.bool,
     disableCloseOnEsc: PropTypes.bool,
     disableOverlayClick: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     htmlClassName: PropTypes.string,
@@ -403,8 +357,11 @@ export default (styles) => {
         : PropTypes.string,
     right: PropTypes.bool,
     styles: PropTypes.object,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: PropTypes.string,
     focusFirstItem: PropTypes.bool,
+
+    // new props added to motor-js
+    overlayBackground: PropTypes.string,
   };
 
   Menu.defaultProps = {
@@ -414,7 +371,7 @@ export default (styles) => {
     className: "",
     crossButtonClassName: "",
     crossClassName: "",
-    disableAutoFocus: false,
+    // disableAutoFocus: false,
     disableCloseOnEsc: false,
     htmlClassName: "",
     id: "",
@@ -429,9 +386,12 @@ export default (styles) => {
     overlayClassName: "",
     pageWrapId: "",
     styles: {},
-    width: 300,
+    width: "300px",
     onIconHoverChange: () => {},
     focusFirstItem: true,
+
+    // new props added to motor-js
+    // overlayBackground: `rgba(0,0,0,0.3)`,
   };
 
   return Menu;
