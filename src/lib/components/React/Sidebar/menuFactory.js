@@ -3,12 +3,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import baseStyles from "./baseStyles";
 import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
-import { selectColor } from "../../../utils/colors";
-import { defaultProps } from "../../../default-props";
-import { Overlay, MenuWrap, MenuMain } from "./SideBarTheme";
+import { Overlay, MenuWrap, MenuMain, ItemList } from "./SideBarTheme";
 import "./styles.css";
 
 export default (styles) => {
@@ -34,23 +31,6 @@ export default (styles) => {
 
       this.setState(newState, () => {
         !noStateChange && this.props.onStateChange(newState);
-
-        // if (!this.props.disableAutoFocus) {
-        //   // For accessibility reasons, ensures that when we toggle open,
-        //   // we focus the first menu item if one exists.
-        //   if (newState.isOpen) {
-        //     const firstItem = document.querySelector(".bm-item");
-        //     if (firstItem && this.props.focusFirstItem) {
-        //       firstItem.focus();
-        //     }
-        //   } else {
-        //     if (document.activeElement) {
-        //       document.activeElement.blur();
-        //     } else {
-        //       document.body.blur(); // Needed for IE
-        //     }
-        //   }
-        // }
 
         // Timeout ensures wrappers are cleared after animation finishes.
         this.timeoutId && clearTimeout(this.timeoutId);
@@ -157,12 +137,11 @@ export default (styles) => {
         "bm" + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
 
       // Set base styles.
-      let output = baseStyles[el] ? this.getStyle(baseStyles[el]) : {};
+      let output = null;
 
       // Add animation-specific styles.
       if (styles[el]) {
         output = {
-          ...output,
           ...this.getStyle(styles[el], index + 1),
         };
       }
@@ -298,41 +277,12 @@ export default (styles) => {
                 </svg>
               </div>
             )}
-            <MenuMain
-              className={`bm-menu ${this.props.menuClassName}`.trim()}
-              // style={this.getStyles("menu")}
-            >
-              <nav
-                className={`bm-item-list ${this.props.itemListClassName}`.trim()}
-                style={this.getStyles("itemList")}
-              >
-                {React.Children.map(this.props.children, (item, index) => {
-                  const itemStyle = {
-                    ...item.props.style,
-                    color: item.props.style
-                      ? selectColor(item.props.style.color, defaultProps.theme)
-                      : null,
-                  };
-
-                  if (item) {
-                    const classList = [
-                      "bm-item",
-                      this.props.itemClassName,
-                      item.props.className,
-                    ]
-                      .filter((className) => !!className)
-                      .join(" ");
-                    const extraProps = {
-                      // onMouseOver: this.changeBackground,
-                      key: index,
-                      className: classList,
-                      style: this.getStyles("item", index, itemStyle),
-                      tabIndex: this.state.isOpen ? 0 : -1,
-                    };
-                    return React.cloneElement(item, extraProps);
-                  }
+            <MenuMain>
+              <ItemList>
+                {React.Children.map(this.props.children, (item) => {
+                  return React.cloneElement(item);
                 })}
-              </nav>
+              </ItemList>
             </MenuMain>
             {this.props.customCrossIcon !== false && (
               <div style={this.getStyles("closeButton")}>

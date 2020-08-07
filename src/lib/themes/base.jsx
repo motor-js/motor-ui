@@ -137,7 +137,7 @@ const base = {
     colorTheme: "motor",
     color,
     overlay: {
-      background: `rgba(255,0,0,0.3)`,
+      background: `rgba(0,0,0,0.3)`,
     },
     border: {
       color: "var(--oc-gray-4)",

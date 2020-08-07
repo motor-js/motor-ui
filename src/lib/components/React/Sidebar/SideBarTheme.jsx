@@ -81,6 +81,11 @@ const MenuMain = styled.div`
   font-size: 1.15em;
 `;
 
+const ItemList = styled.nav`
+  height: 100%;
+  color: #b8b7ad;
+`;
+
 const ButtonWrapper = styled.button`
   ${globalStyle};
   cursor: pointer;
@@ -132,4 +137,7 @@ Object.setPrototypeOf(MenuWrap.defaultProps, defaultProps);
 MenuMain.defaultProps = {};
 Object.setPrototypeOf(MenuMain.defaultProps, defaultProps);
 
-export { Overlay, MenuWrap, MenuMain };
+ItemList.defaultProps = {};
+Object.setPrototypeOf(ItemList.defaultProps, defaultProps);
+
+export { Overlay, MenuWrap, MenuMain, ItemList };
