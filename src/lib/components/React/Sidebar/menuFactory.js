@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import baseStyles from "./baseStyles";
+// import baseStyles from "./baseStyles";
 import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { selectColor } from "../../../utils/colors";
@@ -158,7 +158,7 @@ export default (styles) => {
         "bm" + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
 
       // Set base styles.
-      let output = baseStyles[el] ? this.getStyle(baseStyles[el]) : {};
+      let output = {};
 
       // Add animation-specific styles.
       if (styles[el]) {
