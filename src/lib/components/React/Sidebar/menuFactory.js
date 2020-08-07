@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-// import baseStyles from "./baseStyles";
 import BurgerIcon from "./BurgerIcon";
 import CrossIcon from "./CrossIcon";
 import { Overlay, MenuWrap, MenuMain, ItemList } from "./SideBarTheme";
@@ -27,8 +26,6 @@ export default (styles) => {
       const newState = {
         isOpen: typeof isOpen !== "undefined" ? isOpen : !this.state.isOpen,
       };
-
-      this.applyWrapperStyles();
 
       this.setState(newState, () => {
         !noStateChange && this.props.onStateChange(newState);
@@ -54,9 +51,6 @@ export default (styles) => {
         this.timeoutId && clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
           this.timeoutId = null;
-          if (!newState.isOpen) {
-            this.applyWrapperStyles(false);
-          }
         }, 500);
       });
     }
@@ -87,66 +81,6 @@ export default (styles) => {
         return;
       } else {
         this.close();
-      }
-    }
-
-    // Applies component-specific styles to external wrapper elements.
-    applyWrapperStyles(set = true) {
-      const applyClass = (el, className) =>
-        el.classList[set ? "add" : "remove"](className);
-
-      if (this.props.htmlClassName) {
-        applyClass(document.querySelector("html"), this.props.htmlClassName);
-      }
-      if (this.props.bodyClassName) {
-        applyClass(document.querySelector("body"), this.props.bodyClassName);
-      }
-
-      if (styles.pageWrap && this.props.pageWrapId) {
-        this.handleExternalWrapper(this.props.pageWrapId, styles.pageWrap, set);
-      }
-
-      if (styles.outerContainer && this.props.outerContainerId) {
-        this.handleExternalWrapper(
-          this.props.outerContainerId,
-          styles.outerContainer,
-          set
-        );
-      }
-    }
-
-    // Sets or unsets styles on DOM elements outside the menu component.
-    // This is necessary for correct page interaction with some of the menus.
-    // Throws and returns if the required external elements don't exist,
-    // which means any external page animations won't be applied.
-    handleExternalWrapper(id, wrapperStyles, set) {
-      const wrapper = document.getElementById(id);
-
-      if (!wrapper) {
-        console.error("Element with ID '" + id + "' not found");
-        return;
-      }
-
-      const builtStyles = this.getStyle(wrapperStyles);
-
-      for (const prop in builtStyles) {
-        if (builtStyles.hasOwnProperty(prop)) {
-          wrapper.style[prop] = set ? builtStyles[prop] : "";
-        }
-      }
-
-      // Prevent any horizontal scroll.
-      // Only set overflow-x as an inline style if htmlClassName or
-      // bodyClassName is not passed in. Otherwise, it is up to the caller to
-      // decide if they want to set the overflow style in CSS using the custom
-      // class names.
-      const applyOverflow = (el) =>
-        (el.style["overflow-x"] = set ? "hidden" : "");
-      if (!this.props.htmlClassName) {
-        applyOverflow(document.querySelector("html"));
-      }
-      if (!this.props.bodyClassName) {
-        applyOverflow(document.querySelector("body"));
       }
     }
 
@@ -227,7 +161,7 @@ export default (styles) => {
     componentWillUnmount() {
       window.onkeydown = null;
 
-      this.applyWrapperStyles(false);
+      // this.applyWrapperStyles(false);
 
       // Avoid potentially attempting to update an unmounted component.
       this.timeoutId && clearTimeout(this.timeoutId);
