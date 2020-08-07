@@ -12,14 +12,14 @@ function useEngine(config) {
     {
       // We only want to handle failed responses from QIX Engine:
       onRejected: function retryAbortedError(sessionReference, request, error) {
-        console.warn('Request: Rejected', error);
+        console.warn('Captured Request: Rejected', error);
         // We only want to handle aborted QIX errors:
         if (
           error.code === schema.enums.LocalizedErrorCode.LOCERR_GENERIC_ABORTED
         ) {
           // We keep track of how many consecutive times we have tried to do this call:
           request.tries = (request.tries || 0) + 1;
-          console.warn(`Request: Retry #${request.tries}`);
+          console.warn(`Captured Request: Retry #${request.tries}`);
           // We do not want to get stuck in an infinite loop here if something has gone
           // awry, so we only retry until we have reached MAX_RETRIES:
           if (request.tries <= MAX_RETRIES) {
@@ -39,7 +39,9 @@ function useEngine(config) {
   const [engineError, setEngineError] = useState(false);
   const [engine, setEngine] = useState(() => {
     (async () => {
-      if (config) {
+      if (config && config.qcs) {
+        console.log('hello')
+      } else {
         const myConfig = config;
         // Make it work for Qlik Core scaling https://github.com/qlik-oss/core-scaling
         // qlikcore/engine:12.248.0
@@ -51,13 +53,13 @@ function useEngine(config) {
         try {
           const session = enigma.create({ schema, url, intercept });
           session.on('suspended', () => {
-            console.warn('session suspended');
+            console.warn('Captured session suspended');
           });
           const _global = await session.open();
           const _doc = await _global.openDoc(config.appId);
           setEngine(_doc);
         } catch (err) {
-          console.warn('Error', err);
+          console.warn('Captured Error', err);
           if (err.code === 1003) {
             setEngineError(`No engine. App Not found.`);
           //  cogoToast.error('App Not Found')

@@ -1,10 +1,25 @@
 export const config = {
+  host: 'sense-demo.qlik.com',
+  secure: true,
+  port: 443,
+  prefix: '',
+  appId: '372cbc85-f7fb-4db6-a620-9a5367845dce',
+  qcs: true,
+  webIntId: '4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i',
+  apiKey: ''
+}
+
+
+
+/*
+export const config = {
   host: "localhost",
   secure: false,
   port: 19077,
   prefix: "",
   appId: "c2a87f96-e112-44cd-b9f3-2f9db1b0a700",
 };
+*/
 
 // export const config = {
 //   host: 'localhost',
