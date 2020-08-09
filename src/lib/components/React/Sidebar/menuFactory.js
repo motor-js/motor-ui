@@ -287,6 +287,14 @@ export default (styles) => {
             isOpen={this.state.isOpen}
             sideBarWidth={this.props.width}
             right={this.props.right}
+            // rows={["60px", "auto", "30px"]}
+            // cols={["auto"]}
+            // areas={[["header"], ["main"], ["footer"]]}
+            borderRadius={this.props.borderRadius}
+            backgroundColor={this.props.backgroundColor}
+            border={this.props.border}
+            headerHeight={this.props.header ? this.props.headerHeight : "0"}
+            footerHeight={this.props.footer ? this.props.footerHeight : "0"}
           >
             {styles.svg && (
               <div
@@ -302,26 +310,20 @@ export default (styles) => {
                   <path d={styles.svg.pathInitial} />
                 </svg>
               </div>
+            )}{" "}
+            {this.props.header && (
+              <MenuHeader border="bottom">{this.props.header}</MenuHeader>
             )}
-            <MenuMain
-              header={this.props.header}
-              footer={this.props.footer}
-              borderRadius={this.props.borderRadius}
-              backgroundColor={this.props.backgroundColor}
-              border={this.props.border}
-            >
-              {this.props.header && (
-                <MenuHeader border="bottom">{this.props.header}</MenuHeader>
-              )}
-              {this.props.footer && (
-                <MenuFooter border="top">{this.props.footer}</MenuFooter>
-              )}
+            <MenuMain header={this.props.header} footer={this.props.footer}>
               <ItemList>
                 {React.Children.map(this.props.children, (item) => {
                   return React.cloneElement(item);
                 })}
               </ItemList>
             </MenuMain>
+            {this.props.footer && (
+              <MenuFooter border="top">{this.props.footer}</MenuFooter>
+            )}
             <CloseIcon
               onClick={() => this.close()}
               theme={this.props.theme}
@@ -329,11 +331,6 @@ export default (styles) => {
               right={this.props.right}
             />
           </MenuWrap>
-          {/* <MenuIcon
-            onClick={() => this.open()}
-            size={35}
-            right={this.props.right}
-          /> */}
           {
             {
               menu: (
@@ -430,6 +427,8 @@ export default (styles) => {
     styles: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     focusFirstItem: PropTypes.bool,
+    headerHeight: PropTypes.string,
+    footerHeight: PropTypes.string,
 
     // new for motor-js
     type: PropTypes.oneOf(
@@ -525,6 +524,8 @@ export default (styles) => {
 
     // new for motor-js
     border: true,
+    headerHeight: "80px",
+    footerHeight: "100px",
   };
 
   return Menu;
