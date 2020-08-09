@@ -56,9 +56,6 @@ const BORDER_SHAPE = PropTypes.shape({
 
 NavItem.propTypes = {
   children: PropTypes.node,
-  // footer: PropTypes.node,
-  // header: PropTypes.node,
-  // zIndex: PropTypes.string,
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   responsive: PropTypes.bool,
   border: PropTypes.string,
@@ -114,11 +111,6 @@ NavItem.propTypes = {
 
 NavItem.defaultProps = {
   children: undefined,
-  // footer: undefined,
-  // header: undefined,
-  // width: "70vw",
-  // top: "30%",
-  // zIndex: "1050",
   size: "small",
   responsive: true,
   color: null,

@@ -432,6 +432,16 @@ export default (styles) => {
     focusFirstItem: PropTypes.bool,
 
     // new for motor-js
+    type: PropTypes.oneOf(
+      "slide",
+      "stack",
+      "push",
+      "pushRotate",
+      "scaleDown",
+      "scaleRotate",
+      "fallDown",
+      "reveal"
+    ),
     header: PropTypes.node,
     footer: PropTypes.node,
     openIcon: PropTypes.oneOf("menu", "filter"),

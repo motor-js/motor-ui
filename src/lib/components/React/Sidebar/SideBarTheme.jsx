@@ -34,7 +34,7 @@ const Overlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: ${({ isOpen }) => (isOpen ? 1050 : 999)};
+  z-index: ${({ isOpen }) => (isOpen ? 1050 : -1)};
   width: 100%;
   height: 100%;
   background-color:${({ overlayBackground, theme }) =>
