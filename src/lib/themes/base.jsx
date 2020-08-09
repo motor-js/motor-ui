@@ -585,6 +585,12 @@ const base = {
     background: {
       color: { hover: "none" },
     },
+    border: {
+      color: "#FF7272",
+      size: "3px",
+      style: "solid",
+      radius: "0px 8px 8px 0px",
+    },
 
     size: {
       tiny: {
@@ -686,16 +692,16 @@ const base = {
   },
   sidebar: {
     width: "300px",
-    radius: null,
     color: {
       background: "#373a47",
-      // font: "altDark",
-      // placeholder: "altGray6",
       closeIcon: "brand",
       openIcon: "black",
     },
     border: {
-      hover: "border-right 5px solid #FF7272",
+      color: "#FF7272",
+      radius: "0px 8px 8px 0px",
+      size: "2px",
+      style: "solid",
     },
 
     // color: { active: "brand", inactive: "white" },

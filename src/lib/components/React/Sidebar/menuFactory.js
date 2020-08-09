@@ -306,6 +306,7 @@ export default (styles) => {
               header={this.props.header}
               borderRadius={this.props.borderRadius}
               backgroundColor={this.props.backgroundColor}
+              border={this.props.border}
             >
               {this.props.header && (
                 <MenuHeader border="bottom">{this.props.header}</MenuHeader>
@@ -350,6 +351,34 @@ export default (styles) => {
       );
     }
   }
+
+  const BORDER_SHAPE = PropTypes.shape({
+    color: PropTypes.oneOfType([PropTypes.string]),
+    side: PropTypes.oneOf([
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+    ]),
+    size: PropTypes.oneOfType([PropTypes.string]),
+    style: PropTypes.oneOf([
+      "solid",
+      "dashed",
+      "dotted",
+      "double",
+      "groove",
+      "ridge",
+      "inset",
+      "outset",
+      "hidden",
+    ]),
+  });
 
   Menu.propTypes = {
     bodyClassName: PropTypes.string,
@@ -404,6 +433,52 @@ export default (styles) => {
     backgroundColor: PropTypes.string,
     /** Set border radius */
     borderRadius: PropTypes.string,
+
+    /** Border of the Pie Chart, need desc */
+    border: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf([
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
+        "none",
+      ]),
+      PropTypes.shape({
+        color: PropTypes.oneOfType([PropTypes.string]),
+        side: PropTypes.oneOf([
+          "top",
+          "left",
+          "bottom",
+          "right",
+          "start",
+          "end",
+          "horizontal",
+          "vertical",
+          "all",
+          "between",
+        ]),
+        size: PropTypes.oneOfType([PropTypes.string]),
+        style: PropTypes.oneOf([
+          "solid",
+          "dashed",
+          "dotted",
+          "double",
+          "groove",
+          "ridge",
+          "inset",
+          "outset",
+          "hidden",
+        ]),
+      }),
+      PropTypes.arrayOf(BORDER_SHAPE),
+    ]),
   };
 
   Menu.defaultProps = {
@@ -431,6 +506,9 @@ export default (styles) => {
     width: "300px",
     onIconHoverChange: () => {},
     focusFirstItem: true,
+
+    // new for motor-js
+    border: true,
   };
 
   return Menu;

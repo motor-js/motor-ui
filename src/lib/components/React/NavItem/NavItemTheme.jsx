@@ -7,6 +7,14 @@ import { selectColor } from "../../../utils/colors";
 // bordre to be added
 const StyledNavItem = styled.div`
   ${globalStyle};
+  ${(props) =>
+    props.border &&
+    props.border !== "none" &&
+    (Array.isArray(props.border, props.theme)
+      ? props.border.map((border) =>
+          borderStyle(border, props.theme, "navitem")
+        )
+      : borderStyle(props.border, props.theme, "navitem"))};
   text-align: ${(props) => props.textAlign || props.theme.navItem.textAlign};
   margin-bottom: 0; /* Puts space between NavItems */
   :hover {
