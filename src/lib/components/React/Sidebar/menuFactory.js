@@ -16,6 +16,7 @@ import {
   MenuIcon,
   FilterIcon,
   MenuHeader,
+  MenuFooter,
 } from "./SideBarTheme";
 import "./styles.css";
 
@@ -304,12 +305,16 @@ export default (styles) => {
             )}
             <MenuMain
               header={this.props.header}
+              footer={this.props.footer}
               borderRadius={this.props.borderRadius}
               backgroundColor={this.props.backgroundColor}
               border={this.props.border}
             >
               {this.props.header && (
                 <MenuHeader border="bottom">{this.props.header}</MenuHeader>
+              )}
+              {this.props.footer && (
+                <MenuFooter border="top">{this.props.footer}</MenuFooter>
               )}
               <ItemList>
                 {React.Children.map(this.props.children, (item) => {
@@ -428,6 +433,7 @@ export default (styles) => {
 
     // new for motor-js
     header: PropTypes.node,
+    footer: PropTypes.node,
     openIcon: PropTypes.oneOf("menu", "filter"),
     /** Set background color */
     backgroundColor: PropTypes.string,

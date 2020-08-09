@@ -16,6 +16,9 @@ const SmartHeading = ({
   color,
   locales,
   options,
+  asDate,
+  asTime,
+  addSpace,
 }) => {
   const myConfig = config || useContext(ConfigContext);
   const { engine, engineError } =
@@ -49,8 +52,12 @@ const SmartHeading = ({
       ts = new Date(lastReload).toLocaleString(locales, options);
     } else if (locales) {
       ts = new Date(lastReload).toLocaleString(locales);
+    } else if (asDate) {
+      ts = new Date(lastReload).toLocaleDateString();
+    } else if (asTime) {
+      ts = new Date(lastReload).toLocaleTimeString();
     }
-    text = children ? children + ts : `${ts}`;
+    text = children ? children + `${addSpace ? " " : null} ` + ts : `${ts}`;
   }
 
   return (
@@ -85,6 +92,9 @@ SmartHeading.propTypes = {
   color: PropTypes.string,
   locales: PropTypes.string,
   options: PropTypes.object,
+  asDate: PropTypes.bool,
+  asTime: PropTypes.bool,
+  addSpace: PropTypes.bool,
 };
 
 SmartHeading.defaultProps = {
@@ -96,6 +106,9 @@ SmartHeading.defaultProps = {
   color: null,
   locales: null,
   options: null,
+  asDate: null,
+  asTime: null,
+  addSpace: true,
 };
 
 export default SmartHeading;

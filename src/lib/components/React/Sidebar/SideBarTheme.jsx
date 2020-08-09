@@ -12,9 +12,22 @@ import {
 // import { globalStyle, borderStyle } from "../../../utils/styles";
 
 const MenuHeader = styled(Box)`
-  padding: 16px 0 16px 0;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  padding: 16px 0 16px 34px;
   width: 100%;
   margin: 0 0 16px 0;
+`;
+
+const MenuFooter = styled(Box)`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 16px 0px 16px 34px;
+  // width: 229px;
+  width: 100%;
+  // margin: 0 0px 16px 34px;
 `;
 
 const Overlay = styled.div`
@@ -97,7 +110,7 @@ const MenuMain = styled.div`
   height: 100%;
   box-sizing: border-box;
   overflow: ${({ header }) => (header ? "" : "auto")};
-  padding: ${({ header }) => `${header ? "0.5em " : "2.5em "} 1.5em 0`};
+  padding: ${({ header }) => `${header ? "4em " : "2.5em "} 1.5em 0`};
   font-size: 1.15em;
   background-color: ${(props) =>
     selectColor(
@@ -114,17 +127,17 @@ const ItemList = styled.nav`
   color: #b8b7ad;
 `;
 
-const BurgerButton = styled.div`
-  position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 36px;
-  top: 36px;
-  zindex: 1000;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
+// const BurgerButton = styled.div`
+//   position: fixed;
+//   width: 36px;
+//   height: 30px;
+//   left: 36px;
+//   top: 36px;
+//   zindex: 1000;
+//   position: absolute;
+//   top: 10px;
+//   right: 10px;
+// `;
 
 const CloseIcon = styled(styledXCircle)`
   color: ${(props) =>
@@ -191,8 +204,8 @@ Object.setPrototypeOf(MenuMain.defaultProps, defaultProps);
 ItemList.defaultProps = {};
 Object.setPrototypeOf(ItemList.defaultProps, defaultProps);
 
-BurgerButton.defaultProps = {};
-Object.setPrototypeOf(BurgerButton.defaultProps, defaultProps);
+// BurgerButton.defaultProps = {};
+// Object.setPrototypeOf(BurgerButton.defaultProps, defaultProps);
 
 CloseIcon.defaultProps = {};
 Object.setPrototypeOf(CloseIcon.defaultProps, defaultProps);
@@ -206,14 +219,18 @@ Object.setPrototypeOf(FilterIcon.defaultProps, defaultProps);
 MenuHeader.defaultProps = {};
 Object.setPrototypeOf(MenuHeader.defaultProps, defaultProps);
 
+MenuFooter.defaultProps = {};
+Object.setPrototypeOf(MenuFooter.defaultProps, defaultProps);
+
 export {
   Overlay,
   MenuWrap,
   MenuMain,
   ItemList,
-  BurgerButton,
+  // BurgerButton,
   CloseIcon,
   MenuIcon,
   FilterIcon,
   MenuHeader,
+  MenuFooter,
 };
