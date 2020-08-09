@@ -147,6 +147,7 @@ const CloseIcon = styled(styledXCircle)`
   right: 0px;
   // left: ${({ right }) => (right ? "10px" : "")};
   // right: ${({ right }) => (right ? "" : "10px")};
+  stroke-width: 2px;
   top: 0px;
   cursor: pointer;
   &:hover {
@@ -162,6 +163,7 @@ const MenuIcon = styled(styledMenu)`
   right: ${({ right }) => (right ? "10px" : "")};
   left: ${({ right }) => (right ? "" : "10px")};
   top: 10px;
+  stroke-width: 2px;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -189,6 +191,7 @@ const FilterIcon = styled(styledFilter)`
   cursor: pointer;
   &:hover {
     opacity: 0.6;
+    stroke-width: 1.5px;
   }
 `;
 
