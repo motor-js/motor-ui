@@ -698,17 +698,12 @@ const base = {
       openIcon: "black",
     },
     border: {
+      // 1px dashed red; border-width: 1px 1px 0 1px;
       color: "#FF7272",
-      radius: "0px 8px 8px 0px",
-      size: "2px",
+      radius: "0px 20px 20px 0px",
+      size: "1px",
       style: "solid",
     },
-
-    // color: { active: "brand", inactive: "white" },
-    // textAlign: "left",
-    // background: {
-    //   color: { hover: "none" },
-    // },
   },
   progress: {},
   table: {
