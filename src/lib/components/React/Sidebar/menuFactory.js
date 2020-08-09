@@ -302,7 +302,11 @@ export default (styles) => {
                 </svg>
               </div>
             )}
-            <MenuMain header={this.props.header}>
+            <MenuMain
+              header={this.props.header}
+              borderRadius={this.props.borderRadius}
+              color={this.props.color}
+            >
               {this.props.header && (
                 <MenuHeader border="bottom">{this.props.header}</MenuHeader>
               )}
@@ -396,6 +400,10 @@ export default (styles) => {
     // new for motor-js
     header: PropTypes.node,
     openIcon: PropTypes.oneOf("menu", "filter"),
+    /** Set background color */
+    color: PropTypes.string,
+    /** Set border radius */
+    borderRadius: PropTypes.string,
   };
 
   Menu.defaultProps = {

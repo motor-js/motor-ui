@@ -686,8 +686,9 @@ const base = {
   },
   sidebar: {
     width: "300px",
+    radius: null,
     color: {
-      // background: "white",
+      background: "#373a47",
       // font: "altDark",
       // placeholder: "altGray6",
       closeIcon: "brand",

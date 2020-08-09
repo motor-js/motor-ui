@@ -87,11 +87,17 @@ const MenuWrap = styled.div`
 const MenuMain = styled.div`
   ${globalStyle};
   height: 100%;
-  boxsizing: border-box;
+  box-sizing: border-box;
   overflow: ${({ header }) => (header ? "" : "auto")};
-  background: #373a47;
   padding: ${({ header }) => `${header ? "0.5em " : "2.5em "} 1.5em 0`};
   font-size: 1.15em;
+  background-color: ${(props) =>
+    selectColor(
+      props.color || props.theme.sidebar.color.background,
+      props.theme
+    )};
+
+  border-radius: ${(props) => props.borderRadius || props.theme.sidebar.radius};
 `;
 
 const ItemList = styled.nav`
