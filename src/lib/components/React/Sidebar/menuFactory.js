@@ -335,6 +335,7 @@ export default (styles) => {
             {
               menu: (
                 <MenuIcon
+                  openIconColor={this.props.openIconColor}
                   onClick={() => this.open()}
                   size={35}
                   right={this.props.right}
@@ -342,6 +343,7 @@ export default (styles) => {
               ),
               filter: (
                 <FilterIcon
+                  openIconColor={this.props.openIconColor}
                   onClick={() => this.open()}
                   size={35}
                   right={this.props.right}
@@ -444,6 +446,7 @@ export default (styles) => {
     header: PropTypes.node,
     footer: PropTypes.node,
     openIcon: PropTypes.oneOf("menu", "filter"),
+    openIconColor: PropTypes.string,
     /** Set background color */
     backgroundColor: PropTypes.string,
     /** Set border radius */

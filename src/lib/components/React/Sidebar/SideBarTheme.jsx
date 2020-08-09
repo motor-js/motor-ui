@@ -32,6 +32,7 @@ const MenuFooter = styled(Box)`
   // margin: 0 0px 16px 34px;
   grid-area: footer;
   align-items: center;
+  text-align: center;
 `;
 
 const Overlay = styled.div`
@@ -170,7 +171,10 @@ const CloseIcon = styled(styledXCircle)`
 
 const MenuIcon = styled(styledMenu)`
   color: ${(props) =>
-    selectColor(props.theme.sidebar.color.openIcon, props.theme)};
+    selectColor(
+      props.openIconColor || props.theme.sidebar.color.openIcon,
+      props.theme
+    )};
   position: absolute;
   z-index: 1000;
   right: ${({ right }) => (right ? "10px" : "")};
@@ -190,7 +194,10 @@ const MenuIcon = styled(styledMenu)`
 
 const FilterIcon = styled(styledFilter)`
   color: ${(props) =>
-    selectColor(props.theme.sidebar.color.openIcon, props.theme)};
+    selectColor(
+      props.openIconColor || props.theme.sidebar.color.openIcon,
+      props.theme
+    )};
   position: absolute;
   z-index: 1001;
   right: ${({ right }) => (right ? "10px" : "")};
