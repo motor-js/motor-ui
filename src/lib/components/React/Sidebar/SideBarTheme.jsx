@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { globalStyle } from "../../../utils/styles";
 import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
+import Box from "../Box";
 import {
   XCircle as styledXCircle,
   Menu as styledMenu,
@@ -9,6 +10,12 @@ import {
 } from "@styled-icons/feather";
 
 // import { globalStyle, borderStyle } from "../../../utils/styles";
+
+const MenuHeader = styled(Box)`
+  padding: 16px 0 16px 0;
+  width: 100%;
+  margin: 0 0 16px 0;
+`;
 
 const Overlay = styled.div`
   position: absolute;
@@ -81,9 +88,9 @@ const MenuMain = styled.div`
   ${globalStyle};
   height: 100%;
   boxsizing: border-box;
-  overflow: auto;
+  overflow: ${({ header }) => (header ? "" : "auto")};
   background: #373a47;
-  padding: 2.5em 1.5em 0;
+  padding: ${({ header }) => `${header ? "0.5em " : "2.5em "} 1.5em 0`};
   font-size: 1.15em;
 `;
 
@@ -227,6 +234,9 @@ Object.setPrototypeOf(MenuIcon.defaultProps, defaultProps);
 FilterIcon.defaultProps = {};
 Object.setPrototypeOf(FilterIcon.defaultProps, defaultProps);
 
+MenuHeader.defaultProps = {};
+Object.setPrototypeOf(MenuHeader.defaultProps, defaultProps);
+
 export {
   Overlay,
   MenuWrap,
@@ -236,4 +246,5 @@ export {
   CloseIcon,
   MenuIcon,
   FilterIcon,
+  MenuHeader,
 };

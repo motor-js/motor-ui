@@ -29,6 +29,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
     <div id="App">
       <Motor  config={config}>
       <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}  type="push"
+       header={
+            <div style={{fontSize: '20px', color: 'white'}}>
+              <Home /> Modal Title
+            </div>
+          }
       >
                   <NavItem
                 path="/"

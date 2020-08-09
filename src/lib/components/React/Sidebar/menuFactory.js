@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 // import baseStyles from "./baseStyles";
 // import BurgerIcon from "./BurgerIcon";
 // import CrossIcon from "./CrossIcon";
+// import Box from "../Box";
 import {
   Overlay,
   MenuWrap,
@@ -14,6 +15,7 @@ import {
   CloseIcon,
   MenuIcon,
   FilterIcon,
+  MenuHeader,
 } from "./SideBarTheme";
 import "./styles.css";
 
@@ -41,22 +43,22 @@ export default (styles) => {
       this.setState(newState, () => {
         !noStateChange && this.props.onStateChange(newState);
 
-        if (!this.props.disableAutoFocus) {
-          // For accessibility reasons, ensures that when we toggle open,
-          // we focus the first menu item if one exists.
-          if (newState.isOpen) {
-            const firstItem = document.querySelector(".bm-item");
-            if (firstItem && this.props.focusFirstItem) {
-              firstItem.focus();
-            }
-          } else {
-            if (document.activeElement) {
-              document.activeElement.blur();
-            } else {
-              document.body.blur(); // Needed for IE
-            }
-          }
-        }
+        // if (!this.props.disableAutoFocus) {
+        //   // For accessibility reasons, ensures that when we toggle open,
+        //   // we focus the first menu item if one exists.
+        //   if (newState.isOpen) {
+        //     const firstItem = document.querySelector(".bm-item");
+        //     if (firstItem && this.props.focusFirstItem) {
+        //       firstItem.focus();
+        //     }
+        //   } else {
+        //     if (document.activeElement) {
+        //       document.activeElement.blur();
+        //     } else {
+        //       document.body.blur(); // Needed for IE
+        //     }
+        //   }
+        // }
 
         // Timeout ensures wrappers are cleared after animation finishes.
         this.timeoutId && clearTimeout(this.timeoutId);
@@ -300,7 +302,10 @@ export default (styles) => {
                 </svg>
               </div>
             )}
-            <MenuMain>
+            <MenuMain header={this.props.header}>
+              {this.props.header && (
+                <MenuHeader border="bottom">{this.props.header}</MenuHeader>
+              )}
               <ItemList>
                 {React.Children.map(this.props.children, (item) => {
                   return React.cloneElement(item);
@@ -314,11 +319,29 @@ export default (styles) => {
               right={this.props.right}
             />
           </MenuWrap>
-          <MenuIcon
+          {/* <MenuIcon
             onClick={() => this.open()}
             size={35}
             right={this.props.right}
-          />
+          /> */}
+          {
+            {
+              menu: (
+                <MenuIcon
+                  onClick={() => this.open()}
+                  size={35}
+                  right={this.props.right}
+                />
+              ),
+              filter: (
+                <FilterIcon
+                  onClick={() => this.open()}
+                  size={35}
+                  right={this.props.right}
+                />
+              ),
+            }[this.props.openIcon || "menu"]
+          }
         </div>
       );
     }
@@ -340,7 +363,7 @@ export default (styles) => {
       PropTypes.oneOf([false]),
     ]),
     customOnKeyDown: PropTypes.func,
-    disableAutoFocus: PropTypes.bool,
+    // disableAutoFocus: PropTypes.bool,
     disableCloseOnEsc: PropTypes.bool,
     disableOverlayClick: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     htmlClassName: PropTypes.string,
@@ -369,6 +392,10 @@ export default (styles) => {
     styles: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     focusFirstItem: PropTypes.bool,
+
+    // new for motor-js
+    header: PropTypes.node,
+    openIcon: PropTypes.oneOf("menu", "filter"),
   };
 
   Menu.defaultProps = {
@@ -378,7 +405,7 @@ export default (styles) => {
     className: "",
     crossButtonClassName: "",
     crossClassName: "",
-    disableAutoFocus: false,
+    // disableAutoFocus: false,
     disableCloseOnEsc: false,
     htmlClassName: "",
     id: "",
