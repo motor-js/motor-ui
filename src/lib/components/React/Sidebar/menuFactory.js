@@ -305,7 +305,7 @@ export default (styles) => {
             <MenuMain
               header={this.props.header}
               borderRadius={this.props.borderRadius}
-              color={this.props.color}
+              backgroundColor={this.props.backgroundColor}
             >
               {this.props.header && (
                 <MenuHeader border="bottom">{this.props.header}</MenuHeader>
@@ -401,7 +401,7 @@ export default (styles) => {
     header: PropTypes.node,
     openIcon: PropTypes.oneOf("menu", "filter"),
     /** Set background color */
-    color: PropTypes.string,
+    backgroundColor: PropTypes.string,
     /** Set border radius */
     borderRadius: PropTypes.string,
   };

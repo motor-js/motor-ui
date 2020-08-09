@@ -93,7 +93,7 @@ const MenuMain = styled.div`
   font-size: 1.15em;
   background-color: ${(props) =>
     selectColor(
-      props.color || props.theme.sidebar.color.background,
+      props.backgroundColor || props.theme.sidebar.color.background,
       props.theme
     )};
 
