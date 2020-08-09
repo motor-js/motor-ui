@@ -14,11 +14,11 @@ import { Props } from 'docz'
 import { Playground } from 'docz'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import Button from '../../lib/components/React/Button/Button.jsx'
-// import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import NavItem from '../../lib/components/React/NavItem/NavItem.jsx'
 import SideBar from "../../lib/components/React/SideBar";
 import { Filter as FilterIcon} from "@styled-icons/feather/filter";
-import { Home, X } from "react-feather";
+import { Home, X,  } from "react-feather";
 import { config } from '../config/config.js'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -50,22 +50,20 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
                 name="Burger"
                 css="fa fa-fw fa-home"
               />
-        {/* <a className="menu-item" href="/" >
-        <Home /> Home
-      </a>
-      <a className="menu-item" href="/sidebar" style={{ color: "blue" , background :"yellow"}}>
-        Burgers
-      </a>
-      <a className="menu-item" href="/pizzas" >
-        Pizzas
-      </a>
-      <a className="menu-item" href="/desserts"style={{ color: "brand" }}>
-        Desserts
-      </a> */}
-          {/* <Filter label="Claim Status" dimension={["Claim Status"]} />
+        </SideBar>
+      <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}  type="push"
+      right
+      openIcon="filter"
+       header={
+            <div style={{fontSize: '20px', color: 'white'}}>
+              <FilterIcon size={25}/> Filters
+            </div>
+          }
+      >
+          <Filter label="Claim Status" dimension={["Claim Status"]} />
           <Filter label="Claim Type" dimension={["Claim Type"]} />
           <Filter label="Claim Sub-Type" dimension={["Claim Sub-Type"]} />
-          <Filter label="Broker" dimension={["BrokerName"]} /> */}
+          <Filter label="Broker" dimension={["BrokerName"]} />
         </SideBar>
       <div id="page-wrap">
         <h1>Cool Restaurant 🍔🍕</h1>

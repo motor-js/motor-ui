@@ -21,7 +21,7 @@ const Overlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: ${({ isOpen }) => (isOpen ? 1050 : 999)};
   width: 100%;
   height: 100%;
   background-color:${({ overlayBackground, theme }) =>
@@ -117,8 +117,8 @@ const CloseIcon = styled(styledXCircle)`
   padding: 8px 8px 0px 5px;
   position: absolute;
   right: 0px;
-  left: ${({ right }) => (right ? "10px" : "")};
-  right: ${({ right }) => (right ? "" : "10px")};
+  // left: ${({ right }) => (right ? "10px" : "")};
+  // right: ${({ right }) => (right ? "" : "10px")};
   top: 0px;
   cursor: pointer;
   &:hover {
@@ -134,8 +134,6 @@ const MenuIcon = styled(styledMenu)`
   right: ${({ right }) => (right ? "10px" : "")};
   left: ${({ right }) => (right ? "" : "10px")};
   top: 10px;
-  // width: 10%;
-  // height: 10%;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -151,12 +149,10 @@ const FilterIcon = styled(styledFilter)`
   color: ${(props) =>
     selectColor(props.theme.sidebar.color.openIcon, props.theme)};
   position: absolute;
-  z-index: 1000;
+  z-index: 1001;
   right: ${({ right }) => (right ? "10px" : "")};
   left: ${({ right }) => (right ? "" : "10px")};
   top: 10px;
-  // width: 10%;
-  // height: 10%;
   margin: 0px;
   padding: 0px;
   border: none;
