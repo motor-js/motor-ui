@@ -69,7 +69,7 @@ function useEngine(config) {
         setEngine(_doc);
         return 1
 
-      } else {n
+      } else {
         const myConfig = config;
         // Make it work for Qlik Core scaling https://github.com/qlik-oss/core-scaling
         // qlikcore/engine:12.248.0
