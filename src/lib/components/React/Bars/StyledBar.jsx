@@ -18,7 +18,7 @@ import {
 } from "../../../utils";
 // import CreateBar from "./CreateBar";
 import Spinner from "../Spinner";
-import Example from "./CreateBar.tsx";
+import Example from "./CreateBar";
 
 function StyledBar(props) {
   // Ref for d3 object

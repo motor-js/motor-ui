@@ -11,16 +11,10 @@ const data = letterFrequency.slice(5);
 const verticalMargin = 120;
 
 // accessors
-const getLetter = (d: LetterFrequency) => d.letter;
-const getLetterFrequency = (d: LetterFrequency) => Number(d.frequency) * 100;
+const getLetter = (d) => d.letter;
+const getLetterFrequency = (d) => Number(d.frequency) * 100;
 
-export type BarsProps = {
-  width: number;
-  height: number;
-  events?: boolean;
-};
-
-export default function Example({ width, height, events = true }: BarsProps) {
+export default function Example({ width, height, events = true }) {
   // bounds
   const xMax = width;
   const yMax = height - verticalMargin;
@@ -28,7 +22,7 @@ export default function Example({ width, height, events = true }: BarsProps) {
   // scales, memoize for performance
   const xScale = useMemo(
     () =>
-      scaleBand<string>({
+      scaleBand({
         rangeRound: [0, xMax],
         domain: data.map(getLetter),
         padding: 0.4,
@@ -37,7 +31,7 @@ export default function Example({ width, height, events = true }: BarsProps) {
   );
   const yScale = useMemo(
     () =>
-      scaleLinear<number>({
+      scaleLinear({
         rangeRound: [yMax, 0],
         domain: [0, Math.max(...data.map(getLetterFrequency))],
       }),
