@@ -31,12 +31,6 @@ export const borderStyle = (data, theme, type = null) => {
     case "chart":
       border = theme.global.chart.border;
       break;
-    case "navItem":
-      border = theme.NavItem.border;
-      break;
-    case "sidebar":
-      border = theme.sidebar.border;
-      break;
     default:
       border = theme.global.border;
       break;

@@ -1,0 +1,18 @@
+---
+name: vxArea
+route: /vxArea
+menu: Visualisations
+---
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Area from '../../lib/components/React/Area/Area.tsx';
+import StyledArea from '../../lib/components/React/Area/StyledArea.tsx';
+import { config } from '../config/config.js'
+
+<Playground>
+  <div style={{ height:'400px', width:'1000px'}}>
+    <Area width={750} height={400} />
+  </div>
+</Playground>

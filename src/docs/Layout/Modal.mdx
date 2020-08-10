@@ -22,9 +22,7 @@ import { google } from '../../lib/themes'
 <Playground>
   {() => {
     const {isShowing, toggle} = useModal();
-    const handleClick = () =>{
-    toggle()
-    }
+    console.log(google)
     return (
       <>
       <Motor config={config}>
@@ -40,7 +38,6 @@ import { google } from '../../lib/themes'
             </div>
           }
           isShowing={isShowing}
-          onOutsideClick={handleClick}
         >
           Modal Content, like some filters...
           <div style={{ display:'flex', height:'50px', padding:'20px 0px' }}>
