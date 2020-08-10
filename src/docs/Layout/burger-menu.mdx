@@ -1,0 +1,83 @@
+---
+name: burger-menu
+route: /burger-menu
+menu: Layout
+---
+
+<h1 style={{ margin: '0px' }}>Sidebar</h1>
+<h3 style={{ margin: '0px' }}><em>A Collapsable Sidebar</em></h3>
+
+<br />
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import NavItem from '../../lib/components/React/NavItem/NavItem.jsx'
+import SmartHeading from '../../lib/components/React/SmartHeading/SmartHeading.jsx'
+import SideBar from "../../lib/components/React/SideBar";
+import { Filter as FilterIcon} from "@styled-icons/feather/filter";
+import { Home, X,  } from "react-feather";
+import { config } from '../config/config.js'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+<Playground>
+  {() => {
+  return (
+     <Router>
+    <div id="App">
+      <Motor  config={config}>
+      <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}  type="push"
+      overlayBackground="rgba(255,0,0,0.3)"
+       header={
+            <div style={{fontSize: '20px', color: 'white'}}>
+              <Home /> Modal Title
+            </div>
+          }
+       footer={
+               <SmartHeading size={"16px"} color={"brand"} asDate>Last Reloaded :</SmartHeading>
+          }
+      >
+                  <NavItem
+                path="/"
+                name="Home"
+                css="fa fa-fw fa-home"
+              > <Home /> </NavItem>
+                  <NavItem
+                path="/Grid"
+                name="Grid"
+                css="fa fa-fw fa-home"
+              />
+                  <NavItem
+                path="/burger-menu"
+                name="Burger"
+                css="fa fa-fw fa-home"
+              />
+        </SideBar>
+      <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}  
+      right
+      borderRadius ="20px 0px 0px 20px"
+      openIcon="filter"
+       header={
+            <div style={{fontSize: '20px', color: 'white'}}>
+              <FilterIcon size={25}/> Filters
+            </div>
+          }
+      >
+          <Filter label="Claim Status" dimension={["Claim Status"]} />
+          <Filter label="Claim Type" dimension={["Claim Type"]} />
+          <Filter label="Claim Sub-Type" dimension={["Claim Sub-Type"]} />
+          <Filter label="Broker" dimension={["BrokerName"]} />
+        </SideBar>
+      <div id="page-wrap">
+        <h1>Cool Restaurant 🍔🍕</h1>
+        <h2>Check out our offerings in the sidebar!</h2>
+      </div>
+      </Motor>
+    </div>
+     </Router>
+  );
+  }}
+</Playground>
