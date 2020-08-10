@@ -68,7 +68,13 @@ function StyledBarSeries(props) {
   } = props;
 
   // styles
-  const { BarThemes } = BarTheme(theme, size, fontColor, chartColor);
+  const { BarThemes } = BarTheme(
+    theme,
+    size,
+    fontColor,
+    chartColor,
+    setSelectionBarVisible
+  );
   // const { ToolTipThemes } = TooltipTheme(theme, size);
   // const { TitleThemes } = TitleTheme(theme, size);
   // const { LegendThemes } = LegendTheme(theme, backgroundColor);
@@ -238,6 +244,9 @@ function StyledBarSeries(props) {
                     qData={qData}
                     beginSelections={beginSelections}
                     select={select}
+                    setRefreshChart={setRefreshChart}
+                    setSelectionBarVisible={setSelectionBarVisible}
+                    useSelectionColours={useSelectionColours}
                   />
                 )}
               </div>

@@ -42,10 +42,15 @@ export default function Example({
   setRefreshChart,
   beginSelections,
   select,
+  setSelectionBarVisible,
+  useSelectionColours,
 }) {
   // bounds
   const xMax = width;
   const yMax = height - verticalMargin;
+
+  let pendingSelections = [];
+  console.log("pending slectiosn set");
 
   // scales, memoize for performance
   const xScale = useMemo(
@@ -70,8 +75,6 @@ export default function Example({
   );
 
   const handleClick = (args) => {
-    console.log(args);
-
     // let dim = d;
 
     // d = d3.select(this).attr("data-parent") || d;
@@ -86,26 +89,30 @@ export default function Example({
     //   dim = data[Object.keys(data)[d]];
     // }
 
-    // setRefreshChart(false);
-    // useSelectionColours = true;
+    setRefreshChart(false);
+    useSelectionColours = true;
 
-    // let updateList = [];
-    // const selectionValue = args;
+    let updateList = [];
+    const selectionValue = args;
 
-    // if (pendingSelections.includes(selectionValue)) {
-    //   updateList = pendingSelections.filter((item) => item != selectionValue);
-    //   pendingSelections = updateList;
-    // } else {
-    //   pendingSelections = [...pendingSelections, selectionValue];
-    // }
+    console.log(pendingSelections, selectionValue);
+
+    if (pendingSelections.includes(selectionValue)) {
+      updateList = pendingSelections.filter((item) => item != selectionValue);
+      pendingSelections = updateList;
+    } else {
+      pendingSelections = [...pendingSelections, selectionValue];
+    }
+
+    console.log(pendingSelections, selectionValue);
 
     // setBarColors(diagram);
 
     beginSelections();
 
-    // setSelectionBarVisible(true);
+    setSelectionBarVisible(true);
 
-    select(0, [args]);
+    select(0, pendingSelections);
   };
 
   return width < 10 ? null : (
