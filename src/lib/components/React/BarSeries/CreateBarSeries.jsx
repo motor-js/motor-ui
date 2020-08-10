@@ -34,7 +34,7 @@ const colors = [
   "#3B3EAC",
 ];
 
-export default function Example({
+export default function CreateBarSeries({
   width,
   height,
   events = false,
@@ -44,12 +44,16 @@ export default function Example({
   select,
   setSelectionBarVisible,
   useSelectionColours,
+  pendingSelections,
+  SetPendingSelections,
 }) {
   // bounds
   const xMax = width;
   const yMax = height - verticalMargin;
 
-  let pendingSelections = [];
+  console.log("w", width);
+
+  // let pendingSelections = [];
   console.log("pending slectiosn set");
 
   // scales, memoize for performance
@@ -74,7 +78,7 @@ export default function Example({
     [yMax]
   );
 
-  const handleClick = (args) => {
+  const handleClick = (selectionValue) => {
     // let dim = d;
 
     // d = d3.select(this).attr("data-parent") || d;
@@ -93,18 +97,20 @@ export default function Example({
     useSelectionColours = true;
 
     let updateList = [];
-    const selectionValue = args;
+    // const selectionValue = args;
 
     console.log(pendingSelections, selectionValue);
 
     if (pendingSelections.includes(selectionValue)) {
       updateList = pendingSelections.filter((item) => item != selectionValue);
-      pendingSelections = updateList;
+      // pendingSelections = updateList;
+      SetPendingSelections(updateList);
     } else {
-      pendingSelections = [...pendingSelections, selectionValue];
+      // pendingSelections = [...pendingSelections, selectionValue];
+      SetPendingSelections([...pendingSelections, selectionValue]);
     }
 
-    console.log(pendingSelections, selectionValue);
+    console.log("after", pendingSelections, selectionValue);
 
     // setBarColors(diagram);
 
@@ -138,6 +144,8 @@ export default function Example({
               height={barHeight}
               // fill="rgba(23, 233, 217, .5)"
               fill={colors[i]}
+              // stroke={"red"}
+              // strokeWidth={10}
               onClick={() => {
                 if (events)
                   // alert(`clicked: ${JSON.stringify(Object.values(d))}`);

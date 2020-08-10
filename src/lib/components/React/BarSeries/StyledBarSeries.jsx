@@ -18,7 +18,7 @@ import {
 } from "../../../utils";
 // import CreateBar from "./CreateBar";
 import Spinner from "../Spinner";
-import Example from "./CreateBarSeries";
+import CreateBarSeries from "./CreateBarSeries";
 
 function StyledBarSeries(props) {
   // Ref for d3 object
@@ -30,6 +30,7 @@ function StyledBarSeries(props) {
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   // const [sel, setSel] = useState([]);
+  const [pendingSelections, SetPendingSelections] = useState([]);
 
   let useSelectionColours = false;
   let chartSettings = {};
@@ -139,70 +140,70 @@ function StyledBarSeries(props) {
   //   setSel(...sel, s);
   // };
 
-  useEffect(() => {
-    let valid;
-    if (qLayout) {
-      // setObjId(qLayout.qInfo.qId);
-      setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
-      valid = validData(qLayout, theme);
-      if (valid) {
-        setIsValid(valid.isValid);
-        setDataError(valid.dataError);
-      }
-    }
+  // useEffect(() => {
+  //   let valid;
+  //   if (qLayout) {
+  //     // setObjId(qLayout.qInfo.qId);
+  //     setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
+  //     valid = validData(qLayout, theme);
+  //     if (valid) {
+  //       setIsValid(valid.isValid);
+  //       setDataError(valid.dataError);
+  //     }
+  //   }
 
-    if (qData && isValid && d3Container.current && refreshChart) {
-      // chartSettings = {
-      //   qLayout,
-      //   qData,
-      //   // propsWidth: width,
-      //   propsHeight: height,
-      //   d3Container,
-      //   screenWidth: ref.current.offsetWidth,
-      //   useSelectionColours,
-      //   setRefreshChart,
-      //   beginSelections,
-      //   setSelectionBarVisible,
-      //   // buildSelections,
-      //   maxAxisLength: maxAxisLength || BarDefault.maxAxisLength,
-      //   BarThemes,
-      //   ToolTipThemes,
-      //   TitleThemes,
-      //   LegendThemes,
-      //   allowSlantedYAxis:
-      //     allowSlantedYAxis === null
-      //       ? BarDefault.allowSlantedYAxis
-      //       : allowSlantedYAxis,
-      //   tickSpacing: tickSpacing || BarDefault.tickSpacing,
-      //   allowSelections:
-      //     allowSelections === null
-      //       ? BarDefault.allowSelections
-      //       : allowSelections,
-      //   showLabels: showLabels === null ? BarDefault.showLabels : showLabels,
-      //   showLegend: legendPosition(showLegend, BarDefault.showLegend),
-      //   showAxis: calcDisplayOption(
-      //     showAxis === null ? BarDefault.showAxis : showAxis
-      //   ),
-      //   textOnAxis: calcDisplayOption(
-      //     textOnAxis === null ? BarDefault.textOnAxis : textOnAxis
-      //   ),
-      //   showGridlines: calcDisplayOption(
-      //     showGridlines === null ? BarDefault.showGridlines : showGridlines,
-      //     true
-      //   ),
-      //   selections,
-      //   select,
-      //   ...rest,
-      // };
-      // CreateBar(chartSettings);
-    }
+  //   if (qData && isValid && d3Container.current && refreshChart) {
+  //     // chartSettings = {
+  //     //   qLayout,
+  //     //   qData,
+  //     //   // propsWidth: width,
+  //     //   propsHeight: height,
+  //     //   d3Container,
+  //     //   screenWidth: ref.current.offsetWidth,
+  //     //   useSelectionColours,
+  //     //   setRefreshChart,
+  //     //   beginSelections,
+  //     //   setSelectionBarVisible,
+  //     //   // buildSelections,
+  //     //   maxAxisLength: maxAxisLength || BarDefault.maxAxisLength,
+  //     //   BarThemes,
+  //     //   ToolTipThemes,
+  //     //   TitleThemes,
+  //     //   LegendThemes,
+  //     //   allowSlantedYAxis:
+  //     //     allowSlantedYAxis === null
+  //     //       ? BarDefault.allowSlantedYAxis
+  //     //       : allowSlantedYAxis,
+  //     //   tickSpacing: tickSpacing || BarDefault.tickSpacing,
+  //     //   allowSelections:
+  //     //     allowSelections === null
+  //     //       ? BarDefault.allowSelections
+  //     //       : allowSelections,
+  //     //   showLabels: showLabels === null ? BarDefault.showLabels : showLabels,
+  //     //   showLegend: legendPosition(showLegend, BarDefault.showLegend),
+  //     //   showAxis: calcDisplayOption(
+  //     //     showAxis === null ? BarDefault.showAxis : showAxis
+  //     //   ),
+  //     //   textOnAxis: calcDisplayOption(
+  //     //     textOnAxis === null ? BarDefault.textOnAxis : textOnAxis
+  //     //   ),
+  //     //   showGridlines: calcDisplayOption(
+  //     //     showGridlines === null ? BarDefault.showGridlines : showGridlines,
+  //     //     true
+  //     //   ),
+  //     //   selections,
+  //     //   select,
+  //     //   ...rest,
+  //     // };
+  //     // CreateBar(chartSettings);
+  //   }
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [qLayout, qData, d3Container.current]);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, [qLayout, qData, d3Container.current]);
 
   return (
     <>
@@ -236,8 +237,8 @@ function StyledBarSeries(props) {
                 onClick={(e) => e.stopPropagation()}
               >
                 {qData && qLayout && (
-                  <Example
-                    width={700}
+                  <CreateBarSeries
+                    width={width}
                     height={height}
                     events={events}
                     qLayout={qLayout}
@@ -247,6 +248,8 @@ function StyledBarSeries(props) {
                     setRefreshChart={setRefreshChart}
                     setSelectionBarVisible={setSelectionBarVisible}
                     useSelectionColours={useSelectionColours}
+                    pendingSelections={pendingSelections}
+                    SetPendingSelections={SetPendingSelections}
                   />
                 )}
               </div>

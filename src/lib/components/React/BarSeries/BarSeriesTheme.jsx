@@ -20,6 +20,7 @@ const BarWrapper = styled.div`
   margin: ${(props) => props.margin};
   userselect: ${(props) => props.theme.global.chart.userSelect};
   width: ${(props) => componentWidth(props)};
+  // width: ${(props) => props.width};
   display: ${(props) => props.theme.global.chart.display};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
 `;
@@ -40,6 +41,7 @@ const BarWrapperNoData = styled.div`
   border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
   height: ${(props) => props.height};
   width: ${(props) => componentWidth(props)};
+  // width: ${(props) => props.width};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
   margin: ${(props) => props.margin};
 `;
