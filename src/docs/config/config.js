@@ -17,7 +17,7 @@ export const config = {
   secure: false,
   port: 19077,
   prefix: "",
-  appId: "c2a87f96-e112-44cd-b9f3-2f9db1b0a700",
+  appId: "a21862bc-0e9a-4a16-938c-fe3d03209f4a",
 };
 */
 
