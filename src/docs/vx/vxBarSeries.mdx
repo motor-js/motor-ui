@@ -1,13 +1,13 @@
 ---
-name: vxBar
-route: /vxBar
+name: BarSeries
+route: /BarSeries
 menu: vx
 ---
 
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import Bar from '../../lib/components/React/Bars/Bar';
+import BarSeries from '../../lib/components/React/BarSeries/BarSeries';
 import Motor from '../../lib/components/React/Motor/Motor';
 import { config } from '../config/config.js'
 
@@ -22,7 +22,7 @@ import { config } from '../config/config.js'
   }}
 >
   {/* <div style={{ height:'400px', width:'1000px'}}> */}
-    <Bar width={750} height={400}  events={true}
+    <BarSeries width={750} height={400}  events={true}
       cols={[
       { qField: 'Year', qLabel: 'Year' },
       { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' },

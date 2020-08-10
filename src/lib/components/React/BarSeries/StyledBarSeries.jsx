@@ -6,7 +6,7 @@ import BarTheme, {
   BarWrapper,
   BarWrapperNoData,
   BarNoDataContent,
-} from "./BarTheme";
+} from "./BarSeriesTheme";
 // import TooltipTheme from "../../D3/Tooltip/TooltipTheme";
 // import TitleTheme from "../../D3/Title/TitleTheme";
 // import LegendTheme from "../../D3/Legend/LegendTheme";
@@ -18,9 +18,9 @@ import {
 } from "../../../utils";
 // import CreateBar from "./CreateBar";
 import Spinner from "../Spinner";
-import Example from "./CreateBar";
+import Example from "./CreateBarSeries";
 
-function StyledBar(props) {
+function StyledBarSeries(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
@@ -266,4 +266,4 @@ function StyledBar(props) {
   );
 }
 
-export default StyledBar;
+export default StyledBarSeries;

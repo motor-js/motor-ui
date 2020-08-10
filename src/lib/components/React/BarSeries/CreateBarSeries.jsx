@@ -69,31 +69,6 @@ export default function Example({
     [yMax]
   );
 
-  const handleMouseMove = ({ event, datum, coords, ...rest }) => {
-    console.log("move");
-    // const { showTooltip } = this.props;
-    // if (this.tooltipTimeout) {
-    //   clearTimeout(this.tooltipTimeout);
-    // }
-
-    // let tooltipCoords = { x: 0, y: 0 };
-    // if (event && event.target && event.type !== 'focus' && event.target.ownerSVGElement) {
-    //   tooltipCoords = localPoint(event.target.ownerSVGElement, event);
-    // }
-
-    // tooltipCoords = { ...tooltipCoords, ...coords };
-
-    // showTooltip({
-    //   tooltipLeft: tooltipCoords.x,
-    //   tooltipTop: tooltipCoords.y,
-    //   tooltipData: {
-    //     event,
-    //     datum,
-    //     ...rest,
-    //   },
-    // });
-  };
-
   const handleClick = (args) => {
     console.log(args);
 
@@ -161,12 +136,6 @@ export default function Example({
                   // alert(`clicked: ${JSON.stringify(Object.values(d))}`);
                   // console.log(d);
                   handleClick(getElemNumber(d));
-              }}
-              onMouseMove={() => {
-                if (events)
-                  // alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                  // console.log(d);
-                  handleMouseMove();
               }}
             />
           );
