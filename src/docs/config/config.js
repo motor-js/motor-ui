@@ -1,7 +1,7 @@
 export const config = {
-  host: 'sense-demo.qlik.com',
+  host: 'https://juno-ui.eu.qlikcloud.com',
   secure: true,
-  port: 443,
+  port: null,
   prefix: '',
   appId: '372cbc85-f7fb-4db6-a620-9a5367845dce',
   qcs: true,
