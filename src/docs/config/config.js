@@ -1,3 +1,13 @@
+
+export const config = {
+  host: 'sense-demo.qlik.com',
+  secure: true,
+  port: 443,
+  prefix: '',
+  appId:'372cbc85-f7fb-4db6-a620-9a5367845dce',
+}
+
+/*
 export const config = {
   host: 'juno-ui.eu.qlikcloud.com',
   secure: true,
@@ -6,9 +16,8 @@ export const config = {
   appId: 'f29964d4-0e59-48a2-8525-34dab9cd41e7',
   qcs: true,
   webIntId: '4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i',
-  apiKey: ''
 }
-
+*/
 
 
 /*
