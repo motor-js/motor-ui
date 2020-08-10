@@ -91,6 +91,7 @@ function StyledBar(props) {
     // qCalcCondition: calcCondition,
     // qSuppressZero: suppressZero || BarDefault.suppressZero,
     // qOtherTotalSpec: otherTotalSpec || BarDefault.otherTotalSpec,
+    qSuppressZero: true,
   });
 
   const cancelCallback = () => {
@@ -228,7 +229,17 @@ function StyledBar(props) {
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
               >
-                <Example width={700} height={height} events={events} />
+                {qData && qLayout && (
+                  <Example
+                    width={700}
+                    height={height}
+                    events={events}
+                    qLayout={qLayout}
+                    qData={qData}
+                    beginSelections={beginSelections}
+                    select={select}
+                  />
+                )}
               </div>
             </div>
             <SelectionModal

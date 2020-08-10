@@ -55,7 +55,7 @@
     "d3-array": "^2.5.0",
     "d3-cloud": "^1.2.5",
     "enigma.js": "^2.6.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash.throttle": "^4.1.1",
     "open-color": "^1.7.0",
     "react-contextmenu": "^2.13.0",

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import StyledBar from "./StyledBar.tsx";
+import StyledBar from "./_StyledBar.tsx";
 import { ConfigContext } from "../../../contexts/ConfigProvider";
 import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
