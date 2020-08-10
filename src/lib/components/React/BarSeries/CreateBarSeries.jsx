@@ -124,7 +124,7 @@ export default function Example({
             <Bar
               key={`bar-${band}`}
               qelemnumber={barElemNumber}
-              innerref={i}
+              // innerref={i}
               x={barX}
               y={barY}
               width={barWidth}
@@ -134,7 +134,7 @@ export default function Example({
               onClick={() => {
                 if (events)
                   // alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                  // console.log(d);
+                  // console.log(`clicked: ${JSON.stringify(Object.values(d))}`);
                   handleClick(getElemNumber(d));
               }}
             />
