@@ -48,8 +48,8 @@ function useEngine(config) {
         const fetchResult = await fetch(
           `https://${tenantUri}/api/v1/csrf-token`,
           {
-            credentials: "include",
-            mode: 'cors',
+            mode: 'cors', // cors must be enabled
+            credentials: 'include', // credentials must be included
             headers: {
               "qlik-web-integration-id": webIntegrationId,
               "content-type": "application/json"
@@ -60,16 +60,16 @@ function useEngine(config) {
         if (csrfToken == null) return -1
         const session = enigma.create({
           schema,
-          url: `wss://${process.env.REACT_APP_TENANT}/app/${process.env.REACT_APP_QLIK_APP}?qlik-web-integration-id=${process.env.REACT_APP_WEB_INTEGRATION_ID}&qlik-csrf-token=${csrfToken}`,
+          url: `wss://${tenantUri}/app/${config.appId}?qlik-web-integration-id=${webIntegrationId}&qlik-csrf-token=${csrfToken}`,
           createSocket: url => new WebSocket(url)
         })
         console.log("Session Created. Opening...")
-        this.qix = await session.open()
-        this.document = await this.qix.openDoc(process.env.REACT_APP_QLIK_APP)
-        console.log("Document opened.")
+        const _global = await session.open()
+        const _doc = await _global.openDoc(config.appId)
+        setEngine(_doc);
         return 1
 
-      } else {
+      } else {n
         const myConfig = config;
         // Make it work for Qlik Core scaling https://github.com/qlik-oss/core-scaling
         // qlikcore/engine:12.248.0

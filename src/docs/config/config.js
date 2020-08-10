@@ -1,9 +1,9 @@
 export const config = {
-  host: 'https://juno-ui.eu.qlikcloud.com',
+  host: 'juno-ui.eu.qlikcloud.com',
   secure: true,
   port: null,
   prefix: '',
-  appId: '372cbc85-f7fb-4db6-a620-9a5367845dce',
+  appId: 'f29964d4-0e59-48a2-8525-34dab9cd41e7',
   qcs: true,
   webIntId: '4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i',
   apiKey: ''
