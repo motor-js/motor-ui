@@ -1,222 +1,78 @@
-import React, { useState, useMemo } from "react";
-import { scaleTime, scaleLinear } from "@vx/scale";
-import appleStock, { AppleStock } from "@vx/mock-data/lib/mocks/appleStock";
-import { Brush } from "@vx/brush";
-import { Bounds } from "@vx/brush/lib/types";
-import { PatternLines } from "@vx/pattern";
-import { LinearGradient } from "@vx/gradient";
-import { localPoint } from "@vx/event";
-import { max, extent } from "d3-array";
-import { useTooltip, TooltipWithBounds } from "@vx/tooltip";
-import BarChart from "../../VX/Shapes/BarChart.tsx";
+import React, { useMemo } from "react";
+import { Bar } from "@vx/shape";
+import { Group } from "@vx/group";
+import { GradientTealBlue } from "@vx/gradient";
+import letterFrequency, {
+  LetterFrequency,
+} from "@vx/mock-data/lib/mocks/letterFrequency";
+import { scaleBand, scaleLinear } from "@vx/scale";
 
-// Initialize some variables
-const stock = appleStock.slice(1000);
-const brushMargin = { top: 10, bottom: 15, left: 50, right: 20 };
-const chartSeparation = 30;
-const PATTERN_ID = "brush_pattern";
-const GRADIENT_ID = "brush_gradient";
-export const accentColor = "#f6acc8";
-export const background = "#584153";
-export const background2 = "#af8baf";
-const selectedBrushStyle = {
-  fill: `url(#${PATTERN_ID})`,
-  stroke: "white",
-};
+const data = letterFrequency.slice(5);
+const verticalMargin = 120;
 
 // accessors
-const getDate = (d: AppleStock) => new Date(d.date);
-const getStockValue = (d: AppleStock) => d.close;
+const getLetter = (d: LetterFrequency) => d.letter;
+const getLetterFrequency = (d: LetterFrequency) => Number(d.frequency) * 100;
 
-export type StyledBarProps = {
+export type BarsProps = {
   width: number;
   height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-  compact?: boolean;
+  events?: boolean;
 };
 
-function StyledBar({
-  compact = false,
-  width,
-  height,
-  margin = {
-    top: 20,
-    left: 50,
-    bottom: 20,
-    right: 20,
-  },
-}: StyledBarProps) {
-  console.log(width, height);
-
-  const [filteredStock, setFilteredStock] = useState(stock);
-
-  const {
-    tooltipData,
-    tooltipLeft,
-    tooltipTop,
-    tooltipOpen,
-    showTooltip,
-    hideTooltip,
-  } = useTooltip();
-
-  const _handleMouseOver = (datum, event) => {
-    console.log(event, datum);
-    const coords = localPoint(event.target.ownerSVGElement, event);
-    showTooltip({
-      tooltipLeft: coords.x,
-      tooltipTop: coords.y,
-      tooltipData: datum,
-    });
-  };
-
-  const onBrushChange = (domain: Bounds | null) => {
-    if (!domain) return;
-    const { x0, x1, y0, y1 } = domain;
-    const stockCopy = stock.filter((s) => {
-      const x = getDate(s).getTime();
-      const y = getStockValue(s);
-      return x > x0 && x < x1 && y > y0 && y < y1;
-    });
-    setFilteredStock(stockCopy);
-  };
-
-  const innerHeight = height - margin.top - margin.bottom;
-  const topChartBottomMargin = compact
-    ? chartSeparation / 2
-    : chartSeparation + 10;
-  const topChartHeight = 0.8 * innerHeight - topChartBottomMargin;
-  const bottomChartHeight = innerHeight - topChartHeight - chartSeparation;
-
+export default function Example({ width, height, events = false }: BarsProps) {
   // bounds
-  const xMax = Math.max(width - margin.left - margin.right, 0);
-  const yMax = Math.max(topChartHeight, 0);
-  const xBrushMax = Math.max(width - brushMargin.left - brushMargin.right, 0);
-  const yBrushMax = Math.max(
-    bottomChartHeight - brushMargin.top - brushMargin.bottom,
-    0
-  );
+  const xMax = width;
+  const yMax = height - verticalMargin;
 
-  // scales
-  const dateScale = useMemo(
+  // scales, memoize for performance
+  const xScale = useMemo(
     () =>
-      scaleTime<number>({
+      scaleBand<string>({
         range: [0, xMax],
-        domain: extent(filteredStock, getDate) as [Date, Date],
+        round: true,
+        domain: data.map(getLetter),
+        padding: 0.4,
       }),
-    [xMax, filteredStock]
+    [xMax]
   );
-  const stockScale = useMemo(
+  const yScale = useMemo(
     () =>
       scaleLinear<number>({
         range: [yMax, 0],
-        domain: [0, max(filteredStock, getStockValue) || 0],
-        nice: true,
+        round: true,
+        domain: [0, Math.max(...data.map(getLetterFrequency))],
       }),
-    [yMax, filteredStock]
-  );
-  const brushDateScale = useMemo(
-    () =>
-      scaleTime<number>({
-        range: [0, xBrushMax],
-        domain: extent(stock, getDate) as [Date, Date],
-      }),
-    [xBrushMax]
-  );
-  const brushStockScale = useMemo(
-    () =>
-      scaleLinear({
-        range: [yBrushMax, 0],
-        domain: [0, max(stock, getStockValue) || 0],
-        nice: true,
-      }),
-    [yBrushMax]
+    [yMax]
   );
 
-  const initialBrushPosition = useMemo(
-    () => ({
-      start: { x: brushDateScale(getDate(stock[50])) },
-      end: { x: brushDateScale(getDate(stock[100])) },
-    }),
-    [brushDateScale]
-  );
-
-  return (
-    <>
-      <svg width={width} height={height}>
-        <LinearGradient
-          id={GRADIENT_ID}
-          from={background}
-          to={background2}
-          rotate={45}
-        />
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={`url(#${GRADIENT_ID})`}
-          rx={14}
-        />
-        <BarChart
-          hideBottomAxis={compact}
-          data={filteredStock}
-          width={width}
-          margin={{ ...margin, bottom: topChartBottomMargin }}
-          yMax={yMax}
-          xScale={dateScale}
-          yScale={stockScale}
-          gradientColor={background2}
-          handleMouseMove={_handleMouseOver}
-          onMouseOut={hideTooltip}
-        />
-        <BarChart
-          hideBottomAxis
-          hideLeftAxis
-          data={stock}
-          width={width}
-          yMax={yBrushMax}
-          xScale={brushDateScale}
-          yScale={brushStockScale}
-          margin={brushMargin}
-          top={topChartHeight + topChartBottomMargin + margin.top}
-          gradientColor={background2}
-        >
-          <PatternLines
-            id={PATTERN_ID}
-            height={8}
-            width={8}
-            stroke={accentColor}
-            strokeWidth={1}
-            orientation={["diagonal"]}
-          />
-          <Brush
-            xScale={brushDateScale}
-            yScale={brushStockScale}
-            width={xBrushMax}
-            height={yBrushMax}
-            margin={brushMargin}
-            handleSize={8}
-            resizeTriggerBars={["left", "right"]}
-            brushDirection="horizontal"
-            initialBrushPosition={initialBrushPosition}
-            onChange={onBrushChange}
-            onClick={() => setFilteredStock(stock)}
-            selectedBoxStyle={selectedBrushStyle}
-          />
-        </BarChart>
-      </svg>
-      {tooltipOpen && (
-        <TooltipWithBounds
-          // set this to random so it correctly updates with parent bounds
-          key={Math.random()}
-          top={tooltipTop}
-          left={tooltipLeft}
-        >
-          Data value <strong>{tooltipData}</strong>
-        </TooltipWithBounds>
-      )}
-    </>
+  return width < 10 ? null : (
+    <svg width={width} height={height}>
+      <GradientTealBlue id="teal" />
+      <rect width={width} height={height} fill="url(#teal)" rx={14} />
+      <Group top={verticalMargin / 2}>
+        {data.map((d) => {
+          const letter = getLetter(d);
+          const barWidth = xScale.bandwidth();
+          const barHeight = yMax - yScale(getLetterFrequency(d));
+          const barX = xScale(letter);
+          const barY = yMax - barHeight;
+          return (
+            <Bar
+              key={`bar-${letter}`}
+              x={barX}
+              y={barY}
+              width={barWidth}
+              height={barHeight}
+              fill="rgba(23, 233, 217, .5)"
+              onClick={() => {
+                if (events)
+                  alert(`clicked: ${JSON.stringify(Object.values(d))}`);
+              }}
+            />
+          );
+        })}
+      </Group>
+    </svg>
   );
 }
-
-export default StyledBar;
