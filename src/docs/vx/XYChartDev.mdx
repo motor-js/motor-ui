@@ -7,62 +7,12 @@ menu: vx
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import {BarSeries, WithTooltip} from '../../lib/components/VX/xy-chart/src';
+import Area from '../../lib/components/React/data-ui-test/Area.jsx'
+// import StyledArea from '../../lib/components/React/Area/StyledArea.tsx';
 // import { config } from '../config/config.js'
-
-import {
-  // circlePackData,
-  timeSeriesData,
-  // categoricalData,
-  // groupKeys,
-  // stackedData,
-  // groupedData,
-  // pointData,
-  // intervalLineData,
-  // intervalData,
-  // temperatureBands,
-  // priceBandData,
-} from './data';
 
 <Playground>
   <div style={{ height:'400px', width:'1000px'}}>
-            {/* <WithTooltip
-          renderTooltip={({ datum }) => datum.y}
-          tooltipProps={{
-            offsetTop: 0,
-            style: {
-              backgroundColor: 'pink',
-              opacity: 0.9,
-            },
-          }}
-        >
-          <ResponsiveXYChart
-            ariaLabel="Required label"
-            xScale={{ type: 'band', paddingInner: 0.25 }}
-            yScale={{ type: 'linear' }}
-            renderTooltip={null}
-            showXGrid
-            showYGrid
-          >
-            <LinearGradient id="gradient" from={colors.default} to={colors.dark} />
-            <PatternLines
-              id="lines"
-              height={8}
-              width={8}
-              stroke={colors.categories[2]}
-              background="#fff"
-              strokeWidth={1}
-              orientation={['horizontal', 'vertical']}
-            /> */}
-            <BarSeries
-              data={timeSeriesData.map((d, i) => ({
-                ...d,
-                y: -d.y,
-                fill: `url(#${i === 2 ? 'lines' : 'gradient'})`,
-              }))}
-              fill="url(#aqua_lightaqua_gradient)"
-            />
-          {/* </ResponsiveXYChart>
-        </WithTooltip> */}
+    <Area width={750} height={400} />
   </div>
 </Playground>

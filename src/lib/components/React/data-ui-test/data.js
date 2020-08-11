@@ -5,7 +5,7 @@ import {
   letterFrequency,
   genStats,
 } from "@vx/mock-data";
-import { theme } from "../../lib/components/VX/xy-chart/src";
+import { chartTheme as theme } from "../../VX/data-ui-theme";
 
 export const timeSeriesData = appleStock
   .filter((d, i) => i % 120 === 0)
