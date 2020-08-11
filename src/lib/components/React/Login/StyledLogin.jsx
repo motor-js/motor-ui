@@ -19,7 +19,6 @@ const StyledLogin = ({
   buttonFontColor,
   buttonColor
 }) => {
-  console.log('config: ',config)
 
   const tenantUri = config.host
   const webIntegrationId = config.webIntId
