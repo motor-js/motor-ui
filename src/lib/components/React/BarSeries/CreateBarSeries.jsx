@@ -2,7 +2,9 @@ import React, { useMemo } from "react";
 import { Bar } from "@vx/shape";
 import { Group } from "@vx/group";
 import { GradientTealBlue } from "@vx/gradient";
-import { scaleBand, scaleLinear } from "@vx/scale";
+import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale";
+import { LegendOrdinal } from "@vx/legend";
+import { AxisBottom, AxisLeft } from "@vx/axis";
 
 const verticalMargin = 120;
 
@@ -51,6 +53,13 @@ export default function CreateBarSeries({
   const xMax = width;
   const yMax = height - verticalMargin;
 
+  const axsiColor = "white";
+
+  const colorScale = scaleOrdinal({
+    domain: qData.qMatrix.map(getBand),
+    range: colors,
+  });
+
   console.log("w", width);
 
   // let pendingSelections = [];
@@ -74,6 +83,7 @@ export default function CreateBarSeries({
           Math.min(...qData.qMatrix.map(getValue)),
           Math.max(...qData.qMatrix.map(getValue)),
         ],
+        // tickFormat: getValue,
       }),
     [yMax]
   );
@@ -122,40 +132,85 @@ export default function CreateBarSeries({
   };
 
   return width < 10 ? null : (
-    <svg width={width} height={height}>
-      <GradientTealBlue id="teal" />
-      <rect width={width} height={height} fill="url(#teal)" rx={14} />
-      <Group top={verticalMargin / 2}>
-        {qData.qMatrix.map((d, i) => {
-          const band = getBand(d);
-          const barWidth = xScale.bandwidth();
-          const barHeight = yMax - yScale(getValue(d));
-          const barElemNumber = getElemNumber(d);
-          const barX = xScale(band);
-          const barY = yMax - barHeight;
-          return (
-            <Bar
-              key={`bar-${band}`}
-              qelemnumber={barElemNumber}
-              // innerref={i}
-              x={barX}
-              y={barY}
-              width={barWidth}
-              height={barHeight}
-              // fill="rgba(23, 233, 217, .5)"
-              fill={colors[i]}
-              // stroke={"red"}
-              // strokeWidth={10}
-              onClick={() => {
-                if (events)
-                  // alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                  // console.log(`clicked: ${JSON.stringify(Object.values(d))}`);
-                  handleClick(getElemNumber(d));
-              }}
-            />
-          );
-        })}
-      </Group>
-    </svg>
+    <>
+      <svg width={width} height={height}>
+        <GradientTealBlue id="teal" />
+        <rect width={width} height={height} fill="url(#teal)" rx={14} />
+        <Group top={verticalMargin / 2}>
+          {qData.qMatrix.map((d, i) => {
+            const band = getBand(d);
+            const barWidth = xScale.bandwidth();
+            const barHeight = yMax - yScale(getValue(d));
+            const barElemNumber = getElemNumber(d);
+            const barX = xScale(band);
+            const barY = yMax - barHeight;
+            return (
+              <Bar
+                key={`bar-${band}`}
+                qelemnumber={barElemNumber}
+                // innerref={i}
+                x={barX}
+                y={barY}
+                width={barWidth}
+                height={barHeight}
+                // fill="rgba(23, 233, 217, .5)"
+                fill={colors[i]}
+                // stroke={"red"}
+                // strokeWidth={10}
+                onClick={() => {
+                  if (events)
+                    // alert(`clicked: ${JSON.stringify(Object.values(d))}`);
+                    // console.log(`clicked: ${JSON.stringify(Object.values(d))}`);
+                    handleClick(getElemNumber(d));
+                }}
+              />
+            );
+          })}
+          <AxisBottom
+            top={yMax}
+            scale={xScale}
+            stroke={axsiColor}
+            tickStroke={axsiColor}
+            tickLabelProps={() => ({
+              fill: axsiColor,
+              fontSize: 11,
+              textAnchor: "middle",
+            })}
+          />
+          {/* <AxisLeft
+            // hideAxisLine
+            // hideTicks
+            scale={yScale}
+            // tickFormat={formatDate}
+            // tickFormat={formatDate}
+            stroke={axsiColor}
+            tickStroke={axsiColor}
+            tickLabelProps={() => ({
+              fill: axsiColor,
+              fontSize: 11,
+              textAnchor: "end",
+              dy: "0.33em",
+            })}
+          /> */}
+        </Group>
+      </svg>
+      <div
+        style={{
+          position: "absolute",
+          // top: margin.top / 2 - 10,
+          top: 20,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          fontSize: "14px",
+        }}
+      >
+        <LegendOrdinal
+          scale={colorScale}
+          direction="row"
+          labelMargin="0 15px 0 0"
+        />
+      </div>
+    </>
   );
 }
