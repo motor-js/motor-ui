@@ -22,8 +22,7 @@ const SearchBar = styled.div`
   background-color: ${(props) =>
     selectColor(props.theme.search.color.background, props.theme)};
   width: 100%;
-  height: 100%;
-  padding: 0.7em 0 0.7em 0em;
+  padding: 0.6em 0 0.6em 0em;
   display: flex;
   align-items: center;
 `;
@@ -31,7 +30,6 @@ const SearchBar = styled.div`
 const SearchInput = styled.input`
   ${globalStyle};
   width: 85%;
-  height: 100%;
   outline: none;
   border: none;
   padding-left: 0.7em;
@@ -75,11 +73,6 @@ const SuggestionsList = styled.ul`
   max-height: ${(props) => props.dropHeight};
   overflow: auto;
   cursor: normal;
-    "-webkit-user-select": "none",
-    "-khtml-user-select": "none",
-    "-moz-user-select": "none",
-    "-ms-user-select": "none",
-    "user-select": "none",
   position: absolute;
   width: 100%; 
 `;

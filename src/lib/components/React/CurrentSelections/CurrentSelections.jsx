@@ -42,6 +42,7 @@ CurrentSelections.propTypes = {
   selectionsLimit: PropTypes.oneOf([1, 2, 3, 4, 5]),
   /* set overflow properties on the x-axis or y-axis */
   overflow: PropTypes.oneOf(['x-axis', 'y-axis']),
+  flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }
 
 CurrentSelections.defaultProps = {
@@ -53,6 +54,7 @@ CurrentSelections.defaultProps = {
   minHeight: '80px',
   selectionsLimit: 3,
   overflow: 'x-axis',
+  flex: null,
 }
 
 export default CurrentSelections
