@@ -19,6 +19,7 @@ import {
 // import CreateBar from "./CreateBar";
 import Spinner from "../Spinner";
 import CreateBarSeries from "./CreateBarSeries";
+import WithTooltip from "../../VX/old/composer/WithTooltip";
 
 function StyledBarSeries(props) {
   // Ref for d3 object
@@ -237,20 +238,34 @@ function StyledBarSeries(props) {
                 onClick={(e) => e.stopPropagation()}
               >
                 {qData && qLayout && (
-                  <CreateBarSeries
-                    width={width}
-                    height={height}
-                    events={events}
-                    qLayout={qLayout}
-                    qData={qData}
-                    beginSelections={beginSelections}
-                    select={select}
-                    setRefreshChart={setRefreshChart}
-                    setSelectionBarVisible={setSelectionBarVisible}
-                    useSelectionColours={useSelectionColours}
-                    pendingSelections={pendingSelections}
-                    SetPendingSelections={SetPendingSelections}
-                  />
+                  <WithTooltip
+                    // renderTooltip={({ datum }) => datum.y}
+                    renderTooltip={({ datum }) => {
+                      console.log(datum);
+                    }}
+                    tooltipProps={{
+                      offsetTop: 0,
+                      style: {
+                        backgroundColor: "pink",
+                        opacity: 0.9,
+                      },
+                    }}
+                  >
+                    <CreateBarSeries
+                      width={width}
+                      height={height}
+                      events={events}
+                      qLayout={qLayout}
+                      qData={qData}
+                      beginSelections={beginSelections}
+                      select={select}
+                      setRefreshChart={setRefreshChart}
+                      setSelectionBarVisible={setSelectionBarVisible}
+                      useSelectionColours={useSelectionColours}
+                      pendingSelections={pendingSelections}
+                      SetPendingSelections={SetPendingSelections}
+                    />
+                  </WithTooltip>
                 )}
               </div>
             </div>
