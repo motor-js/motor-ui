@@ -40,36 +40,15 @@ import { config } from '../config/config.js'
       {
         dimensions: [
           {
-            qField: 'country',
+            qField: 'province',
             qLabel: 'Country',
             qNullSuppression: false,
             width: '10%',
           }
         ],
-        measures: [
-          {
-            qField: '=count(country)',
-            qNumFormat: {
-              qFmt: '#,###',
-            },
-          },
-        ],
       },
     ]}
   /> 
-  <Pie
-    size='small'
-    title='Donut Chart'
-    subTitle='Sub Title'
-    cols={[
-      { qField: 'province', qLabel: 'Province' },
-      { qField: '=Count(winery)', qLabel: 'No of Wineries' }
-    ]}
-    innerRadius={55}
-    cornerRadius={5}
-    padAngle={0.03}
-    showLabels="outside"
-  />
   </Motor>
 </Playground>
 
