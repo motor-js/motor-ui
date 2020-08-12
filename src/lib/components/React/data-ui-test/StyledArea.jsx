@@ -25,15 +25,8 @@ const selectedBrushStyle = {
 };
 
 // accessors
-const getDate = (d: AppleStock) => new Date(d.date);
-const getStockValue = (d: AppleStock) => d.close;
-
-export type StyledAreaProps = {
-  width: number;
-  height: number;
-  margin?: { top: number; right: number; bottom: number; left: number };
-  compact?: boolean;
-};
+const getDate = (d) => new Date(d.date);
+const getStockValue = (d) => d.close;
 
 function StyledArea({
   compact = false,
@@ -45,8 +38,8 @@ function StyledArea({
     bottom: 20,
     right: 20,
   },
-}: StyledAreaProps) {
-  console.log(width, height);
+}) {
+  // console.log(width, height);
 
   const [filteredStock, setFilteredStock] = useState(stock);
 
@@ -60,7 +53,7 @@ function StyledArea({
   } = useTooltip();
 
   const _handleMouseOver = (datum, event) => {
-    console.log(event, datum);
+    // console.log(event, datum);
     const coords = localPoint(event.target.ownerSVGElement, event);
     showTooltip({
       tooltipLeft: coords.x,
@@ -69,7 +62,7 @@ function StyledArea({
     });
   };
 
-  const onBrushChange = (domain: Bounds | null) => {
+  const onBrushChange = (domain) => {
     if (!domain) return;
     const { x0, x1, y0, y1 } = domain;
     const stockCopy = stock.filter((s) => {
@@ -99,15 +92,15 @@ function StyledArea({
   // scales
   const dateScale = useMemo(
     () =>
-      scaleTime<number>({
+      scaleTime({
         range: [0, xMax],
-        domain: extent(filteredStock, getDate) as [Date, Date],
+        domain: extent(filteredStock, getDate),
       }),
     [xMax, filteredStock]
   );
   const stockScale = useMemo(
     () =>
-      scaleLinear<number>({
+      scaleLinear({
         range: [yMax, 0],
         domain: [0, max(filteredStock, getStockValue) || 0],
         nice: true,
@@ -116,9 +109,9 @@ function StyledArea({
   );
   const brushDateScale = useMemo(
     () =>
-      scaleTime<number>({
+      scaleTime({
         range: [0, xBrushMax],
-        domain: extent(stock, getDate) as [Date, Date],
+        domain: extent(stock, getDate),
       }),
     [xBrushMax]
   );

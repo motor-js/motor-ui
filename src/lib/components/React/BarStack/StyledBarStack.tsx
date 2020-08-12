@@ -6,7 +6,7 @@ import { Grid } from "@vx/grid";
 import { AxisBottom } from "@vx/axis";
 import cityTemperature, {
   CityTemperature,
-} from "@vx/mock-data/lib/mocks/cityTemperature";
+} from "@vx/mock-data/build/mocks/cityTemperature";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale";
 import { timeParse, timeFormat } from "d3-time-format";
 import { useTooltip, useTooltipInPortal, defaultStyles } from "@vx/tooltip";
