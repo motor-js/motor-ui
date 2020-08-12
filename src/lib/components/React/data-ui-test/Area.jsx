@@ -20,6 +20,7 @@ import React, { useContext } from "react";
 // import { timeSeriesData } from "./data";
 import BrushableLinkedLineCharts from "./BrushableLinkedLineCharts";
 import AreaDifferenceSeriesExample from "./AreaDifferenceSeriesExample";
+import CirclePackWithCallback from "./CirclePackWithCallback";
 
 function Area(props) {
   // const myConfig = config || useContext(ConfigContext);
@@ -31,6 +32,7 @@ function Area(props) {
     <>
       <BrushableLinkedLineCharts />
       <AreaDifferenceSeriesExample />
+      <CirclePackWithCallback />
     </>
   );
 }
