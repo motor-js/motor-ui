@@ -12,7 +12,7 @@ import {
   Brush,
 } from "../../VX/xy-chart";
 
-import colors, { allColors } from "../../VX/theme/lib/color";
+import colors, { allColors } from "../../VX/theme";
 
 import { appleStockData as timeSeriesData } from "./data";
 import ResponsiveXYChart from "./ResponsiveXYChart";
@@ -92,7 +92,8 @@ class BrushableLinkedLineCharts extends React.PureComponent {
           <CrossHair
             showHorizontalLine={false}
             fullHeight
-            stroke={colors.darkGray}
+            // stroke={colors.darkGray}
+            stroke={"red"}
             circleFill={allColors[COLOR][BRIGHTNESS]}
             circleStroke="white"
           />

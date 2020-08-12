@@ -7,19 +7,18 @@ import React, { useContext } from "react";
 // import { EngineContext } from "../../../contexts/EngineProvider";
 // import useEngine from "../../../hooks/useEngine";
 
-import {
-  WithTooltip,
-  ResponsiveXYChart,
-  LinearGradient,
-  PatternLines,
-  BarSeries,
-} from "../../VX/xy-chart";
+// import {
+//   WithTooltip,
+//   ResponsiveXYChart,
+//   LinearGradient,
+//   PatternLines,
+//   BarSeries,
+// } from "../../VX/xy-chart/src";
 
-import colors from "../../VX/theme/color";
+// import colors from "../../VX/data-ui-theme/color";
 
-import { timeSeriesData } from "./data";
-// import AreaDifferenceSeriesExample from "./AreaChart";
-import AreaDifferenceSeriesExample from "./AreaDifferenceSeriesExample";
+// import { timeSeriesData } from "./data";
+import BrushableLinkedLineCharts from "./BrushableLinkedLineCharts";
 
 function Area(props) {
   // const myConfig = config || useContext(ConfigContext);
@@ -27,7 +26,7 @@ function Area(props) {
   // const { engine, engineError } =
   //   useContext(EngineContext) || useEngine(myConfig);
 
-  return <AreaDifferenceSeriesExample />;
+  return <BrushableLinkedLineCharts />;
 }
 
 export default Area;
