@@ -19,6 +19,7 @@ import React, { useContext } from "react";
 
 // import { timeSeriesData } from "./data";
 import BrushableLinkedLineCharts from "./BrushableLinkedLineCharts";
+import AreaDifferenceSeriesExample from "./AreaDifferenceSeriesExample";
 
 function Area(props) {
   // const myConfig = config || useContext(ConfigContext);
@@ -26,7 +27,12 @@ function Area(props) {
   // const { engine, engineError } =
   //   useContext(EngineContext) || useEngine(myConfig);
 
-  return <BrushableLinkedLineCharts />;
+  return (
+    <>
+      <BrushableLinkedLineCharts />
+      <AreaDifferenceSeriesExample />
+    </>
+  );
 }
 
 export default Area;
