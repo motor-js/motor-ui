@@ -19,6 +19,7 @@ function StyledSelections({
   minHeight,
   selectionsLimit,
   overflow,
+  flex,
 }) {
   const { qLayout, clearSelections } = SelectionObject({ engine })
 
@@ -54,6 +55,7 @@ function StyledSelections({
       width={width}
       size={size}
       overflow={overflow}
+      flex={flex}
     >
       {selections.length === 0
       && <NoSelections data-testid="selections">No current selections</NoSelections>}

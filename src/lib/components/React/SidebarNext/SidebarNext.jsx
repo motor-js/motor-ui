@@ -13,7 +13,7 @@ import { scaleRotate as ScaleRotateMenu } from "./menus";
 import { fallDown as FallDownMenu } from "./menus";
 import { reveal as RevealMenu } from "./menus";
 
-const SideBar = (props) => {
+const SidebarNext = (props) => {
   const theme = useContext(ThemeContext) || defaultTheme;
 
   return (
@@ -40,4 +40,4 @@ const SideBar = (props) => {
   );
 };
 
-export default SideBar;
+export default SidebarNext;

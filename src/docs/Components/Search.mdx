@@ -26,12 +26,15 @@ import { Playground } from 'docz'
 import CurrentSelections from '../../lib/components/React/CurrentSelections/CurrentSelections.jsx'
 import SearchBar from '../../lib/components/React/Search/SearchBar.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import Box from '../../lib/components/React/Box/Box.jsx'
 import { config } from '../config/config.js'
 
 <Playground>
    <Motor
       config={config}>  
-      <SearchBar width='500px'/> 
+      <Box align='center' height='200px'>
+        <SearchBar size='small' width='500px'/>    
+      </Box>
       <CurrentSelections />
     </Motor>
 </Playground>

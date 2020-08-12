@@ -31,7 +31,6 @@ const ModalMain = styled.div`
   padding: 24px;
 `
 
-
 ModalOverlay.defaultProps = {}
 Object.setPrototypeOf(ModalOverlay.defaultProps, defaultProps)
 
@@ -40,8 +39,6 @@ Object.setPrototypeOf(ModalWrapper.defaultProps, defaultProps)
 
 ModalMain.defaultProps = {}
 Object.setPrototypeOf(ModalMain.defaultProps, defaultProps)
-
-
 
 /*
 const ModalHeader = styled.div`
