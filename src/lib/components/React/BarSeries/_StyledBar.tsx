@@ -4,7 +4,7 @@ import { Group } from "@vx/group";
 import { GradientTealBlue } from "@vx/gradient";
 import letterFrequency, {
   LetterFrequency,
-} from "@vx/mock-data/lib/mocks/letterFrequency";
+} from "@vx/mock-data/build/mocks/letterFrequency";
 import { scaleBand, scaleLinear } from "@vx/scale";
 
 const data = letterFrequency.slice(5);

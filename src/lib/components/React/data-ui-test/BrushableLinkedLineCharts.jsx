@@ -10,9 +10,9 @@ import {
   PatternLines,
   HorizontalReferenceLine,
   Brush,
-} from "../../VX/xy-chart/src";
+} from "../../VX/xy-chart";
 
-import colors, { allColors } from "@data-ui/theme/lib/color";
+import colors, { allColors } from "../../VX/theme/lib/color";
 
 import { appleStockData as timeSeriesData } from "./data";
 import ResponsiveXYChart from "./ResponsiveXYChart";

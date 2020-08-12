@@ -13,27 +13,21 @@ import {
   LinearGradient,
   PatternLines,
   BarSeries,
-} from "../../VX/xy-chart/src";
+} from "../../VX/xy-chart";
 
-import colors from "../../VX/data-ui-theme/color";
+import colors from "../../VX/theme/color";
 
 import { timeSeriesData } from "./data";
-import BrushableLinkedLineCharts from "./BrushableLinkedLineCharts";
+// import AreaDifferenceSeriesExample from "./AreaChart";
+import AreaDifferenceSeriesExample from "./AreaDifferenceSeriesExample";
 
-function Area({ config, ...rest }) {
+function Area(props) {
   // const myConfig = config || useContext(ConfigContext);
   // const theme = useContext(ThemeContext) || defaultTheme;
   // const { engine, engineError } =
   //   useContext(EngineContext) || useEngine(myConfig);
 
-  return <BrushableLinkedLineCharts />;
+  return <AreaDifferenceSeriesExample />;
 }
-
-Area.propTypes = {};
-
-Area.defaultProps = {
-  width: 700,
-  height: 400,
-};
 
 export default Area;

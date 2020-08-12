@@ -3,7 +3,7 @@ import { Group } from "@vx/group";
 import { AreaClosed } from "@vx/shape";
 import { LinearGradient } from "@vx/gradient";
 import { curveMonotoneX } from "@vx/curve";
-import { AppleStock } from "@vx/mock-data/lib/mocks/appleStock";
+import { AppleStock } from "@vx/mock-data/build/mocks/appleStock";
 import { localPoint } from "@vx/event";
 import YAxis from "../Axis/YAxis";
 import XAxis from "../Axis/XAxis";
