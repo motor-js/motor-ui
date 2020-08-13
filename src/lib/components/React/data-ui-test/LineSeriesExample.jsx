@@ -7,13 +7,11 @@ import { scaleOrdinal } from "@vx/scale";
 import {
   CrossHair,
   LineSeries,
-  // WithTooltip,
+  WithTooltip,
   XAxis,
   YAxis,
   Brush,
 } from "../../VX/xy-chart";
-
-import WithTooltip from "../../VX/old/composer/WithTooltip";
 
 import ResponsiveXYChart, { formatYear } from "./ResponsiveXYChart";
 import { timeSeriesData } from "./data";

@@ -1,7 +1,12 @@
 /* eslint react/prop-types: 0 */
 import React from "react";
-import { BarSeries, PatternLines, LinearGradient } from "../../VX/xy-chart";
-import WithTooltip from "../../VX/old/composer/WithTooltip";
+import {
+  WithTooltip,
+  BarSeries,
+  PatternLines,
+  LinearGradient,
+} from "../../VX/xy-chart";
+
 import { color } from "../../VX/theme";
 import ResponsiveXYChart from "./ResponsiveXYChart";
 
