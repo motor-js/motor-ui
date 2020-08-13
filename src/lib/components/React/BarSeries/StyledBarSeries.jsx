@@ -7,16 +7,6 @@ import BarTheme, {
   BarWrapperNoData,
   BarNoDataContent,
 } from "./BarSeriesTheme";
-// import TooltipTheme from "../../D3/Tooltip/TooltipTheme";
-// import TitleTheme from "../../D3/Title/TitleTheme";
-// import LegendTheme from "../../D3/Legend/LegendTheme";
-import {
-  numericSortDirection,
-  validData,
-  calcDisplayOption,
-  legendPosition,
-} from "../../../utils";
-// import CreateBar from "./CreateBar";
 import Spinner from "../Spinner";
 import CreateBarSeries from "./CreateBarSeries";
 import WithTooltip from "../../VX/old/composer/WithTooltip";

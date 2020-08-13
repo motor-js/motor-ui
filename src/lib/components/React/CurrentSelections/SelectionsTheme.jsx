@@ -13,10 +13,11 @@ const overflowStyles = css`
 const SelectionsWrapper = styled.div`
   ${globalStyle};
   ${overflowStyles};
-  max-height: ${(props) => props.maxHeight};
-  min-height: ${(props) => props.minHeight};
-  margin: ${(props) => props.margin};
+  max-height: ${props => props.maxHeight};
+  min-height: ${props => props.minHeight};
+  margin: ${props => props.margin};
   display: flex;
+  flex: ${props => props.flex};
   align-items: flex-start;
   align-content: flex-start;
   max-width: ${(props) => props.width};

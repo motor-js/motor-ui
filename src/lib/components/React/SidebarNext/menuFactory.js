@@ -433,7 +433,7 @@ export default (styles) => {
     footerHeight: PropTypes.string,
 
     // new for motor-js
-    type: PropTypes.oneOf(
+    type: PropTypes.oneOf([
       "slide",
       "stack",
       "push",
@@ -442,10 +442,10 @@ export default (styles) => {
       "scaleRotate",
       "fallDown",
       "reveal"
-    ),
+    ]),
     header: PropTypes.node,
     footer: PropTypes.node,
-    openIcon: PropTypes.oneOf("menu", "filter"),
+    openIcon: PropTypes.oneOf(["menu", "filter"]),
     openIconColor: PropTypes.string,
     /** Set background color */
     backgroundColor: PropTypes.string,
