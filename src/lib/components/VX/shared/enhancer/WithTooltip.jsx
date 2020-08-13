@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import localPoint from "@vx/event/build/localPoint";
+import localPoint from "@vx/event/lib/localPoint";
 import withTooltip from "@vx/tooltip/lib/enhancers/withTooltip";
 import TooltipWithBounds, {
   withTooltipPropTypes as vxTooltipPropTypes,

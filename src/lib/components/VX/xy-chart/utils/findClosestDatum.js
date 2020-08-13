@@ -1,7 +1,13 @@
-import { bisector, bisectLeft as d3BisectLeft } from 'd3-array';
-import localPoint from '@vx/event/build/localPoint';
+import { bisector, bisectLeft as d3BisectLeft } from "d3-array";
+import localPoint from "@vx/event/lib/localPoint";
 
-export default function findClosestDatum({ data, getX, xScale, event, marginLeft = 0 }) {
+export default function findClosestDatum({
+  data,
+  getX,
+  xScale,
+  event,
+  marginLeft = 0,
+}) {
   if (!event || !event.target || !event.target.ownerSVGElement) return null;
   const bisect = bisector(getX).left;
 
@@ -9,12 +15,12 @@ export default function findClosestDatum({ data, getX, xScale, event, marginLeft
   const svgCoords = localPoint(event.target.ownerSVGElement, event);
   const mouseX = svgCoords.x - marginLeft;
 
-  const isOrdinalScale = typeof xScale.invert !== 'function';
+  const isOrdinalScale = typeof xScale.invert !== "function";
   let d;
   if (isOrdinalScale) {
     // Ordinal scales don't have an invert function so we do it maually
     const xDomain = xScale.domain();
-    const scaledXValues = xDomain.map(val => xScale(val));
+    const scaledXValues = xDomain.map((val) => xScale(val));
     const index = d3BisectLeft(scaledXValues, mouseX);
     const d0 = data[index - 1];
     const d1 = data[index];
@@ -24,7 +30,8 @@ export default function findClosestDatum({ data, getX, xScale, event, marginLeft
     const index = bisect(data, dataX, 0);
     const d0 = data[index - 1];
     const d1 = data[index] || {};
-    d = !d0 || Math.abs(dataX - getX(d0)) > Math.abs(dataX - getX(d1)) ? d1 : d0;
+    d =
+      !d0 || Math.abs(dataX - getX(d0)) > Math.abs(dataX - getX(d1)) ? d1 : d0;
   }
 
   return d;
