@@ -47,7 +47,7 @@
     "@vx/glyph": "0.0.198",
     "@vx/gradient": "0.0.198",
     "@vx/grid": "0.0.198",
-    "@vx/group": "^0.0.165",
+    "@vx/group": "0.0.198",
     "@vx/legend": "0.0.198",
     "@vx/mock-data": "0.0.198",
     "@vx/pattern": "0.0.198",

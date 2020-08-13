@@ -29,6 +29,7 @@ export default class AreaDifferenceSeries extends React.PureComponent {
       disableMouseEvents,
       interpolation,
       xScale,
+      id,
       yScale,
       onClick,
       onMouseMove,
@@ -77,6 +78,7 @@ export default class AreaDifferenceSeries extends React.PureComponent {
     return (
       <g>
         <Threshold
+          id={id || ""}
           data={mergedData}
           x={getX}
           y0={getY0}
