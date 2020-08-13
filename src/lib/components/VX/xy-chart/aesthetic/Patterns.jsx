@@ -1,7 +1,7 @@
-import Circles from '@vx/pattern/build/patterns/Circles';
-import Hexagons from '@vx/pattern/build/patterns/Hexagons';
-import Lines from '@vx/pattern/build/patterns/Lines';
-import Waves from '@vx/pattern/build/patterns/Waves';
+import Circles from "@vx/pattern/lib/patterns/Circles";
+import Hexagons from "@vx/pattern/lib/patterns/Hexagons";
+import Lines from "@vx/pattern/lib/patterns/Lines";
+import Waves from "@vx/pattern/lib/patterns/Waves";
 
 export const PatternCircles = Circles;
 export const PatternHexagons = Hexagons;
