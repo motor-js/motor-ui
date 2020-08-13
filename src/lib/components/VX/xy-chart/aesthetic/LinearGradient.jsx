@@ -1,3 +1,3 @@
-import LinearGradient from '@vx/gradient/build/gradients/LinearGradient';
+import LinearGradient from "@vx/gradient/lib/gradients/LinearGradient";
 
 export default LinearGradient;

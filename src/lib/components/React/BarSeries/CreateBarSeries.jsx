@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { Bar } from "@vx/shape";
 import { Group } from "@vx/group";
-import { GradientTealBlue } from "@vx/gradient";
-import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale";
-import { LegendOrdinal } from "@vx/legend";
-import { AxisBottom, AxisLeft } from "@vx/axis";
+import { GradientTealBlue } from "@vx/gradient"; // npm up to date
+import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale"; // npm up to date
+import { LegendOrdinal } from "@vx/legend"; // npm up to date
+import { AxisBottom, AxisLeft } from "@vx/axis"; // npm up to date
 
 const verticalMargin = 120;
 
