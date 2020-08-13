@@ -13,15 +13,17 @@ export const dateFormatter = (date) => formatYear(parseDate(date));
 class StackedBarChartExample extends React.PureComponent {
   render() {
     return (
-      <ResponsiveXYChart
-        ariaLabel="Required label"
-        xScale={{ type: "band", paddingInner: 0.05 }}
-        yScale={{ type: "linear" }}
-      >
-        <YAxis label="Temperature (°F)" numTicks={4} />
-        <StackedBarSeries data={stackedData} stackKeys={groupKeys} />
-        <XAxis tickFormat={dateFormatter} />
-      </ResponsiveXYChart>
+      <div className="stacked-bar-demo">
+        <ResponsiveXYChart
+          ariaLabel="Required label"
+          xScale={{ type: "band", paddingInner: 0.05 }}
+          yScale={{ type: "linear" }}
+        >
+          <YAxis label="Temperature (°F)" numTicks={4} />
+          <StackedBarSeries data={stackedData} stackKeys={groupKeys} />
+          <XAxis tickFormat={dateFormatter} />
+        </ResponsiveXYChart>
+      </div>
     );
   }
 }
