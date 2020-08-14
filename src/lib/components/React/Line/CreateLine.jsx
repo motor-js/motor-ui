@@ -839,9 +839,8 @@ export default function createLine({
 
   if (chartType === "DISCRETE") redrawXAxis();
 
-  setXAxisInteractivity(focus);
+  // setXAxisInteractivity(focus);
   setStyle(focus.select(".axis--x"), xAxisStyle);
-  // }
 
   function createYAxis(data) {
     yScale.domain([qMin, qMax]);
@@ -1779,7 +1778,7 @@ export default function createLine({
       }
 
       if (chartType === "DISCRETE") redrawXAxis();
-      setXAxisInteractivity(focus);
+      // setXAxisInteractivity(focus);
     }
   }
 }

@@ -31,18 +31,24 @@ import { config } from '../config/config.js'
 <Playground>
 <Motor  
  config={config}>  
-                     <Line
-  height="410px"
-                 cols={[
-              { qField: 'country', qLabel: 'Country' },
-            //  { qField: '=Count(winery)', qLabel: 'No of Wineries' },
-                    { qField: '=Avg(price)', qLabel: 'Average Price' }
-            ]}
-            suppressZero={true}
-           // suppressScroll={true}
-            // showLegend={false}
-            // border = {false}
-            />
+                          <Line
+          height='400px'
+          curve='Natural'
+          symbol='none'
+          chartColor={['#ff6961']}
+          border=''
+          areaChart
+          cols={[
+            {
+              qField: "[Claim Settled Date]",
+              qLabel: "Claim Settled Date",
+            },
+            {
+              qField: "=Sum([Total Claim Cost])",
+              qLabel: "Total Claim Cost",
+            },
+          ]} 
+        />
   </Motor>
 </Playground>
 
