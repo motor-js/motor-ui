@@ -1,0 +1,52 @@
+---
+name: KPI test
+route: /kpitest
+menu: Visualisations Test
+---
+
+<h1 style={{ margin: '0px' }}>Playground for testing Visualisations</h1>
+
+## Usage
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import KPI from '../../lib/components/React/KPI/KPI.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+import Button from '../../lib/components/React/Button/Button.jsx';
+import { config } from '../config/config.js'
+
+<Playground>
+<Motor    config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "a21862bc-0e9a-4a16-938c-fe3d03209f4a"
+  }}> 
+
+            <KPI
+            margin="10px"
+            cols={[
+              {
+                qField: "=Avg( { $< [Claim Notification Date.autoCalendar.InYTD]={1} ,[Claim Notification Date.autoCalendar.YearsAgo]={0} > } [Total Claim Cost])",
+                qNumType: "M",
+                qNumFmt: "£#,##0",
+              },
+            ]}
+            roundNum={false}
+            label="Ave Claim Costs (YTD)"
+            size="small"
+            border={false}
+          />
+
+        <Filter label="Claim Status" dimension={["Claim Status"]} />
+      <Filter label="Claim Type" dimension={["Claim Type"]} />
+      <Filter label="Claim Sub-Type" dimension={["Claim Sub-Type"]} />
+      <Filter label="Broker" dimension={["BrokerName"]} />
+      <Filter label="Claim Year" dimension={["Claim Notification Date.autoCalendar.Year"]} />
+            <Button type='clearSelections'>Clear Selections</Button>
+      
+     
+  </Motor>
+</Playground>

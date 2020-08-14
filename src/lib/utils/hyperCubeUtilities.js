@@ -22,15 +22,15 @@ export function hyperCubeTransform(
               [dimensionNames[index]]:
                 // d[index].qText === undefined ? 'undefined' : d[index].qText,
                 d[index].qText === undefined
-                  ? 'undefined'
+                  ? "undefined"
                   : index === 0 && useNumonFirstDim
                   ? d[index].qNum
                   : d[index].qText,
-              [`elemNumber${index !== 0 ? index : ''}`]: d[index].qElemNumber,
+              [`elemNumber${index !== 0 ? index : ""}`]: d[index].qElemNumber,
             }
           : {
               [measureNames[index - qNoOfDiemnsions]]:
-                d[index].qNum !== 'NaN' ? d[index].qNum : 0,
+                d[index].qNum !== "NaN" ? d[index].qNum : 0,
             };
       data = { ...data, ...pair };
     });
@@ -131,9 +131,9 @@ export function stackHyperCubeData(qData, asPercentage = false) {
 
 export const getMeasureNames = (qHyperCube) =>
   qHyperCube.qMeasureInfo.map((d, i) => {
-    const qMeasurePosition = i !== 0 ? i : '';
+    const qMeasurePosition = i !== 0 ? i : "";
 
-    return d.qFallbackTitle.startsWith('=')
+    return d.qFallbackTitle.startsWith("=")
       ? `value${qMeasurePosition}`
       : d.qFallbackTitle;
   });
@@ -149,55 +149,59 @@ export const getDimensionCategories = (data) => [
   ),
 ];
 
-export const validData = (qLayout, theme) => {  
+export const validData = (qLayout, theme) => {
   let isValid = true;
-  let dataError = ''
-  const { qDimensionInfo, qMeasureInfo } = qLayout.qHyperCube || qLayout.qListObject
-  const { dimensionErrMsg, measureErrMsg } = theme.global.chart.error
+  let dataError = "";
+  const { qDimensionInfo, qMeasureInfo } =
+    qLayout.qHyperCube || qLayout.qListObject;
+  const { dimensionErrMsg, measureErrMsg } = theme.global.chart.error;
 
   const DimCheck = () => {
     //check if an array, to work with HyperCube & ListObject
-    let _qDimensionInfo = Array.isArray(qDimensionInfo) ? qDimensionInfo : [qDimensionInfo]
+    let _qDimensionInfo = Array.isArray(qDimensionInfo)
+      ? qDimensionInfo
+      : [qDimensionInfo];
     _qDimensionInfo.forEach((qData) => {
       if (qData.qError) {
         isValid = false;
-        dataError = dimensionErrMsg
+        dataError = dimensionErrMsg;
       }
-    })
-  }
+    });
+  };
 
   const MeasCheck = () => {
-   qMeasureInfo.forEach((qData) => {
+    console.log(qMeasureInfo);
+    qMeasureInfo.forEach((qData) => {
       if (
         (isNaN(qData.qMax) && isNaN(qData.qMin)) ||
         (qData.qMax === 0 && qData.qMin === 0)
       ) {
         isValid = false;
-        dataError = measureErrMsg
+        dataError = measureErrMsg;
       }
     });
-  }
+  };
 
   if (qDimensionInfo && qMeasureInfo) {
-    DimCheck()
-    MeasCheck()
+    DimCheck();
+    MeasCheck();
   } else if (qDimensionInfo && !qMeasureInfo) {
-    DimCheck()
+    DimCheck();
   } else if (!qDimensionInfo && qMeasureInfo) {
-    MeasCheck()
-  } else { }
+    MeasCheck();
+  } else {
+  }
 
   return { isValid, dataError };
-  
 };
 
 export const numericSortDirection = (sortDirection, defaultSetting = 0) => {
   let direction;
   switch (sortDirection.toUpperCase()) {
-    case 'ASC' || 'ASCENDING':
+    case "ASC" || "ASCENDING":
       direction = 1;
       break;
-    case 'DESC' || 'DESCENDING':
+    case "DESC" || "DESCENDING":
       direction = -1;
       break;
     default:
