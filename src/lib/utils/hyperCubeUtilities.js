@@ -170,7 +170,6 @@ export const validData = (qLayout, theme) => {
   };
 
   const MeasCheck = () => {
-    console.log(qMeasureInfo);
     qMeasureInfo.forEach((qData) => {
       if (
         (isNaN(qData.qMax) && isNaN(qData.qMin)) ||

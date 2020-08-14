@@ -25,6 +25,8 @@ Check out the props and example usage below 💡
 import { Props } from 'docz'
 import { Playground } from 'docz'
 import Line from '../../lib/components/React/Line/Line.jsx';
+import Filter from '../../lib/components/React/Filter/Filter.jsx';
+import Button from '../../lib/components/React/Button/Button.jsx';
 import Motor from '../../lib/components/React/Motor/Motor.jsx';
 import { config } from '../config/config.js'
 
@@ -36,7 +38,6 @@ import { config } from '../config/config.js'
           curve='Natural'
           symbol='none'
           chartColor={['#ff6961']}
-          border=''
           areaChart
           cols={[
             {
@@ -49,6 +50,12 @@ import { config } from '../config/config.js'
             },
           ]} 
         />
+         <Filter width='100%' label="Vehicle Type" dimension={["Vehicle Type"]} />
+         <Filter width='100%' label="Claim Status" dimension={["Claim Status"]} />
+      <Filter width='100%' label="Claim Type" dimension={["Claim Type"]} />
+      <Filter width='100%' label="Claim Sub-Type" dimension={["Claim Sub-Type"]} />
+      <Filter width='100%' label="Broker" dimension={["BrokerName"]} />
+      <Button type='clearSelections'>Clear Selections</Button>
   </Motor>
 </Playground>
 
