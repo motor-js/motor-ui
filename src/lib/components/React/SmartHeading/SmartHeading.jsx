@@ -26,6 +26,7 @@ const SmartHeading = ({
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState(null);
   const [lastReload, setLastReload] = useState(null);
+  const [description, setDescription] = useState(null);
 
   useEffect(() => {
     if (engine === undefined) {
@@ -33,8 +34,10 @@ const SmartHeading = ({
       (async () => {
         const qEngine = await engine;
         const qLayout = await qEngine.getAppLayout();
+        console.log(qLayout);
         setTitle(qLayout.qTitle);
         setLastReload(qLayout.qLastReloadTime);
+        setDescription(qLayout.description);
         setLoading(false);
       })();
     }
@@ -45,6 +48,8 @@ const SmartHeading = ({
     text = children || "";
   } else if (type === "appName") {
     text = children ? children + title : `${title}`;
+  } else if (type === "description") {
+    text = children ? children + description : `${description}`;
   } else if (type === "lastReload") {
     // const ts = new Date(lastReload).toLocaleString();
     let ts = new Date(lastReload).toLocaleString();
