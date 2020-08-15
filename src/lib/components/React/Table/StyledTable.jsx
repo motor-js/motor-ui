@@ -289,7 +289,8 @@ const StyledTable = ({
 
   const handleSelect = (s, c) => {
     if (!allowSelections) return;
-    if (c.columnOrder !== "meas") {
+
+    if (c.qColumnType !== "meas") {
       let updateList = [];
       if (pendingSel.includes(s)) {
         updateList = pendingSel.filter((item) => item != s);
@@ -301,11 +302,13 @@ const StyledTable = ({
       setSelectionsActive(true);
       setSelectionVisible(true);
       setCol(c.id);
+
+      select(c.id, [...pendingSel, s]);
     }
   };
 
   const confirmSelections = async () => {
-    pendingSel === [] ? "" : await select(selCol, pendingSel);
+    // pendingSel === [] ? "" : await select(selCol, pendingSel);
     await endSelections(true);
     setSelectionsActive(false);
     setSelectionVisible(false);
