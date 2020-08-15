@@ -32,23 +32,58 @@ import { config } from '../config/config.js'
 <Playground>
     <Motor 
    config={config}>  
-    <Table
-      interactiveSort={true}
-      tableWidth={'800px'}
-      size='small'
-      columns={[
-      {
-        dimensions: [
-          {
-            qField: 'province',
-            qLabel: 'Country',
-            qNullSuppression: false,
-            width: '10%',
-          }
-        ],
-      },
-    ]}
-  /> 
+        <Table
+            margin="20px"
+            size="small"
+            height="100%"
+            tableWidth="100%"
+            wrapperWidth="100%"
+            interactiveSort
+            columns={[
+              {
+                dimensions: [
+                  {
+                    qField: "[Vehicle Type]",
+                    qLabel: "Vehicle Type",
+                    width: "5%",
+                  },
+                  {
+                    qField: "[Claim Settled Date]",
+                    qLabel: "Claim Settled Date",
+                    width: "5%",
+                  },
+                  {
+                    qField: "[Claim Type]",
+                    qLabel: "Claim Type",
+                    width: "5%",
+                  },
+                  // {
+                  //   qField: "[Vehicle Type]",
+                  //   qLabel: "Vehicle Type",
+                  //   width: "15%",
+                  // },
+                  {
+                    qField: "[Claim Sub-Type]",
+                    qLabel: "Claim Sub-Type",
+                    width: "7.5%",
+                  },
+                  {
+                    qField: "[Claim Status]",
+                    qLabel: "Claim Status",
+                    width: "5%",
+                  },
+                ],
+                measures: [
+                  {
+                    qField: "=Sum([Total Claim Cost])",
+                    qLabel: "Claim Cost",
+                    width: "5%",
+                  },
+                ],
+              },
+            ]}
+            bandedRows
+          />
   </Motor>
 </Playground>
 

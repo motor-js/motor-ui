@@ -410,6 +410,18 @@ const base = {
       backgroundSize: null,
       transition: null,
     },
+    disabled: {
+      // fontColor:
+      //   "-internal-light-dark(rgba(16, 16, 16, 0.3), rgb(170, 170, 170))",
+      // backgroundColor:
+      //   "-internal-light-dark-color(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3))",
+      // borderColor:
+      //   "-internal-light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3))",
+      fontColor: "rgba(16, 16, 16, 0.3)",
+      backgroundColor: "rgba(239, 239, 239, 0.3)",
+      border: "solid 1px rgba(118, 118, 118, 0.3)",
+      boxShadow: "none",
+    },
   },
   selectionModal: {
     buttonType: "icon",

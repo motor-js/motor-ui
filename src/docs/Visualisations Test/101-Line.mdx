@@ -33,28 +33,25 @@ import { config } from '../config/config.js'
 <Playground>
 <Motor  
  config={config}>  
-                          <Line
-          height='400px'
-          curve='Natural'
-          symbol='none'
-          chartColor={['#ff6961']}
-          areaChart
-          cols={[
-            {
-              qField: "[Claim Settled Date]",
-              qLabel: "Claim Settled Date",
-            },
-            {
-              qField: "=Sum([Total Claim Cost])",
-              qLabel: "Total Claim Cost",
-            },
-          ]} 
-        />
-         <Filter width='100%' label="Vehicle Type" dimension={["Vehicle Type"]} />
+           <Line
+            height="400px"
+            curve="Natural"
+            symbol="none"
+            chartColor={["#ff6961"]}
+            areaChart
+            cols={[
+              {
+                qField: "[Claim Settled Date]",
+                qLabel: "Claim Settled Date",
+              },
+              {
+                qField: "=Sum([Total Claim Cost])",
+                qLabel: "Total Claim Cost",
+              },
+            ]}
+          />
          <Filter width='100%' label="Claim Status" dimension={["Claim Status"]} />
-      <Filter width='100%' label="Claim Type" dimension={["Claim Type"]} />
       <Filter width='100%' label="Claim Sub-Type" dimension={["Claim Sub-Type"]} />
-      <Filter width='100%' label="Broker" dimension={["BrokerName"]} />
       <Button type='clearSelections'>Clear Selections</Button>
   </Motor>
 </Playground>

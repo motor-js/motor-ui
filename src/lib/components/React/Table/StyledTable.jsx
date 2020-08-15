@@ -4,22 +4,29 @@ import React, {
   useMemo,
   useState,
   useRef,
-} from 'react'
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
-import useHyperCube from '../../../hooks/useHyperCube'
-import TableHeader from './TableHeader'
-import TableBody from './TableBody'
-import SelectionModal from '../SelectionModal'
-import useOutsideClick from '../../../hooks/useOutsideClick'
-import exportData from '../../../utils/exportData'
-import { validData } from '../../../utils'
-import Spinner from '../Spinner'
+} from "react";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import useHyperCube from "../../../hooks/useHyperCube";
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
+import Button from "../Button";
+import SelectionModal from "../SelectionModal";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import exportData from "../../../utils/exportData";
+import { validData } from "../../../utils";
+import Spinner from "../Spinner";
 import {
   TableWrapper,
   TableWrapperNoData,
   TableOutline,
   DropMenu,
-} from './TableTheme'
+} from "./TableTheme";
+import {
+  ChevronLeft,
+  ChevronsLeft,
+  ChevronRight,
+  ChevronsRight,
+} from "react-feather";
 
 const StyledTable = ({
   engine,
@@ -48,35 +55,35 @@ const StyledTable = ({
   allowSelections,
 }) => {
   // Component state
-  const [loading, setLoading] = useState(true)
-  const [isSelectionVisible, setSelectionVisible] = useState(false)
-  const [selectionsActive, setSelectionsActive] = useState(false)
-  const [mergedCols, setMergedCols] = useState(null)
-  const [objId, setObjId] = useState(null)
-  const [calcCond, setCalcCond] = useState(null)
-  const [dataError, setDataError] = useState(null)
-  const [isValid, setIsValid] = useState(null)
-  const [pendingSel, setPendingSel] = useState([])
-  const [selCol, setCol] = useState()
+  const [loading, setLoading] = useState(true);
+  const [isSelectionVisible, setSelectionVisible] = useState(false);
+  const [selectionsActive, setSelectionsActive] = useState(false);
+  const [mergedCols, setMergedCols] = useState(null);
+  const [objId, setObjId] = useState(null);
+  const [calcCond, setCalcCond] = useState(null);
+  const [dataError, setDataError] = useState(null);
+  const [isValid, setIsValid] = useState(null);
+  const [pendingSel, setPendingSel] = useState([]);
+  const [selCol, setCol] = useState();
 
-  const tableRef = useRef()
-  const wrapperRef = useRef()
+  const tableRef = useRef();
+  const wrapperRef = useRef();
 
-  const gridPxl = grid ? '1px' : '0px'
+  const gridPxl = grid ? "1px" : "0px";
 
   // destructure cols
-  const { dimensions, measures } = columns[0]
+  const { dimensions, measures } = columns[0];
 
   // calculate the number of columns for HyperCube size
-  let numberOfColumns
+  let numberOfColumns;
   if (dimensions && measures) {
-    numberOfColumns = dimensions.length + measures.length
+    numberOfColumns = dimensions.length + measures.length;
   } else if (dimensions && !measures) {
-    numberOfColumns = dimensions.length
+    numberOfColumns = dimensions.length;
   } else if (!dimensions && measures) {
-    numberOfColumns = measures.length
+    numberOfColumns = measures.length;
   } else {
-    numberOfColumns = 0
+    numberOfColumns = 0;
   }
 
   // Set qPage for initial hypercube size
@@ -85,23 +92,23 @@ const StyledTable = ({
     qLeft: 0,
     qWidth: Math.min(numberOfColumns, 20),
     qHeight: pageHeight,
-  }
+  };
 
   // concat dims and measures and add ID needed for column ordering
-  let colsTmp
+  let colsTmp;
   if (measures === undefined) {
-    colsTmp = dimensions
+    colsTmp = dimensions;
   } else if (measures === undefined) {
-    colsTmp = measures
+    colsTmp = measures;
   } else {
-    colsTmp = dimensions.concat(measures)
+    colsTmp = dimensions.concat(measures);
   }
 
   const cols = colsTmp.map((n, i) => {
-    n.id = i
+    n.id = i;
 
-    return n
-  })
+    return n;
+  });
 
   const {
     qLayout,
@@ -121,217 +128,254 @@ const StyledTable = ({
     qInterColumnSortOrder: columnSortOrder,
     // qSupressMissing: true,
     // qSuppressZero: true,
-  })
+  });
 
   useEffect(() => {
-    let valid
+    let valid;
     if (qLayout) {
-      setObjId(qLayout.qInfo.qId)
-      setCalcCond(qLayout.qHyperCube.qCalcCondMsg)
-      valid = validData(qLayout, theme)
+      setObjId(qLayout.qInfo.qId);
+      setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
+      valid = validData(qLayout, theme);
       if (valid) {
-        setIsValid(valid.isValid)
-        setDataError(valid.dataError)
+        setIsValid(valid.isValid);
+        setDataError(valid.dataError);
       }
     }
-  }, [qLayout, qData])
+  }, [qLayout, qData]);
 
   // page size
-  const [pageSize, setPageSize] = useState(qPage.qHeight)
+  const [pageSize, setPageSize] = useState(qPage.qHeight);
 
   // page
-  const [page, _setPage] = useState(0)
+  const [page, _setPage] = useState(0);
   const setPage = useCallback(
-    _page => {
-      setLoading(true)
-      _setPage(_page)
-      changePage({ qTop: _page * pageSize })
+    (_page) => {
+      setLoading(true);
+      _setPage(_page);
+      changePage({ qTop: _page * pageSize });
     },
-    [changePage, pageSize],
-  )
-  window.setPage = setPage
+    [changePage, pageSize]
+  );
+  window.setPage = setPage;
 
   // pages
-  const [pages, _setPages] = useState(0)
+  const [pages, _setPages] = useState(0);
   const setPages = useCallback(
-    _pages => {
+    (_pages) => {
       if (page >= _pages) {
-        setPage(0)
+        setPage(0);
       }
-      _setPages(_pages)
+      _setPages(_pages);
     },
-    [page, setPage],
-  )
+    [page, setPage]
+  );
 
   useEffect(() => {
-    if (!qLayout) return
-    setPages(Math.ceil(qLayout.qHyperCube.qSize.qcy / pageSize))
-  }, [qLayout, pageSize, setPage, setPages])
+    if (!qLayout) return;
+    setPages(Math.ceil(qLayout.qHyperCube.qSize.qcy / pageSize));
+  }, [qLayout, pageSize, setPage, setPages]);
 
   const handlePageChange = useCallback(
-    pageIndex => {
-      setPage(pageIndex)
+    (pageIndex) => {
+      setPage(pageIndex);
     },
-    [setPage],
-  )
+    [setPage]
+  );
 
   const handleSortedChange = useCallback(
-    async column => {
-      setLoading(true)
+    async (column) => {
+      setLoading(true);
       // If no sort is set, we need to set a default sort order
-      if (column.qSortIndicator === 'N') {
-        if (column.qPath.includes('qDimensions')) {
+      if (column.qSortIndicator === "N") {
+        if (column.qPath.includes("qDimensions")) {
           await applyPatches([
             {
-              qOp: 'add',
+              qOp: "add",
               qPath: `${column.qPath}/qDef/qSortCriterias`,
               qValue: JSON.stringify([{ qSortByLoadOrder: 1 }]),
             },
-          ])
+          ]);
         }
-        if (column.qPath.includes('qMeasures')) {
+        if (column.qPath.includes("qMeasures")) {
           await applyPatches([
             {
-              qOp: 'add',
+              qOp: "add",
               qPath: `${column.qPath}/qSortBy`,
               qValue: JSON.stringify({ qSortByLoadOrder: 1 }),
             },
-          ])
+          ]);
         }
       }
       await applyPatches([
         {
-          qOp: 'replace',
+          qOp: "replace",
           qPath: `${column.qPath}/qDef/qReverseSort`,
           qValue: JSON.stringify(
-            !column.qReverseSort,
+            !column.qReverseSort
           ) /* JSON.stringify((newSorted[0].desc !== column.defaultSortDesc) !== !!column.qReverseSort) */,
         },
         {
-          qOp: 'replace',
-          qPath: '/qHyperCubeDef/qInterColumnSortOrder',
+          qOp: "replace",
+          qPath: "/qHyperCubeDef/qInterColumnSortOrder",
           qValue: JSON.stringify(
             [
               ...qLayout.qHyperCube.qEffectiveInterColumnSortOrder,
-            ].sort((a, b) => (a === column.qInterColumnIndex
-              ? -1
-              : b === column.qInterColumnIndex
+            ].sort((a, b) =>
+              a === column.qInterColumnIndex
+                ? -1
+                : b === column.qInterColumnIndex
                 ? 1
-                : 0)),
+                : 0
+            )
           ),
         },
-      ])
-      setPage(0)
+      ]);
+      setPage(0);
     },
-    [applyPatches, qLayout],
-  )
+    [applyPatches, qLayout]
+  );
 
   const columnData = useMemo(
-    () => (qLayout
-      ? [
-        ...qLayout.qHyperCube.qDimensionInfo.map((col, index) => ({
-          Header: col.qFallbackTitle,
-          accessor: d => d[index].qText,
-          defaultSortDesc: col.qSortIndicator === 'D',
-          qInterColumnIndex: index,
-          qPath: `/qHyperCubeDef/qDimensions/${index}`,
-          qSortIndicator: col.qSortIndicator,
-          qReverseSort: col.qReverseSort,
-          qGrandTotals: { qText: null, qNum: null },
-          qColumnType: 'dim',
-        })),
-        ...qLayout.qHyperCube.qMeasureInfo.map((col, index) => ({
-          Header: col.qFallbackTitle,
-          accessor: d => d[index + qLayout.qHyperCube.qDimensionInfo.length].qText,
-          defaultSortDesc: col.qSortIndicator === 'D',
-          qInterColumnIndex:
+    () =>
+      qLayout
+        ? [
+            ...qLayout.qHyperCube.qDimensionInfo.map((col, index) => ({
+              Header: col.qFallbackTitle,
+              accessor: (d) => d[index].qText,
+              defaultSortDesc: col.qSortIndicator === "D",
+              qInterColumnIndex: index,
+              qPath: `/qHyperCubeDef/qDimensions/${index}`,
+              qSortIndicator: col.qSortIndicator,
+              qReverseSort: col.qReverseSort,
+              qGrandTotals: { qText: null, qNum: null },
+              qColumnType: "dim",
+            })),
+            ...qLayout.qHyperCube.qMeasureInfo.map((col, index) => ({
+              Header: col.qFallbackTitle,
+              accessor: (d) =>
+                d[index + qLayout.qHyperCube.qDimensionInfo.length].qText,
+              defaultSortDesc: col.qSortIndicator === "D",
+              qInterColumnIndex:
                 index + qLayout.qHyperCube.qDimensionInfo.length,
-          qPath: `/qHyperCubeDef/qMeasures/${index}`,
-          qSortIndicator: col.qSortIndicator,
-          qReverseSort: col.qReverseSort,
-          qGrandTotals: qLayout.qHyperCube.qGrandTotalRow[index],
-          qColumnType: 'meas',
-        })),
-      ]
-      : []),
-    [qLayout],
-  )
+              qPath: `/qHyperCubeDef/qMeasures/${index}`,
+              qSortIndicator: col.qSortIndicator,
+              qReverseSort: col.qReverseSort,
+              qGrandTotals: qLayout.qHyperCube.qGrandTotalRow[index],
+              qColumnType: "meas",
+            })),
+          ]
+        : [],
+    [qLayout]
+  );
 
   // merge cols object & sort
   useEffect(() => {
-    const merged = []
+    const merged = [];
     if (columnData.length > 0) {
       for (let i = 0; i < cols.length; i++) {
         merged.push({
           ...cols[i],
           ...columnData.find(
-            itmInner => itmInner.Header === (cols[i].qLabel || cols[i].qField),
+            (itmInner) => itmInner.Header === (cols[i].qLabel || cols[i].qField)
           ),
-        })
+        });
       }
       merged.sort(
-        (a, b) => columnOrder.indexOf(a.id) - columnOrder.indexOf(b.id),
-      )
-      setMergedCols(merged)
+        (a, b) => columnOrder.indexOf(a.id) - columnOrder.indexOf(b.id)
+      );
+      setMergedCols(merged);
     }
-  }, [columnData])
+  }, [columnData]);
 
   const handleSelect = (s, c) => {
-    if (!allowSelections) return
-    if (c.columnOrder !== 'meas') {
-      let updateList = []
+    if (!allowSelections) return;
+    if (c.columnOrder !== "meas") {
+      let updateList = [];
       if (pendingSel.includes(s)) {
-        updateList = pendingSel.filter(item => item != s)
-        setPendingSel(updateList)
+        updateList = pendingSel.filter((item) => item != s);
+        setPendingSel(updateList);
       } else {
-        setPendingSel([...pendingSel, s])
+        setPendingSel([...pendingSel, s]);
       }
-      beginSelections()
-      setSelectionsActive(true)
-      setSelectionVisible(true)
-      setCol(c.id)
+      beginSelections();
+      setSelectionsActive(true);
+      setSelectionVisible(true);
+      setCol(c.id);
     }
-  }
+  };
 
   const confirmSelections = async () => {
-    pendingSel === [] ? '' : await select(selCol, pendingSel)
-    await endSelections(true)
-    setSelectionsActive(false)
-    setSelectionVisible(false)
-    setPage(0)
-    tableRef.current.scrollTop = 0
-    setPendingSel([])
-  }
+    pendingSel === [] ? "" : await select(selCol, pendingSel);
+    await endSelections(true);
+    setSelectionsActive(false);
+    setSelectionVisible(false);
+    setPage(0);
+    tableRef.current.scrollTop = 0;
+    setPendingSel([]);
+  };
 
   const cancelSelections = () => {
-    endSelections(false)
-    setSelectionsActive(false)
-    setSelectionVisible(false)
-    setPendingSel([])
-  }
+    endSelections(false);
+    setSelectionsActive(false);
+    setSelectionVisible(false);
+    setPendingSel([]);
+  };
 
-  useOutsideClick(wrapperRef, () => {
-    if (
-      event.target.classList.contains('cancelSelections')
-      || event.target.parentNode.classList.contains('cancelSelections')
-    ) return
-    if (isSelectionVisible && selections) confirmSelections()
-  }, [])
+  useOutsideClick(
+    wrapperRef,
+    () => {
+      if (
+        event.target.classList.contains("cancelSelections") ||
+        event.target.parentNode.classList.contains("cancelSelections")
+      )
+        return;
+      if (isSelectionVisible && selections) confirmSelections();
+    },
+    []
+  );
 
   const dataExport = () => {
-    exportData(engine, config, objId, 'table')
-  }
+    exportData(engine, config, objId, "table");
+  };
+
+  const incrementPage = () => {
+    const nextPage = page + 1;
+    handlePageChange(nextPage);
+    handleScrollCallback();
+  };
+
+  const decrementPage = () => {
+    let prevPage;
+    if (page === 0) {
+      prevPage = page;
+    } else {
+      prevPage = page - 1;
+      handlePageChange(prevPage);
+      handleScrollCallback();
+    }
+  };
+
+  const firstPage = () => {
+    handlePageChange(0);
+    handleScrollCallback();
+  };
+
+  const lastPage = () => {
+    const lastPage = pages - 1;
+    handlePageChange(lastPage);
+    handleScrollCallback();
+  };
 
   const handleScrollCallback = () => {
-    tableRef.current.scrollTop = 0
-  }
+    tableRef.current.scrollTop = 0;
+  };
 
   return (
     <div
       ref={wrapperRef}
       data-testid="wrap"
       style={{
-        position: 'relative',
+        position: "relative",
         margin,
       }}
     >
@@ -353,7 +397,7 @@ const StyledTable = ({
               wrapperWidth={wrapperWidth}
               height={height}
               size={size}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <TableOutline tableLayout={tableLayout} tableWidth={tableWidth}>
                 <TableHeader
@@ -383,6 +427,54 @@ const StyledTable = ({
                   selCol={selCol}
                 />
               </TableOutline>
+              {/* {qData.qMatrix.length >= pageHeight && ( */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                {pages > 1 && (
+                  <div>
+                    <Button
+                      disabled={page > 0 ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={firstPage}
+                    >
+                      <ChevronsLeft size={16} />
+                    </Button>
+                    <Button
+                      disabled={page > 0 ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={decrementPage}
+                    >
+                      <ChevronLeft size={16} />
+                    </Button>
+                    <Button
+                      disabled={page + 1 < pages ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={incrementPage}
+                    >
+                      <ChevronRight size={16} />
+                    </Button>
+                    <Button
+                      disabled={page + 1 < pages ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={lastPage}
+                    >
+                      <ChevronsRight size={16} />
+                    </Button>
+                  </div>
+                )}
+                <div>
+                  Page {page + 1} of {pages}
+                </div>
+              </div>
             </TableWrapper>
           </ContextMenuTrigger>
         </div>
@@ -398,7 +490,7 @@ const StyledTable = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default StyledTable
+export default StyledTable;
