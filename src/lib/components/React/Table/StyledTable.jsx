@@ -303,6 +303,12 @@ const StyledTable = ({
       setSelectionVisible(true);
       setCol(c.id);
 
+      // console.log(c.id, s, selCol);
+      // if (selCol === undefined || c.id === selCol) {
+      //   select(c.id, [...pendingSel, s]);
+      // } else {
+      //   select(c.id, [s]);
+      // }
       select(c.id, [...pendingSel, s]);
     }
   };
@@ -430,10 +436,11 @@ const StyledTable = ({
                   selCol={selCol}
                 />
               </TableOutline>
-              {/* {qData.qMatrix.length >= pageHeight && ( */}
               <div
                 style={{
-                  display: "flex",
+                  display: "grid",
+                  gridTemplateColumns: `${pages > 1 ? "30% auto 30%" : "100%"}`,
+                  gridGap: "10px",
                   alignItems: "center",
                   justifyContent: "space-between",
                 }}
@@ -474,7 +481,7 @@ const StyledTable = ({
                     </Button>
                   </div>
                 )}
-                <div>
+                <div style={{ margin: "auto" }}>
                   Page {page + 1} of {pages}
                 </div>
               </div>
