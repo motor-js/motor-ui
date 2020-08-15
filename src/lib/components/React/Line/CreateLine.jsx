@@ -771,77 +771,6 @@ export default function createLine({
     );
   }
 
-  const area = d3
-    .area()
-    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
-    .y0(yScale(0))
-    .y1((d) => {
-      switch (chartDataShape) {
-        case "singleDimensionMeasure":
-        case "singleDimension":
-          return yScale(
-            d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
-          );
-        case "multipleDimensions":
-          return yScale(+d[Object.keys(d)[4]]);
-        case "dualAxis":
-          return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
-      }
-    });
-
-  const areaR = d3
-    .area()
-    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
-    .y0(yScaleR(0))
-    .y1((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]));
-
-  const stackedArea = d3
-    .area()
-    .x((d, i) => {
-      return chartType === "DISCRETE"
-        ? x(i)
-        : x(d.data[Object.keys(d.data)[0]]);
-    })
-    // .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
-    .y0((d) => yScale(d[0]))
-    .y1((d) => yScale(d[1]));
-
-  const stackedArea2 = d3
-    .area()
-    // .x((d) => x(d.data[Object.keys(d.data)[0]]))
-    .x((d, i) =>
-      chartType === "DISCRETE" ? x(i) : x(d.data[Object.keys(d.data)[0]])
-    )
-    .y0((d) => yOverview(d[0]))
-    .y1((d) => yOverview(d[1]));
-
-  focus
-    .append("g")
-    .attr("class", "axis axis--x")
-    .attr(
-      "transform",
-      `translate(0,${height - xAxisHeight - xAxisTextHeight - legendHeight})`
-    )
-    .call(xAxis);
-
-  if (["none", "yAxis"].some((substring) => showAxis.includes(substring))) {
-    focus
-      .select(".axis--x")
-      .select(".domain")
-      .remove();
-
-    focus
-      .select(".axis--x")
-      .selectAll(".tick")
-      .selectAll("line")
-      .remove();
-  }
-
-  if (chartType === "DISCRETE") redrawXAxis();
-
-  // setXAxisInteractivity(focus);
-  setStyle(focus.select(".axis--x"), xAxisStyle);
-
   function createYAxis(data) {
     yScale.domain([qMin, qMax]);
     yScaleR.domain([qMinRight, qMaxRight]);
@@ -1061,6 +990,77 @@ export default function createLine({
     }
   }
   createYAxis(data);
+
+  const area = d3
+    .area()
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
+    .y0(yScale(0))
+    .y1((d) => {
+      switch (chartDataShape) {
+        case "singleDimensionMeasure":
+        case "singleDimension":
+          return yScale(
+            d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
+          );
+        case "multipleDimensions":
+          return yScale(+d[Object.keys(d)[4]]);
+        case "dualAxis":
+          return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
+      }
+    });
+
+  const areaR = d3
+    .area()
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
+    .y0(yScaleR(0))
+    .y1((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]));
+
+  const stackedArea = d3
+    .area()
+    .x((d, i) => {
+      return chartType === "DISCRETE"
+        ? x(i)
+        : x(d.data[Object.keys(d.data)[0]]);
+    })
+    // .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
+    .y0((d) => yScale(d[0]))
+    .y1((d) => yScale(d[1]));
+
+  const stackedArea2 = d3
+    .area()
+    // .x((d) => x(d.data[Object.keys(d.data)[0]]))
+    .x((d, i) =>
+      chartType === "DISCRETE" ? x(i) : x(d.data[Object.keys(d.data)[0]])
+    )
+    .y0((d) => yOverview(d[0]))
+    .y1((d) => yOverview(d[1]));
+
+  focus
+    .append("g")
+    .attr("class", "axis axis--x")
+    .attr(
+      "transform",
+      `translate(0,${height - xAxisHeight - xAxisTextHeight - legendHeight})`
+    )
+    .call(xAxis);
+
+  if (["none", "yAxis"].some((substring) => showAxis.includes(substring))) {
+    focus
+      .select(".axis--x")
+      .select(".domain")
+      .remove();
+
+    focus
+      .select(".axis--x")
+      .selectAll(".tick")
+      .selectAll("line")
+      .remove();
+  }
+
+  if (chartType === "DISCRETE") redrawXAxis();
+
+  // setXAxisInteractivity(focus);
+  setStyle(focus.select(".axis--x"), xAxisStyle);
 
   const area2 = d3
     .area()
