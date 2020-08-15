@@ -34,7 +34,7 @@ const SmartHeading = ({
       (async () => {
         const qEngine = await engine;
         const qLayout = await qEngine.getAppLayout();
-        console.log(qLayout);
+
         setTitle(qLayout.qTitle);
         setLastReload(qLayout.qLastReloadTime);
         setDescription(qLayout.description);
