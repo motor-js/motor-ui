@@ -463,6 +463,13 @@ const StyledTable = ({
                     >
                       <ChevronLeft size={16} />
                     </Button>
+                  </div>
+                )}
+                <div style={{ margin: "auto" }}>
+                  Page {page + 1} of {pages}
+                </div>
+                {pages > 1 && (
+                  <div style={{ textAlign: "right" }}>
                     <Button
                       disabled={page + 1 < pages ? false : true}
                       size="small"
@@ -481,9 +488,6 @@ const StyledTable = ({
                     </Button>
                   </div>
                 )}
-                <div style={{ margin: "auto" }}>
-                  Page {page + 1} of {pages}
-                </div>
               </div>
             </TableWrapper>
           </ContextMenuTrigger>

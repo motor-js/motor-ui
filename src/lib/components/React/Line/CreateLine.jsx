@@ -695,12 +695,10 @@ export default function createLine({
 
       xAxisLabels.each(function(d, i) {
         const self = d3.select(this);
+        const currentPos = self.node().transform.baseVal[0].matrix.e;
         if (i == 0) {
-          endPos =
-            self.node().transform.baseVal[0].matrix.e +
-            this.getBoundingClientRect().width;
+          endPos = currentPos + this.getBoundingClientRect().width;
         } else {
-          const currentPos = self.node().transform.baseVal[0].matrix.e;
           if (currentPos < endPos) overlapFlag = true;
 
           if (overlapFlag) {
@@ -711,10 +709,7 @@ export default function createLine({
             overlapFlag = false;
             return true;
           }
-          endPos =
-            self.node().transform.baseVal[0].matrix.e +
-            this.getBoundingClientRect().width +
-            5;
+          endPos = currentPos + this.getBoundingClientRect().width + 5;
           if (overlapFlag) return true;
         }
       });
