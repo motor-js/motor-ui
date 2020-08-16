@@ -682,6 +682,46 @@ export default function createLine({
     }
   }
 
+  function checkXAxisLabels() {
+    let redrawAxis = true;
+
+    do {
+      let endPos = null;
+
+      const xAxisLabels = focus.select(".axis--x").selectAll(".tick");
+      const noOfTicks = xAxisLabels._groups[0].length;
+
+      if (noOfTicks === 0) return false;
+
+      var overlapFlag = false;
+
+      xAxisLabels.each(function(d, i) {
+        const self = d3.select(this);
+        if (i == 0) {
+          endPos =
+            self.node().transform.baseVal[0].matrix.e +
+            this.getBoundingClientRect().width;
+        } else {
+          const currentPos = self.node().transform.baseVal[0].matrix.e;
+          if (currentPos < endPos) overlapFlag = true;
+
+          if (overlapFlag) {
+            noOfTicks--;
+
+            xAxis.ticks(noOfTicks--);
+            focus.select(".axis--x").call(xAxis);
+            overlapFlag = false;
+            return true;
+          }
+          endPos =
+            self.node().transform.baseVal[0].matrix.e +
+            this.getBoundingClientRect().width;
+          if (overlapFlag) return true;
+        }
+      });
+    } while (overlapFlag);
+  }
+
   function setHeight() {
     if (isScrollDisplayed) {
       height = +parseInt(heightValue, 10) - margin.top - margin.bottom;
@@ -1057,10 +1097,16 @@ export default function createLine({
       .remove();
   }
 
-  if (chartType === "DISCRETE") redrawXAxis();
+  if (chartType === "DISCRETE") {
+    redrawXAxis();
+  }
 
   // setXAxisInteractivity(focus);
   setStyle(focus.select(".axis--x"), xAxisStyle);
+
+  if (chartType !== "DISCRETE" && !showScroll) {
+    checkXAxisLabels();
+  }
 
   const area2 = d3
     .area()
@@ -1778,6 +1824,8 @@ export default function createLine({
       }
 
       if (chartType === "DISCRETE") redrawXAxis();
+      if (chartType !== "DISCRETE") checkXAxisLabels();
+
       // setXAxisInteractivity(focus);
     }
   }
