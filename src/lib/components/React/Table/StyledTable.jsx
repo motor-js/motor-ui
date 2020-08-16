@@ -446,7 +446,7 @@ const StyledTable = ({
                 }}
               >
                 {pages > 1 && (
-                  <div>
+                  <div style={{ textAlign: "left" }}>
                     <Button
                       disabled={page > 0 ? false : true}
                       size="small"
