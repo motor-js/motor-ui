@@ -713,7 +713,8 @@ export default function createLine({
           }
           endPos =
             self.node().transform.baseVal[0].matrix.e +
-            this.getBoundingClientRect().width;
+            this.getBoundingClientRect().width +
+            5;
           if (overlapFlag) return true;
         }
       });
