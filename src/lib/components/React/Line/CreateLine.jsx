@@ -682,9 +682,7 @@ export default function createLine({
     }
   }
 
-  function checkXAxisLabels() {
-    let redrawAxis = true;
-
+  function cleanXAxis() {
     do {
       let endPos = null;
 
@@ -1097,16 +1095,12 @@ export default function createLine({
       .remove();
   }
 
-  if (chartType === "DISCRETE") {
-    redrawXAxis();
-  }
+  if (chartType === "DISCRETE") redrawXAxis();
 
   // setXAxisInteractivity(focus);
   setStyle(focus.select(".axis--x"), xAxisStyle);
 
-  if (chartType !== "DISCRETE" && !showScroll) {
-    checkXAxisLabels();
-  }
+  if (chartType !== "DISCRETE") cleanXAxis();
 
   const area2 = d3
     .area()
@@ -1824,7 +1818,7 @@ export default function createLine({
       }
 
       if (chartType === "DISCRETE") redrawXAxis();
-      if (chartType !== "DISCRETE") checkXAxisLabels();
+      if (chartType !== "DISCRETE") cleanXAxis();
 
       // setXAxisInteractivity(focus);
     }
