@@ -8,15 +8,60 @@ import {
 } from "../../VX/xy-chart";
 
 import { color } from "../../VX/theme";
-import ResponsiveXYChart from "./ResponsiveXYChart";
+import ResponsiveXYChart, { formatYear } from "./ResponsiveXYChart";
 
 import { timeSeriesData } from "./data";
 
 class VaerticalBarChartExample extends React.PureComponent {
+  renderTooltip({ datum, series }) {
+    // const { programmaticTrigger, trigger } = this.state;
+
+    return (
+      <div>
+        <div>
+          <strong>{formatYear(datum.x)}</strong>
+          {(!series || Object.keys(series).length === 0) && (
+            <div>${datum.y.toFixed(2)}</div>
+          )}
+        </div>
+        {/* {trigger === CONTAINER_TRIGGER && <br />} */}
+        {/* {seriesProps.map(
+          ({ seriesKey, stroke: color, dashType }) =>
+            series &&
+            series[seriesKey] && (
+              <div key={seriesKey}>
+                <span
+                  style={{
+                    color,
+                    textDecoration:
+                      // !programmaticTrigger && series[seriesKey] === datum
+                      series[seriesKey] === datum
+                        ? `underline ${dashType} ${color}`
+                        : null,
+                    fontWeight: series[seriesKey] === datum ? 600 : 200,
+                  }}
+                >
+                  {`${seriesKey} `}
+                </span>
+                ${series[seriesKey].y.toFixed(2)}
+              </div>
+            )
+        )} */}
+      </div>
+    );
+  }
+
   render() {
+    //     const tooltipStyles = {
+    //   ...defaultStyles,
+    //   background,
+    //   border: '1px solid white',
+    //   color: 'white',
+    // };
     return (
       <div className="vertical-bar-demo">
-        <WithTooltip
+        <WithTooltip renderTooltip={this.renderTooltip}>
+          {/* <WithTooltip
           renderTooltip={({ datum }) => datum.y}
           tooltipProps={{
             offsetTop: 0,
@@ -24,8 +69,8 @@ class VaerticalBarChartExample extends React.PureComponent {
               backgroundColor: "pink",
               opacity: 0.9,
             },
-          }}
-        >
+          }} 
+        >*/}
           <ResponsiveXYChart
             ariaLabel="Required label"
             xScale={{ type: "band", paddingInner: 0.25 }}
