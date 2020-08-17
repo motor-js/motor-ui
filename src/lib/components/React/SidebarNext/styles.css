@@ -1,15 +1,5 @@
-#App {
+#anchor {
   /* Give app full page to work with */
   height: 100vh;
 }
 
-#page-wrap {
-  text-align: center;
-  /* Prevent sidebar from showing a scrollbar on page */
-  overflow: auto;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}

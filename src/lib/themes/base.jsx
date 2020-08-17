@@ -700,7 +700,7 @@ const base = {
     border: {
       // 1px dashed red; border-width: 1px 1px 0 1px;
       color: "#FF7272",
-      radius: "0px 20px 20px 0px",
+      radius: "0px",
       size: "1px",
       style: "solid",
     },

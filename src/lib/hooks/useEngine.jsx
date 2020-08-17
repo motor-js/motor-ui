@@ -88,7 +88,7 @@ function useEngine(config) {
           session.on('suspended', () => {
             console.warn('Captured session suspended')
           })
-           session.on('error', () => {
+          session.on('error', () => {
             console.warn('Captured session error')
           })
           const _global = await session.open()

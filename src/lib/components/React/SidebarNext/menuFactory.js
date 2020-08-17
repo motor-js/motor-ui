@@ -72,6 +72,11 @@ export default (styles) => {
       });
     }
 
+    toggleDrawer() {
+      console.log('Toggle called')
+      //this.open()}
+    }
+
     open() {
       if (typeof this.props.onOpen === "function") {
         this.props.onOpen();
@@ -333,6 +338,7 @@ export default (styles) => {
           </MenuWrap>
           {
             {
+              /*
               menu: (
                 <MenuIcon
                   openIconColor={this.props.openIconColor}
@@ -340,7 +346,9 @@ export default (styles) => {
                   size={35}
                   right={this.props.right}
                 />
+              
               ),
+              */
               filter: (
                 <FilterIcon
                   openIconColor={this.props.openIconColor}
@@ -416,10 +424,10 @@ export default (styles) => {
     onIconHoverChange: PropTypes.func,
     onOpen: PropTypes.func,
     onStateChange: PropTypes.func,
-    outerContainerId:
+    containerId:
       styles && styles.outerContainer
         ? PropTypes.string.isRequired
-        : PropTypes.string,
+        : PropTypes.string.isRequired,
     overlayClassName: PropTypes.string,
     pageWrapId:
       styles && styles.pageWrap
@@ -517,18 +525,20 @@ export default (styles) => {
     noOverlay: false,
     noTransition: false,
     onStateChange: () => {},
-    outerContainerId: "",
+    containerId: "",
     overlayClassName: "",
     pageWrapId: "",
     styles: {},
-    width: "300px",
+    width: null,
     onIconHoverChange: () => {},
     focusFirstItem: true,
 
     // new for motor-js
-    border: true,
+    border: false,
     headerHeight: "80px",
     footerHeight: "100px",
+    backgroundColor: null,
+    borderRadius: null,
   };
 
   return Menu;
