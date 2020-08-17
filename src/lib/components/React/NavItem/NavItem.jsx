@@ -61,8 +61,6 @@ NavItem.propTypes = {
   name: PropTypes.string,
   key: PropTypes.string,
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
-  responsive: PropTypes.bool,
-  border: PropTypes.string,
   color: PropTypes.object,
   background: PropTypes.object,
   textAlign: PropTypes.string,
@@ -115,8 +113,10 @@ NavItem.propTypes = {
 
 NavItem.defaultProps = {
   children: undefined,
+  css: null,
+  name: null,
+  key: null,
   size: "small",
-  responsive: true,
   color: null,
   background: null,
   textAlign: null,
