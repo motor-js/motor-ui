@@ -56,6 +56,10 @@ const BORDER_SHAPE = PropTypes.shape({
 
 NavItem.propTypes = {
   children: PropTypes.node,
+  path: PropTypes.string.isRequired,
+  css: PropTypes.string,
+  name: PropTypes.string,
+  key: PropTypes.string,
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   responsive: PropTypes.bool,
   border: PropTypes.string,
