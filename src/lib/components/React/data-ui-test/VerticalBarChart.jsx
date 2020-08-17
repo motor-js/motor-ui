@@ -61,6 +61,7 @@ class VaerticalBarChartExample extends React.PureComponent {
     return (
       <div className="vertical-bar-demo">
         <WithTooltip renderTooltip={this.renderTooltip}>
+          {/* change to hook useTooltip() */}
           {/* <WithTooltip
           renderTooltip={({ datum }) => datum.y}
           tooltipProps={{
