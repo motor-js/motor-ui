@@ -682,6 +682,40 @@ export default function createLine({
     }
   }
 
+  function cleanXAxis() {
+    do {
+      let endPos = null;
+
+      const xAxisLabels = focus.select(".axis--x").selectAll(".tick");
+      const noOfTicks = xAxisLabels._groups[0].length;
+
+      if (noOfTicks === 0) return false;
+
+      var overlapFlag = false;
+
+      xAxisLabels.each(function(d, i) {
+        const self = d3.select(this);
+        const currentPos = self.node().transform.baseVal[0].matrix.e;
+        if (i == 0) {
+          endPos = currentPos + this.getBoundingClientRect().width;
+        } else {
+          if (currentPos < endPos) overlapFlag = true;
+
+          if (overlapFlag) {
+            noOfTicks--;
+
+            xAxis.ticks(noOfTicks--);
+            focus.select(".axis--x").call(xAxis);
+            overlapFlag = false;
+            return true;
+          }
+          endPos = currentPos + this.getBoundingClientRect().width + 5;
+          if (overlapFlag) return true;
+        }
+      });
+    } while (overlapFlag);
+  }
+
   function setHeight() {
     if (isScrollDisplayed) {
       height = +parseInt(heightValue, 10) - margin.top - margin.bottom;
@@ -770,78 +804,6 @@ export default function createLine({
         (isScrollDisplayed ? 5 : 0)})`
     );
   }
-
-  const area = d3
-    .area()
-    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
-    .y0(yScale(0))
-    .y1((d) => {
-      switch (chartDataShape) {
-        case "singleDimensionMeasure":
-        case "singleDimension":
-          return yScale(
-            d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
-          );
-        case "multipleDimensions":
-          return yScale(+d[Object.keys(d)[4]]);
-        case "dualAxis":
-          return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
-      }
-    });
-
-  const areaR = d3
-    .area()
-    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
-    .y0(yScaleR(0))
-    .y1((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]));
-
-  const stackedArea = d3
-    .area()
-    .x((d, i) => {
-      return chartType === "DISCRETE"
-        ? x(i)
-        : x(d.data[Object.keys(d.data)[0]]);
-    })
-    // .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
-    .y0((d) => yScale(d[0]))
-    .y1((d) => yScale(d[1]));
-
-  const stackedArea2 = d3
-    .area()
-    // .x((d) => x(d.data[Object.keys(d.data)[0]]))
-    .x((d, i) =>
-      chartType === "DISCRETE" ? x(i) : x(d.data[Object.keys(d.data)[0]])
-    )
-    .y0((d) => yOverview(d[0]))
-    .y1((d) => yOverview(d[1]));
-
-  focus
-    .append("g")
-    .attr("class", "axis axis--x")
-    .attr(
-      "transform",
-      `translate(0,${height - xAxisHeight - xAxisTextHeight - legendHeight})`
-    )
-    .call(xAxis);
-
-  if (["none", "yAxis"].some((substring) => showAxis.includes(substring))) {
-    focus
-      .select(".axis--x")
-      .select(".domain")
-      .remove();
-
-    focus
-      .select(".axis--x")
-      .selectAll(".tick")
-      .selectAll("line")
-      .remove();
-  }
-
-  if (chartType === "DISCRETE") redrawXAxis();
-
-  setXAxisInteractivity(focus);
-  setStyle(focus.select(".axis--x"), xAxisStyle);
-  // }
 
   function createYAxis(data) {
     yScale.domain([qMin, qMax]);
@@ -1062,6 +1024,79 @@ export default function createLine({
     }
   }
   createYAxis(data);
+
+  const area = d3
+    .area()
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
+    .y0(yScale(0))
+    .y1((d) => {
+      switch (chartDataShape) {
+        case "singleDimensionMeasure":
+        case "singleDimension":
+          return yScale(
+            d[Object.keys(d)[qDimensionCount * 2 + focusLineIndex]]
+          );
+        case "multipleDimensions":
+          return yScale(+d[Object.keys(d)[4]]);
+        case "dualAxis":
+          return yScale(d[Object.keys(d)[qDimensionCount * 2]]);
+      }
+    });
+
+  const areaR = d3
+    .area()
+    .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
+    .y0(yScaleR(0))
+    .y1((d) => yScaleR(d[Object.keys(d)[qDimensionCount * 2 + 1]]));
+
+  const stackedArea = d3
+    .area()
+    .x((d, i) => {
+      return chartType === "DISCRETE"
+        ? x(i)
+        : x(d.data[Object.keys(d.data)[0]]);
+    })
+    // .x((d, i) => (chartType === "DISCRETE" ? x(i) : x(d[Object.keys(d)[0]])))
+    .y0((d) => yScale(d[0]))
+    .y1((d) => yScale(d[1]));
+
+  const stackedArea2 = d3
+    .area()
+    // .x((d) => x(d.data[Object.keys(d.data)[0]]))
+    .x((d, i) =>
+      chartType === "DISCRETE" ? x(i) : x(d.data[Object.keys(d.data)[0]])
+    )
+    .y0((d) => yOverview(d[0]))
+    .y1((d) => yOverview(d[1]));
+
+  focus
+    .append("g")
+    .attr("class", "axis axis--x")
+    .attr(
+      "transform",
+      `translate(0,${height - xAxisHeight - xAxisTextHeight - legendHeight})`
+    )
+    .call(xAxis);
+
+  if (["none", "yAxis"].some((substring) => showAxis.includes(substring))) {
+    focus
+      .select(".axis--x")
+      .select(".domain")
+      .remove();
+
+    focus
+      .select(".axis--x")
+      .selectAll(".tick")
+      .selectAll("line")
+      .remove();
+  }
+
+  if (chartType === "DISCRETE") redrawXAxis();
+
+  // setXAxisInteractivity(focus);
+  setStyle(focus.select(".axis--x"), xAxisStyle);
+
+  if (chartType !== "DISCRETE") cleanXAxis();
 
   const area2 = d3
     .area()
@@ -1779,7 +1814,9 @@ export default function createLine({
       }
 
       if (chartType === "DISCRETE") redrawXAxis();
-      setXAxisInteractivity(focus);
+      if (chartType !== "DISCRETE") cleanXAxis();
+
+      // setXAxisInteractivity(focus);
     }
   }
 }

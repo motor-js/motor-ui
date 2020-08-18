@@ -113,7 +113,7 @@ function StyledKPI({
 
   return (
     <>
-      {qData && qLayout && isValid ? (
+      {qData && qLayout ? (
         <KPIWrapper
           data-testid="kpiWrapper"
           onClick={() => onClick()}
@@ -147,8 +147,11 @@ function StyledKPI({
                 size={size}
                 responsive={responsive}
               >
-                {roundNum && formatValue(qData.qMatrix[0][0].qNum, precision)}
-                {!roundNum && qData.qMatrix[0][0].qText}
+                {roundNum &&
+                  (isValid
+                    ? formatValue(qData.qMatrix[0][0].qNum, precision)
+                    : 0)}
+                {!roundNum && (isValid ? qData.qMatrix[0][0].qText : 0)}
               </KPIValue>
             </KPIValueWrapper>
           </KPIGroup>
