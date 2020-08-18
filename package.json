@@ -42,7 +42,7 @@
     "cogo-toast": "^4.2.3",
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
-    "enigma.js": "^2.6.3",
+    "enigma.js": "^2.7.1",
     "gatsby-link": "^2.4.13",
     "gatsby-react-router-scroll": "^3.0.12",
     "lodash": "^4.17.15",

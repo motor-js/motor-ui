@@ -327,7 +327,8 @@ const base = {
       noData: {
         verticalAlign: "top",
         borderRadius: "10px",
-        backgroundColor: "var(--oc-gray-1)",
+        // backgroundColor: "var(--oc-gray-1)",
+        backgroundColor: "none",
         borderCollapse: "collapse",
       },
       noDataContent: {
@@ -747,8 +748,8 @@ const base = {
   },
   spinner: {
     type: "ThreeDots",
-    color: "altGray4",
-    size: 30,
+    color: "altGray5",
+    size: 50,
     timeout: 5000,
   },
   column: {

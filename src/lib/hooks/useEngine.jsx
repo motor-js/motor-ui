@@ -1,13 +1,9 @@
 import { useState } from "react";
 import cogoToast from "cogo-toast";
 
-// const enigma = require('enigma.js')
-// const schema = require('enigma.js/schemas/12.170.2.json')
-// const SenseUtilities = require('enigma.js/sense-utilities')
-
-import enigma from "../components/enigma/enigma";
-import schema from "../components/enigma/schemas/12.170.2.json";
-import SenseUtilities from "../components/enigma/sense-utilities";
+const enigma = require("enigma.js");
+const schema = require("enigma.js/schemas/12.170.2.json");
+const SenseUtilities = require("enigma.js/sense-utilities");
 
 const MAX_RETRIES = 3;
 
