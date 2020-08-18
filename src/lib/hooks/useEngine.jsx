@@ -96,15 +96,15 @@ function useEngine(config) {
         const url = SenseUtilities.buildUrl(myConfig);
         try {
           const session = enigma.create({ schema, url, intercept })
-          
+
           session.on('closed', () => {
             console.log('Session was closed, clean up!');
           })
-          
+
           session.on('suspended', () => {
             console.warn('Captured session suspended')
           })
-          
+
           session.on('error', () => {
             console.warn('Captured session error')
           })
