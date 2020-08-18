@@ -1,13 +1,13 @@
 import { useState } from "react";
 import cogoToast from "cogo-toast";
 
-// const enigma = require('enigma.js')
-// const schema = require('enigma.js/schemas/12.170.2.json')
-// const SenseUtilities = require('enigma.js/sense-utilities')
+const enigma = require('enigma.js')
+const schema = require('enigma.js/schemas/12.170.2.json')
+const SenseUtilities = require('enigma.js/sense-utilities')
 
-import enigma from "../components/enigma/enigma";
-import schema from "../components/enigma/schemas/12.170.2.json";
-import SenseUtilities from "../components/enigma/sense-utilities";
+//import enigma from "../components/enigma/enigma";
+//import schema from "../components/enigma/schemas/12.170.2.json";
+//import SenseUtilities from "../components/enigma/sense-utilities";
 
 const MAX_RETRIES = 3;
 
@@ -72,7 +72,13 @@ function useEngine(config) {
           schema,
           url: `wss://${tenantUri}/app/${config.appId}?qlik-web-integration-id=${webIntegrationId}&qlik-csrf-token=${csrfToken}`,
           createSocket: (url) => new WebSocket(url),
+          suspendOnClose: false,
         });
+       
+        session.on('closed', () => {
+          console.log('Session was closed, clean up!');
+        })
+
         const _global = await session.open();
         const _doc = await _global.openDoc(config.appId);
         setEngine(_doc);
@@ -90,9 +96,15 @@ function useEngine(config) {
         const url = SenseUtilities.buildUrl(myConfig);
         try {
           const session = enigma.create({ schema, url, intercept })
+          
+          session.on('closed', () => {
+            console.log('Session was closed, clean up!');
+          })
+          
           session.on('suspended', () => {
             console.warn('Captured session suspended')
           })
+          
           session.on('error', () => {
             console.warn('Captured session error')
           })

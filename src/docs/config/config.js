@@ -1,13 +1,14 @@
-// export const config = {
-//   host: "juno-ui.eu.qlikcloud.com",
-//   secure: true,
-//   port: null,
-//   prefix: "",
-//   appId: "f29964d4-0e59-48a2-8525-34dab9cd41e7",
-//   qcs: true,
-//   webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
-// };
+ export const config = {
+   host: "juno-ui.eu.qlikcloud.com",
+   secure: true,
+   port: null,
+   prefix: "",
+   appId: "f29964d4-0e59-48a2-8525-34dab9cd41e7",
+   qcs: true,
+   webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
+ };
 
+ /*
 export const config = {
   host: "localhost",
   secure: false,
@@ -15,6 +16,8 @@ export const config = {
   prefix: "",
   appId: "a21862bc-0e9a-4a16-938c-fe3d03209f4a",
 };
+*/
+
 
 /*
 
