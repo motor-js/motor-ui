@@ -69,6 +69,17 @@ function useEngine(config) {
           url: `wss://${tenantUri}/app/${config.appId}?qlik-web-integration-id=${webIntegrationId}&qlik-csrf-token=${csrfToken}`,
           createSocket: (url) => new WebSocket(url),
         });
+        session.on("suspended", () => {
+          console.warn("Captured session suspended");
+        });
+        session.on("error", () => {
+          console.warn("Captured session error");
+        });
+        session.on("closed", () => {
+          console.log("Session was closed, clean up!");
+          seErrorCode(-3);
+          return -3;
+        });
         const _global = await session.open();
         const _doc = await _global.openDoc(config.appId);
         setEngine(_doc);
@@ -91,6 +102,11 @@ function useEngine(config) {
           });
           session.on("error", () => {
             console.warn("Captured session error");
+          });
+          session.on("closed", () => {
+            console.log("Session was closed, clean up!");
+            seErrorCode(-3);
+            return -3;
           });
           const _global = await session.open();
           const _doc = await _global.openDoc(config.appId);

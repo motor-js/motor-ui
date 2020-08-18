@@ -25,6 +25,7 @@ import { Props } from 'docz'
 import { Playground } from 'docz'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import Login from '../../lib/components/React/Login/Login.jsx'
+import NotConnected from '../../lib/components/React/NotConnected/NotConnected.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import { config } from '../config/config.js'
 import { night } from '../../lib/themes'
@@ -33,9 +34,9 @@ import { night } from '../../lib/themes'
     <div style={{width: "200px"}}>
     <Motor config={config} theme={night}>
     <Login />
+    <NotConnected />
     <Filter
-        label='Province'
-        dimension={['province']}
+        label="Vehicle Type" dimension={['Vehicle Type']}
         size='small'
         width='100%'
     />
