@@ -53,6 +53,7 @@ const StyledTable = ({
   bandedRows,
   highlightOnSelection,
   allowSelections,
+  bodyAlignment,
 }) => {
   // Component state
   const [loading, setLoading] = useState(true);
@@ -429,6 +430,7 @@ const StyledTable = ({
                   handlePagingCallback={handlePageChange}
                   handleScrollCallback={handleScrollCallback}
                   selectionsActive={selectionsActive}
+                  bodyAlignment={bodyAlignment}
                   gridPxl={gridPxl}
                   bandedRows={bandedRows}
                   highlightOnSelection={highlightOnSelection}

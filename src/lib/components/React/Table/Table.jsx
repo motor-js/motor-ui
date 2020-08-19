@@ -86,6 +86,8 @@ Table.propTypes = {
   highlightOnSelection: PropTypes.bool,
   /* To allow or disable selections */
   allowSelections: PropTypes.bool,
+  /* Text aligmentment */
+  bodyAlignment: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -109,6 +111,7 @@ Table.defaultProps = {
   bandedRows: false,
   highlightOnSelection: false,
   allowSelections: true,
+  bodyAlignment: "left",
 };
 
 export default Table;

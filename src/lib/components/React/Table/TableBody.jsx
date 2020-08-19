@@ -14,6 +14,7 @@ const TableBody = ({
   bandedRows,
   // handleScrollCallback,
   highlightOnSelection,
+  bodyAlignment,
   pendingSel,
   selCol,
 }) => {
@@ -57,6 +58,7 @@ const TableBody = ({
             col={col}
             selectionsActive={selectionsActive}
             highlightOnSelection={highlightOnSelection}
+            bodyAlignment={bodyAlignment}
             pendingSel={pendingSel}
             selCol={selCol}
             onClick={() => {
