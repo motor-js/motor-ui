@@ -29,7 +29,8 @@ const SmartHeading = ({
   const [description, setDescription] = useState(null);
 
   useEffect(() => {
-    if (engine === undefined) {
+    if (type === "free") setLoading(false);
+    if (engine === undefined || type === "free") {
     } else {
       (async () => {
         const qEngine = await engine;
