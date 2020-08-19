@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledTable from './StyledTable';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import defaultTheme from '../../../themes/defaultTheme';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledTable from "./StyledTable";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import defaultTheme from "../../../themes/defaultTheme";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
 const Table = ({ config, ...rest }) => {
   const myConfig = config || useContext(ConfigContext);
@@ -63,15 +63,15 @@ Table.propTypes = {
    */
   tableWidth: PropTypes.string,
   /* table size */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /* Number of records to be returned per page of the table.
   Note that increasing this will have a performance impact */
   pageHeight: PropTypes.number,
   /* Defines the algorithm used to lay out table cells, rows and columns.
   For more information regarding the impact, please see https://www.w3schools.com/cssref/pr_tab_table-layout.asp */
-  tableLayout: PropTypes.oneOf(['fixed', 'auto']),
+  tableLayout: PropTypes.oneOf(["fixed", "auto"]),
   /* Alignment of header row */
-  headerAlignment: PropTypes.oneOf(['left', 'middle', 'right']),
+  headerAlignment: PropTypes.oneOf(["left", "middle", "right"]),
   /* header background color */
   headerBackgroundColor: PropTypes.string,
   /* header font color */
@@ -86,7 +86,7 @@ Table.propTypes = {
   highlightOnSelection: PropTypes.bool,
   /* To allow or disable selections */
   allowSelections: PropTypes.bool,
-}
+};
 
 Table.defaultProps = {
   config: null,
@@ -94,14 +94,14 @@ Table.defaultProps = {
   calcCondition: undefined,
   columnSortOrder: [],
   grandTotalsFlag: false,
-  margin: '0px',
-  height: '400px',
-  wrapperWidth: '100%',
-  tableWidth: '100%',
-  size: 'medium',
+  margin: "0px",
+  height: "400px",
+  wrapperWidth: "100%",
+  tableWidth: "100%",
+  size: "medium",
   pageHeight: 30,
-  tableLayout: 'auto',
-  headerAlignment: 'left',
+  tableLayout: "auto",
+  headerAlignment: "left",
   headerBackgroundColor: null,
   headerFontColor: null,
   interactiveSort: false,
@@ -109,6 +109,6 @@ Table.defaultProps = {
   bandedRows: false,
   highlightOnSelection: false,
   allowSelections: true,
-}
+};
 
 export default Table;

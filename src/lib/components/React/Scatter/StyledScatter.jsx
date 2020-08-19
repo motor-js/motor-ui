@@ -49,7 +49,7 @@ function StyledScatter(props) {
     border,
     backgroundColor,
     borderRadius,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     showAxis,
@@ -69,7 +69,7 @@ function StyledScatter(props) {
   const {
     ScatterThemes,
     ScatterThemes: { ScatterDefault },
-  } = ScatterTheme(theme, size, fontColor, chartColor);
+  } = ScatterTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);

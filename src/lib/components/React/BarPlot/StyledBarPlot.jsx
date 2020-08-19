@@ -44,7 +44,7 @@ function StyledBarPlot(props) {
     border,
     backgroundColor,
     borderRadius,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     calcCondition,
@@ -54,7 +54,7 @@ function StyledBarPlot(props) {
   } = props;
 
   // styles
-  const { BarPlotThemes } = BarPlotTheme(theme, size, fontColor, chartColor);
+  const { BarPlotThemes } = BarPlotTheme(theme, size, fontColor, colorTheme);
   const { BarPlotDefault } = BarPlotThemes;
 
   const { ToolTipThemes } = TooltipTheme(theme, size);

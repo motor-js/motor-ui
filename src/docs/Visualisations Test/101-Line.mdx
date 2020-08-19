@@ -25,129 +25,51 @@ Check out the props and example usage below 💡
 import { Props } from 'docz'
 import { Playground } from 'docz'
 import Line from '../../lib/components/React/Line/Line.jsx';
+import Box from '../../lib/components/React/Box/Box.jsx';
+import Filter from '../../lib/components/React/Filter/Filter.jsx';
+import Button from '../../lib/components/React/Button/Button.jsx';
 import Motor from '../../lib/components/React/Motor/Motor.jsx';
+import Login from '../../lib/components/React/Login/Login.jsx'
 import { config } from '../config/config.js'
 
-<Playground>
-<Motor  
- config={config}>  
-                     <Line
-  height="410px"
-                 cols={[
-              { qField: 'country', qLabel: 'Country' },
-            //  { qField: '=Count(winery)', qLabel: 'No of Wineries' },
-                    { qField: '=Avg(price)', qLabel: 'Average Price' }
-            ]}
-            suppressZero={true}
-           // suppressScroll={true}
-            // showLegend={false}
-            // border = {false}
-            />
-  </Motor>
-</Playground>
 
-<br />
 
 <Playground>
+  
 <Motor  
-  config={{
-            host: "localhost",
-            secure: false,
-            port: 19077,
-            prefix: "",
-            appId: "7943caf8-3122-4c9c-9ca1-2ef2c7a60204"
-  }}>
-                   <Line
-                      title="Line Chart"
-            // width="600px"
-           // cols={['Year',  '=Sum(  [Commercial vehicle sales])']}
-                   cols={[
-              { qField: 'Year', qLabel: 'Year' },
-             // { qField: 'OICA region', qLabel: 'OICA region' },
-              {
-                qField: '=Sum([Commercial vehicle sales])',
-                qLabel: 'Commercial vehicle sales',
-        //                qNumFormat: {
-        //      "qType": "R",
-        //      "qnDec": 14,
-        //      "qUseThou": 1,
-        //    //  "qFmt": "##############",
-        //      "qFmt": '#,##0.00%',
-        //      "qDec": ".",
-        //      "qThou": ","
-        //    },
-              }
-              // {
-              //   qField: '=Sum([Commercial vehicle sales])',
-              //   qLabel: 'Commercial vehicles sales'
-              // }
-            ]}
-            height="410px"
-           // curve="Step"
- 
-                      // stacked={true}
-                //             tickSpacing="narrow"
-          // areaChart={true}
-            suppressZero={true}
-            //   suppressScroll={true}
-                 //       showLabels="none"
-            // showLegend={false}
-            // border = {false}
-            />
-     
-  </Motor>
-</Playground>
-
-<br />
-
-<Playground>
-<Motor  
-  config={{
-            host: "localhost",
-            secure: false,
-            port: 19077,
-            prefix: "",
-            appId: "7943caf8-3122-4c9c-9ca1-2ef2c7a60204"
-  }}>
-                   <Line
-            // width="600px"
-           // cols={['Year', 'OICA region', '=Sum(  [Commercial vehicle sales])']}
-           title="Line Chart"
-            height="410px"
+ config={config}>    <Login />      <Box
+          height="400px"
+          width="50%"
+           backgroundColor= "white"
+    margin= "5px"
+    borderRadius= "8px"
+          overflow="visible"
+        >
+           <Line
+            height="390px"
+            curve="Natural"
+            symbol="none"
+            colorTheme={["#ff6961"]}
+            areaChart
             cols={[
-              { qField: 'Year', qLabel: 'Year' },
-              { qField: 'OICA region', qLabel: 'OICA region' },
               {
-                qField: '=Sum([Commercial vehicle sales])',
-                qLabel: 'Commercial vehicle sales',
-                        qNumFormat: {
-              "qType": "R",
-              "qnDec": 14,
-              "qUseThou": 1,
-            //  "qFmt": "##############",
-              "qFmt": '#,##0.00%',
-              "qDec": ".",
-              "qThou": ","
-            },
-              }
-              // {
-              //   qField: '=Sum([Commercial vehicle sales])',
-              //   qLabel: 'Commercial vehicles sales'
-              // }
+                qField: "[Claim Settled Date]",
+                qLabel: "Claim Settled Date",
+              },
+              {
+                qField: "=Sum([Total Claim Cost])",
+                qLabel: "Total Claim Cost",
+              },
             ]}
-         //   tickSpacing="wide"
-         symbol="square"
-            stacked={true}
-           areaChart={true}
-            suppressZero={true}
-         //      suppressScroll={true}
-            //            showLabels="none"
-            // showLegend={false}
-            // border = {false}
-            />
-     
+          /></Box>
+         <Filter width='100%' label="Claim Status" dimension={["Claim Status"]} />
+         <Filter width='100%' label="Vehicle Type" dimension={["Vehicle Type"]} />
+      <Filter width='100%' label="Claim Sub-Type" dimension={["Claim Sub-Type"]} />
+      <Button type='clearSelections'>Clear Selections</Button>
   </Motor>
 </Playground>
+
+
 
 <br />
 

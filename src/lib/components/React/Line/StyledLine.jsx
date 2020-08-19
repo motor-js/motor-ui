@@ -47,7 +47,7 @@ function StyledLine(props) {
     border,
     borderRadius,
     backgroundColor,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     showAxis,
@@ -66,7 +66,7 @@ function StyledLine(props) {
   } = props;
 
   // styles
-  const { LineThemes } = LineTheme(theme, size, fontColor, chartColor);
+  const { LineThemes } = LineTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);

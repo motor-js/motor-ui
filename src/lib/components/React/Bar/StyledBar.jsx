@@ -47,7 +47,7 @@ function StyledBar(props) {
     border,
     borderRadius,
     backgroundColor,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     showAxis,
@@ -66,7 +66,7 @@ function StyledBar(props) {
   } = props;
 
   // styles
-  const { BarThemes } = BarTheme(theme, size, fontColor, chartColor);
+  const { BarThemes } = BarTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);

@@ -3,27 +3,26 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import { ConfigContext } from "../../../contexts/ConfigProvider";
 import defaultTheme from "../../../themes/defaultTheme";
-import StyledLogin from "./StyledLogin";
+import StyledNotConnected from "./StyledNotConnected";
 import { EngineContext } from "../../../contexts/EngineProvider";
 import useEngine from "../../../hooks/useEngine";
-import { LoginWrapper } from "./LoginTheme";
+import { NotConnectedWrapper } from "./NotConnectedTheme";
 
-const Login = ({ config, ...rest }) => {
+const NotConnected = ({ config, ...rest }) => {
   const myConfig = config || useContext(ConfigContext);
   const myTheme = useContext(ThemeContext) || defaultTheme;
   const { errorCode } = useContext(EngineContext) || useEngine(myConfig);
 
   return (
-    <LoginWrapper errorCode={errorCode}>
+    <NotConnectedWrapper errorCode={errorCode}>
       {myConfig && errorCode && (
-        <StyledLogin config={myConfig} theme={myTheme} {...rest} />
+        <StyledNotConnected theme={myTheme} {...rest} />
       )}
-    </LoginWrapper>
+    </NotConnectedWrapper>
   );
 };
 
-Login.propTypes = {
-  config: PropTypes.object,
+NotConnected.propTypes = {
   header: PropTypes.string,
   body: PropTypes.string,
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
@@ -33,15 +32,4 @@ Login.propTypes = {
   buttonColor: PropTypes.string,
 };
 
-Login.defaultProps = {
-  config: null,
-  // header: 'Welcome to your motor js mashup',
-  // body: 'Please log on to access your application',
-  // size: 'medium',
-  // buttonText: 'Login',
-  // backgroundColor: 'white',
-  // buttonFontColor: 'white',
-  // buttonColor: 'brand',
-};
-
-export default Login;
+export default NotConnected;

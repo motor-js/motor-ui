@@ -32,7 +32,7 @@ function StyledColumn({
   border,
   borderRadius,
   backgroundColor,
-  chartColor,
+  colorTheme,
   stacked,
   percentStacked,
   title,
@@ -70,7 +70,7 @@ function StyledColumn({
   let chartSettings = {};
 
   // styles
-  const { ColumnThemes } = ColumnTheme(theme, size, fontColor, chartColor);
+  const { ColumnThemes } = ColumnTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);
