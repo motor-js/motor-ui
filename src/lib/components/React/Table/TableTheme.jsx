@@ -4,11 +4,6 @@ import { globalStyle } from "../../../utils/styles";
 import { selectColor } from "../../../utils/colors";
 
 const handleAlignmentStyle = (alignment, col) => {
-  //  text-align: ${(props) =>
-  //  props.bodyAlignment === "leftRight" && props.col.qColumnType};
-
-  // const { bodyAlignment, col } = props;
-
   let textAlignment = null;
 
   switch (alignment) {
@@ -31,10 +26,6 @@ const handleAlignmentStyle = (alignment, col) => {
   }
 
   return textAlignment;
-
-  // return css`
-  //   text-align: ${textAlignment};
-  // `;
 };
 
 const handleTableCellStyle = (props) => {
@@ -55,6 +46,8 @@ const handleTableCellStyle = (props) => {
     if (col.id !== selCol) {
       return css`
         color: ${selectColor(props.theme.global.color.fontAlt, props.theme)};
+        text-align: ${(props) =>
+          handleAlignmentStyle(props.bodyAlignment, props.col.qColumnType)};
       `;
     }
     if (selected) {
@@ -67,6 +60,8 @@ const handleTableCellStyle = (props) => {
           props.highlightOnSelection
             ? `${props.theme.table.color.selectedFont} !important`
             : `${props.theme.global.color.font}`};
+        text-align: ${(props) =>
+          handleAlignmentStyle(props.bodyAlignment, props.col.qColumnType)};
       `;
     }
   }
