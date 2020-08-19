@@ -140,7 +140,7 @@ Column.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -226,7 +226,7 @@ Column.defaultProps = {
   border: true,
   borderRadius: null,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   tickSpacing: undefined,
   allowSelections: null,
   textOnAxis: null,

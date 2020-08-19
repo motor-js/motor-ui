@@ -150,7 +150,7 @@ Bar.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -235,7 +235,7 @@ Bar.defaultProps = {
   tickSpacing: undefined,
   borderRadius: null,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   roundNum: true,
   barSortOrder: [],
   sortDirection: "",

@@ -27,7 +27,7 @@ function StyledPie({
   border,
   backgroundColor,
   borderRadius,
-  chartColor,
+  colorTheme,
   showLegend,
   allowSelections,
   calcCondition,
@@ -50,7 +50,7 @@ function StyledPie({
   let chartSettings = {};
 
   // styles
-  const { PieThemes } = PieTheme(theme, size, fontColor, chartColor);
+  const { PieThemes } = PieTheme(theme, size, fontColor, colorTheme);
   const { PieDefault } = PieThemes;
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);

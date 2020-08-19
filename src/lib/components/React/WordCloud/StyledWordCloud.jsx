@@ -43,7 +43,7 @@ function StyledWordCloud(props) {
     border,
     backgroundColor,
     borderRadius,
-    chartColor,
+    colorTheme,
     calcCondition,
     suppressZero,
     otherTotalSpec,
@@ -51,7 +51,7 @@ function StyledWordCloud(props) {
   } = props;
 
   // styles
-  const { WordCloudThemes } = WordCloudTheme(theme, size, chartColor);
+  const { WordCloudThemes } = WordCloudTheme(theme, size, colorTheme);
   const { WordCloudDefault } = WordCloudThemes;
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);

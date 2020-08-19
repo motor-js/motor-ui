@@ -52,7 +52,7 @@ export type borderType =
       size?: boxSizeType;
       style?: boxStyleType;
     }[];
-export type chartColorType =
+export type colorThemeType =
   | Array<string>
   | "motor"
   | "divergent9"
@@ -78,4 +78,3 @@ export type showLegendType = boolean | "right" | "bottom";
 export type otherTotalSpecType =
   | boolean
   | { qOtherLabel: string; qOtherCount: string };
-  
