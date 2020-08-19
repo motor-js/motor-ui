@@ -48,6 +48,8 @@ import { config } from '../config/config.js'
             size="small"
             border={false}
           />          <Table
+                  headerAlignment="leftRight"
+            bodyAlignment="leftRight"
             margin="20px"
             size="small"
             height="100%"
@@ -93,6 +95,8 @@ import { config } from '../config/config.js'
                     qField: "=Sum([Total Claim Cost])",
                     qLabel: "Claim Cost",
                     width: "5%",
+                          qNumType: "M",
+                    qNumFmt: "£#,##0.00",
                   },
                 ],
               },
