@@ -35,6 +35,7 @@ const TableHeader = ({
         headerAlignment={headerAlignment}
         headerFontColor={headerFontColor}
         key={i}
+        type={data.qColumnType}
         onClick={() => (interactiveSort ? sortChange(data) : null)}
       >
         {data.Header}

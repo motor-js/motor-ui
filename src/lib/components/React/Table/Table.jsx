@@ -71,7 +71,7 @@ Table.propTypes = {
   For more information regarding the impact, please see https://www.w3schools.com/cssref/pr_tab_table-layout.asp */
   tableLayout: PropTypes.oneOf(["fixed", "auto"]),
   /* Alignment of header row */
-  headerAlignment: PropTypes.oneOf(["left", "middle", "right"]),
+  headerAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
   /* header background color */
   headerBackgroundColor: PropTypes.string,
   /* header font color */
@@ -87,7 +87,7 @@ Table.propTypes = {
   /* To allow or disable selections */
   allowSelections: PropTypes.bool,
   /* Text aligmentment */
-  bodyAlignment: PropTypes.string,
+  bodyAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
 };
 
 Table.defaultProps = {

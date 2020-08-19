@@ -3,6 +3,40 @@ import { defaultProps } from "../../../default-props";
 import { globalStyle } from "../../../utils/styles";
 import { selectColor } from "../../../utils/colors";
 
+const handleAlignmentStyle = (alignment, col) => {
+  //  text-align: ${(props) =>
+  //  props.bodyAlignment === "leftRight" && props.col.qColumnType};
+
+  // const { bodyAlignment, col } = props;
+
+  let textAlignment = null;
+
+  switch (alignment) {
+    case "left":
+      textAlignment = "left";
+      break;
+    case "center":
+    case "middle":
+      textAlignment = "center";
+      break;
+    case "right":
+      textAlignment = "right";
+      break;
+    case "leftRight":
+      textAlignment = col === "dim" ? "left" : "right";
+      break;
+    default:
+      textAlignment = "left";
+      break;
+  }
+
+  return textAlignment;
+
+  // return css`
+  //   text-align: ${textAlignment};
+  // `;
+};
+
 const handleTableCellStyle = (props) => {
   const { item, col, selCol, selectionsActive, pendingSel } = props;
 
@@ -40,7 +74,8 @@ const handleTableCellStyle = (props) => {
   return css`
     background-color: ${bkgColor} !important;
     color: ${textColor} !important;
-    text-align: ${(props) => props.bodyAlignment};
+    text-align: ${(props) =>
+      handleAlignmentStyle(props.bodyAlignment, props.col.qColumnType)};
   `;
 };
 
@@ -120,7 +155,8 @@ const HeaderCell = styled.th`
       props.headerBackgroundColor || props.theme.table.color.headerBackground,
       props.theme
     )};
-  text-align: ${(props) => props.headerAlignment};
+  text-align: ${(props) =>
+    handleAlignmentStyle(props.headerAlignment, props.type)};
   padding: ${(props) => props.theme.table.header.padding};
   color: ${(props) =>
     selectColor(
