@@ -39,7 +39,6 @@
   "dependencies": {
     "@babel/types": "^7.10.3",
     "@styled-icons/feather": "^10.0.0",
-    "cogo-toast": "^4.2.3",
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
     "enigma.js": "^2.6.3",
