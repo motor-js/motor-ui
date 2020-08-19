@@ -17,17 +17,24 @@ const StyledNotConnected = ({
   backgroundColor,
   buttonFontColor,
   buttonColor,
+  theme,
 }) => {
+  const {
+    global: { notConnected },
+  } = theme;
+
   return (
     <NotConnectedOverlay>
-      <NotConnectedBox color={backgroundColor}>
+      <NotConnectedBox color={backgroundColor || notConnected.backgroundColor}>
         <Box
           focusable={false}
           width="100%"
           border="bottom"
           justifyContent="center"
         >
-          <NotConnectedHeader size={size}>{header}</NotConnectedHeader>
+          <NotConnectedHeader size={size || notConnected.size}>
+            {header || notConnected.header}
+          </NotConnectedHeader>
         </Box>
         <Box
           focusable={false}
@@ -37,14 +44,16 @@ const StyledNotConnected = ({
           direction="column"
           padding="0.8rem"
         >
-          <NotConnectedText size={size}>{body}</NotConnectedText>
+          <NotConnectedText size={size || notConnected.size}>
+            {body || notConnected.body}
+          </NotConnectedText>
           <Button
-            size={size}
-            fontColor={buttonFontColor}
-            color={buttonColor}
+            size={size || notConnected.size}
+            fontColor={buttonFontColor || notConnected.buttonFontColor}
+            color={buttonColor || notConnected.buttonColor}
             onClick={() => location.reload()}
           >
-            {buttonText}
+            {buttonText || notConnected.buttonText}
           </Button>
         </Box>
       </NotConnectedBox>

@@ -132,6 +132,24 @@ electric
 
 const base = {
   global: {
+    login: {
+      header: "Welcome to your motor js mashup",
+      body: "Please log on to access your application",
+      size: "medium",
+      buttonText: "Login",
+      backgroundColor: "white",
+      buttonFontColor: "white",
+      buttonColor: "brand",
+    },
+    notConnected: {
+      header: "Connection to server lost",
+      body: "Please reload the page to refresh the dashboard",
+      size: "medium",
+      buttonText: "Reload Page",
+      backgroundColor: "white",
+      buttonFontColor: "white",
+      buttonColor: "brand",
+    },
     backgroundColor: "white",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
     colorTheme: "motor",

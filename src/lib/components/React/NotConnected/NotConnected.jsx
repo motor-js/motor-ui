@@ -32,14 +32,4 @@ NotConnected.propTypes = {
   buttonColor: PropTypes.string,
 };
 
-NotConnected.defaultProps = {
-  header: "Connection to server lost",
-  body: "Please reload the page to refresh the dashboard",
-  size: "medium",
-  buttonText: "Reload Page",
-  backgroundColor: "white",
-  buttonFontColor: "white",
-  buttonColor: "brand",
-};
-
 export default NotConnected;
