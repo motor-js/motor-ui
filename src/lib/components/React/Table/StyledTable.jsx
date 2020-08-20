@@ -53,6 +53,8 @@ const StyledTable = ({
   bandedRows,
   highlightOnSelection,
   allowSelections,
+  gridArea,
+  backgroundColor,
   bodyAlignment,
 }) => {
   // Component state
@@ -249,7 +251,7 @@ const StyledTable = ({
               qSortIndicator: col.qSortIndicator,
               qReverseSort: col.qReverseSort,
               qGrandTotals: { qText: null, qNum: null },
-              qColumnType: "bodyAlignment",
+              qColumnType: "dim",
             })),
             ...qLayout.qHyperCube.qMeasureInfo.map((col, index) => ({
               Header: col.qFallbackTitle,
@@ -381,7 +383,20 @@ const StyledTable = ({
   };
 
   return (
-    <>
+    <div
+      ref={wrapperRef}
+      data-testid="wrap"
+      style={{
+        position: "relative",
+        margin,
+      }}
+    >
+      <SelectionModal
+        width={wrapperWidth}
+        isOpen={isSelectionVisible}
+        confirmCallback={confirmSelections}
+        cancelCallback={cancelSelections}
+      />
       {qData && qLayout && mergedCols && isValid ? (
         <div>
           <ContextMenuTrigger id="context-menu" hideOnLeave>
@@ -395,118 +410,90 @@ const StyledTable = ({
               height={height}
               size={size}
               onClick={(e) => e.stopPropagation()}
+              gridArea={gridArea}
+              backgroundColor={backgroundColor}
             >
+              <TableOutline tableLayout={tableLayout} tableWidth={tableWidth}>
+                <TableHeader
+                  columns={mergedCols}
+                  sortChangeCallback={handleSortedChange}
+                  grandTotalsFlag={grandTotalsFlag}
+                  interactiveSort={interactiveSort}
+                  headerAlignment={headerAlignment}
+                  headerBackgroundColor={headerBackgroundColor}
+                  headerFontColor={headerFontColor}
+                  gridPxl={gridPxl}
+                />
+                <TableBody
+                  columns={mergedCols}
+                  qData={qData || null}
+                  qcy={qLayout ? qLayout.qHyperCube.qSize.qcy : null}
+                  handleSelCallback={handleSelect}
+                  page={page}
+                  pageHeight={pageHeight}
+                  handlePagingCallback={handlePageChange}
+                  handleScrollCallback={handleScrollCallback}
+                  selectionsActive={selectionsActive}
+                  bodyAlignment={bodyAlignment}
+                  gridPxl={gridPxl}
+                  bandedRows={bandedRows}
+                  highlightOnSelection={highlightOnSelection}
+                  pendingSel={pendingSel}
+                  selCol={selCol}
+                />
+              </TableOutline>
               <div
-                ref={wrapperRef}
-                data-testid="wrap"
                 style={{
-                  position: "relative",
-                  height,
-                  marginTop: "40px",
+                  display: "grid",
+                  gridTemplateColumns: `${pages > 1 ? "30% auto 30%" : "100%"}`,
+                  gridGap: "10px",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
-                <SelectionModal
-                  // width={wrapperWidth}
-                  isOpen={isSelectionVisible}
-                  confirmCallback={confirmSelections}
-                  cancelCallback={cancelSelections}
-                />
-                <div
-                  style={{
-                    border: isSelectionVisible ? "1px solid #CCCCCC" : "none",
-                    overflowX: isSelectionVisible ? "hidden" : "auto",
-                    overflowY: isSelectionVisible ? "hidden" : "auto",
-                    // width,
-                  }}
-                >
-                  <TableOutline
-                    tableLayout={tableLayout}
-                    tableWidth={tableWidth}
-                  >
-                    <TableHeader
-                      columns={mergedCols}
-                      sortChangeCallback={handleSortedChange}
-                      grandTotalsFlag={grandTotalsFlag}
-                      interactiveSort={interactiveSort}
-                      headerAlignment={headerAlignment}
-                      headerBackgroundColor={headerBackgroundColor}
-                      headerFontColor={headerFontColor}
-                      gridPxl={gridPxl}
-                    />
-                    <TableBody
-                      columns={mergedCols}
-                      qData={qData || null}
-                      qcy={qLayout ? qLayout.qHyperCube.qSize.qcy : null}
-                      handleSelCallback={handleSelect}
-                      page={page}
-                      pageHeight={pageHeight}
-                      handlePagingCallback={handlePageChange}
-                      handleScrollCallback={handleScrollCallback}
-                      selectionsActive={selectionsActive}
-                      bodyAlignment={bodyAlignment}
-                      gridPxl={gridPxl}
-                      bandedRows={bandedRows}
-                      highlightOnSelection={highlightOnSelection}
-                      pendingSel={pendingSel}
-                      selCol={selCol}
-                    />
-                  </TableOutline>
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: `${
-                        pages > 1 ? "30% auto 30%" : "100%"
-                      }`,
-                      gridGap: "10px",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {pages > 1 && (
-                      <div style={{ textAlign: "left" }}>
-                        <Button
-                          disabled={page > 0 ? false : true}
-                          size="small"
-                          type="default"
-                          onClick={firstPage}
-                        >
-                          <Backward size={16} />
-                        </Button>
-                        <Button
-                          disabled={page > 0 ? false : true}
-                          size="small"
-                          type="default"
-                          onClick={decrementPage}
-                        >
-                          <StepBackward size={16} />
-                        </Button>
-                      </div>
-                    )}
-                    <div style={{ margin: "auto" }}>
-                      Page {page + 1} of {pages}
-                    </div>
-                    {pages > 1 && (
-                      <div style={{ textAlign: "right" }}>
-                        <Button
-                          disabled={page + 1 < pages ? false : true}
-                          size="small"
-                          type="default"
-                          onClick={incrementPage}
-                        >
-                          <StepForward size={16} />
-                        </Button>
-                        <Button
-                          disabled={page + 1 < pages ? false : true}
-                          size="small"
-                          type="default"
-                          onClick={lastPage}
-                        >
-                          <Forward size={16} />
-                        </Button>
-                      </div>
-                    )}
+                {pages > 1 && (
+                  <div style={{ textAlign: "left" }}>
+                    <Button
+                      disabled={page > 0 ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={firstPage}
+                    >
+                      <Backward size={16} />
+                    </Button>
+                    <Button
+                      disabled={page > 0 ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={decrementPage}
+                    >
+                      <StepBackward size={16} />
+                    </Button>
                   </div>
+                )}
+                <div style={{ margin: "auto" }}>
+                  Page {page + 1} of {pages}
                 </div>
+                {pages > 1 && (
+                  <div style={{ textAlign: "right" }}>
+                    <Button
+                      disabled={page + 1 < pages ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={incrementPage}
+                    >
+                      <StepForward size={16} />
+                    </Button>
+                    <Button
+                      disabled={page + 1 < pages ? false : true}
+                      size="small"
+                      type="default"
+                      onClick={lastPage}
+                    >
+                      <Forward size={16} />
+                    </Button>
+                  </div>
+                )}
               </div>
             </TableWrapper>
           </ContextMenuTrigger>
@@ -517,12 +504,16 @@ const StyledTable = ({
             wrapperWidth={wrapperWidth}
             height={height}
             size={size}
+            gridArea={gridArea}
+            backgroundColor={backgroundColor}
           >
+            {/* <TableNoDataContent height={height}> */}
             {calcCond || dataError || engineError || <Spinner />}
+            {/* </TableNoDataContent> */}
           </TableWrapperNoData>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

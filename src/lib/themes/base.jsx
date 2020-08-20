@@ -754,6 +754,8 @@ const base = {
     },
     wrapper: {
       borderColor: "altGray5",
+      margin: "0px 10px",
+      backgroundColor: "white",
     },
     header: {
       borderColor: "altGray5",

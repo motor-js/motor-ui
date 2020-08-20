@@ -76,22 +76,33 @@ const handleTableCellStyle = (props) => {
 
 const TableWrapper = styled.div`
   ${globalStyle};
-  height: ${(props) => props.height};
-  width: ${(props) => props.wrapperWidth};
+  height: ${(props) => !props.gridArea && props.height};
+  width: ${(props) => !props.gridArea && props.wrapperWidth};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   position: relative;
   overflow: auto;
   padding-bottom: 10px;
+  margin: ${(props) => props.margin || props.theme.table.wrapper.margin};
+  background-color: ${(props) =>
+    selectColor(
+      props.backgroundColor || props.theme.table.wrapper.backgroundColor,
+      props.theme
+    )};
 `;
+
 const TableWrapperNoData = styled.div`
   ${globalStyle};
-  height: ${(props) => props.height};
-  width: ${(props) => props.wrapperWidth};
-  display: ${(props) => props.theme.global.chart.noData.display};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
+  height: ${(props) => !props.gridArea && props.height};
+  width: ${(props) => !props.gridArea && props.wrapperWidth};
   align-items: ${(props) => props.theme.global.chart.noData.alignItems};
   justify-content: ${(props) => props.theme.global.chart.noData.justifyContent};
+  margin: ${(props) => props.margin || props.theme.table.wrapper.margin};
   background-color: ${(props) =>
-    props.theme.global.chart.noData.backgroundColor};
-  border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
+    selectColor(
+      props.backgroundColor || props.theme.table.wrapper.backgroundColor,
+      props.theme
+    )};
 `;
 
 const TableOutline = styled.table`

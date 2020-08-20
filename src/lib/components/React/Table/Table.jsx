@@ -88,6 +88,10 @@ Table.propTypes = {
   allowSelections: PropTypes.bool,
   /* Text aligmentment */
   bodyAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
+  /** Background Color of the chart */
+  backgroundColor: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -96,7 +100,7 @@ Table.defaultProps = {
   calcCondition: undefined,
   columnSortOrder: [],
   grandTotalsFlag: false,
-  margin: "0px",
+  margin: null,
   height: "400px",
   wrapperWidth: "100%",
   tableWidth: "100%",
@@ -112,6 +116,8 @@ Table.defaultProps = {
   highlightOnSelection: false,
   allowSelections: true,
   bodyAlignment: "left",
+  gridArea: null,
+  backgroundColor: null,
 };
 
 export default Table;
