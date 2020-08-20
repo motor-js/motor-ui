@@ -24,6 +24,34 @@ const Table = ({ config, ...rest }) => {
   );
 };
 
+const BORDER_SHAPE = PropTypes.shape({
+  color: PropTypes.oneOfType([PropTypes.string]),
+  side: PropTypes.oneOf([
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
+  ]),
+  size: PropTypes.oneOfType([PropTypes.string]),
+  style: PropTypes.oneOf([
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
+  ]),
+});
+
 Table.propTypes = {
   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   config: PropTypes.object,
@@ -92,6 +120,53 @@ Table.propTypes = {
   gridArea: PropTypes.string,
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
+  /** Border of the Pie Chart, need desc */
+  border: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf([
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+      "none",
+    ]),
+    PropTypes.shape({
+      color: PropTypes.oneOfType([PropTypes.string]),
+      side: PropTypes.oneOf([
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
+      ]),
+      size: PropTypes.oneOfType([PropTypes.string]),
+      style: PropTypes.oneOf([
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
+      ]),
+    }),
+    PropTypes.arrayOf(BORDER_SHAPE),
+  ]),
+  /** Border Radius of the chart */
+  borderRadius: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -118,6 +193,8 @@ Table.defaultProps = {
   bodyAlignment: "left",
   gridArea: null,
   backgroundColor: null,
+  border: true,
+  borderRadius: null,
 };
 
 export default Table;

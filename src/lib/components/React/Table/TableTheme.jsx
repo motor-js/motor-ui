@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { defaultProps } from "../../../default-props";
-import { globalStyle } from "../../../utils/styles";
+import { globalStyle, borderStyle } from "../../../utils/styles";
 import { selectColor } from "../../../utils/colors";
 
 const handleAlignmentStyle = (alignment, col) => {
@@ -88,6 +88,13 @@ const TableWrapper = styled.div`
       props.backgroundColor || props.theme.table.wrapper.backgroundColor,
       props.theme
     )};
+  ${(props) =>
+    props.border &&
+    props.border !== "none" &&
+    (Array.isArray(props.border, props.theme)
+      ? props.border.map((border) => borderStyle(border, props.theme))
+      : borderStyle(props.border, props.theme))};
+  border-radius: ${(props) => props.theme.table.wrapper.radius};
 `;
 
 const TableWrapperNoData = styled.div`
@@ -103,6 +110,13 @@ const TableWrapperNoData = styled.div`
       props.backgroundColor || props.theme.table.wrapper.backgroundColor,
       props.theme
     )};
+  ${(props) =>
+    props.border &&
+    props.border !== "none" &&
+    (Array.isArray(props.border, props.theme)
+      ? props.border.map((border) => borderStyle(border, props.theme))
+      : borderStyle(props.border, props.theme))};
+  border-radius: ${(props) => props.theme.table.wrapper.radius};
 `;
 
 const TableNoDataContent = styled.div`

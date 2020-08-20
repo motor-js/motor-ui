@@ -57,6 +57,8 @@ const StyledTable = ({
   gridArea,
   backgroundColor,
   bodyAlignment,
+  border,
+  borderRadius,
 }) => {
   // Component state
   const [loading, setLoading] = useState(true);
@@ -383,6 +385,20 @@ const StyledTable = ({
     tableRef.current.scrollTop = 0;
   };
 
+  const divStyle = {
+    fontSize: "14px",
+    cursor: "pointer",
+    padding: "8px 12px",
+    border: "1px solid grey",
+    backgroundColor: "white",
+    borderRadius: "2px",
+    zIndex: "500",
+
+    "&:hover": {
+      backgroundColor: "grey",
+    },
+  };
+
   return (
     <div
       ref={wrapperRef}
@@ -401,7 +417,7 @@ const StyledTable = ({
       {qData && qLayout && mergedCols && isValid ? (
         <div>
           <ContextMenuTrigger id="context-menu" hideOnLeave>
-            <ContextMenu id="context-menu" css={DropMenu}>
+            <ContextMenu id="context-menu" style={divStyle}>
               <MenuItem onClick={dataExport}>Export Data</MenuItem>
             </ContextMenu>
             <TableWrapper
@@ -412,7 +428,9 @@ const StyledTable = ({
               size={size}
               onClick={(e) => e.stopPropagation()}
               gridArea={gridArea}
+              border={border}
               backgroundColor={backgroundColor}
+              borderRadius={borderRadius}
             >
               <TableOutline tableLayout={tableLayout} tableWidth={tableWidth}>
                 <TableHeader
@@ -506,7 +524,9 @@ const StyledTable = ({
             height={height}
             size={size}
             gridArea={gridArea}
+            border={border}
             backgroundColor={backgroundColor}
+            borderRadius={borderRadius}
           >
             <TableNoDataContent height={height}>
               {calcCond || dataError || engineError || <Spinner />}

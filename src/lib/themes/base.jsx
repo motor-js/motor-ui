@@ -756,6 +756,7 @@ const base = {
       borderColor: "altGray5",
       margin: "0px 10px",
       backgroundColor: "white",
+      radius: "8px",
     },
     header: {
       borderColor: "altGray5",
