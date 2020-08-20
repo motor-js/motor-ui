@@ -1,24 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import StyledSelections from './StyledSelections'
-import { ConfigContext } from '../../../contexts/ConfigProvider'
-import { EngineContext } from '../../../contexts/EngineProvider'
-import useEngine from '../../../hooks/useEngine'
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import StyledSelections from "./StyledSelections";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
-function CurrentSelections({
-  config,
-  ...rest
-}) {
-  const myConfig = config || useContext(ConfigContext)
-  const { engine } = useContext(EngineContext) || useEngine(myConfig)
+function CurrentSelections({ config, ...rest }) {
+  const myConfig = config || useContext(ConfigContext);
+  const { engine } = useContext(EngineContext) || useEngine(myConfig);
 
-  return (
-    <StyledSelections
-      engine={engine}
-      {...rest}
-    />
-  )
+  return <StyledSelections engine={engine} {...rest} />;
 }
 
 // <span style={SelectionsX} onClick={() => toggleList(item.field)}>&nbsp;{<ChevronDown style={IconChevron} height={15}/>}</span>
@@ -27,7 +19,7 @@ CurrentSelections.propTypes = {
   Leave null if you are using the Juno parent component */
   config: PropTypes.object,
   /** Size of the selections box */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /** Width of the selections box */
   width: PropTypes.string,
   /** Set margin */
@@ -41,20 +33,23 @@ CurrentSelections.propTypes = {
    * before values are grouped */
   selectionsLimit: PropTypes.oneOf([1, 2, 3, 4, 5]),
   /* set overflow properties on the x-axis or y-axis */
-  overflow: PropTypes.oneOf(['x-axis', 'y-axis']),
-  flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-}
+  overflow: PropTypes.oneOf(["x-axis", "y-axis"]),
+  flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
+};
 
 CurrentSelections.defaultProps = {
   config: null,
-  size: 'medium',
-  width: '500px',
-  margin: '5px',
-  maxHeight: '80px',
-  minHeight: '80px',
+  size: "medium",
+  width: "500px",
+  margin: null,
+  maxHeight: "80px",
+  minHeight: "80px",
   selectionsLimit: 3,
-  overflow: 'x-axis',
+  overflow: "x-axis",
   flex: null,
-}
+  gridArea: null,
+};
 
-export default CurrentSelections
+export default CurrentSelections;

@@ -13,14 +13,15 @@ const overflowStyles = css`
 const SelectionsWrapper = styled.div`
   ${globalStyle};
   ${overflowStyles};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   max-height: ${(props) => props.maxHeight};
   min-height: ${(props) => props.minHeight};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.selections.wrapper.margin};
   display: flex;
   flex: ${(props) => props.flex};
   align-items: flex-start;
   align-content: flex-start;
-  max-width: ${(props) => props.width};
+  max-width: ${(props) => (props.gridArea ? null : props.width)};
   border: ${(props) => props.theme.selections.wrapper.border};
   border-radius: ${(props) => props.theme.selections.wrapper.radius};
   background-color: ${(props) =>

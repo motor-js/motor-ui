@@ -487,6 +487,7 @@ const base = {
       backgroundColor: "white",
       borderColor: "brand",
       radius: "8px",
+      margin: "10px",
     },
     item: {
       border: "1px solid",
