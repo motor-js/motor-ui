@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronUp, ChevronDown } from "react-feather";
+import { ChevronUp, ChevronDown } from "@styled-icons/fa-solid";
 import {
   HeaderRow,
   HeaderCell,
@@ -44,12 +44,14 @@ const TableHeader = ({
             {data.qReverseSort ? (
               <ChevronUp
                 height={12}
+                width={24}
                 strokeWidth={3}
                 // onClick={() => sortChange(data)}
               />
             ) : (
               <ChevronDown
                 height={12}
+                width={24}
                 strokeWidth={3}
                 // onClick={() => sortChange(data)}
               />

@@ -22,11 +22,11 @@ import {
   DropMenu,
 } from "./TableTheme";
 import {
-  ChevronLeft,
-  ChevronsLeft,
-  ChevronRight,
-  ChevronsRight,
-} from "react-feather";
+  StepBackward,
+  Backward,
+  StepForward,
+  Forward,
+} from "@styled-icons/fa-solid";
 
 const StyledTable = ({
   engine,
@@ -249,7 +249,7 @@ const StyledTable = ({
               qSortIndicator: col.qSortIndicator,
               qReverseSort: col.qReverseSort,
               qGrandTotals: { qText: null, qNum: null },
-              qColumnType: "dim",
+              qColumnType: "bodyAlignment",
             })),
             ...qLayout.qHyperCube.qMeasureInfo.map((col, index) => ({
               Header: col.qFallbackTitle,
@@ -455,7 +455,7 @@ const StyledTable = ({
                       type="default"
                       onClick={firstPage}
                     >
-                      <ChevronsLeft size={16} />
+                      <Backward size={16} />
                     </Button>
                     <Button
                       disabled={page > 0 ? false : true}
@@ -463,7 +463,7 @@ const StyledTable = ({
                       type="default"
                       onClick={decrementPage}
                     >
-                      <ChevronLeft size={16} />
+                      <StepBackward size={16} />
                     </Button>
                   </div>
                 )}
@@ -478,7 +478,7 @@ const StyledTable = ({
                       type="default"
                       onClick={incrementPage}
                     >
-                      <ChevronRight size={16} />
+                      <StepForward size={16} />
                     </Button>
                     <Button
                       disabled={page + 1 < pages ? false : true}
@@ -486,7 +486,7 @@ const StyledTable = ({
                       type="default"
                       onClick={lastPage}
                     >
-                      <ChevronsRight size={16} />
+                      <Forward size={16} />
                     </Button>
                   </div>
                 )}

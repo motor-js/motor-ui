@@ -5,31 +5,19 @@ import { selectColor } from "../../../utils/colors";
 import Box from "../Box";
 import Grid from "../Grid";
 import {
-  XCircle as styledXCircle,
-  Menu as styledMenu,
+  TimesCircle as styledXCircle,
+  Bars as styledMenu,
   Filter as styledFilter,
-} from "@styled-icons/feather";
+} from "@styled-icons/fa-solid";
 
 const MenuHeader = styled(Box)`
-  // position: absolute;
-  // top: 10px;
-  // left: 0;
   padding: 16px 0 16px 34px;
-  // width: 100%;
-  // margin: 0 0 16px 0;
   grid-area: header;
   align-items: center;
 `;
 
 const MenuFooter = styled(Box)`
-  // position: absolute;
-  // bottom: 0;
-  // left: 0;
-  //padding: 16px 0px 16px 34px;
   padding: 0 1.5em 0;
-  // width: 229px;
-  // width: 100%;
-  // margin: 0 0px 16px 34px;
   grid-area: footer;
   align-items: center;
   text-align: center;
@@ -56,13 +44,9 @@ const Overlay = styled.div`
 `;
 
 const MenuWrap = styled(Grid)`
-      // position: 'fixed';
       right: ${({ right }) => (right ? 0 : "")};
       position: absolute;
-      // display: isOpen ? "block" : "none";
-      // rows={["60px", "auto", "30px"]};
       display: grid;
-      // grid-template-rows: 80px auto 40px;
       grid-template-rows:  ${({ headerHeight, footerHeight }) =>
         `${headerHeight} auto ${footerHeight}`};
       grid-template-columns: auto;
@@ -73,10 +57,8 @@ const MenuWrap = styled(Grid)`
       z-index:  1100;
       width: ${({ sideBarWidth, theme }) =>
         sideBarWidth || theme.sidebar.width};
-      // height: 100%;
         border-radius: ${(props) =>
           props.borderRadius || props.theme.sidebar.border.radius};
-      // opacity: isOpen ? 1 : 0;
       "-moz-transform": ${({ isOpen, right }) =>
         isOpen
           ? ""
@@ -140,18 +122,6 @@ const ItemList = styled.nav`
   height: 100%;
   color: #b8b7ad;
 `;
-
-// const BurgerButton = styled.div`
-//   position: fixed;
-//   width: 36px;
-//   height: 30px;
-//   left: 36px;
-//   top: 36px;
-//   zindex: 1000;
-//   position: absolute;
-//   top: 10px;
-//   right: 10px;
-// `;
 
 const CloseIcon = styled(styledXCircle)`
   color: ${(props) =>
@@ -227,9 +197,6 @@ Object.setPrototypeOf(MenuMain.defaultProps, defaultProps);
 ItemList.defaultProps = {};
 Object.setPrototypeOf(ItemList.defaultProps, defaultProps);
 
-// BurgerButton.defaultProps = {};
-// Object.setPrototypeOf(BurgerButton.defaultProps, defaultProps);
-
 CloseIcon.defaultProps = {};
 Object.setPrototypeOf(CloseIcon.defaultProps, defaultProps);
 
@@ -250,7 +217,6 @@ export {
   MenuWrap,
   MenuMain,
   ItemList,
-  // BurgerButton,
   CloseIcon,
   MenuIcon,
   FilterIcon,

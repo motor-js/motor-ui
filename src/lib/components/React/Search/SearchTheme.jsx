@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Search } from "@styled-icons/feather/Search";
-import { X } from "@styled-icons/feather/X";
+import { Search, Times } from "@styled-icons/fa-solid";
 import { globalStyle } from "../../../utils/styles";
 import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
@@ -49,7 +48,7 @@ const SearchIcon = styled(Search)`
   color: ${(props) => selectColor(props.theme.search.color.icon, props.theme)};
 `;
 
-const XIcon = styled(X)`
+const XIcon = styled(Times)`
   padding-right: 0.5em;
   cursor: pointer;
   color: ${(props) => selectColor(props.theme.search.color.icon, props.theme)};
@@ -74,7 +73,7 @@ const SuggestionsList = styled.ul`
   overflow: auto;
   cursor: normal;
   position: absolute;
-  width: 100%; 
+  width: 100%;
 `;
 
 const SuggestionsItem = styled.li`

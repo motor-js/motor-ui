@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { ChevronUp } from "@styled-icons/feather/ChevronUp";
-import { ChevronDown } from "@styled-icons/feather/ChevronDown";
-import { Search } from "@styled-icons/feather/Search";
-import { X } from "@styled-icons/feather/X";
+import { ChevronUp } from "@styled-icons/fa-solid/ChevronUp";
+import { ChevronDown } from "@styled-icons/fa-solid/ChevronDown";
+import { Search } from "@styled-icons/fa-solid/Search";
+import { Times } from "@styled-icons/fa-solid/Times";
 import { defaultProps } from "../../../default-props";
 import { globalStyle } from "../../../utils/styles";
 import { selectColor } from "../../../utils/colors";
@@ -121,7 +121,7 @@ const FilterSearch = styled.input`
   background-color: ${(props) => props.theme.global.color.backgroundColor};
 `;
 
-const XStyle = styled(X)`
+const XStyle = styled(Times)`
   margin-left: auto;
   padding-right: 5px;
   color: ${(props) => selectColor(props.theme.filter.color.icon, props.theme)};

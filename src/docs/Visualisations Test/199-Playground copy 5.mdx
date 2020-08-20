@@ -25,6 +25,21 @@ import { config } from '../config/config.js'
             prefix: "",
             appId: "e2533176-1426-4089-bf50-4f3c2b4e7b58"
   }}> 
+  <KPI
+    margin="10px"
+    cols={[
+      {
+        qField:
+          '=Avg( { $< [Claim Notification Date.autoCalendar.InYTD]={1} ,[Claim Notification Date.autoCalendar.YearsAgo]={0} > } [Total Claim Cost])',
+        qNumType: 'M',
+        qNumFmt: '£#,##0',
+      },
+    ]}
+    roundNum={false}
+    label="Ave Claim Costs (YTD)"
+    size="small"
+   // border={false}
+  />
 
 
         <Filter label="Claim Status" dimension={["Claim Status"]} />
