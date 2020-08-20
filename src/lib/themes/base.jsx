@@ -230,6 +230,7 @@ const base = {
       allowSlantedYAxis: false,
       backgroundColor: "white",
       borderRadius: "10px",
+      margin: "10px",
       userSelect: "none",
       suppressZero: false,
       suppressScroll: false,
@@ -487,7 +488,7 @@ const base = {
       backgroundColor: "white",
       borderColor: "brand",
       radius: "8px",
-      margin: "10px",
+      margin: "5px 10px",
     },
     item: {
       border: "1px solid",
