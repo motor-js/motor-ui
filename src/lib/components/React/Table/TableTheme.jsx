@@ -105,6 +105,16 @@ const TableWrapperNoData = styled.div`
     )};
 `;
 
+const TableNoDataContent = styled.div`
+  ${globalStyle};
+  display: ${(props) => props.theme.global.chart.noDataContent.display};
+  margin: ${(props) => props.theme.global.chart.noDataContent.margin};
+  align-items: ${(props) => props.theme.global.chart.noDataContent.alignItems};
+  justify-content: ${(props) =>
+    props.theme.global.chart.noDataContent.justifyContent};
+  height: ${(props) => !props.gridArea && props.height};
+`;
+
 const TableOutline = styled.table`
   cursor: pointer;
     "-webkit-user-select": "none",
@@ -299,6 +309,9 @@ Object.setPrototypeOf(TableWrapper.defaultProps, defaultProps);
 TableWrapperNoData.defaultProps = {};
 Object.setPrototypeOf(TableWrapperNoData.defaultProps, defaultProps);
 
+TableNoDataContent.defaultProps = {};
+Object.setPrototypeOf(TableNoDataContent.defaultProps, defaultProps);
+
 TableOutline.defaultProps = {};
 Object.setPrototypeOf(TableOutline.defaultProps, defaultProps);
 
@@ -326,6 +339,7 @@ Object.setPrototypeOf(TableCellStyle.defaultProps, defaultProps);
 export {
   TableWrapper,
   TableWrapperNoData,
+  TableNoDataContent,
   TableOutline,
   HeaderRow,
   HeaderCell,

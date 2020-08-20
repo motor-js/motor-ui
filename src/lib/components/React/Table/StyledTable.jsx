@@ -18,6 +18,7 @@ import Spinner from "../Spinner";
 import {
   TableWrapper,
   TableWrapperNoData,
+  TableNoDataContent,
   TableOutline,
   DropMenu,
 } from "./TableTheme";
@@ -507,9 +508,9 @@ const StyledTable = ({
             gridArea={gridArea}
             backgroundColor={backgroundColor}
           >
-            {/* <TableNoDataContent height={height}> */}
-            {calcCond || dataError || engineError || <Spinner />}
-            {/* </TableNoDataContent> */}
+            <TableNoDataContent height={height}>
+              {calcCond || dataError || engineError || <Spinner />}
+            </TableNoDataContent>
           </TableWrapperNoData>
         </div>
       )}
