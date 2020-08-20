@@ -23,7 +23,7 @@ export default function CreatePie({
   useSelectionColours,
   setRefreshChart,
   beginSelections,
-  setSelectionPieVisible,
+  setSelectionVisible,
   selections,
   select,
   // buildSelections,
@@ -162,7 +162,7 @@ export default function CreatePie({
 
     beginSelections();
 
-    setSelectionPieVisible(true);
+    setSelectionVisible(true);
 
     // if (!selections) return;
     // let itemsSelected = null;
