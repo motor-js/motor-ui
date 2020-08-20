@@ -346,7 +346,7 @@ const base = {
         verticalAlign: "top",
         borderRadius: "10px",
         // backgroundColor: "var(--oc-gray-1)",
-        backgroundColor: "none",
+        backgroundColor: "white",
         // borderCollapse: "collapse",
       },
       noDataContent: {

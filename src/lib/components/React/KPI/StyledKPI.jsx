@@ -41,6 +41,7 @@ function StyledKPI({
   padding,
   backgroundColor,
   autoSizeValue,
+  gridArea,
 }) {
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -127,6 +128,7 @@ function StyledKPI({
           backgroundColor={backgroundColor}
           size={size}
           padding={padding}
+          gridArea={gridArea}
         >
           <KPIGroup>
             <KPILabel
@@ -164,6 +166,8 @@ function StyledKPI({
           margin={margin}
           width={width}
           border={border}
+          gridArea={gridArea}
+          backgroundColor={backgroundColor}
         >
           {calcCond || dataError || engineError || <Spinner />}
         </KPIWrapperNoData>

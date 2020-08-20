@@ -24,6 +24,7 @@ const noDataHeight = (props) => {
 
 const KPIWrapper = styled.div`
   ${globalStyle}
+    ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   box-sizing: ${(props) => props.theme.kpi.wrapper.boxSizing};
   margin: ${(props) => props.margin || props.theme.kpi.wrapper.margin};
   padding: ${(props) =>
@@ -39,9 +40,12 @@ const KPIWrapper = styled.div`
   border-radius: ${(props) => props.theme.kpi.wrapper.radius};
   max-width: ${(props) => props.maxWidth};
   cursor: ${(props) => props.cursor};
-  width: ${(props) => props.width};
-  background-color: ${(props) =>
-    props.backgroundColor || props.theme.kpi.wrapper.backgroundColor};
+  width: ${(props) => (props.gridArea ? null : props.width)};
+      background-color: ${(props) =>
+        selectColor(
+          props.backgroundColor || props.theme.kpi.wrapper.backgroundColor,
+          props.theme
+        )};
   position: relative;
   word-wrap: break-word;
     "-webkit-user-select": "none",
@@ -68,9 +72,10 @@ const KPIWrapper = styled.div`
 
 const KPIWrapperNoData = styled.div`
   ${globalStyle}
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   box-sizing: ${(props) => props.theme.kpi.wrapper.boxSizing};
   max-width: ${(props) => props.maxWidth};
-  width: ${(props) => props.width};
+  width: ${(props) => (props.gridArea ? null : props.width)};
   margin: ${(props) => props.margin || props.theme.kpi.wrapper.margin};
   padding: ${(props) =>
     props.padding ||
@@ -87,9 +92,11 @@ const KPIWrapperNoData = styled.div`
   align-items: ${(props) => props.theme.global.chart.noData.alignItems};
   justify-content: ${(props) => props.theme.global.chart.noData.justifyContent};
   background-color: ${(props) =>
-    props.theme.global.chart.noData.backgroundColor};
+    selectColor(
+      props.backgroundColor || props.theme.kpi.wrapper.backgroundColor,
+      props.theme
+    )};
 `;
-
 const KPIGroup = styled.div`
   display: flex;
   flex-direction: column;
