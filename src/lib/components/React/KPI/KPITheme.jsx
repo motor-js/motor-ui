@@ -88,7 +88,6 @@ const KPIWrapperNoData = styled.div`
   justify-content: ${(props) => props.theme.global.chart.noData.justifyContent};
   background-color: ${(props) =>
     props.theme.global.chart.noData.backgroundColor};
-  border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
 `;
 
 const KPIGroup = styled.div`

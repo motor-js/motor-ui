@@ -163,6 +163,7 @@ function StyledKPI({
           maxWidth={maxWidth}
           margin={margin}
           width={width}
+          border={border}
         >
           {calcCond || dataError || engineError || <Spinner />}
         </KPIWrapperNoData>

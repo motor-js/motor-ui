@@ -347,7 +347,7 @@ const base = {
         borderRadius: "10px",
         // backgroundColor: "var(--oc-gray-1)",
         backgroundColor: "none",
-        borderCollapse: "collapse",
+        // borderCollapse: "collapse",
       },
       noDataContent: {
         display: "flex",
