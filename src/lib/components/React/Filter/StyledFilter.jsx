@@ -1,10 +1,10 @@
 /* eslint-disable prefer-template */
-import React, { useState, useEffect, useRef } from 'react';
-import useListObject from '../../../hooks/useListObject';
-import useOutsideClick from '../../../hooks/useOutsideClick';
-import { validData } from '../../../utils';
-import DropdownList from './DropdownList';
-import Spinner from '../Spinner';
+import React, { useState, useEffect, useRef } from "react";
+import useListObject from "../../../hooks/useListObject";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import { validData } from "../../../utils";
+import DropdownList from "./DropdownList";
+import Spinner from "../Spinner";
 import {
   FilterWrapper,
   FilterWrapperNoData,
@@ -14,9 +14,9 @@ import {
   FilterList,
   ChevronUpIcon,
   ChevronDownIcon,
-} from './FilterTheme';
+} from "./FilterTheme";
 
-let searchListInputValue = '';
+let searchListInputValue = "";
 
 function StyledFilter({
   engine,
@@ -97,8 +97,8 @@ function StyledFilter({
     () => {
       if (listOpen) {
         setListOpen(!listOpen);
-        searchListInputValue = '';
-        searchListObjectFor('');
+        searchListInputValue = "";
+        searchListObjectFor("");
         endSelections(true);
         changePage({ qTop: 0 });
         setPage(0);
@@ -115,13 +115,13 @@ function StyledFilter({
 
   /** clear all of the selections */
   const clear = () => {
-    searchListInputValue = '';
-    searchListObjectFor('');
+    searchListInputValue = "";
+    searchListObjectFor("");
   };
 
   const _acceptListObjectSearch = (event) => {
     if (event.charCode === 13) {
-      searchListInputValue = '';
+      searchListInputValue = "";
       acceptListObjectSearch();
     }
   };
@@ -151,7 +151,7 @@ function StyledFilter({
 
   const _pageCallback = (top, p) => {
     changePage({ qTop: top });
-    p === 'next' ? setPage(page + 1) : setPage(page - 1);
+    p === "next" ? setPage(page + 1) : setPage(page - 1);
   };
 
   return (
@@ -159,18 +159,18 @@ function StyledFilter({
       margin={margin}
       size={size}
       width={width}
-      data-testid='filterWrapper'
+      data-testid="filterWrapper"
     >
       {qData && qLayout && isValid ? (
         <div
           ref={filterRef}
           onClick={() => toggleList()}
-          style={{ position: 'relative' }}
+          style={{ position: "relative" }}
         >
           {selectionsTitle ? (
             <FilterTitle
               selections={selections}
-              data-testid='filterTitle'
+              data-testid="filterTitle"
               open={listOpen}
             >
               {selections && selections.length === 0 && (
@@ -178,15 +178,15 @@ function StyledFilter({
               )}
               {selections && selections.length === 1 && (
                 <FilterTitleItems>
-                  {`${label}` + ': ' + selections[0][0].qText}
+                  {`${label}` + ": " + selections[0][0].qText}
                 </FilterTitleItems>
               )}
               {selections && selections.length > 1 && (
                 <FilterTitleItems>
                   {`${label}` +
-                    ': ' +
+                    ": " +
                     selections.length +
-                    ' of ' +
+                    " of " +
                     totalStateCounts}
                 </FilterTitleItems>
               )}
@@ -198,7 +198,7 @@ function StyledFilter({
             </FilterTitle>
           ) : (
             <FilterList
-              data-testid='filterTitleNoSel'
+              data-testid="filterTitleNoSel"
               open={listOpen}
               dropHeight={dropHeight}
               width={width}
@@ -235,7 +235,7 @@ function StyledFilter({
         </div>
       ) : (
         <FilterWrapperNoData margin={margin} size={size} width={width}>
-          {dataError || engineError || <Spinner />}
+          {dataError || engineError || <Spinner size={30} />}
         </FilterWrapperNoData>
       )}
     </FilterWrapper>
