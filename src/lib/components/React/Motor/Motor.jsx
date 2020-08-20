@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { ThemeContext } from '../../../contexts/ThemeProvider';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import { deepMerge } from '../../../utils/object';
-import defaultTheme from '../../../themes/defaultTheme';
+import React, { useState } from "react";
+import { ThemeContext } from "../../../contexts/ThemeProvider";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import { deepMerge } from "../../../utils/object";
+import defaultTheme from "../../../themes/defaultTheme";
+import Login from "../Login";
+import NotConnected from "../NotConnected";
 
 function Motor({ children, theme, config, engine }) {
   const [myTheme, setMyTheme] = useState(defaultTheme);
@@ -16,6 +18,8 @@ function Motor({ children, theme, config, engine }) {
     <EngineContext.Provider value={engine}>
       <ConfigContext.Provider value={myConfig}>
         <ThemeContext.Provider value={nextTheme}>
+          <Login />
+          <NotConnected />
           {children}
         </ThemeContext.Provider>
       </ConfigContext.Provider>

@@ -10,14 +10,24 @@
 
  /*
 export const config = {
-  host: "localhost",
-  secure: false,
-  port: 19077,
+  host: "juno-ui.eu.qlikcloud.com",
+  secure: true,
+  port: null,
   prefix: "",
-  appId: "a21862bc-0e9a-4a16-938c-fe3d03209f4a",
+  appId: "0c07cd52-e6a1-45ff-a605-fd37394f90bf",
+  qcs: true,
+  webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
 };
 */
 
+
+// export const config = {
+//   host: "localhost",
+//   secure: false,
+//   port: 19077,
+//   prefix: "",
+//   appId: "e2533176-1426-4089-bf50-4f3c2b4e7b58",
+// };
 
 /*
 

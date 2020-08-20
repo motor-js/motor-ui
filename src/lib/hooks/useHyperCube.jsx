@@ -202,7 +202,7 @@ const useHyperCube = (props) => {
                 qExpression: col.qCondChartColor,
                 qLibraryId: "",
                 qAttribute: false,
-                id: "chartColor",
+                id: "colorTheme",
               },
             ],
             qNullSuppression: col.qNullSuppression
@@ -254,11 +254,11 @@ const useHyperCube = (props) => {
               qDef: col.qField,
               qLabel: col.qLabel,
               qNumFormat: {
-                qType: col.qNumType || 'U',
+                qType: col.qNumType || "U",
                 qUseThou: 1,
                 qFmt: col.qNumFmt,
-                qDec: '.',
-                qThou: ',',
+                qDec: ".",
+                qThou: ",",
               },
             },
             qSortBy: {
@@ -287,7 +287,7 @@ const useHyperCube = (props) => {
                 qExpression: col.qCondChartColor,
                 qLibraryId: "",
                 qAttribute: false,
-                id: "chartColor",
+                id: "colorTheme",
               },
             ],
           };

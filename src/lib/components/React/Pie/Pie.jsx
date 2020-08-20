@@ -120,7 +120,7 @@ Pie.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -195,7 +195,7 @@ Pie.defaultProps = {
   fontColor: null,
   border: true,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   roundNum: true,
   title: null,
   subTitle: null,

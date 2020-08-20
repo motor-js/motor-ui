@@ -1,13 +1,9 @@
 import { useState } from "react";
 import cogoToast from "cogo-toast";
 
-const enigma = require('enigma.js')
-const schema = require('enigma.js/schemas/12.170.2.json')
-const SenseUtilities = require('enigma.js/sense-utilities')
-
-//import enigma from "../components/enigma/enigma";
-//import schema from "../components/enigma/schemas/12.170.2.json";
-//import SenseUtilities from "../components/enigma/sense-utilities";
+const enigma = require("enigma.js");
+const schema = require("enigma.js/schemas/12.170.2.json");
+const SenseUtilities = require("enigma.js/sense-utilities");
 
 const MAX_RETRIES = 3;
 
@@ -74,11 +70,17 @@ function useEngine(config) {
           createSocket: (url) => new WebSocket(url),
           suspendOnClose: false,
         });
-       
-        session.on('closed', () => {
-          console.log('Session was closed, clean up!');
-        })
-
+        session.on("suspended", () => {
+          console.warn("Captured session suspended");
+        });
+        session.on("error", () => {
+          console.warn("Captured session error");
+        });
+        session.on("closed", () => {
+          console.warn("Session was closed, clean up!");
+          seErrorCode(-3);
+          return -3;
+        });
         const _global = await session.open();
         const _doc = await _global.openDoc(config.appId);
         setEngine(_doc);
@@ -95,24 +97,23 @@ function useEngine(config) {
         } */
         const url = SenseUtilities.buildUrl(myConfig);
         try {
-          const session = enigma.create({ schema, url, intercept })
-
-          session.on('closed', () => {
-            console.log('Session was closed, clean up!');
-          })
-
-          session.on('suspended', () => {
-            console.warn('Captured session suspended')
-          })
-
-          session.on('error', () => {
-            console.warn('Captured session error')
-          })
-          const _global = await session.open()
-          const _doc = await _global.openDoc(config.appId)
-          setEngine(_doc)
-          seErrorCode(1)
-          return 1
+          const session = enigma.create({ schema, url, intercept });
+          session.on("suspended", () => {
+            console.warn("Captured session suspended");
+          });
+          session.on("error", () => {
+            console.warn("Captured session error");
+          });
+          session.on("closed", () => {
+            console.warn("Session was closed, clean up!");
+            seErrorCode(-3);
+            return -3;
+          });
+          const _global = await session.open();
+          const _doc = await _global.openDoc(config.appId);
+          setEngine(_doc);
+          seErrorCode(1);
+          return 1;
         } catch (err) {
           console.warn("Captured Error", err);
           if (err.code === 1003) {

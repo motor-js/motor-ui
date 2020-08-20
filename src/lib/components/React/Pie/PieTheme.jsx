@@ -65,14 +65,14 @@ Object.setPrototypeOf(PieNoDataContent.defaultProps, defaultProps);
 
 export { PieWrapper, PieWrapperNoData, PieNoDataContent };
 
-function PieTheme(theme, size, fontColor, chartColor) {
+function PieTheme(theme, size, fontColor, colorArray) {
   const {
     global: { fontFamily, chart, size: fontSize, colorTheme },
     pie: { main },
   } = theme;
 
   // if the prop is undefined, use the base theme
-  const color = chartColor || colorTheme;
+  const color = colorArray || colorTheme;
   const colorPalette = createColorArray(color, theme);
 
   const labelColor = selectColor(chart.label.fontColor, theme);

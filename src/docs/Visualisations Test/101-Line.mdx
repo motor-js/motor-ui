@@ -29,6 +29,7 @@ import Box from '../../lib/components/React/Box/Box.jsx';
 import Filter from '../../lib/components/React/Filter/Filter.jsx';
 import Button from '../../lib/components/React/Button/Button.jsx';
 import Motor from '../../lib/components/React/Motor/Motor.jsx';
+import Login from '../../lib/components/React/Login/Login.jsx'
 import { config } from '../config/config.js'
 
 
@@ -36,7 +37,7 @@ import { config } from '../config/config.js'
 <Playground>
   
 <Motor  
- config={config}>         <Box
+ config={config}>    <Login />      <Box
           height="400px"
           width="50%"
            backgroundColor= "white"
@@ -48,7 +49,7 @@ import { config } from '../config/config.js'
             height="390px"
             curve="Natural"
             symbol="none"
-            chartColor={["#ff6961"]}
+            colorTheme={["#ff6961"]}
             areaChart
             cols={[
               {
