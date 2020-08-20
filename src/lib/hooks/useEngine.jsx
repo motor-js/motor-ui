@@ -1,5 +1,4 @@
 import { useState } from "react";
-import cogoToast from "cogo-toast";
 
 const enigma = require("enigma.js");
 const schema = require("enigma.js/schemas/12.170.2.json");
