@@ -148,7 +148,7 @@ KPI.defaultProps = {
   config: null,
   label: null,
   calcCondition: undefined,
-  margin: null,
+  // margin: null,
   width: "100%",
   border: true,
   justifyContent: "center",

@@ -6,7 +6,7 @@ import { selectColor } from "../../../utils/colors";
 const KPIWrapper = styled.div`
   ${globalStyle}
   box-sizing: ${(props) => props.theme.kpi.wrapper.boxSizing};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.kpi.wrapper.margin};
   padding: ${(props) =>
     props.padding ||
     props.theme.kpi.size[props.size].padding ||
@@ -52,7 +52,7 @@ const KPIWrapperNoData = styled.div`
   box-sizing: ${(props) => props.theme.kpi.wrapper.boxSizing};
   max-width: ${(props) => props.maxWidth};
   width: ${(props) => props.width};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.kpi.wrapper.margin};
   padding: ${(props) =>
     props.padding ||
     props.theme.kpi.size[props.size].padding ||

@@ -501,6 +501,7 @@ const base = {
       radius: "8px",
       textAlign: "center",
       boxSizing: "border-box",
+      margin: "10px",
     },
     label: {
       fontColor: "font",
