@@ -395,10 +395,6 @@ const StyledTable = ({
               height={height}
               size={size}
               onClick={(e) => e.stopPropagation()}
-              // border={border}
-              // borderRadius={borderRadius}
-              // backgroundColor={backgroundColor}
-              // margin={margin}
             >
               <div
                 ref={wrapperRef}
