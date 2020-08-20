@@ -503,6 +503,7 @@ const base = {
       boxSizing: "border-box",
       margin: "10px",
     },
+    group: { padding: "10px" },
     label: {
       fontColor: "font",
       alignSelf: "center",
