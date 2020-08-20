@@ -8,6 +8,7 @@ const StyledHeading = styled.h1`
   color: ${(props) =>
     selectColor(props.color || props.theme.smartHeading.color, props.theme)};
   font-size: ${(props) => props.size};
+  font-weight: ${(props) => props.fontWeight};
   margin: ${(props) => props.margin};
 `;
 

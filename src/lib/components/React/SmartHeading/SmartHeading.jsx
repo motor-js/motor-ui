@@ -13,6 +13,7 @@ const SmartHeading = ({
   type,
   level,
   margin,
+  fontWeight,
   color,
   locales,
   options,
@@ -73,6 +74,7 @@ const SmartHeading = ({
           size={size}
           margin={margin}
           color={color}
+          fontWeight={fontWeight}
         >
           {text}
         </StyledHeading>
@@ -95,6 +97,7 @@ SmartHeading.propTypes = {
   /* Margin */
   margin: PropTypes.string,
   color: PropTypes.string,
+  fontWeight: PropTypes.string,
   locales: PropTypes.string,
   options: PropTypes.object,
   asDate: PropTypes.bool,
@@ -108,6 +111,7 @@ SmartHeading.defaultProps = {
   level: 1,
   margin: "5px",
   color: null,
+  fontWeight: null,
   locales: null,
   options: null,
   asDate: null,
