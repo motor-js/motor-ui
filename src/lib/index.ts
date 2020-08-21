@@ -12,7 +12,6 @@ export { default as Motor } from "./components/React/Motor";
 export { default as Pie } from "./components/React/Pie";
 export { default as Search } from "./components/React/Search";
 export { default as SelectionModal } from "./components/React/SelectionModal";
-export { default as Sidebar } from "./components/React/SidebarLegacy";
 export { default as SmartHeading } from "./components/React/SmartHeading";
 export { default as Spinner } from "./components/React/Spinner";
 export { default as Table } from "./components/React/Table";
