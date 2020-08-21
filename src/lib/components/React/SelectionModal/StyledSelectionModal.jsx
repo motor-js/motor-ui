@@ -18,8 +18,8 @@ function StyledSelectionModal({
   offset,
   width,
   buttonType,
-  hoverBckgColorConfirm,
-  hoverBckgColorCancel,
+  hoverOpacityConfirm,
+  hoverOpacityCancel,
   bckgColorConfirm,
   bckgColorCancel,
   borderConfirm,
@@ -56,7 +56,7 @@ function StyledSelectionModal({
             bckgColor={bckgColorCancel}
             border={borderCancel}
             color={colorCancel}
-            hoverbckgColor={hoverBckgColorCancel}
+            hoverOpacity={hoverOpacityCancel}
             onClick={cancelSelections}
           >
             {buttonType || theme.selectionModal.buttonType === "icon" ? (
@@ -71,7 +71,7 @@ function StyledSelectionModal({
             bckgColor={bckgColorConfirm}
             border={borderConfirm}
             color={colorConfirm}
-            hoverbckgColor={hoverBckgColorConfirm}
+            hoverOpacity={hoverOpacityConfirm}
             onClick={confirmSelections}
           >
             {buttonType || theme.selectionModal.buttonType === "icon" ? (
