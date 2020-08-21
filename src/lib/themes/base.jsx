@@ -445,7 +445,15 @@ const base = {
   },
   selectionModal: {
     buttonType: "icon",
-    hoverOpacity: 0.5,
+    hoverBckgColor: {
+      // confirm: '#00ae70',
+      // confirm: "var(--oc-pink-3)",
+      confirm: "#0aaf54",
+      // cancel: '#ffdada',
+      // cancel: "var(--oc-pink-2)",
+      cancel: "#f05551",
+    },
+    hoverOpacity: 0.8,
     bckgColor: {
       // confirm: '#00C781',
       // confirm: "var(--oc-pink-4)",
