@@ -67,12 +67,6 @@ function StyledColumn({
   const [isValid, setIsValid] = useState(null);
   // const [sel, setSel] = useState([]);
 
-  console.log(
-    margin,
-    theme.global.chart.margin,
-    margin || theme.global.chart.margin
-  );
-
   let useSelectionColours = false;
   let chartSettings = {};
 
