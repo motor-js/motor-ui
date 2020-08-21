@@ -118,7 +118,7 @@ SmartHeading.defaultProps = {
   options: null,
   asDate: null,
   asTime: null,
-  addSpace: null,
+  addSpace: true,
 };
 
 export default SmartHeading;
