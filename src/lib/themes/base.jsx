@@ -155,7 +155,8 @@ const base = {
     colorTheme: "motor",
     color,
     overlay: {
-      background: `rgba(0,0,0,0.3)`,
+      background: `rgb(0,0,0)`,
+      opacity: 0.3,
     },
     border: {
       color: "var(--oc-gray-4)",
@@ -445,28 +446,33 @@ const base = {
   },
   selectionModal: {
     buttonType: "icon",
-    hoverOpacity: 0.5,
+    hoverOpacity: {
+      confirm: 0.7,
+      cancel: 0.7,
+    },
     bckgColor: {
-      // confirm: '#00C781',
-      // confirm: "var(--oc-pink-4)",
       confirm: "#009845",
-      // cancel: 'white',
       cancel: "#dc423f",
     },
     border: {
-      // confirm: '1px solid #00C781',
-      // confirm: "1px solid var(--oc-pink-4)",
-      confirm: "none",
-      // cancel: '1px solid #FF4040',
-      // cancel: "1px solid var(--oc-pink-6)",
-      cancel: "none",
+      color: {
+        confirm: "none",
+        cancel: "none",
+      },
+      size: {
+        confirm: "none",
+        cancel: "none",
+      },
+      style: {
+        confirm: "none",
+        cancel: "none",
+      },
+      radius: {
+        confirm: "8px",
+        cancel: "8px",
+      },
     },
-    // border: {
-    //   color: "var(--oc-gray-4)",
-    //   size: "1px",
-    //   style: "solid",
-    //   radius: "8px",
-    // },
+
     color: {
       confirm: "white",
       cancel: "white",

@@ -185,6 +185,7 @@ const StyledBox = styled.div`
   box-sizing: border-box;
   background-color: ${(props) =>
     selectColor(props.backgroundColor, props.theme)};
+  color: ${(props) => selectColor(props.color, props.theme)};
   ${(props) =>
     props.border &&
     props.border !== "none" &&

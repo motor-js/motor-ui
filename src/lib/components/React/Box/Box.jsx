@@ -119,6 +119,8 @@ Box.propTypes = {
   ]),
   /** background color */
   backgroundColor: PropTypes.string,
+  /** background color */
+  color: PropTypes.string,
   /** border */
   border: PropTypes.oneOfType([
     PropTypes.bool,
@@ -233,6 +235,7 @@ Box.defaultProps = {
   margin: null,
   overflow: "auto",
   backgroundColor: null,
+  color: null,
   border: null,
   padding: null,
   align: null,

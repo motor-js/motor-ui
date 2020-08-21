@@ -19,6 +19,7 @@ const SmartHeading = ({
   options,
   asDate,
   asTime,
+  addSpace,
 }) => {
   const myConfig = config || useContext(ConfigContext);
   const { engine, engineError } =
@@ -63,7 +64,7 @@ const SmartHeading = ({
     } else if (asTime) {
       ts = new Date(lastReload).toLocaleTimeString();
     }
-    text = children ? children + `&nbsp;` + ts : `${ts}`;
+    text = children ? children + `${addSpace ? " " : null} ` + ts : `${ts}`;
   }
 
   return (
@@ -102,6 +103,7 @@ SmartHeading.propTypes = {
   options: PropTypes.object,
   asDate: PropTypes.bool,
   asTime: PropTypes.bool,
+  addSpace: PropTypes.bool,
 };
 
 SmartHeading.defaultProps = {
@@ -116,6 +118,7 @@ SmartHeading.defaultProps = {
   options: null,
   asDate: null,
   asTime: null,
+  addSpace: true,
 };
 
 export default SmartHeading;
