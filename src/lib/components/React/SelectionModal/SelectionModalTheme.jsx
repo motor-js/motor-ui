@@ -28,7 +28,6 @@ const SelectionModalButton = styled.button`
   outline: none;
   cursor: pointer;
   box-sizing: border-box;
-  border-radius: 6px;
   display: flex;
   align-items: center;
 `;
@@ -39,11 +38,17 @@ const SelectionModalButtonConfirm = styled(SelectionModalButton)`
       props.bckgColor || props.theme.selectionModal.bckgColor.confirm,
       props.theme
     )};
-  border: ${(props) =>
+  border-color: ${(props) =>
     selectColor(
-      props.border || props.theme.selectionModal.border.confirm,
+      props.borderColor || props.theme.selectionModal.border.color.confirm,
       props.theme
     )};
+  border-size: ${(props) =>
+    props.borderSize || props.theme.selectionModal.border.size.confirm};
+  border-style: ${(props) =>
+    props.borderStyle || props.theme.selectionModal.border.style.confirm};
+  border-radius: ${(props) =>
+    props.borderRadius || props.theme.selectionModal.border.radius.confirm};
   color: ${(props) =>
     selectColor(
       props.color || props.theme.selectionModal.color.confirm,
@@ -55,17 +60,24 @@ const SelectionModalButtonConfirm = styled(SelectionModalButton)`
       props.opacity || props.theme.selectionModal.hoverOpacity.confirm};
   }
 `;
+
 const SelectionModalButtonCancel = styled(SelectionModalButton)`
   background-color: ${(props) =>
     selectColor(
       props.bckgColor || props.theme.selectionModal.bckgColor.cancel,
       props.theme
     )};
-  border: ${(props) =>
+  border-color: ${(props) =>
     selectColor(
-      props.border || props.theme.selectionModal.border.cancel,
+      props.borderColor || props.theme.selectionModal.border.color.cancel,
       props.theme
     )};
+  border-size: ${(props) =>
+    props.borderSize || props.theme.selectionModal.border.size.cancel};
+  border-style: ${(props) =>
+    props.borderStyle || props.theme.selectionModal.border.style.cancel};
+  border-radius: ${(props) =>
+    props.borderRadius || props.theme.selectionModal.border.radius.cancel};
   color: ${(props) =>
     selectColor(
       props.color || props.theme.selectionModal.color.cancel,

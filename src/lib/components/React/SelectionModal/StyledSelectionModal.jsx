@@ -22,8 +22,14 @@ function StyledSelectionModal({
   hoverOpacityCancel,
   bckgColorConfirm,
   bckgColorCancel,
-  borderConfirm,
-  borderCancel,
+  borderColorConfirm,
+  borderColorCancel,
+  borderSizeConfirm,
+  borderSizeCancel,
+  borderStyleConfirm,
+  borderStyleCancel,
+  borderRadiusConfirm,
+  borderRadiusCancel,
   colorConfirm,
   colorCancel,
 }) {
@@ -54,7 +60,10 @@ function StyledSelectionModal({
             type="button"
             className="cancelSelections"
             bckgColor={bckgColorCancel}
-            border={borderCancel}
+            borderColor={borderColorCancel}
+            borderSize={borderSizeCancel}
+            borderStyle={borderStyleCancel}
+            borderRadius={borderRadiusCancel}
             color={colorCancel}
             hoverOpacity={hoverOpacityCancel}
             onClick={cancelSelections}
@@ -69,7 +78,10 @@ function StyledSelectionModal({
             type="button"
             className="confirmSelections"
             bckgColor={bckgColorConfirm}
-            border={borderConfirm}
+            borderColor={borderColorConfirm}
+            borderSize={borderSizeConfirm}
+            borderStyle={borderStyleConfirm}
+            borderRadius={borderRadiusConfirm}
             color={colorConfirm}
             hoverOpacity={hoverOpacityConfirm}
             onClick={confirmSelections}

@@ -16,8 +16,14 @@ function SelectionModal({
   bckgColorCancel,
   hoverOpacityConfirm,
   hoverOpacityCancel,
-  borderConfirm,
-  borderCancel,
+  borderColorConfirm,
+  borderColorCancel,
+  borderSizeConfirm,
+  borderSizeCancel,
+  borderStyleConfirm,
+  borderStyleCancel,
+  borderRadiusConfirm,
+  borderRadiusCancel,
   colorConfirm,
   colorCancel,
 }) {
@@ -37,8 +43,14 @@ function SelectionModal({
       bckgColorCancel={bckgColorCancel}
       hoverOpacityConfirm={hoverOpacityConfirm}
       hoverOpacityCancel={hoverOpacityCancel}
-      borderConfirm={borderConfirm}
-      borderCancel={borderCancel}
+      borderColorConfirm={borderColorConfirm}
+      borderColorCancel={borderColorCancel}
+      borderSizeConfirm={borderSizeConfirm}
+      borderSizeCancel={borderSizeCancel}
+      borderStyleConfirm={borderStyleConfirm}
+      borderStyleCancel={borderStyleCancel}
+      borderRadiusConfirm={borderRadiusConfirm}
+      borderRadiusCancel={borderRadiusCancel}
       colorConfirm={colorConfirm}
       colorCancel={colorCancel}
     />
@@ -57,8 +69,14 @@ SelectionModal.propTypes = {
   bckgColorCancel: PropTypes.string,
   bckgColorConfirm: PropTypes.string,
   hoverOpacityCancel: PropTypes.string,
-  borderConfirm: PropTypes.string,
-  borderCancel: PropTypes.string,
+  borderColorConfirm: PropTypes.string,
+  borderColorCancel: PropTypes.string,
+  borderSizeConfirm: PropTypes.string,
+  borderSizeCancel: PropTypes.string,
+  borderStyleConfirm: PropTypes.string,
+  borderStyleCancel: PropTypes.string,
+  borderRadiusConfirm: PropTypes.string,
+  borderRadiusCancel: PropTypes.string,
   colorConfirm: PropTypes.string,
   colorCancel: PropTypes.string,
 };

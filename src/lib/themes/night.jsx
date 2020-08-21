@@ -411,17 +411,32 @@ const night = {
   selectionModal: {
     buttonType: "icon",
     hoverOpacity: {
-      confirm: 0.8,
-      cancel: 0.8,
+      confirm: 0.7,
+      cancel: 0.7,
     },
     bckgColor: {
       confirm: "#009845",
       cancel: "#dc423f",
     },
     border: {
-      confirm: "none",
-      cancel: "none",
+      color: {
+        confirm: "var(--oc-gray-4)",
+        cancel: "var(--oc-gray-4)",
+      },
+      size: {
+        confirm: "1px",
+        cancel: "1px",
+      },
+      style: {
+        confirm: "solid",
+        cancel: "solid",
+      },
+      radius: {
+        confirm: "8px",
+        cancel: "8px",
+      },
     },
+
     color: {
       confirm: "white",
       cancel: "white",

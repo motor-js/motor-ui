@@ -12,8 +12,14 @@ export interface SelectionModalProps {
   bckgColorCancel: string;
   bckgColorConfirm: string;
   hoverOpacityCancel: string;
-  borderConfirm: string;
-  borderCancel: string;
+  borderColorConfirm: string;
+  borderColorCancel: string;
+  borderSizeConfirm: string;
+  borderSizeCancel: string;
+  borderStyleConfirm: string;
+  borderStyleCancel: string;
+  borderRadiusConfirm: string;
+  borderRadiusCancel: string;
   colorConfirm: string;
   colorCancel: string;
 }

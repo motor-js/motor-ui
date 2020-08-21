@@ -454,9 +454,24 @@ const base = {
       cancel: "#dc423f",
     },
     border: {
-      confirm: "none",
-      cancel: "none",
+      color: {
+        confirm: "none",
+        cancel: "none",
+      },
+      size: {
+        confirm: "none",
+        cancel: "none",
+      },
+      style: {
+        confirm: "none",
+        cancel: "none",
+      },
+      radius: {
+        confirm: "8px",
+        cancel: "8px",
+      },
     },
+
     color: {
       confirm: "white",
       cancel: "white",
