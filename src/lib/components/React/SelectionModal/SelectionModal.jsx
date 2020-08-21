@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledSelectionModal from './StyledSelectionModal';
-import defaultTheme from '../../../themes/defaultTheme';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledSelectionModal from "./StyledSelectionModal";
+import defaultTheme from "../../../themes/defaultTheme";
 
 function SelectionModal({
   confirmCallback,
@@ -14,8 +14,8 @@ function SelectionModal({
   buttonType,
   bckgColorConfirm,
   bckgColorCancel,
-  hoverBckgColorConfirm,
-  hoverBckgColorCancel,
+  hoverOpacityConfirm,
+  hoverOpacityCancel,
   borderConfirm,
   borderCancel,
   colorConfirm,
@@ -35,8 +35,8 @@ function SelectionModal({
       buttonType={buttonType}
       bckgColorConfirm={bckgColorConfirm}
       bckgColorCancel={bckgColorCancel}
-      hoverBckgColorConfirm={hoverBckgColorConfirm}
-      hoverBckgColorCancel={hoverBckgColorCancel}
+      hoverOpacityConfirm={hoverOpacityConfirm}
+      hoverOpacityCancel={hoverOpacityCancel}
       borderConfirm={borderConfirm}
       borderCancel={borderCancel}
       colorConfirm={colorConfirm}
@@ -52,11 +52,11 @@ SelectionModal.propTypes = {
   margin: PropTypes.string,
   offset: PropTypes.number,
   width: PropTypes.string,
-  buttonType: PropTypes.oneOf(['icon', 'text']),
-  hoverBckgColorConfirm: PropTypes.string,
+  buttonType: PropTypes.oneOf(["icon", "text"]),
+  hoverOpacityConfirm: PropTypes.string,
   bckgColorCancel: PropTypes.string,
   bckgColorConfirm: PropTypes.string,
-  hoverBckgColorCancel: PropTypes.string,
+  hoverOpacityCancel: PropTypes.string,
   borderConfirm: PropTypes.string,
   borderCancel: PropTypes.string,
   colorConfirm: PropTypes.string,
@@ -67,9 +67,9 @@ SelectionModal.defaultProps = {
   confirmCallback: () => {},
   cancelCallback: () => {},
   isOpen: false,
-  margin: '0',
+  margin: "0",
   offset: -36,
-  width: '100%',
+  width: "100%",
   // buttonType: 'icon',
 };
 

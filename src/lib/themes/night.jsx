@@ -410,14 +410,7 @@ const night = {
   },
   selectionModal: {
     buttonType: "icon",
-    hoverBckgColor: {
-      // confirm: '#00ae70',
-      // confirm: "var(--oc-pink-3)",
-      confirm: "#0aaf54",
-      // cancel: '#ffdada',
-      // cancel: "var(--oc-pink-2)",
-      cancel: "#f05551",
-    },
+    hoverOpacity: 0.8,
     bckgColor: {
       // confirm: '#00C781',
       // confirm: "var(--oc-pink-4)",
@@ -433,10 +426,14 @@ const night = {
       // cancel: "1px solid var(--oc-pink-6)",
       cancel: "none",
     },
+    // border: {
+    //   color: "var(--oc-gray-4)",
+    //   size: "1px",
+    //   style: "solid",
+    //   radius: "8px",
+    // },
     color: {
       confirm: "white",
-      // cancel: '#FF4040',
-      // cancel: "var(--oc-pink-6)",
       cancel: "white",
     },
   },

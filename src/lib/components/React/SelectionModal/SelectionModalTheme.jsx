@@ -44,12 +44,19 @@ const SelectionModalButtonConfirm = styled(SelectionModalButton)`
       props.border || props.theme.selectionModal.border.confirm,
       props.theme
     )};
-  color: ${(props) => props.color || props.theme.selectionModal.color.confirm};
+  color: ${(props) =>
+    selectColor(
+      props.color || props.theme.selectionModal.color.confirm,
+      props.theme
+    )};
 
   &:hover {
     background-color: ${(props) =>
-      props.hoverbckgColor ||
-      props.theme.selectionModal.hoverBckgColor.confirm};
+      selectColor(
+        props.hoverbckgColor ||
+          props.theme.selectionModal.hoverBckgColor.confirm,
+        props.theme
+      )};
   }
 `;
 const SelectionModalButtonCancel = styled(SelectionModalButton)`
@@ -63,11 +70,19 @@ const SelectionModalButtonCancel = styled(SelectionModalButton)`
       props.border || props.theme.selectionModal.border.cancel,
       props.theme
     )};
-  color: ${(props) => props.color || props.theme.selectionModal.color.cancel};
+  color: ${(props) =>
+    selectColor(
+      props.color || props.theme.selectionModal.color.cancel,
+      props.theme
+    )};
 
   &:hover {
     background-color: ${(props) =>
-      props.hoverbckgColor || props.theme.selectionModal.hoverBckgColor.cancel};
+      selectColor(
+        props.hoverbckgColor ||
+          props.theme.selectionModal.hoverBckgColor.cancel,
+        props.theme
+      )};
   }
 `;
 
