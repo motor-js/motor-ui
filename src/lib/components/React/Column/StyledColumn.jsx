@@ -214,7 +214,7 @@ function StyledColumn({
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
           width={width}
           gridArea={gridArea}
         >
@@ -255,7 +255,7 @@ function StyledColumn({
           borderRadius={borderRadius}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
           gridArea={gridArea}
         >
           <ColumnNoDataContent height={height}>

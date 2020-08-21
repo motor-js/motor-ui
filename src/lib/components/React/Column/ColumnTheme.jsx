@@ -18,7 +18,6 @@ const ColumnWrapper = styled.div`
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
     props.backgroundColor || props.theme.global.chart.backgroundColor};
-  margin: ${(props) => props.margin || props.theme.global.chart.margin};
   width: ${(props) => componentWidth(props)};
   userselect: ${(props) => props.theme.global.chart.userSelect};
   display: ${(props) => props.theme.global.chart.display};
@@ -42,13 +41,11 @@ const ColumnWrapperNoData = styled.div`
   border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
   width: ${(props) => componentWidth(props)};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.margin || props.theme.global.chart.margin};
 `;
 
 const ColumnNoDataContent = styled.div`
   ${globalStyle};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
-  margin: ${(props) => props.theme.global.chart.noDataContent.margin};
   align-items: ${(props) => props.theme.global.chart.noDataContent.alignItems};
   justify-content: ${(props) =>
     props.theme.global.chart.noDataContent.justifyContent};
