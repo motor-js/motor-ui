@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { globalStyle, borderStyle } from "../../../utils/styles";
 import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
-import { hexToRgb } from "../../../utils/hexToRgb";
-
 import Box from "../Box";
 import Grid from "../Grid";
 import {
@@ -32,11 +30,8 @@ const Overlay = styled.div`
   z-index: ${({ isOpen }) => (isOpen ? 1050 : -1)};
   width: 100%;
   height: 100%;
-  background-color:${({ overlayBackground, overlayOpacity, theme }) =>
-    hexToRgb(
-      selectColor(overlayBackground || theme.global.overlay.background, theme),
-      overlayOpacity || theme.global.overlay.opacity
-    )};
+  background-color:${({ overlayBackground, theme }) =>
+    overlayBackground || theme.global.overlay.background};
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   "-moz-transform": ${({ isOpen }) =>
     isOpen ? "" : "translate3d(100%, 0, 0)"};

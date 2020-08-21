@@ -42,10 +42,9 @@
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
     "enigma.js": "^2.6.3",
-    "gatsby-link": "^2.4.13",
-    "gatsby-react-router-scroll": "^3.0.12",
     "lodash": "^4.17.15",
     "lodash.throttle": "^4.1.1",
+    "node-event-emitter": "0.0.1",
     "open-color": "^1.7.0",
     "react-contextmenu": "^2.13.0",
     "react-error-overlay": "^6.0.7",
@@ -120,7 +119,9 @@
     "semantic-release": "^17.0.6",
     "standard-version": "^8.0.2",
     "style-loader": "^1.0.1",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.3",
+    "gatsby-link": "^2.4.13",
+    "gatsby-react-router-scroll": "^3.0.12"
   },
   "files": [
     "dist"

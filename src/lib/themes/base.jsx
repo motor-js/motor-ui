@@ -617,9 +617,6 @@ const base = {
   navItem: {
     color: { active: "brand", inactive: "white" },
     textAlign: "left",
-    border: {
-      hover: "border-right 5px solid #FF7272",
-    },
     background: {
       color: { hover: "none" },
     },
@@ -628,104 +625,7 @@ const base = {
       size: "3px",
       style: "solid",
       radius: "0px 8px 8px 0px",
-    },
-
-    size: {
-      tiny: {
-        padding: "5px 10px",
-        mobile: {
-          label: "10px",
-          // value: "16px",
-        },
-        tablet: {
-          label: "10px",
-          // value: "20px",
-        },
-        desktop: {
-          label: "12px",
-          // value: "40px",
-        },
-        largeDesktop: {
-          label: "12px",
-          // value: "40px",
-        },
-      },
-      small: {
-        padding: "5px 10px",
-        mobile: {
-          label: "10px",
-          // value: "20px",
-        },
-        tablet: {
-          label: "10px",
-          // value: "30px",
-        },
-        desktop: {
-          label: "12px",
-          // value: "60px",
-        },
-        largeDesktop: {
-          label: "12px",
-          // value: "60px",
-        },
-      },
-      medium: {
-        padding: "5px 10px",
-        mobile: {
-          label: "14px",
-          // value: "50px",
-        },
-        tablet: {
-          label: "14px",
-          // value: "60px",
-        },
-        desktop: {
-          label: "16px",
-          // value: "80px",
-        },
-        largeDesktop: {
-          label: "16px",
-          // value: "80px",
-        },
-      },
-      large: {
-        padding: "5px 10px",
-        mobile: {
-          label: "16px",
-          // value: "70px",
-        },
-        tablet: {
-          label: "16px",
-          // value: "80px",
-        },
-        desktop: {
-          label: "18px",
-          // value: "100px",
-        },
-        largeDesktop: {
-          label: "18px",
-          // value: "100px",
-        },
-      },
-      xlarge: {
-        padding: "5px 10px",
-        mobile: {
-          label: "18px",
-          // value: "90px",
-        },
-        tablet: {
-          label: "18px",
-          // value: "100px",
-        },
-        desktop: {
-          label: "20px",
-          // value: "120px",
-        },
-        largeDesktop: {
-          label: "20px",
-          // value: "120px",
-        },
-      },
+      hover: "border-right 5px solid #FF7272",
     },
   },
   sidebar: {
@@ -738,7 +638,7 @@ const base = {
     border: {
       // 1px dashed red; border-width: 1px 1px 0 1px;
       color: "#FF7272",
-      radius: "0px 20px 20px 0px",
+      radius: "0px",
       size: "1px",
       style: "solid",
     },

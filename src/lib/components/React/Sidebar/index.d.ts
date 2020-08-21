@@ -1,12 +1,14 @@
 import * as React from "react";
+import { borderType } from "../../../utils";
 
 export interface SidebarProps {
-  children: React.ReactNode
-  collapsable: boolean
+  backgroundColor?: string;
+  border?: borderType;
+  padding?: string;
 }
 
 declare const Sidebar: React.FC<SidebarProps>;
 
-export type SidebarType = SidebarProps
+export type SidebarType = SidebarProps;
 
-export default Sidebar
+export default Sidebar;

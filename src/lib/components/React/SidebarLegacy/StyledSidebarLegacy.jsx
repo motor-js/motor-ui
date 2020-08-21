@@ -15,11 +15,11 @@ const collapsableStyle = css`
   display: ${({ open }) => (open ? "flex" : "none")};
 `;
 
-const StyledSidebar = styled(Box)`
+const StyledSidebarLegacy = styled(Box)`
   ${(props) => props.collapsable && collapsableStyle}
 `;
 
-const SideBarOverlay = styled.div`
+const SidebarLegacyOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -31,14 +31,14 @@ const SideBarOverlay = styled.div`
   display: ${({ open }) => (open ? "block" : "none")};
 `;
 
-// const SideBarOverlay = styled.div`
+// const SidebarLegacyOverlay = styled.div`
 //   ${(props) => props.collapsable && overlayStyle}
 // `;
 
-StyledSidebar.defaultProps = {};
-Object.setPrototypeOf(StyledSidebar.defaultProps, defaultProps);
+StyledSidebarLegacy.defaultProps = {};
+Object.setPrototypeOf(StyledSidebarLegacy.defaultProps, defaultProps);
 
-SideBarOverlay.defaultProps = {};
-Object.setPrototypeOf(SideBarOverlay.defaultProps, defaultProps);
+SidebarLegacyOverlay.defaultProps = {};
+Object.setPrototypeOf(SidebarLegacyOverlay.defaultProps, defaultProps);
 
-export { StyledSidebar, SideBarOverlay };
+export { StyledSidebarLegacy, SidebarLegacyOverlay };

@@ -1,60 +1,43 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import { StyledSidebar, SideBarOverlay } from "./StyledSidebar";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
+import defaultTheme from "../../../themes/defaultTheme";
 
-const Sidebar = ({
-  children,
-  isOpen,
-  showOverlay,
-  collapsable,
-  width,
-  onOutsideClick,
-  ...rest
-}) => {
-  const ref = useRef();
+import { slide as SlideMenu } from "./menus";
+import { stack as StackMenu } from "./menus";
+// import { elastic as ElasticMenu } from "./menus";  // requires snapsvg-cjs in package,json :  "snapsvg-cjs": "0.0.6"
+// import { bubble as BubbleMenu } from "./menus";    // requires snapsvg-cjs in package,json :  "snapsvg-cjs": "0.0.6"
+import { push as PushMenu } from "./menus";
+import { pushRotate as PushRotateMenu } from "./menus";
+import { scaleDown as ScaleDownMenu } from "./menus";
+import { scaleRotate as ScaleRotateMenu } from "./menus";
+import { fallDown as FallDownMenu } from "./menus";
+import { reveal as RevealMenu } from "./menus";
 
-  useOutsideClick(ref, () => {
-    if (isOpen) {
-      const outsideClick = !ref.current.contains(event.target);
-      if (outsideClick) onOutsideClick();
-    }
-  });
+const Sidebar = (props) => {
+  const theme = useContext(ThemeContext) || defaultTheme;
 
   return (
     <>
-      <SideBarOverlay open={isOpen} overlay={showOverlay} />
-      <div ref={ref}>
-        <StyledSidebar
-          collapsable={collapsable}
-          height={{ min: "100%" }}
-          open={isOpen}
-          width={width}
-          {...rest}
-        >
-          {children}
-        </StyledSidebar>
-      </div>
+      {
+        {
+          slide: <SlideMenu {...props}>{props.children}</SlideMenu>,
+          stack: <StackMenu {...props}>{props.children}</StackMenu>,
+          // elastic: <ElasticMenu {...props}>{props.children}</ElasticMenu>,
+          // bubble: <BubbleMenu {...props}>{props.children}</BubbleMenu>,
+          push: <PushMenu {...props}>{props.children}</PushMenu>,
+          pushRotate: (
+            <PushRotateMenu {...props}>{props.children}</PushRotateMenu>
+          ),
+          scaleDown: <ScaleDownMenu {...props}>{props.children}</ScaleDownMenu>,
+          scaleRotate: (
+            <ScaleRotateMenu {...props}>{props.children}</ScaleRotateMenu>
+          ),
+          fallDown: <FallDownMenu {...props}>{props.children}</FallDownMenu>,
+          reveal: <RevealMenu {...props}>{props.children}</RevealMenu>,
+        }[props.type || "slide"]
+      }
     </>
   );
 };
 
 export default Sidebar;
-
-Sidebar.propTypes = {
-  /** contents of the sidebar */
-  children: PropTypes.node,
-  /** whether the sidebar is collapsable */
-  collapsable: PropTypes.bool,
-  pullRight: PropTypes.bool,
-  showOverlay: PropTypes.bool,
-  width: PropTypes.string,
-};
-
-Sidebar.defaultProps = {
-  children: undefined,
-  collapsable: false,
-  pullRight: false,
-  showOverlay: true,
-  width: "100%",
-};

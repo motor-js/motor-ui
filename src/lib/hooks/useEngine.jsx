@@ -75,7 +75,7 @@ function useEngine(config) {
           console.warn("Captured session error");
         });
         session.on("closed", () => {
-          console.log("Session was closed, clean up!");
+          console.warn("Session was closed");
           seErrorCode(-3);
           return -3;
         });
@@ -103,7 +103,7 @@ function useEngine(config) {
             console.warn("Captured session error");
           });
           session.on("closed", () => {
-            console.log("Session was closed, clean up!");
+            console.warn("Session was closed");
             seErrorCode(-3);
             return -3;
           });

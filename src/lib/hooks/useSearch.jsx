@@ -40,6 +40,7 @@ const useSearch = ({
             setSearchResults(res)
           }
         } catch (e) {
+          console.log('Error captured')
           console.warn(e)
         }
       })()
