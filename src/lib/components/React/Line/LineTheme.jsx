@@ -7,6 +7,7 @@ import { componentWidth } from "../../../utils";
 
 const LineWrapper = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     props.border !== "none" &&
@@ -26,6 +27,7 @@ const LineWrapper = styled.div`
 
 const LineWrapperNoData = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
@@ -38,7 +40,6 @@ const LineWrapperNoData = styled.div`
   background-color: ${(props) =>
     props.theme.global.chart.noData.backgroundColor};
   border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
-  height: ${(props) => props.height};
   width: ${(props) => componentWidth(props)};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
   margin: ${(props) => props.margin};

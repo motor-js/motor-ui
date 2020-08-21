@@ -232,7 +232,8 @@ Line.propTypes = {
       qOtherLabel: PropTypes.string,
       qOtherCount: PropTypes.string,
     }),
-  ]),
+  ]) /** Name of the parent grid area to place the box */,
+  gridArea: PropTypes.string,
 };
 
 Line.defaultProps = {
@@ -242,7 +243,7 @@ Line.defaultProps = {
   dualAxis: false,
   width: "100%",
   height: "100%",
-  margin: "5px",
+  margin: null,
   size: "medium",
   showLabels: null,
   fontColor: "",
@@ -264,6 +265,7 @@ Line.defaultProps = {
   sortDirection: "",
   areaChart: false,
   stacked: false,
+  gridArea: null,
 };
 
 export default Line;

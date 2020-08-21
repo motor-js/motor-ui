@@ -34,6 +34,7 @@ function StyledPie({
   suppressZero,
   otherTotalSpec,
   showLabels,
+  gridArea,
   ...rest
 }) {
   // Ref for d3 object
@@ -167,7 +168,9 @@ function StyledPie({
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          chartmargin={margin}
+          gridArea={gridArea}
           width={width}
           size={size}
         >
@@ -208,7 +211,9 @@ function StyledPie({
           borderRadius={borderRadius}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          chartmargin={margin}
+          gridArea={gridArea}
         >
           <PieNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

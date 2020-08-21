@@ -62,6 +62,7 @@ function StyledLine(props) {
     otherTotalSpec,
     tickSpacing,
     symbol,
+    gridArea,
     ...rest
   } = props;
 
@@ -200,8 +201,10 @@ function StyledLine(props) {
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          chartmargin={margin}
           width={width}
+          gridArea={gridArea}
         >
           <div
             ref={ref}
@@ -239,8 +242,10 @@ function StyledLine(props) {
           border={border}
           borderRadius={borderRadius}
           size={size}
+          margin={margin || theme.global.chart.margin}
+          chartmargin={margin}
           width={width}
-          margin={margin}
+          gridArea={gridArea}
         >
           <LineNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

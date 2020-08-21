@@ -757,7 +757,7 @@ const base = {
     },
     wrapper: {
       borderColor: "altGray5",
-      margin: "0px 10px",
+      margin: "10px",
       backgroundColor: "white",
       radius: "8px",
     },
