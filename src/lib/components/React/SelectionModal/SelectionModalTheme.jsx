@@ -17,7 +17,7 @@ const SelectionModalWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-const SelectionModalButton = styled.div`
+const SelectionModalButton = styled.button`
   height: 25px;
   padding: 0 12px;
   margin: 5px 5px;
@@ -51,12 +51,8 @@ const SelectionModalButtonConfirm = styled(SelectionModalButton)`
     )};
 
   &:hover {
-    background-color: ${(props) =>
-      selectColor(
-        props.hoverbckgColor ||
-          props.theme.selectionModal.hoverBckgColor.confirm,
-        props.theme
-      )};
+    opacity: ${(props) =>
+      props.opacity || props.theme.selectionModal.hoverOpacity.confirm};
   }
 `;
 const SelectionModalButtonCancel = styled(SelectionModalButton)`
@@ -77,12 +73,8 @@ const SelectionModalButtonCancel = styled(SelectionModalButton)`
     )};
 
   &:hover {
-    background-color: ${(props) =>
-      selectColor(
-        props.hoverbckgColor ||
-          props.theme.selectionModal.hoverBckgColor.cancel,
-        props.theme
-      )};
+    opacity: ${(props) =>
+      props.opacity || props.theme.selectionModal.hoverOpacity.cancel};
   }
 `;
 

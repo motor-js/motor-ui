@@ -410,28 +410,18 @@ const night = {
   },
   selectionModal: {
     buttonType: "icon",
-    hoverOpacity: 0.8,
+    hoverOpacity: {
+      confirm: 0.8,
+      cancel: 0.8,
+    },
     bckgColor: {
-      // confirm: '#00C781',
-      // confirm: "var(--oc-pink-4)",
       confirm: "#009845",
-      // cancel: 'white',
       cancel: "#dc423f",
     },
     border: {
-      // confirm: '1px solid #00C781',
-      // confirm: "1px solid var(--oc-pink-4)",
       confirm: "none",
-      // cancel: '1px solid #FF4040',
-      // cancel: "1px solid var(--oc-pink-6)",
       cancel: "none",
     },
-    // border: {
-    //   color: "var(--oc-gray-4)",
-    //   size: "1px",
-    //   style: "solid",
-    //   radius: "8px",
-    // },
     color: {
       confirm: "white",
       cancel: "white",
