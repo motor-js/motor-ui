@@ -468,10 +468,14 @@ const base = {
       // cancel: "1px solid var(--oc-pink-6)",
       cancel: "none",
     },
+    // border: {
+    //   color: "var(--oc-gray-4)",
+    //   size: "1px",
+    //   style: "solid",
+    //   radius: "8px",
+    // },
     color: {
       confirm: "white",
-      // cancel: '#FF4040',
-      // cancel: "var(--oc-pink-6)",
       cancel: "white",
     },
   },

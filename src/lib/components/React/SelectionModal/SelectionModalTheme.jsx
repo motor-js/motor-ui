@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { defaultProps } from "../../../default-props";
 import { globalStyle } from "../../../utils/styles";
+import { selectColor } from "../../../utils/colors";
 
 const SelectionModalWrapper = styled.div`
   ${globalStyle}
@@ -30,20 +31,19 @@ const SelectionModalButton = styled.div`
   border-radius: 6px;
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.bckgColor};
-  border: ${(props) => props.border};
-  color: ${(props) => props.color};
-
-  &:hover {
-    background-color: ${(props) => props.hoverbckgColor};
-  }
 `;
 
 const SelectionModalButtonConfirm = styled(SelectionModalButton)`
   background-color: ${(props) =>
-    props.bckgColor || props.theme.selectionModal.bckgColor.confirm};
+    selectColor(
+      props.bckgColor || props.theme.selectionModal.bckgColor.confirm,
+      props.theme
+    )};
   border: ${(props) =>
-    props.border || props.theme.selectionModal.border.confirm};
+    selectColor(
+      props.border || props.theme.selectionModal.border.confirm,
+      props.theme
+    )};
   color: ${(props) => props.color || props.theme.selectionModal.color.confirm};
 
   &:hover {
@@ -54,9 +54,15 @@ const SelectionModalButtonConfirm = styled(SelectionModalButton)`
 `;
 const SelectionModalButtonCancel = styled(SelectionModalButton)`
   background-color: ${(props) =>
-    props.bckgColor || props.theme.selectionModal.bckgColor.cancel};
+    selectColor(
+      props.bckgColor || props.theme.selectionModal.bckgColor.cancel,
+      props.theme
+    )};
   border: ${(props) =>
-    props.border || props.theme.selectionModal.border.cancel};
+    selectColor(
+      props.border || props.theme.selectionModal.border.cancel,
+      props.theme
+    )};
   color: ${(props) => props.color || props.theme.selectionModal.color.cancel};
 
   &:hover {
