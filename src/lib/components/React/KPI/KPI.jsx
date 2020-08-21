@@ -142,13 +142,14 @@ KPI.propTypes = {
   cursor: PropTypes.string,
   /** Automatically resize the label if it is too large for the min wrapper*/
   autoSizeValue: PropTypes.bool,
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 KPI.defaultProps = {
   config: null,
   label: null,
   calcCondition: undefined,
-  margin: null,
   width: "100%",
   border: true,
   justifyContent: "center",
@@ -166,6 +167,7 @@ KPI.defaultProps = {
   onClick: () => {},
   cursor: "default",
   autoSizeValue: true,
+  gridArea: null,
 };
 
 export default KPI;

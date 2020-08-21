@@ -67,7 +67,6 @@ function useEngine(config) {
           schema,
           url: `wss://${tenantUri}/app/${config.appId}?qlik-web-integration-id=${webIntegrationId}&qlik-csrf-token=${csrfToken}`,
           createSocket: (url) => new WebSocket(url),
-          suspendOnClose: false,
         });
         session.on("suspended", () => {
           console.warn("Captured session suspended");
@@ -76,7 +75,7 @@ function useEngine(config) {
           console.warn("Captured session error");
         });
         session.on("closed", () => {
-          console.warn("Session was closed, clean up!");
+          console.warn("Session was closed");
           seErrorCode(-3);
           return -3;
         });
@@ -104,7 +103,7 @@ function useEngine(config) {
             console.warn("Captured session error");
           });
           session.on("closed", () => {
-            console.warn("Session was closed, clean up!");
+            console.warn("Session was closed");
             seErrorCode(-3);
             return -3;
           });

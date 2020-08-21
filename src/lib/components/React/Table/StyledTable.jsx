@@ -18,15 +18,16 @@ import Spinner from "../Spinner";
 import {
   TableWrapper,
   TableWrapperNoData,
+  TableNoDataContent,
   TableOutline,
   DropMenu,
 } from "./TableTheme";
 import {
-  ChevronLeft,
-  ChevronsLeft,
-  ChevronRight,
-  ChevronsRight,
-} from "react-feather";
+  StepBackward,
+  Backward,
+  StepForward,
+  Forward,
+} from "@styled-icons/fa-solid";
 
 const StyledTable = ({
   engine,
@@ -53,6 +54,11 @@ const StyledTable = ({
   bandedRows,
   highlightOnSelection,
   allowSelections,
+  gridArea,
+  backgroundColor,
+  bodyAlignment,
+  border,
+  borderRadius,
 }) => {
   // Component state
   const [loading, setLoading] = useState(true);
@@ -379,6 +385,20 @@ const StyledTable = ({
     tableRef.current.scrollTop = 0;
   };
 
+  const divStyle = {
+    fontSize: "14px",
+    cursor: "pointer",
+    padding: "8px 12px",
+    border: "1px solid grey",
+    backgroundColor: "white",
+    borderRadius: "2px",
+    zIndex: "500",
+
+    "&:hover": {
+      backgroundColor: "grey",
+    },
+  };
+
   return (
     <div
       ref={wrapperRef}
@@ -397,7 +417,7 @@ const StyledTable = ({
       {qData && qLayout && mergedCols && isValid ? (
         <div>
           <ContextMenuTrigger id="context-menu" hideOnLeave>
-            <ContextMenu id="context-menu" css={DropMenu}>
+            <ContextMenu id="context-menu" style={divStyle}>
               <MenuItem onClick={dataExport}>Export Data</MenuItem>
             </ContextMenu>
             <TableWrapper
@@ -407,6 +427,10 @@ const StyledTable = ({
               height={height}
               size={size}
               onClick={(e) => e.stopPropagation()}
+              gridArea={gridArea}
+              border={border}
+              backgroundColor={backgroundColor}
+              borderRadius={borderRadius}
             >
               <TableOutline tableLayout={tableLayout} tableWidth={tableWidth}>
                 <TableHeader
@@ -429,6 +453,7 @@ const StyledTable = ({
                   handlePagingCallback={handlePageChange}
                   handleScrollCallback={handleScrollCallback}
                   selectionsActive={selectionsActive}
+                  bodyAlignment={bodyAlignment}
                   gridPxl={gridPxl}
                   bandedRows={bandedRows}
                   highlightOnSelection={highlightOnSelection}
@@ -453,7 +478,7 @@ const StyledTable = ({
                       type="default"
                       onClick={firstPage}
                     >
-                      <ChevronsLeft size={16} />
+                      <Backward size={16} />
                     </Button>
                     <Button
                       disabled={page > 0 ? false : true}
@@ -461,7 +486,7 @@ const StyledTable = ({
                       type="default"
                       onClick={decrementPage}
                     >
-                      <ChevronLeft size={16} />
+                      <StepBackward size={16} />
                     </Button>
                   </div>
                 )}
@@ -476,7 +501,7 @@ const StyledTable = ({
                       type="default"
                       onClick={incrementPage}
                     >
-                      <ChevronRight size={16} />
+                      <StepForward size={16} />
                     </Button>
                     <Button
                       disabled={page + 1 < pages ? false : true}
@@ -484,7 +509,7 @@ const StyledTable = ({
                       type="default"
                       onClick={lastPage}
                     >
-                      <ChevronsRight size={16} />
+                      <Forward size={16} />
                     </Button>
                   </div>
                 )}
@@ -498,8 +523,14 @@ const StyledTable = ({
             wrapperWidth={wrapperWidth}
             height={height}
             size={size}
+            gridArea={gridArea}
+            border={border}
+            backgroundColor={backgroundColor}
+            borderRadius={borderRadius}
           >
-            {calcCond || dataError || engineError || <Spinner />}
+            <TableNoDataContent height={height}>
+              {calcCond || dataError || engineError || <Spinner />}
+            </TableNoDataContent>
           </TableWrapperNoData>
         </div>
       )}

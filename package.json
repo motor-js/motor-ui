@@ -38,10 +38,10 @@
   },
   "dependencies": {
     "@babel/types": "^7.10.3",
-    "@styled-icons/feather": "^10.0.0",
+    "@styled-icons/fa-solid": "^10.15.1",
     "d3": "^5.15.0",
     "d3-cloud": "^1.2.5",
-    "enigma.js": "^2.7.1",
+    "enigma.js": "^2.6.3",
     "gatsby-link": "^2.4.13",
     "gatsby-react-router-scroll": "^3.0.12",
     "lodash": "^4.17.15",

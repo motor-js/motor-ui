@@ -230,6 +230,7 @@ const base = {
       allowSlantedYAxis: false,
       backgroundColor: "white",
       borderRadius: "10px",
+      margin: "10px",
       userSelect: "none",
       suppressZero: false,
       suppressScroll: false,
@@ -346,8 +347,8 @@ const base = {
         verticalAlign: "top",
         borderRadius: "10px",
         // backgroundColor: "var(--oc-gray-1)",
-        backgroundColor: "none",
-        borderCollapse: "collapse",
+        backgroundColor: "white",
+        // borderCollapse: "collapse",
       },
       noDataContent: {
         display: "flex",
@@ -467,10 +468,14 @@ const base = {
       // cancel: "1px solid var(--oc-pink-6)",
       cancel: "none",
     },
+    // border: {
+    //   color: "var(--oc-gray-4)",
+    //   size: "1px",
+    //   style: "solid",
+    //   radius: "8px",
+    // },
     color: {
       confirm: "white",
-      // cancel: '#FF4040',
-      // cancel: "var(--oc-pink-6)",
       cancel: "white",
     },
   },
@@ -487,6 +492,7 @@ const base = {
       backgroundColor: "white",
       borderColor: "brand",
       radius: "8px",
+      margin: "5px 10px",
     },
     item: {
       border: "1px solid",
@@ -501,7 +507,9 @@ const base = {
       radius: "8px",
       textAlign: "center",
       boxSizing: "border-box",
+      margin: "10px",
     },
+    group: { padding: "10px" },
     label: {
       fontColor: "font",
       alignSelf: "center",
@@ -650,6 +658,9 @@ const base = {
     },
     wrapper: {
       borderColor: "altGray5",
+      margin: "0px 10px",
+      backgroundColor: "white",
+      radius: "8px",
     },
     header: {
       borderColor: "altGray5",

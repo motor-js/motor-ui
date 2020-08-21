@@ -55,6 +55,7 @@ function StyledColumn({
   tickSpacing,
   showGridlines,
   otherTotalSpec,
+  gridArea,
 }) {
   // Ref for d3 object
   const d3Container = useRef(null);
@@ -215,6 +216,7 @@ function StyledColumn({
           borderRadius={borderRadius}
           margin={margin}
           width={width}
+          gridArea={gridArea}
         >
           <div
             ref={ref}
@@ -254,6 +256,7 @@ function StyledColumn({
           size={size}
           width={width}
           margin={margin}
+          gridArea={gridArea}
         >
           <ColumnNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

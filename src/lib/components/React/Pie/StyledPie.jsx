@@ -39,7 +39,7 @@ function StyledPie({
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionPieVisible, setSelectionPieVisible] = useState(false);
+  const [isSelectionVisible, setSelectionVisible] = useState(false);
   const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -74,7 +74,7 @@ function StyledPie({
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionPieVisible(false);
+    setSelectionVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -83,7 +83,7 @@ function StyledPie({
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionPieVisible(false);
+    setSelectionVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -95,7 +95,7 @@ function StyledPie({
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionPieVisible) {
+    if (isSelectionVisible) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -134,7 +134,7 @@ function StyledPie({
         useSelectionColours,
         setRefreshChart,
         beginSelections,
-        setSelectionPieVisible,
+        setSelectionVisible,
         selections,
         select,
         // buildSelections,
@@ -180,16 +180,16 @@ function StyledPie({
             }}
           >
             <SelectionModal
-              isOpen={isSelectionPieVisible}
+              isOpen={isSelectionVisible}
               cancelCallback={cancelCallback}
               confirmCallback={confirmCallback}
               // width={width}
             />
             <div
               style={{
-                border: isSelectionPieVisible ? "1px solid #CCCCCC" : "none",
-                overflowX: isSelectionPieVisible ? "hidden" : "auto",
-                overflowY: isSelectionPieVisible ? "hidden" : "auto",
+                border: isSelectionVisible ? "1px solid #CCCCCC" : "none",
+                overflowX: isSelectionVisible ? "hidden" : "auto",
+                overflowY: isSelectionVisible ? "hidden" : "auto",
                 // width,
               }}
             >

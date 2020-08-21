@@ -24,6 +24,34 @@ const Table = ({ config, ...rest }) => {
   );
 };
 
+const BORDER_SHAPE = PropTypes.shape({
+  color: PropTypes.oneOfType([PropTypes.string]),
+  side: PropTypes.oneOf([
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
+  ]),
+  size: PropTypes.oneOfType([PropTypes.string]),
+  style: PropTypes.oneOf([
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
+  ]),
+});
+
 Table.propTypes = {
   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   config: PropTypes.object,
@@ -71,7 +99,7 @@ Table.propTypes = {
   For more information regarding the impact, please see https://www.w3schools.com/cssref/pr_tab_table-layout.asp */
   tableLayout: PropTypes.oneOf(["fixed", "auto"]),
   /* Alignment of header row */
-  headerAlignment: PropTypes.oneOf(["left", "middle", "right"]),
+  headerAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
   /* header background color */
   headerBackgroundColor: PropTypes.string,
   /* header font color */
@@ -86,6 +114,59 @@ Table.propTypes = {
   highlightOnSelection: PropTypes.bool,
   /* To allow or disable selections */
   allowSelections: PropTypes.bool,
+  /* Text aligmentment */
+  bodyAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
+  /** Background Color of the chart */
+  backgroundColor: PropTypes.string,
+  /** Border of the Pie Chart, need desc */
+  border: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf([
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+      "none",
+    ]),
+    PropTypes.shape({
+      color: PropTypes.oneOfType([PropTypes.string]),
+      side: PropTypes.oneOf([
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
+      ]),
+      size: PropTypes.oneOfType([PropTypes.string]),
+      style: PropTypes.oneOf([
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
+      ]),
+    }),
+    PropTypes.arrayOf(BORDER_SHAPE),
+  ]),
+  /** Border Radius of the chart */
+  borderRadius: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -94,7 +175,7 @@ Table.defaultProps = {
   calcCondition: undefined,
   columnSortOrder: [],
   grandTotalsFlag: false,
-  margin: "0px",
+  margin: null,
   height: "400px",
   wrapperWidth: "100%",
   tableWidth: "100%",
@@ -109,6 +190,11 @@ Table.defaultProps = {
   bandedRows: false,
   highlightOnSelection: false,
   allowSelections: true,
+  bodyAlignment: "left",
+  gridArea: null,
+  backgroundColor: null,
+  border: true,
+  borderRadius: null,
 };
 
 export default Table;

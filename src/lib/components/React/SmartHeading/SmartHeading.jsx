@@ -13,12 +13,12 @@ const SmartHeading = ({
   type,
   level,
   margin,
+  fontWeight,
   color,
   locales,
   options,
   asDate,
   asTime,
-  addSpace,
 }) => {
   const myConfig = config || useContext(ConfigContext);
   const { engine, engineError } =
@@ -63,7 +63,7 @@ const SmartHeading = ({
     } else if (asTime) {
       ts = new Date(lastReload).toLocaleTimeString();
     }
-    text = children ? children + `${addSpace ? " " : null} ` + ts : `${ts}`;
+    text = children ? children + `&nbsp;` + ts : `${ts}`;
   }
 
   return (
@@ -74,6 +74,7 @@ const SmartHeading = ({
           size={size}
           margin={margin}
           color={color}
+          fontWeight={fontWeight}
         >
           {text}
         </StyledHeading>
@@ -96,11 +97,11 @@ SmartHeading.propTypes = {
   /* Margin */
   margin: PropTypes.string,
   color: PropTypes.string,
+  fontWeight: PropTypes.string,
   locales: PropTypes.string,
   options: PropTypes.object,
   asDate: PropTypes.bool,
   asTime: PropTypes.bool,
-  addSpace: PropTypes.bool,
 };
 
 SmartHeading.defaultProps = {
@@ -110,11 +111,11 @@ SmartHeading.defaultProps = {
   level: 1,
   margin: "5px",
   color: null,
+  fontWeight: null,
   locales: null,
   options: null,
   asDate: null,
   asTime: null,
-  addSpace: true,
 };
 
 export default SmartHeading;

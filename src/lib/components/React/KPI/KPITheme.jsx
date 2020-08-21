@@ -3,10 +3,30 @@ import { defaultProps } from "../../../default-props";
 import { globalStyle, borderStyle } from "../../../utils/styles";
 import { selectColor } from "../../../utils/colors";
 
+const noDataHeight = (props) => {
+  const kpiValueHeight = props.responsive
+    ? parseInt(props.theme.kpi.size[props.size][props.screen].value, 10)
+    : parseInt(props.theme.kpi.size[props.size].desktop.value, 10);
+
+  const KPILabelHeight = props.responsive
+    ? parseInt(props.theme.kpi.size[props.size][props.screen].label, 10) * 1.5
+    : parseInt(props.theme.kpi.size[props.size].desktop.label, 10) * 1.5;
+
+  const KPIGroupHeight = parseInt(props.theme.kpi.group.padding, 10);
+
+  const globalTextSize = parseInt(props.theme.global.size.font[props.size], 10);
+
+  return `${kpiValueHeight +
+    KPILabelHeight +
+    KPIGroupHeight +
+    globalTextSize}px`;
+};
+
 const KPIWrapper = styled.div`
   ${globalStyle}
+    ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   box-sizing: ${(props) => props.theme.kpi.wrapper.boxSizing};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.kpi.wrapper.margin};
   padding: ${(props) =>
     props.padding ||
     props.theme.kpi.size[props.size].padding ||
@@ -20,9 +40,12 @@ const KPIWrapper = styled.div`
   border-radius: ${(props) => props.theme.kpi.wrapper.radius};
   max-width: ${(props) => props.maxWidth};
   cursor: ${(props) => props.cursor};
-  width: ${(props) => props.width};
-  background-color: ${(props) =>
-    props.backgroundColor || props.theme.kpi.wrapper.backgroundColor};
+  width: ${(props) => (props.gridArea ? null : props.width)};
+      background-color: ${(props) =>
+        selectColor(
+          props.backgroundColor || props.theme.kpi.wrapper.backgroundColor,
+          props.theme
+        )};
   position: relative;
   word-wrap: break-word;
     "-webkit-user-select": "none",
@@ -49,10 +72,11 @@ const KPIWrapper = styled.div`
 
 const KPIWrapperNoData = styled.div`
   ${globalStyle}
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   box-sizing: ${(props) => props.theme.kpi.wrapper.boxSizing};
   max-width: ${(props) => props.maxWidth};
-  width: ${(props) => props.width};
-  margin: ${(props) => props.margin};
+  width: ${(props) => (props.gridArea ? null : props.width)};
+  margin: ${(props) => props.margin || props.theme.kpi.wrapper.margin};
   padding: ${(props) =>
     props.padding ||
     props.theme.kpi.size[props.size].padding ||
@@ -63,22 +87,20 @@ const KPIWrapperNoData = styled.div`
       ? props.border.map((border) => borderStyle(border, props.theme))
       : borderStyle(props.border, props.theme))};
   border-radius: ${(props) => props.theme.kpi.wrapper.radius};
-  height: ${(props) =>
-    props.responsive
-      ? props.theme.kpi.size[props.size][props.screen].value
-      : props.theme.kpi.size[props.size].desktop.value};
+  height: ${(props) => noDataHeight(props)};
   display: ${(props) => props.theme.global.chart.noData.display};
   align-items: ${(props) => props.theme.global.chart.noData.alignItems};
   justify-content: ${(props) => props.theme.global.chart.noData.justifyContent};
   background-color: ${(props) =>
-    props.theme.global.chart.noData.backgroundColor};
-  border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
+    selectColor(
+      props.backgroundColor || props.theme.kpi.wrapper.backgroundColor,
+      props.theme
+    )};
 `;
-
 const KPIGroup = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: ${(props) => props.theme.kpi.group.padding};
 `;
 
 const KPILabel = styled.span`
@@ -88,6 +110,12 @@ const KPILabel = styled.span`
       props.labelColor || props.theme.kpi.label.fontColor,
       props.theme
     )};
+  line-height: ${(props) =>
+    props.responsive
+      ? `${parseInt(props.theme.kpi.size[props.size][props.screen].label, 10) *
+          1.5}px`
+      : `${parseInt(props.theme.kpi.size[props.size].desktop.label, 10) *
+          1.5}px`};
   font-size: ${(props) =>
     props.responsive
       ? props.theme.kpi.size[props.size][props.screen].label

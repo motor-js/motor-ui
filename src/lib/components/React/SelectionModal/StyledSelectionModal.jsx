@@ -1,15 +1,14 @@
-import React, { useRef, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useContext } from "react";
+import PropTypes from "prop-types";
 import {
   SelectionModalWrapper,
-  SelectionModalButton,
   SelectionModalButtonConfirm,
   SelectionModalButtonCancel,
-} from './SelectionModalTheme';
+} from "./SelectionModalTheme";
 // import useOutsideClick from '../../Hooks/useOutsideClick'
-import { ThemeContext } from 'styled-components';
-import { Check, X } from 'react-feather';
-import defaultTheme from '../../../themes/defaultTheme';
+import { ThemeContext } from "styled-components";
+import { Check, Times } from "@styled-icons/fa-solid";
+import defaultTheme from "../../../themes/defaultTheme";
 
 function StyledSelectionModal({
   confirmCallback,
@@ -52,31 +51,31 @@ function StyledSelectionModal({
         >
           <SelectionModalButtonCancel
             theme={theme}
-            type='button'
-            className='cancelSelections'
+            type="button"
+            className="cancelSelections"
             bckgColor={bckgColorCancel}
             border={borderCancel}
             color={colorCancel}
             hoverbckgColor={hoverBckgColorCancel}
             onClick={cancelSelections}
           >
-            {buttonType || theme.selectionModal.buttonType === 'icon' ? (
-              <X className='cancelSelections' />
+            {buttonType || theme.selectionModal.buttonType === "icon" ? (
+              <Times className="cancelSelections" size={24} />
             ) : (
-              <div className='cancelSelections'>CANCEL</div>
+              <div className="cancelSelections">CANCEL</div>
             )}
           </SelectionModalButtonCancel>
           <SelectionModalButtonConfirm
-            type='button'
-            className='confirmSelections'
+            type="button"
+            className="confirmSelections"
             bckgColor={bckgColorConfirm}
             border={borderConfirm}
             color={colorConfirm}
             hoverbckgColor={hoverBckgColorConfirm}
             onClick={confirmSelections}
           >
-            {buttonType || theme.selectionModal.buttonType === 'icon' ? (
-              <Check />
+            {buttonType || theme.selectionModal.buttonType === "icon" ? (
+              <Check size={24} />
             ) : (
               <div>CONFIRM</div>
             )}
