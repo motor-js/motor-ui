@@ -148,7 +148,11 @@ function StyledBar(props) {
         qLayout,
         qData,
         // propsWidth: width,
-        propsHeight: height,
+        // propsHeight: height,
+        propsHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -204,7 +208,8 @@ function StyledBar(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin || theme.global.chart.margin}
+          // margin={margin || theme.global.chart.margin}
+          chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
           width={width}
         >
@@ -213,7 +218,7 @@ function StyledBar(props) {
             style={{
               position: "relative",
               height,
-              margin: "10px",
+              // margin: "10px",
             }}
           >
             <div
@@ -243,7 +248,8 @@ function StyledBar(props) {
           border={border}
           size={size}
           width={width}
-          margin={margin || theme.global.chart.margin}
+          // margin={margin || theme.global.chart.margin}
+          chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
         >
           <BarNoDataContent height={height}>

@@ -148,7 +148,11 @@ function StyledLine(props) {
         qLayout,
         qData,
         // chartWidth: width,
-        chartHeight: height,
+        // chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -202,7 +206,7 @@ function StyledLine(props) {
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
           margin={margin || theme.global.chart.margin}
-          chartmargin={margin}
+          chartMargin={margin}
           width={width}
           gridArea={gridArea}
         >
@@ -243,7 +247,7 @@ function StyledLine(props) {
           borderRadius={borderRadius}
           size={size}
           margin={margin || theme.global.chart.margin}
-          chartmargin={margin}
+          chartMargin={margin}
           width={width}
           gridArea={gridArea}
         >

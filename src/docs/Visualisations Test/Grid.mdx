@@ -1,0 +1,116 @@
+---
+name: Grid and chart test
+route: /gridChart
+menu: Visualisations Test
+---
+
+
+<h1 style={{ margin: '0px' }}>Grid</h1>
+<h3 style={{ margin: '0px' }}><em>A CSS Grid Layout Component</em></h3>
+
+<br />
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Grid from '../../lib/components/React/Grid/Grid.jsx'
+import Column from '../../lib/components/React/Column/Column.jsx';
+import Bar from '../../lib/components/React/Bar/Bar.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+
+<Playground>
+    <Grid
+   rows={['400px',"400px","400px"]}
+  cols={["repeat(9, 1fr)"]}
+  areas={[["hd hd hd hd   hd   hd   hd   hd   hd"], ["sd sd sd sd main main main main main"], ["ft ft ft ft   ft   ft   ft   ft   ft"]]}
+  backgroundColor="altGray1"
+>
+   <Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "5c8ddda7-d4a8-4ee1-b994-922fca34830c"
+  }}>
+      <Column
+            cols={[
+              { qField: 'Year', qLabel: 'Year' },
+              { qField: '[OICA region]', qLabel: 'OICA region' },
+              { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' }
+              // {
+              //   qField: '=Sum([Commercial vehicle sales])',
+              //   qLabel: 'Commercial vehicles sales'
+              // }
+            ]}
+            // title="Vehicle Sales by Region"
+            // subTitle="Vehicle Sales by Region"
+                        tickSpacing="narrow"
+           // showGridlines={true}
+            showGridlines={'none'}
+            textOnAxis='both'
+            // showLegend={true}
+            suppressZero={true}
+            suppressScroll={true}
+            stacked={true}
+            // percentStacked={true}
+       //     height="410px"
+            // border = {false}
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}
+            gridArea="hd"
+     //        otherTotalSpec={{
+     //         qOtherLabel: 'Other',
+     //         qOtherCount: '5'
+     //       }}
+            />
+                  <Bar
+            cols={[
+              { qField: 'Year', qLabel: 'Year' },
+              { qField: '[OICA region]', qLabel: 'OICA region' },
+              { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' }
+              // {
+              //   qField: '=Sum([Commercial vehicle sales])',
+              //   qLabel: 'Commercial vehicles sales'
+              // }
+            ]}
+            // title="Vehicle Sales by Region"
+            // subTitle="Vehicle Sales by Region"
+                        tickSpacing="narrow"
+           // showGridlines={true}
+            showGridlines={'none'}
+            textOnAxis='both'
+            // showLegend={true}
+            suppressZero={true}
+            suppressScroll={true}
+            stacked={true}
+            // percentStacked={true}
+       //     height="410px"
+            // border = {false}
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}
+            gridArea="sd"
+     //        otherTotalSpec={{
+     //         qOtherLabel: 'Other',
+     //         qOtherCount: '5'
+     //       }}
+            />
+  </Motor>
+
+    <div style={{ gridArea: 'main' }} >Content</div>
+    <div style={{ gridArea: 'ft' }} >Footer</div>
+
+</Grid>
+</Playground>
+
+<br />
+
+
+## Props
+
+<Props of={Grid} />
+
+<br />
