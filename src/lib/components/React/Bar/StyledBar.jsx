@@ -208,8 +208,8 @@ function StyledBar(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          // margin={margin || theme.global.chart.margin}
-          chartMargin={margin || theme.global.chart.margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
           width={width}
         >
@@ -218,7 +218,7 @@ function StyledBar(props) {
             style={{
               position: "relative",
               height,
-              // margin: "10px",
+              margin: "10px",
             }}
           >
             <div
@@ -248,8 +248,8 @@ function StyledBar(props) {
           border={border}
           size={size}
           width={width}
-          // margin={margin || theme.global.chart.margin}
-          chartMargin={margin || theme.global.chart.margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
         >
           <BarNoDataContent height={height}>

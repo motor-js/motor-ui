@@ -206,7 +206,6 @@ function StyledLine(props) {
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
           margin={margin || theme.global.chart.margin}
-          chartMargin={margin}
           width={width}
           gridArea={gridArea}
         >
@@ -247,7 +246,6 @@ function StyledLine(props) {
           borderRadius={borderRadius}
           size={size}
           margin={margin || theme.global.chart.margin}
-          chartMargin={margin}
           width={width}
           gridArea={gridArea}
         >

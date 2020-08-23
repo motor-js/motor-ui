@@ -224,8 +224,8 @@ function StyledColumn({
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          // margin={margin || theme.global.chart.margin}
-          chartMargin={margin || theme.global.chart.margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           width={width}
           gridArea={gridArea}
         >
@@ -234,7 +234,7 @@ function StyledColumn({
             style={{
               position: "relative",
               height,
-              // margin: "10px",
+              margin: "10px",
             }}
           >
             <div
@@ -266,8 +266,8 @@ function StyledColumn({
           borderRadius={borderRadius}
           size={size}
           width={width}
-          // margin={margin || theme.global.chart.margin}
-          chartMargin={margin || theme.global.chart.margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
         >
           <ColumnNoDataContent height={height}>

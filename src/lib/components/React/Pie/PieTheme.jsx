@@ -23,7 +23,7 @@ const PieWrapper = styled.div`
   userselect: ${(props) => props.theme.global.chart.userSelect};
   display: ${(props) => props.theme.global.chart.display};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.chartMargin || props.theme.global.chart.margin};
+  margin: ${(props) => props.margin || props.theme.global.chart.margin};
 `;
 
 const PieWrapperNoData = styled.div`
@@ -44,7 +44,7 @@ const PieWrapperNoData = styled.div`
 
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.chartMargin || props.theme.global.chart.margin};
+  margin: ${(props) => props.margin || props.theme.global.chart.margin};
 `;
 
 const PieNoDataContent = styled.div`
