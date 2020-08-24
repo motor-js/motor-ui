@@ -201,6 +201,8 @@ Scatter.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 Scatter.defaultProps = {
@@ -222,6 +224,7 @@ Scatter.defaultProps = {
   roundNum: true,
   columnSortOrder: [],
   sortDirection: "",
+  gridArea: null,
 };
 
 export default Scatter;

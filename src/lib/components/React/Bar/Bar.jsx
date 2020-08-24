@@ -213,7 +213,8 @@ Bar.propTypes = {
       qOtherLabel: PropTypes.string,
       qOtherCount: PropTypes.string,
     }),
-  ]) /** Name of the parent grid area to place the box */,
+  ]),
+  /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
 };
 
