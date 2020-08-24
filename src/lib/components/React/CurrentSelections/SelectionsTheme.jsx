@@ -92,12 +92,15 @@ const SelectionsX = styled.span`
   border: 1px solid
     ${(props) =>
       selectColor(props.theme.selections.item.backgroundColor, props.theme)};
+`;
+
+/*
   &:hover {
     border: 1px solid
       ${(props) => selectColor(props.theme.selections.color.clear, props.theme)};
   }
-`;
-
+  
+*/
 const XStyled = styled(Times)`
   padding: 1px 1px;
   color: ${(props) =>

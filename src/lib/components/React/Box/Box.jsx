@@ -233,7 +233,7 @@ Box.defaultProps = {
   height: null,
   width: null,
   margin: null,
-  overflow: "auto",
+  overflow: "visible",
   backgroundColor: null,
   color: null,
   border: null,

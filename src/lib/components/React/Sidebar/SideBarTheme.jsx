@@ -32,7 +32,7 @@ const Overlay = styled.div`
   height: 100%;
   background-color:${({ overlayBackground, theme }) =>
     overlayBackground || theme.global.overlay.background};
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  opacity: ${({ isOpen }) => (isOpen ? 0.5 : 0)};
   "-moz-transform": ${({ isOpen }) =>
     isOpen ? "" : "translate3d(100%, 0, 0)"};
   "-ms-transform": ${({ isOpen }) => (isOpen ? "" : "translate3d(100%, 0, 0)")};
@@ -129,8 +129,6 @@ const CloseIcon = styled(styledXCircle)`
   padding: 8px 8px 0px 5px;
   position: absolute;
   right: 0px;
-  // left: ${({ right }) => (right ? "10px" : "")};
-  // right: ${({ right }) => (right ? "" : "10px")};
   stroke-width: 2px;
   top: 0px;
   cursor: pointer;

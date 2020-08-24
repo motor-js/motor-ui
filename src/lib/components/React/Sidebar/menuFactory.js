@@ -122,9 +122,9 @@ export default (styles) => {
         this.handleExternalWrapper(this.props.pageWrapId, styles.pageWrap, set);
       }
 
-      if (styles.outerContainer && this.props.outerContainerId) {
+      if (styles.outerContainer && this.props.containerId) {
         this.handleExternalWrapper(
-          this.props.outerContainerId,
+          this.props.containerId,
           styles.outerContainer,
           set
         );

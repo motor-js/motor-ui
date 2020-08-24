@@ -69,7 +69,7 @@ function StyledSelectionModal({
             onClick={cancelSelections}
           >
             {buttonType || theme.selectionModal.buttonType === "icon" ? (
-              <Times className="cancelSelections" size={24} />
+              <Times className="cancelSelections" size={20} />
             ) : (
               <div className="cancelSelections">CANCEL</div>
             )}
@@ -87,7 +87,7 @@ function StyledSelectionModal({
             onClick={confirmSelections}
           >
             {buttonType || theme.selectionModal.buttonType === "icon" ? (
-              <Check size={24} />
+              <Check size={20} />
             ) : (
               <div>CONFIRM</div>
             )}
