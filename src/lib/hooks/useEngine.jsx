@@ -7,7 +7,7 @@ const SenseUtilities = require("enigma.js/sense-utilities");
 const MAX_RETRIES = 3;
 
 function useEngine(config) {
-  const intercept = [
+  const responseInterceptors = [
     {
       // We only want to handle failed responses from QIX Engine:
       onRejected: function retryAbortedError(sessionReference, request, error) {
@@ -67,6 +67,7 @@ function useEngine(config) {
           schema,
           url: `wss://${tenantUri}/app/${config.appId}?qlik-web-integration-id=${webIntegrationId}&qlik-csrf-token=${csrfToken}`,
           createSocket: (url) => new WebSocket(url),
+          responseInterceptors,
         });
         session.on("suspended", () => {
           console.warn("Captured session suspended");
@@ -95,7 +96,11 @@ function useEngine(config) {
         } */
         const url = SenseUtilities.buildUrl(myConfig);
         try {
-          const session = enigma.create({ schema, url, intercept });
+          const session = enigma.create({
+            schema,
+            url,
+            responseInterceptors,
+          });
           session.on("suspended", () => {
             console.warn("Captured session suspended");
           });

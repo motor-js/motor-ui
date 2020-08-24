@@ -34,6 +34,7 @@ function StyledPie({
   suppressZero,
   otherTotalSpec,
   showLabels,
+  gridArea,
   ...rest
 }) {
   // Ref for d3 object
@@ -128,7 +129,11 @@ function StyledPie({
         qLayout,
         qData,
         // chartWidth: width,
-        chartHeight: height,
+        // chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -167,7 +172,9 @@ function StyledPie({
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
           size={size}
         >
@@ -208,7 +215,9 @@ function StyledPie({
           borderRadius={borderRadius}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
         >
           <PieNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

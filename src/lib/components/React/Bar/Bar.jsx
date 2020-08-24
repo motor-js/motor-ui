@@ -214,6 +214,8 @@ Bar.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 Bar.defaultProps = {
@@ -222,7 +224,7 @@ Bar.defaultProps = {
   suppressZero: null,
   width: "100%",
   height: "100%",
-  margin: "5px",
+  margin: null,
   size: "medium",
   showLabels: null,
   fontColor: "",
@@ -251,6 +253,7 @@ Bar.defaultProps = {
   dimensionErrMsg: null,
   measureErrMsg: null,
   otherTotalSpec: null,
+  gridArea: null,
 };
 
 export default Bar;

@@ -62,6 +62,7 @@ function StyledScatter(props) {
     textOnAxis,
     otherTotalSpec,
     tickSpacing,
+    gridArea,
     ...rest
   } = props;
 
@@ -149,7 +150,11 @@ function StyledScatter(props) {
         qLayout,
         qData,
         // chartWidth: width,
-        chartHeight: height,
+        // chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -200,7 +205,8 @@ function StyledScatter(props) {
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
         >
           <div
@@ -240,8 +246,9 @@ function StyledScatter(props) {
           border={border}
           borderRadius={borderRadius}
           size={size}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
-          margin={margin}
         >
           <ScatterNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

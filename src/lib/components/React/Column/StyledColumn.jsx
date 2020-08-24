@@ -77,6 +77,8 @@ function StyledColumn({
   const { LegendThemes } = LegendTheme(theme, backgroundColor);
   const { ColumnDefault } = ColumnThemes;
 
+  const refMargin = "10px";
+
   // retrieve Column data from HyperCube
   const {
     beginSelections,
@@ -137,6 +139,11 @@ function StyledColumn({
 
   useEffect(() => {
     let valid;
+    // if (ref.current) {
+    //   // let height = stageCanvasRef.current.offsetHeight;
+    //   // let width = stageCanvasRef.current.offsetWidth;
+    //   console.log("h1", ref.current.offsetHeight);
+    // }
     if (qLayout) {
       // setObjId(qLayout.qInfo.qId);
       setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
@@ -154,7 +161,10 @@ function StyledColumn({
         qLayout,
         qData,
         // propsWidth: width,
-        propsHeight: height,
+        propsHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth,
         useSelectionColours,
@@ -215,6 +225,7 @@ function StyledColumn({
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
           margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           width={width}
           gridArea={gridArea}
         >
@@ -256,6 +267,7 @@ function StyledColumn({
           size={size}
           width={width}
           margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
         >
           <ColumnNoDataContent height={height}>
