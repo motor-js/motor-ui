@@ -209,7 +209,6 @@ function StyledBar(props) {
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
           margin={margin || theme.global.chart.margin}
-          // chartMargin={margin || theme.global.chart.margin}
           gridArea={gridArea}
           width={width}
         >
