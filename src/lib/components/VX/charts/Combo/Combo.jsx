@@ -27,7 +27,7 @@ function Combo({ config, ...rest }) {
 Combo.propTypes = {};
 
 Combo.defaultProps = {
-  width: 700,
+  width: "100%",
   height: 400,
 };
 

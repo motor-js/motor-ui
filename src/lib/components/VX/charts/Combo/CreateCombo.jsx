@@ -28,14 +28,23 @@ import CustomLegendShape from "../../components/CustomLegendShape";
 import Group from "../../components/series/Group";
 import Stack from "../../components/series/Stack";
 
-const data = cityTemperature.slice(100, 100 + 16);
-
 // @TODO wip updating data, not currently used
 // const halfData = data.slice(0, Math.floor(data.length / 2));
 
 const numDateTicks = 5;
 
 const getDate = (d) => new Date(d.date);
+// const getDate = (d) => new Date(d[0].qText);
+// const getDate = (d) =>
+//   new Date(
+//     d[0].qText.split("/")[2],
+//     d[0].qText.split("/")[1] - 1,
+//     d[0].qText.split("/")[0]
+//   );
+
+// const getDate = (d) => {
+//   console.log(d);
+// };
 const getSfTemperature = (d) => Number(d["San Francisco"]);
 const getNyTemperature = (d) => Number(d["New York"]);
 const getAustinTemperature = (d) => Number(d.Austin);
@@ -129,7 +138,10 @@ export default function CreateCombo({
   pendingSelections,
   SetPendingSelections,
 }) {
-  console.log(data);
+  const data = cityTemperature.slice(100, 100 + 16);
+  // const data = qData.qMatrix;
+  // console.log(data);
+  // console.log(qData);
   const [theme, setTheme] = useState("light");
   const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
@@ -654,7 +666,7 @@ export default function CreateCombo({
           </label>
         </div>
       </div>
-      <style jsx>{`
+      {/* <style jsx>{`
         .container {
           position: relative;
           width: 100%;
@@ -664,7 +676,7 @@ export default function CreateCombo({
         .controls {
           font-size: 14px;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

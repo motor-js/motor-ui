@@ -34,8 +34,9 @@ import { config } from '../config/config.js'
   <Filter label='Country' dimension={['country']} />
     <Combo // width={750} height={400}  events={true}
       cols={[
-      { qField: 'Year', qLabel: 'Year' },
-      { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' },
+      { qField: 'CanonicalDate', qLabel: 'CanonicalDate' },
+      { qField: '=Sum([Hours])', qLabel: 'Hours' },
+      { qField: '=Sum([Forecast day])', qLabel: 'Forecast Day' },
     ]}/>
   </Motor>
 </Playground>
