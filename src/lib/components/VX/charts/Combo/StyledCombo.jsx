@@ -206,66 +206,66 @@ function StyledCombo(props) {
           margin={margin}
           width={width}
         >
-          <div
+          {/* <div
             ref={ref}
             style={{
               position: "relative",
               height,
               margin: "10px",
             }}
+          > */}
+          <div
+            style={{
+              border: isSelectionBarVisible ? "1px solid #CCCCCC" : "none",
+              overflowX: isSelectionBarVisible ? "hidden" : "auto",
+              overflowY: isSelectionBarVisible ? "hidden" : "auto",
+            }}
           >
-            <div
-              style={{
-                border: isSelectionBarVisible ? "1px solid #CCCCCC" : "none",
-                overflowX: isSelectionBarVisible ? "hidden" : "auto",
-                overflowY: isSelectionBarVisible ? "hidden" : "auto",
-              }}
-            >
-              <div
+            {/* <div
                 className="d3-component"
                 height={height}
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
-              >
-                {qData && qLayout && (
-                  // <WithTooltip
-                  //   // renderTooltip={({ datum }) => datum.y}
-                  //   renderTooltip={({ datum }) => {
-                  //     console.log(datum);
-                  //   }}
-                  //   tooltipProps={{
-                  //     offsetTop: 0,
-                  //     style: {
-                  //       backgroundColor: "pink",
-                  //       opacity: 0.9,
-                  //     },
-                  //   }}
-                  // >
-                  <CreateCombo
-                    width={width}
-                    height={height}
-                    events={events}
-                    qLayout={qLayout}
-                    qData={qData}
-                    beginSelections={beginSelections}
-                    select={select}
-                    setRefreshChart={setRefreshChart}
-                    setSelectionBarVisible={setSelectionBarVisible}
-                    useSelectionColours={useSelectionColours}
-                    pendingSelections={pendingSelections}
-                    SetPendingSelections={SetPendingSelections}
-                  />
-                  // </WithTooltip>
-                )}
-              </div>
-            </div>
-            <SelectionModal
-              isOpen={isSelectionBarVisible}
-              cancelCallback={cancelCallback}
-              confirmCallback={confirmCallback}
-              // width={width}
-            />
+              > */}
+            {qData && qLayout && (
+              // <WithTooltip
+              //   // renderTooltip={({ datum }) => datum.y}
+              //   renderTooltip={({ datum }) => {
+              //     console.log(datum);
+              //   }}
+              //   tooltipProps={{
+              //     offsetTop: 0,
+              //     style: {
+              //       backgroundColor: "pink",
+              //       opacity: 0.9,
+              //     },
+              //   }}
+              // >
+              <CreateCombo
+                width={width}
+                height={height}
+                events={events}
+                qLayout={qLayout}
+                qData={qData}
+                beginSelections={beginSelections}
+                select={select}
+                setRefreshChart={setRefreshChart}
+                setSelectionBarVisible={setSelectionBarVisible}
+                useSelectionColours={useSelectionColours}
+                pendingSelections={pendingSelections}
+                SetPendingSelections={SetPendingSelections}
+              />
+              // </WithTooltip>
+            )}
           </div>
+          {/* </div> */}
+          <SelectionModal
+            isOpen={isSelectionBarVisible}
+            cancelCallback={cancelCallback}
+            confirmCallback={confirmCallback}
+            // width={width}
+          />
+          {/* </div> */}
         </BarWrapper>
       ) : (
         <BarWrapperNoData

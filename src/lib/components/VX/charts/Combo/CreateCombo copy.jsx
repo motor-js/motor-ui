@@ -33,14 +33,14 @@ import Stack from "../../components/series/Stack";
 
 const numDateTicks = 5;
 
-// const getDate = (d) => new Date(d.date);
+const getDate = (d) => new Date(d.date);
 // const getDate = (d) => new Date(d[0].qText);
-const getDate = (d) =>
-  new Date(
-    d[0].qText.split("/")[2],
-    d[0].qText.split("/")[1] - 1,
-    d[0].qText.split("/")[0]
-  );
+// const getDate = (d) =>
+//   new Date(
+//     d[0].qText.split("/")[2],
+//     d[0].qText.split("/")[1] - 1,
+//     d[0].qText.split("/")[0]
+//   );
 
 // const getDate = (d) => {
 //   console.log(d);
@@ -138,8 +138,8 @@ export default function CreateCombo({
   pendingSelections,
   SetPendingSelections,
 }) {
-  // const data = cityTemperature.slice(100, 100 + 16);
-  const data = qData.qMatrix;
+  const data = cityTemperature.slice(100, 100 + 16);
+  // const data = qData.qMatrix;
   // console.log(data);
   // console.log(qData);
   const [theme, setTheme] = useState("light");
@@ -219,7 +219,8 @@ export default function CreateCombo({
         ? { ...defaultTheme, colors: ["#fbd46d", "#ff9c71", "#654062"] }
         : theme === "dark"
         ? { ...darkTheme, colors: ["#916dd5", "#f8615a", "#ffd868"] }
-        : { colors: ["#222", "#767676", "#bbb"] },
+        : // @ts-ignore {} is not a valid theme
+          { colors: ["#222", "#767676", "#bbb"] },
     [theme]
   );
 
@@ -261,7 +262,7 @@ export default function CreateCombo({
           }}
         >
           <XYChart
-            height={height}
+            height={400}
             width={autoWidth ? undefined : 800}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
@@ -336,8 +337,7 @@ export default function CreateCombo({
                   (d, i, arr) =>
                     i % Math.round((arr.length - 1) / numDateTicks) === 0
                 )
-                // .map((d) => new Date(d.date))}
-                .map((d) => getDate(d))}
+                .map((d) => new Date(d.date))}
               tickFormat={(d) =>
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
@@ -353,5 +353,338 @@ export default function CreateCombo({
         </div>
       </EventProvider>
     </ChartProvider>
+    //   <br />
+    //   <div className="controls">
+    //     <div>
+    //       <strong>data</strong>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <button
+    //         onClick={() => {
+    //           setDataMultiplier(5 * Math.random());
+    //         }}
+    //       >
+    //         Update data
+    //       </button>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           checked={useCustomDomain}
+    //           onChange={() => setUseCustomDomain(!useCustomDomain)}
+    //         />
+    //         Custom y-axis range
+    //       </label>
+    //       &nbsp;&nbsp;&nbsp;
+    //       {!useCustomDomain && (
+    //         <label>
+    //           <input
+    //             type="checkbox"
+    //             checked={includeZero}
+    //             onChange={() => setIncludeZero(!includeZero)}
+    //           />
+    //           Include zero&nbsp;&nbsp;&nbsp;
+    //         </label>
+    //       )}
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           checked={renderHorizontally}
+    //           onChange={() => setRenderHorizontally(!renderHorizontally)}
+    //         />
+    //         Render horizontally
+    //       </label>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           checked={negativeValues}
+    //           onChange={() => setNegativeValues(!negativeValues)}
+    //         />
+    //         Negative values&nbsp;
+    //       </label>
+    //     </div>
+    //     <div>
+    //       <strong>theme</strong>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setTheme("light")}
+    //           checked={theme === "light"}
+    //         />{" "}
+    //         light
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setTheme("dark")}
+    //           checked={theme === "dark"}
+    //         />{" "}
+    //         dark
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setTheme("none")}
+    //           checked={theme === "none"}
+    //         />{" "}
+    //         none
+    //       </label>
+    //     </div>
+
+    //     <div>
+    //       <strong>tooltip</strong>&nbsp;&nbsp;&nbsp;
+    //       {/* <label>
+    //         <input
+    //           type="checkbox"
+    //           checked={renderTooltipInPortal}
+    //           onChange={() => setRenderTooltipInPortal(!renderTooltipInPortal)}
+    //         />
+    //         Render tooltip in portal&nbsp;&nbsp;&nbsp;
+    //       </label> */}
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           disabled={!canSnapTooltipToDataX}
+    //           checked={snapTooltipToDataX}
+    //           onChange={() => setSnapTooltipToDataX(!snapTooltipToDataX)}
+    //         />
+    //         Snap tooltip to data <code>x</code>&nbsp;&nbsp;&nbsp;
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           disabled={!canSnapTooltipToDataY}
+    //           checked={snapTooltipToDataY}
+    //           onChange={() => setSnapTooltipToDataY(!snapTooltipToDataY)}
+    //         />
+    //         Snap tooltip to data <code>y</code>&nbsp;
+    //       </label>
+    //     </div>
+    //     <div>
+    //       <strong>legend</strong>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendLeftRight("left")}
+    //           checked={legendLeftRight === "left"}
+    //         />{" "}
+    //         left
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendLeftRight("right")}
+    //           checked={legendLeftRight === "right"}
+    //         />{" "}
+    //         right
+    //       </label>
+    //       &nbsp;&nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendTopBottom("top")}
+    //           checked={legendTopBottom === "top"}
+    //         />{" "}
+    //         top
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendTopBottom("bottom")}
+    //           checked={legendTopBottom === "bottom"}
+    //         />{" "}
+    //         bottom
+    //       </label>
+    //       &nbsp;&nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendDirection("row")}
+    //           checked={legendDirection === "row"}
+    //         />{" "}
+    //         horizontal
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendDirection("column")}
+    //           checked={legendDirection === "column"}
+    //         />{" "}
+    //         vertical
+    //       </label>
+    //     </div>
+    //     <div>
+    //       <strong>legend shape</strong>
+    //       &nbsp;&nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendShape("auto")}
+    //           checked={legendShape === "auto"}
+    //         />{" "}
+    //         auto
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendShape("rect")}
+    //           checked={legendShape === "rect"}
+    //         />{" "}
+    //         rect
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendShape("line")}
+    //           checked={legendShape === "line"}
+    //         />{" "}
+    //         line
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendShape("circle")}
+    //           checked={legendShape === "circle"}
+    //         />{" "}
+    //         circle
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setLegendShape("custom")}
+    //           checked={legendShape === "custom"}
+    //         />{" "}
+    //         custom
+    //       </label>
+    //     </div>
+    //     <div>
+    //       <strong>axis</strong>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           checked={useAnimatedAxes}
+    //           onChange={() => setUseAnimatedAxes(!useAnimatedAxes)}
+    //         />
+    //         animated axes
+    //       </label>
+    //       &nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setXAxisOrientation("bottom")}
+    //           checked={xAxisOrientation === "bottom"}
+    //         />{" "}
+    //         bottom
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setXAxisOrientation("top")}
+    //           checked={xAxisOrientation === "top"}
+    //         />{" "}
+    //         top
+    //       </label>
+    //       &nbsp;&nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setYAxisOrientation("left")}
+    //           checked={yAxisOrientation === "left"}
+    //         />{" "}
+    //         left
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           onChange={() => setYAxisOrientation("right")}
+    //           checked={yAxisOrientation === "right"}
+    //         />{" "}
+    //         right
+    //       </label>
+    //       <br />
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           onChange={() => setAutoWidth(!autoWidth)}
+    //           checked={autoWidth}
+    //         />{" "}
+    //         responsive width
+    //       </label>
+    //     </div>
+    //     <div>
+    //       <strong>series</strong>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           checked={visibleSeries.includes("line")}
+    //           onChange={() =>
+    //             setVisibleSeries(
+    //               visibleSeries.includes("line")
+    //                 ? visibleSeries.filter((s) => s !== "line")
+    //                 : [...visibleSeries, "line"]
+    //             )
+    //           }
+    //         />
+    //         line
+    //       </label>
+    //       &nbsp;&nbsp;
+    //       {/** bar types are mutually exclusive */}
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           checked={visibleSeries.includes("bar")}
+    //           onChange={() =>
+    //             setVisibleSeries([
+    //               ...visibleSeries.filter((s) => !s.includes("bar")),
+    //               "bar",
+    //             ])
+    //           }
+    //         />
+    //         bar
+    //       </label>
+    //       &nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           checked={visibleSeries.includes("groupedbar")}
+    //           onChange={() =>
+    //             setVisibleSeries([
+    //               ...visibleSeries.filter((s) => !s.includes("bar")),
+    //               "groupedbar",
+    //             ])
+    //           }
+    //         />
+    //         grouped bar
+    //       </label>
+    //       &nbsp;&nbsp;
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           checked={visibleSeries.includes("stackedbar")}
+    //           onChange={() =>
+    //             setVisibleSeries([
+    //               ...visibleSeries.filter((s) => !s.includes("bar")),
+    //               "stackedbar",
+    //             ])
+    //           }
+    //         />
+    //         stacked bar
+    //       </label>
+    //     </div>
+    //   </div>
+    //   {/* <style jsx>{`
+    //     .container {
+    //       position: relative;
+    //       width: 100%;
+    //       display: flex;
+    //       flex-direction: column;
+    //     }
+    //     .controls {
+    //       font-size: 14px;
+    //     }
+    //   `}</style> */}
+    // </div>
   );
 }
