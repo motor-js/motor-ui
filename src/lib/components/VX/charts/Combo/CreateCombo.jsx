@@ -53,25 +53,29 @@ const getDate = (d) =>
 // const getSfTemperature = (d) => Number(d["San Francisco"]);
 // const getNyTemperature = (d) => Number(d["New York"]);
 // const getAustinTemperature = (d) => Number(d.Austin);
-const getSfTemperature = (d) => Number(d["San Francisco"]);
-const getNyTemperature = (d) => Number(d["New York"]);
+const getSfTemperature = (d) => Number(d[2].qNum);
+// const getNyTemperature = (d) => Number(d["New York"]);
 const getAustinTemperature = (d) => Number(d[1].qNum);
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 const legendLabelFormat = (d) => {
-  console.log(d);
+  console.log("legendLabelFormat", d);
   return d === "sf"
     ? "San Francisco"
-    : d === "ny"
-    ? "New York"
-    : d === "austin"
+    : // : d === "ny"
+    // ? "New York"
+    d === "austin"
     ? "Austin"
     : d;
 };
 const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
   <>
     <div>{closestDatum.datum[0].qText}</div>
+    {/* <div>
+      {closestDatum.datum[0].qNum.toISOString?.().split?.("T")[0] ??
+        closestDatum.datum[0].qText.toString()}
+    </div> */}
     {/* <Console log={closestData.austin.datum[1].qNum} /> */}
     <br />
     {closestData?.sf &&
@@ -86,7 +90,7 @@ const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
           }}
         >
           {/* San Francisco {closestData.sf.datum["San Francisco"]}°F */}
-          San Francisco {closestData.sf.datum[1].qNum}°F
+          San Francisco {closestData.sf.datum[2].qNum}°F
         </div>
       )}
     {closestData?.ny &&
@@ -157,11 +161,12 @@ export default function CreateCombo({
   SetPendingSelections,
 }) {
   // const data = cityTemperature.slice(100, 100 + 16);
-  console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
+  // console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
+  // console.log(qData.qMatrix);
   const data = qData.qMatrix;
   // console.log(data);
   // console.log(qData);
-  const [theme, setTheme] = useState("light");
+  // const [theme, setTheme] = useState("light");
   const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
   const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
@@ -179,7 +184,7 @@ export default function CreateCombo({
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
   const [dataMultiplier, setDataMultiplier] = useState(1);
   // const [renderTooltipInPortal, setRenderTooltipInPortal] = useState(false);
-  const [visibleSeries, setVisibleSeries] = useState(["bar"]);
+  const [visibleSeries, setVisibleSeries] = useState(["bar", "line"]);
   const canSnapTooltipToDataX =
     (visibleSeries.includes("groupedbar") && renderHorizontally) ||
     (visibleSeries.includes("stackedbar") && !renderHorizontally) ||
@@ -210,7 +215,8 @@ export default function CreateCombo({
       domain:
         visibleSeries.includes("bar") && !visibleSeries.includes("line")
           ? ["austin"]
-          : ["austin", "sf", "ny"],
+          : // : ["austin", "sf", "ny"],
+            ["austin", "sf"],
     }),
     [visibleSeries]
   );
@@ -226,21 +232,25 @@ export default function CreateCombo({
     renderHorizontally,
     false
   );
-  const nyAccessors = useAccessors(
-    getNyTemperature,
-    dataMultiplier,
-    renderHorizontally,
-    negativeValues
-  );
-  const themeObj = useMemo(
-    () =>
-      theme === "light"
-        ? { ...defaultTheme, colors: ["#00bfff", "#0040ff", "#654062"] }
-        : theme === "dark"
-        ? { ...darkTheme, colors: ["#916dd5", "#f8615a", "#ffd868"] }
-        : { colors: ["#222", "#767676", "#bbb"] },
-    [theme]
-  );
+  // const nyAccessors = useAccessors(
+  //   getNyTemperature,
+  //   dataMultiplier,
+  //   renderHorizontally,
+  //   negativeValues
+  // );
+  // const themeObj = useMemo(
+  //   () =>
+  //     theme === "light"
+  //       ? { ...defaultTheme, colors: ["#00bfff", "#0040ff", "#654062"] }
+  //       : theme === "dark"
+  //       ? { ...darkTheme, colors: ["#916dd5", "#f8615a", "#ffd868"] }
+  //       : { colors: ["#222", "#767676", "#bbb"] },
+  //   [theme]
+  // );
+  const themeObj = {
+    ...defaultTheme,
+    colors: ["#00bfff", "#0040ff", "#654062"],
+  };
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 
@@ -305,7 +315,7 @@ export default function CreateCombo({
                   {...austinAccessors}
                 />
                 <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+                {/* <BarSeries dataKey="ny" data={currData} {...nyAccessors} /> */}
               </Stack>
             )}
             {visibleSeries.includes("groupedbar") && (
@@ -316,7 +326,7 @@ export default function CreateCombo({
                   {...austinAccessors}
                 />
                 <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+                {/* <BarSeries dataKey="ny" data={currData} {...nyAccessors} /> */}
               </Group>
             )}
 
@@ -328,13 +338,13 @@ export default function CreateCombo({
                   {...sfAccessors}
                   strokeWidth={1.5}
                 />
-                <LineSeries
+                {/* <LineSeries
                   dataKey="ny"
                   data={currData}
                   {...nyAccessors}
                   strokeWidth={1.5}
                   strokeDasharray="5,3"
-                />
+                /> */}
               </>
             )}
 
