@@ -356,6 +356,11 @@ export default function CreateCombo({
               }
               numTicks={5}
             />
+            {/* <AxisComponent
+              label="Temperature (°F)"
+              orientation="right"
+              numTicks={5}
+            /> */}
             {/** Date axis */}
             <AxisComponent
               orientation={
