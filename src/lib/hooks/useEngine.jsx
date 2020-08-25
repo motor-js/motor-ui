@@ -11,7 +11,10 @@ function useEngine(config) {
     {
       // We only want to handle failed responses from QIX Engine:
       onRejected: function retryAbortedError(sessionReference, request, error) {
-        console.warn("Captured Request: Rejected", error);
+        console.warn(
+          "Captured Request: Rejected",
+          `Error Code: ${error.code} : ${error}`
+        );
         // We only want to handle aborted QIX errors:
         if (
           error.code === schema.enums.LocalizedErrorCode.LOCERR_GENERIC_ABORTED
@@ -24,6 +27,18 @@ function useEngine(config) {
           if (request.tries <= MAX_RETRIES) {
             return request.retry();
           }
+        }
+        if (
+          error.code ===
+          schema.enums.LocalizedErrorCode.LOCERR_GENERIC_INVALID_PARAMETERS
+        ) {
+          return error.code;
+        }
+        if (
+          error.code ===
+          schema.enums.LocalizedErrorCode.LOCERR_HC_MODAL_OBJECT_ERROR
+        ) {
+          return error.code;
         }
         // If it was not an aborted QIX call, or if we reached MAX_RETRIES, we let the error
         // trickle down to potential other interceptors, and finally down to resolving/rejecting
