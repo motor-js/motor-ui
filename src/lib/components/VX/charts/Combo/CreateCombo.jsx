@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+// import React, { useMemo } from "react";
 // import { Bar } from "@vx/shape";
 // import { Group } from "@vx/group";
 // import { GradientTealBlue } from "@vx/gradient"; // npm up to date
@@ -11,22 +11,22 @@ import React, { useState, useMemo } from "react";
 import cityTemperature, {
   CityTemperature,
 } from "@vx/mock-data/lib/mocks/cityTemperature";
-import defaultTheme from "./theme/default";
-import darkTheme from "./theme/darkTheme";
-import Axis from "./components/Axis";
-import AnimatedAxis from "./components/AnimatedAxis";
-import ChartProvider from "./components/providers/ChartProvider";
-import XYChart from "./components/XYChart";
-import BarSeries from "./components/series/BarSeries";
-import LineSeries from "./components/series/LineSeries";
-import ChartBackground from "./components/ChartBackground";
-import EventProvider from "./components/providers/TooltipProvider";
-import Tooltip, { RenderTooltipArgs } from "./components/Tooltip";
-import { ScaleConfig } from "./types";
-import Legend from "./components/Legend";
-import CustomLegendShape from "./components/CustomLegendShape";
-import Group from "./components/series/Group";
-import Stack from "./components/series/Stack";
+import defaultTheme from "../../theme/default";
+import darkTheme from "../../theme/darkTheme";
+import Axis from "../../components/Axis";
+import AnimatedAxis from "../../components/AnimatedAxis";
+import ChartProvider from "../../components/providers/ChartProvider";
+import XYChart from "../../components/XYChart";
+import BarSeries from "../../components/series/BarSeries";
+import LineSeries from "../../components/series/LineSeries";
+import ChartBackground from "../../components/ChartBackground";
+import EventProvider from "../../components/providers/TooltipProvider";
+import Tooltip, { RenderTooltipArgs } from "../../.../../components/Tooltip";
+// import { ScaleConfig } from "./types";
+import Legend from "../../components/Legend";
+import CustomLegendShape from "../../components/CustomLegendShape";
+import Group from "../../components/series/Group";
+import Stack from "../../components/series/Stack";
 
 const data = cityTemperature.slice(100, 100 + 16);
 
@@ -129,6 +129,7 @@ export default function CreateCombo({
   pendingSelections,
   SetPendingSelections,
 }) {
+  console.log(data);
   const [theme, setTheme] = useState("light");
   const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
@@ -146,7 +147,7 @@ export default function CreateCombo({
   const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
   const [dataMultiplier, setDataMultiplier] = useState(1);
-  const [renderTooltipInPortal, setRenderTooltipInPortal] = useState(true);
+  // const [renderTooltipInPortal, setRenderTooltipInPortal] = useState(false);
   const [visibleSeries, setVisibleSeries] = useState(["bar"]);
   const canSnapTooltipToDataX =
     (visibleSeries.includes("groupedbar") && renderHorizontally) ||
@@ -326,7 +327,7 @@ export default function CreateCombo({
               snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
               snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
               renderTooltip={renderTooltip}
-              renderInPortal={renderTooltipInPortal}
+              // renderInPortal={renderTooltipInPortal}
             />
             {legendTopBottom === "bottom" && legend}
           </div>
@@ -412,14 +413,14 @@ export default function CreateCombo({
 
         <div>
           <strong>tooltip</strong>&nbsp;&nbsp;&nbsp;
-          <label>
+          {/* <label>
             <input
               type="checkbox"
               checked={renderTooltipInPortal}
               onChange={() => setRenderTooltipInPortal(!renderTooltipInPortal)}
             />
             Render tooltip in portal&nbsp;&nbsp;&nbsp;
-          </label>
+          </label> */}
           <label>
             <input
               type="checkbox"

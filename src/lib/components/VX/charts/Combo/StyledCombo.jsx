@@ -1,17 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
-import UseHyperCube from "../../../hooks/useHyperCube";
-import useOutsideClick from "../../../hooks/useOutsideClick";
-import SelectionModal from "../SelectionModal";
+import UseHyperCube from "../../../../hooks/useHyperCube";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
+import SelectionModal from "../../../React/SelectionModal";
 import BarTheme, {
   BarWrapper,
   BarWrapperNoData,
   BarNoDataContent,
-} from "./BarSeriesTheme";
-import Spinner from "../Spinner";
-import CreateBarSeries from "./CreateBarSeries";
-import WithTooltip from "../../VX/old/composer/WithTooltip";
+} from "./ComboTheme";
+import Spinner from "../../../React/Spinner";
+import CreateCombo from "./CreateCombo";
+// import WithTooltip from "../../VX/old/composer/WithTooltip";
 
-function StyledBarSeries(props) {
+function StyledCombo(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
@@ -228,34 +228,34 @@ function StyledBarSeries(props) {
                 onClick={(e) => e.stopPropagation()}
               >
                 {qData && qLayout && (
-                  <WithTooltip
-                    // renderTooltip={({ datum }) => datum.y}
-                    renderTooltip={({ datum }) => {
-                      console.log(datum);
-                    }}
-                    tooltipProps={{
-                      offsetTop: 0,
-                      style: {
-                        backgroundColor: "pink",
-                        opacity: 0.9,
-                      },
-                    }}
-                  >
-                    <CreateBarSeries
-                      width={width}
-                      height={height}
-                      events={events}
-                      qLayout={qLayout}
-                      qData={qData}
-                      beginSelections={beginSelections}
-                      select={select}
-                      setRefreshChart={setRefreshChart}
-                      setSelectionBarVisible={setSelectionBarVisible}
-                      useSelectionColours={useSelectionColours}
-                      pendingSelections={pendingSelections}
-                      SetPendingSelections={SetPendingSelections}
-                    />
-                  </WithTooltip>
+                  // <WithTooltip
+                  //   // renderTooltip={({ datum }) => datum.y}
+                  //   renderTooltip={({ datum }) => {
+                  //     console.log(datum);
+                  //   }}
+                  //   tooltipProps={{
+                  //     offsetTop: 0,
+                  //     style: {
+                  //       backgroundColor: "pink",
+                  //       opacity: 0.9,
+                  //     },
+                  //   }}
+                  // >
+                  <CreateCombo
+                    width={width}
+                    height={height}
+                    events={events}
+                    qLayout={qLayout}
+                    qData={qData}
+                    beginSelections={beginSelections}
+                    select={select}
+                    setRefreshChart={setRefreshChart}
+                    setSelectionBarVisible={setSelectionBarVisible}
+                    useSelectionColours={useSelectionColours}
+                    pendingSelections={pendingSelections}
+                    SetPendingSelections={SetPendingSelections}
+                  />
+                  // </WithTooltip>
                 )}
               </div>
             </div>
@@ -283,4 +283,4 @@ function StyledBarSeries(props) {
   );
 }
 
-export default StyledBarSeries;
+export default StyledCombo;

@@ -32,6 +32,10 @@ import { config } from '../config/config.js'
 <Motor  
  config={config}>  
   <Filter label='Country' dimension={['country']} />
-    <Example/>
+    <Combo // width={750} height={400}  events={true}
+      cols={[
+      { qField: 'Year', qLabel: 'Year' },
+      { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car sales' },
+    ]}/>
   </Motor>
 </Playground>

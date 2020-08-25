@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledCombo from "./StyledCombo";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
-import defaultTheme from "../../../themes/defaultTheme";
+import { ConfigContext } from "../../../../contexts/ConfigProvider";
+import defaultTheme from "../../../../themes/defaultTheme";
 // import { EngineContext } from "../../../contexts/EngineProvider";
 import { EngineContext } from "../../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
+import useEngine from "../../../../hooks/useEngine";
 
 function Combo({ config, ...rest }) {
   const myConfig = config || useContext(ConfigContext);

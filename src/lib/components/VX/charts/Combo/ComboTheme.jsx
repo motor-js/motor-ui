@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { defaultProps } from "../../../default-props";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { createColorArray } from "../../../utils/colors";
-import { selectColor } from "../../../utils/colors";
-import { componentWidth } from "../../../utils";
+import { defaultProps } from "../../../../default-props";
+import { globalStyle, borderStyle } from "../../../../utils/styles";
+import { createColorArray } from "../../../../utils/colors";
+import { selectColor } from "../../../../utils/colors";
+import { componentWidth } from "../../../../utils";
 
 const BarWrapper = styled.div`
   ${globalStyle};

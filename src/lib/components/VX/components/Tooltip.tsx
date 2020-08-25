@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
-import { TooltipWithBounds, Portal, defaultStyles } from '@vx/tooltip';
-import { scaleOrdinal } from '@vx/scale';
+import React, { useContext } from "react";
+import { TooltipWithBounds, Portal, defaultStyles } from "@vx/tooltip";
+import { scaleOrdinal } from "@vx/scale";
 
-import TooltipContext from '../context/TooltipContext';
-import ChartContext from '../context/ChartContext';
-import { TooltipData } from '../types';
+import TooltipContext from "../context/TooltipContext";
+import ChartContext from "../context/ChartContext";
+import { TooltipData } from "../types";
 
-export type RenderTooltipArgs<Datum, DataKeys extends string> = TooltipData<Datum, DataKeys> & {
+export type RenderTooltipArgs<Datum, DataKeys extends string> = TooltipData<
+  Datum,
+  DataKeys
+> & {
   colorScale: typeof scaleOrdinal;
 };
 
@@ -24,15 +27,22 @@ export default function Tooltip<Datum, DataKeys extends string>({
   snapToDataX,
   snapToDataY,
   showVerticalCrosshair = true,
-  renderInPortal = true,
+  renderInPortal = false,
 }: TooltipProps<Datum, DataKeys>) {
   const { tooltipData } = useContext(TooltipContext) || {};
   const { margin, xScale, yScale, colorScale, dataRegistry, height, theme } =
     useContext(ChartContext) || {};
 
   // early return if there's no tooltip
-  const { closestDatum, svgMouseX, svgMouseY, pageX, pageY, svgOriginX, svgOriginY } =
-    tooltipData || {};
+  const {
+    closestDatum,
+    svgMouseX,
+    svgMouseY,
+    pageX,
+    pageY,
+    svgOriginX,
+    svgOriginY,
+  } = tooltipData || {};
 
   if (!closestDatum || svgMouseX == null || svgMouseY == null) return null;
 
@@ -62,7 +72,7 @@ export default function Tooltip<Datum, DataKeys extends string>({
       {yScale && showVerticalCrosshair && (
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             width: 1,
             height: height - margin.top - margin.bottom,
             top: 0,
@@ -70,8 +80,8 @@ export default function Tooltip<Datum, DataKeys extends string>({
             transform: `translate(${xCoord}px,${
               renderInPortal ? svgOriginY + margin.top : margin.top
             }px)`,
-            borderLeft: `1px solid ${theme?.xAxisStyles?.stroke ?? '#222'}`,
-            pointerEvents: 'none',
+            borderLeft: `1px solid ${theme?.xAxisStyles?.stroke ?? "#222"}`,
+            pointerEvents: "none",
           }}
         />
       )}
@@ -80,8 +90,8 @@ export default function Tooltip<Datum, DataKeys extends string>({
         top={yCoord}
         style={{
           ...defaultStyles,
-          background: theme?.baseColor ?? 'white',
-          color: theme?.xAxisStyles?.stroke ?? '#222',
+          background: theme?.baseColor ?? "white",
+          color: theme?.xAxisStyles?.stroke ?? "#222",
         }}
       >
         {renderTooltip({ ...tooltipData, colorScale })}
