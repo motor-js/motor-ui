@@ -73,7 +73,7 @@ export default (styles) => {
     }
 
     toggleDrawer() {
-      console.log('Toggle called')
+      console.log("Toggle called");
       //this.open()}
     }
 
@@ -338,7 +338,6 @@ export default (styles) => {
           </MenuWrap>
           {
             {
-              /*
               menu: (
                 <MenuIcon
                   openIconColor={this.props.openIconColor}
@@ -346,9 +345,8 @@ export default (styles) => {
                   size={35}
                   right={this.props.right}
                 />
-              
               ),
-              */
+
               filter: (
                 <FilterIcon
                   openIconColor={this.props.openIconColor}
@@ -357,7 +355,7 @@ export default (styles) => {
                   right={this.props.right}
                 />
               ),
-            }[this.props.openIcon || "menu"]
+            }[this.props.openIcon]
           }
         </div>
       );
@@ -449,11 +447,11 @@ export default (styles) => {
       "scaleDown",
       "scaleRotate",
       "fallDown",
-      "reveal"
+      "reveal",
     ]),
     header: PropTypes.node,
     footer: PropTypes.node,
-    openIcon: PropTypes.oneOf(["menu", "filter"]),
+    openIcon: PropTypes.oneOf(["none", "menu", "filter"]),
     openIconColor: PropTypes.string,
     /** Set background color */
     backgroundColor: PropTypes.string,
@@ -539,6 +537,7 @@ export default (styles) => {
     footerHeight: "100px",
     backgroundColor: null,
     borderRadius: null,
+    openIcon: "none",
   };
 
   return Menu;
