@@ -72,25 +72,14 @@ export default (styles) => {
       });
     }
 
-    toggleDrawer() {
-      console.log('Toggle called')
-      //this.open()}
-    }
-
     open() {
-      if (typeof this.props.onOpen === "function") {
         this.props.onOpen();
-      } else {
         this.toggleMenu();
-      }
     }
 
     close() {
-      if (typeof this.props.onClose === "function") {
         this.props.onClose();
-      } else {
         this.toggleMenu();
-      }
     }
 
     overlayClick() {
@@ -277,6 +266,7 @@ export default (styles) => {
     }
 
     render() {
+
       return (
         <div>
           {!this.props.noOverlay && (
