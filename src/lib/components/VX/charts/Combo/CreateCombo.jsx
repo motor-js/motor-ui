@@ -33,6 +33,11 @@ import Stack from "../../components/series/Stack";
 
 const numDateTicks = 5;
 
+const Console = (prop) => (
+  console[Object.keys(prop)[0]](...Object.values(prop)),
+  null // ➜ React components must return something
+);
+
 // const getDate = (d) => new Date(d.date);
 // const getDate = (d) => new Date(d[0].qText);
 const getDate = (d) =>
@@ -45,49 +50,61 @@ const getDate = (d) =>
 // const getDate = (d) => {
 //   console.log(d);
 // };
+// const getSfTemperature = (d) => Number(d["San Francisco"]);
+// const getNyTemperature = (d) => Number(d["New York"]);
+// const getAustinTemperature = (d) => Number(d.Austin);
 const getSfTemperature = (d) => Number(d["San Francisco"]);
 const getNyTemperature = (d) => Number(d["New York"]);
-const getAustinTemperature = (d) => Number(d.Austin);
+const getAustinTemperature = (d) => Number(d[1].qNum);
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
-const legendLabelFormat = (d) =>
-  d === "sf"
+const legendLabelFormat = (d) => {
+  console.log(d);
+  return d === "sf"
     ? "San Francisco"
     : d === "ny"
     ? "New York"
     : d === "austin"
     ? "Austin"
     : d;
-
+};
 const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
   <>
-    <div>{closestDatum.datum.date}</div>
+    <div>{closestDatum.datum[0].qText}</div>
+    {/* <Console log={closestData.austin.datum[1].qNum} /> */}
     <br />
-    {closestData?.sf && closestDatum.datum.date === closestData.sf.datum.date && (
-      <div
-        style={{
-          color: colorScale("sf"),
-          textDecoration:
-            closestDatum.key === "sf" ? "underline solid currentColor" : "none",
-        }}
-      >
-        San Francisco {closestData.sf.datum["San Francisco"]}°F
-      </div>
-    )}
-    {closestData?.ny && closestDatum.datum.date === closestData.ny.datum.date && (
-      <div
-        style={{
-          color: colorScale("ny"),
-          textDecoration:
-            closestDatum.key === "ny" ? "underline solid currentColor" : "none",
-        }}
-      >
-        New York {closestData.ny.datum["New York"]}°F
-      </div>
-    )}
+    {closestData?.sf &&
+      closestDatum.datum[0].qText === closestData.sf.datum[0].qText && (
+        <div
+          style={{
+            color: colorScale("sf"),
+            textDecoration:
+              closestDatum.key === "sf"
+                ? "underline solid currentColor"
+                : "none",
+          }}
+        >
+          {/* San Francisco {closestData.sf.datum["San Francisco"]}°F */}
+          San Francisco {closestData.sf.datum[1].qNum}°F
+        </div>
+      )}
+    {closestData?.ny &&
+      closestDatum.datum[0].qText === closestData.ny.datum[0].qText && (
+        <div
+          style={{
+            color: colorScale("ny"),
+            textDecoration:
+              closestDatum.key === "ny"
+                ? "underline solid currentColor"
+                : "none",
+          }}
+        >
+          New York {closestData.ny.datum[1].qNum}°F
+        </div>
+      )}
     {closestData?.austin &&
-      closestDatum.datum.date === closestData.austin.datum.date && (
+      closestDatum.datum[0].qText === closestData.austin.datum[0].qText && (
         <div
           style={{
             color: colorScale("austin"),
@@ -97,7 +114,7 @@ const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
                 : "none",
           }}
         >
-          Austin {closestData.austin.datum.Austin}°F
+          Austin {closestData.austin.datum[1].qNum}°F
         </div>
       )}
   </>
@@ -130,6 +147,7 @@ export default function CreateCombo({
   height,
   events = false,
   qData,
+  qLayout,
   setRefreshChart,
   beginSelections,
   select,
@@ -139,6 +157,7 @@ export default function CreateCombo({
   SetPendingSelections,
 }) {
   // const data = cityTemperature.slice(100, 100 + 16);
+  console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
   const data = qData.qMatrix;
   // console.log(data);
   // console.log(qData);
@@ -216,7 +235,7 @@ export default function CreateCombo({
   const themeObj = useMemo(
     () =>
       theme === "light"
-        ? { ...defaultTheme, colors: ["#fbd46d", "#ff9c71", "#654062"] }
+        ? { ...defaultTheme, colors: ["#00bfff", "#0040ff", "#654062"] }
         : theme === "dark"
         ? { ...darkTheme, colors: ["#916dd5", "#f8615a", "#ffd868"] }
         : { colors: ["#222", "#767676", "#bbb"] },
@@ -262,7 +281,7 @@ export default function CreateCombo({
         >
           <XYChart
             height={height}
-            width={autoWidth ? undefined : 800}
+            width={autoWidth ? undefined : 1000}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
@@ -273,6 +292,7 @@ export default function CreateCombo({
               <BarSeries
                 horizontal={renderHorizontally}
                 dataKey="austin"
+                // dataKey={qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle}
                 data={currData}
                 {...austinAccessors}
               />
