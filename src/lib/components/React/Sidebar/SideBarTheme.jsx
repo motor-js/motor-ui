@@ -118,11 +118,6 @@ const MenuMain = styled.div`
   grid-area: main;
 `;
 
-const ItemList = styled.nav`
-  height: 100%;
-  color: #b8b7ad;
-`;
-
 const CloseIcon = styled(styledXCircle)`
   color: ${(props) =>
     selectColor(props.theme.sidebar.color.closeIcon, props.theme)};
@@ -137,52 +132,6 @@ const CloseIcon = styled(styledXCircle)`
   }
 `;
 
-const MenuIcon = styled(styledMenu)`
-  color: ${(props) =>
-    selectColor(
-      props.openIconColor || props.theme.sidebar.color.openIcon,
-      props.theme
-    )};
-  position: absolute;
-  z-index: 1000;
-  right: ${({ right }) => (right ? "10px" : "")};
-  left: ${({ right }) => (right ? "" : "10px")};
-  top: 10px;
-  stroke-width: 2px;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  font-size: 0px;
-  background: transparent;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.6;
-  }
-`;
-
-const FilterIcon = styled(styledFilter)`
-  color: ${(props) =>
-    selectColor(
-      props.openIconColor || props.theme.sidebar.color.openIcon,
-      props.theme
-    )};
-  position: absolute;
-  z-index: 1001;
-  right: ${({ right }) => (right ? "10px" : "")};
-  left: ${({ right }) => (right ? "" : "10px")};
-  top: 10px;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  font-size: 0px;
-  background: transparent;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.6;
-    stroke-width: 1.5px;
-  }
-`;
-
 Overlay.defaultProps = {};
 Object.setPrototypeOf(Overlay.defaultProps, defaultProps);
 
@@ -192,17 +141,8 @@ Object.setPrototypeOf(MenuWrap.defaultProps, defaultProps);
 MenuMain.defaultProps = {};
 Object.setPrototypeOf(MenuMain.defaultProps, defaultProps);
 
-ItemList.defaultProps = {};
-Object.setPrototypeOf(ItemList.defaultProps, defaultProps);
-
 CloseIcon.defaultProps = {};
 Object.setPrototypeOf(CloseIcon.defaultProps, defaultProps);
-
-MenuIcon.defaultProps = {};
-Object.setPrototypeOf(MenuIcon.defaultProps, defaultProps);
-
-FilterIcon.defaultProps = {};
-Object.setPrototypeOf(FilterIcon.defaultProps, defaultProps);
 
 MenuHeader.defaultProps = {};
 Object.setPrototypeOf(MenuHeader.defaultProps, defaultProps);
@@ -214,10 +154,7 @@ export {
   Overlay,
   MenuWrap,
   MenuMain,
-  ItemList,
   CloseIcon,
-  MenuIcon,
-  FilterIcon,
   MenuHeader,
   MenuFooter,
 };
