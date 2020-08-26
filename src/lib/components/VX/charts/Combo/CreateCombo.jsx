@@ -354,14 +354,15 @@ export default function CreateCombo({
 
             {/** Temperature axis */}
             <AxisComponent
-              label="Temperature (°F)"
+              // label="Temperature (°F)"
+              label={qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
               numTicks={5}
             />
             {/* <AxisComponent
-              label="Temperature (°F)"
+                label={qLayout.qHyperCube.qMeasureInfo[1].qFallbackTitle}
               orientation="right"
               numTicks={5}
             /> */}
