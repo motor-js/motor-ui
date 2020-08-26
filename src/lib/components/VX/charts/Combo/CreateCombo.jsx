@@ -12,7 +12,7 @@ import cityTemperature, {
   CityTemperature,
 } from "@vx/mock-data/lib/mocks/cityTemperature";
 import defaultTheme from "../../theme/default";
-import darkTheme from "../../theme/darkTheme";
+// import darkTheme from "../../theme/darkTheme";
 import Axis from "../../components/Axis";
 import AnimatedAxis from "../../components/AnimatedAxis";
 import ChartProvider from "../../components/providers/ChartProvider";
@@ -125,24 +125,15 @@ const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
 );
 
 /** memoize the accessor functions to prevent re-registering data. */
-function useAccessors(
-  temperatureAccessor,
-  dataMultiplier,
-  renderHorizontally,
-  negativeValues
-) {
+function useAccessors(temperatureAccessor, renderHorizontally) {
   return useMemo(
     () => ({
       xAccessor: (d) =>
-        renderHorizontally
-          ? (negativeValues ? -1 : 1) * dataMultiplier * temperatureAccessor(d)
-          : getDate(d),
+        renderHorizontally ? temperatureAccessor(d) : getDate(d),
       yAccessor: (d) =>
-        renderHorizontally
-          ? getDate(d)
-          : (negativeValues ? -1 : 1) * dataMultiplier * temperatureAccessor(d),
+        renderHorizontally ? getDate(d) : temperatureAccessor(d),
     }),
-    [renderHorizontally, negativeValues, dataMultiplier, temperatureAccessor]
+    [renderHorizontally, temperatureAccessor]
   );
 }
 
@@ -162,16 +153,14 @@ export default function CreateCombo({
 }) {
   // const data = cityTemperature.slice(100, 100 + 16);
   // console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
-  // console.log(qData.qMatrix);
   const data = qData.qMatrix;
-  // console.log(qData);
   // const [theme, setTheme] = useState("light");
-  const [useCustomDomain, setUseCustomDomain] = useState(false);
+  // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
   const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
   const [autoWidth, setAutoWidth] = useState(false);
   const [renderHorizontally, setRenderHorizontally] = useState(false);
-  const [negativeValues, setNegativeValues] = useState(false);
+  // const [negativeValues, setNegativeValues] = useState(false);
   const [includeZero, setIncludeZero] = useState(false);
   const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
   const [yAxisOrientation, setYAxisOrientation] = useState("left");
@@ -181,7 +170,6 @@ export default function CreateCombo({
   const [legendShape, setLegendShape] = useState("auto");
   const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  const [dataMultiplier, setDataMultiplier] = useState(1);
   // const [renderTooltipInPortal, setRenderTooltipInPortal] = useState(false);
   const [visibleSeries, setVisibleSeries] = useState(["bar", "line"]);
   const canSnapTooltipToDataX =
@@ -195,19 +183,16 @@ export default function CreateCombo({
     visibleSeries.includes("bar");
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding: 0.2 }), []);
+
   const temperatureScaleConfig = useMemo(
     () => ({
       type: "linear",
       clamp: true,
       nice: true,
-      domain: useCustomDomain
-        ? negativeValues
-          ? [-100, 50]
-          : [-50, 100]
-        : undefined,
+      domain: undefined,
       includeZero,
     }),
-    [useCustomDomain, includeZero, negativeValues]
+    [includeZero]
   );
 
   const colorScaleConfig = useMemo(
@@ -230,22 +215,14 @@ export default function CreateCombo({
 
   const austinAccessors = useAccessors(
     getAustinTemperature,
-    dataMultiplier,
-    renderHorizontally,
-    negativeValues
+    renderHorizontally
   );
-  const sfAccessors = useAccessors(
-    getSfTemperature,
-    1,
-    renderHorizontally,
-    false
-  );
-  // const nyAccessors = useAccessors(
-  //   getNyTemperature,
-  //   dataMultiplier,
-  //   renderHorizontally,
-  //   negativeValues
-  // );
+  const sfAccessors = useAccessors(getSfTemperature, renderHorizontally);
+
+  useEffect(() => {
+    setCurrData(qData.qMatrix);
+  }, [qData]);
+
   // const themeObj = useMemo(
   //   () =>
   //     theme === "light"
@@ -255,10 +232,6 @@ export default function CreateCombo({
   //       : { colors: ["#222", "#767676", "#bbb"] },
   //   [theme]
   // );
-
-  useEffect(() => {
-    setCurrData(qData.qMatrix);
-  }, [qData]);
 
   const themeObj = {
     ...defaultTheme,
@@ -320,7 +293,7 @@ export default function CreateCombo({
                 {...austinAccessors}
               />
             )}
-            {visibleSeries.includes("stackedbar") && (
+            {/* {visibleSeries.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
                 <BarSeries
                   dataKey="austin"
@@ -328,10 +301,10 @@ export default function CreateCombo({
                   {...austinAccessors}
                 />
                 <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                {/* <BarSeries dataKey="ny" data={currData} {...nyAccessors} /> */}
+                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
               </Stack>
-            )}
-            {visibleSeries.includes("groupedbar") && (
+            )} */}
+            {/* {visibleSeries.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
                 <BarSeries
                   dataKey="austin"
@@ -339,9 +312,9 @@ export default function CreateCombo({
                   {...austinAccessors}
                 />
                 <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                {/* <BarSeries dataKey="ny" data={currData} {...nyAccessors} /> */}
+                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
               </Group>
-            )}
+            )} */}
 
             {visibleSeries.includes("line") && (
               <>
