@@ -33,20 +33,20 @@ const getDate = (d) =>
     d[0].qText.split("/")[0]
   );
 
-const getSfTemperature = (d) => Number(d[2].qNum);
-const getAustinTemperature = (d) => Number(d[1].qNum);
-const getNyTemperature = (d) => Number(d[2].qNum);
+const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
 const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
 /** memoize the accessor functions to prevent re-registering data. */
-function useAccessors(valueAccessor, renderHorizontally) {
+function useAccessors(valueAccessor, column, renderHorizontally) {
   return useMemo(
     () => ({
-      xAccessor: (d) => (renderHorizontally ? valueAccessor(d) : getDate(d)),
-      yAccessor: (d) => (renderHorizontally ? getDate(d) : valueAccessor(d)),
+      xAccessor: (d) =>
+        renderHorizontally ? valueAccessor(d, column) : getDate(d),
+      yAccessor: (d) =>
+        renderHorizontally ? getDate(d) : valueAccessor(d, column),
     }),
     [renderHorizontally, valueAccessor]
   );
@@ -59,7 +59,7 @@ export default function CreateXYChart({
   qData: { qMatrix: data },
   qLayout: {
     qHyperCube,
-    qHyperCube: { qMeasureInfo: measureInfo },
+    qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
   setRefreshChart,
   beginSelections,
@@ -146,12 +146,13 @@ export default function CreateXYChart({
     [chartType]
   );
 
-  const austinAccessors = useAccessors(
-    getAustinTemperature,
-    renderHorizontally
+  const dataAccessors = measureInfo.map((measure, index) =>
+    useAccessors(
+      getSeriesValues,
+      dimensionInfo.length + index,
+      renderHorizontally
+    )
   );
-  const sfAccessors = useAccessors(getSfTemperature, renderHorizontally);
-  const nyAccessors = useAccessors(getNyTemperature, renderHorizontally);
 
   useEffect(() => {
     setCurrData(data);
@@ -219,7 +220,7 @@ export default function CreateXYChart({
                 horizontal={renderHorizontally}
                 dataKey={measureInfo[0].qFallbackTitle}
                 data={currData}
-                {...austinAccessors}
+                {...dataAccessors[0]}
               />
             )}
 
@@ -228,17 +229,17 @@ export default function CreateXYChart({
                 <BarSeries
                   dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}
-                  {...austinAccessors}
+                  {...dataAccessors[0]}
                 />
                 <BarSeries
                   dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
-                  {...sfAccessors}
+                  {...dataAccessors[1]}
                 />
                 <BarSeries
                   dataKey={measureInfo[2].qFallbackTitle}
                   data={currData}
-                  {...nyAccessors}
+                  {...dataAccessors[2]}
                 />
               </Stack>
             )}
@@ -247,17 +248,17 @@ export default function CreateXYChart({
                 <BarSeries
                   dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}
-                  {...austinAccessors}
+                  {...dataAccessors[0]}
                 />
                 <BarSeries
                   dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
-                  {...sfAccessors}
+                  {...dataAccessors[1]}
                 />
                 <BarSeries
                   dataKey={measureInfo[2].qFallbackTitle}
                   data={currData}
-                  {...nyAccessors}
+                  {...dataAccessors[2]}
                 />
               </Group>
             )}
@@ -265,10 +266,9 @@ export default function CreateXYChart({
             {chartType.includes("line") && (
               <>
                 <LineSeries
-                  // dataKey="sf"
                   dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
-                  {...sfAccessors}
+                  {...dataAccessors[1]}
                   strokeWidth={1.5}
                 />
               </>
@@ -276,7 +276,6 @@ export default function CreateXYChart({
 
             {/** Temperature axis */}
             <AxisComponent
-              // label="Temperature (°F)"
               label={measureInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
