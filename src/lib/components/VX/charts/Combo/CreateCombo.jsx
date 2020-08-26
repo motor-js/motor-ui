@@ -109,54 +109,29 @@ export default function CreateCombo({
   const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
     <>
       <div>{closestDatum.datum[0].qText}</div>
-      <Console log={closestData[`${measureInfo[1].qFallbackTitle}`].datum[2]} />
+      {/* <Console log={closestData[`${measureInfo[1].qFallbackTitle}`].datum[2]} /> */}
       <br />
-      {closestData?.[`${measureInfo[1].qFallbackTitle}`] &&
-        closestDatum.datum[0].qText ===
-          closestData[`${measureInfo[1].qFallbackTitle}`].datum[0].qText && (
-          <div
-            style={{
-              color: colorScale(`${measureInfo[1].qFallbackTitle}`),
-              textDecoration:
-                closestDatum.key === `${measureInfo[1].qFallbackTitle}`
-                  ? "underline solid currentColor"
-                  : "none",
-            }}
-          >
-            {measureInfo[1].qFallbackTitle}{" "}
-            {closestData[`${measureInfo[1].qFallbackTitle}`].datum[2].qNum}
-          </div>
-        )}
-      {closestData?.ny &&
-        closestDatum.datum[0].qText === closestData.ny.datum[0].qText && (
-          <div
-            style={{
-              color: colorScale("ny"),
-              textDecoration:
-                closestDatum.key === "ny"
-                  ? "underline solid currentColor"
-                  : "none",
-            }}
-          >
-            New York {closestData.ny.datum[1].qNum}°F
-          </div>
-        )}
-      {closestData?.[`${measureInfo[0].qFallbackTitle}`] &&
-        closestDatum.datum[0].qText ===
-          closestData[`${measureInfo[0].qFallbackTitle}`].datum[0].qText && (
-          <div
-            style={{
-              color: colorScale(`${measureInfo[0].qFallbackTitle}`),
-              textDecoration:
-                closestDatum.key === `${measureInfo[0].qFallbackTitle}`
-                  ? "underline solid currentColor"
-                  : "none",
-            }}
-          >
-            {measureInfo[0].qFallbackTitle}{" "}
-            {closestData[`${measureInfo[0].qFallbackTitle}`].datum[1].qNum}
-          </div>
-        )}
+
+      {measureInfo.map(
+        (measure, index) =>
+          closestData?.[`${measure.qFallbackTitle}`] &&
+          closestDatum.datum[0].qText ===
+            closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+            <div
+              key={measure.qFallbackTitle}
+              style={{
+                color: colorScale(`${measure.qFallbackTitle}`),
+                textDecoration:
+                  closestDatum.key === `${measure.qFallbackTitle}`
+                    ? "underline solid currentColor"
+                    : "none",
+              }}
+            >
+              {measure.qFallbackTitle}{" "}
+              {closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum}
+            </div>
+          )
+      )}
     </>
   );
 
