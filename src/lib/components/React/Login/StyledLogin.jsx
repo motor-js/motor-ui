@@ -42,8 +42,10 @@ const StyledLogin = ({
           justifyContent="center"
         >
           <LoginHeader size={size || login.size}>
-            <img src={logo} height={logoHeight} width={logoWidth} alt="Logo"></img>
-            {/*header || login.header*/}
+            { logo ?
+              <img src={logo} height={logoHeight} width={logoWidth} alt="Logo"></img>
+              : header || login.header
+            }
           </LoginHeader>
         </Box>
         <Box
