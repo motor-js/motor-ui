@@ -21,7 +21,8 @@ const SelectionsWrapper = styled.div`
   flex: ${(props) => props.flex};
   align-items: flex-start;
   align-content: flex-start;
-  max-width: ${(props) => (props.gridArea ? null : props.width)};
+  max-width: ${(props) => (props.gridArea ? null : props.maxWidth)};
+  width: ${(props) => (props.gridArea ? null : props.width)};
   border: ${(props) => props.theme.selections.wrapper.border};
   border-radius: ${(props) => props.theme.selections.wrapper.radius};
   background-color: ${(props) =>

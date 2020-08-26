@@ -14,6 +14,7 @@ function StyledSelections({
   engine,
   size,
   width,
+  maxWidth,
   margin,
   maxHeight,
   minHeight,
@@ -63,6 +64,7 @@ function StyledSelections({
       minHeight={minHeight}
       margin={margin}
       width={width}
+      maxWidth={maxWidth}
       size={size}
       overflow={overflow}
       flex={flex}

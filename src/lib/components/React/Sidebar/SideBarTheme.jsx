@@ -55,6 +55,7 @@ const MenuWrap = styled(Grid)`
       bottom: 0;
       left: ${({ right }) => (right ? "" : 0)};
       z-index:  1100;
+      display: ${({ isOpen }) => !isOpen ? 'none' : null};
       width: ${({ sideBarWidth, theme }) =>
         sideBarWidth || theme.sidebar.width};
         border-radius: ${(props) =>
