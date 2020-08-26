@@ -5,7 +5,7 @@ import { createColorArray } from "../../../../utils/colors";
 import { selectColor } from "../../../../utils/colors";
 import { componentWidth } from "../../../../utils";
 
-const BarWrapper = styled.div`
+const ComboWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -25,7 +25,7 @@ const BarWrapper = styled.div`
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
 `;
 
-const BarWrapperNoData = styled.div`
+const ComboWrapperNoData = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -46,7 +46,7 @@ const BarWrapperNoData = styled.div`
   margin: ${(props) => props.margin};
 `;
 
-const BarNoDataContent = styled.div`
+const ComboNoDataContent = styled.div`
   ${globalStyle};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
   margin: ${(props) => props.theme.global.chart.noDataContent.margin};
@@ -56,18 +56,18 @@ const BarNoDataContent = styled.div`
   height: ${(props) => props.height};
 `;
 
-BarWrapper.defaultProps = {};
-Object.setPrototypeOf(BarWrapper.defaultProps, defaultProps);
+ComboWrapper.defaultProps = {};
+Object.setPrototypeOf(ComboWrapper.defaultProps, defaultProps);
 
-BarWrapperNoData.defaultProps = {};
-Object.setPrototypeOf(BarWrapperNoData.defaultProps, defaultProps);
+ComboWrapperNoData.defaultProps = {};
+Object.setPrototypeOf(ComboWrapperNoData.defaultProps, defaultProps);
 
-BarNoDataContent.defaultProps = {};
-Object.setPrototypeOf(BarNoDataContent.defaultProps, defaultProps);
+ComboNoDataContent.defaultProps = {};
+Object.setPrototypeOf(ComboNoDataContent.defaultProps, defaultProps);
 
-export { BarWrapper, BarWrapperNoData, BarNoDataContent };
+export { ComboWrapper, ComboWrapperNoData, ComboNoDataContent };
 
-function BarTheme(theme, size, fontColor, colorArray) {
+function ComboTheme(theme, size, fontColor, colorArray) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const {
     global: {
@@ -92,7 +92,7 @@ function BarTheme(theme, size, fontColor, colorArray) {
   const axisTitleColor = selectColor(axisTitle.color, theme);
   const labelColor = selectColor(chart.label.fontColor, theme);
 
-  const BarDefault = {
+  const ComboDefault = {
     allowSelections: chart.allowSelections,
     allowSlantedYAxis: chart.allowSlantedYAxis,
     suppressZero: chart.suppressZero,
@@ -102,7 +102,7 @@ function BarTheme(theme, size, fontColor, colorArray) {
     showLabels: chart.showLabels,
     showLegend: chart.showLegend,
     otherTotalSpec: main.otherTotalSpec,
-    zoomScrollOnBarHeight: main.zoomScrollOnBarHeight,
+    zoomScrollOnComboHeight: main.zoomScrollOnComboHeight,
     barPadding: main.barPadding,
     barPaddingNarrow: main.barPaddingNarrow,
     textOnAxis: chart.textOnAxis,
@@ -114,13 +114,13 @@ function BarTheme(theme, size, fontColor, colorArray) {
     maxAxisLength: chart.maxAxisLength,
   };
 
-  const BarOverviewBar = {
+  const ComboOverviewCombo = {
     opacity: overview.opacity,
     stroke: overview.stroke,
     "stroke-width": overview.strokeWidth,
   };
 
-  const BarChartStyle = {
+  const ComboChartStyle = {
     "font-family": fontFamily,
     "font-size": fontSize.font[size],
   };
@@ -150,12 +150,12 @@ function BarTheme(theme, size, fontColor, colorArray) {
     fill: axisTitleColor,
   };
 
-  const BarLabelStyle = {
+  const ComboLabelStyle = {
     "font-size": fontSize.subFont[size],
     fill: fontColor || labelColor,
   };
 
-  const BarStyle = {
+  const ComboStyle = {
     stroke: bars.stroke,
     "stroke-width": bars.strokeWidth,
   };
@@ -166,34 +166,34 @@ function BarTheme(theme, size, fontColor, colorArray) {
     "stroke-dasharray": gridlines.strokeDasharray,
   };
 
-  const SelectedBar = {
+  const SelectedCombo = {
     opacity: selection.opacity,
     stroke: selection.stroke,
     "stroke-width": selection.strokeWidth,
   };
 
-  const NonSelectedBar = {
+  const NonSelectedCombo = {
     opacity: nonSelection.opacity,
   };
 
-  const BarThemes = {
-    BarChartStyle,
-    BarDefault,
+  const ComboThemes = {
+    ComboChartStyle,
+    ComboDefault,
     yAxisStyle,
     xAxisStyle,
     axisTitleStyle,
-    BarLabelStyle,
-    BarStyle,
+    ComboLabelStyle,
+    ComboStyle,
     GridLineStyle,
-    BarOverviewBar,
+    ComboOverviewCombo,
     colorPalette,
-    SelectedBar,
-    NonSelectedBar,
+    SelectedCombo,
+    NonSelectedCombo,
   };
 
   return {
-    BarThemes,
+    ComboThemes,
   };
 }
 
-export default BarTheme;
+export default ComboTheme;

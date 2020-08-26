@@ -2,10 +2,10 @@ import React, { useRef, useEffect, useState } from "react";
 import UseHyperCube from "../../../../hooks/useHyperCube";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import SelectionModal from "../../../React/SelectionModal";
-import BarTheme, {
-  BarWrapper,
-  BarWrapperNoData,
-  BarNoDataContent,
+import ComboTheme, {
+  ComboWrapper,
+  ComboWrapperNoData,
+  ComboNoDataContent,
 } from "./ComboTheme";
 import Spinner from "../../../React/Spinner";
 import CreateCombo from "./CreateCombo";
@@ -15,7 +15,7 @@ function StyledCombo(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionBarVisible, setSelectionBarVisible] = useState(false);
+  const [isSelectionComboVisible, setSelectionComboVisible] = useState(false);
   const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -41,7 +41,7 @@ function StyledCombo(props) {
     border,
     borderRadius,
     backgroundColor,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     showAxis,
@@ -60,19 +60,26 @@ function StyledCombo(props) {
   } = props;
 
   // styles
-  const { BarThemes } = BarTheme(
-    theme,
-    size,
-    fontColor,
-    chartColor,
-    setSelectionBarVisible
-  );
+  // styles
+  const { ComboThemes } = ComboTheme(theme, size, fontColor, colorTheme);
   // const { ToolTipThemes } = TooltipTheme(theme, size);
   // const { TitleThemes } = TitleTheme(theme, size);
   // const { LegendThemes } = LegendTheme(theme, backgroundColor);
-  const { BarDefault } = BarThemes;
+  const { ComboDefault } = ComboThemes;
 
-  // retrieve Bar data from HyperCube
+  // const { ComboThemes } = ComboTheme(
+  //   theme,
+  //   size,
+  //   fontColor,
+  //   chartColor,
+  //   setSelectionComboVisible
+  // );
+  // const { ToolTipThemes } = TooltipTheme(theme, size);
+  // const { TitleThemes } = TitleTheme(theme, size);
+  // const { LegendThemes } = LegendTheme(theme, backgroundColor);
+  // const { ComboDefault } = ComboThemes;
+
+  // retrieve Combo data from HyperCube
   const {
     beginSelections,
     endSelections,
@@ -87,14 +94,14 @@ function StyledCombo(props) {
     // qSortByAscii: numericSortDirection(sortDirection, 1),
     // qInterColumnSortOrder: barSortOrder,
     // qCalcCondition: calcCondition,
-    // qSuppressZero: suppressZero || BarDefault.suppressZero,
-    // qOtherTotalSpec: otherTotalSpec || BarDefault.otherTotalSpec,
+    // qSuppressZero: suppressZero || ComboDefault.suppressZero,
+    // qOtherTotalSpec: otherTotalSpec || ComboDefault.otherTotalSpec,
     qSuppressZero: true,
   });
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionBarVisible(false);
+    setSelectionComboVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -103,7 +110,7 @@ function StyledCombo(props) {
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionBarVisible(false);
+    setSelectionComboVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -115,7 +122,7 @@ function StyledCombo(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionBarVisible) {
+    if (isSelectionComboVisible) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -123,7 +130,7 @@ function StyledCombo(props) {
 
   const handleResize = () => {
     if (typeof calcCond === "undefined" && dataError.length === 0) {
-      // CreateBar({ ...chartSettings, screenWidth: ref.current.offsetWidth });
+      // CreateCombo({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
 
@@ -154,39 +161,39 @@ function StyledCombo(props) {
   //     //   useSelectionColours,
   //     //   setRefreshChart,
   //     //   beginSelections,
-  //     //   setSelectionBarVisible,
+  //     //   setSelectionComboVisible,
   //     //   // buildSelections,
-  //     //   maxAxisLength: maxAxisLength || BarDefault.maxAxisLength,
-  //     //   BarThemes,
+  //     //   maxAxisLength: maxAxisLength || ComboDefault.maxAxisLength,
+  //     //   ComboThemes,
   //     //   ToolTipThemes,
   //     //   TitleThemes,
   //     //   LegendThemes,
   //     //   allowSlantedYAxis:
   //     //     allowSlantedYAxis === null
-  //     //       ? BarDefault.allowSlantedYAxis
+  //     //       ? ComboDefault.allowSlantedYAxis
   //     //       : allowSlantedYAxis,
-  //     //   tickSpacing: tickSpacing || BarDefault.tickSpacing,
+  //     //   tickSpacing: tickSpacing || ComboDefault.tickSpacing,
   //     //   allowSelections:
   //     //     allowSelections === null
-  //     //       ? BarDefault.allowSelections
+  //     //       ? ComboDefault.allowSelections
   //     //       : allowSelections,
-  //     //   showLabels: showLabels === null ? BarDefault.showLabels : showLabels,
-  //     //   showLegend: legendPosition(showLegend, BarDefault.showLegend),
+  //     //   showLabels: showLabels === null ? ComboDefault.showLabels : showLabels,
+  //     //   showLegend: legendPosition(showLegend, ComboDefault.showLegend),
   //     //   showAxis: calcDisplayOption(
-  //     //     showAxis === null ? BarDefault.showAxis : showAxis
+  //     //     showAxis === null ? ComboDefault.showAxis : showAxis
   //     //   ),
   //     //   textOnAxis: calcDisplayOption(
-  //     //     textOnAxis === null ? BarDefault.textOnAxis : textOnAxis
+  //     //     textOnAxis === null ? ComboDefault.textOnAxis : textOnAxis
   //     //   ),
   //     //   showGridlines: calcDisplayOption(
-  //     //     showGridlines === null ? BarDefault.showGridlines : showGridlines,
+  //     //     showGridlines === null ? ComboDefault.showGridlines : showGridlines,
   //     //     true
   //     //   ),
   //     //   selections,
   //     //   select,
   //     //   ...rest,
   //     // };
-  //     // CreateBar(chartSettings);
+  //     // CreateCombo(chartSettings);
   //   }
 
   //   window.addEventListener("resize", handleResize);
@@ -199,7 +206,7 @@ function StyledCombo(props) {
   return (
     <>
       {qData && qLayout && !dataError ? (
-        <BarWrapper
+        <ComboWrapper
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
@@ -216,9 +223,9 @@ function StyledCombo(props) {
           > */}
           <div
             style={{
-              border: isSelectionBarVisible ? "1px solid #CCCCCC" : "none",
-              overflowX: isSelectionBarVisible ? "hidden" : "auto",
-              overflowY: isSelectionBarVisible ? "hidden" : "auto",
+              border: isSelectionComboVisible ? "1px solid #CCCCCC" : "none",
+              overflowX: isSelectionComboVisible ? "hidden" : "auto",
+              overflowY: isSelectionComboVisible ? "hidden" : "auto",
             }}
           >
             {/* <div
@@ -250,34 +257,35 @@ function StyledCombo(props) {
                 beginSelections={beginSelections}
                 select={select}
                 setRefreshChart={setRefreshChart}
-                setSelectionBarVisible={setSelectionBarVisible}
+                setSelectionComboVisible={setSelectionComboVisible}
                 useSelectionColours={useSelectionColours}
                 pendingSelections={pendingSelections}
                 SetPendingSelections={SetPendingSelections}
+                ComboThemes={ComboThemes}
               />
               // </WithTooltip>
             )}
           </div>
           {/* </div> */}
           <SelectionModal
-            isOpen={isSelectionBarVisible}
+            isOpen={isSelectionComboVisible}
             cancelCallback={cancelCallback}
             confirmCallback={confirmCallback}
             // width={width}
           />
           {/* </div> */}
-        </BarWrapper>
+        </ComboWrapper>
       ) : (
-        <BarWrapperNoData
+        <ComboWrapperNoData
           border={border}
           size={size}
           width={width}
           margin={margin}
         >
-          <BarNoDataContent height={height}>
+          <ComboNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}
-          </BarNoDataContent>
-        </BarWrapperNoData>
+          </ComboNoDataContent>
+        </ComboWrapperNoData>
       )}
     </>
   );

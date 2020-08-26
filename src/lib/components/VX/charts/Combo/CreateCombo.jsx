@@ -15,6 +15,15 @@ import CustomLegendShape from "../../components/CustomLegendShape";
 import Group from "../../components/series/Group";
 import Stack from "../../components/series/Stack";
 
+import {
+  // roundNumber,
+  // hyperCubeTransform,
+  // getMeasureNames,
+  // groupHyperCubeData,
+  // stackHyperCubeData,
+  colorByExpression,
+} from "../../../../utils";
+
 const numDateTicks = 5;
 
 const Console = (prop) => (
@@ -122,7 +131,23 @@ export default function CreateCombo({
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,
+  ComboThemes,
 }) {
+  const {
+    // BarChartStyle,
+    // BarDefault,
+    // BarStyle,
+    // GridLineStyle,
+    // yAxisStyle,
+    // xAxisStyle,
+    // axisTitleStyle,
+    // BarLabelStyle,
+    // BarOverviewBar,
+    // SelectedBar,
+    // NonSelectedBar,
+    colorPalette,
+  } = ComboThemes;
+
   // const data = cityTemperature.slice(100, 100 + 16);
   // console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
   // const data = qMatrix;
@@ -205,10 +230,20 @@ export default function CreateCombo({
   //   [theme]
   // );
 
+  // Check if conditionalColors and if so get the returned color pallette
+  const conditionalColors = colorByExpression(
+    qLayout.qHyperCube,
+    data,
+    colorPalette
+  );
+
   const themeObj = {
     ...defaultTheme,
     colors: ["#00bfff", "#0040ff", "#654062"],
+    // colors: conditionalColors.length !== 0 ? conditionalColors : colorPalette,
   };
+
+  console.log(themeObj.colors);
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 

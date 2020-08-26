@@ -24,11 +24,38 @@ function Combo({ config, ...rest }) {
   );
 }
 
-Combo.propTypes = {};
+Combo.propTypes = {
+  colorTheme: PropTypes.oneOfType([
+    PropTypes.oneOf([
+      "motor",
+      "divergent9",
+      "divergent13",
+      "eco",
+      "bio",
+      "red",
+      "blue",
+      "gray",
+      "pink",
+      "grape",
+      "violet",
+      "indigo",
+      "blue",
+      "cyan",
+      "teal",
+      "green",
+      "lime",
+      "yellow",
+      "orange",
+      "base",
+    ]),
+    PropTypes.array,
+  ]),
+};
 
 Combo.defaultProps = {
   width: "100%",
   height: 400,
+  colorTheme: null,
 };
 
 export default Combo;
