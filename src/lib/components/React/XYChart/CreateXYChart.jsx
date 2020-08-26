@@ -42,15 +42,13 @@ const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
 /** memoize the accessor functions to prevent re-registering data. */
-function useAccessors(temperatureAccessor, renderHorizontally) {
+function useAccessors(valueAccessor, renderHorizontally) {
   return useMemo(
     () => ({
-      xAccessor: (d) =>
-        renderHorizontally ? temperatureAccessor(d) : getDate(d),
-      yAccessor: (d) =>
-        renderHorizontally ? getDate(d) : temperatureAccessor(d),
+      xAccessor: (d) => (renderHorizontally ? valueAccessor(d) : getDate(d)),
+      yAccessor: (d) => (renderHorizontally ? getDate(d) : valueAccessor(d)),
     }),
-    [renderHorizontally, temperatureAccessor]
+    [renderHorizontally, valueAccessor]
   );
 }
 
