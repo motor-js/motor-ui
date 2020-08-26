@@ -7,7 +7,7 @@ import defaultTheme from "../../../themes/defaultTheme";
 import Login from "../Login";
 import NotConnected from "../NotConnected";
 
-function Motor({ children, theme, config, engine }) {
+function Motor({ children, theme, config, engine, logo, logoWidth, logoHeight }) {
   const [myTheme, setMyTheme] = useState(defaultTheme);
   const [myConfig, setMyConfig] = useState(config);
 
@@ -18,7 +18,7 @@ function Motor({ children, theme, config, engine }) {
     <EngineContext.Provider value={engine}>
       <ConfigContext.Provider value={myConfig}>
         <ThemeContext.Provider value={nextTheme}>
-          <Login />
+          <Login logo={logo} logoHeight={logoHeight} logoWidth={logoWidth}/>
           <NotConnected />
           {children}
         </ThemeContext.Provider>
