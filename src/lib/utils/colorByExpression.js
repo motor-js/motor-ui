@@ -93,5 +93,6 @@ export const colorByExpression = (
 
     // showLegend = 'none';
   }
-  return conditionalColors;
+  // return conditionalColors;
+  return conditionalColors.length !== 0 ? conditionalColors : colorPalette;
 };

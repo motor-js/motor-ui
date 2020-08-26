@@ -158,9 +158,7 @@ export default function CreateXYChart({
   }, [data]);
 
   // Check if conditionalColors and if so get the returned color pallette
-  const conditionalColors = colorByExpression(qHyperCube, data, colorPalette);
-  const colors =
-    conditionalColors.length !== 0 ? conditionalColors : colorPalette;
+  const colors = colorByExpression(qHyperCube, data, colorPalette);
 
   const themeObj = {
     ...defaultTheme,
