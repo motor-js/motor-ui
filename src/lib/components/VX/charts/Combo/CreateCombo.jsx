@@ -46,61 +46,6 @@ const legendLabelFormat = (d) => d;
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
-const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
-  <>
-    <div>{closestDatum.datum[0].qText}</div>
-    {/* <div>
-      {closestDatum.datum[0].qNum.toISOString?.().split?.("T")[0] ??
-        closestDatum.datum[0].qText.toString()}
-    </div> */}
-    <Console log={closestData} />
-    <br />
-    {closestData?.sf &&
-      closestDatum.datum[0].qText === closestData.sf.datum[0].qText && (
-        <div
-          style={{
-            color: colorScale("sf"),
-            textDecoration:
-              closestDatum.key === "sf"
-                ? "underline solid currentColor"
-                : "none",
-          }}
-        >
-          {/* San Francisco {closestData.sf.datum["San Francisco"]}°F */}
-          San Francisco {closestData.sf.datum[2].qNum}°F
-        </div>
-      )}
-    {closestData?.ny &&
-      closestDatum.datum[0].qText === closestData.ny.datum[0].qText && (
-        <div
-          style={{
-            color: colorScale("ny"),
-            textDecoration:
-              closestDatum.key === "ny"
-                ? "underline solid currentColor"
-                : "none",
-          }}
-        >
-          New York {closestData.ny.datum[1].qNum}°F
-        </div>
-      )}
-    {closestData?.austin &&
-      closestDatum.datum[0].qText === closestData.austin.datum[0].qText && (
-        <div
-          style={{
-            color: colorScale("austin"),
-            textDecoration:
-              closestDatum.key === "austin"
-                ? "underline solid currentColor"
-                : "none",
-          }}
-        >
-          Austin {closestData.austin.datum[1].qNum}°F
-        </div>
-      )}
-  </>
-);
-
 /** memoize the accessor functions to prevent re-registering data. */
 function useAccessors(temperatureAccessor, renderHorizontally) {
   return useMemo(
@@ -119,7 +64,10 @@ export default function CreateCombo({
   height,
   events = false,
   qData: { qMatrix: data },
-  qLayout: { qHyperCube },
+  qLayout: {
+    qHyperCube,
+    qHyperCube: { qMeasureInfo: measureInfo },
+  },
   setRefreshChart,
   beginSelections,
   select,
@@ -129,21 +77,6 @@ export default function CreateCombo({
   SetPendingSelections,
   colorPalette,
 }) {
-  //  const {
-  //    // ComboChartStyle,
-  //    // ComboDefault,
-  //    // ComboStyle,
-  //    // GridLineStyle,
-  //    // yAxisStyle,
-  //    // xAxisStyle,
-  //    // axisTitleStyle,
-  //    // ComboLabelStyle,
-  //    // ComboOverviewCombo,
-  //    // SelectedCombo,
-  //    // NonSelectedCombo,
-  //    colorPalette,
-  //  } = ComboThemes;
-
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
@@ -173,6 +106,60 @@ export default function CreateCombo({
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding: 0.2 }), []);
 
+  const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
+    <>
+      <div>{closestDatum.datum[0].qText}</div>
+      <Console log={closestData[`${measureInfo[1].qFallbackTitle}`].datum[2]} />
+      <br />
+      {closestData?.[`${measureInfo[1].qFallbackTitle}`] &&
+        closestDatum.datum[0].qText ===
+          closestData[`${measureInfo[1].qFallbackTitle}`].datum[0].qText && (
+          <div
+            style={{
+              color: colorScale(`${measureInfo[1].qFallbackTitle}`),
+              textDecoration:
+                closestDatum.key === `${measureInfo[1].qFallbackTitle}`
+                  ? "underline solid currentColor"
+                  : "none",
+            }}
+          >
+            {measureInfo[1].qFallbackTitle}{" "}
+            {closestData[`${measureInfo[1].qFallbackTitle}`].datum[2].qNum}
+          </div>
+        )}
+      {closestData?.ny &&
+        closestDatum.datum[0].qText === closestData.ny.datum[0].qText && (
+          <div
+            style={{
+              color: colorScale("ny"),
+              textDecoration:
+                closestDatum.key === "ny"
+                  ? "underline solid currentColor"
+                  : "none",
+            }}
+          >
+            New York {closestData.ny.datum[1].qNum}°F
+          </div>
+        )}
+      {closestData?.[`${measureInfo[0].qFallbackTitle}`] &&
+        closestDatum.datum[0].qText ===
+          closestData[`${measureInfo[0].qFallbackTitle}`].datum[0].qText && (
+          <div
+            style={{
+              color: colorScale(`${measureInfo[0].qFallbackTitle}`),
+              textDecoration:
+                closestDatum.key === `${measureInfo[0].qFallbackTitle}`
+                  ? "underline solid currentColor"
+                  : "none",
+            }}
+          >
+            {measureInfo[0].qFallbackTitle}{" "}
+            {closestData[`${measureInfo[0].qFallbackTitle}`].datum[1].qNum}
+          </div>
+        )}
+    </>
+  );
+
   const temperatureScaleConfig = useMemo(
     () => ({
       type: "linear",
@@ -186,7 +173,7 @@ export default function CreateCombo({
 
   const colorScaleConfig = useMemo(
     () => ({
-      domain: qHyperCube.qMeasureInfo.map((d) => d.qFallbackTitle),
+      domain: measureInfo.map((d) => d.qFallbackTitle),
     }),
     [chartType]
   );
@@ -264,7 +251,7 @@ export default function CreateCombo({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+                dataKey={measureInfo[0].qFallbackTitle}
                 data={currData}
                 {...austinAccessors}
               />
@@ -273,17 +260,17 @@ export default function CreateCombo({
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
                 <BarSeries
-                  dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+                  dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}
                   {...austinAccessors}
                 />
                 <BarSeries
-                  dataKey={qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                  dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
                   {...sfAccessors}
                 />
                 <BarSeries
-                  dataKey={qHyperCube.qMeasureInfo[2].qFallbackTitle}
+                  dataKey={measureInfo[2].qFallbackTitle}
                   data={currData}
                   {...nyAccessors}
                 />
@@ -292,17 +279,17 @@ export default function CreateCombo({
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
                 <BarSeries
-                  dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+                  dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}
                   {...austinAccessors}
                 />
                 <BarSeries
-                  dataKey={qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                  dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
                   {...sfAccessors}
                 />
                 <BarSeries
-                  dataKey={qHyperCube.qMeasureInfo[2].qFallbackTitle}
+                  dataKey={measureInfo[2].qFallbackTitle}
                   data={currData}
                   {...nyAccessors}
                 />
@@ -313,7 +300,7 @@ export default function CreateCombo({
               <>
                 <LineSeries
                   // dataKey="sf"
-                  dataKey={qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                  dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
                   {...sfAccessors}
                   strokeWidth={1.5}
@@ -324,14 +311,14 @@ export default function CreateCombo({
             {/** Temperature axis */}
             <AxisComponent
               // label="Temperature (°F)"
-              label={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+              label={measureInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
               numTicks={5}
             />
             {/* <AxisComponent
-                label={qLayout.qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                label={qLayout.measureInfo[1].qFallbackTitle}
               orientation="right"
               numTicks={5}
             /> */}
