@@ -70,6 +70,7 @@ export default function CreateXYChart({
   SetPendingSelections,
   colorPalette,
 }) {
+  console.log(dimensionInfo);
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
@@ -261,7 +262,7 @@ export default function CreateXYChart({
               </>
             )}
 
-            {chartType.includes("combo") && (
+            {chartType.includes("combo") && measureInfo.length > 1 && (
               <>
                 <BarSeries
                   key={measureInfo[0].qFallbackTitle}
@@ -293,6 +294,7 @@ export default function CreateXYChart({
             /> */}
             {/** Date axis */}
             <AxisComponent
+              // label={dimensionInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? yAxisOrientation : xAxisOrientation
               }
