@@ -41,14 +41,10 @@ const getDate = (d) =>
 const getSfTemperature = (d) => Number(d[2].qNum);
 const getAustinTemperature = (d) => Number(d[1].qNum);
 const getNyTemperature = (d) => Number(d[2].qNum);
+const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
-
-const legendLabelFormat = (d) => {
-  console.log("legendLabelFormat", d);
-  return d === "sf" ? "San Francisco" : d === "austin" ? "Austin" : d;
-};
 
 const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
   <>
@@ -57,7 +53,7 @@ const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
       {closestDatum.datum[0].qNum.toISOString?.().split?.("T")[0] ??
         closestDatum.datum[0].qText.toString()}
     </div> */}
-    {/* <Console log={closestData.austin.datum[1].qNum} /> */}
+    <Console log={closestData} />
     <br />
     {closestData?.sf &&
       closestDatum.datum[0].qText === closestData.sf.datum[0].qText && (
@@ -190,21 +186,10 @@ export default function CreateCombo({
 
   const colorScaleConfig = useMemo(
     () => ({
-      domain:
-        chartType.includes("bar") && !chartType.includes("line")
-          ? ["austin"]
-          : // : ["austin", "sf", "ny"],
-            ["austin", "sf"],
+      domain: qHyperCube.qMeasureInfo.map((d) => d.qFallbackTitle),
     }),
     [chartType]
   );
-
-  // const colorScaleConfig = useMemo(
-  //   () => ({
-  //     domain: qHyperCube.qMeasureInfo.map((d) => d.qFallbackTitle),
-  //   }),
-  //   [chartType]
-  // );
 
   const austinAccessors = useAccessors(
     getAustinTemperature,
@@ -216,16 +201,6 @@ export default function CreateCombo({
   useEffect(() => {
     setCurrData(data);
   }, [data]);
-
-  // const themeObj = useMemo(
-  //   () =>
-  //     theme === "light"
-  //       ? { ...defaultTheme, colors: ["#00bfff", "#0040ff", "#654062"] }
-  //       : theme === "dark"
-  //       ? { ...darkTheme, colors: ["#916dd5", "#f8615a", "#ffd868"] }
-  //       : { colors: ["#222", "#767676", "#bbb"] },
-  //   [theme]
-  // );
 
   // Check if conditionalColors and if so get the returned color pallette
   const conditionalColors = colorByExpression(qHyperCube, data, colorPalette);
@@ -289,8 +264,7 @@ export default function CreateCombo({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                dataKey="austin"
-                // dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+                dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
                 data={currData}
                 {...austinAccessors}
               />
@@ -299,30 +273,47 @@ export default function CreateCombo({
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
                 <BarSeries
-                  dataKey="austin"
+                  dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
                   data={currData}
                   {...austinAccessors}
                 />
-                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+                <BarSeries
+                  dataKey={qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                  data={currData}
+                  {...sfAccessors}
+                />
+                <BarSeries
+                  dataKey={qHyperCube.qMeasureInfo[2].qFallbackTitle}
+                  data={currData}
+                  {...nyAccessors}
+                />
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
                 <BarSeries
-                  dataKey="austin"
+                  dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
                   data={currData}
                   {...austinAccessors}
                 />
-                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+                <BarSeries
+                  dataKey={qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                  data={currData}
+                  {...sfAccessors}
+                />
+                <BarSeries
+                  dataKey={qHyperCube.qMeasureInfo[2].qFallbackTitle}
+                  data={currData}
+                  {...nyAccessors}
+                />
               </Group>
             )}
 
             {chartType.includes("line") && (
               <>
                 <LineSeries
-                  dataKey="sf"
+                  // dataKey="sf"
+                  dataKey={qHyperCube.qMeasureInfo[1].qFallbackTitle}
                   data={currData}
                   {...sfAccessors}
                   strokeWidth={1.5}
