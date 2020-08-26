@@ -234,7 +234,7 @@ function StyledXYChart(props) {
                   gridArea
                     ? ref.current.offsetHeight -
                       parseInt(margin || theme.global.chart.margin, 10)
-                    : height
+                    : parseInt(height, 10)
                 }
                 events={events}
                 qLayout={qLayout}

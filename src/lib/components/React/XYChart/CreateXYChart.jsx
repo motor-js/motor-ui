@@ -86,15 +86,17 @@ export default function CreateXYChart({
   const [legendShape, setLegendShape] = useState("auto");
   const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  const [chartType, setchartType] = useState(["bar", "line"]);
+  const [chartType, setchartType] = useState(["combo"]);
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
     (chartType.includes("stackedbar") && !renderHorizontally) ||
+    (chartType.includes("combo") && !renderHorizontally) ||
     chartType.includes("bar");
 
   const canSnapTooltipToDataY =
     (chartType.includes("groupedbar") && !renderHorizontally) ||
     (chartType.includes("stackedbar") && renderHorizontally) ||
+    (chartType.includes("combo") && renderHorizontally) ||
     chartType.includes("bar");
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding: 0.2 }), []);
@@ -163,11 +165,8 @@ export default function CreateXYChart({
 
   const themeObj = {
     ...defaultTheme,
-    colors: ["#00bfff", "#0040ff", "#654062"],
-    // colors,
+    colors,
   };
-
-  console.log(themeObj.colors);
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 
@@ -226,45 +225,50 @@ export default function CreateXYChart({
 
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey={measureInfo[0].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[0]}
-                />
-                <BarSeries
-                  dataKey={measureInfo[1].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[1]}
-                />
-                <BarSeries
-                  dataKey={measureInfo[2].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[2]}
-                />
+                {measureInfo.map((measure, index) => (
+                  <BarSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ))}
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey={measureInfo[0].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[0]}
-                />
-                <BarSeries
-                  dataKey={measureInfo[1].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[1]}
-                />
-                <BarSeries
-                  dataKey={measureInfo[2].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[2]}
-                />
+                {measureInfo.map((measure, index) => (
+                  <BarSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ))}
               </Group>
             )}
 
             {chartType.includes("line") && (
               <>
+                {measureInfo.map((measure, index) => (
+                  <LineSeries
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                    strokeWidth={1.5}
+                  />
+                ))}
+              </>
+            )}
+
+            {chartType.includes("combo") && (
+              <>
+                <BarSeries
+                  key={measureInfo[0].qFallbackTitle}
+                  dataKey={measureInfo[0].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[0]}
+                />
                 <LineSeries
                   dataKey={measureInfo[1].qFallbackTitle}
                   data={currData}
