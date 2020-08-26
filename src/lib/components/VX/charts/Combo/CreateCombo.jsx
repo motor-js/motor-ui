@@ -7,7 +7,7 @@
 // import { AxisBottom, AxisLeft } from "@vx/axis"; // npm up to date
 
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import cityTemperature, {
   CityTemperature,
 } from "@vx/mock-data/lib/mocks/cityTemperature";
@@ -164,7 +164,6 @@ export default function CreateCombo({
   // console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
   // console.log(qData.qMatrix);
   const data = qData.qMatrix;
-  // console.log(data);
   // console.log(qData);
   // const [theme, setTheme] = useState("light");
   const [useCustomDomain, setUseCustomDomain] = useState(false);
@@ -247,6 +246,11 @@ export default function CreateCombo({
   //       : { colors: ["#222", "#767676", "#bbb"] },
   //   [theme]
   // );
+
+  useEffect(() => {
+    setCurrData(qData.qMatrix);
+  }, [qData]);
+
   const themeObj = {
     ...defaultTheme,
     colors: ["#00bfff", "#0040ff", "#654062"],
