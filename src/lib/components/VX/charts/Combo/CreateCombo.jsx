@@ -209,6 +209,7 @@ export default function CreateCombo({
     }),
     [useCustomDomain, includeZero, negativeValues]
   );
+
   const colorScaleConfig = useMemo(
     () => ({
       domain:
@@ -219,6 +220,14 @@ export default function CreateCombo({
     }),
     [visibleSeries]
   );
+
+  // const colorScaleConfig = useMemo(
+  //   () => ({
+  //     domain: qLayout.qHyperCube.qMeasureInfo.map((d) => d.qFallbackTitle),
+  //   }),
+  //   [visibleSeries]
+  // );
+
   const austinAccessors = useAccessors(
     getAustinTemperature,
     dataMultiplier,
