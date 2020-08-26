@@ -12,6 +12,8 @@ import EventProvider from "../../components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "../../.../../components/Tooltip";
 import Legend from "../../components/Legend";
 import CustomLegendShape from "../../components/CustomLegendShape";
+import Group from "../../components/series/Group";
+import Stack from "../../components/series/Stack";
 
 const numDateTicks = 5;
 
@@ -29,6 +31,7 @@ const getDate = (d) =>
 
 const getSfTemperature = (d) => Number(d[2].qNum);
 const getAustinTemperature = (d) => Number(d[1].qNum);
+const getNyTemperature = (d) => Number(d[2].qNum);
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
@@ -139,16 +142,16 @@ export default function CreateCombo({
   const [legendShape, setLegendShape] = useState("auto");
   const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  const [visibleSeries, setVisibleSeries] = useState(["bar", "line"]);
+  const [chartType, setchartType] = useState(["bar", "line"]);
   const canSnapTooltipToDataX =
-    (visibleSeries.includes("groupedbar") && renderHorizontally) ||
-    (visibleSeries.includes("stackedbar") && !renderHorizontally) ||
-    visibleSeries.includes("bar");
+    (chartType.includes("groupedbar") && renderHorizontally) ||
+    (chartType.includes("stackedbar") && !renderHorizontally) ||
+    chartType.includes("bar");
 
   const canSnapTooltipToDataY =
-    (visibleSeries.includes("groupedbar") && !renderHorizontally) ||
-    (visibleSeries.includes("stackedbar") && renderHorizontally) ||
-    visibleSeries.includes("bar");
+    (chartType.includes("groupedbar") && !renderHorizontally) ||
+    (chartType.includes("stackedbar") && renderHorizontally) ||
+    chartType.includes("bar");
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding: 0.2 }), []);
 
@@ -166,19 +169,19 @@ export default function CreateCombo({
   const colorScaleConfig = useMemo(
     () => ({
       domain:
-        visibleSeries.includes("bar") && !visibleSeries.includes("line")
+        chartType.includes("bar") && !chartType.includes("line")
           ? ["austin"]
           : // : ["austin", "sf", "ny"],
             ["austin", "sf"],
     }),
-    [visibleSeries]
+    [chartType]
   );
 
   // const colorScaleConfig = useMemo(
   //   () => ({
   //     domain: qLayout.qHyperCube.qMeasureInfo.map((d) => d.qFallbackTitle),
   //   }),
-  //   [visibleSeries]
+  //   [chartType]
   // );
 
   const austinAccessors = useAccessors(
@@ -186,6 +189,7 @@ export default function CreateCombo({
     renderHorizontally
   );
   const sfAccessors = useAccessors(getSfTemperature, renderHorizontally);
+  const nyAccessors = useAccessors(getNyTemperature, renderHorizontally);
 
   useEffect(() => {
     setCurrData(data);
@@ -252,7 +256,7 @@ export default function CreateCombo({
           >
             <ChartBackground />
 
-            {visibleSeries.includes("bar") && (
+            {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
                 dataKey="austin"
@@ -262,7 +266,30 @@ export default function CreateCombo({
               />
             )}
 
-            {visibleSeries.includes("line") && (
+            {chartType.includes("stackedbar") && (
+              <Stack horizontal={renderHorizontally}>
+                <BarSeries
+                  dataKey="austin"
+                  data={currData}
+                  {...austinAccessors}
+                />
+                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
+                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+              </Stack>
+            )}
+            {chartType.includes("groupedbar") && (
+              <Group horizontal={renderHorizontally}>
+                <BarSeries
+                  dataKey="austin"
+                  data={currData}
+                  {...austinAccessors}
+                />
+                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
+                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+              </Group>
+            )}
+
+            {chartType.includes("line") && (
               <>
                 <LineSeries
                   dataKey="sf"
