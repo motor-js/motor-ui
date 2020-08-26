@@ -1,18 +1,6 @@
-// import React, { useMemo } from "react";
-// import { Bar } from "@vx/shape";
-// import { Group } from "@vx/group";
-// import { GradientTealBlue } from "@vx/gradient"; // npm up to date
-// import { scaleBand, scaleLinear, scaleOrdinal } from "@vx/scale"; // npm up to date
-// import { LegendOrdinal } from "@vx/legend"; // npm up to date
-// import { AxisBottom, AxisLeft } from "@vx/axis"; // npm up to date
-
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-import cityTemperature, {
-  CityTemperature,
-} from "@vx/mock-data/lib/mocks/cityTemperature";
 import defaultTheme from "../../theme/default";
-// import darkTheme from "../../theme/darkTheme";
 import Axis from "../../components/Axis";
 import AnimatedAxis from "../../components/AnimatedAxis";
 import ChartProvider from "../../components/providers/ChartProvider";
@@ -22,14 +10,8 @@ import LineSeries from "../../components/series/LineSeries";
 import ChartBackground from "../../components/ChartBackground";
 import EventProvider from "../../components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "../../.../../components/Tooltip";
-// import { ScaleConfig } from "./types";
 import Legend from "../../components/Legend";
 import CustomLegendShape from "../../components/CustomLegendShape";
-import Group from "../../components/series/Group";
-import Stack from "../../components/series/Stack";
-
-// @TODO wip updating data, not currently used
-// const halfData = data.slice(0, Math.floor(data.length / 2));
 
 const numDateTicks = 5;
 
@@ -38,8 +20,6 @@ const Console = (prop) => (
   null // ➜ React components must return something
 );
 
-// const getDate = (d) => new Date(d.date);
-// const getDate = (d) => new Date(d[0].qText);
 const getDate = (d) =>
   new Date(
     d[0].qText.split("/")[2],
@@ -47,28 +27,17 @@ const getDate = (d) =>
     d[0].qText.split("/")[0]
   );
 
-// const getDate = (d) => {
-//   console.log(d);
-// };
-// const getSfTemperature = (d) => Number(d["San Francisco"]);
-// const getNyTemperature = (d) => Number(d["New York"]);
-// const getAustinTemperature = (d) => Number(d.Austin);
 const getSfTemperature = (d) => Number(d[2].qNum);
-// const getNyTemperature = (d) => Number(d["New York"]);
 const getAustinTemperature = (d) => Number(d[1].qNum);
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
+
 const legendLabelFormat = (d) => {
   console.log("legendLabelFormat", d);
-  return d === "sf"
-    ? "San Francisco"
-    : // : d === "ny"
-    // ? "New York"
-    d === "austin"
-    ? "Austin"
-    : d;
+  return d === "sf" ? "San Francisco" : d === "austin" ? "Austin" : d;
 };
+
 const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
   <>
     <div>{closestDatum.datum[0].qText}</div>
@@ -170,7 +139,6 @@ export default function CreateCombo({
   const [legendShape, setLegendShape] = useState("auto");
   const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  // const [renderTooltipInPortal, setRenderTooltipInPortal] = useState(false);
   const [visibleSeries, setVisibleSeries] = useState(["bar", "line"]);
   const canSnapTooltipToDataX =
     (visibleSeries.includes("groupedbar") && renderHorizontally) ||
@@ -293,28 +261,6 @@ export default function CreateCombo({
                 {...austinAccessors}
               />
             )}
-            {/* {visibleSeries.includes("stackedbar") && (
-              <Stack horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey="austin"
-                  data={currData}
-                  {...austinAccessors}
-                />
-                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
-              </Stack>
-            )} */}
-            {/* {visibleSeries.includes("groupedbar") && (
-              <Group horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey="austin"
-                  data={currData}
-                  {...austinAccessors}
-                />
-                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
-              </Group>
-            )} */}
 
             {visibleSeries.includes("line") && (
               <>
@@ -324,13 +270,6 @@ export default function CreateCombo({
                   {...sfAccessors}
                   strokeWidth={1.5}
                 />
-                {/* <LineSeries
-                  dataKey="ny"
-                  data={currData}
-                  {...nyAccessors}
-                  strokeWidth={1.5}
-                  strokeDasharray="5,3"
-                /> */}
               </>
             )}
 
@@ -358,7 +297,6 @@ export default function CreateCombo({
                   (d, i, arr) =>
                     i % Math.round((arr.length - 1) / numDateTicks) === 0
                 )
-                // .map((d) => new Date(d.date))}
                 .map((d) => getDate(d))}
               tickFormat={(d) =>
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
@@ -369,7 +307,6 @@ export default function CreateCombo({
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
             renderTooltip={renderTooltip}
-            // renderInPortal={renderTooltipInPortal}
           />
           {legendTopBottom === "bottom" && legend}
         </div>
