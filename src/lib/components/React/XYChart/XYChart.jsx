@@ -24,6 +24,104 @@ function XYChart({ config, ...rest }) {
 }
 
 XYChart.propTypes = {
+  // /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
+  // config: PropTypes.object,
+  // /** cols from Qlik Data Model to render in the Bar  */
+  // cols: PropTypes.array.isRequired,
+  // /** Calc condition for the chart  */
+  // calcCondition: PropTypes.shape({
+  //   qCond: PropTypes.string,
+  //   qMsg: PropTypes.string,
+  // }),
+  // /** Supress zeo vlaues in the the chart  */
+  // suppressZero: PropTypes.bool,
+  // /** Bar Sort Order */
+  // barSortOrder: PropTypes.array,
+  // /** Sort Ascending or descending */
+  // sortDirection: PropTypes.string,
+  // /** Bar width */
+  // width: PropTypes.string,
+  // /** The height of the Bar */
+  // height: PropTypes.string,
+  // /** The amount of margin around the component */
+  // margin: PropTypes.string,
+  // /** Size of the Bar */
+  // size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
+  // /** Size of the Bar */
+  // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
+  // /** Show text on Axis */
+  // textOnAxis: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
+  // ]),
+  // /** Spacing of Ticks on Y Axis */
+  // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
+  // /** Display Axis and ticks  */
+  // showAxis: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
+  // ]),
+  // /** Max length of chart axis (in pixels) */
+  // maxAxisLength: PropTypes.number,
+  // /** Allow for the Y axis to be dsiapleyd at 45 degrees */
+  // allowSlantedYAxis: PropTypes.bool,
+  // /** Show gridlines on Axis */
+  // showGridlines: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
+  // ]),
+  // /** Color of the Bar label */
+  // fontColor: PropTypes.string,
+  // /** Border of the Pie Chart, need desc */
+  // border: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.oneOf([
+  //     "top",
+  //     "left",
+  //     "bottom",
+  //     "right",
+  //     "start",
+  //     "end",
+  //     "horizontal",
+  //     "vertical",
+  //     "all",
+  //     "between",
+  //     "none",
+  //   ]),
+  //   PropTypes.shape({
+  //     color: PropTypes.oneOfType([PropTypes.string]),
+  //     side: PropTypes.oneOf([
+  //       "top",
+  //       "left",
+  //       "bottom",
+  //       "right",
+  //       "start",
+  //       "end",
+  //       "horizontal",
+  //       "vertical",
+  //       "all",
+  //       "between",
+  //     ]),
+  //     size: PropTypes.oneOfType([PropTypes.string]),
+  //     style: PropTypes.oneOf([
+  //       "solid",
+  //       "dashed",
+  //       "dotted",
+  //       "double",
+  //       "groove",
+  //       "ridge",
+  //       "inset",
+  //       "outset",
+  //       "hidden",
+  //     ]),
+  //   }),
+  //   PropTypes.arrayOf(BORDER_SHAPE),
+  // ]),
+  // /** Border radius of the chart */
+  // borderRadius: PropTypes.string,
+  // /** Background Color of the chart */
+  // backgroundColor: PropTypes.string,
+  // /** color scheme of the chart */
   colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
@@ -49,12 +147,85 @@ XYChart.propTypes = {
     ]),
     PropTypes.array,
   ]),
+  // /** Stacked Chart  */
+  // stacked: PropTypes.bool,
+  // /** Stacked Chart  */
+  // percentStacked: PropTypes.bool,
+  // /** RoundNum of the Bar */
+  // roundNum: PropTypes.bool,
+  // /** Title of the Bar */
+  // title: PropTypes.string,
+  // /** Sub Title of the Bar */
+  // subTitle: PropTypes.string,
+  // /** Legend of the Bar */
+  // showLegend: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.oneOf(["right", "bottom"]),
+  // ]),
+  // /** Allow Selections */
+  // allowSelections: PropTypes.bool,
+  // /** Maximum Width of the Bar */
+  // maxWidth: PropTypes.number,
+  // /** Force supression of Scroll / Overview chart */
+  // suppressScroll: PropTypes.bool,
+  // // /** Allow for bushes to be resized on chart */
+  // // allowZoom: PropTypes.bool, // Descoped to later version
+  // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
+  // // scrollRatio: PropTypes.number, // Descoped to later version
+  // /** Pddding for each bar */
+  // barPadding: PropTypes.number,
+  // /** Error messgae to display when invalid dimension */
+  // dimensionErrMsg: PropTypes.string,
+  // /** Error messgae to display when invalid measure */
+  // measureErrMsg: PropTypes.string,
+  // /** Show values as Other */
+  // otherTotalSpec: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.shape({
+  //     qOtherLabel: PropTypes.string,
+  //     qOtherCount: PropTypes.string,
+  //   }),
+  // ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 XYChart.defaultProps = {
+  // config: null,
+  // calcCondition: undefined,
+  // suppressZero: null,
   width: "100%",
-  height: 400,
+  height: 400, // 100%
+  // margin: null,
+  // size: "medium",
+  // showLabels: null,
+  // fontColor: "",
+  // border: true,
+  // allowSelections: null,
+  // showAxis: null,
+  // allowSlantedYAxis: null,
+  // showGridlines: null,
+  // textOnAxis: null,
+  // tickSpacing: undefined,
+  // borderRadius: null,
+  // backgroundColor: null,
   colorTheme: null,
+  // roundNum: true,
+  // barSortOrder: [],
+  // sortDirection: "",
+  // stacked: false,
+  // percentStacked: false,
+  // title: null,
+  // subTitle: null,
+  // showLegend: null,
+  // maxWidth: null,
+  // maxAxisLength: null,
+  // suppressScroll: null,
+  // barPadding: null,
+  // dimensionErrMsg: null,
+  // measureErrMsg: null,
+  // otherTotalSpec: null,
+  gridArea: null,
 };
 
 export default XYChart;
