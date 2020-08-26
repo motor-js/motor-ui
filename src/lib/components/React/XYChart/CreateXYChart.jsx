@@ -71,25 +71,45 @@ export default function CreateXYChart({
   pendingSelections,
   SetPendingSelections,
   colorPalette,
+  chartType,
+  useAnimatedAxes,
+  autoWidth,
+  renderHorizontally,
+  includeZero,
+  xAxisOrientation,
+  yAxisOrientation,
+  legendLeftRight,
+  legendTopBottom,
+  legendDirection,
+  legendShape,
+  snapTooltipToDataX,
+  snapTooltipToDataY,
 }) {
   // console.log(dimensionInfo[0]); // T for Time
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
-  const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
-  const [autoWidth, setAutoWidth] = useState(false);
-  const [renderHorizontally, setRenderHorizontally] = useState(false);
+  //  const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
+  //  const [autoWidth, setAutoWidth] = useState(false);
+  // const [renderHorizontally, setRenderHorizontally] = useState(false);
   // const [negativeValues, setNegativeValues] = useState(false);
-  const [includeZero, setIncludeZero] = useState(true);
-  const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
-  const [yAxisOrientation, setYAxisOrientation] = useState("left");
-  const [legendLeftRight, setLegendLeftRight] = useState("right");
-  const [legendTopBottom, setLegendTopBottom] = useState("top");
-  const [legendDirection, setLegendDirection] = useState("row");
-  const [legendShape, setLegendShape] = useState("auto");
-  const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
-  const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  const [chartType, setchartType] = useState(["combo"]);
+  //  const [includeZero, setIncludeZero] = useState(true);
+  // const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
+  // const [yAxisOrientation, setYAxisOrientation] = useState("left");
+  //  const [legendLeftRight, setLegendLeftRight] = useState(
+  //    "right"
+  //  );
+  // const [legendTopBottom, setLegendTopBottom] = useState("top");
+  //  const [legendDirection, setLegendDirection] = useState("row");
+  //  const [legendShape, setLegendShape] = useState("auto");
+  //  const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(
+  //    true
+  //  );
+  //  const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(
+  //    true
+  //  );
+  //  const [chartType, setchartType] = useState(["combo"]);
+
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
     (chartType.includes("stackedbar") && !renderHorizontally) ||
@@ -255,6 +275,7 @@ export default function CreateXYChart({
               <>
                 {measureInfo.map((measure, index) => (
                   <LineSeries
+                    key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
                     data={currData}
                     {...dataAccessors[index]}

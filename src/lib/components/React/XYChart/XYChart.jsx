@@ -188,6 +188,19 @@ XYChart.propTypes = {
   // ]),
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
+  chartType: PropTypes.string,
+  useAnimatedAxes: PropTypes.bool,
+  autoWidth: PropTypes.bool,
+  renderHorizontally: PropTypes.bool,
+  includeZero: PropTypes.bool,
+  xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
+  yAxisOrientation: PropTypes.oneOf(["left", "right"]),
+  legendLeftRight: PropTypes.oneOf(["left", "right"]),
+  legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
+  legendDirection: PropTypes.oneOf(["row", "column"]),
+  legendShape: PropTypes.string,
+  snapTooltipToDataX: PropTypes.bool,
+  snapTooltipToDataY: PropTypes.bool,
 };
 
 XYChart.defaultProps = {
@@ -226,6 +239,19 @@ XYChart.defaultProps = {
   // measureErrMsg: null,
   // otherTotalSpec: null,
   gridArea: null,
+  chartType: "combo",
+  useAnimatedAxes: false,
+  autoWidth: false,
+  renderHorizontally: false,
+  includeZero: true,
+  xAxisOrientation: "bottom",
+  yAxisOrientation: "left",
+  legendLeftRight: "right",
+  legendTopBottom: "top",
+  legendDirection: "row",
+  legendShape: "auto",
+  snapTooltipToDataX: true,
+  snapTooltipToDataY: true,
 };
 
 export default XYChart;

@@ -59,6 +59,19 @@ function StyledXYChart(props) {
     tickSpacing,
     allowSlantedYAxis,
     gridArea,
+    chartType,
+    useAnimatedAxes,
+    autoWidth,
+    renderHorizontally,
+    includeZero,
+    xAxisOrientation,
+    yAxisOrientation,
+    legendLeftRight,
+    legendTopBottom,
+    legendDirection,
+    legendShape,
+    snapTooltipToDataX,
+    snapTooltipToDataY,
     ...rest
   } = props;
 
@@ -248,6 +261,19 @@ function StyledXYChart(props) {
                 SetPendingSelections={SetPendingSelections}
                 // XYChartThemes={XYChartThemes}
                 colorPalette={colorPalette}
+                chartType={chartType}
+                useAnimatedAxes={useAnimatedAxes}
+                autoWidth={autoWidth}
+                renderHorizontally={renderHorizontally}
+                includeZero={includeZero}
+                xAxisOrientation={xAxisOrientation}
+                yAxisOrientation={yAxisOrientation}
+                legendLeftRight={legendLeftRight}
+                legendTopBottom={legendTopBottom}
+                legendDirection={legendDirection}
+                legendShape={legendShape}
+                snapTooltipToDataX={snapTooltipToDataX}
+                snapTooltipToDataY={snapTooltipToDataY}
               />
             )}
           </div>
