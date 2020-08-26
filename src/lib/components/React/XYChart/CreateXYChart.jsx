@@ -1,28 +1,23 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-import defaultTheme from "../../theme/default";
-import Axis from "../../components/Axis";
-import AnimatedAxis from "../../components/AnimatedAxis";
-import ChartProvider from "../../components/providers/ChartProvider";
-import XYChart from "../../components/XYChart";
-import BarSeries from "../../components/series/BarSeries";
-import LineSeries from "../../components/series/LineSeries";
-import ChartBackground from "../../components/ChartBackground";
-import EventProvider from "../../components/providers/TooltipProvider";
-import Tooltip, { RenderTooltipArgs } from "../../.../../components/Tooltip";
-import Legend from "../../components/Legend";
-import CustomLegendShape from "../../components/CustomLegendShape";
-import Group from "../../components/series/Group";
-import Stack from "../../components/series/Stack";
+import defaultTheme from "../../../components/VX/theme/default";
+import Axis from "../../../components/VX/components/Axis";
+import AnimatedAxis from "../../../components/VX/components/AnimatedAxis";
+import ChartProvider from "../../../components/VX/components/providers/ChartProvider";
+import XYChart from "../../../components/VX/components/XYChart";
+import BarSeries from "../../../components/VX/components/series/BarSeries";
+import LineSeries from "../../../components/VX/components/series/LineSeries";
+import ChartBackground from "../../../components/VX/components/ChartBackground";
+import EventProvider from "../../../components/VX/components/providers/TooltipProvider";
+import Tooltip, {
+  RenderTooltipArgs,
+} from "../../.../../../components/VX/components/Tooltip";
+import Legend from "../../../components/VX/components/Legend";
+import CustomLegendShape from "../../../components/VX/components/CustomLegendShape";
+import Group from "../../../components/VX/components/series/Group";
+import Stack from "../../../components/VX/components/series/Stack";
 
-import {
-  // roundNumber,
-  // hyperCubeTransform,
-  // getMeasureNames,
-  // groupHyperCubeData,
-  // stackHyperCubeData,
-  colorByExpression,
-} from "../../../../utils";
+import { colorByExpression } from "../../../utils";
 
 const numDateTicks = 5;
 
@@ -59,7 +54,7 @@ function useAccessors(temperatureAccessor, renderHorizontally) {
   );
 }
 
-export default function CreateCombo({
+export default function CreateXYChart({
   width,
   height,
   events = false,
@@ -71,7 +66,7 @@ export default function CreateCombo({
   setRefreshChart,
   beginSelections,
   select,
-  setSelectionComboVisible,
+  setSelectionXYChartVisible,
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,

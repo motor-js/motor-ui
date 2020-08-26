@@ -1,22 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
-import UseHyperCube from "../../../../hooks/useHyperCube";
-import useOutsideClick from "../../../../hooks/useOutsideClick";
-import SelectionModal from "../../../React/SelectionModal";
-import ComboTheme, {
-  ComboWrapper,
-  ComboWrapperNoData,
-  ComboNoDataContent,
-} from "./ComboTheme";
-import Spinner from "../../../React/Spinner";
-import CreateCombo from "./CreateCombo";
-import { createColorArray } from "../../../../utils/colors";
-// import WithTooltip from "../../VX/old/composer/WithTooltip";
+import UseHyperCube from "../../../hooks/useHyperCube";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import SelectionModal from "../SelectionModal";
+import XYChartTheme, {
+  XYChartWrapper,
+  XYChartWrapperNoData,
+  XYChartNoDataContent,
+} from "./XYChartTheme";
+import Spinner from "../Spinner";
+import CreateXYChart from "./CreateXYChart";
+import { createColorArray } from "../../../utils/colors";
 
-function StyledCombo(props) {
+function StyledXYChart(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionComboVisible, setSelectionComboVisible] = useState(false);
+  const [isSelectionXYChartVisible, setSelectionXYChartVisible] = useState(
+    false
+  );
   const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -68,7 +69,7 @@ function StyledCombo(props) {
   // const color = colorTheme || globalColorTheme;
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
-  // retrieve Combo data from HyperCube
+  // retrieve XYChart data from HyperCube
   const {
     beginSelections,
     endSelections,
@@ -83,14 +84,14 @@ function StyledCombo(props) {
     // qSortByAscii: numericSortDirection(sortDirection, 1),
     // qInterColumnSortOrder: barSortOrder,
     // qCalcCondition: calcCondition,
-    // qSuppressZero: suppressZero || ComboDefault.suppressZero,
-    // qOtherTotalSpec: otherTotalSpec || ComboDefault.otherTotalSpec,
+    // qSuppressZero: suppressZero || XYChartDefault.suppressZero,
+    // qOtherTotalSpec: otherTotalSpec || XYChartDefault.otherTotalSpec,
     qSuppressZero: true,
   });
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionComboVisible(false);
+    setSelectionXYChartVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -99,7 +100,7 @@ function StyledCombo(props) {
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionComboVisible(false);
+    setSelectionXYChartVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -111,7 +112,7 @@ function StyledCombo(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionComboVisible) {
+    if (isSelectionXYChartVisible) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -119,7 +120,7 @@ function StyledCombo(props) {
 
   const handleResize = () => {
     if (typeof calcCond === "undefined" && dataError.length === 0) {
-      // CreateCombo({ ...chartSettings, screenWidth: ref.current.offsetWidth });
+      // CreateXYChart({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
 
@@ -150,39 +151,39 @@ function StyledCombo(props) {
   //     //   useSelectionColours,
   //     //   setRefreshChart,
   //     //   beginSelections,
-  //     //   setSelectionComboVisible,
+  //     //   setSelectionXYChartVisible,
   //     //   // buildSelections,
-  //     //   maxAxisLength: maxAxisLength || ComboDefault.maxAxisLength,
-  //     //   ComboThemes,
+  //     //   maxAxisLength: maxAxisLength || XYChartDefault.maxAxisLength,
+  //     //   XYChartThemes,
   //     //   ToolTipThemes,
   //     //   TitleThemes,
   //     //   LegendThemes,
   //     //   allowSlantedYAxis:
   //     //     allowSlantedYAxis === null
-  //     //       ? ComboDefault.allowSlantedYAxis
+  //     //       ? XYChartDefault.allowSlantedYAxis
   //     //       : allowSlantedYAxis,
-  //     //   tickSpacing: tickSpacing || ComboDefault.tickSpacing,
+  //     //   tickSpacing: tickSpacing || XYChartDefault.tickSpacing,
   //     //   allowSelections:
   //     //     allowSelections === null
-  //     //       ? ComboDefault.allowSelections
+  //     //       ? XYChartDefault.allowSelections
   //     //       : allowSelections,
-  //     //   showLabels: showLabels === null ? ComboDefault.showLabels : showLabels,
-  //     //   showLegend: legendPosition(showLegend, ComboDefault.showLegend),
+  //     //   showLabels: showLabels === null ? XYChartDefault.showLabels : showLabels,
+  //     //   showLegend: legendPosition(showLegend, XYChartDefault.showLegend),
   //     //   showAxis: calcDisplayOption(
-  //     //     showAxis === null ? ComboDefault.showAxis : showAxis
+  //     //     showAxis === null ? XYChartDefault.showAxis : showAxis
   //     //   ),
   //     //   textOnAxis: calcDisplayOption(
-  //     //     textOnAxis === null ? ComboDefault.textOnAxis : textOnAxis
+  //     //     textOnAxis === null ? XYChartDefault.textOnAxis : textOnAxis
   //     //   ),
   //     //   showGridlines: calcDisplayOption(
-  //     //     showGridlines === null ? ComboDefault.showGridlines : showGridlines,
+  //     //     showGridlines === null ? XYChartDefault.showGridlines : showGridlines,
   //     //     true
   //     //   ),
   //     //   selections,
   //     //   select,
   //     //   ...rest,
   //     // };
-  //     // CreateCombo(chartSettings);
+  //     // CreateXYChart(chartSettings);
   //   }
 
   //   window.addEventListener("resize", handleResize);
@@ -195,7 +196,7 @@ function StyledCombo(props) {
   return (
     <>
       {qData && qLayout && !dataError ? (
-        <ComboWrapper
+        <XYChartWrapper
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
@@ -212,9 +213,9 @@ function StyledCombo(props) {
           > */}
           <div
             style={{
-              border: isSelectionComboVisible ? "1px solid #CCCCCC" : "none",
-              overflowX: isSelectionComboVisible ? "hidden" : "auto",
-              overflowY: isSelectionComboVisible ? "hidden" : "auto",
+              border: isSelectionXYChartVisible ? "1px solid #CCCCCC" : "none",
+              overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
+              overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
             }}
           >
             {/* <div
@@ -224,7 +225,7 @@ function StyledCombo(props) {
                 onClick={(e) => e.stopPropagation()}
               > */}
             {qData && qLayout && (
-              <CreateCombo
+              <CreateXYChart
                 width={width}
                 height={height}
                 events={events}
@@ -233,38 +234,38 @@ function StyledCombo(props) {
                 beginSelections={beginSelections}
                 select={select}
                 setRefreshChart={setRefreshChart}
-                setSelectionComboVisible={setSelectionComboVisible}
+                setSelectionXYChartVisible={setSelectionXYChartVisible}
                 useSelectionColours={useSelectionColours}
                 pendingSelections={pendingSelections}
                 SetPendingSelections={SetPendingSelections}
-                // ComboThemes={ComboThemes}
+                // XYChartThemes={XYChartThemes}
                 colorPalette={colorPalette}
               />
             )}
           </div>
           {/* </div> */}
           <SelectionModal
-            isOpen={isSelectionComboVisible}
+            isOpen={isSelectionXYChartVisible}
             cancelCallback={cancelCallback}
             confirmCallback={confirmCallback}
             // width={width}
           />
           {/* </div> */}
-        </ComboWrapper>
+        </XYChartWrapper>
       ) : (
-        <ComboWrapperNoData
+        <XYChartWrapperNoData
           border={border}
           size={size}
           width={width}
           margin={margin}
         >
-          <ComboNoDataContent height={height}>
+          <XYChartNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}
-          </ComboNoDataContent>
-        </ComboWrapperNoData>
+          </XYChartNoDataContent>
+        </XYChartWrapperNoData>
       )}
     </>
   );
 }
 
-export default StyledCombo;
+export default StyledXYChart;

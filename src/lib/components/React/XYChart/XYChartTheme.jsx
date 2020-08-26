@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { defaultProps } from "../../../../default-props";
-import { globalStyle, borderStyle } from "../../../../utils/styles";
-import { componentWidth } from "../../../../utils";
+import { defaultProps } from "../../../default-props";
+import { globalStyle, borderStyle } from "../../../utils/styles";
+import { componentWidth } from "../../../utils";
 
-const ComboWrapper = styled.div`
+const XYChartWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -23,7 +23,7 @@ const ComboWrapper = styled.div`
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
 `;
 
-const ComboWrapperNoData = styled.div`
+const XYChartWrapperNoData = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -44,7 +44,7 @@ const ComboWrapperNoData = styled.div`
   margin: ${(props) => props.margin};
 `;
 
-const ComboNoDataContent = styled.div`
+const XYChartNoDataContent = styled.div`
   ${globalStyle};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
   margin: ${(props) => props.theme.global.chart.noDataContent.margin};
@@ -54,13 +54,13 @@ const ComboNoDataContent = styled.div`
   height: ${(props) => props.height};
 `;
 
-ComboWrapper.defaultProps = {};
-Object.setPrototypeOf(ComboWrapper.defaultProps, defaultProps);
+XYChartWrapper.defaultProps = {};
+Object.setPrototypeOf(XYChartWrapper.defaultProps, defaultProps);
 
-ComboWrapperNoData.defaultProps = {};
-Object.setPrototypeOf(ComboWrapperNoData.defaultProps, defaultProps);
+XYChartWrapperNoData.defaultProps = {};
+Object.setPrototypeOf(XYChartWrapperNoData.defaultProps, defaultProps);
 
-ComboNoDataContent.defaultProps = {};
-Object.setPrototypeOf(ComboNoDataContent.defaultProps, defaultProps);
+XYChartNoDataContent.defaultProps = {};
+Object.setPrototypeOf(XYChartNoDataContent.defaultProps, defaultProps);
 
-export { ComboWrapper, ComboWrapperNoData, ComboNoDataContent };
+export { XYChartWrapper, XYChartWrapperNoData, XYChartNoDataContent };
