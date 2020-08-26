@@ -9,6 +9,7 @@ import ComboTheme, {
 } from "./ComboTheme";
 import Spinner from "../../../React/Spinner";
 import CreateCombo from "./CreateCombo";
+import { createColorArray } from "../../../../utils/colors";
 // import WithTooltip from "../../VX/old/composer/WithTooltip";
 
 function StyledCombo(props) {
@@ -59,25 +60,13 @@ function StyledCombo(props) {
     ...rest
   } = props;
 
-  // styles
-  // styles
-  const { ComboThemes } = ComboTheme(theme, size, fontColor, colorTheme);
-  // const { ToolTipThemes } = TooltipTheme(theme, size);
-  // const { TitleThemes } = TitleTheme(theme, size);
-  // const { LegendThemes } = LegendTheme(theme, backgroundColor);
-  const { ComboDefault } = ComboThemes;
+  const {
+    global: { colorTheme: globalColorTheme },
+  } = theme;
 
-  // const { ComboThemes } = ComboTheme(
-  //   theme,
-  //   size,
-  //   fontColor,
-  //   chartColor,
-  //   setSelectionComboVisible
-  // );
-  // const { ToolTipThemes } = TooltipTheme(theme, size);
-  // const { TitleThemes } = TitleTheme(theme, size);
-  // const { LegendThemes } = LegendTheme(theme, backgroundColor);
-  // const { ComboDefault } = ComboThemes;
+  // if the prop is undefined, use the base theme
+  // const color = colorTheme || globalColorTheme;
+  const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
   // retrieve Combo data from HyperCube
   const {
@@ -235,19 +224,6 @@ function StyledCombo(props) {
                 onClick={(e) => e.stopPropagation()}
               > */}
             {qData && qLayout && (
-              // <WithTooltip
-              //   // renderTooltip={({ datum }) => datum.y}
-              //   renderTooltip={({ datum }) => {
-              //     console.log(datum);
-              //   }}
-              //   tooltipProps={{
-              //     offsetTop: 0,
-              //     style: {
-              //       backgroundColor: "pink",
-              //       opacity: 0.9,
-              //     },
-              //   }}
-              // >
               <CreateCombo
                 width={width}
                 height={height}
@@ -261,9 +237,9 @@ function StyledCombo(props) {
                 useSelectionColours={useSelectionColours}
                 pendingSelections={pendingSelections}
                 SetPendingSelections={SetPendingSelections}
-                ComboThemes={ComboThemes}
+                // ComboThemes={ComboThemes}
+                colorPalette={colorPalette}
               />
-              // </WithTooltip>
             )}
           </div>
           {/* </div> */}

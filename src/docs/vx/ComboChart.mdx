@@ -34,6 +34,7 @@ import { config } from '../config/config.js'
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Combo // width={750} height={400}  events={true}
+    colorTheme="bio"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'CanonicalDate' },
       { qField: '=Sum([Hours])', qLabel: 'Hours' },

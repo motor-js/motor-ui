@@ -127,26 +127,26 @@ export default function CreateCombo({
   setRefreshChart,
   beginSelections,
   select,
-  setSelectionComboVisible,
+  setSelectionBarVisible,
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,
-  colorPalette,
+  ComboThemes,
 }) {
-  //  const {
-  //    // ComboChartStyle,
-  //    // ComboDefault,
-  //    // ComboStyle,
-  //    // GridLineStyle,
-  //    // yAxisStyle,
-  //    // xAxisStyle,
-  //    // axisTitleStyle,
-  //    // ComboLabelStyle,
-  //    // ComboOverviewCombo,
-  //    // SelectedCombo,
-  //    // NonSelectedCombo,
-  //    colorPalette,
-  //  } = ComboThemes;
+  const {
+    // BarChartStyle,
+    // BarDefault,
+    // BarStyle,
+    // GridLineStyle,
+    // yAxisStyle,
+    // xAxisStyle,
+    // axisTitleStyle,
+    // BarLabelStyle,
+    // BarOverviewBar,
+    // SelectedBar,
+    // NonSelectedBar,
+    colorPalette,
+  } = ComboThemes;
 
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
@@ -229,13 +229,11 @@ export default function CreateCombo({
 
   // Check if conditionalColors and if so get the returned color pallette
   const conditionalColors = colorByExpression(qHyperCube, data, colorPalette);
-  const colors =
-    conditionalColors.length !== 0 ? conditionalColors : colorPalette;
 
   const themeObj = {
     ...defaultTheme,
     colors: ["#00bfff", "#0040ff", "#654062"],
-    // colors,
+    // colors: conditionalColors.length !== 0 ? conditionalColors : colorPalette,
   };
 
   console.log(themeObj.colors);
