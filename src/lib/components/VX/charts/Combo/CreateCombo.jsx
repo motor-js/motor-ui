@@ -110,7 +110,7 @@ export default function CreateCombo({
   width,
   height,
   events = false,
-  qData,
+  qData: { qMatrix: data },
   qLayout,
   setRefreshChart,
   beginSelections,
@@ -122,7 +122,7 @@ export default function CreateCombo({
 }) {
   // const data = cityTemperature.slice(100, 100 + 16);
   // console.log(qLayout.qHyperCube.qMeasureInfo[0].qFallbackTitle);
-  const data = qData.qMatrix;
+  // const data = qMatrix;
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
@@ -188,8 +188,8 @@ export default function CreateCombo({
   const sfAccessors = useAccessors(getSfTemperature, renderHorizontally);
 
   useEffect(() => {
-    setCurrData(qData.qMatrix);
-  }, [qData]);
+    setCurrData(data);
+  }, [data]);
 
   // const themeObj = useMemo(
   //   () =>
