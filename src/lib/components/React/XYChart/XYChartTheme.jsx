@@ -25,6 +25,7 @@ const XYChartWrapper = styled.div`
 
 const XYChartWrapperNoData = styled.div`
   ${globalStyle};
+    ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
@@ -46,6 +47,7 @@ const XYChartWrapperNoData = styled.div`
 
 const XYChartNoDataContent = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
   margin: ${(props) => props.theme.global.chart.noDataContent.margin};
   align-items: ${(props) => props.theme.global.chart.noDataContent.alignItems};

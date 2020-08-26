@@ -58,6 +58,7 @@ function StyledXYChart(props) {
     otherTotalSpec,
     tickSpacing,
     allowSlantedYAxis,
+    gridArea,
     ...rest
   } = props;
 
@@ -200,7 +201,8 @@ function StyledXYChart(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
         >
           {/* <div
@@ -227,7 +229,13 @@ function StyledXYChart(props) {
             {qData && qLayout && (
               <CreateXYChart
                 width={width}
-                height={height}
+                // height={height}
+                height={
+                  gridArea
+                    ? ref.current.offsetHeight -
+                      parseInt(margin || theme.global.chart.margin, 10)
+                    : height
+                }
                 events={events}
                 qLayout={qLayout}
                 qData={qData}
@@ -256,8 +264,9 @@ function StyledXYChart(props) {
         <XYChartWrapperNoData
           border={border}
           size={size}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
-          margin={margin}
         >
           <XYChartNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

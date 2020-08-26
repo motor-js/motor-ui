@@ -39,12 +39,12 @@ XYChart.propTypes = {
   // barSortOrder: PropTypes.array,
   // /** Sort Ascending or descending */
   // sortDirection: PropTypes.string,
-  // /** Bar width */
-  // width: PropTypes.string,
-  // /** The height of the Bar */
-  // height: PropTypes.string,
-  // /** The amount of margin around the component */
-  // margin: PropTypes.string,
+  /** Bar width */
+  width: PropTypes.string,
+  /** The height of the Bar */
+  height: PropTypes.string,
+  /** The amount of margin around the component */
+  margin: PropTypes.string,
   // /** Size of the Bar */
   // size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // /** Size of the Bar */
@@ -196,7 +196,7 @@ XYChart.defaultProps = {
   // suppressZero: null,
   width: "100%",
   height: 400, // 100%
-  // margin: null,
+  margin: null,
   // size: "medium",
   // showLabels: null,
   // fontColor: "",
