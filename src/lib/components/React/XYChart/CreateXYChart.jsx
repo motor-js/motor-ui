@@ -128,7 +128,7 @@ export default function CreateXYChart({
     </>
   );
 
-  const temperatureScaleConfig = useMemo(
+  const valueScaleConfig = useMemo(
     () => ({
       type: "linear",
       clamp: true,
@@ -192,8 +192,8 @@ export default function CreateXYChart({
 
     <ChartProvider
       theme={themeObj}
-      xScale={renderHorizontally ? temperatureScaleConfig : dateScaleConfig}
-      yScale={renderHorizontally ? dateScaleConfig : temperatureScaleConfig}
+      xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+      yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
     >
       <EventProvider>
