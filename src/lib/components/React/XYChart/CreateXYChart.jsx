@@ -19,19 +19,21 @@ import Stack from "../../../components/VX/components/series/Stack";
 
 import { colorByExpression } from "../../../utils";
 
-const numDateTicks = 5;
+const numDimensionTicks = 5;
 
-const Console = (prop) => (
-  console[Object.keys(prop)[0]](...Object.values(prop)),
-  null // ➜ React components must return something
-);
+// const Console = (prop) => (
+//   console[Object.keys(prop)[0]](...Object.values(prop)),
+//   null // ➜ React components must return something
+// );
 
-const getDate = (d) =>
-  new Date(
-    d[0].qText.split("/")[2],
-    d[0].qText.split("/")[1] - 1,
-    d[0].qText.split("/")[0]
-  );
+const getDimension = (d) => d[0].qText;
+
+// const getDimension = (d) =>
+//   new Date(
+//     d[0].qText.split("/")[2],
+//     d[0].qText.split("/")[1] - 1,
+//     d[0].qText.split("/")[0]
+//   );
 
 const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
 const legendLabelFormat = (d) => d;
@@ -44,9 +46,9 @@ function useAccessors(valueAccessor, column, renderHorizontally) {
   return useMemo(
     () => ({
       xAccessor: (d) =>
-        renderHorizontally ? valueAccessor(d, column) : getDate(d),
+        renderHorizontally ? valueAccessor(d, column) : getDimension(d),
       yAccessor: (d) =>
-        renderHorizontally ? getDate(d) : valueAccessor(d, column),
+        renderHorizontally ? getDimension(d) : valueAccessor(d, column),
     }),
     [renderHorizontally, valueAccessor]
   );
@@ -70,7 +72,7 @@ export default function CreateXYChart({
   SetPendingSelections,
   colorPalette,
 }) {
-  console.log(dimensionInfo);
+  // console.log(dimensionInfo[0]); // T for Time
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
@@ -78,7 +80,7 @@ export default function CreateXYChart({
   const [autoWidth, setAutoWidth] = useState(false);
   const [renderHorizontally, setRenderHorizontally] = useState(false);
   // const [negativeValues, setNegativeValues] = useState(false);
-  const [includeZero, setIncludeZero] = useState(false);
+  const [includeZero, setIncludeZero] = useState(true);
   const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
   const [yAxisOrientation, setYAxisOrientation] = useState("left");
   const [legendLeftRight, setLegendLeftRight] = useState("right");
@@ -105,7 +107,7 @@ export default function CreateXYChart({
   const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
     <>
       <div>{closestDatum.datum[0].qText}</div>
-      {/* <Console log={closestData[`${measureInfo[1].qFallbackTitle}`].datum[2]} /> */}
+      {/* <Console log={closestData} /> */}
       <br />
 
       {measureInfo.map(
@@ -292,7 +294,7 @@ export default function CreateXYChart({
               orientation="right"
               numTicks={5}
             /> */}
-            {/** Date axis */}
+            {/** Dimension axis */}
             <AxisComponent
               // label={dimensionInfo[0].qFallbackTitle}
               orientation={
@@ -301,9 +303,9 @@ export default function CreateXYChart({
               tickValues={currData
                 .filter(
                   (d, i, arr) =>
-                    i % Math.round((arr.length - 1) / numDateTicks) === 0
+                    i % Math.round((arr.length - 1) / numDimensionTicks) === 0
                 )
-                .map((d) => getDate(d))}
+                .map((d) => getDimension(d))}
               tickFormat={(d) =>
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
