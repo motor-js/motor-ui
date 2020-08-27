@@ -2,21 +2,23 @@ import React, { useRef, useEffect, useState } from "react";
 import UseHyperCube from "../../../../hooks/useHyperCube";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import SelectionModal from "../../../React/SelectionModal";
-import ComboTheme, {
-  ComboWrapper,
-  ComboWrapperNoData,
-  ComboNoDataContent,
-} from "./ComboTheme";
+import SandBoxTheme, {
+  SandBoxWrapper,
+  SandBoxWrapperNoData,
+  SandBoxNoDataContent,
+} from "./SandBoxTheme";
 import Spinner from "../../../React/Spinner";
-import CreateCombo from "./CreateCombo";
+import CreateSandBox from "./CreateSandBox";
 import { createColorArray } from "../../../../utils/colors";
 // import WithTooltip from "../../VX/old/composer/WithTooltip";
 
-function StyledCombo(props) {
+function StyledSandBox(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionComboVisible, setSelectionComboVisible] = useState(false);
+  const [isSelectionSandBoxVisible, setSelectionSandBoxVisible] = useState(
+    false
+  );
   const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -68,7 +70,7 @@ function StyledCombo(props) {
   // const color = colorTheme || globalColorTheme;
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
-  // retrieve Combo data from HyperCube
+  // retrieve SandBox data from HyperCube
   const {
     beginSelections,
     endSelections,
@@ -83,14 +85,14 @@ function StyledCombo(props) {
     // qSortByAscii: numericSortDirection(sortDirection, 1),
     // qInterColumnSortOrder: barSortOrder,
     // qCalcCondition: calcCondition,
-    // qSuppressZero: suppressZero || ComboDefault.suppressZero,
-    // qOtherTotalSpec: otherTotalSpec || ComboDefault.otherTotalSpec,
+    // qSuppressZero: suppressZero || SandBoxDefault.suppressZero,
+    // qOtherTotalSpec: otherTotalSpec || SandBoxDefault.otherTotalSpec,
     qSuppressZero: true,
   });
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionComboVisible(false);
+    setSelectionSandBoxVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -99,7 +101,7 @@ function StyledCombo(props) {
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionComboVisible(false);
+    setSelectionSandBoxVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -111,7 +113,7 @@ function StyledCombo(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionComboVisible) {
+    if (isSelectionSandBoxVisible) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -119,7 +121,7 @@ function StyledCombo(props) {
 
   const handleResize = () => {
     if (typeof calcCond === "undefined" && dataError.length === 0) {
-      // CreateCombo({ ...chartSettings, screenWidth: ref.current.offsetWidth });
+      // CreateSandBox({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
 
@@ -150,39 +152,39 @@ function StyledCombo(props) {
   //     //   useSelectionColours,
   //     //   setRefreshChart,
   //     //   beginSelections,
-  //     //   setSelectionComboVisible,
+  //     //   setSelectionSandBoxVisible,
   //     //   // buildSelections,
-  //     //   maxAxisLength: maxAxisLength || ComboDefault.maxAxisLength,
-  //     //   ComboThemes,
+  //     //   maxAxisLength: maxAxisLength || SandBoxDefault.maxAxisLength,
+  //     //   SandBoxThemes,
   //     //   ToolTipThemes,
   //     //   TitleThemes,
   //     //   LegendThemes,
   //     //   allowSlantedYAxis:
   //     //     allowSlantedYAxis === null
-  //     //       ? ComboDefault.allowSlantedYAxis
+  //     //       ? SandBoxDefault.allowSlantedYAxis
   //     //       : allowSlantedYAxis,
-  //     //   tickSpacing: tickSpacing || ComboDefault.tickSpacing,
+  //     //   tickSpacing: tickSpacing || SandBoxDefault.tickSpacing,
   //     //   allowSelections:
   //     //     allowSelections === null
-  //     //       ? ComboDefault.allowSelections
+  //     //       ? SandBoxDefault.allowSelections
   //     //       : allowSelections,
-  //     //   showLabels: showLabels === null ? ComboDefault.showLabels : showLabels,
-  //     //   showLegend: legendPosition(showLegend, ComboDefault.showLegend),
+  //     //   showLabels: showLabels === null ? SandBoxDefault.showLabels : showLabels,
+  //     //   showLegend: legendPosition(showLegend, SandBoxDefault.showLegend),
   //     //   showAxis: calcDisplayOption(
-  //     //     showAxis === null ? ComboDefault.showAxis : showAxis
+  //     //     showAxis === null ? SandBoxDefault.showAxis : showAxis
   //     //   ),
   //     //   textOnAxis: calcDisplayOption(
-  //     //     textOnAxis === null ? ComboDefault.textOnAxis : textOnAxis
+  //     //     textOnAxis === null ? SandBoxDefault.textOnAxis : textOnAxis
   //     //   ),
   //     //   showGridlines: calcDisplayOption(
-  //     //     showGridlines === null ? ComboDefault.showGridlines : showGridlines,
+  //     //     showGridlines === null ? SandBoxDefault.showGridlines : showGridlines,
   //     //     true
   //     //   ),
   //     //   selections,
   //     //   select,
   //     //   ...rest,
   //     // };
-  //     // CreateCombo(chartSettings);
+  //     // CreateSandBox(chartSettings);
   //   }
 
   //   window.addEventListener("resize", handleResize);
@@ -195,7 +197,7 @@ function StyledCombo(props) {
   return (
     <>
       {qData && qLayout && !dataError ? (
-        <ComboWrapper
+        <SandBoxWrapper
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
@@ -212,9 +214,9 @@ function StyledCombo(props) {
           > */}
           <div
             style={{
-              border: isSelectionComboVisible ? "1px solid #CCCCCC" : "none",
-              overflowX: isSelectionComboVisible ? "hidden" : "auto",
-              overflowY: isSelectionComboVisible ? "hidden" : "auto",
+              border: isSelectionSandBoxVisible ? "1px solid #CCCCCC" : "none",
+              overflowX: isSelectionSandBoxVisible ? "hidden" : "auto",
+              overflowY: isSelectionSandBoxVisible ? "hidden" : "auto",
             }}
           >
             {/* <div
@@ -224,7 +226,7 @@ function StyledCombo(props) {
                 onClick={(e) => e.stopPropagation()}
               > */}
             {qData && qLayout && (
-              <CreateCombo
+              <CreateSandBox
                 width={width}
                 height={height}
                 events={events}
@@ -233,38 +235,38 @@ function StyledCombo(props) {
                 beginSelections={beginSelections}
                 select={select}
                 setRefreshChart={setRefreshChart}
-                setSelectionComboVisible={setSelectionComboVisible}
+                setSelectionSandBoxVisible={setSelectionSandBoxVisible}
                 useSelectionColours={useSelectionColours}
                 pendingSelections={pendingSelections}
                 SetPendingSelections={SetPendingSelections}
-                // ComboThemes={ComboThemes}
+                // SandBoxThemes={SandBoxThemes}
                 colorPalette={colorPalette}
               />
             )}
           </div>
           {/* </div> */}
           <SelectionModal
-            isOpen={isSelectionComboVisible}
+            isOpen={isSelectionSandBoxVisible}
             cancelCallback={cancelCallback}
             confirmCallback={confirmCallback}
             // width={width}
           />
           {/* </div> */}
-        </ComboWrapper>
+        </SandBoxWrapper>
       ) : (
-        <ComboWrapperNoData
+        <SandBoxWrapperNoData
           border={border}
           size={size}
           width={width}
           margin={margin}
         >
-          <ComboNoDataContent height={height}>
+          <SandBoxNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}
-          </ComboNoDataContent>
-        </ComboWrapperNoData>
+          </SandBoxNoDataContent>
+        </SandBoxWrapperNoData>
       )}
     </>
   );
 }
 
-export default StyledCombo;
+export default StyledSandBox;

@@ -118,7 +118,7 @@ function useAccessors(temperatureAccessor, renderHorizontally) {
   );
 }
 
-export default function CreateCombo({
+export default function CreateSandBox({
   width,
   height,
   events = false,
@@ -127,26 +127,26 @@ export default function CreateCombo({
   setRefreshChart,
   beginSelections,
   select,
-  setSelectionComboVisible,
+  setSelectionSandBoxVisible,
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,
   colorPalette,
 }) {
   //  const {
-  //    // ComboChartStyle,
-  //    // ComboDefault,
-  //    // ComboStyle,
+  //    // SandBoxChartStyle,
+  //    // SandBoxDefault,
+  //    // SandBoxStyle,
   //    // GridLineStyle,
   //    // yAxisStyle,
   //    // xAxisStyle,
   //    // axisTitleStyle,
-  //    // ComboLabelStyle,
-  //    // ComboOverviewCombo,
-  //    // SelectedCombo,
-  //    // NonSelectedCombo,
+  //    // SandBoxLabelStyle,
+  //    // SandBoxOverviewSandBox,
+  //    // SelectedSandBox,
+  //    // NonSelectedSandBox,
   //    colorPalette,
-  //  } = ComboThemes;
+  //  } = SandBoxThemes;
 
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
@@ -164,7 +164,7 @@ export default function CreateCombo({
   const [legendShape, setLegendShape] = useState("auto");
   const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
   const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  const [chartType, setchartType] = useState(["bar", "line"]);
+  const [chartType, setchartType] = useState(["groupedbar"]);
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
     (chartType.includes("stackedbar") && !renderHorizontally) ||

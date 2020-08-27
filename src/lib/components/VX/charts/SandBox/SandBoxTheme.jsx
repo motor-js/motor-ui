@@ -3,7 +3,7 @@ import { defaultProps } from "../../../../default-props";
 import { globalStyle, borderStyle } from "../../../../utils/styles";
 import { componentWidth } from "../../../../utils";
 
-const ComboWrapper = styled.div`
+const SandBoxWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -23,7 +23,7 @@ const ComboWrapper = styled.div`
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
 `;
 
-const ComboWrapperNoData = styled.div`
+const SandBoxWrapperNoData = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -44,7 +44,7 @@ const ComboWrapperNoData = styled.div`
   margin: ${(props) => props.margin};
 `;
 
-const ComboNoDataContent = styled.div`
+const SandBoxNoDataContent = styled.div`
   ${globalStyle};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
   margin: ${(props) => props.theme.global.chart.noDataContent.margin};
@@ -54,13 +54,13 @@ const ComboNoDataContent = styled.div`
   height: ${(props) => props.height};
 `;
 
-ComboWrapper.defaultProps = {};
-Object.setPrototypeOf(ComboWrapper.defaultProps, defaultProps);
+SandBoxWrapper.defaultProps = {};
+Object.setPrototypeOf(SandBoxWrapper.defaultProps, defaultProps);
 
-ComboWrapperNoData.defaultProps = {};
-Object.setPrototypeOf(ComboWrapperNoData.defaultProps, defaultProps);
+SandBoxWrapperNoData.defaultProps = {};
+Object.setPrototypeOf(SandBoxWrapperNoData.defaultProps, defaultProps);
 
-ComboNoDataContent.defaultProps = {};
-Object.setPrototypeOf(ComboNoDataContent.defaultProps, defaultProps);
+SandBoxNoDataContent.defaultProps = {};
+Object.setPrototypeOf(SandBoxNoDataContent.defaultProps, defaultProps);
 
-export { ComboWrapper, ComboWrapperNoData, ComboNoDataContent };
+export { SandBoxWrapper, SandBoxWrapperNoData, SandBoxNoDataContent };
