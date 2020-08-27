@@ -60,6 +60,7 @@ function StyledXYChart(props) {
     allowSlantedYAxis,
     gridArea,
     type,
+    padding,
     useAnimatedAxes,
     autoWidth,
     renderHorizontally,
@@ -263,6 +264,7 @@ function StyledXYChart(props) {
                 // XYChartThemes={XYChartThemes}
                 colorPalette={colorPalette}
                 type={type}
+                padding={padding}
                 useAnimatedAxes={useAnimatedAxes}
                 autoWidth={autoWidth}
                 renderHorizontally={renderHorizontally}

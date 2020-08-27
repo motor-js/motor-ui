@@ -70,6 +70,7 @@ export default function CreateXYChart({
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,
+  padding,
   colorPalette,
   type,
   useAnimatedAxes,
@@ -127,7 +128,7 @@ export default function CreateXYChart({
     (chartType.includes("combo") && renderHorizontally) ||
     chartType.includes("bar");
 
-  const dateScaleConfig = useMemo(() => ({ type: "band", padding: 0.2 }), []);
+  const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
 
   const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
     <>

@@ -173,7 +173,7 @@ XYChart.propTypes = {
   // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
   // // scrollRatio: PropTypes.number, // Descoped to later version
   // /** Pddding for each bar */
-  // barPadding: PropTypes.number,
+  padding: PropTypes.number,
   // /** Error messgae to display when invalid dimension */
   // dimensionErrMsg: PropTypes.string,
   // /** Error messgae to display when invalid measure */
@@ -234,7 +234,7 @@ XYChart.defaultProps = {
   // maxWidth: null,
   // maxAxisLength: null,
   // suppressScroll: null,
-  // barPadding: null,
+  padding: 0.2,
   // dimensionErrMsg: null,
   // measureErrMsg: null,
   // otherTotalSpec: null,
