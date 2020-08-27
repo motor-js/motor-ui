@@ -86,17 +86,23 @@ export default function CreateXYChart({
   snapTooltipToDataX,
   snapTooltipToDataY,
   backgroundPattern,
+  multiColor,
 }) {
   const [currData, setCurrData] = useState(data);
 
-  const [chartType, setchartType] = useState([
-    type,
+  const getChartType = () =>
     type
       ? type
       : dimensionInfo.length === 1 && measureInfo.length === 1
       ? "bar"
-      : "groupedbar",
-  ]);
+      : "groupedbar";
+
+  const [chartType, setchartType] = useState([getChartType()]);
+
+  const dataKeys =
+    multiColor && dimensionInfo.length == 1 && measureInfo.length === 1
+      ? data.map((d) => d[0].qText)
+      : null;
 
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
@@ -115,9 +121,18 @@ export default function CreateXYChart({
   const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
     <>
       <div>{closestDatum.datum[0].qText}</div>
-      {/* <Console log={closestData} /> */}
+      {/* <Console log={closestDatum.datum[0].qText} /> */}
       <br />
-
+      {dimensionInfo.length === 1 && measureInfo.length === 1 && dataKeys && (
+        <div
+          style={{
+            color: colorScale(`${closestDatum.datum[0].qText}`),
+            textDecoration: "underline solid currentColor",
+          }}
+        >
+          {measureInfo[0].qFallbackTitle} {closestDatum.datum[1].qNum}
+        </div>
+      )}
       {measureInfo.map(
         (measure, index) =>
           closestData?.[`${measure.qFallbackTitle}`] &&
@@ -154,7 +169,7 @@ export default function CreateXYChart({
 
   const colorScaleConfig = useMemo(
     () => ({
-      domain: measureInfo.map((d) => d.qFallbackTitle),
+      domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
     }),
     [chartType]
   );
@@ -228,7 +243,9 @@ export default function CreateXYChart({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                dataKey={measureInfo[0].qFallbackTitle}
+                // dataKey={measureInfo[0].qFallbackTitle}
+                dataKeys={dataKeys ? dataKeys : null}
+                dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
                 data={currData}
                 {...dataAccessors[0]}
               />

@@ -28,6 +28,7 @@ function BarSeries<
   YScaleInput = unknown
 >({
   dataKey,
+  dataKeys,
   data: _,
   xAccessor: __,
   yAccessor: ___,
@@ -80,14 +81,16 @@ function BarSeries<
     ? (Math.min(maybeYZero, Math.max(yMin, yMax)) as number)
     : Math.max(yMin, yMax);
 
-  const barColor = colorScale(dataKey) as string;
+  // const barColor = colorScale(dataKey) as string;
 
   const bars = useMemo(
     () =>
-      data.map((datum) => {
+      data.map((datum, i) => {
         const x = getScaledX(datum);
         const y = getScaledY(datum);
         const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
+
+        const barColor = colorScale(dataKeys ? dataKeys[i] : dataKey) as string;
 
         return {
           x: horizontal ? xZeroPosition + Math.min(0, barLength) : x,
@@ -99,7 +102,7 @@ function BarSeries<
       }),
     [
       horizontal,
-      barColor,
+      // barColor,
       barThickness,
       data,
       xZeroPosition,

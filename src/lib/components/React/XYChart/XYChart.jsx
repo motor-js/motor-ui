@@ -202,6 +202,7 @@ XYChart.propTypes = {
   snapTooltipToDataX: PropTypes.bool,
   snapTooltipToDataY: PropTypes.bool,
   backgroundPattern: PropTypes.oneOf(["Lines", "Circles"]),
+  multiColor: PropTypes.bool,
 };
 
 XYChart.defaultProps = {
@@ -254,6 +255,7 @@ XYChart.defaultProps = {
   snapTooltipToDataX: true,
   snapTooltipToDataY: true,
   backgroundPattern: null,
+  multiColor: true,
 };
 
 export default XYChart;
