@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { defaultProps } from "../../../default-props";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { componentWidth } from "../../../utils";
+import { defaultProps } from "../../../../default-props";
+import { globalStyle, borderStyle } from "../../../../utils/styles";
+import { componentWidth } from "../../../../utils";
 
-const XYChartWrapper = styled.div`
+const ComboWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -23,9 +23,8 @@ const XYChartWrapper = styled.div`
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
 `;
 
-const XYChartWrapperNoData = styled.div`
+const ComboWrapperNoData = styled.div`
   ${globalStyle};
-    ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
@@ -45,9 +44,8 @@ const XYChartWrapperNoData = styled.div`
   margin: ${(props) => props.margin};
 `;
 
-const XYChartNoDataContent = styled.div`
+const ComboNoDataContent = styled.div`
   ${globalStyle};
-  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
   margin: ${(props) => props.theme.global.chart.noDataContent.margin};
   align-items: ${(props) => props.theme.global.chart.noDataContent.alignItems};
@@ -56,13 +54,13 @@ const XYChartNoDataContent = styled.div`
   height: ${(props) => props.height};
 `;
 
-XYChartWrapper.defaultProps = {};
-Object.setPrototypeOf(XYChartWrapper.defaultProps, defaultProps);
+ComboWrapper.defaultProps = {};
+Object.setPrototypeOf(ComboWrapper.defaultProps, defaultProps);
 
-XYChartWrapperNoData.defaultProps = {};
-Object.setPrototypeOf(XYChartWrapperNoData.defaultProps, defaultProps);
+ComboWrapperNoData.defaultProps = {};
+Object.setPrototypeOf(ComboWrapperNoData.defaultProps, defaultProps);
 
-XYChartNoDataContent.defaultProps = {};
-Object.setPrototypeOf(XYChartNoDataContent.defaultProps, defaultProps);
+ComboNoDataContent.defaultProps = {};
+Object.setPrototypeOf(ComboNoDataContent.defaultProps, defaultProps);
 
-export { XYChartWrapper, XYChartWrapperNoData, XYChartNoDataContent };
+export { ComboWrapper, ComboWrapperNoData, ComboNoDataContent };

@@ -1,11 +1,18 @@
 ---
-name: XYChart
-route: /xychart
+name: Combo
+route: /combo
 menu: vx
 ---
 
-<h1 style={{ margin: '0px' }}>XYChart</h1>
+<h1 style={{ margin: '0px' }}>Bar Chart</h1>
 
+<br />
+
+## Import
+
+```javascript
+  import { Bar } from 'motor-ui'
+```
 <br />
 
 ## Usage
@@ -16,7 +23,7 @@ Check out the props and example usage below 💡
 import { Props } from 'docz'
 import { Playground } from 'docz'
 import Column from '../../lib/components/React/Column/Column.jsx'
-import XYChart from '../../lib/components/React/XYChart/XYChart.jsx'
+import Combo from '../../lib/components/VX/charts/Combo/Combo.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import { config } from '../config/config.js'
@@ -26,7 +33,7 @@ import { config } from '../config/config.js'
  config={config}>  
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
-    <XYChart // width={750} height={400}  events={true}
+    <Combo // width={750} height={400}  events={true}
     colorTheme="bio"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'CanonicalDate' },
