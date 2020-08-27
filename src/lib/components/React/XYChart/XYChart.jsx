@@ -23,22 +23,50 @@ function XYChart({ config, ...rest }) {
   );
 }
 
+const BORDER_SHAPE = PropTypes.shape({
+  color: PropTypes.oneOfType([PropTypes.string]),
+  side: PropTypes.oneOf([
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
+  ]),
+  size: PropTypes.oneOfType([PropTypes.string]),
+  style: PropTypes.oneOf([
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
+  ]),
+});
+
 XYChart.propTypes = {
   // /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
   // config: PropTypes.object,
   // /** cols from Qlik Data Model to render in the Bar  */
   // cols: PropTypes.array.isRequired,
-  // /** Calc condition for the chart  */
-  // calcCondition: PropTypes.shape({
-  //   qCond: PropTypes.string,
-  //   qMsg: PropTypes.string,
-  // }),
-  // /** Supress zeo vlaues in the the chart  */
-  // suppressZero: PropTypes.bool,
-  // /** Bar Sort Order */
-  // barSortOrder: PropTypes.array,
-  // /** Sort Ascending or descending */
-  // sortDirection: PropTypes.string,
+  /** Calc condition for the chart  */
+  calcCondition: PropTypes.shape({
+    qCond: PropTypes.string,
+    qMsg: PropTypes.string,
+  }),
+  /** Supress zeo vlaues in the the chart  */
+  suppressZero: PropTypes.bool,
+  /** Bar Sort Order */
+  sortOrder: PropTypes.array,
+  /** Sort Ascending or descending */
+  sortDirection: PropTypes.string,
   /** Bar width */
   width: PropTypes.string,
   /** The height of the Bar */
@@ -70,57 +98,57 @@ XYChart.propTypes = {
   //   PropTypes.bool,
   //   PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
   // ]),
-  // /** Color of the Bar label */
-  // fontColor: PropTypes.string,
-  // /** Border of the Pie Chart, need desc */
-  // border: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.oneOf([
-  //     "top",
-  //     "left",
-  //     "bottom",
-  //     "right",
-  //     "start",
-  //     "end",
-  //     "horizontal",
-  //     "vertical",
-  //     "all",
-  //     "between",
-  //     "none",
-  //   ]),
-  //   PropTypes.shape({
-  //     color: PropTypes.oneOfType([PropTypes.string]),
-  //     side: PropTypes.oneOf([
-  //       "top",
-  //       "left",
-  //       "bottom",
-  //       "right",
-  //       "start",
-  //       "end",
-  //       "horizontal",
-  //       "vertical",
-  //       "all",
-  //       "between",
-  //     ]),
-  //     size: PropTypes.oneOfType([PropTypes.string]),
-  //     style: PropTypes.oneOf([
-  //       "solid",
-  //       "dashed",
-  //       "dotted",
-  //       "double",
-  //       "groove",
-  //       "ridge",
-  //       "inset",
-  //       "outset",
-  //       "hidden",
-  //     ]),
-  //   }),
-  //   PropTypes.arrayOf(BORDER_SHAPE),
-  // ]),
+  /** Color of the Bar label */
+  fontColor: PropTypes.string,
+  /** Border of the Pie Chart, need desc */
+  border: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf([
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+      "none",
+    ]),
+    PropTypes.shape({
+      color: PropTypes.oneOfType([PropTypes.string]),
+      side: PropTypes.oneOf([
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
+      ]),
+      size: PropTypes.oneOfType([PropTypes.string]),
+      style: PropTypes.oneOf([
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
+      ]),
+    }),
+    PropTypes.arrayOf(BORDER_SHAPE),
+  ]),
   // /** Border radius of the chart */
-  // borderRadius: PropTypes.string,
+  borderRadius: PropTypes.string,
   // /** Background Color of the chart */
-  // backgroundColor: PropTypes.string,
+  backgroundColor: PropTypes.string,
   // /** color scheme of the chart */
   colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
@@ -178,14 +206,14 @@ XYChart.propTypes = {
   // dimensionErrMsg: PropTypes.string,
   // /** Error messgae to display when invalid measure */
   // measureErrMsg: PropTypes.string,
-  // /** Show values as Other */
-  // otherTotalSpec: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.shape({
-  //     qOtherLabel: PropTypes.string,
-  //     qOtherCount: PropTypes.string,
-  //   }),
-  // ]),
+  /** Show values as Other */
+  otherTotalSpec: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.shape({
+      qOtherLabel: PropTypes.string,
+      qOtherCount: PropTypes.string,
+    }),
+  ]),
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
   type: PropTypes.string,
@@ -203,31 +231,32 @@ XYChart.propTypes = {
   snapTooltipToDataY: PropTypes.bool,
   backgroundPattern: PropTypes.oneOf(["Lines", "Circles"]),
   multiColor: PropTypes.bool,
+  events: PropTypes.bool,
 };
 
 XYChart.defaultProps = {
   // config: null,
-  // calcCondition: undefined,
-  // suppressZero: null,
+  calcCondition: undefined,
+  suppressZero: null,
   width: "1000px",
   height: "400px", // 100%
   margin: null,
   // size: "medium",
   // showLabels: null,
-  // fontColor: "",
-  // border: true,
+  fontColor: "",
+  border: true,
   // allowSelections: null,
   // showAxis: null,
   // allowSlantedYAxis: null,
   // showGridlines: null,
   // textOnAxis: null,
   // tickSpacing: undefined,
-  // borderRadius: null,
-  // backgroundColor: null,
+  borderRadius: null,
+  backgroundColor: null,
   colorTheme: null,
   // roundNum: true,
-  // barSortOrder: [],
-  // sortDirection: "",
+  sortOrder: [],
+  sortDirection: "",
   // stacked: false,
   // percentStacked: false,
   // title: null,
@@ -239,7 +268,7 @@ XYChart.defaultProps = {
   padding: 0.2,
   // dimensionErrMsg: null,
   // measureErrMsg: null,
-  // otherTotalSpec: null,
+  otherTotalSpec: null,
   gridArea: null,
   type: null, // Logic to determine default chart type in CreateXYChart
   useAnimatedAxes: false,
@@ -256,6 +285,7 @@ XYChart.defaultProps = {
   snapTooltipToDataY: true,
   backgroundPattern: null,
   multiColor: true,
+  events: false,
 };
 
 export default XYChart;

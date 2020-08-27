@@ -11,6 +11,13 @@ import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
 import { createColorArray } from "../../../utils/colors";
 
+import {
+  numericSortDirection,
+  validData,
+  calcDisplayOption,
+  legendPosition,
+} from "../../../utils";
+
 function StyledXYChart(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
@@ -26,7 +33,7 @@ function StyledXYChart(props) {
   const [pendingSelections, SetPendingSelections] = useState([]);
 
   let useSelectionColours = false;
-  let chartSettings = {};
+  // let chartSettings = {};
 
   // props
   const {
@@ -44,20 +51,20 @@ function StyledXYChart(props) {
     borderRadius,
     backgroundColor,
     colorTheme,
-    showLegend,
-    allowSelections,
-    showAxis,
-    maxAxisLength,
+    // showLegend,
+    // allowSelections,
+    // showAxis,
+    // maxAxisLength,
     sortDirection,
-    barSortOrder,
+    sortOrder,
     calcCondition,
     suppressZero,
-    showLabels,
-    textOnAxis,
-    showGridlines,
+    // showLabels,
+    // textOnAxis,
+    // showGridlines,
     otherTotalSpec,
-    tickSpacing,
-    allowSlantedYAxis,
+    // tickSpacing,
+    // allowSlantedYAxis,
     gridArea,
     type,
     padding,
@@ -86,6 +93,10 @@ function StyledXYChart(props) {
   // const color = colorTheme || globalColorTheme;
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
+  // styles
+  const XYChartDefault = XYChartTheme(theme, size, fontColor, colorTheme);
+  // const { BarDefault } = BarThemes;
+
   // retrieve XYChart data from HyperCube
   const {
     beginSelections,
@@ -97,12 +108,12 @@ function StyledXYChart(props) {
   } = UseHyperCube({
     engine,
     cols,
-    // qSortByNumeric: numericSortDirection(sortDirection, -1),
-    // qSortByAscii: numericSortDirection(sortDirection, 1),
-    // qInterColumnSortOrder: barSortOrder,
-    // qCalcCondition: calcCondition,
-    // qSuppressZero: suppressZero || XYChartDefault.suppressZero,
-    // qOtherTotalSpec: otherTotalSpec || XYChartDefault.otherTotalSpec,
+    qSortByNumeric: numericSortDirection(sortDirection, -1),
+    qSortByAscii: numericSortDirection(sortDirection, 1),
+    qInterColumnSortOrder: sortOrder,
+    qCalcCondition: calcCondition,
+    qSuppressZero: suppressZero || XYChartDefault.suppressZero,
+    qOtherTotalSpec: otherTotalSpec || XYChartDefault.otherTotalSpec,
     qSuppressZero: true,
   });
 
@@ -234,6 +245,7 @@ function StyledXYChart(props) {
               border: isSelectionXYChartVisible ? "1px solid #CCCCCC" : "none",
               overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
               overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
+              padding: "10px",
             }}
           >
             {/* <div
