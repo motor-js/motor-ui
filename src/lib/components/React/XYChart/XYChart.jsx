@@ -98,8 +98,8 @@ XYChart.propTypes = {
   //   PropTypes.bool,
   //   PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
   // ]),
-  /** Color of the Bar label */
-  fontColor: PropTypes.string,
+  // /** Color of the Bar label */
+  // fontColor: PropTypes.string,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
     PropTypes.bool,
@@ -243,7 +243,7 @@ XYChart.defaultProps = {
   margin: null,
   // size: "medium",
   // showLabels: null,
-  fontColor: "",
+  // fontColor: "",
   border: true,
   // allowSelections: null,
   // showAxis: null,

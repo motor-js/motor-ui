@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import UseHyperCube from "../../../hooks/useHyperCube";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
-import XYChartTheme, {
+import {
   XYChartWrapper,
   XYChartWrapperNoData,
   XYChartNoDataContent,
@@ -11,12 +11,7 @@ import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
 import { createColorArray } from "../../../utils/colors";
 
-import {
-  numericSortDirection,
-  validData,
-  calcDisplayOption,
-  legendPosition,
-} from "../../../utils";
+import { numericSortDirection } from "../../../utils";
 
 function StyledXYChart(props) {
   // Ref for d3 object
@@ -33,7 +28,6 @@ function StyledXYChart(props) {
   const [pendingSelections, SetPendingSelections] = useState([]);
 
   let useSelectionColours = false;
-  // let chartSettings = {};
 
   // props
   const {
@@ -46,7 +40,7 @@ function StyledXYChart(props) {
     events,
     margin,
     size,
-    fontColor,
+    // fontColor,
     border,
     borderRadius,
     backgroundColor,
@@ -93,10 +87,6 @@ function StyledXYChart(props) {
   // const color = colorTheme || globalColorTheme;
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
-  // styles
-  const XYChartDefault = XYChartTheme(theme, size, fontColor, colorTheme);
-  // const { BarDefault } = BarThemes;
-
   // retrieve XYChart data from HyperCube
   const {
     beginSelections,
@@ -112,8 +102,8 @@ function StyledXYChart(props) {
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
-    qSuppressZero: suppressZero || XYChartDefault.suppressZero,
-    qOtherTotalSpec: otherTotalSpec || XYChartDefault.otherTotalSpec,
+    qSuppressZero: suppressZero || theme.global.chart.suppressZero,
+    // qOtherTotalSpec: otherTotalSpec || XYChartDefault.otherTotalSpec,
     qSuppressZero: true,
   });
 
@@ -166,52 +156,6 @@ function StyledXYChart(props) {
   //       setIsValid(valid.isValid);
   //       setDataError(valid.dataError);
   //     }
-  //   }
-
-  //   if (qData && isValid && d3Container.current && refreshChart) {
-  //     // chartSettings = {
-  //     //   qLayout,
-  //     //   qData,
-  //     //   // propsWidth: width,
-  //     //   propsHeight: height,
-  //     //   d3Container,
-  //     //   screenWidth: ref.current.offsetWidth,
-  //     //   useSelectionColours,
-  //     //   setRefreshChart,
-  //     //   beginSelections,
-  //     //   setSelectionXYChartVisible,
-  //     //   // buildSelections,
-  //     //   maxAxisLength: maxAxisLength || XYChartDefault.maxAxisLength,
-  //     //   XYChartThemes,
-  //     //   ToolTipThemes,
-  //     //   TitleThemes,
-  //     //   LegendThemes,
-  //     //   allowSlantedYAxis:
-  //     //     allowSlantedYAxis === null
-  //     //       ? XYChartDefault.allowSlantedYAxis
-  //     //       : allowSlantedYAxis,
-  //     //   tickSpacing: tickSpacing || XYChartDefault.tickSpacing,
-  //     //   allowSelections:
-  //     //     allowSelections === null
-  //     //       ? XYChartDefault.allowSelections
-  //     //       : allowSelections,
-  //     //   showLabels: showLabels === null ? XYChartDefault.showLabels : showLabels,
-  //     //   showLegend: legendPosition(showLegend, XYChartDefault.showLegend),
-  //     //   showAxis: calcDisplayOption(
-  //     //     showAxis === null ? XYChartDefault.showAxis : showAxis
-  //     //   ),
-  //     //   textOnAxis: calcDisplayOption(
-  //     //     textOnAxis === null ? XYChartDefault.textOnAxis : textOnAxis
-  //     //   ),
-  //     //   showGridlines: calcDisplayOption(
-  //     //     showGridlines === null ? XYChartDefault.showGridlines : showGridlines,
-  //     //     true
-  //     //   ),
-  //     //   selections,
-  //     //   select,
-  //     //   ...rest,
-  //     // };
-  //     // CreateXYChart(chartSettings);
   //   }
 
   //   window.addEventListener("resize", handleResize);
