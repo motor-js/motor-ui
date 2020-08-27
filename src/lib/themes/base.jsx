@@ -680,6 +680,8 @@ const base = {
     size: 50,
     timeout: 5000,
   },
+  xyChart: { otherTotalSpec: undefined },
+
   column: {
     main: {
       zoomScrollOnColumnWidth: 30,

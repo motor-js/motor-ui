@@ -103,7 +103,7 @@ function StyledXYChart(props) {
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
     qSuppressZero: suppressZero || theme.global.chart.suppressZero,
-    // qOtherTotalSpec: otherTotalSpec || XYChartDefault.otherTotalSpec,
+    qOtherTotalSpec: otherTotalSpec || theme.xyChart.otherTotalSpec,
     qSuppressZero: true,
   });
 
