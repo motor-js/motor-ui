@@ -19,160 +19,146 @@ import Stack from "../../../components/VX/components/series/Stack";
 
 import { roundNumber, colorByExpression } from "../../../utils";
 
-const numDateTicks = 5;
+const numDimensionTicks = 5;
 
-const Console = (prop) => (
-  console[Object.keys(prop)[0]](...Object.values(prop)),
-  null // ➜ React components must return something
-);
+// const Console = (prop) => (
+//   console[Object.keys(prop)[0]](...Object.values(prop)),
+//   null // ➜ React components must return something
+// );
 
-const getDate = (d) =>
-  new Date(
-    d[0].qText.split("/")[2],
-    d[0].qText.split("/")[1] - 1,
-    d[0].qText.split("/")[0]
-  );
+const getDimension = (d) => d[0].qText;
 
-const getSfTemperature = (d) => Number(d[2].qNum);
-const getAustinTemperature = (d) => Number(d[1].qNum);
-const getNyTemperature = (d) => Number(d[2].qNum);
+// const getDimension = (d) =>
+//   new Date(
+//     d[0].qText.split("/")[2],
+//     d[0].qText.split("/")[1] - 1,
+//     d[0].qText.split("/")[0]
+//   );
+
+const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
+const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
-const legendLabelFormat = (d) => {
-  console.log("legendLabelFormat", d);
-  return d === "sf" ? "San Francisco" : d === "austin" ? "Austin" : d;
-};
-
-const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
-  <>
-    <div>{closestDatum.datum[0].qText}</div>
-    {/* <div>
-      {closestDatum.datum[0].qNum.toISOString?.().split?.("T")[0] ??
-        closestDatum.datum[0].qText.toString()}
-    </div> */}
-    {/* <Console log={closestData.austin.datum[1].qNum} /> */}
-    <br />
-    {closestData?.sf &&
-      closestDatum.datum[0].qText === closestData.sf.datum[0].qText && (
-        <div
-          style={{
-            color: colorScale("sf"),
-            textDecoration:
-              closestDatum.key === "sf"
-                ? "underline solid currentColor"
-                : "none",
-          }}
-        >
-          {/* San Francisco {closestData.sf.datum["San Francisco"]}°F */}
-          San Francisco {closestData.sf.datum[2].qNum}°F
-        </div>
-      )}
-    {closestData?.ny &&
-      closestDatum.datum[0].qText === closestData.ny.datum[0].qText && (
-        <div
-          style={{
-            color: colorScale("ny"),
-            textDecoration:
-              closestDatum.key === "ny"
-                ? "underline solid currentColor"
-                : "none",
-          }}
-        >
-          New York {closestData.ny.datum[1].qNum}°F
-        </div>
-      )}
-    {closestData?.austin &&
-      closestDatum.datum[0].qText === closestData.austin.datum[0].qText && (
-        <div
-          style={{
-            color: colorScale("austin"),
-            textDecoration:
-              closestDatum.key === "austin"
-                ? "underline solid currentColor"
-                : "none",
-          }}
-        >
-          Austin {closestData.austin.datum[1].qNum}°F
-        </div>
-      )}
-  </>
-);
-
 /** memoize the accessor functions to prevent re-registering data. */
-function useAccessors(temperatureAccessor, renderHorizontally) {
+function useAccessors(valueAccessor, column, renderHorizontally) {
   return useMemo(
     () => ({
       xAccessor: (d) =>
-        renderHorizontally ? temperatureAccessor(d) : getDate(d),
+        renderHorizontally ? valueAccessor(d, column) : getDimension(d),
       yAccessor: (d) =>
-        renderHorizontally ? getDate(d) : temperatureAccessor(d),
+        renderHorizontally ? getDimension(d) : valueAccessor(d, column),
     }),
-    [renderHorizontally, temperatureAccessor]
+    [renderHorizontally, valueAccessor]
   );
 }
 
-export default function CreateSandBox({
+export default function CreateXYChart({
   width,
   height,
   events = false,
   qData: { qMatrix: data },
-  qLayout: { qHyperCube },
+  qLayout: {
+    qHyperCube,
+    qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
+  },
   setRefreshChart,
   beginSelections,
   select,
-  setSelectionSandBoxVisible,
+  setSelectionXYChartVisible,
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,
   colorPalette,
+  type,
+  useAnimatedAxes,
+  autoWidth,
+  renderHorizontally,
+  includeZero,
+  xAxisOrientation,
+  yAxisOrientation,
+  legendLeftRight,
+  legendTopBottom,
+  legendDirection,
+  legendShape,
+  snapTooltipToDataX,
+  snapTooltipToDataY,
 }) {
-  //  const {
-  //    // SandBoxChartStyle,
-  //    // SandBoxDefault,
-  //    // SandBoxStyle,
-  //    // GridLineStyle,
-  //    // yAxisStyle,
-  //    // xAxisStyle,
-  //    // axisTitleStyle,
-  //    // SandBoxLabelStyle,
-  //    // SandBoxOverviewSandBox,
-  //    // SelectedSandBox,
-  //    // NonSelectedSandBox,
-  //    colorPalette,
-  //  } = SandBoxThemes;
+  const determineChartType =
+    type || (dimensionInfo.length === 1 && measureInfo.length === 1)
+      ? "bar"
+      : "groupedbar";
 
+  // console.log(dimensionInfo[0]); // T for Time
   // const [theme, setTheme] = useState("light");
   // const [useCustomDomain, setUseCustomDomain] = useState(false);
   const [currData, setCurrData] = useState(data);
-  const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
-  const [autoWidth, setAutoWidth] = useState(false);
-  const [renderHorizontally, setRenderHorizontally] = useState(false);
+  //  const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
+  //  const [autoWidth, setAutoWidth] = useState(false);
+  // const [renderHorizontally, setRenderHorizontally] = useState(false);
   // const [negativeValues, setNegativeValues] = useState(false);
-  const [includeZero, setIncludeZero] = useState(false);
-  const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
-  const [yAxisOrientation, setYAxisOrientation] = useState("left");
-  const [legendLeftRight, setLegendLeftRight] = useState("right");
-  const [legendTopBottom, setLegendTopBottom] = useState("top");
-  const [legendDirection, setLegendDirection] = useState("row");
-  const [legendShape, setLegendShape] = useState("auto");
-  const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(true);
-  const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(true);
-  const [chartType, setchartType] = useState(["groupedbar"]);
+  //  const [includeZero, setIncludeZero] = useState(true);
+  // const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
+  // const [yAxisOrientation, setYAxisOrientation] = useState("left");
+  //  const [legendLeftRight, setLegendLeftRight] = useState(
+  //    "right"
+  //  );
+  // const [legendTopBottom, setLegendTopBottom] = useState("top");
+  //  const [legendDirection, setLegendDirection] = useState("row");
+  //  const [legendShape, setLegendShape] = useState("auto");
+  //  const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(
+  //    true
+  //  );
+  //  const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(
+  //    true
+  //  );
+  const [chartType, setchartType] = useState([determineChartType]);
+
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
     (chartType.includes("stackedbar") && !renderHorizontally) ||
+    (chartType.includes("combo") && !renderHorizontally) ||
     chartType.includes("bar");
 
   const canSnapTooltipToDataY =
     (chartType.includes("groupedbar") && !renderHorizontally) ||
     (chartType.includes("stackedbar") && renderHorizontally) ||
+    (chartType.includes("combo") && renderHorizontally) ||
     chartType.includes("bar");
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding: 0.2 }), []);
 
-  const temperatureScaleConfig = useMemo(
+  const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
+    <>
+      <div>{closestDatum.datum[0].qText}</div>
+      {/* <Console log={closestData} /> */}
+      <br />
+
+      {measureInfo.map(
+        (measure, index) =>
+          closestData?.[`${measure.qFallbackTitle}`] &&
+          closestDatum.datum[0].qText ===
+            closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+            <div
+              key={measure.qFallbackTitle}
+              style={{
+                color: colorScale(`${measure.qFallbackTitle}`),
+                textDecoration:
+                  closestDatum.key === `${measure.qFallbackTitle}`
+                    ? "underline solid currentColor"
+                    : "none",
+              }}
+            >
+              {measure.qFallbackTitle}{" "}
+              {closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum}
+            </div>
+          )
+      )}
+    </>
+  );
+
+  const valueScaleConfig = useMemo(
     () => ({
       type: "linear",
       clamp: true,
@@ -185,55 +171,30 @@ export default function CreateSandBox({
 
   const colorScaleConfig = useMemo(
     () => ({
-      domain:
-        chartType.includes("bar") && !chartType.includes("line")
-          ? ["austin"]
-          : // : ["austin", "sf", "ny"],
-            ["austin", "sf"],
+      domain: measureInfo.map((d) => d.qFallbackTitle),
     }),
     [chartType]
   );
 
-  // const colorScaleConfig = useMemo(
-  //   () => ({
-  //     domain: qHyperCube.qMeasureInfo.map((d) => d.qFallbackTitle),
-  //   }),
-  //   [chartType]
-  // );
-
-  const austinAccessors = useAccessors(
-    getAustinTemperature,
-    renderHorizontally
+  const dataAccessors = measureInfo.map((measure, index) =>
+    useAccessors(
+      getSeriesValues,
+      dimensionInfo.length + index,
+      renderHorizontally
+    )
   );
-  const sfAccessors = useAccessors(getSfTemperature, renderHorizontally);
-  const nyAccessors = useAccessors(getNyTemperature, renderHorizontally);
 
   useEffect(() => {
     setCurrData(data);
   }, [data]);
 
-  // const themeObj = useMemo(
-  //   () =>
-  //     theme === "light"
-  //       ? { ...defaultTheme, colors: ["#00bfff", "#0040ff", "#654062"] }
-  //       : theme === "dark"
-  //       ? { ...darkTheme, colors: ["#916dd5", "#f8615a", "#ffd868"] }
-  //       : { colors: ["#222", "#767676", "#bbb"] },
-  //   [theme]
-  // );
-
   // Check if conditionalColors and if so get the returned color pallette
-  const conditionalColors = colorByExpression(qHyperCube, data, colorPalette);
-  const colors =
-    conditionalColors.length !== 0 ? conditionalColors : colorPalette;
+  const colors = colorByExpression(qHyperCube, data, colorPalette);
 
   const themeObj = {
     ...defaultTheme,
-    colors: ["#00bfff", "#0040ff", "#654062"],
-    // colors,
+    colors,
   };
-
-  console.log(themeObj.colors);
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 
@@ -257,8 +218,8 @@ export default function CreateSandBox({
 
     <ChartProvider
       theme={themeObj}
-      xScale={renderHorizontally ? temperatureScaleConfig : dateScaleConfig}
-      yScale={renderHorizontally ? dateScaleConfig : temperatureScaleConfig}
+      xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+      yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
     >
       <EventProvider>
@@ -274,7 +235,7 @@ export default function CreateSandBox({
         >
           <XYChart
             height={height}
-            width={autoWidth ? undefined : 1000}
+            width={autoWidth ? undefined : width}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
@@ -284,42 +245,63 @@ export default function CreateSandBox({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                dataKey="austin"
-                // dataKey={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+                dataKey={measureInfo[0].qFallbackTitle}
                 data={currData}
-                {...austinAccessors}
+                {...dataAccessors[0]}
               />
             )}
 
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey="austin"
-                  data={currData}
-                  {...austinAccessors}
-                />
-                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+                {measureInfo.map((measure, index) => (
+                  <BarSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ))}
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey="austin"
-                  data={currData}
-                  {...austinAccessors}
-                />
-                <BarSeries dataKey="sf" data={currData} {...sfAccessors} />
-                <BarSeries dataKey="ny" data={currData} {...nyAccessors} />
+                {measureInfo.map((measure, index) => (
+                  <BarSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ))}
               </Group>
             )}
 
             {chartType.includes("line") && (
               <>
-                <LineSeries
-                  dataKey="sf"
+                {measureInfo.map((measure, index) => (
+                  <LineSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                    strokeWidth={1.5}
+                  />
+                ))}
+              </>
+            )}
+
+            {chartType.includes("combo") && measureInfo.length > 1 && (
+              <>
+                <BarSeries
+                  key={measureInfo[0].qFallbackTitle}
+                  dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}
-                  {...sfAccessors}
+                  {...dataAccessors[0]}
+                />
+                <LineSeries
+                  dataKey={measureInfo[1].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[1]}
                   strokeWidth={1.5}
                 />
               </>
@@ -327,29 +309,29 @@ export default function CreateSandBox({
 
             {/** Temperature axis */}
             <AxisComponent
-              // label="Temperature (°F)"
-              label={qHyperCube.qMeasureInfo[0].qFallbackTitle}
+              label={measureInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
               numTicks={5}
             />
             {/* <AxisComponent
-                label={qLayout.qHyperCube.qMeasureInfo[1].qFallbackTitle}
+                label={qLayout.measureInfo[1].qFallbackTitle}
               orientation="right"
               numTicks={5}
             /> */}
-            {/** Date axis */}
+            {/** Dimension axis */}
             <AxisComponent
+              // label={dimensionInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? yAxisOrientation : xAxisOrientation
               }
               tickValues={currData
                 .filter(
                   (d, i, arr) =>
-                    i % Math.round((arr.length - 1) / numDateTicks) === 0
+                    i % Math.round((arr.length - 1) / numDimensionTicks) === 0
                 )
-                .map((d) => getDate(d))}
+                .map((d) => getDimension(d))}
               tickFormat={(d) =>
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
