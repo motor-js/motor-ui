@@ -85,36 +85,15 @@ export default function CreateXYChart({
   legendShape,
   snapTooltipToDataX,
   snapTooltipToDataY,
+  backgroundPattern,
 }) {
-  const determineChartType =
+  const [currData, setCurrData] = useState(data);
+
+  const [chartType, setchartType] = useState([
     type || (dimensionInfo.length === 1 && measureInfo.length === 1)
       ? "bar"
-      : "groupedbar";
-
-  // console.log(dimensionInfo[0]); // T for Time
-  // const [theme, setTheme] = useState("light");
-  // const [useCustomDomain, setUseCustomDomain] = useState(false);
-  const [currData, setCurrData] = useState(data);
-  //  const [useAnimatedAxes, setUseAnimatedAxes] = useState(false);
-  //  const [autoWidth, setAutoWidth] = useState(false);
-  // const [renderHorizontally, setRenderHorizontally] = useState(false);
-  // const [negativeValues, setNegativeValues] = useState(false);
-  //  const [includeZero, setIncludeZero] = useState(true);
-  // const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
-  // const [yAxisOrientation, setYAxisOrientation] = useState("left");
-  //  const [legendLeftRight, setLegendLeftRight] = useState(
-  //    "right"
-  //  );
-  // const [legendTopBottom, setLegendTopBottom] = useState("top");
-  //  const [legendDirection, setLegendDirection] = useState("row");
-  //  const [legendShape, setLegendShape] = useState("auto");
-  //  const [snapTooltipToDataX, setSnapTooltipToDataX] = useState(
-  //    true
-  //  );
-  //  const [snapTooltipToDataY, setSnapTooltipToDataY] = useState(
-  //    true
-  //  );
-  const [chartType, setchartType] = useState([determineChartType]);
+      : "groupedbar",
+  ]);
 
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
@@ -241,8 +220,8 @@ export default function CreateXYChart({
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
           >
-            <ChartBackground />
-
+            (
+            <ChartBackground backgroundPattern={backgroundPattern} />)
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
@@ -251,7 +230,6 @@ export default function CreateXYChart({
                 {...dataAccessors[0]}
               />
             )}
-
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
                 {measureInfo.map((measure, index) => (
@@ -276,7 +254,6 @@ export default function CreateXYChart({
                 ))}
               </Group>
             )}
-
             {chartType.includes("line") && (
               <>
                 {measureInfo.map((measure, index) => (
@@ -290,7 +267,6 @@ export default function CreateXYChart({
                 ))}
               </>
             )}
-
             {chartType.includes("combo") && measureInfo.length > 1 && (
               <>
                 <BarSeries
@@ -307,7 +283,6 @@ export default function CreateXYChart({
                 />
               </>
             )}
-
             {/** Temperature axis */}
             <AxisComponent
               label={measureInfo[0].qFallbackTitle}

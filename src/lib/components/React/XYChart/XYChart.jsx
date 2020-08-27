@@ -201,6 +201,7 @@ XYChart.propTypes = {
   legendShape: PropTypes.string,
   snapTooltipToDataX: PropTypes.bool,
   snapTooltipToDataY: PropTypes.bool,
+  backgroundPattern: PropTypes.oneOf(["Lines", "Circles"]),
 };
 
 XYChart.defaultProps = {
@@ -252,6 +253,7 @@ XYChart.defaultProps = {
   legendShape: "auto",
   snapTooltipToDataX: true,
   snapTooltipToDataY: true,
+  backgroundPattern: null,
 };
 
 export default XYChart;

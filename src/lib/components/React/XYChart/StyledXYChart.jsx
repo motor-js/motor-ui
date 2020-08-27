@@ -73,6 +73,7 @@ function StyledXYChart(props) {
     legendShape,
     snapTooltipToDataX,
     snapTooltipToDataY,
+    backgroundPattern,
     ...rest
   } = props;
 
@@ -277,6 +278,7 @@ function StyledXYChart(props) {
                 legendShape={legendShape}
                 snapTooltipToDataX={snapTooltipToDataX}
                 snapTooltipToDataY={snapTooltipToDataY}
+                backgroundPattern={backgroundPattern}
               />
             )}
           </div>
