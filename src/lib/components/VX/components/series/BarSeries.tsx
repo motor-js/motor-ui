@@ -8,32 +8,56 @@ import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
 
-function BarSeries({
+type BarSeriesProps<Datum, XScaleInput, YScaleInput> = SeriesProps<
+  Datum,
+  XScaleInput,
+  YScaleInput
+> & {
+  /** Whether bars should be rendered horizontally instead of vertically. */
+  horizontal?: boolean;
+  /** Specify bar thickness, useful when not using a 'band' scale. Defaults to `scale.bandwidth()` if available, else `available size / data.length` */
+  barThickness?: number;
+} & Omit<
+    React.SVGProps<SVGRectElement>,
+    "x" | "y" | "width" | "height" | "ref"
+  >;
+
+function BarSeries<
+  Datum = unknown,
+  XScaleInput = unknown,
+  YScaleInput = unknown
+>({
   dataKey,
-  data,
-  xAccessor,
-  yAccessor,
+  data: _,
+  xAccessor: __,
+  yAccessor: ___,
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
   ...barProps
-}) {
-  const { theme, colorScale, xScale, yScale } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
-  const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
+}: BarSeriesProps<Datum, XScaleInput, YScaleInput>) {
+  const { theme, colorScale, xScale, yScale } = useContext(
+    ChartContext
+  ) as ChartContextType<Datum, XScaleInput, YScaleInput>;
+  const { data, xAccessor, yAccessor } = useRegisteredData<
+    Datum,
+    XScaleInput,
+    YScaleInput
+  >(dataKey);
+  const getScaledX = useCallback((d: Datum) => xScale(xAccessor(d)), [
     xScale,
     xAccessor,
   ]);
-  const getScaledY = useCallback((d) => yScale(yAccessor(d)), [
+  const getScaledY = useCallback((d: Datum) => yScale(yAccessor(d)), [
     yScale,
     yAccessor,
   ]);
 
-  const [xMin, xMax] = xScale.range();
-  const [yMax, yMin] = yScale.range();
+  const [xMin, xMax] = xScale.range() as number[];
+  const [yMax, yMin] = yScale.range() as number[];
   const innerWidth = Math.abs(xMax - xMin);
   const innerHeight = Math.abs(yMax - yMin);
-  const barThickness =
+  const barThickness: number =
     barThicknessProp ||
     (horizontal
       ? // non-bandwidth estimate assumes no missing data values
@@ -50,13 +74,13 @@ function BarSeries({
   const xZeroPosition = isValidNumber(maybeXZero)
     ? // if maybeXZero _is_ a number, but the scale is not clamped and it's outside the domain
       // fallback to the scale's minimum
-      Math.max(maybeXZero, Math.min(xMin, xMax))
+      (Math.max(maybeXZero, Math.min(xMin, xMax)) as number)
     : Math.min(xMin, xMax);
   const yZeroPosition = isValidNumber(maybeYZero)
-    ? Math.min(maybeYZero, Math.max(yMin, yMax))
+    ? (Math.min(maybeYZero, Math.max(yMin, yMax)) as number)
     : Math.max(yMin, yMax);
 
-  const barColor = colorScale(dataKey);
+  const barColor = colorScale(dataKey) as string;
 
   const bars = useMemo(
     () =>
