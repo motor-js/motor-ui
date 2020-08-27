@@ -235,7 +235,7 @@ export default function CreateXYChart({
         >
           <XYChart
             height={height}
-            width={autoWidth ? undefined : width}
+            width={autoWidth ? undefined : 1000}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }

@@ -207,7 +207,7 @@ XYChart.defaultProps = {
   // config: null,
   // calcCondition: undefined,
   // suppressZero: null,
-  width: "400px",
+  width: "100%",
   height: "400px", // 100%
   margin: null,
   // size: "medium",

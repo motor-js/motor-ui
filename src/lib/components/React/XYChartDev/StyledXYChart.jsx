@@ -241,9 +241,8 @@ function StyledXYChart(props) {
               > */}
             {qData && qLayout && (
               <CreateXYChart
-                // width={width}
+                width={width}
                 // height={height}
-                width={gridArea ? ref.current.offsetWidth : parseInt(width, 10)}
                 height={
                   gridArea
                     ? ref.current.offsetHeight -

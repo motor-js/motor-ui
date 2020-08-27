@@ -34,11 +34,11 @@ import { config } from '../config/config.js'
   <Filter label='Forcast Day' dimension={['Forcast Day']} /> */}
     <XYChart // width={750} height={400}  events={true}
     colorTheme="bio"
-      cols={[
-      { qField: 'Year', qLabel: 'Year' },
-     // { qField: '[OICA region]', qLabel: 'OICA region' },
-      { qField: '=Sum([Car sales])*if(Year=2011,-1,1)', qLabel: 'Car sales' }, 
-       { qField: '=Sum([Car sales])*.75', qLabel: 'Car sals' }, 
+    chartType="groupedbar"
+    cols={[
+      { qField: '[OICA region]', qLabel: 'OICA region' },
+      { qField: '=Sum([Car sales])*if(Year=2011,-1,1)', qLabel: 'Car sales' },
+            { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car ales' },
     ]}/>
   </Motor>
 </Playground>
