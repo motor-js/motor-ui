@@ -90,7 +90,10 @@ export default function CreateXYChart({
   const [currData, setCurrData] = useState(data);
 
   const [chartType, setchartType] = useState([
-    type || (dimensionInfo.length === 1 && measureInfo.length === 1)
+    type,
+    type
+      ? type
+      : dimensionInfo.length === 1 && measureInfo.length === 1
       ? "bar"
       : "groupedbar",
   ]);
