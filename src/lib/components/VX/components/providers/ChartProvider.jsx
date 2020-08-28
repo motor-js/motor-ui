@@ -2,24 +2,12 @@ import React from "react";
 import { localPoint } from "@vx/event";
 import { scaleOrdinal } from "@vx/scale";
 
-// import base from "../../../../themes/base";
-
-// import defaultTheme from "../../theme/default";
 import theme from "../../../../themes/defaultTheme";
 
 const {
   xyChart: { defaultTheme },
 } = theme;
 
-// import {
-//   ChartContext as ChartContextType,
-//   ChartTheme,
-//   ScaleConfig,
-//   RegisterData,
-//   Margin,
-//   DatumWithKey,
-//   ScaleType,
-// } from "../../types";
 import ChartContext from "../../context/ChartContext";
 import createScale from "../../createScale";
 import findNearestDatumXY from "../../util/findNearestDatumXY";

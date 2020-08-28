@@ -1,21 +1,21 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-// import defaultTheme from "../../../components/VX/theme/default";
-import Axis from "../../../components/VX/components/Axis";
-import AnimatedAxis from "../../../components/VX/components/AnimatedAxis";
-import ChartProvider from "../../../components/VX/components/providers/ChartProvider";
-import XYChart from "../../../components/VX/components/XYChart";
-import BarSeries from "../../../components/VX/components/series/BarSeries";
-import LineSeries from "../../../components/VX/components/series/LineSeries";
-import ChartBackground from "../../../components/VX/components/ChartBackground";
-import EventProvider from "../../../components/VX/components/providers/TooltipProvider";
+// import defaultTheme from "../..//VX/theme/default";
+import Axis from "../..//VX/components/Axis";
+import AnimatedAxis from "../..//VX/components/AnimatedAxis";
+import ChartProvider from "../..//VX/components/providers/ChartProvider";
+import XYChart from "../..//VX/components/XYChart";
+import BarSeries from "../..//VX/components/series/BarSeries";
+import LineSeries from "../..//VX/components/series/LineSeries";
+import ChartBackground from "../..//VX/components/ChartBackground";
+import EventProvider from "../..//VX/components/providers/TooltipProvider";
 import Tooltip, {
   RenderTooltipArgs,
-} from "../../.../../../components/VX/components/Tooltip";
-import Legend from "../../../components/VX/components/Legend";
-import CustomLegendShape from "../../../components/VX/components/CustomLegendShape";
-import Group from "../../../components/VX/components/series/Group";
-import Stack from "../../../components/VX/components/series/Stack";
+} from "../../.../..//VX/components/Tooltip";
+import Legend from "../..//VX/components/Legend";
+import CustomLegendShape from "../..//VX/components/CustomLegendShape";
+import Group from "../..//VX/components/series/Group";
+import Stack from "../..//VX/components/series/Stack";
 
 import { roundNumber, colorByExpression } from "../../../utils";
 

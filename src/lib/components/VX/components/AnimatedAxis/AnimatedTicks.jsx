@@ -1,48 +1,26 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { useMemo } from 'react';
-import cx from 'classnames';
-import { animated, useTransition, interpolate } from 'react-spring';
-import { AxisProps as BaseAxisProps } from '@vx/axis/lib/axis/Axis';
-import { ChildRenderProps } from '@vx/axis/lib/types';
-import { Text } from '@vx/text';
-import { Margin } from '../../types';
+import React, { useMemo } from "react";
+import cx from "classnames";
+import { animated, useTransition, interpolate } from "react-spring";
+import { AxisProps as BaseAxisProps } from "@vx/axis/lib/axis/Axis";
+import { ChildRenderProps } from "@vx/axis/lib/types";
+import { Text } from "@vx/text";
+import { Margin } from "../../types";
 
-type Tick<ScaleInput> = ChildRenderProps<ScaleInput>['ticks'][number];
-
-type AnimatedTicksProps<ScaleInput> = {
-  margin: Margin;
-  width: number;
-  height: number;
-  ticks: ChildRenderProps<ScaleInput>['ticks'];
-  tickStroke?: string;
-  horizontal?: boolean;
-  scale: BaseAxisProps<ScaleInput>['scale'];
-} & Pick<
-  BaseAxisProps<ScaleInput>,
-  'orientation' | 'tickLabelProps' | 'tickClassName' | 'hideTicks'
->;
-
-const defaultTickLabelProps = (/** tickValue, index */) =>
-  ({
-    textAnchor: 'middle',
-    fontFamily: 'Arial',
-    fontSize: 10,
-    fill: '#222',
-  } as const);
+const defaultTickLabelProps = (/** tickValue, index */) => ({
+  textAnchor: "middle",
+  fontFamily: "Arial",
+  fontSize: 10,
+  fill: "#222",
+});
 
 /** Hook that returns memoized config for react-spring's transition from/enter/update/leave */
-function useTickTransitionConfig<ScaleInput>({
-  horizontal,
-  width,
-  height,
-  margin,
-  scale,
-}: Pick<AnimatedTicksProps<ScaleInput>, 'horizontal' | 'width' | 'height' | 'margin' | 'scale'>) {
+function useTickTransitionConfig({ horizontal, width, height, margin, scale }) {
   return useMemo(() => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const fromLeave = ({ from, to, value }: Tick<ScaleInput>) => {
+    const fromLeave = ({ from, to, value }) => {
       const scaledValue = scale(value);
 
       return {
@@ -75,7 +53,7 @@ function useTickTransitionConfig<ScaleInput>({
       };
     };
 
-    const enterUpdate = ({ from, to }: Tick<ScaleInput>) => ({
+    const enterUpdate = ({ from, to }) => ({
       fromX: from.x,
       toX: to.x,
       fromY: from.y,
@@ -83,11 +61,16 @@ function useTickTransitionConfig<ScaleInput>({
       opacity: 1,
     });
 
-    return { from: fromLeave, leave: fromLeave, enter: enterUpdate, update: enterUpdate };
+    return {
+      from: fromLeave,
+      leave: fromLeave,
+      enter: enterUpdate,
+      update: enterUpdate,
+    };
   }, [horizontal, width, height, margin, scale]);
 }
 
-export default function AnimatedTicks<ScaleInput>({
+export default function AnimatedTicks({
   ticks,
   margin,
   width,
@@ -99,12 +82,22 @@ export default function AnimatedTicks<ScaleInput>({
   tickStroke,
   scale,
   hideTicks,
-}: AnimatedTicksProps<ScaleInput>) {
-  const transitionConfig = useTickTransitionConfig({ margin, width, height, horizontal, scale });
-  const animatedTicks = useTransition(ticks, tick => `${tick.value}-${horizontal}`, {
-    unique: true,
-    ...transitionConfig,
+}) {
+  const transitionConfig = useTickTransitionConfig({
+    margin,
+    width,
+    height,
+    horizontal,
+    scale,
   });
+  const animatedTicks = useTransition(
+    ticks,
+    (tick) => `${tick.value}-${horizontal}`,
+    {
+      unique: true,
+      ...transitionConfig,
+    }
+  );
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -112,9 +105,12 @@ export default function AnimatedTicks<ScaleInput>({
       {animatedTicks.map(({ item, key, props }, index) => {
         // @ts-ignore react-spring types don't handle fromX, etc.
         const { fromX, toX, fromY, toY, opacity } = props;
-        const tickLabelPropsObj = (tickLabelProps ?? defaultTickLabelProps)(item.value, index);
+        const tickLabelPropsObj = (tickLabelProps ?? defaultTickLabelProps)(
+          item.value,
+          index
+        );
         return (
-          <animated.g key={key} className={cx('vx-axis-tick', tickClassName)}>
+          <animated.g key={key} className={cx("vx-axis-tick", tickClassName)}>
             {!hideTicks && (
               <animated.line
                 x1={fromX}
@@ -132,9 +128,10 @@ export default function AnimatedTicks<ScaleInput>({
                 [toX, toY],
                 (interpolatedX, interpolatedY) =>
                   `translate(${interpolatedX},${interpolatedY +
-                    (orientation === 'bottom' && typeof tickLabelPropsObj.fontSize === 'number'
+                    (orientation === "bottom" &&
+                    typeof tickLabelPropsObj.fontSize === "number"
                       ? tickLabelPropsObj.fontSize ?? 10
-                      : 0)})`,
+                      : 0)})`
               )}
               opacity={opacity}
             >
