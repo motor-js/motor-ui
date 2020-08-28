@@ -6,29 +6,13 @@ import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
 import { TooltipData } from "../types";
 
-export type RenderTooltipArgs<Datum, DataKeys extends string> = TooltipData<
-  Datum,
-  DataKeys
-> & {
-  colorScale: typeof scaleOrdinal;
-};
-
-export type TooltipProps<Datum, DataKeys extends string> = {
-  renderTooltip: (d: RenderTooltipArgs<Datum, DataKeys>) => React.ReactNode;
-  snapToDataX?: boolean;
-  snapToDataY?: boolean;
-  showVerticalCrosshair?: boolean;
-  /** Whether the tooltip should be rendered in a React portal instead of the React element's parent DOM container */
-  renderInPortal?: boolean;
-};
-
-export default function Tooltip<Datum, DataKeys extends string>({
+export default function Tooltip({
   renderTooltip,
   snapToDataX,
   snapToDataY,
   showVerticalCrosshair = true,
   renderInPortal = false,
-}: TooltipProps<Datum, DataKeys>) {
+}) {
   const { tooltipData } = useContext(TooltipContext) || {};
   const { margin, xScale, yScale, colorScale, dataRegistry, height, theme } =
     useContext(ChartContext) || {};
@@ -49,7 +33,7 @@ export default function Tooltip<Datum, DataKeys extends string>({
   const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
 
   const xCoord = snapToDataX
-    ? (xScale(xAccessor(closestDatum.datum)) as number) +
+    ? xScale(xAccessor(closestDatum.datum)) +
       (xScale.bandwidth?.() ?? 0) / 2 +
       (renderInPortal ? svgOriginX : 0)
     : renderInPortal
@@ -57,7 +41,7 @@ export default function Tooltip<Datum, DataKeys extends string>({
     : svgMouseX;
 
   const yCoord = snapToDataY
-    ? (yScale(yAccessor(closestDatum.datum)) as number) -
+    ? yScale(yAccessor(closestDatum.datum)) -
       (yScale.bandwidth?.() ?? 0) / 2 +
       (renderInPortal ? svgOriginY : 0)
     : renderInPortal

@@ -1,16 +1,10 @@
 // @TODO move this to @vx/legend
-import React from 'react';
-import { Group } from '@vx/group';
+import React from "react";
+import { Group } from "@vx/group";
 
-export type ShapeShapeLineProps = {
-  fill?: string;
-  width?: string | number;
-  height?: string | number;
-  style?: React.CSSProperties;
-};
-
-export default function ShapeLine({ fill, width, height, style }: ShapeShapeLineProps) {
-  const cleanHeight = typeof height === 'string' || typeof height === 'undefined' ? 0 : height;
+export default function ShapeLine({ fill, width, height, style }) {
+  const cleanHeight =
+    typeof height === "string" || typeof height === "undefined" ? 0 : height;
   const lineThickness = Number(style?.strokeWidth ?? 2);
   return (
     <svg width={width} height={height}>
