@@ -8,16 +8,8 @@ import React, {
 import { extent } from "d3-array";
 import BarStack from "@vx/shape/lib/shapes/BarStack";
 import BarStackHorizontal from "@vx/shape/lib/shapes/BarStackHorizontal";
-import { BarStack as BarStackType } from "@vx/shape/lib/types";
 import ChartContext from "../../context/ChartContext";
-import {
-  DataRegistry,
-  ChartContext as ChartContextType,
-  NearestDatumArgs,
-  ScaleType,
-} from "../../types";
 
-import BarSeries from "./BarSeries";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import findNearestDatumX from "../../util/findNearestDatumX";
 import AnimatedBars from "./AnimatedBars";
