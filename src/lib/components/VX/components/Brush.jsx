@@ -1,39 +1,23 @@
-import React, { useContext } from 'react';
-import BaseBrush, { BrushProps as BaseBrushProps } from '@vx/brush/lib/Brush';
-import { ResizeTriggerAreas } from '@vx/brush/lib/types';
-import ChartContext from '../context/ChartContext';
+import React, { useContext } from "react";
+import BaseBrush from "@vx/brush/lib/Brush";
+import ChartContext from "../context/ChartContext";
 
-const leftRightResizeTriggers: ResizeTriggerAreas[] = ['left', 'right'];
-const topBottomResizeTriggers: ResizeTriggerAreas[] = ['top', 'bottom'];
-const allResizeTriggers: ResizeTriggerAreas[] = [
-  'left',
-  'right',
-  'top',
-  'bottom',
-  'topLeft',
-  'topRight',
-  'bottomLeft',
-  'bottomRight',
+const leftRightResizeTriggers = ["left", "right"];
+const topBottomResizeTriggers = ["top", "bottom"];
+const allResizeTriggers = [
+  "left",
+  "right",
+  "top",
+  "bottom",
+  "topLeft",
+  "topRight",
+  "bottomLeft",
+  "bottomRight",
 ];
 
-type BrushProps = Partial<
-  Pick<
-    BaseBrushProps,
-    | 'brushDirection'
-    | 'brushRegion'
-    | 'handleSize'
-    | 'onChange'
-    | 'onClick'
-    | 'resizeTriggerAreas'
-    | 'selectedBoxStyle'
-    | 'yAxisOrientation'
-    | 'xAxisOrientation'
-  >
-> & { initialBrushPosition?: (scales) => BaseBrushProps['initialBrushPosition'] };
-
 export default function Brush({
-  brushDirection = 'horizontal',
-  brushRegion = 'chart',
+  brushDirection = "horizontal",
+  brushRegion = "chart",
   handleSize = 8,
   initialBrushPosition,
   onChange,
@@ -42,15 +26,15 @@ export default function Brush({
   selectedBoxStyle,
   xAxisOrientation,
   yAxisOrientation,
-}: BrushProps) {
+}) {
   const { xScale, yScale, margin } = useContext(ChartContext) || {};
 
   // not yet available in context
   if (!xScale || !yScale) return null;
 
   // @TODO make a util for this
-  const xRange = xScale.range() as number[];
-  const yRange = yScale.range() as number[];
+  const xRange = xScale.range();
+  const yRange = yScale.range();
   const width = Math.abs(xRange[1] - xRange[0]);
   const height = Math.abs(yRange[1] - yRange[0]);
 
@@ -66,15 +50,17 @@ export default function Brush({
       handleSize={handleSize}
       resizeTriggerAreas={
         resizeTriggerAreas ||
-        (brushDirection === 'horizontal'
+        (brushDirection === "horizontal"
           ? leftRightResizeTriggers
-          : brushDirection === 'vertical'
+          : brushDirection === "vertical"
           ? topBottomResizeTriggers
           : allResizeTriggers)
       }
       brushDirection={brushDirection}
       initialBrushPosition={
-        initialBrushPosition ? initialBrushPosition({ xScale, yScale }) : undefined
+        initialBrushPosition
+          ? initialBrushPosition({ xScale, yScale })
+          : undefined
       }
       onChange={onChange}
       onClick={onClick}
