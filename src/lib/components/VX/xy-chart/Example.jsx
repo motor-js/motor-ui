@@ -5,7 +5,7 @@ import cityTemperature, {
 } from "@vx/mock-data/lib/mocks/cityTemperature";
 // import defaultTheme from "./theme/default";
 // import darkTheme from "./theme/darkTheme";
-import theme from "../../themes/defaultTheme";
+import theme from "../../../themes/defaultTheme";
 
 const {
   xyChart: { defaultTheme },

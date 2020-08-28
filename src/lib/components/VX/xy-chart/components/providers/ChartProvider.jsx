@@ -2,7 +2,7 @@ import React from "react";
 import { localPoint } from "@vx/event";
 import { scaleOrdinal } from "@vx/scale";
 
-import theme from "../../../../themes/defaultTheme";
+import theme from "../../../../../themes/defaultTheme";
 
 const {
   xyChart: { defaultTheme },

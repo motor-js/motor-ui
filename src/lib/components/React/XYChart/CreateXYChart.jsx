@@ -1,21 +1,21 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
 // import defaultTheme from "../..//VX/theme/default";
-import Axis from "../..//VX/components/Axis";
-import AnimatedAxis from "../..//VX/components/AnimatedAxis";
-import ChartProvider from "../..//VX/components/providers/ChartProvider";
-import XYChart from "../..//VX/components/XYChart";
-import BarSeries from "../..//VX/components/series/BarSeries";
-import LineSeries from "../..//VX/components/series/LineSeries";
-import ChartBackground from "../..//VX/components/ChartBackground";
-import EventProvider from "../..//VX/components/providers/TooltipProvider";
+import Axis from "../..//VX/xy-chart/components/Axis";
+import AnimatedAxis from "../..//VX/xy-chart/components/AnimatedAxis";
+import ChartProvider from "../..//VX/xy-chart/components/providers/ChartProvider";
+import XYChart from "../..//VX/xy-chart/components/XYChart";
+import BarSeries from "../..//VX/xy-chart/components/series/BarSeries";
+import LineSeries from "../..//VX/xy-chart/components/series/LineSeries";
+import ChartBackground from "../..//VX/xy-chart/components/ChartBackground";
+import EventProvider from "../..//VX/xy-chart/components/providers/TooltipProvider";
 import Tooltip, {
   RenderTooltipArgs,
-} from "../../.../..//VX/components/Tooltip";
-import Legend from "../..//VX/components/Legend";
-import CustomLegendShape from "../..//VX/components/CustomLegendShape";
-import Group from "../..//VX/components/series/Group";
-import Stack from "../..//VX/components/series/Stack";
+} from "../../.../..//VX/xy-chart/components/Tooltip";
+import Legend from "../..//VX/xy-chart/components/Legend";
+import CustomLegendShape from "../..//VX/xy-chart/components/CustomLegendShape";
+import Group from "../..//VX/xy-chart/components/series/Group";
+import Stack from "../..//VX/xy-chart/components/series/Stack";
 
 import { roundNumber, colorByExpression } from "../../../utils";
 
