@@ -224,7 +224,7 @@ function StyledXYChart(props) {
                 type={type}
                 padding={padding || xyChart.padding}
                 useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
-                autoWidth={autoWidth}
+                autoWidth={autoWidth || xyChart.autoWidth}
                 renderHorizontally={
                   renderHorizontally || xyChart.renderHorizontally
                 }

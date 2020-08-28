@@ -272,7 +272,7 @@ XYChart.defaultProps = {
   gridArea: null,
   type: null, // Logic to determine default chart type in CreateXYChart
   useAnimatedAxes: null,
-  autoWidth: false,
+  autoWidth: null,
   renderHorizontally: null,
   includeZero: null,
   xAxisOrientation: "bottom",
