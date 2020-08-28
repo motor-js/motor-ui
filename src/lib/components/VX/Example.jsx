@@ -20,7 +20,6 @@ import LineSeries from "./components/series/LineSeries";
 import ChartBackground from "./components/ChartBackground";
 import EventProvider from "./components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "./components/Tooltip";
-import { ScaleConfig } from "./types";
 import Legend from "./components/Legend";
 import CustomLegendShape from "./components/CustomLegendShape";
 import Group from "./components/series/Group";

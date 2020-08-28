@@ -6,7 +6,6 @@ import {
   scaleOrdinal,
 } from "@vx/scale";
 import { extent } from "d3-array";
-import { ScaleConfig, StringLike, NumberLike, ScaleOutput } from "./types";
 
 export default function createScale({
   data,

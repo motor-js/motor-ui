@@ -1,5 +1,4 @@
 import findNearestDatumSingleDimension from "./findNearestDatumSingleDimension";
-import { NearestDatumArgs } from "../types";
 
 export default function findNearestDatumY({
   yScale: scale,

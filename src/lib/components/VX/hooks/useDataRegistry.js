@@ -1,6 +1,5 @@
-import { useEffect, useContext } from 'react';
-import ChartContext from '../context/ChartContext';
-import { DataRegistry } from '../types';
+import { useEffect, useContext } from "react";
+import ChartContext from "../context/ChartContext";
 
 export default function useDataRegistry({
   data,
@@ -10,13 +9,21 @@ export default function useDataRegistry({
   mouseEvents,
   legendShape,
   findNearestDatum,
-}: DataRegistry[string]) {
+}) {
   const { registerData, unregisterData } = useContext(ChartContext);
 
   // register data on mount
   useEffect(() => {
     registerData({
-      [key]: { key, data, xAccessor, yAccessor, mouseEvents, legendShape, findNearestDatum },
+      [key]: {
+        key,
+        data,
+        xAccessor,
+        yAccessor,
+        mouseEvents,
+        legendShape,
+        findNearestDatum,
+      },
     });
     return () => unregisterData(key);
   }, [
