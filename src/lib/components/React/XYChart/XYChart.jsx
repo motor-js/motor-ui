@@ -185,11 +185,11 @@ XYChart.propTypes = {
   // title: PropTypes.string,
   // /** Sub Title of the Bar */
   // subTitle: PropTypes.string,
-  // /** Legend of the Bar */
-  // showLegend: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.oneOf(["right", "bottom"]),
-  // ]),
+  /** Legend of the chart */
+  showLegend: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(["right", "bottom"]),
+  ]),
   // /** Allow Selections */
   // allowSelections: PropTypes.bool,
   // /** Maximum Width of the Bar */
@@ -261,7 +261,7 @@ XYChart.defaultProps = {
   // percentStacked: false,
   // title: null,
   // subTitle: null,
-  // showLegend: null,
+  showLegend: null,
   // maxWidth: null,
   // maxAxisLength: null,
   // suppressScroll: null,

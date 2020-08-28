@@ -680,7 +680,12 @@ const base = {
     size: 50,
     timeout: 5000,
   },
-  xyChart: { otherTotalSpec: undefined },
+  xyChart: {
+    suppressZero: false,
+    otherTotalSpec: undefined,
+    showLegend: false,
+    margin: "10px",
+  },
 
   column: {
     main: {

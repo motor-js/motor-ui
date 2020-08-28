@@ -80,6 +80,7 @@ export default function CreateXYChart({
   xAxisOrientation,
   yAxisOrientation,
   legendLeftRight,
+  showLegend,
   legendTopBottom,
   legendDirection,
   legendShape,
@@ -196,7 +197,7 @@ export default function CreateXYChart({
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 
-  const legend = (
+  const legend = showLegend ? (
     <Legend
       labelFormat={legendLabelFormat}
       alignLeft={legendLeftRight === "left"}
@@ -209,7 +210,7 @@ export default function CreateXYChart({
           : legendShape
       }
     />
-  );
+  ) : null;
 
   return (
     // <div className="container">
