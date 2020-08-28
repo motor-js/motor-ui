@@ -3,8 +3,14 @@ import React, { useState, useMemo } from "react";
 import cityTemperature, {
   CityTemperature,
 } from "@vx/mock-data/lib/mocks/cityTemperature";
-import defaultTheme from "./theme/default";
-import darkTheme from "./theme/darkTheme";
+// import defaultTheme from "./theme/default";
+// import darkTheme from "./theme/darkTheme";
+import theme from "../../themes/defaultTheme";
+
+const {
+  xyChart: { defaultTheme },
+} = theme;
+
 import Axis from "./components/Axis";
 import AnimatedAxis from "./components/AnimatedAxis";
 import ChartProvider from "./components/providers/ChartProvider";

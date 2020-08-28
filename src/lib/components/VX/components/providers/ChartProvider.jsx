@@ -2,58 +2,34 @@ import React from "react";
 import { localPoint } from "@vx/event";
 import { scaleOrdinal } from "@vx/scale";
 
-// import base from '../../../../themes/base';
-// // const defaultTheme = {...theme.xyChart.defaultTheme};
-// const  xyChart  = base.theme.xyChart;
-// const { defaultTheme } = xyChart;
+// import base from "../../../../themes/base";
 
-import defaultTheme from "../../theme/default";
+// import defaultTheme from "../../theme/default";
+import theme from "../../../../themes/defaultTheme";
 
-import {
-  ChartContext as ChartContextType,
-  ChartTheme,
-  ScaleConfig,
-  RegisterData,
-  Margin,
-  DatumWithKey,
-  ScaleType,
-} from "../../types";
+const {
+  xyChart: { defaultTheme },
+} = theme;
+
+// import {
+//   ChartContext as ChartContextType,
+//   ChartTheme,
+//   ScaleConfig,
+//   RegisterData,
+//   Margin,
+//   DatumWithKey,
+//   ScaleType,
+// } from "../../types";
 import ChartContext from "../../context/ChartContext";
 import createScale from "../../createScale";
 import findNearestDatumXY from "../../util/findNearestDatumXY";
 
-/** Props that can be passed to initialize/update the provider config. */
-export type ChartProviderProps<XScaleInput, YScaleInput> = {
-  theme?: ChartTheme;
-  xScale: ScaleConfig<XScaleInput>;
-  yScale: ScaleConfig<YScaleInput>;
-  colorScale?: { domain?: string[] };
-  children: React.ReactNode;
-};
-
-type ChartProviderState<Datum, XScaleInput, YScaleInput> = Pick<
-  ChartContextType<Datum, XScaleInput, YScaleInput>,
-  "xScale" | "yScale" | "colorScale" | "dataRegistry"
-> & {
-  width: number | null;
-  height: number | null;
-  margin: Margin;
-  combinedData: DatumWithKey<Datum>[];
-};
-
-export default class ChartProvider<
-  Datum = unknown,
-  XScaleInput = unknown,
-  YScaleInput = unknown
-> extends React.Component<
-  ChartProviderProps<XScaleInput, YScaleInput>,
-  ChartProviderState<Datum, XScaleInput, YScaleInput>
-> {
+export default class ChartProvider extends React.Component {
   static defaultProps = {
     theme: defaultTheme,
   };
 
-  state: ChartProviderState<Datum, XScaleInput, YScaleInput> = {
+  state = {
     dataRegistry: {},
     margin: { top: 30, right: 30, bottom: 30, left: 30 },
     xScale: null,
@@ -64,7 +40,7 @@ export default class ChartProvider<
     combinedData: [],
   };
 
-  componentDidUpdate(prevProps: ChartProviderProps<XScaleInput, YScaleInput>) {
+  componentDidUpdate(prevProps) {
     if (
       // @TODO better solution
       JSON.stringify(this.props.xScale) !== JSON.stringify(prevProps.xScale) ||
@@ -77,9 +53,7 @@ export default class ChartProvider<
   }
 
   /** Adds data to the registry and to combined data if it supports events. */
-  registerData: RegisterData<XScaleInput, YScaleInput, Datum> = (
-    dataToRegister
-  ) => {
+  registerData = (dataToRegister) => {
     this.setState((state) => {
       const nextState = {
         ...state,
@@ -122,7 +96,7 @@ export default class ChartProvider<
   };
 
   /** Removes data from the registry and combined data. */
-  unregisterData = (keyOrKeys: string | string[]) => {
+  unregisterData = (keyOrKeys) => {
     const keys = new Set(
       typeof keyOrKeys === "string" ? [keyOrKeys] : keyOrKeys
     );
@@ -149,23 +123,13 @@ export default class ChartProvider<
   };
 
   /** Sets chart dimensions. */
-  setChartDimensions: ChartContextType["setChartDimensions"] = ({
-    width,
-    height,
-    margin,
-  }) => {
+  setChartDimensions = ({ width, height, margin }) => {
     if (width > 0 && height > 0) {
       this.setState({ width, height, margin }, this.updateScales);
     }
   };
 
-  getScales = ({
-    combinedData,
-    dataRegistry,
-    margin,
-    width,
-    height,
-  }: ChartProviderState<Datum, XScaleInput, YScaleInput>) => {
+  getScales = ({ combinedData, dataRegistry, margin, width, height }) => {
     const {
       theme,
       xScale: xScaleConfig,
@@ -175,21 +139,21 @@ export default class ChartProvider<
 
     if (width == null || height == null) return;
 
-    let xScale = createScale<XScaleInput>({
+    let xScale = createScale({
       data: combinedData.map(({ key, datum }) =>
         dataRegistry[key]?.xAccessor(datum)
-      ) as XScaleInput[],
+      ),
       scaleConfig: xScaleConfig,
       range: [margin.left, width - margin.right],
-    }) as ScaleType<XScaleInput, number>;
+    });
 
-    let yScale = createScale<YScaleInput>({
+    let yScale = createScale({
       data: combinedData.map(({ key, datum }) =>
         dataRegistry[key]?.yAccessor(datum)
-      ) as YScaleInput[],
+      ),
       scaleConfig: yScaleConfig,
       range: [height - margin.bottom, margin.top],
-    }) as ScaleType<YScaleInput, number>;
+    });
 
     const colorScale = scaleOrdinal({
       domain: Object.keys(dataRegistry),
@@ -216,13 +180,13 @@ export default class ChartProvider<
   };
 
   /**  */
-  findNearestData = (event: React.MouseEvent | React.TouchEvent) => {
+  findNearestData = (event) => {
     const { width, height, margin, xScale, yScale, dataRegistry } = this.state;
 
     // for each series find the datums with closest x and y
     const closestData = {};
-    let closestDatum: DatumWithKey | null = null;
-    let minDistance: number = Number.POSITIVE_INFINITY;
+    let closestDatum = null;
+    let minDistance = Number.POSITIVE_INFINITY;
     const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
 
     if (xScale && yScale && svgMouseX != null && svgMouseY != null) {
