@@ -4,7 +4,6 @@ import { scaleOrdinal } from "@vx/scale";
 
 import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
-import { TooltipData } from "../types";
 
 export default function Tooltip({
   renderTooltip,

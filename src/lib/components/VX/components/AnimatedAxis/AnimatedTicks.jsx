@@ -2,10 +2,7 @@
 import React, { useMemo } from "react";
 import cx from "classnames";
 import { animated, useTransition, interpolate } from "react-spring";
-import { AxisProps as BaseAxisProps } from "@vx/axis/lib/axis/Axis";
-import { ChildRenderProps } from "@vx/axis/lib/types";
 import { Text } from "@vx/text";
-import { Margin } from "../../types";
 
 const defaultTickLabelProps = (/** tickValue, index */) => ({
   textAnchor: "middle",

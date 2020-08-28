@@ -4,13 +4,7 @@ import BarGroupHorizontal from "@vx/shape/lib/shapes/BarGroupHorizontal";
 import { Group as VxGroup } from "@vx/group";
 import { scaleBand } from "@vx/scale";
 import ChartContext from "../../context/ChartContext";
-import {
-  DataRegistry,
-  ChartContext as ChartContextType,
-  NearestDatumArgs,
-} from "../../types";
 
-import BarSeries from "./BarSeries";
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";

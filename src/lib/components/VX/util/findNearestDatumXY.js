@@ -1,12 +1,7 @@
-import { voronoi } from '@vx/voronoi';
-import { NearestDatumArgs } from '../types';
+import { voronoi } from "@vx/voronoi";
 
 // finds the datum nearest to svgMouseX/Y using voronoi
-export default function findNearestDatumXY<
-  Datum = unknown,
-  XScaleInput = unknown,
-  YScaleInput = unknown
->({
+export default function findNearestDatumXY({
   width,
   height,
   xScale,
@@ -16,9 +11,9 @@ export default function findNearestDatumXY<
   svgMouseX,
   svgMouseY,
   data,
-}: NearestDatumArgs<Datum, XScaleInput, YScaleInput>) {
-  const scaledX = (d: unknown) => xScale(xAccessor(d)) as number;
-  const scaledY = (d: unknown) => yScale(yAccessor(d)) as number;
+}) {
+  const scaledX = (d) => xScale(xAccessor(d));
+  const scaledY = (d) => yScale(yAccessor(d));
 
   // Create a voronoi with each node center points
   const voronoiInstance = voronoi({

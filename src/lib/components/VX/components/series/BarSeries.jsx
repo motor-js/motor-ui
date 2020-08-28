@@ -1,6 +1,5 @@
 import React, { useContext, useCallback, useMemo } from "react";
 import ChartContext from "../../context/ChartContext";
-import { ChartContext as ChartContextType, SeriesProps } from "../../types";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
