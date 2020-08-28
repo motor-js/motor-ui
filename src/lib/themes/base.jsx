@@ -689,6 +689,7 @@ const base = {
     useAnimatedAxes: false,
     includeZero: true,
     multiColor: true,
+    renderHorizontally: false,
   },
 
   column: {
