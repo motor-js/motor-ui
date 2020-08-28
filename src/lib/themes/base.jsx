@@ -685,6 +685,9 @@ const base = {
     otherTotalSpec: undefined,
     showLegend: false,
     margin: "10px",
+    padding: 0.2,
+    useAnimatedAxes: false,
+    includeZero: true,
   },
 
   column: {

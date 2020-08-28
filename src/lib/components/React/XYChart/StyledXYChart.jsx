@@ -81,13 +81,11 @@ function StyledXYChart(props) {
 
   const {
     global: { colorTheme: globalColorTheme },
+    xyChart,
   } = theme;
 
   // if the prop is undefined, use the base theme
-  // const color = colorTheme || globalColorTheme;
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
-
-  const legend = showLegend === null ? theme.xyChart.showLegend : showLegend;
 
   // retrieve XYChart data from HyperCube
   const {
@@ -104,8 +102,8 @@ function StyledXYChart(props) {
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
-    qSuppressZero: suppressZero || theme.xyChart.suppressZero,
-    qOtherTotalSpec: otherTotalSpec || theme.xyChart.otherTotalSpec,
+    qSuppressZero: suppressZero || xyChart.suppressZero,
+    qOtherTotalSpec: otherTotalSpec || xyChart.otherTotalSpec,
     qSuppressZero: true,
   });
 
@@ -174,7 +172,7 @@ function StyledXYChart(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin || theme.xyChart.margin}
+          margin={margin || xyChart.margin}
           gridArea={gridArea}
           width={width}
         >
@@ -208,7 +206,7 @@ function StyledXYChart(props) {
                 height={
                   gridArea
                     ? ref.current.offsetHeight -
-                      parseInt(margin || theme.xyChart.margin, 10)
+                      parseInt(margin || xyChart.margin, 10)
                     : parseInt(height, 10)
                 }
                 events={events}
@@ -224,15 +222,15 @@ function StyledXYChart(props) {
                 // XYChartThemes={XYChartThemes}
                 colorPalette={colorPalette}
                 type={type}
-                padding={padding}
-                useAnimatedAxes={useAnimatedAxes}
+                padding={padding || xyChart.padding}
+                useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
                 autoWidth={autoWidth}
                 renderHorizontally={renderHorizontally}
-                includeZero={includeZero}
+                includeZero={includeZero || xyChart.includeZero}
                 xAxisOrientation={xAxisOrientation}
                 yAxisOrientation={yAxisOrientation}
                 legendLeftRight={legendLeftRight}
-                showLegend={legend}
+                showLegend={showLegend || xyChart.showLegend}
                 legendTopBottom={legendTopBottom}
                 legendDirection={legendDirection}
                 legendShape={legendShape}
@@ -256,7 +254,7 @@ function StyledXYChart(props) {
         <XYChartWrapperNoData
           border={border}
           size={size}
-          margin={margin || theme.xyChart.margin}
+          margin={margin || xyChart.margin}
           gridArea={gridArea}
           width={width}
         >
