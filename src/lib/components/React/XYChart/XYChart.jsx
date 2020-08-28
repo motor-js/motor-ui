@@ -284,7 +284,7 @@ XYChart.defaultProps = {
   snapTooltipToDataX: true,
   snapTooltipToDataY: true,
   backgroundPattern: null,
-  multiColor: true,
+  multiColor: null,
   events: false,
 };
 
