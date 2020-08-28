@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-import defaultTheme from "../../../components/VX/theme/default";
+// import defaultTheme from "../../../components/VX/theme/default";
 import Axis from "../../../components/VX/components/Axis";
 import AnimatedAxis from "../../../components/VX/components/AnimatedAxis";
 import ChartProvider from "../../../components/VX/components/providers/ChartProvider";
@@ -70,6 +70,7 @@ export default function CreateXYChart({
   useSelectionColours,
   pendingSelections,
   SetPendingSelections,
+  theme,
   padding,
   colorPalette,
   type,
@@ -191,7 +192,8 @@ export default function CreateXYChart({
   const colors = colorByExpression(qHyperCube, data, colorPalette);
 
   const themeObj = {
-    ...defaultTheme,
+    // ...defaultTheme,
+    ...theme.xyChart.defaultTheme,
     colors,
   };
 

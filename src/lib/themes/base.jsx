@@ -692,6 +692,152 @@ const base = {
     autoWidth: false,
     renderHorizontally: false,
     events: false,
+    defaultTheme: {
+      baseColor: "#fff",
+      colors: [
+        "#0b7285",
+        "#15aabf",
+        "#fcc419",
+        "#ff8787",
+        "#6741d9",
+        "#e599f7",
+      ],
+      labelStyles: {
+        // Used for legend
+        fill: "#212529",
+        stroke: "none",
+        fontFamily:
+          "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+        fontSize: 12,
+        letterSpacing: 0.4,
+        textAnchor: "middle",
+        fontWeight: 700,
+        pointerEvents: "none",
+      },
+      gridStyles: { stroke: "#adb5bd", strokeWidth: 1 },
+      xAxisStyles: {
+        stroke: "#212529",
+        strokeWidth: 2,
+        label: {
+          bottom: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+          top: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+        },
+      },
+      yAxisStyles: {
+        stroke: "#adb5bd",
+        strokeWidth: 1,
+        label: {
+          left: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dx: "-1.5em",
+          },
+          right: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dx: "1.5em",
+          },
+        },
+      },
+      xTickStyles: {
+        stroke: "#adb5bd",
+        tickLength: 4,
+        label: {
+          bottom: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dy: "0.125em",
+          },
+          top: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+        },
+      },
+      yTickStyles: {
+        stroke: "#adb5bd",
+        tickLength: 4,
+        label: {
+          left: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "end",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dx: "-0.25em",
+            dy: "0.25em",
+          },
+          right: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "start",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dx: "0.25em",
+            dy: "0.25em",
+          },
+        },
+      },
+    },
   },
 
   column: {

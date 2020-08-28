@@ -214,6 +214,7 @@ function StyledXYChart(props) {
                 qData={qData}
                 beginSelections={beginSelections}
                 select={select}
+                theme={theme}
                 setRefreshChart={setRefreshChart}
                 setSelectionXYChartVisible={setSelectionXYChartVisible}
                 useSelectionColours={useSelectionColours}
