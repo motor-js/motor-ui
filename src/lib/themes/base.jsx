@@ -681,6 +681,8 @@ const base = {
     timeout: 5000,
   },
   xyChart: {
+    borderRadius: "10px",
+    backgroundColor: "white",
     suppressZero: false,
     otherTotalSpec: undefined,
     showLegend: true,
@@ -692,6 +694,22 @@ const base = {
     autoWidth: false,
     renderHorizontally: false,
     events: false,
+    boxSizing: "border-box",
+    userSelect: "none",
+    display: "inline-block",
+    noData: {
+      verticalAlign: "top",
+      borderRadius: "10px",
+      // backgroundColor: "var(--oc-gray-1)",
+      backgroundColor: "white",
+      // borderCollapse: "collapse",
+    },
+    noDataContent: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      margin: "10px",
+    },
     defaultTheme: {
       baseColor: "#fff",
       colors: [
