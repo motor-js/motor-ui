@@ -683,7 +683,7 @@ const base = {
   xyChart: {
     suppressZero: false,
     otherTotalSpec: undefined,
-    showLegend: false,
+    showLegend: true,
     margin: "10px",
     padding: 0.2,
     useAnimatedAxes: false,
