@@ -1,5 +1,4 @@
 import { bisector, range as d3Range, bisectLeft } from "d3-array";
-import { ScaleType } from "../types";
 
 export default function findNearestDatumSingleDimension({
   scale,
