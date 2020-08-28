@@ -209,7 +209,7 @@ function StyledXYChart(props) {
                       parseInt(margin || xyChart.margin, 10)
                     : parseInt(height, 10)
                 }
-                events={events}
+                events={events || xyChart.events}
                 qLayout={qLayout}
                 qData={qData}
                 beginSelections={beginSelections}

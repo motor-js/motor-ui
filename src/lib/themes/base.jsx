@@ -691,6 +691,7 @@ const base = {
     multiColor: true,
     autoWidth: false,
     renderHorizontally: false,
+    events: false,
   },
 
   column: {
