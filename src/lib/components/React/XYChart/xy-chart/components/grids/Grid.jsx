@@ -12,8 +12,8 @@ export default function Grid({
   left,
   // xScale,
   // yScale,
-  width,
-  height,
+  // width,
+  // height,
   className,
   stroke,
   strokeWidth,
@@ -28,7 +28,9 @@ export default function Grid({
   columnTickValues,
   ...restProps
 }) {
-  const { theme, colorScale, xScale, yScale } = useContext(ChartContext);
+  const { theme, xScale, yScale, margin, width, height } = useContext(
+    ChartContext
+  );
   // const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
   // const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
   //   xScale,
@@ -38,6 +40,7 @@ export default function Grid({
   //   yScale,
   //   yAccessor,
   // ]);
+
   return (
     <Group className={cx("vx-grid", className)} top={top} left={left}>
       <GridRows

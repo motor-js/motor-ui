@@ -271,6 +271,16 @@ export default function CreateXYChart({
               //   .map((d) => getDimension(d))}
               // xOffset={dateScaleConfig.bandwidth() / 2}
             /> */}
+            {/* <Grid
+                // xScale={xScale}
+                // yScale={yScale}
+                // width={width}
+                // height={height}
+                // numTicksRows={numTicksForHeight(height)}
+                // numTicksColumns={numTicksForWidth(width)}
+                numTicksRows={10}
+                numTicksColumns={10}
+              /> */}
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}

@@ -20,6 +20,7 @@ export default function GridRows({
   tickValues,
   ...restProps
 }) {
+  console.log("tickValues", scale);
   const ticks = tickValues ?? getTicks(scale, numTicks);
   return (
     <Group className={cx("vx-rows", className)} top={top} left={left}>
