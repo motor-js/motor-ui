@@ -1,21 +1,19 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
 // import defaultTheme from "../..//VX/theme/default";
-import Axis from "../..//VX/xy-chart/components/Axis";
-import AnimatedAxis from "../..//VX/xy-chart/components/AnimatedAxis";
-import ChartProvider from "../..//VX/xy-chart/components/providers/ChartProvider";
-import XYChart from "../..//VX/xy-chart/components/XYChart";
-import BarSeries from "../..//VX/xy-chart/components/series/BarSeries";
-import LineSeries from "../..//VX/xy-chart/components/series/LineSeries";
-import ChartBackground from "../..//VX/xy-chart/components/ChartBackground";
-import EventProvider from "../..//VX/xy-chart/components/providers/TooltipProvider";
-import Tooltip, {
-  RenderTooltipArgs,
-} from "../../.../..//VX/xy-chart/components/Tooltip";
-import Legend from "../..//VX/xy-chart/components/Legend";
-import CustomLegendShape from "../..//VX/xy-chart/components/CustomLegendShape";
-import Group from "../..//VX/xy-chart/components/series/Group";
-import Stack from "../..//VX/xy-chart/components/series/Stack";
+import Axis from "./xy-chart/components/Axis";
+import AnimatedAxis from "./xy-chart/components/AnimatedAxis";
+import ChartProvider from "./xy-chart/components/providers/ChartProvider";
+import XYChart from "./xy-chart/components/XYChart";
+import BarSeries from "./xy-chart/components/series/BarSeries";
+import LineSeries from "./xy-chart/components/series/LineSeries";
+import ChartBackground from "./xy-chart/components/ChartBackground";
+import EventProvider from "./xy-chart/components/providers/TooltipProvider";
+import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
+import Legend from "./xy-chart/components/Legend";
+import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
+import Group from "./xy-chart/components/series/Group";
+import Stack from "./xy-chart/components/series/Stack";
 
 import { roundNumber, colorByExpression } from "../../../utils";
 

@@ -695,8 +695,8 @@ const base = {
     renderHorizontally: false,
     events: false,
     boxSizing: "border-box",
-    userSelect: "none",
-    display: "inline-block",
+    userSelect: "none", // add to props
+    display: "inline-block", // add to props
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",

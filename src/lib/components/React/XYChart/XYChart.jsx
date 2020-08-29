@@ -237,10 +237,8 @@ XYChart.propTypes = {
 XYChart.defaultProps = {
   // config: null,
   calcCondition: undefined,
-  suppressZero: null,
   width: "1000px",
   height: "400px", // 100%
-  margin: null,
   // size: "medium",
   // showLabels: null,
   // fontColor: "",
@@ -251,8 +249,6 @@ XYChart.defaultProps = {
   // showGridlines: null,
   // textOnAxis: null,
   // tickSpacing: undefined,
-  borderRadius: null,
-  backgroundColor: null,
   colorTheme: null,
   // roundNum: true,
   sortOrder: [],
@@ -261,20 +257,13 @@ XYChart.defaultProps = {
   // percentStacked: false,
   // title: null,
   // subTitle: null,
-  showLegend: null,
   // maxWidth: null,
   // maxAxisLength: null,
   // suppressScroll: null,
-  padding: null,
   // dimensionErrMsg: null,
   // measureErrMsg: null,
-  otherTotalSpec: null,
   gridArea: null,
   type: null, // Logic to determine default chart type in CreateXYChart
-  useAnimatedAxes: null,
-  autoWidth: null,
-  renderHorizontally: null,
-  includeZero: null,
   xAxisOrientation: "bottom",
   yAxisOrientation: "left",
   legendLeftRight: "right",
@@ -283,9 +272,7 @@ XYChart.defaultProps = {
   legendShape: "auto",
   snapTooltipToDataX: true,
   snapTooltipToDataY: true,
-  backgroundPattern: "Circles",
-  multiColor: null,
-  events: null,
+  backgroundPattern: null,
 };
 
 export default XYChart;
