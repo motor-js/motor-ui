@@ -229,7 +229,7 @@ XYChart.propTypes = {
   legendShape: PropTypes.string,
   snapTooltipToDataX: PropTypes.bool,
   snapTooltipToDataY: PropTypes.bool,
-  backgroundPattern: PropTypes.oneOf(["Lines", "Circles"]),
+  backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
 };
@@ -283,7 +283,7 @@ XYChart.defaultProps = {
   legendShape: "auto",
   snapTooltipToDataX: true,
   snapTooltipToDataY: true,
-  backgroundPattern: null,
+  backgroundPattern: "Circles",
   multiColor: null,
   events: null,
 };

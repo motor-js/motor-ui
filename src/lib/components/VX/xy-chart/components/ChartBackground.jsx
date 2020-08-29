@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
-import { PatternLines, PatternCircles } from "@vx/pattern";
+import {
+  PatternCircles,
+  PatternHexagons,
+  PatternLines,
+  PatternWaves,
+} from "./Patterns";
 import ChartContext from "../context/ChartContext";
 
 const patternId = "xy-chart-pattern";
@@ -22,8 +27,14 @@ export default function CustomChartBackground({ backgroundPattern }) {
     case "Circles":
       Pattern = PatternCircles;
       break;
+    case "Hexagons":
+      Pattern = PatternHexagons;
+      break;
     case "Lines":
       Pattern = PatternLines;
+      break;
+    case "Waves":
+      Pattern = PatternWaves;
       break;
     default:
       Pattern = PatternLines;
