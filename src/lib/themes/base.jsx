@@ -694,6 +694,7 @@ const base = {
     autoWidth: false,
     renderHorizontally: false,
     events: false,
+    backgroundPattern: null,
     boxSizing: "border-box",
     userSelect: "none", // add to props
     display: "inline-block", // add to props

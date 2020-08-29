@@ -272,7 +272,6 @@ XYChart.defaultProps = {
   legendShape: "auto",
   snapTooltipToDataX: true,
   snapTooltipToDataY: true,
-  backgroundPattern: null,
 };
 
 export default XYChart;

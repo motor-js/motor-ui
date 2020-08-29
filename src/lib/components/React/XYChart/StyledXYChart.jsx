@@ -239,7 +239,9 @@ function StyledXYChart(props) {
                 legendShape={legendShape}
                 snapTooltipToDataX={snapTooltipToDataX}
                 snapTooltipToDataY={snapTooltipToDataY}
-                backgroundPattern={backgroundPattern}
+                backgroundPattern={
+                  backgroundPattern || xyChart.backgroundPattern
+                }
                 multiColor={multiColor || xyChart.multiColor}
               />
             )}

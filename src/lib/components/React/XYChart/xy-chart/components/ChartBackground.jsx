@@ -4,7 +4,7 @@ import {
   PatternHexagons,
   PatternLines,
   PatternWaves,
-} from "./Patterns";
+} from "./aesthetic/Patterns";
 import ChartContext from "../context/ChartContext";
 
 const patternId = "xy-chart-pattern";

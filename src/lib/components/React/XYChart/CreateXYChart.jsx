@@ -13,6 +13,7 @@ import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
+import Grid from "./xy-chart/components/grids/Grid";
 import Stack from "./xy-chart/components/series/Stack";
 
 import { roundNumber, colorByExpression } from "../../../utils";
@@ -212,6 +213,10 @@ export default function CreateXYChart({
     />
   ) : null;
 
+  const gridColor = "#6e0fca";
+  const numTickColumns = 5;
+  // const scaleHeight = height / axes.length - scalePadding;
+
   return (
     // <div className="container">
 
@@ -241,6 +246,31 @@ export default function CreateXYChart({
           >
             (
             <ChartBackground backgroundPattern={backgroundPattern} />)
+            {/* <Grid
+              top={
+                xAxisOrientation === "top"
+                  ? axisTopMargin.top
+                  : axisBottomMargin.top
+              }
+              left={
+                xAxisOrientation === "top"
+                  ? axisTopMargin.left
+                  : axisBottomMargin.left
+              }
+              // xScale={dateScaleConfig}
+              // yScale={valueScaleConfig.range[]}
+              width={width}
+              height={height}
+              stroke="black"
+              strokeOpacity={0.1}
+              // tickValues={currData
+              //   .filter(
+              //     (d, i, arr) =>
+              //       i % Math.round((arr.length - 1) / numDimensionTicks) === 0
+              //   )
+              //   .map((d) => getDimension(d))}
+              // xOffset={dateScaleConfig.bandwidth() / 2}
+            /> */}
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
