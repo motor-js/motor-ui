@@ -5,7 +5,7 @@ import { Group } from "@vx/group";
 import { Point } from "@vx/point";
 import { getTicks } from "@vx/scale";
 
-export default function GridRows({
+export default function GridRow({
   top = 0,
   left = 0,
   scale,
@@ -20,7 +20,6 @@ export default function GridRows({
   tickValues,
   ...restProps
 }) {
-  console.log("tickValues", scale);
   const ticks = tickValues ?? getTicks(scale, numTicks);
   return (
     <Group className={cx("vx-rows", className)} top={top} left={left}>

@@ -13,7 +13,6 @@ import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
-import Grid from "./xy-chart/components/grids/Grid";
 import Stack from "./xy-chart/components/series/Stack";
 
 import { roundNumber, colorByExpression } from "../../../utils";
@@ -246,41 +245,6 @@ export default function CreateXYChart({
           >
             (
             <ChartBackground backgroundPattern={backgroundPattern} />)
-            {/* <Grid
-              top={
-                xAxisOrientation === "top"
-                  ? axisTopMargin.top
-                  : axisBottomMargin.top
-              }
-              left={
-                xAxisOrientation === "top"
-                  ? axisTopMargin.left
-                  : axisBottomMargin.left
-              }
-              // xScale={dateScaleConfig}
-              // yScale={valueScaleConfig.range[]}
-              width={width}
-              height={height}
-              stroke="black"
-              strokeOpacity={0.1}
-              // tickValues={currData
-              //   .filter(
-              //     (d, i, arr) =>
-              //       i % Math.round((arr.length - 1) / numDimensionTicks) === 0
-              //   )
-              //   .map((d) => getDimension(d))}
-              // xOffset={dateScaleConfig.bandwidth() / 2}
-            /> */}
-            {/* <Grid
-                // xScale={xScale}
-                // yScale={yScale}
-                // width={width}
-                // height={height}
-                // numTicksRows={numTicksForHeight(height)}
-                // numTicksColumns={numTicksForWidth(width)}
-                numTicksRows={10}
-                numTicksColumns={10}
-              /> */}
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
