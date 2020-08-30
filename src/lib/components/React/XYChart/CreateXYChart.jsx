@@ -14,6 +14,7 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
+// import Grid from "./xy-chart/components/grids/Grid";
 
 import { roundNumber, colorByExpression } from "../../../utils";
 
