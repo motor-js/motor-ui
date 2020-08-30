@@ -77,6 +77,7 @@ XYChart.propTypes = {
   // size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // /** Size of the Bar */
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
+  showLabels: PropTypes.bool,
   // /** Show text on Axis */
   // textOnAxis: PropTypes.oneOfType([
   //   PropTypes.bool,

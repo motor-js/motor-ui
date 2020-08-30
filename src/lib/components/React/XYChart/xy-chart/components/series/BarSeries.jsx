@@ -17,6 +17,7 @@ function BarSeries({
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
+  showLabels,
   ...barProps
 }) {
   const { theme, colorScale, xScale, yScale } = useContext(ChartContext);
@@ -114,7 +115,7 @@ function BarSeries({
         datum.label = datum[1].qNum;
         // console.log(datum);
 
-        if (renderLabel) {
+        if (renderLabel && showLabels) {
           const Label = renderLabel({
             datum,
             index: i,

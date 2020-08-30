@@ -53,7 +53,7 @@ function StyledXYChart(props) {
     sortOrder,
     calcCondition,
     suppressZero,
-    // showLabels,
+    showLabels,
     // textOnAxis,
     // showGridlines,
     otherTotalSpec,
@@ -250,6 +250,7 @@ function StyledXYChart(props) {
                   backgroundPattern || xyChart.backgroundPattern
                 }
                 multiColor={multiColor || xyChart.multiColor}
+                showLabels={showLabels || xyChart.showLabels}
                 dualAxis={dualAxis}
               />
             )}

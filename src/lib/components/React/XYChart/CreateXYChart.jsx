@@ -88,6 +88,7 @@ export default function CreateXYChart({
   snapTooltipToDataY,
   backgroundPattern,
   multiColor,
+  showLabels,
   dualAxis,
 }) {
   const [currData, setCurrData] = useState(data);
@@ -264,6 +265,7 @@ export default function CreateXYChart({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
+                showLabels={showLabels}
                 // dataKey={measureInfo[0].qFallbackTitle}
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
@@ -284,7 +286,7 @@ export default function CreateXYChart({
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
-              <Group horizontal={renderHorizontally}>
+              <Group horizontal={renderHorizontally} showLabels={showLabels}>
                 {measureInfo.map((measure, index) => (
                   <BarSeries
                     key={measureInfo[index].qFallbackTitle}

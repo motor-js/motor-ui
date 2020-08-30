@@ -14,7 +14,12 @@ import AnimatedText from "./AnimatedText";
 const GROUP_ACCESSOR = (d) => d.group;
 
 // @TODO add GroupKeys type
-export default function Group({ horizontal, children, ...rectProps }) {
+export default function Group({
+  horizontal,
+  showLabels,
+  children,
+  ...rectProps
+}) {
   const {
     width,
     height,
@@ -194,25 +199,27 @@ export default function Group({ horizontal, children, ...rectProps }) {
               rx={2}
               {...rectProps}
             />
-            <AnimatedText
-              bars={barGroup.bars}
-              // x={(bar) => bar.x}
-              // x={(bar) => Math.min(scaledZeroPosition, bar.x)}
-              // x={(bar) => minPosition + Math.abs(bar.x - xZeroPosition)}
-              x={(bar) =>
-                bar.value >= 0
-                  ? minPosition + Math.abs(bar.x - xZeroPosition)
-                  : minPosition
-              }
-              y={(bar) => bar.y + bar.height / 2}
-              width={(bar) => bar.width}
-              height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
-              rx={2}
-              dx={horizontal ? "0.5em" : 0}
-              dy={horizontal ? 0 : "-0.74em"}
-              textAnchor="start"
-              {...rectProps}
-            />
+            {showLabels && (
+              <AnimatedText
+                bars={barGroup.bars}
+                // x={(bar) => bar.x}
+                // x={(bar) => Math.min(scaledZeroPosition, bar.x)}
+                // x={(bar) => minPosition + Math.abs(bar.x - xZeroPosition)}
+                x={(bar) =>
+                  bar.value >= 0
+                    ? minPosition + Math.abs(bar.x - xZeroPosition)
+                    : minPosition
+                }
+                y={(bar) => bar.y + bar.height / 2}
+                width={(bar) => bar.width}
+                height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
+                rx={2}
+                dx={horizontal ? "0.5em" : 0}
+                dy={horizontal ? 0 : "-0.74em"}
+                textAnchor="start"
+                {...rectProps}
+              />
+            )}
           </VxGroup>
         ))
       }
@@ -243,21 +250,22 @@ export default function Group({ horizontal, children, ...rectProps }) {
               rx={2}
               {...rectProps}
             />
-
-            <AnimatedText
-              bars={barGroup.bars}
-              // x={(bar) => bar.x}
-              // y={(bar) => Math.min(scaledZeroPosition, bar.y)}
-              x={(bar) => bar.x + bar.width / 2}
-              y={(bar) => Math.min(scaledZeroPosition, bar.y)}
-              width={(bar) => bar.width}
-              height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
-              rx={2}
-              dx={horizontal ? "0.5em" : 0}
-              dy={horizontal ? 0 : "-0.74em"}
-              textAnchor="middle"
-              {...rectProps}
-            />
+            {showLabels && (
+              <AnimatedText
+                bars={barGroup.bars}
+                // x={(bar) => bar.x}
+                // y={(bar) => Math.min(scaledZeroPosition, bar.y)}
+                x={(bar) => bar.x + bar.width / 2}
+                y={(bar) => Math.min(scaledZeroPosition, bar.y)}
+                width={(bar) => bar.width}
+                height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
+                rx={2}
+                dx={horizontal ? "0.5em" : 0}
+                dy={horizontal ? 0 : "-0.74em"}
+                textAnchor="middle"
+                {...rectProps}
+              />
+            )}
           </VxGroup>
         ))
       }
