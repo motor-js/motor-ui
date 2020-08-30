@@ -73,8 +73,10 @@ function BarSeries({
     ? Math.min(maybeYZero, Math.max(yMin, yMax))
     : Math.max(yMin, yMax);
 
-  const x = (d) => d.x;
-  const y = (d) => d.y;
+  // const x = (d) => d.x;
+  // const y = (d) => d.y;
+  const x = (d) => d[0].qText;
+  const y = (d) => d[1].qNum;
 
   // const barColor = colorScale(dataKey) as string;
 
@@ -109,7 +111,7 @@ function BarSeries({
         const minPosition = valueScale(minValue < 0 ? 0 : minValue);
 
         const key = `bar-${barPosition}`;
-        // datum.label = datum[1].qNum;
+        datum.label = datum[1].qNum;
         // console.log(datum);
 
         if (renderLabel) {
