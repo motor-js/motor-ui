@@ -4,6 +4,7 @@ import BarGroupHorizontal from "@vx/shape/lib/shapes/BarGroupHorizontal";
 import { Group as VxGroup } from "@vx/group";
 import { scaleBand } from "@vx/scale";
 import ChartContext from "../../context/ChartContext";
+import isValidNumber from "../../typeguards/isValidNumber";
 
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
@@ -145,6 +146,26 @@ export default function Group({ horizontal, children, ...rectProps }) {
   // @TODO should consider refactoring base shapes to handle negative values better
   const scaledZeroPosition = (horizontal ? xScale : yScale)(0);
 
+  const minValue = Math.min(...xScale.domain());
+
+  const minPosition = xScale(minValue < 0 ? 0 : minValue);
+
+  // try to figure out the 0 baseline for correct rendering of negative values
+  // we aren't sure if these are numeric scales or not a priori
+  // @ts-ignore
+  const maybeXZero = xScale(0);
+  // @ts-ignore
+  const maybeYZero = yScale(0);
+
+  const [xMin, xMax] = xScale.range();
+  const [yMax, yMin] = yScale.range();
+
+  const xZeroPosition = isValidNumber(maybeXZero)
+    ? // if maybeXZero _is_ a number, but the scale is not clamped and it's outside the domain
+      // fallback to the scale's minimum
+      Math.max(maybeXZero, Math.min(xMin, xMax))
+    : Math.min(xMin, xMax);
+
   return horizontal ? (
     <BarGroupHorizontal
       data={combinedData}
@@ -171,6 +192,25 @@ export default function Group({ horizontal, children, ...rectProps }) {
               width={(bar) => Math.abs(bar.width - scaledZeroPosition)}
               height={(bar) => bar.height}
               rx={2}
+              {...rectProps}
+            />
+            <AnimatedText
+              bars={barGroup.bars}
+              // x={(bar) => bar.x}
+              // x={(bar) => Math.min(scaledZeroPosition, bar.x)}
+              // x={(bar) => minPosition + Math.abs(bar.x - xZeroPosition)}
+              x={(bar) =>
+                bar.value >= 0
+                  ? minPosition + Math.abs(bar.x - xZeroPosition)
+                  : minPosition
+              }
+              y={(bar) => bar.y + bar.height / 2}
+              width={(bar) => bar.width}
+              height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
+              rx={2}
+              dx={horizontal ? "0.5em" : 0}
+              dy={horizontal ? 0 : "-0.74em"}
+              textAnchor="start"
               {...rectProps}
             />
           </VxGroup>
@@ -203,14 +243,19 @@ export default function Group({ horizontal, children, ...rectProps }) {
               rx={2}
               {...rectProps}
             />
-            {/* <GroupLabels barGroup={barGroup} bars={barGroup.bars} /> */}
+
             <AnimatedText
               bars={barGroup.bars}
-              x={(bar) => bar.x}
+              // x={(bar) => bar.x}
+              // y={(bar) => Math.min(scaledZeroPosition, bar.y)}
+              x={(bar) => bar.x + bar.width / 2}
               y={(bar) => Math.min(scaledZeroPosition, bar.y)}
               width={(bar) => bar.width}
               height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
               rx={2}
+              dx={horizontal ? "0.5em" : 0}
+              dy={horizontal ? 0 : "-0.74em"}
+              textAnchor="middle"
               {...rectProps}
             />
           </VxGroup>
