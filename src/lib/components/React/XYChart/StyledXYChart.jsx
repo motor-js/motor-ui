@@ -77,6 +77,8 @@ function StyledXYChart(props) {
     backgroundPattern,
     multiColor,
     dualAxis,
+    roundNum,
+    precision,
     ...rest
   } = props;
 
@@ -249,9 +251,15 @@ function StyledXYChart(props) {
                 backgroundPattern={
                   backgroundPattern || xyChart.backgroundPattern
                 }
-                multiColor={multiColor || xyChart.multiColor}
-                showLabels={showLabels || xyChart.showLabels}
+                multiColor={
+                  multiColor === undefined ? xyChart.multiColor : multiColor
+                }
                 dualAxis={dualAxis}
+                showLabels={
+                  showLabels === undefined ? xyChart.showLabels : showLabels
+                }
+                roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+                precision={precision || xyChart.precision}
               />
             )}
           </div>

@@ -180,8 +180,10 @@ XYChart.propTypes = {
   // stacked: PropTypes.bool,
   // /** Stacked Chart  */
   // percentStacked: PropTypes.bool,
-  // /** RoundNum of the Bar */
-  // roundNum: PropTypes.bool,
+  /** RoundNum of the Bar */
+  roundNum: PropTypes.bool,
+  /** Decimai precision for RoundNum of the Bar */
+  precision: PropTypes.number,
   // /** Title of the Bar */
   // title: PropTypes.string,
   // /** Sub Title of the Bar */

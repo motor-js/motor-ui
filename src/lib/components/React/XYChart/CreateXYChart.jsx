@@ -34,7 +34,6 @@ const getDimension = (d) => d[0].qText;
 //     d[0].qText.split("/")[0]
 //   );
 
-const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
 const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
@@ -57,7 +56,7 @@ export default function CreateXYChart({
   width,
   height,
   events = false,
-  qData: { qMatrix: data },
+  qData: { qMatrix },
   qLayout: {
     qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
@@ -90,10 +89,32 @@ export default function CreateXYChart({
   multiColor,
   showLabels,
   dualAxis,
+  roundNum,
+  precision,
 }) {
+  // let datum = [];
+
+  // const newData = qMatrix.map((d, i) => {
+  //   const dim = d[0];
+  //   const measure = d[1];
+  //   measure.qNum = d[2].qNum;
+  //   console.log(i, d);
+  //   datum.push(measure);
+  //   if (i !== 0 || i === ) {
+  //   }
+
+  //   // return [d[0], d[1]];
+  // });
+  const newData = qMatrix;
+
+  const data = dimensionInfo.length === 1 ? qMatrix : newData;
+
   const [currData, setCurrData] = useState(data);
 
   // const dualAxis = false; // add to props and theme
+
+  const getSeriesValues = (d, colIndex) =>
+    dimensionInfo.length !== 1 ? Number(d[1].qNum) : Number(d[colIndex].qNum);
 
   const getChartType = () =>
     type
@@ -103,6 +124,9 @@ export default function CreateXYChart({
       : "groupedbar";
 
   const [chartType, setchartType] = useState([getChartType()]);
+
+  // console.log(chartType, newData);
+  // console.log(qMatrix);
 
   const dataKeys =
     multiColor && dimensionInfo.length == 1 && measureInfo.length === 1
@@ -217,8 +241,8 @@ export default function CreateXYChart({
     />
   ) : null;
 
-  const gridColor = "#6e0fca";
-  const numTickColumns = 5;
+  // const gridColor = "#6e0fca";
+  // const numTickColumns = 5;
   // const scaleHeight = height / axes.length - scalePadding;
 
   return (
@@ -229,6 +253,7 @@ export default function CreateXYChart({
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
+      roundNum={roundNum}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -270,6 +295,8 @@ export default function CreateXYChart({
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
                 data={currData}
+                roundNum={roundNum}
+                precision={precision}
                 {...dataAccessors[0]}
               />
             )}

@@ -698,7 +698,9 @@ const base = {
     boxSizing: "border-box",
     userSelect: "none", // add to props
     display: "inline-block", // add to props
-    showLabels: false,
+    showLabels: true,
+    roundNum: true,
+    precision: 0,
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",

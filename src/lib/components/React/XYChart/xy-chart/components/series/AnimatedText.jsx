@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { animated, useSprings } from "react-spring";
 import ChartContext from "../../context/ChartContext";
+import { formatValue } from "../../util/formatValue";
 
 export default function animatedText({
   bars,
@@ -51,7 +52,7 @@ export default function animatedText({
           {...labelProps}
           {...rectProps}
         >
-          {bar.value}
+          {formatValue(roundNum, bar.value, precision)}
         </animated.text>
       ))}
     </>
