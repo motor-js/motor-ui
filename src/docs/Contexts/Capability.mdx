@@ -3,28 +3,3 @@ name: Capability
 route: /capability
 menu: Contexts
 ---
-
-
-import { Props } from 'docz'
-import { Playground } from 'docz'
-import { config } from '../config/config.js'
-import useCapabilityApi from '../../lib/hooks/useCapabilityApi.jsx'
-
-
-<Playground>
-  {() => {
-  const node = React.useRef(null);
-  const { capEngine } = useCapabilityApi(config);
-  if(capEngine) {
-    capEngine.getObject(node.current, 'CurrentSelections');
-  }
-  
-  return (
-  <div>
-    <div ref={node} />
-  </div>
-  );
-  }}
-</Playground>
-
-<br />

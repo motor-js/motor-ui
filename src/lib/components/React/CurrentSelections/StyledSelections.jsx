@@ -24,7 +24,6 @@ function StyledSelections({
   gridArea,
 }) {
   const { qLayout, clearSelections } = SelectionObject({ engine });
-
   let selections = [];
 
   if (qLayout) {
