@@ -305,7 +305,6 @@ export default function CreateXYChart({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                // showLabels={showLabels}
                 // dataKey={measureInfo[0].qFallbackTitle}
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
@@ -326,7 +325,7 @@ export default function CreateXYChart({
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
-              <Group horizontal={renderHorizontally} showLabels={showLabels}>
+              <Group horizontal={renderHorizontally}>
                 {measureInfo.map((measure, index) => (
                   <BarSeries
                     key={measureInfo[index].qFallbackTitle}
@@ -353,7 +352,6 @@ export default function CreateXYChart({
             {chartType.includes("combo") && measureInfo.length > 1 && (
               <>
                 <BarSeries
-                  // showLabels={showLabels}
                   key={measureInfo[0].qFallbackTitle}
                   dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}
