@@ -232,6 +232,8 @@ XYChart.propTypes = {
   backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
+  /** Use dual Y axis on the the chart  */
+  dualAxis: PropTypes.bool,
 };
 
 XYChart.defaultProps = {
@@ -243,6 +245,8 @@ XYChart.defaultProps = {
   // showLabels: null,
   // fontColor: "",
   border: true,
+  /** Use dual Y axis on the the chart  */
+  dualAxis: false,
   // allowSelections: null,
   // showAxis: null,
   // allowSlantedYAxis: null,

@@ -6,6 +6,7 @@ import useRegisteredData from "../../hooks/useRegisteredData";
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
+import { Text } from "@vx/text";
 
 function BarSeries({
   dataKey,
@@ -28,6 +29,22 @@ function BarSeries({
     yScale,
     yAccessor,
   ]);
+
+  const {
+    svgLabel: { baseLabel },
+  } = theme;
+
+  const labelProps = {
+    ...baseLabel,
+    pointerEvents: "none",
+    stroke: "#fff",
+    strokeWidth: 2,
+    paintOrder: "stroke",
+    fontSize: 12,
+  };
+
+  const renderLabel = ({ datum, labelProps }) =>
+    datum.label ? <Text {...labelProps}>{datum.label}</Text> : null;
 
   const [xMin, xMax] = xScale.range();
   const [yMax, yMin] = yScale.range();
@@ -56,16 +73,68 @@ function BarSeries({
     ? Math.min(maybeYZero, Math.max(yMin, yMax))
     : Math.max(yMin, yMax);
 
+  const x = (d) => d.x;
+  const y = (d) => d.y;
+
   // const barColor = colorScale(dataKey) as string;
+
+  const categoryScale = horizontal ? yScale : xScale;
+  const valueScale = horizontal ? xScale : yScale;
+  const categoryField = horizontal ? y : x;
+  const Labels = []; // Labels on top
 
   const bars = useMemo(
     () =>
       data.map((datum, i) => {
         const x = getScaledX(datum);
         const y = getScaledY(datum);
+        const categoryOffset = categoryScale.offset || 0;
+        const barPosition =
+          categoryScale(categoryField(datum)) - categoryOffset;
+
         const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
+        //  const barLength = horizontal
+        //    ? valueScale(valueField(d)) - minPosition
+        //    : valueScale(valueField(d)) - minPosition;
+
+        const barWidth =
+          categoryScale.barWidth ||
+          (categoryScale.bandwidth && categoryScale.bandwidth()) ||
+          0;
+
+        const minValue = Math.min(...valueScale.domain());
 
         const barColor = colorScale(dataKeys ? dataKeys[i] : dataKey);
+
+        const minPosition = valueScale(minValue < 0 ? 0 : minValue);
+
+        const key = `bar-${barPosition}`;
+        // datum.label = datum[1].qNum;
+        // console.log(datum);
+
+        if (renderLabel) {
+          const Label = renderLabel({
+            datum,
+            index: i,
+            labelProps: {
+              key,
+              ...labelProps,
+              x: horizontal
+                ? minPosition + Math.abs(barLength)
+                : barPosition + barWidth / 2,
+              y: horizontal
+                ? barPosition + barWidth / 2
+                : minPosition + Math.min(0, barLength),
+              dx: horizontal ? "0.5em" : 0,
+              dy: horizontal ? 0 : "-0.74em",
+              textAnchor: horizontal ? "start" : "middle",
+              verticalAnchor: horizontal ? "middle" : "end",
+              width: horizontal ? null : barWidth,
+            },
+          });
+
+          if (Label) Labels.push(Label);
+        }
 
         return {
           x: horizontal ? xZeroPosition + Math.min(0, barLength) : x,
@@ -94,6 +163,7 @@ function BarSeries({
         stroke={theme.baseColor ?? "white"}
         {...barProps}
       />
+      {Labels.map((Label) => Label)}
     </g>
   );
 }

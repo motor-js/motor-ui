@@ -76,6 +76,7 @@ function StyledXYChart(props) {
     snapTooltipToDataY,
     backgroundPattern,
     multiColor,
+    dualAxis,
     ...rest
   } = props;
 
@@ -243,6 +244,7 @@ function StyledXYChart(props) {
                   backgroundPattern || xyChart.backgroundPattern
                 }
                 multiColor={multiColor || xyChart.multiColor}
+                dualAxis={dualAxis}
               />
             )}
           </div>

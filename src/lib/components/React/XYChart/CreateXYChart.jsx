@@ -87,8 +87,11 @@ export default function CreateXYChart({
   snapTooltipToDataY,
   backgroundPattern,
   multiColor,
+  dualAxis,
 }) {
   const [currData, setCurrData] = useState(data);
+
+  // const dualAxis = false; // add to props and theme
 
   const getChartType = () =>
     type
@@ -242,9 +245,21 @@ export default function CreateXYChart({
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
+            dualAxis={dualAxis}
           >
             (
             <ChartBackground backgroundPattern={backgroundPattern} />)
+            {/* <Grid
+          top={margin.top}
+          left={margin.left}
+          xScale={dateScale}
+          yScale={temperatureScale}
+          width={xMax}
+          height={yMax}
+          stroke="black"
+          strokeOpacity={0.1}
+          xOffset={dateScale.bandwidth() / 2}
+        /> */}
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
@@ -316,11 +331,13 @@ export default function CreateXYChart({
               }
               numTicks={5}
             />
-            {/* <AxisComponent
-                label={qLayout.measureInfo[1].qFallbackTitle}
-              orientation="right"
-              numTicks={5}
-            /> */}
+            {dualAxis && (
+              <AxisComponent
+                label={measureInfo[1].qFallbackTitle}
+                orientation="right"
+                numTicks={9}
+              />
+            )}
             {/** Dimension axis */}
             <AxisComponent
               // label={dimensionInfo[0].qFallbackTitle}
@@ -338,6 +355,7 @@ export default function CreateXYChart({
               }
             />
           </XYChart>
+
           <Tooltip
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}

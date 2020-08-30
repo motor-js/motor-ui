@@ -6,7 +6,14 @@ import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 
 export default function XYChart(props) {
-  const { children, width, height, margin, captureEvents = true } = props;
+  const {
+    children,
+    width,
+    height,
+    margin,
+    dualAxis,
+    captureEvents = true,
+  } = props;
   const { findNearestData, setChartDimensions } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
   const [svgRef, svgBounds] = useMeasure();
@@ -14,7 +21,11 @@ export default function XYChart(props) {
   // update dimensions in context
   useEffect(() => {
     if (width != null && height != null && width > 0 && height > 0) {
-      setChartDimensions({ width, height, margin });
+      setChartDimensions({
+        width: dualAxis ? width - margin.left : width,
+        height,
+        margin,
+      });
     }
   }, [setChartDimensions, width, height, margin]);
 
@@ -52,7 +63,9 @@ export default function XYChart(props) {
           x={margin.left}
           y={margin.top}
           fill="transparent"
-          width={width - margin.left - margin.right}
+          width={
+            width - margin.left - margin.right - `${dualAxis ? margin.left : 0}`
+          }
           height={height - margin.top - margin.bottom}
           onMouseMove={onMouseMove}
           onMouseLeave={hideTooltip}
