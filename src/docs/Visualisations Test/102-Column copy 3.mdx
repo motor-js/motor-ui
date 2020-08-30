@@ -1,0 +1,85 @@
+---
+name: Column Colouring
+route: /Column_Test_Colour
+menu: Visualisations Test
+---
+
+<h1 style={{ margin: '0px' }}>Column Chart</h1>
+
+<br />
+
+## Import
+
+```javascript
+  import { Column } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Column from '../../lib/components/React/Column/Column.jsx';
+import Bar from '../../lib/components/React/Bar/Bar.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+import { config } from '../config/config.js'
+
+<Playground>
+
+<Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "5c8ddda7-d4a8-4ee1-b994-922fca34830c"
+  }}>
+
+                     <Column
+            cols={[
+          //   { qField: '[OICA region]', qLabel: 'OICA region' ,     qCondChartColor:"=if([OICA region]='Africa','darkred','steelblue')",},
+          //     { qField: '[OICA region]', qLabel: 'OICA region' ,     qCondChartColor:"=if(Sum([Car sales])>5000000,'darkred','steelblue')",},
+               { qField: '[OICA region]', qLabel: 'OICA region' ,},
+                   { qField: 'Territory', qLabel: 'Territory' },
+            //  { qField: '=Sum([Car sales])', qLabel: 'Car sales' }
+          //    { qField: '=Sum([Commercial vehicle sales])/Sum([Car sales])', qLabel: 'Car sales Ratio',
+          //    { qField: '=Sum([Car sales]*if([OICA region]="Americas",-1,1))', qLabel: 'Car sales Ratio',
+
+             { qField: '=Sum([Car sales])*(1)', qLabel: 'Neg Car sales', qCondChartColor:"=if(Sum([Car sales])>5000000,'darkred','steelblue')" },
+          //         { qField: '=Sum([Commercial vehicle sales])', qLabel: 'Commercial vehicle sales' }
+        //           qNumFormat: {
+        //      "qType": "R",
+        //      "qnDec": 14,
+        //      "qUseThou": 1,
+        //    //  "qFmt": "##############",
+        //      "qFmt": '#,##0.00%',
+        //      "qDec": ".",
+        //      "qThou": ","
+        //    }, 
+        //   }
+            ]}
+           //  title="Vehicle Sales by Region"
+           //  subTitle="Vehicle Sales by Region"
+            showGridlines={true}
+            showLabels="inside"
+            // suppressScroll={true}
+            // textOnAxis='none'
+            // showLegend={false}
+            // suppressZero={true}
+            // stacked={true}
+            // percentStacked={true}
+            height="410px"
+            //tickSpacing="narrow"
+            // border = {false}
+            // backgroundColor="none"
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}/>
+
+           
+     
+  </Motor>
+</Playground>

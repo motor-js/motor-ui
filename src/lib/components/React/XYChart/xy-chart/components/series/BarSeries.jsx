@@ -113,7 +113,6 @@ function BarSeries({
 
         const key = `bar-${barPosition}`;
         datum.label = datum[1].qNum;
-        // console.log(datum);
 
         if (renderLabel && showLabels) {
           const Label = renderLabel({

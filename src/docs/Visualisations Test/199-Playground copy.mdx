@@ -1,0 +1,57 @@
+---
+name: Playground_Bar
+route: /Playground_Bar
+menu: Visualisations Test
+---
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Bar from '../../lib/components/React/Bar/Bar.jsx';
+import Column from '../../lib/components/React/Column/Column.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+//import { config } from '../config/config.js';
+
+<Playground>
+<Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "5c8ddda7-d4a8-4ee1-b994-922fca34830c"
+  }}>
+      <Bar
+            cols={[
+              { qField: 'Year', qLabel: 'Year' },
+              { qField: '[OICA region]', qLabel: 'OICA region' },
+              { qField: '=Sum([Car sales])*if(Year=2011,-1,1)', qLabel: 'Car sales' },
+     //        {
+     //          qField: '=Sum([Commercial vehicle sales])',
+     //          qLabel: 'Commercial vehicles sales'
+     //        }
+            ]}
+           //  title="Vehicle Sales by Region"
+            // subTitle="Vehicle Sales by Region"
+                        tickSpacing="narrow"
+            showGridlines={true}
+            textOnAxis='both'
+            // showLegend={true}
+            showLabels="top"
+            suppressZero={true}
+          //  suppressScroll={true}
+          //  stacked={true}
+            // percentStacked={true}
+            height="410px"
+            // border = {false}
+            calcCondition={{
+              qCond: '1+1=2',
+              qMsg: 'Calculation condition has not been met'
+            }}></Bar>
+     
+  </Motor>
+
+
+</Playground>
+
+<br />

@@ -1,0 +1,63 @@
+---
+name: WordCloud
+route: /Wordcloud_Test
+menu: Visualisations Test
+---
+
+<h1 style={{ margin: '0px' }}>WordCloud Chart</h1>
+
+<br />
+
+## Import
+
+```javascript
+  import { WordCloud } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import WordCloud from '../../lib/components/React/WordCloud/WordCloud.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx';
+
+<Playground>
+<Motor  
+  config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            appId: "5c8ddda7-d4a8-4ee1-b994-922fca34830c"
+  }}>     
+          
+                  <WordCloud
+            // width="600px"
+            // cols={['Year', 'OICA region', '=Sum(  [Commercial vehicle sales])']}
+            height="410px"
+            cols={[
+              { qField: 'Territory', qLabel: 'Year' },
+              // { qField: 'OICA region', qLabel: 'OICA region' },
+              {
+                qField: '=Sum([Commercial vehicle sales])',
+                qLabel: 'Commercial vehicle sales'
+              }
+              // {
+              //   qField: '=Sum([Commercial vehicle sales])',
+              //   qLabel: 'Commercial vehicles sales'
+              // }
+            ]}
+            suppressZero={true}
+            // showLegend={false}
+            // border = {false}
+            />
+     
+  </Motor>
+</Playground>
+
+<br />
+
+## Props
