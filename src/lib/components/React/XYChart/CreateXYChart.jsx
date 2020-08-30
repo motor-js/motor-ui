@@ -268,6 +268,7 @@ export default function CreateXYChart({
       colorScale={colorScaleConfig}
       roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
       precision={precision === undefined ? xyChart.precision : precision}
+      showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -304,7 +305,7 @@ export default function CreateXYChart({
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                showLabels={showLabels}
+                // showLabels={showLabels}
                 // dataKey={measureInfo[0].qFallbackTitle}
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
@@ -352,6 +353,7 @@ export default function CreateXYChart({
             {chartType.includes("combo") && measureInfo.length > 1 && (
               <>
                 <BarSeries
+                  // showLabels={showLabels}
                   key={measureInfo[0].qFallbackTitle}
                   dataKey={measureInfo[0].qFallbackTitle}
                   data={currData}

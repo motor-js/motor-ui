@@ -16,7 +16,7 @@ const GROUP_ACCESSOR = (d) => d.group;
 // @TODO add GroupKeys type
 export default function Group({
   horizontal,
-  showLabels,
+  // showLabels,
   children,
   ...rectProps
 }) {
@@ -26,6 +26,7 @@ export default function Group({
     margin,
     xScale,
     yScale,
+    showLabels,
     colorScale,
     dataRegistry,
     registerData,

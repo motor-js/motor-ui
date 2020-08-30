@@ -53,7 +53,7 @@ function StyledXYChart(props) {
     sortOrder,
     calcCondition,
     suppressZero,
-    showLabels,
+    // showLabels,
     // textOnAxis,
     // showGridlines,
     otherTotalSpec,
@@ -255,9 +255,9 @@ function StyledXYChart(props) {
                   multiColor === undefined ? xyChart.multiColor : multiColor
                 }
                 // dualAxis={dualAxis}
-                showLabels={
-                  showLabels === undefined ? xyChart.showLabels : showLabels
-                }
+                // showLabels={
+                //   showLabels === undefined ? xyChart.showLabels : showLabels
+                // }
                 // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
                 // precision={
                 //   precision === undefined ? xyChart.precision : precision

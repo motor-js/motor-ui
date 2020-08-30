@@ -18,12 +18,18 @@ function BarSeries({
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
-  showLabels,
+  // showLabels,
   ...barProps
 }) {
-  const { theme, colorScale, xScale, yScale, roundNum, precision } = useContext(
-    ChartContext
-  );
+  const {
+    theme,
+    colorScale,
+    xScale,
+    yScale,
+    roundNum,
+    precision,
+    showLabels,
+  } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
