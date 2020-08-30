@@ -88,6 +88,8 @@ function StyledXYChart(props) {
   // if the prop is undefined, use the base theme
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
+  const outsidePadding = "10px";
+
   // retrieve XYChart data from HyperCube
   const {
     beginSelections,
@@ -190,7 +192,7 @@ function StyledXYChart(props) {
               border: isSelectionXYChartVisible ? "1px solid #CCCCCC" : "none",
               overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
               overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
-              padding: "10px",
+              padding: outsidePadding,
             }}
           >
             {/* <div
@@ -203,7 +205,11 @@ function StyledXYChart(props) {
               <CreateXYChart
                 // width={width}
                 // height={height}
-                width={gridArea ? ref.current.offsetWidth : parseInt(width, 10)}
+                width={
+                  gridArea
+                    ? ref.current.offsetWidth
+                    : parseInt(width, 10) - parseInt(outsidePadding, 10) * 2 // Adjust for outside padding
+                }
                 height={
                   gridArea
                     ? ref.current.offsetHeight -
