@@ -8,6 +8,7 @@ import ChartContext from "../../context/ChartContext";
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
+import AnimatedText from "./AnimatedText";
 
 const GROUP_ACCESSOR = (d) => d.group;
 
@@ -194,6 +195,16 @@ export default function Group({ horizontal, children, ...rectProps }) {
             left={barGroup.x0}
           >
             <AnimatedBars
+              bars={barGroup.bars}
+              x={(bar) => bar.x}
+              y={(bar) => Math.min(scaledZeroPosition, bar.y)}
+              width={(bar) => bar.width}
+              height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
+              rx={2}
+              {...rectProps}
+            />
+            {/* <GroupLabels barGroup={barGroup} bars={barGroup.bars} /> */}
+            <AnimatedText
               bars={barGroup.bars}
               x={(bar) => bar.x}
               y={(bar) => Math.min(scaledZeroPosition, bar.y)}
