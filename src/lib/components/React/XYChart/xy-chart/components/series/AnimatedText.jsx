@@ -11,7 +11,7 @@ export default function animatedText({
   height,
   ...rectProps
 }) {
-  const { theme } = useContext(ChartContext);
+  const { theme, roundNum, precision } = useContext(ChartContext);
 
   const {
     svgLabel: { baseLabel },
@@ -32,7 +32,7 @@ export default function animatedText({
       y: y?.(bar) ?? bar.y,
       width: width?.(bar) ?? bar.width,
       height: height?.(bar) ?? bar.height,
-      value: bar.value,
+      value: formatValue(roundNum, bar.value, precision),
       color: bar.color,
     }))
   );
@@ -52,7 +52,7 @@ export default function animatedText({
           {...labelProps}
           {...rectProps}
         >
-          {formatValue(roundNum, bar.value, precision)}
+          {bar.value}
         </animated.text>
       ))}
     </>

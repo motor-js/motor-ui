@@ -183,7 +183,7 @@ XYChart.propTypes = {
   /** RoundNum of the Bar */
   roundNum: PropTypes.bool,
   /** Decimai precision for RoundNum of the Bar */
-  precision: PropTypes.number,
+  precision: PropTypes.bool,
   // /** Title of the Bar */
   // title: PropTypes.string,
   // /** Sub Title of the Bar */

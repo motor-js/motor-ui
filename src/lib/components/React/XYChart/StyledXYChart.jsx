@@ -259,7 +259,9 @@ function StyledXYChart(props) {
                   showLabels === undefined ? xyChart.showLabels : showLabels
                 }
                 roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-                precision={precision || xyChart.precision}
+                precision={
+                  precision === undefined ? xyChart.precision : precision
+                }
               />
             )}
           </div>

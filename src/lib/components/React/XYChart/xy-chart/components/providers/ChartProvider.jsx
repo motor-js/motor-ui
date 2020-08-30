@@ -221,7 +221,8 @@ export default class ChartProvider extends React.Component {
   };
 
   render() {
-    const { theme } = this.props;
+    const { theme, roundNum, precision } = this.props;
+
     const {
       width,
       height,
@@ -242,9 +243,12 @@ export default class ChartProvider extends React.Component {
           margin,
           theme,
           dataRegistry,
+          roundNum,
+          precision,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
           setChartDimensions: this.setChartDimensions,
+          setNumberFormat: this.setNumberFormat,
           findNearestData: this.findNearestData,
         }}
       >

@@ -254,6 +254,7 @@ export default function CreateXYChart({
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
       roundNum={roundNum}
+      precision={precision}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -295,8 +296,6 @@ export default function CreateXYChart({
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
                 data={currData}
-                roundNum={roundNum}
-                precision={precision}
                 {...dataAccessors[0]}
               />
             )}

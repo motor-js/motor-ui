@@ -19,11 +19,11 @@ function BarSeries({
   horizontal,
   barThickness: barThicknessProp,
   showLabels,
-  roundNum,
-  precision,
   ...barProps
 }) {
-  const { theme, colorScale, xScale, yScale } = useContext(ChartContext);
+  const { theme, colorScale, xScale, yScale, roundNum, precision } = useContext(
+    ChartContext
+  );
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,

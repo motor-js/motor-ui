@@ -700,7 +700,7 @@ const base = {
     display: "inline-block", // add to props
     showLabels: true,
     roundNum: true,
-    precision: 0,
+    precision: true,
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",
