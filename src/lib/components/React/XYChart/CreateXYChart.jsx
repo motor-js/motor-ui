@@ -17,6 +17,7 @@ import Stack from "./xy-chart/components/series/Stack";
 // import Grid from "./xy-chart/components/grids/Grid";
 
 import { roundNumber, colorByExpression } from "../../../utils";
+import { formatValue } from "./xy-chart/util/formatValue";
 
 const numDimensionTicks = 5;
 
@@ -111,8 +112,6 @@ export default function CreateXYChart({
 
   const [currData, setCurrData] = useState(data);
 
-  // const dualAxis = false; // add to props and theme
-
   const getSeriesValues = (d, colIndex) =>
     dimensionInfo.length !== 1 ? Number(d[1].qNum) : Number(d[colIndex].qNum);
 
@@ -159,7 +158,12 @@ export default function CreateXYChart({
             textDecoration: "underline solid currentColor",
           }}
         >
-          {measureInfo[0].qFallbackTitle} {closestDatum.datum[1].qNum}
+          {measureInfo[0].qFallbackTitle}{" "}
+          {formatValue(
+            closestDatum.datum[1].qNum,
+            roundNum === undefined ? xyChart.roundNum : roundNum,
+            precision === undefined ? xyChart.precision : precision
+          )}
         </div>
       )}
       {measureInfo.map(
@@ -178,7 +182,11 @@ export default function CreateXYChart({
               }}
             >
               {measure.qFallbackTitle}{" "}
-              {closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum}
+              {formatValue(
+                closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum,
+                roundNum === undefined ? xyChart.roundNum : roundNum,
+                precision === undefined ? xyChart.precision : precision
+              )}
             </div>
           )
       )}
@@ -218,6 +226,11 @@ export default function CreateXYChart({
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
 
+  const {
+    //  global: { colorTheme: globalColorTheme },
+    xyChart,
+  } = theme;
+
   const themeObj = {
     // ...defaultTheme,
     ...theme.xyChart.defaultTheme,
@@ -253,8 +266,8 @@ export default function CreateXYChart({
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
-      roundNum={roundNum}
-      precision={precision}
+      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+      precision={precision === undefined ? xyChart.precision : precision}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}

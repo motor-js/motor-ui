@@ -32,7 +32,7 @@ export default function animatedText({
       y: y?.(bar) ?? bar.y,
       width: width?.(bar) ?? bar.width,
       height: height?.(bar) ?? bar.height,
-      value: formatValue(roundNum, bar.value, precision),
+      value: formatValue(bar.value, roundNum, precision),
       color: bar.color,
     }))
   );

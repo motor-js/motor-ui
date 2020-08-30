@@ -1,6 +1,6 @@
 import { roundNumber } from "./roundNumber";
 
-export function formatValue(roundNum, val, precision) {
+export function formatValue(val, roundNum, precision) {
   let formattedValue = roundNum
     ? roundNumber(Math.abs(val), precision)
     : Math.abs(val);

@@ -76,9 +76,9 @@ function StyledXYChart(props) {
     snapTooltipToDataY,
     backgroundPattern,
     multiColor,
-    dualAxis,
-    roundNum,
-    precision,
+    // dualAxis,
+    // roundNum,
+    // precision,
     ...rest
   } = props;
 
@@ -254,14 +254,15 @@ function StyledXYChart(props) {
                 multiColor={
                   multiColor === undefined ? xyChart.multiColor : multiColor
                 }
-                dualAxis={dualAxis}
+                // dualAxis={dualAxis}
                 showLabels={
                   showLabels === undefined ? xyChart.showLabels : showLabels
                 }
-                roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-                precision={
-                  precision === undefined ? xyChart.precision : precision
-                }
+                // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+                // precision={
+                //   precision === undefined ? xyChart.precision : precision
+                // }
+                {...rest}
               />
             )}
           </div>

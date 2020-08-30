@@ -50,7 +50,7 @@ function BarSeries({
   const renderLabel = ({ datum, labelProps }) =>
     datum.label ? (
       <Text {...labelProps}>
-        {formatValue(roundNum, datum.label, precision)}
+        {formatValue(datum.label, roundNum, precision)}
       </Text>
     ) : null;
 
