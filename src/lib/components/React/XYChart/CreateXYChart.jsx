@@ -118,22 +118,29 @@ export default function CreateXYChart({
   const getSeriesValues = (d, colIndex) =>
     dimensionInfo.length !== 1 ? Number(d[1].qNum) : Number(d[colIndex].qNum);
 
-  const getChartType = () => {
-    // const chartType = null;
-
-    // if (
-    //   type === "combo" &&
-    //   dimensionInfo.length === 1 &&
-    //   measureInfo.length === 1
-    // )
-    //   return "bar";
-
-    return type
+  const getChartType = () =>
+    type
       ? type
       : dimensionInfo.length === 1 && measureInfo.length === 1
       ? "bar"
       : "groupedbar";
-  };
+
+  // {
+  // const chartType = null;
+
+  // if (
+  //   type === "combo" &&
+  //   dimensionInfo.length === 1 &&
+  //   measureInfo.length === 1
+  // )
+  //   return "bar";
+
+  //   return type
+  //     ? type
+  //     : dimensionInfo.length === 1 && measureInfo.length === 1
+  //     ? "bar"
+  //     : "groupedbar";
+  // };
 
   const [chartType, setchartType] = useState([getChartType()]);
 
