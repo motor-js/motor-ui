@@ -221,7 +221,7 @@ export default class ChartProvider extends React.Component {
   };
 
   render() {
-    const { theme, roundNum, precision, showLabels } = this.props;
+    const { theme, roundNum, precision, showLabels, showPoints } = this.props;
 
     const {
       width,
@@ -246,6 +246,7 @@ export default class ChartProvider extends React.Component {
           roundNum,
           precision,
           showLabels,
+          showPoints,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
           setChartDimensions: this.setChartDimensions,

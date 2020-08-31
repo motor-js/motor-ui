@@ -6,15 +6,18 @@ import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
 
+import { GlyphCircle } from "@vx/glyph";
+
 function LineSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
   dataKey,
   mouseEvents,
+  horizontal = false,
   ...lineProps
 }) {
-  const { xScale, yScale, colorScale } = useContext(ChartContext);
+  const { xScale, yScale, colorScale, showPoints } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
@@ -37,13 +40,35 @@ function LineSeries({
 
   const color = colorScale(dataKey) ?? "#222";
 
+  const primaryColor = "#8921e0";
+  const secondaryColor = "#00f2ff";
+  const contrastColor = "#ffffff";
+
   return (
-    <g>
+    <g className="vx-group line-series">
       <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
         {({ path }) => (
           <AnimatedPath stroke={color} {...lineProps} d={path(data) || ""} />
         )}
       </LinePath>
+
+      {showPoints &&
+        data.map((d, i) => {
+          const left = getScaledX(d);
+          const top = getScaledY(d);
+          return (
+            <g key={`line-glyph-${i}`}>
+              <GlyphCircle
+                left={left}
+                top={top}
+                size={110}
+                fill={i % 2 === 0 ? primaryColor : contrastColor}
+                stroke={i % 2 === 0 ? contrastColor : primaryColor}
+                strokeWidth={2}
+              />
+            </g>
+          );
+        })}
     </g>
   );
 }

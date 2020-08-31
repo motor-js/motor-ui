@@ -89,6 +89,7 @@ export default function CreateXYChart({
   backgroundPattern,
   multiColor,
   showLabels,
+  showPoints,
   dualAxis,
   roundNum,
   precision,
@@ -107,6 +108,7 @@ export default function CreateXYChart({
 
   //   // return [d[0], d[1]];
   // });
+
   const newData = qMatrix;
 
   const data = dimensionInfo.length === 1 ? qMatrix : newData;
@@ -129,7 +131,10 @@ export default function CreateXYChart({
   // console.log(qMatrix);
 
   const dataKeys =
-    multiColor && dimensionInfo.length == 1 && measureInfo.length === 1
+    multiColor &&
+    dimensionInfo.length == 1 &&
+    measureInfo.length === 1 &&
+    chartType.includes("bar")
       ? data.map((d) => d[0].qText)
       : null;
 
@@ -270,6 +275,7 @@ export default function CreateXYChart({
       roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
       precision={precision === undefined ? xyChart.precision : precision}
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
+      showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}

@@ -203,8 +203,10 @@ XYChart.propTypes = {
   // // allowZoom: PropTypes.bool, // Descoped to later version
   // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
   // // scrollRatio: PropTypes.number, // Descoped to later version
-  // /** Pddding for each bar */
+  /** Pddding for each bar */
   padding: PropTypes.number,
+  /** Show markers on line chart */
+  showPoints: PropTypes.bool,
   // /** Error messgae to display when invalid dimension */
   // dimensionErrMsg: PropTypes.string,
   // /** Error messgae to display when invalid measure */
