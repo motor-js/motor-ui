@@ -8,7 +8,19 @@ import useRegisteredData from "../../hooks/useRegisteredData";
 import AnimatedText from "./AnimatedText";
 // import { callOrValue, isDefined } from "../../util/chartUtils";
 
-import { GlyphCircle } from "@vx/glyph";
+// import { GlyphCircle } from "@vx/glyph";
+import {
+  Glyph as CustomGlyph,
+  GlyphCircle,
+  GlyphCross,
+  GlyphDiamond,
+  GlyphSquare,
+  GlyphStar,
+  GlyphTriangle,
+  GlyphWye,
+} from "@vx/glyph";
+
+const ChartGlyph = GlyphCircle;
 
 function LineSeries({
   data: _,
@@ -61,7 +73,7 @@ function LineSeries({
           const top = getScaledY(d);
           return (
             <g key={`line-glyph-${i}`}>
-              <GlyphCircle
+              <ChartGlyph
                 left={left}
                 top={top}
                 size={110}
