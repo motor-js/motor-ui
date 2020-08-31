@@ -6,6 +6,7 @@ import utility from '../utils/CapApiUtils'
 let capabilityApisPromise
 let capApiSAASPromise
 
+/*
 const _deserialize = response => (response.status !== 200 ? false : response.json())
 
 function getTenant() {
@@ -32,7 +33,7 @@ function _request(url, config, method = 'GET', payload = null) {
       body: payload,
     })
   }
-}
+} */
 
 const loadCapSAAS = async config => {
   try {
@@ -60,16 +61,13 @@ const loadCapSAAS = async config => {
         webIntegrationId,
       })
     }
-
+    document.body.appendChild(script)
     script.loaded = new Promise(resolve => {
       script.onload = () => { resolve() }
     })
 
-    document.body.appendChild(script)
-
     capApiSAASPromise = Promise.all([link.loaded, script.loaded])
     await capApiSAASPromise
-  
   } catch (error) {
     throw new Error(error)
   }
@@ -99,7 +97,6 @@ const loadCapabilityApis = async config => {
     })
 
     capabilityApisPromise = Promise.all([capabilityApisJS.loaded, capabilityApisCSS.loaded])
-    
     await capabilityApisPromise
   } catch (error) {
     throw new Error(error)
@@ -110,33 +107,37 @@ function useCapability(config) {
   const [viz, setViz] = useState(() => {
     (async () => {
       if (config && config.qcs) {
-        try {
-          await loadCapSAAS(config)
-          //const apps = await _request('/api/v1/items?limit=40', config).then(_deserialize);
+        const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
 
+        const qConfig = {
+          host: config.host,
+          isSecure: config.secure,
+          port: config.port || 443,
+          prefix,
+          appId: config.appId,
+          webIntegrationId: config.webIntId,
+        }
+
+        try {
+          await loadCapSAAS(qConfig)
           window.require.config({
-            baseUrl: `https://${config.host}/resources`,
+            baseUrl: `https://${qConfig.host}/resources`,
             webIntegrationId: config.webIntId,
           })
-          const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
 
-          return new Promise(resolve => {
-            window.require(['js/qlik'], async q => {
-              const app = q.openApp(config.appId, config)
-              console.log(config)
-              // apply theme set in QSE
-          //    app.theme.get().then(theme => {
-          //      theme.apply()
-          //    })
-              setViz(app)
-
-              return 1
+          window.require(['js/qlik'], async q => {
+            const app = q.openApp(qConfig.appId, qConfig)
+            // apply theme set in QSE
+            app.theme.get().then(theme => {
+              theme.apply()
             })
+            setViz(app)
+
+            return 1
           })
         } catch (error) {
           throw new Error(error)
         }
-
       } else {
         try {
           await loadCapabilityApis(config)
