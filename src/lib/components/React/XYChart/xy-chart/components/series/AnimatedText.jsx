@@ -9,7 +9,7 @@ export default function animatedText({
   y,
   width,
   height,
-  ...rectProps
+  // ...rectProps
 }) {
   const { theme, roundNum, precision } = useContext(ChartContext);
 
@@ -30,8 +30,8 @@ export default function animatedText({
     bars.map((bar) => ({
       x: x?.(bar) ?? bar.x,
       y: y?.(bar) ?? bar.y,
-      width: width?.(bar) ?? bar.width,
-      height: height?.(bar) ?? bar.height,
+      // width: width?.(bar) ?? bar.width,
+      // height: height?.(bar) ?? bar.height,
       value: formatValue(bar.value, roundNum, precision),
       color: bar.color,
     }))
@@ -46,11 +46,11 @@ export default function animatedText({
           key={`${index}`}
           x={bar.x}
           y={bar.y}
-          width={bar.width}
-          height={bar.height}
+          // width={bar.width}
+          // height={bar.height}
           fill={bar.color}
           {...labelProps}
-          {...rectProps}
+          // {...rectProps}
         >
           {bar.value}
         </animated.text>

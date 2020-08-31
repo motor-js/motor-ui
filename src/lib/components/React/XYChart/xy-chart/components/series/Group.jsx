@@ -212,13 +212,13 @@ export default function Group({
                     : minPosition
                 }
                 y={(bar) => bar.y + bar.height / 2}
-                width={(bar) => bar.width}
-                height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
+                // width={(bar) => bar.width}
+                // height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
                 rx={2}
                 dx={horizontal ? "0.5em" : 0}
                 dy={horizontal ? 0 : "-0.74em"}
                 textAnchor="start"
-                {...rectProps}
+                // {...rectProps}
               />
             )}
           </VxGroup>
