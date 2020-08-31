@@ -701,6 +701,7 @@ const base = {
     showLabels: true,
     roundNum: true,
     precision: true,
+    showVerticalCrosshair: true,
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",

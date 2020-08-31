@@ -92,6 +92,7 @@ export default function CreateXYChart({
   dualAxis,
   roundNum,
   precision,
+  showVerticalCrosshair,
 }) {
   // let datum = [];
 
@@ -402,6 +403,7 @@ export default function CreateXYChart({
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
             renderTooltip={renderTooltip}
+            showVerticalCrosshair={showVerticalCrosshair}
           />
           {legendTopBottom === "bottom" && legend}
         </div>

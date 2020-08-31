@@ -237,6 +237,7 @@ XYChart.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
+  showVerticalCrosshair: PropTypes.bool,
 };
 
 XYChart.defaultProps = {

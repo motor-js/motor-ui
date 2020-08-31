@@ -79,6 +79,7 @@ function StyledXYChart(props) {
     // dualAxis,
     // roundNum,
     // precision,
+    showVerticalCrosshair,
     ...rest
   } = props;
 
@@ -253,6 +254,11 @@ function StyledXYChart(props) {
                 }
                 multiColor={
                   multiColor === undefined ? xyChart.multiColor : multiColor
+                }
+                showVerticalCrosshair={
+                  showVerticalCrosshair === undefined
+                    ? xyChart.showVerticalCrosshair
+                    : showVerticalCrosshair
                 }
                 // dualAxis={dualAxis}
                 // showLabels={
