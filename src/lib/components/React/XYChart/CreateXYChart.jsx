@@ -121,12 +121,12 @@ export default function CreateXYChart({
   const getChartType = () => {
     // const chartType = null;
 
-    if (
-      type === "combo" &&
-      dimensionInfo.length === 1 &&
-      measureInfo.length === 1
-    )
-      return "bar";
+    // if (
+    //   type === "combo" &&
+    //   dimensionInfo.length === 1 &&
+    //   measureInfo.length === 1
+    // )
+    //   return "bar";
 
     return type
       ? type
