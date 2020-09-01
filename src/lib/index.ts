@@ -19,6 +19,7 @@ export { default as Sidebar } from "./components/React/Sidebar";
 export { default as SidebarNext } from "./components/React/SidebarNext";
 export { default as NavItem } from "./components/React/NavItem";
 export { default as Login } from "./components/React/Login";
+export { default as QlikSelections } from "./components/React/QlikSelections";
 
 export { default as useEngine } from "./hooks/useEngine";
 export { default as useHyperCube } from "./hooks/useHyperCube";

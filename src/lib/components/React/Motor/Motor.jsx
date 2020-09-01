@@ -7,23 +7,23 @@ import defaultTheme from "../../../themes/defaultTheme";
 import Login from "../Login";
 import NotConnected from "../NotConnected";
 
-function Motor({ children, theme, config, engine, logo, logoWidth, logoHeight }) {
+function Motor({ children, theme, config, engine, logo, logoWidth, logoHeight, }) {
+  
   const [myTheme, setMyTheme] = useState(defaultTheme);
   const [myConfig, setMyConfig] = useState(config);
-
   const nextTheme = deepMerge(myTheme, theme);
 
   // eslint-disable-next-line react/react-in-jsx-scope
   return (
-    <EngineContext.Provider value={engine}>
-      <ConfigContext.Provider value={myConfig}>
-        <ThemeContext.Provider value={nextTheme}>
-          <Login logo={logo} logoHeight={logoHeight} logoWidth={logoWidth}/>
-          <NotConnected />
-          {children}
-        </ThemeContext.Provider>
-      </ConfigContext.Provider>
-    </EngineContext.Provider>
+      <EngineContext.Provider value={engine}>
+        <ConfigContext.Provider value={myConfig}>
+          <ThemeContext.Provider value={nextTheme}>
+            <Login logo={logo} logoHeight={logoHeight} logoWidth={logoWidth}/>
+            <NotConnected />
+            {children}
+          </ThemeContext.Provider>
+        </ConfigContext.Provider>
+      </EngineContext.Provider>
   );
 }
 
