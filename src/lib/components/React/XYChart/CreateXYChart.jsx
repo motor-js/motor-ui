@@ -16,8 +16,7 @@ import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
 // import Grid from "./xy-chart/components/grids/Grid";
 
-import { roundNumber, colorByExpression } from "../../../utils";
-import { formatValue } from "./xy-chart/util/formatValue";
+import { colorByExpression } from "../../../utils";
 
 const numDimensionTicks = 5;
 
@@ -126,23 +125,6 @@ export default function CreateXYChart({
       ? "bar"
       : "groupedbar";
 
-  // {
-  // const chartType = null;
-
-  // if (
-  //   type === "combo" &&
-  //   dimensionInfo.length === 1 &&
-  //   measureInfo.length === 1
-  // )
-  //   return "bar";
-
-  //   return type
-  //     ? type
-  //     : dimensionInfo.length === 1 && measureInfo.length === 1
-  //     ? "bar"
-  //     : "groupedbar";
-  // };
-
   const [chartType, setchartType] = useState([getChartType()]);
 
   // console.log(chartType, newData);
@@ -169,53 +151,6 @@ export default function CreateXYChart({
     chartType.includes("bar");
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
-
-  const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
-    <>
-      <div>{closestDatum.datum[0].qText}</div>
-      {/* <Console log={closestDatum.datum[0].qText} /> */}
-      <br />
-      {dimensionInfo.length === 1 && measureInfo.length === 1 && dataKeys && (
-        <div
-          style={{
-            color: colorScale(`${closestDatum.datum[0].qText}`),
-            textDecoration: "underline solid currentColor",
-          }}
-        >
-          {measureInfo[0].qFallbackTitle}{" "}
-          {formatValue(
-            closestDatum.datum[1].qNum,
-            roundNum === undefined ? xyChart.roundNum : roundNum,
-            precision === undefined ? xyChart.precision : precision
-          )}
-        </div>
-      )}
-      {measureInfo.map(
-        (measure, index) =>
-          closestData?.[`${measure.qFallbackTitle}`] &&
-          closestDatum.datum[0].qText ===
-            closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
-            <div
-              key={measure.qFallbackTitle}
-              style={{
-                color: colorScale(`${measure.qFallbackTitle}`),
-                textDecoration:
-                  closestDatum.key === `${measure.qFallbackTitle}`
-                    ? "underline solid currentColor"
-                    : "none",
-              }}
-            >
-              {measure.qFallbackTitle}{" "}
-              {formatValue(
-                closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum,
-                roundNum === undefined ? xyChart.roundNum : roundNum,
-                precision === undefined ? xyChart.precision : precision
-              )}
-            </div>
-          )
-      )}
-    </>
-  );
 
   const valueScaleConfig = useMemo(
     () => ({
@@ -295,6 +230,9 @@ export default function CreateXYChart({
       showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
       roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
       precision={precision === undefined ? xyChart.precision : precision}
+      dimensionInfo={dimensionInfo}
+      measureInfo={measureInfo}
+      dataKeys={dataKeys}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -427,7 +365,7 @@ export default function CreateXYChart({
           <Tooltip
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
-            renderTooltip={renderTooltip}
+            // renderTooltip={renderTooltip}
             showVerticalCrosshair={showVerticalCrosshair}
           />
           {legendTopBottom === "bottom" && legend}

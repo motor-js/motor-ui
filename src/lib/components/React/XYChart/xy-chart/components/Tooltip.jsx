@@ -6,7 +6,7 @@ import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
 
 export default function Tooltip({
-  renderTooltip,
+  // renderTooltip,
   snapToDataX,
   snapToDataY,
   // showVerticalCrosshair = true,
@@ -14,8 +14,19 @@ export default function Tooltip({
   renderInPortal = false,
 }) {
   const { tooltipData } = useContext(TooltipContext) || {};
-  const { margin, xScale, yScale, colorScale, dataRegistry, height, theme } =
-    useContext(ChartContext) || {};
+  const {
+    margin,
+    xScale,
+    yScale,
+    colorScale,
+    dataRegistry,
+    height,
+    theme,
+    formatValue,
+    dimensionInfo,
+    measureInfo,
+    dataKeys,
+  } = useContext(ChartContext) || {};
 
   // early return if there's no tooltip
   const {
@@ -49,6 +60,47 @@ export default function Tooltip({
     : svgMouseY;
 
   const Container = renderInPortal ? Portal : React.Fragment;
+
+  const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
+    <>
+      <div>{closestDatum.datum[0].qText}</div>
+      {/* <Console log={closestDatum.datum[0].qText} /> */}
+      <br />
+      {dimensionInfo.length === 1 && measureInfo.length === 1 && dataKeys && (
+        <div
+          style={{
+            color: colorScale(`${closestDatum.datum[0].qText}`),
+            textDecoration: "underline solid currentColor",
+          }}
+        >
+          {measureInfo[0].qFallbackTitle}{" "}
+          {formatValue(closestDatum.datum[1].qNum)}
+        </div>
+      )}
+      {measureInfo.map(
+        (measure, index) =>
+          closestData?.[`${measure.qFallbackTitle}`] &&
+          closestDatum.datum[0].qText ===
+            closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+            <div
+              key={measure.qFallbackTitle}
+              style={{
+                color: colorScale(`${measure.qFallbackTitle}`),
+                textDecoration:
+                  closestDatum.key === `${measure.qFallbackTitle}`
+                    ? "underline solid currentColor"
+                    : "none",
+              }}
+            >
+              {measure.qFallbackTitle}{" "}
+              {formatValue(
+                closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum
+              )}
+            </div>
+          )
+      )}
+    </>
+  );
 
   return (
     <Container>

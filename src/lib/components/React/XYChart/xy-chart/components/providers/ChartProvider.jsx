@@ -231,7 +231,15 @@ export default class ChartProvider extends React.Component {
   };
 
   render() {
-    const { theme, showLabels, showPoints, showAxis } = this.props;
+    const {
+      theme,
+      showLabels,
+      showPoints,
+      showAxis,
+      dimensionInfo,
+      measureInfo,
+      dataKeys,
+    } = this.props;
 
     const {
       width,
@@ -256,6 +264,9 @@ export default class ChartProvider extends React.Component {
           showLabels,
           showPoints,
           showAxis,
+          dimensionInfo,
+          measureInfo,
+          dataKeys,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
           setChartDimensions: this.setChartDimensions,
