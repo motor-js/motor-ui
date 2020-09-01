@@ -7,6 +7,7 @@ import ChartProvider from "./xy-chart/components/providers/ChartProvider";
 import XYChart from "./xy-chart/components/XYChart";
 import BarSeries from "./xy-chart/components/series/BarSeries";
 import LineSeries from "./xy-chart/components/series/LineSeries";
+import AreaSeries from "./xy-chart/components/series/AreaSeries";
 import ChartBackground from "./xy-chart/components/ChartBackground";
 import EventProvider from "./xy-chart/components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
@@ -384,6 +385,17 @@ export default function CreateXYChart({
                 />
               </>
             )}
+            {chartType.includes("area") &&
+              dimensionInfo.length <= 1 &&
+              measureInfo.map((measure, index) => (
+                <AreaSeries
+                  key={measureInfo[index].qFallbackTitle}
+                  dataKey={measureInfo[index].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[index]}
+                  strokeWidth={1.5}
+                />
+              ))}
             {/** Temperature axis */}
             <AxisComponent
               label={measureInfo[0].qFallbackTitle}

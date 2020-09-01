@@ -1,183 +1,136 @@
-import { Area, LinePath } from "@vx/shape";
-import { color } from "../../theme";
-import { FocusBlurHandler } from "../../shared";
-import { Group } from "@vx/group";
-import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext, useCallback } from "react";
+import { animated, useSpring } from "react-spring";
+import { AreaClosed } from "@vx/shape";
+import ChartContext from "../../context/ChartContext";
+import withRegisteredData from "../../enhancers/withRegisteredData";
+import isValidNumber from "../../typeguards/isValidNumber";
+import useRegisteredData from "../../hooks/useRegisteredData";
 
-import { areaSeriesDataShape, interpolationShape } from "../utils/propShapes";
-import { callOrValue, isDefined } from "../utils/chartUtils";
-import findClosestDatum from "../utils/findClosestDatum";
-import interpolatorLookup from "../utils/interpolatorLookup";
-import sharedSeriesProps from "../utils/sharedSeriesProps";
+// import { callOrValue, isDefined } from "../../util/chartUtils";
 
-const propTypes = {
-  ...sharedSeriesProps,
-  data: areaSeriesDataShape.isRequired,
-  fill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  fillOpacity: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  interpolation: interpolationShape,
-  stroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  strokeDasharray: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  strokeWidth: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  strokeLinecap: PropTypes.oneOf(["butt", "square", "round", "inherit"]),
-};
+// import { GlyphCircle } from "@vx/glyph";
+import {
+  Glyph as CustomGlyph,
+  GlyphCircle,
+  GlyphCross,
+  GlyphDiamond,
+  GlyphSquare,
+  GlyphStar,
+  GlyphTriangle,
+  GlyphWye,
+} from "@vx/glyph";
 
-const defaultProps = {
-  interpolation: "monotoneX",
-  stroke: color.default,
-  strokeWidth: 3,
-  strokeDasharray: null,
-  strokeLinecap: "round",
-  fill: color.default,
-  fillOpacity: 0.3,
-};
+const ChartGlyph = GlyphCircle;
 
-const x = (d) => d && d.x;
-const getY = (d) => d && d.y;
-const getY0 = (d) => d && d.y0;
-const getY1 = (d) => d && d.y1;
-const definedClosed = (d) => isDefined(getY(d));
-const definedOpen = (d) => isDefined(getY0(d)) && isDefined(getY1(d));
-const noEventsStyles = { pointerEvents: "none" };
+function AreaSeries({
+  data: _,
+  xAccessor: __,
+  yAccessor: ___,
+  dataKey,
+  mouseEvents,
+  horizontal = false,
+  ...lineProps
+}) {
+  const {
+    xScale,
+    yScale,
+    colorScale,
+    showPoints,
+    showLabels,
+    theme,
+    formatValue,
+  } = useContext(ChartContext);
+  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
 
-export default class AreaSeries extends React.PureComponent {
-  render() {
-    const {
-      data,
-      disableMouseEvents,
-      xScale,
-      yScale,
-      margin,
-      stroke,
-      strokeWidth,
-      strokeDasharray,
-      strokeLinecap,
-      fill,
-      fillOpacity,
-      interpolation,
-      onClick,
-      onMouseMove,
-      onMouseLeave,
-    } = this.props;
-    if (!xScale || !yScale) return null;
-    const datum0 = data[0] || {};
-    const isClosed = !definedOpen(datum0);
-    const yMin = yScale.domain()[0];
-    const y0 = isClosed ? () => yMin : getY0;
-    const y1 = isClosed ? getY : getY1;
-    const defined = isClosed ? definedClosed : definedOpen;
-    const strokeDasharrayValue = callOrValue(strokeDasharray, data);
-    const strokeValue = callOrValue(stroke, data);
-    const strokeWidthValue = callOrValue(strokeWidth, data);
-    const fillValue = callOrValue(fill, data);
-    const curve =
-      interpolatorLookup[interpolation] || interpolatorLookup.monotoneX;
+  const getScaledX = useCallback(
+    (d) => {
+      const x = xScale(xAccessor?.(d));
+      return isValidNumber(x) ? x + (xScale.bandwidth?.() ?? 0) / 2 : null;
+    },
+    [xScale, xAccessor]
+  );
 
-    return (
-      <Group
-        style={disableMouseEvents ? noEventsStyles : null}
-        onClick={
-          disableMouseEvents
-            ? null
-            : onClick &&
-              ((event) => {
-                const d = findClosestDatum({
-                  data,
-                  getX: x,
-                  event,
-                  xScale,
-                  marginLeft: margin.left,
-                });
-                onClick({ event, data, datum: d, color: fillValue });
-              })
-        }
-        onMouseMove={
-          disableMouseEvents
-            ? null
-            : onMouseMove &&
-              ((event) => {
-                const d = findClosestDatum({
-                  data,
-                  getX: x,
-                  event,
-                  xScale,
-                  marginLeft: margin.left,
-                });
-                onMouseMove({ event, data, datum: d, color: fillValue });
-              })
-        }
-        onMouseLeave={disableMouseEvents ? null : onMouseLeave}
+  const getScaledY = useCallback(
+    (d) => {
+      const y = yScale(yAccessor?.(d));
+      return isValidNumber(y) ? y + (yScale.bandwidth?.() ?? 0) / 2 : null;
+    },
+    [yScale, yAccessor]
+  );
+
+  if (!data || !xAccessor || !yAccessor) return null;
+
+  const color = colorScale(dataKey) ?? "#222";
+
+  const {
+    svgLabel: { baseLabel },
+  } = theme;
+
+  const labelProps = {
+    ...baseLabel,
+    pointerEvents: "none",
+    stroke: "#fff",
+    strokeWidth: 2,
+    paintOrder: "stroke",
+    fontSize: 12,
+  };
+
+  return (
+    <g className="vx-group area-series">
+      <AreaClosed
+        data={data}
+        x={getScaledX}
+        y={getScaledY}
+        yScale={yScale}
+        {...lineProps}
       >
-        <Area
-          data={data}
-          x={x}
-          y0={y0}
-          y1={y1}
-          xScale={xScale}
-          yScale={yScale}
-          fill={fillValue}
-          fillOpacity={callOrValue(fillOpacity, data)}
-          stroke="transparent"
-          strokeWidth={strokeWidthValue}
-          curve={curve}
-          defined={defined}
-        />
-        {/* only draw a stroke for the top and bottom */}
-        {strokeWidthValue > 0 && !isClosed && (
-          <LinePath
-            data={data}
-            x={x}
-            y={y0}
-            xScale={xScale}
-            yScale={yScale}
-            stroke={strokeValue}
-            strokeWidth={strokeWidthValue}
-            strokeDasharray={strokeDasharrayValue}
-            strokeLinecap={strokeLinecap}
-            curve={curve}
-            glyph={null}
-            defined={defined}
+        {({ path }) => (
+          <AnimatedPath
+            stroke={color}
+            fill={color}
+            {...lineProps}
+            d={path(data) || ""}
           />
         )}
-        {/* draw this path even if strokewidth is 0, for focus/blur support */}
-        <LinePath
-          data={data}
-          x={x}
-          y={y1}
-          xScale={xScale}
-          yScale={yScale}
-          stroke={strokeValue}
-          strokeWidth={strokeWidthValue}
-          strokeDasharray={strokeDasharrayValue}
-          strokeLinecap={strokeLinecap}
-          curve={curve}
-          defined={defined}
-          glyph={(d, i) => (
-            <FocusBlurHandler
-              key={`areapoint-${i}`}
-              onBlur={disableMouseEvents ? null : onMouseLeave}
-              onFocus={
-                disableMouseEvents
-                  ? null
-                  : (event) => {
-                      onMouseMove({
-                        event,
-                        data,
-                        datum: d,
-                        color: strokeValue,
-                        index: i,
-                      });
-                    }
-              }
-            />
-          )}
-        />
-      </Group>
-    );
-  }
+      </AreaClosed>
+
+      {showPoints &&
+        data.map((d, i) => {
+          const left = getScaledX(d);
+          const top = getScaledY(d);
+          return (
+            <g key={`area-glyph-${i}`}>
+              <ChartGlyph
+                left={left}
+                top={top}
+                size={110}
+                // fill={i % 2 === 0 ? primaryColor : contrastColor}
+                // stroke={i % 2 === 0 ? contrastColor : primaryColor}
+                fill={color}
+                stroke={color}
+                strokeWidth={2}
+              />
+              {/* {showLabels && (
+                <Text {...labelProps} key={`area-label-${i}`} x={left} y={top}>
+                  {formatValue(d[1].qNum)}
+                </Text>
+              )} */}
+            </g>
+          );
+        })}
+    </g>
+  );
 }
 
-AreaSeries.propTypes = propTypes;
-AreaSeries.defaultProps = defaultProps;
-AreaSeries.displayName = "AreaSeries";
+/** Separate component so that we don't use the `useSpring` hook in a render function callback. */
+function AnimatedPath({ d, ...lineProps }) {
+  const tweenedPath = useSpring({ d, config: { precision: 0.01 } });
+  return <animated.path d={tweenedPath.d} fill="transparent" {...lineProps} />;
+}
+
+export default React.memo(
+  withRegisteredData(AreaSeries, {
+    legendShape: ({ strokeDasharray }) =>
+      strokeDasharray ? "dashed-line" : "line",
+  })
+);
