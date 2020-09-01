@@ -290,8 +290,6 @@ export default function CreateXYChart({
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
-      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-      precision={precision === undefined ? xyChart.precision : precision}
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
       showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
@@ -314,6 +312,8 @@ export default function CreateXYChart({
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
             dualAxis={dualAxis}
+            roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+            precision={precision === undefined ? xyChart.precision : precision}
           >
             (
             <ChartBackground backgroundPattern={backgroundPattern} />)

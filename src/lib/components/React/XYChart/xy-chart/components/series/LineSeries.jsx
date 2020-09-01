@@ -5,7 +5,7 @@ import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-import { formatValue } from "../../util/formatValue";
+
 // import { callOrValue, isDefined } from "../../util/chartUtils";
 
 // import { GlyphCircle } from "@vx/glyph";
@@ -38,8 +38,7 @@ function LineSeries({
     showPoints,
     showLabels,
     theme,
-    roundNum,
-    precision,
+    formatValue,
   } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
 
@@ -102,7 +101,7 @@ function LineSeries({
               />
               {/* {showLabels && (
                 <Text {...labelProps} key={`line-label-${i}`} x={left} y={top}>
-                  {formatValue(d[1].qNum, roundNum, precision)}
+                  {formatValue(d[1].qNum)}
                 </Text>
               )} */}
             </g>

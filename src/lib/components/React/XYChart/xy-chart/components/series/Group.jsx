@@ -5,7 +5,6 @@ import { Group as VxGroup } from "@vx/group";
 import { scaleBand } from "@vx/scale";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
-import { formatValue } from "../../util/formatValue";
 
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
@@ -33,8 +32,7 @@ export default function Group({
     registerData,
     unregisterData,
     theme,
-    roundNum,
-    precision,
+    formatValue,
   } = useContext(ChartContext);
 
   // extract data keys from child series
@@ -229,7 +227,7 @@ export default function Group({
                   x={Math.max(minPosition, bar.width)}
                   y={bar.y + bar.height / 2}
                 >
-                  {formatValue(bar.value, roundNum, precision)}
+                  {formatValue(bar.value)}
                 </Text>
               ))}
           </VxGroup>
@@ -270,7 +268,7 @@ export default function Group({
                   x={bar.x + bar.width / 2}
                   y={bar.y}
                 >
-                  {formatValue(bar.value, roundNum, precision)}
+                  {formatValue(bar.value)}
                 </Text>
               ))}
           </VxGroup>

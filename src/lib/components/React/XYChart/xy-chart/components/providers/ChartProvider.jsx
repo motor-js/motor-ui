@@ -1,6 +1,7 @@
 import React from "react";
 import { localPoint } from "@vx/event";
 import { scaleOrdinal } from "@vx/scale";
+import { roundNumber } from "../../util/roundNumber";
 
 import theme from "../../../../../../themes/defaultTheme";
 
@@ -26,6 +27,8 @@ export default class ChartProvider extends React.Component {
     width: null,
     height: null,
     combinedData: [],
+    roundNum: null,
+    precision: null,
   };
 
   componentDidUpdate(prevProps) {
@@ -111,9 +114,12 @@ export default class ChartProvider extends React.Component {
   };
 
   /** Sets chart dimensions. */
-  setChartDimensions = ({ width, height, margin }) => {
+  setChartDimensions = ({ width, height, margin, roundNum, precision }) => {
     if (width > 0 && height > 0) {
-      this.setState({ width, height, margin }, this.updateScales);
+      this.setState(
+        { width, height, margin, roundNum, precision },
+        this.updateScales
+      );
     }
   };
 
@@ -220,15 +226,17 @@ export default class ChartProvider extends React.Component {
     return { closestData, closestDatum, svgMouseX, svgMouseY };
   };
 
+  formatValue = (val) => {
+    const { roundNum, precision } = this.state;
+    let formattedValue = roundNum
+      ? roundNumber(Math.abs(val), precision)
+      : Math.abs(val);
+
+    return val < 0 ? `-${formattedValue}` : formattedValue;
+  };
+
   render() {
-    const {
-      theme,
-      roundNum,
-      precision,
-      showLabels,
-      showPoints,
-      showAxis,
-    } = this.props;
+    const { theme, showLabels, showPoints, showAxis } = this.props;
 
     const {
       width,
@@ -238,6 +246,8 @@ export default class ChartProvider extends React.Component {
       yScale,
       colorScale,
       dataRegistry,
+      roundNum,
+      precision,
     } = this.state;
     return (
       <ChartContext.Provider
@@ -260,6 +270,7 @@ export default class ChartProvider extends React.Component {
           setChartDimensions: this.setChartDimensions,
           setNumberFormat: this.setNumberFormat,
           findNearestData: this.findNearestData,
+          formatValue: this.formatValue,
         }}
       >
         {this.props.children}

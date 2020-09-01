@@ -13,6 +13,8 @@ export default function XYChart(props) {
     margin,
     dualAxis,
     captureEvents = true,
+    roundNum,
+    precision,
   } = props;
   const { findNearestData, setChartDimensions } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -25,9 +27,11 @@ export default function XYChart(props) {
         width: dualAxis ? width - margin.left : width,
         height,
         margin,
+        roundNum,
+        precision,
       });
     }
-  }, [setChartDimensions, width, height, margin]);
+  }, [setChartDimensions, width, height, margin, roundNum, precision]);
 
   const onMouseMove = useCallback(
     (event) => {
