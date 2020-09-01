@@ -9,7 +9,7 @@ const QlikSelections = ({
   width,
   border,
 }) => {
-  const node = React.useRef(null)
+  const node = useRef(null)
   const myConfig = useContext(ConfigContext)
   const { viz } = useCapability(myConfig)
 
