@@ -5,6 +5,7 @@ import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
+import { formatValue } from "../../util/formatValue";
 // import { callOrValue, isDefined } from "../../util/chartUtils";
 
 // import { GlyphCircle } from "@vx/glyph";
@@ -30,7 +31,16 @@ function LineSeries({
   horizontal = false,
   ...lineProps
 }) {
-  const { xScale, yScale, colorScale, showPoints } = useContext(ChartContext);
+  const {
+    xScale,
+    yScale,
+    colorScale,
+    showPoints,
+    showLabels,
+    theme,
+    roundNum,
+    precision,
+  } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
@@ -53,10 +63,18 @@ function LineSeries({
 
   const color = colorScale(dataKey) ?? "#222";
 
-  // const primaryColor = "#8921e0";
-  // const secondaryColor = "#00f2ff";
-  // const contrastColor = "#ffffff";
-  // const showLabels = true;
+  const {
+    svgLabel: { baseLabel },
+  } = theme;
+
+  const labelProps = {
+    ...baseLabel,
+    pointerEvents: "none",
+    stroke: "#fff",
+    strokeWidth: 2,
+    paintOrder: "stroke",
+    fontSize: 12,
+  };
 
   return (
     <g className="vx-group line-series">
@@ -82,21 +100,10 @@ function LineSeries({
                 stroke={color}
                 strokeWidth={2}
               />
-              {/* {d[0].qText && (
-                <text
-                  // x={xScale(x(d))}
-                  // y={yScale(y(d))}
-                  left={left}
-                  top={top}
-                  dx={10}
-                  // fill={d.stroke || callOrValue(stroke, d, i)}
-                  fill={color}
-                  stroke="#fff"
-                  strokeWidth={1}
-                  fontSize={12}
-                >
-                  {d[0].qText}
-                </text>
+              {/* {showLabels && (
+                <Text {...labelProps} key={`line-label-${i}`} x={left} y={top}>
+                  {formatValue(d[1].qNum, roundNum, precision)}
+                </Text>
               )} */}
             </g>
           );
