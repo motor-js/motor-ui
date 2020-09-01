@@ -47,7 +47,6 @@ function StyledXYChart(props) {
     colorTheme,
     showLegend,
     // allowSelections,
-    // showAxis,
     // maxAxisLength,
     sortDirection,
     sortOrder,

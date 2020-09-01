@@ -94,6 +94,7 @@ export default function CreateXYChart({
   roundNum,
   precision,
   showVerticalCrosshair,
+  showAxis,
 }) {
   // let datum = [];
 
@@ -293,6 +294,7 @@ export default function CreateXYChart({
       precision={precision === undefined ? xyChart.precision : precision}
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
+      showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}

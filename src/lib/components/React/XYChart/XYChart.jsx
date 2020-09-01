@@ -86,10 +86,10 @@ XYChart.propTypes = {
   // /** Spacing of Ticks on Y Axis */
   // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
   // /** Display Axis and ticks  */
-  // showAxis: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
-  // ]),
+  showAxis: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
+  ]),
   // /** Max length of chart axis (in pixels) */
   // maxAxisLength: PropTypes.number,
   // /** Allow for the Y axis to be dsiapleyd at 45 degrees */
