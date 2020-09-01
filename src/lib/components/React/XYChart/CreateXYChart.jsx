@@ -336,25 +336,27 @@ export default function CreateXYChart({
             )}
             {chartType.includes("line") && (
               <>
-                {dimensionInfo.length <= 1
-                  ? measureInfo.map((measure, index) => (
-                      <LineSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        data={currData}
-                        {...dataAccessors[index]}
-                        strokeWidth={1.5}
-                      />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <LineSeries
-                        key={measure}
-                        dataKey={measure}
-                        data={currData}
-                        {...dataAccessors[index]}
-                        strokeWidth={1.5}
-                      />
-                    ))}
+                {// dimensionInfo.length <= 1
+                //   ?
+                measureInfo.map((measure, index) => (
+                  <LineSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                    strokeWidth={1.5}
+                  />
+                ))
+                // : dataKeys.map((measure, index) => (
+                //     <LineSeries
+                //       key={measure}
+                //       dataKey={measure}
+                //       data={currData}
+                //       {...dataAccessors[index]}
+                //       strokeWidth={1.5}
+                //     />
+                //   ))
+                }
               </>
             )}
             {chartType.includes("combo") && measureInfo.length > 1 && (
