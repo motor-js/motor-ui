@@ -17,6 +17,7 @@ import Stack from "./xy-chart/components/series/Stack";
 // import Grid from "./xy-chart/components/grids/Grid";
 
 import { colorByExpression } from "../../../utils";
+import { isNull } from "lodash";
 
 const numDimensionTicks = 5;
 
@@ -96,27 +97,47 @@ export default function CreateXYChart({
   showAxis,
 }) {
   // let datum = [];
+  let series = [];
+  let dimID = null;
+  let items = [];
+  let keys = [];
+  // series.push(dim);
 
-  // const newData = qMatrix.map((d, i) => {
-  //   const dim = d[0];
-  //   const measure = d[1];
-  //   measure.qNum = d[2].qNum;
-  //   console.log(i, d);
-  //   datum.push(measure);
-  //   if (i !== 0 || i === ) {
-  //   }
+  if (dimensionInfo.length !== 1) {
+    qMatrix.forEach((d, i) => {
+      if (isNull(dimID)) {
+        dimID = d[0].qText;
+        series.push(d[0]);
+      }
 
-  //   // return [d[0], d[1]];
-  // });
+      if (dimID !== d[0].qText) {
+        items.push(series);
+        series = [];
+        series.push(d[0]);
+        dimID = d[0].qText;
+      }
+      const measure = d[1];
+      measure.qNum = d[2].qNum;
+      if (!keys.includes(measure.qText)) {
+        keys.push(measure.qText);
+      }
+      series.push(measure);
+    });
 
-  const newData = qMatrix;
+    items.push(series);
+  }
 
-  const data = dimensionInfo.length === 1 ? qMatrix : newData;
+  const data = dimensionInfo.length === 1 ? qMatrix : items;
 
   const [currData, setCurrData] = useState(data);
 
-  const getSeriesValues = (d, colIndex) =>
-    dimensionInfo.length !== 1 ? Number(d[1].qNum) : Number(d[colIndex].qNum);
+  const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
+
+  // const getSeriesValues = (d, colIndex) => {
+  //   return dimensionInfo.length !== 1
+  //     ? Number(d[1].qNum)
+  //     : Number(d[colIndex].qNum);
+  // };
 
   const getChartType = () =>
     type
@@ -127,15 +148,14 @@ export default function CreateXYChart({
 
   const [chartType, setchartType] = useState([getChartType()]);
 
-  // console.log(chartType, newData);
-  // console.log(qMatrix);
-
   const dataKeys =
     multiColor &&
     dimensionInfo.length == 1 &&
     measureInfo.length === 1 &&
     chartType.includes("bar")
       ? data.map((d) => d[0].qText)
+      : dimensionInfo.length === 2
+      ? keys
       : null;
 
   const canSnapTooltipToDataX =
@@ -170,13 +190,18 @@ export default function CreateXYChart({
     [chartType]
   );
 
-  const dataAccessors = measureInfo.map((measure, index) =>
-    useAccessors(
-      getSeriesValues,
-      dimensionInfo.length + index,
-      renderHorizontally
-    )
-  );
+  const dataAccessors =
+    dimensionInfo.length <= 1
+      ? measureInfo.map((measure, index) =>
+          useAccessors(
+            getSeriesValues,
+            dimensionInfo.length + index,
+            renderHorizontally
+          )
+        )
+      : keys.map((measure, index) =>
+          useAccessors(getSeriesValues, index, renderHorizontally)
+        );
 
   useEffect(() => {
     setCurrData(data);
@@ -290,14 +315,23 @@ export default function CreateXYChart({
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
-                {measureInfo.map((measure, index) => (
-                  <BarSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ))}
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <BarSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <BarSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))}
               </Group>
             )}
             {chartType.includes("line") && (
