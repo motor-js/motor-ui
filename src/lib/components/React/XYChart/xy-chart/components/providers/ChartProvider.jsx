@@ -27,8 +27,6 @@ export default class ChartProvider extends React.Component {
     width: null,
     height: null,
     combinedData: [],
-    roundNum: null,
-    precision: null,
   };
 
   componentDidUpdate(prevProps) {
@@ -114,12 +112,9 @@ export default class ChartProvider extends React.Component {
   };
 
   /** Sets chart dimensions. */
-  setChartDimensions = ({ width, height, margin, roundNum, precision }) => {
+  setChartDimensions = ({ width, height, margin }) => {
     if (width > 0 && height > 0) {
-      this.setState(
-        { width, height, margin, roundNum, precision },
-        this.updateScales
-      );
+      this.setState({ width, height, margin }, this.updateScales);
     }
   };
 
@@ -227,7 +222,7 @@ export default class ChartProvider extends React.Component {
   };
 
   formatValue = (val) => {
-    const { roundNum, precision } = this.state;
+    const { roundNum, precision } = this.props;
     let formattedValue = roundNum
       ? roundNumber(Math.abs(val), precision)
       : Math.abs(val);
@@ -246,8 +241,6 @@ export default class ChartProvider extends React.Component {
       yScale,
       colorScale,
       dataRegistry,
-      roundNum,
-      precision,
     } = this.state;
     return (
       <ChartContext.Provider
@@ -260,8 +253,6 @@ export default class ChartProvider extends React.Component {
           margin,
           theme,
           dataRegistry,
-          roundNum,
-          precision,
           showLabels,
           showPoints,
           showAxis,

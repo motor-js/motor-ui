@@ -293,6 +293,8 @@ export default function CreateXYChart({
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
       showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
+      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+      precision={precision === undefined ? xyChart.precision : precision}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -312,8 +314,6 @@ export default function CreateXYChart({
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
             dualAxis={dualAxis}
-            roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-            precision={precision === undefined ? xyChart.precision : precision}
           >
             (
             <ChartBackground backgroundPattern={backgroundPattern} />)
