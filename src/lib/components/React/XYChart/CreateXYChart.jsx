@@ -14,6 +14,8 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
+import Gradient from "./xy-chart/components/aesthetic/Gradient";
+// import { LinearGradient } from "@vx/gradient";
 // import Grid from "./xy-chart/components/grids/Grid";
 
 import { colorByExpression } from "../../../utils";
@@ -241,6 +243,8 @@ export default function CreateXYChart({
   // const gridColor = "#6e0fca";
   // const numTickColumns = 5;
   // const scaleHeight = height / axes.length - scalePadding;
+  const background = "#3b6978";
+  const background2 = "#204051";
 
   return (
     // <div className="container">
@@ -278,6 +282,12 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
           >
+            {/* <Gradient
+              style="TealBlue"
+              id="area-background-gradient"
+              // from={background}
+              // to={background2}
+            /> */}
             <ChartBackground backgroundPattern={backgroundPattern} />
             {/* <Grid
           top={margin.top}

@@ -13,6 +13,7 @@ export default function XYChart(props) {
     margin,
     dualAxis,
     captureEvents = true,
+    svgBackground = true,
   } = props;
   const { findNearestData, setChartDimensions } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -57,6 +58,16 @@ export default function XYChart(props) {
 
   return width > 0 && height > 0 ? (
     <svg ref={svgRef} width={width} height={height}>
+      {svgBackground && (
+        <rect
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+          fill="url(#area-background-gradient)"
+          rx={14}
+        />
+      )}
       {children}
       {captureEvents && (
         <rect
