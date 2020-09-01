@@ -14,7 +14,8 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
-// import Grid from "./xy-chart/components/grids/Grid";
+import XYGrid from "./xy-chart/components/XYGrid";
+import GridColumns from './xy-chart/components/grids/GridColumns'
 
 import { roundNumber, colorByExpression } from "../../../utils";
 import { formatValue } from "./xy-chart/util/formatValue";
@@ -313,19 +314,14 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
           >
-            (
-            <ChartBackground backgroundPattern={backgroundPattern} />)
-            {/* <Grid
-          top={margin.top}
-          left={margin.left}
-          xScale={dateScale}
-          yScale={temperatureScale}
-          width={xMax}
-          height={yMax}
-          stroke="black"
-          strokeOpacity={0.1}
-          xOffset={dateScale.bandwidth() / 2}
-        /> */}
+            {/*<GridColumns
+              scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+              tickValues={[10]}
+              height={height}
+              width={autoWidth ? undefined : width}
+              stroke="black"
+            /> */}
+            <ChartBackground backgroundPattern={backgroundPattern} />
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
@@ -422,12 +418,12 @@ export default function CreateXYChart({
             />
           </XYChart>
 
-          <Tooltip
+          {/*<Tooltip
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
             renderTooltip={renderTooltip}
             showVerticalCrosshair={showVerticalCrosshair}
-          />
+          />*/}
           {legendTopBottom === "bottom" && legend}
         </div>
       </EventProvider>
