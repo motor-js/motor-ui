@@ -8,6 +8,7 @@ import XYChart from "./xy-chart/components/XYChart";
 import BarSeries from "./xy-chart/components/series/BarSeries";
 import LineSeries from "./xy-chart/components/series/LineSeries";
 import AreaSeries from "./xy-chart/components/series/AreaSeries";
+import PointSeries from "./xy-chart/components/series/PointSeries";
 import ChartBackground from "./xy-chart/components/ChartBackground";
 import EventProvider from "./xy-chart/components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
@@ -99,6 +100,15 @@ export default function CreateXYChart({
   showVerticalCrosshair,
   showAxis,
 }) {
+  const getChartType = () =>
+    type
+      ? type
+      : dimensionInfo.length === 1 && measureInfo.length === 1
+      ? "bar"
+      : "groupedbar";
+
+  const [chartType, setchartType] = useState([getChartType()]);
+
   // let datum = [];
   let series = [];
   let dimID = null;
@@ -106,7 +116,7 @@ export default function CreateXYChart({
   let keys = [];
   // series.push(dim);
 
-  if (dimensionInfo.length !== 1) {
+  if (dimensionInfo.length !== 1 && !chartType.includes("scatter")) {
     qMatrix.forEach((d, i) => {
       if (isNull(dimID)) {
         dimID = d[0].qText;
@@ -141,15 +151,6 @@ export default function CreateXYChart({
   //     ? Number(d[1].qNum)
   //     : Number(d[colIndex].qNum);
   // };
-
-  const getChartType = () =>
-    type
-      ? type
-      : dimensionInfo.length === 1 && measureInfo.length === 1
-      ? "bar"
-      : "groupedbar";
-
-  const [chartType, setchartType] = useState([getChartType()]);
 
   const dataKeys =
     multiColor &&
@@ -396,6 +397,17 @@ export default function CreateXYChart({
                   strokeWidth={1.5}
                 />
               ))}
+            {chartType.includes("scatter") &&
+              dimensionInfo.length === 1 &&
+              measureInfo.length === 2 && (
+                // measureInfo.map((measure, index) => (
+                <PointSeries
+                  dataKeys={dataKeys ? dataKeys : null}
+                  dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[0]}
+                />
+              )}
             {/** Temperature axis */}
             <AxisComponent
               label={measureInfo[0].qFallbackTitle}
