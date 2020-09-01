@@ -5,7 +5,6 @@ import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-import AnimatedText from "./AnimatedText";
 // import { callOrValue, isDefined } from "../../util/chartUtils";
 
 // import { GlyphCircle } from "@vx/glyph";
@@ -98,29 +97,6 @@ function LineSeries({
                 >
                   {d[0].qText}
                 </text>
-              )} */}
-              {/* {showLabels && (
-                <AnimatedText
-                  bars={data}
-                  x={(bar) => bar.x}
-                  x={(bar) => bar.y}
-                  // x={(bar) => bar.x}
-                  // x={(bar) => Math.min(scaledZeroPosition, bar.x)}
-                  // x={(bar) => minPosition + Math.abs(bar.x - xZeroPosition)}
-                  // x={(bar) =>
-                  //   bar.value >= 0
-                  //     ? minPosition + Math.abs(bar.x - xZeroPosition)
-                  //     : minPosition
-                  // }
-                  // y={(bar) => bar.y + bar.height / 2}
-                  // width={(bar) => bar.width}
-                  // height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
-                  rx={2}
-                  dx={horizontal ? "0.5em" : 0}
-                  dy={horizontal ? 0 : "-0.74em"}
-                  textAnchor="start"
-                  // {...rectProps}
-                />
               )} */}
             </g>
           );

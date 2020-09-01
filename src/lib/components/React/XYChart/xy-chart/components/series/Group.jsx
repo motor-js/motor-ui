@@ -5,11 +5,12 @@ import { Group as VxGroup } from "@vx/group";
 import { scaleBand } from "@vx/scale";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
+import { formatValue } from "../../util/formatValue";
 
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
-import AnimatedText from "./AnimatedText";
+import { Text } from "@vx/text";
 
 const GROUP_ACCESSOR = (d) => d.group;
 
@@ -31,6 +32,9 @@ export default function Group({
     dataRegistry,
     registerData,
     unregisterData,
+    theme,
+    roundNum,
+    precision,
   } = useContext(ChartContext);
 
   // extract data keys from child series
@@ -172,6 +176,23 @@ export default function Group({
       Math.max(maybeXZero, Math.min(xMin, xMax))
     : Math.min(xMin, xMax);
 
+  const {
+    svgLabel: { baseLabel },
+  } = theme;
+
+  const labelProps = {
+    ...baseLabel,
+    pointerEvents: "none",
+    stroke: "#fff",
+    strokeWidth: 2,
+    paintOrder: "stroke",
+    fontSize: 12,
+    dx: horizontal ? "0.5em" : 0,
+    dy: horizontal ? 0 : "-0.74em",
+    textAnchor: horizontal ? "start" : "middle",
+    verticalAnchor: horizontal ? "middle" : "end",
+  };
+
   return horizontal ? (
     <BarGroupHorizontal
       data={combinedData}
@@ -200,27 +221,17 @@ export default function Group({
               rx={2}
               {...rectProps}
             />
-            {showLabels && (
-              <AnimatedText
-                bars={barGroup.bars}
-                // x={(bar) => bar.x}
-                // x={(bar) => Math.min(scaledZeroPosition, bar.x)}
-                // x={(bar) => minPosition + Math.abs(bar.x - xZeroPosition)}
-                x={(bar) =>
-                  bar.value >= 0
-                    ? minPosition + Math.abs(bar.x - xZeroPosition)
-                    : minPosition
-                }
-                y={(bar) => bar.y + bar.height / 2}
-                // width={(bar) => bar.width}
-                // height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
-                rx={2}
-                dx={horizontal ? "0.5em" : 0}
-                dy={horizontal ? 0 : "-0.74em"}
-                textAnchor="start"
-                // {...rectProps}
-              />
-            )}
+            {showLabels &&
+              barGroup.bars.map((bar) => (
+                <Text
+                  {...labelProps}
+                  key={`bar-label-${bar.index}-${bar.x}`}
+                  x={Math.max(minPosition, bar.width)}
+                  y={bar.y + bar.height / 2}
+                >
+                  {formatValue(bar.value, roundNum, precision)}
+                </Text>
+              ))}
           </VxGroup>
         ))
       }
@@ -251,22 +262,17 @@ export default function Group({
               rx={2}
               {...rectProps}
             />
-            {showLabels && (
-              <AnimatedText
-                bars={barGroup.bars}
-                // x={(bar) => bar.x}
-                // y={(bar) => Math.min(scaledZeroPosition, bar.y)}
-                x={(bar) => bar.x + bar.width / 2}
-                y={(bar) => Math.min(scaledZeroPosition, bar.y)}
-                width={(bar) => bar.width}
-                height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
-                rx={2}
-                dx={horizontal ? "0.5em" : 0}
-                dy={horizontal ? 0 : "-0.74em"}
-                textAnchor="middle"
-                {...rectProps}
-              />
-            )}
+            {showLabels &&
+              barGroup.bars.map((bar) => (
+                <Text
+                  {...labelProps}
+                  key={`bar-label-${bar.index}-${bar.x}`}
+                  x={bar.x + bar.width / 2}
+                  y={bar.y}
+                >
+                  {formatValue(bar.value, roundNum, precision)}
+                </Text>
+              ))}
           </VxGroup>
         ))
       }
