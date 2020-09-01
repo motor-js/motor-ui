@@ -278,8 +278,7 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
           >
-            (
-            <ChartBackground backgroundPattern={backgroundPattern} />)
+            <ChartBackground backgroundPattern={backgroundPattern} />
             {/* <Grid
           top={margin.top}
           left={margin.left}
