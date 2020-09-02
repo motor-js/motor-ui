@@ -15,6 +15,7 @@ const QlikObject = ({
   noInteraction,
   width,
   height,
+  border,
   minWidth,
   minHeight,
   exportData,
@@ -32,7 +33,7 @@ const QlikObject = ({
   const { viz } = useCapability(myConfig)
   const [qViz, setQViz] = useState(null)
 
-  const create = async (viz) => {
+  const create = async () => {
     const getViz = id ? viz.visualization.get(id) : viz.visualization.create(type, cols, options)
     const _qViz = await getViz
     _qViz.setOptions(options)
@@ -72,7 +73,7 @@ const QlikObject = ({
 
   return (
     <div style={{ height, border }}>
-      { viz ? (<div ref={node} width={width} />) : (<Spinner width={width} size={30} />)}
+      { viz ? (<div ref={node} height={height} width={width} />) : (<Spinner width={width} size={30} />)}
     </div>
   )
 }
