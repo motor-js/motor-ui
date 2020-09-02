@@ -14,6 +14,7 @@ function StyledSelections({
   engine,
   size,
   width,
+  maxWidth,
   margin,
   maxHeight,
   minHeight,
@@ -23,7 +24,6 @@ function StyledSelections({
   gridArea,
 }) {
   const { qLayout, clearSelections } = SelectionObject({ engine });
-
   let selections = [];
 
   if (qLayout) {
@@ -63,6 +63,7 @@ function StyledSelections({
       minHeight={minHeight}
       margin={margin}
       width={width}
+      maxWidth={maxWidth}
       size={size}
       overflow={overflow}
       flex={flex}
