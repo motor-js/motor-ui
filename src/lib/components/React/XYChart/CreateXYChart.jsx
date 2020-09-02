@@ -19,6 +19,7 @@ import Stack from "./xy-chart/components/series/Stack";
 import Gradient from "./xy-chart/components/aesthetic/Gradient";
 // import { LinearGradient } from "@vx/gradient";
 // import Grid from "./xy-chart/components/grids/Grid";
+// import { GridRows, GridColumns } from "@vx/grid";
 
 import { colorByExpression } from "../../../utils";
 import { isNull } from "lodash";
@@ -247,6 +248,7 @@ export default function CreateXYChart({
   // const scaleHeight = height / axes.length - scalePadding;
   const background = "#3b6978";
   const background2 = "#204051";
+  const accentColor = "#edffea";
 
   return (
     // <div className="container">
@@ -291,6 +293,22 @@ export default function CreateXYChart({
               // to={background2}
             /> */}
             <ChartBackground backgroundPattern={backgroundPattern} />
+            {/* <GridRows
+              scale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+              width={100}
+              strokeDasharray="3,3"
+              stroke={accentColor}
+              strokeOpacity={0.3}
+              pointerEvents="none"
+            />
+            <GridColumns
+              scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+              height={100}
+              strokeDasharray="3,3"
+              stroke={accentColor}
+              strokeOpacity={0.3}
+              pointerEvents="none"
+            /> */}
             {/* <Grid
           top={margin.top}
           left={margin.left}
@@ -314,14 +332,23 @@ export default function CreateXYChart({
             )}
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
-                {measureInfo.map((measure, index) => (
-                  <BarSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ))}
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <BarSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <BarSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))}
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
