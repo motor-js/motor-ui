@@ -5,9 +5,15 @@ import ChartContext from "../context/ChartContext";
 import withDefinedContextScales from "../enhancers/withDefinedContextScales";
 
 function Axis(props) {
-  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
-    ChartContext
-  );
+  const {
+    theme,
+    xScale,
+    yScale,
+    margin,
+    width,
+    height,
+    showAxisLine,
+  } = useContext(ChartContext);
   const { orientation } = props;
 
   // The biggest difference between Axes is their label + tick label styles
@@ -57,7 +63,7 @@ function Axis(props) {
       ? width - margin.right
       : 0;
 
-  switch (showAxis) {
+  switch (showAxisLine) {
     case false:
     case "none":
       theme.xAxisStyles.strokeWidth = 0;
