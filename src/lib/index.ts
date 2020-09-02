@@ -10,6 +10,7 @@ export { default as Line } from "./components/React/Line";
 export { default as Modal } from "./components/React/Modal";
 export { default as Motor } from "./components/React/Motor";
 export { default as Pie } from "./components/React/Pie";
+export { default as XYChart } from "./components/React/XYChart";
 export { default as Search } from "./components/React/Search";
 export { default as SelectionModal } from "./components/React/SelectionModal";
 export { default as SmartHeading } from "./components/React/SmartHeading";

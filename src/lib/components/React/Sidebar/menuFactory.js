@@ -378,11 +378,11 @@ export default (styles) => {
       "scaleDown",
       "scaleRotate",
       "fallDown",
-      "reveal"
+      "reveal",
     ]),
     header: PropTypes.node,
     footer: PropTypes.node,
-    openIcon: PropTypes.oneOf(["menu", "filter"]),
+    openIcon: PropTypes.oneOf(["none", "menu", "filter"]),
     openIconColor: PropTypes.string,
     /** Set background color */
     backgroundColor: PropTypes.string,
@@ -464,6 +464,7 @@ export default (styles) => {
     footerHeight: "100px",
     backgroundColor: null,
     borderRadius: null,
+    openIcon: "none",
   };
 
   return Menu;
