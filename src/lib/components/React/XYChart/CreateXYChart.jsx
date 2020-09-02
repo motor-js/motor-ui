@@ -295,8 +295,6 @@ export default function CreateXYChart({
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
     >
-      <EventProvider>
-        {legendTopBottom === "top" && legend}
         <div
           className="container"
           style={{
@@ -314,13 +312,13 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
           >
-            {/*<GridColumns
+            <GridColumns
               scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
               tickValues={[10]}
               height={height}
               width={autoWidth ? undefined : width}
               stroke="black"
-            /> */}
+            />
             <ChartBackground backgroundPattern={backgroundPattern} />
             {chartType.includes("bar") && (
               <BarSeries
@@ -426,7 +424,6 @@ export default function CreateXYChart({
           />*/}
           {legendTopBottom === "bottom" && legend}
         </div>
-      </EventProvider>
     </ChartProvider>
   );
 }
