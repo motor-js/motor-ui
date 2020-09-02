@@ -99,9 +99,7 @@ export default function CreateXYChart({
   roundNum,
   precision,
   showVerticalCrosshair,
-  showAxisLine,
-  hideBottomAxis,
-  hideLeftAxis,
+  showAxis,
 }) {
   const getChartType = () =>
     type
@@ -262,9 +260,7 @@ export default function CreateXYChart({
       colorScale={colorScaleConfig}
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
-      showAxisLine={
-        showAxisLine === undefined ? xyChart.showAxisLine : showAxisLine
-      }
+      showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
       roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
       precision={precision === undefined ? xyChart.precision : precision}
       dimensionInfo={dimensionInfo}
@@ -440,16 +436,16 @@ export default function CreateXYChart({
                 />
               )}
             {/** Temperature axis */}
-            {!hideLeftAxis && (
-              <AxisComponent
-                label={measureInfo[0].qFallbackTitle}
-                orientation={
-                  renderHorizontally ? xAxisOrientation : yAxisOrientation
-                }
-                numTicks={5}
-              />
-            )}
-            {!hideLeftAxis && dualAxis && (
+
+            <AxisComponent
+              label={measureInfo[0].qFallbackTitle}
+              orientation={
+                renderHorizontally ? xAxisOrientation : yAxisOrientation
+              }
+              numTicks={5}
+            />
+
+            {dualAxis && (
               <AxisComponent
                 label={measureInfo[1].qFallbackTitle}
                 orientation="right"
@@ -457,23 +453,22 @@ export default function CreateXYChart({
               />
             )}
             {/** Dimension axis */}
-            {!hideBottomAxis && (
-              <AxisComponent
-                // label={dimensionInfo[0].qFallbackTitle}
-                orientation={
-                  renderHorizontally ? yAxisOrientation : xAxisOrientation
-                }
-                tickValues={currData
-                  .filter(
-                    (d, i, arr) =>
-                      i % Math.round((arr.length - 1) / numDimensionTicks) === 0
-                  )
-                  .map((d) => getDimension(d))}
-                tickFormat={(d) =>
-                  d.toISOString?.().split?.("T")[0] ?? d.toString()
-                }
-              />
-            )}
+
+            <AxisComponent
+              // label={dimensionInfo[0].qFallbackTitle}
+              orientation={
+                renderHorizontally ? yAxisOrientation : xAxisOrientation
+              }
+              tickValues={currData
+                .filter(
+                  (d, i, arr) =>
+                    i % Math.round((arr.length - 1) / numDimensionTicks) === 0
+                )
+                .map((d) => getDimension(d))}
+              tickFormat={(d) =>
+                d.toISOString?.().split?.("T")[0] ?? d.toString()
+              }
+            />
           </XYChart>
 
           <Tooltip
