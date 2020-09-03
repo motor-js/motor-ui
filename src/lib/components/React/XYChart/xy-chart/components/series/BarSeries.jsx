@@ -7,6 +7,7 @@ import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
 import { Text } from "@vx/text";
+import formatValue from "../../util/formatValue";
 
 function BarSeries({
   dataKey,
@@ -18,11 +19,11 @@ function BarSeries({
   horizontal,
   barThickness: barThicknessProp,
   showLabels,
+  roundNum,
+  precision,
   ...barProps
 }) {
-  const { theme, colorScale, xScale, yScale, formatValue } = useContext(
-    ChartContext
-  );
+  const { theme, colorScale, xScale, yScale } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
@@ -48,7 +49,9 @@ function BarSeries({
 
   const renderLabel = ({ datum, labelProps }) =>
     datum.label ? (
-      <Text {...labelProps}>{formatValue(datum.label)}</Text>
+      <Text {...labelProps}>
+        {formatValue(datum.label, roundNum, precision)}
+      </Text>
     ) : null;
 
   const [xMin, xMax] = xScale.range();

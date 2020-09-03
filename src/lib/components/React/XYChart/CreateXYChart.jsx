@@ -109,9 +109,7 @@ export default function CreateXYChart({
   roundNum,
   precision,
   showVerticalCrosshair,
-  showAxisLine,
-  hideBottomAxis,
-  hideLeftAxis,
+  showAxis,
 }) {
   // console.log("render");
   const getChartType = () =>
@@ -280,6 +278,8 @@ export default function CreateXYChart({
           dataKey={measureInfo[0].qFallbackTitle}
           data={currData}
           showLabels={showLabels}
+          roundNum={roundNum}
+          precision={precision}
           // xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
           // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
           {...dataAccessors[0]}

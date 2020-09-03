@@ -75,12 +75,11 @@ function StyledXYChart(props) {
     snapTooltipToDataY,
     backgroundPattern,
     multiColor,
+    showAxis,
     // dualAxis,
-    // roundNum,
-    // precision,
+    roundNum,
+    precision,
     showVerticalCrosshair,
-    hideBottomAxis,
-    hideLeftAxis,
     ...rest
   } = props;
 
@@ -263,24 +262,15 @@ function StyledXYChart(props) {
                     ? xyChart.showVerticalCrosshair
                     : showVerticalCrosshair
                 }
-                hideBottomAxis={
-                  hideBottomAxis === undefined
-                    ? xyChart.hideBottomAxis
-                    : hideBottomAxis
-                }
-                hideLeftAxis={
-                  hideLeftAxis === undefined
-                    ? xyChart.hideLeftAxis
-                    : hideLeftAxis
-                }
                 // dualAxis={dualAxis}
                 showLabels={
                   showLabels === undefined ? xyChart.showLabels : showLabels
                 }
-                // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-                // precision={
-                //   precision === undefined ? xyChart.precision : precision
-                // }
+                showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
+                roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+                precision={
+                  precision === undefined ? xyChart.precision : precision
+                }
                 {...rest}
               />
             )}

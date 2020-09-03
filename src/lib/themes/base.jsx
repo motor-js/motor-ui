@@ -703,9 +703,7 @@ const base = {
     roundNum: true,
     precision: true,
     showVerticalCrosshair: true,
-    showAxisLine: "none",
-    hideBottomAxis: false,
-    hideLeftAxis: false,
+    showAxis: "none",
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",

@@ -221,24 +221,13 @@ export default class ChartProvider extends React.Component {
     return { closestData, closestDatum, svgMouseX, svgMouseY };
   };
 
-  formatValue = (val) => {
-    const { roundNum, precision } = this.props;
-    let formattedValue = roundNum
-      ? roundNumber(Math.abs(val), precision)
-      : Math.abs(val);
-
-    return val < 0 ? `-${formattedValue}` : formattedValue;
-  };
-
   render() {
     const {
       theme,
-      // showLabels,
-      showPoints,
-      showAxisLine,
-      dimensionInfo,
-      measureInfo,
-      dataKeys,
+      // showPoints,
+      // dimensionInfo,
+      // measureInfo,
+      // dataKeys,
     } = this.props;
 
     const {
@@ -262,18 +251,16 @@ export default class ChartProvider extends React.Component {
           margin,
           theme,
           dataRegistry,
-          // showLabels,
-          showPoints,
-          showAxisLine,
-          dimensionInfo,
-          measureInfo,
-          dataKeys,
+          // showPoints,
+          // dimensionInfo,
+          // measureInfo,
+          // dataKeys,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
           setChartDimensions: this.setChartDimensions,
           setNumberFormat: this.setNumberFormat,
           findNearestData: this.findNearestData,
-          formatValue: this.formatValue,
+          // formatValue: this.formatValue,
         }}
       >
         {this.props.children}
