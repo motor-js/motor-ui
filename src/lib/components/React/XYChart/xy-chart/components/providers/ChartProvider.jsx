@@ -250,6 +250,7 @@ export default class ChartProvider extends React.Component {
       colorScale,
       dataRegistry,
     } = this.state;
+
     return (
       <ChartContext.Provider
         value={{
