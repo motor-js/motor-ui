@@ -33,6 +33,8 @@ const QlikObject = ({
   const { viz } = useCapability(myConfig)
   const [qViz, setQViz] = useState(null)
 
+  console.log('qViz: ',qViz)
+
   const create = async () => {
     const getViz = id ? viz.visualization.get(id) : viz.visualization.create(type, cols, options)
     const _qViz = await getViz
@@ -68,12 +70,12 @@ const QlikObject = ({
       if (qViz) close();
       window.removeEventListener('resize', resize);
     };
-  }, [viz])
+  }, [viz, qViz])
 
 
   return (
     <div style={{ height, border }}>
-      { viz ? (<div ref={node} height={height} width={width} />) : (<Spinner width={width} size={30} />)}
+      { viz ? (<div ref={node} style={{ height, width }} />) : (<Spinner width={width} size={30} />)}
     </div>
   )
 }
