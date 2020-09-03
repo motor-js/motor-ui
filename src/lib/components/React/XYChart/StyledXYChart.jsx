@@ -79,8 +79,6 @@ function StyledXYChart(props) {
     // roundNum,
     // precision,
     showVerticalCrosshair,
-    hideBottomAxis,
-    hideLeftAxis,
     ...rest
   } = props;
 
@@ -262,16 +260,6 @@ function StyledXYChart(props) {
                   showVerticalCrosshair === undefined
                     ? xyChart.showVerticalCrosshair
                     : showVerticalCrosshair
-                }
-                hideBottomAxis={
-                  hideBottomAxis === undefined
-                    ? xyChart.hideBottomAxis
-                    : hideBottomAxis
-                }
-                hideLeftAxis={
-                  hideLeftAxis === undefined
-                    ? xyChart.hideLeftAxis
-                    : hideLeftAxis
                 }
                 // dualAxis={dualAxis}
                 // showLabels={

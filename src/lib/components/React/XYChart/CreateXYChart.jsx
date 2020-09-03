@@ -101,9 +101,7 @@ export default function CreateXYChart({
   roundNum,
   precision,
   showVerticalCrosshair,
-  showAxisLine,
-  hideBottomAxis,
-  hideLeftAxis,
+  showAxis,
 }) {
   console.log('render')
   const getChartType = () => (type || (dimensionInfo.length === 1 && measureInfo.length === 1
@@ -250,6 +248,15 @@ export default function CreateXYChart({
     <ChartProvider
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+      colorScale={colorScaleConfig}
+      showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
+      showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
+      showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
+      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+      precision={precision === undefined ? xyChart.precision : precision}
+      dimensionInfo={dimensionInfo}
+      measureInfo={measureInfo}
+      dataKeys={dataKeys}
     >
           <XYChart
             height={height}
@@ -266,6 +273,174 @@ export default function CreateXYChart({
               xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
               yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
               {...dataAccessors[0]}
+            />
+            <GridColumns
+              scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+              height={100}
+              strokeDasharray="3,3"
+              stroke={accentColor}
+              strokeOpacity={0.3}
+              pointerEvents="none"
+            /> 
+            {/* <Grid
+          top={margin.top}
+          left={margin.left}
+          xScale={dateScale}
+          yScale={temperatureScale}
+          width={xMax}
+          height={yMax}
+          stroke="black"
+          strokeOpacity={0.1}
+          xOffset={dateScale.bandwidth() / 2}
+        /> */}
+            {chartType.includes("bar") && (
+              <BarSeries
+                horizontal={renderHorizontally}
+                // dataKey={measureInfo[0].qFallbackTitle}
+                dataKeys={dataKeys ? dataKeys : null}
+                dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                data={currData}
+                {...dataAccessors[0]}
+              />
+            )}
+            {chartType.includes("stackedbar") && (
+              <Stack horizontal={renderHorizontally}>
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <BarSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <BarSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))}
+              </Stack>
+            )}
+            {chartType.includes("groupedbar") && (
+              <Group horizontal={renderHorizontally}>
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <BarSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <BarSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))}
+              </Group>
+            )}
+            {chartType.includes("line") && (
+              <>
+                {// dimensionInfo.length <= 1
+                //   ?
+                measureInfo.map((measure, index) => (
+                  <LineSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                    strokeWidth={1.5}
+                  />
+                ))
+                // : dataKeys.map((measure, index) => (
+                //     <LineSeries
+                //       key={measure}
+                //       dataKey={measure}
+                //       data={currData}
+                //       {...dataAccessors[index]}
+                //       strokeWidth={1.5}
+                //     />
+                //   ))
+                }
+              </>
+            )}
+            {chartType.includes("combo") && measureInfo.length > 1 && (
+              <>
+                <BarSeries
+                  key={measureInfo[0].qFallbackTitle}
+                  dataKey={measureInfo[0].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[0]}
+                />
+                <LineSeries
+                  dataKey={measureInfo[1].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[1]}
+                  strokeWidth={1.5}
+                />
+              </>
+            )}
+            {chartType.includes("area") &&
+              dimensionInfo.length <= 1 &&
+              measureInfo.map((measure, index) => (
+                <AreaSeries
+                  key={measureInfo[index].qFallbackTitle}
+                  dataKey={measureInfo[index].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[index]}
+                  strokeWidth={1.5}
+                />
+              ))}
+            {chartType.includes("scatter") &&
+              dimensionInfo.length === 1 &&
+              measureInfo.length === 2 && (
+                // measureInfo.map((measure, index) => (
+                <PointSeries
+                  dataKeys={dataKeys ? dataKeys : null}
+                  dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[0]}
+                />
+              )}
+            {/** Temperature axis */}
+
+            <AxisComponent
+              label={measureInfo[0].qFallbackTitle}
+              orientation={
+                renderHorizontally ? xAxisOrientation : yAxisOrientation
+              }
+              numTicks={5}
+            />
+
+            {dualAxis && (
+              <AxisComponent
+                label={measureInfo[1].qFallbackTitle}
+                orientation="right"
+                numTicks={9}
+              />
+            )}
+            {/** Dimension axis */}
+
+            <AxisComponent
+              // label={dimensionInfo[0].qFallbackTitle}
+              orientation={
+                renderHorizontally ? yAxisOrientation : xAxisOrientation
+              }
+              tickValues={currData
+                .filter(
+                  (d, i, arr) =>
+                    i % Math.round((arr.length - 1) / numDimensionTicks) === 0
+                )
+                .map((d) => getDimension(d))}
+              tickFormat={(d) =>
+                d.toISOString?.().split?.("T")[0] ?? d.toString()
+              }
             />
           </XYChart>
     </ChartProvider>
