@@ -16,15 +16,10 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
-<<<<<<< HEAD
-import XYGrid from "./xy-chart/components/XYGrid";
-import GridColumns from './xy-chart/components/grids/GridColumns'
-=======
 import Gradient from "./xy-chart/components/aesthetic/Gradient";
 // import { LinearGradient } from "@vx/gradient";
 // import Grid from "./xy-chart/components/grids/Grid";
 // import { GridRows, GridColumns } from "@vx/grid";
->>>>>>> 35aff21f2e8603086a44c93fcef6c1d91c6d57cc
 
 import { colorByExpression } from "../../../utils";
 import { isNull } from "lodash";
