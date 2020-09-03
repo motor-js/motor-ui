@@ -1,13 +1,32 @@
+//  export const config = {
+//    host: "juno-ui.eu.qlikcloud.com",
+//    secure: true,
+//    port: null,
+//    prefix: "",
+//    appId: "f29964d4-0e59-48a2-8525-34dab9cd41e7",
+//    qcs: true,
+//    webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
+//  };
 
+/*
 export const config = {
-  host: 'juno-ui.eu.qlikcloud.com',
+  host: "juno-ui.eu.qlikcloud.com",
   secure: true,
   port: null,
-  prefix: '',
-  appId: 'f29964d4-0e59-48a2-8525-34dab9cd41e7',
+  prefix: "",
+  appId: "0c07cd52-e6a1-45ff-a605-fd37394f90bf",
   qcs: true,
-  webIntId: '4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i',
-}
+  webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
+};
+*/
+
+export const config = {
+  host: "localhost",
+  secure: false,
+  port: 19077,
+  prefix: "",
+  appId: "c90244fc-83bc-4d61-82c7-9289c7bf19aa",
+};
 
 /*
 
@@ -30,7 +49,6 @@ export const config = {
   webIntId: '4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i',
 }
 */
-
 
 /*
 export const config = {

@@ -279,6 +279,7 @@ export default (styles) => {
               isOpen={this.state.isOpen}
               theme={this.props.theme}
               overlayBackground={this.props.overlayBackground}
+              overlayOpacity={this.props.overlayOpacity}
               onClick={() => this.overlayClick()}
             />
           )}
@@ -441,7 +442,7 @@ export default (styles) => {
       "scaleDown",
       "scaleRotate",
       "fallDown",
-      "reveal"
+      "reveal",
     ]),
     header: PropTypes.node,
     footer: PropTypes.node,

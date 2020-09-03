@@ -122,7 +122,7 @@ WordCloud.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -165,6 +165,8 @@ WordCloud.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 WordCloud.defaultProps = {
@@ -178,6 +180,7 @@ WordCloud.defaultProps = {
   border: true,
   backgroundColor: null,
   roundNum: true,
+  gridArea: null,
 };
 
 export default WordCloud;

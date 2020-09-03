@@ -140,7 +140,7 @@ Column.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -189,6 +189,7 @@ Column.propTypes = {
     PropTypes.bool,
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
+  showXAxisText: PropTypes.bool,
   /** Max length of chart axis (in pixels) */
   maxAxisLength: PropTypes.number,
   /** Force supression of Scroll / Overview chart */
@@ -211,6 +212,8 @@ Column.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 Column.defaultProps = {
@@ -219,19 +222,20 @@ Column.defaultProps = {
   suppressZero: null,
   width: "100%",
   height: "100%",
-  margin: "5px",
+  margin: null,
   size: "medium",
   showLabels: null,
   fontColor: null,
   border: true,
   borderRadius: null,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   tickSpacing: undefined,
   allowSelections: null,
   textOnAxis: null,
   showGridlines: null,
   showAxis: null,
+  showXAxisText: true,
   roundNum: true,
   columnSortOrder: [],
   sortDirection: "",
@@ -247,6 +251,7 @@ Column.defaultProps = {
   dimensionErrMsg: null,
   measureErrMsg: null,
   otherTotalSpec: null,
+  gridArea: null,
 };
 
 export default Column;

@@ -140,7 +140,7 @@ Line.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "brand",
       "motor",
@@ -232,7 +232,8 @@ Line.propTypes = {
       qOtherLabel: PropTypes.string,
       qOtherCount: PropTypes.string,
     }),
-  ]),
+  ]) /** Name of the parent grid area to place the box */,
+  gridArea: PropTypes.string,
 };
 
 Line.defaultProps = {
@@ -242,13 +243,13 @@ Line.defaultProps = {
   dualAxis: false,
   width: "100%",
   height: "100%",
-  margin: "5px",
+  margin: null,
   size: "medium",
   showLabels: null,
   fontColor: "",
   border: true,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   tickSpacing: undefined,
   allowSelections: null,
   showGridlines: null,
@@ -264,6 +265,7 @@ Line.defaultProps = {
   sortDirection: "",
   areaChart: false,
   stacked: false,
+  gridArea: null,
 };
 
 export default Line;

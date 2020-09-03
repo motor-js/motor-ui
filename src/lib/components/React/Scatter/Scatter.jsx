@@ -146,7 +146,7 @@ Scatter.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -201,6 +201,8 @@ Scatter.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 Scatter.defaultProps = {
@@ -222,6 +224,7 @@ Scatter.defaultProps = {
   roundNum: true,
   columnSortOrder: [],
   sortDirection: "",
+  gridArea: null,
 };
 
 export default Scatter;

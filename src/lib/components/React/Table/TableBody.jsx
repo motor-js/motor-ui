@@ -1,49 +1,50 @@
-import React, { useRef } from 'react'
-import Button from '../Button'
-import { TableBodyStyle, TableRowStyle, TableCellStyle } from './TableTheme'
+import React, { useRef } from "react";
+import Button from "../Button";
+import { TableBodyStyle, TableRowStyle, TableCellStyle } from "./TableTheme";
 
 const TableBody = ({
   qData,
   columns,
   handleSelCallback,
-  handlePagingCallback,
-  page,
+  // handlePagingCallback,
+  // page,
   pageHeight,
   selectionsActive,
   gridPxl,
   bandedRows,
-  handleScrollCallback,
+  // handleScrollCallback,
   highlightOnSelection,
+  bodyAlignment,
   pendingSel,
-  selCol
+  selCol,
 }) => {
-  const rowRef = useRef()
+  const rowRef = useRef();
 
-  const handle = (keys, col) => handleSelCallback(keys, col)
+  const handle = (keys, col) => handleSelCallback(keys, col);
 
-  const incrementPage = () => {
-    const nextPage = page + 1
-    handlePagingCallback(nextPage)
-    handleScrollCallback()
-  }
+  // const incrementPage = () => {
+  //   const nextPage = page + 1;
+  //   handlePagingCallback(nextPage);
+  //   handleScrollCallback();
+  // };
 
-  const decrementPage = () => {
-    let prevPage
-    if (page === 0) {
-      prevPage = page
-    } else {
-      prevPage = page - 1
-      handlePagingCallback(prevPage)
-      handleScrollCallback()
-    }
-  }
+  // const decrementPage = () => {
+  //   let prevPage;
+  //   if (page === 0) {
+  //     prevPage = page;
+  //   } else {
+  //     prevPage = page - 1;
+  //     handlePagingCallback(prevPage);
+  //     handleScrollCallback();
+  //   }
+  // };
 
-  let items
+  let items;
   if (qData) {
-    const data = qData.qMatrix
+    const data = qData.qMatrix;
     items = data.map((val, i) => (
       <TableRowStyle
-        ref={i === (pageHeight - 1) ? rowRef : null}
+        ref={i === pageHeight - 1 ? rowRef : null}
         key={i}
         i={i}
         gridPxl={gridPxl}
@@ -57,25 +58,43 @@ const TableBody = ({
             col={col}
             selectionsActive={selectionsActive}
             highlightOnSelection={highlightOnSelection}
+            bodyAlignment={bodyAlignment}
             pendingSel={pendingSel}
             selCol={selCol}
-            onClick={() => { handle(data[i][c].qElemNumber, col) }}
+            onClick={() => {
+              handle(data[i][c].qElemNumber, col);
+            }}
           >
-            {col.qColumnType === 'dim' ? data[i][c].qText : data[i][c].qText}
+            {col.qColumnType === "dim" ? data[i][c].qText : data[i][c].qText}
           </TableCellStyle>
         ))}
       </TableRowStyle>
-    ))
+    ));
   }
 
   return (
     <TableBodyStyle gridPxl={gridPxl}>
-      {page > 0 && <tr><td><Button size="small" type="default" onClick={decrementPage}>Load Previous</Button></td></tr> }
+      {/* {page > 0 && (
+        <tr>
+          <td>
+            <Button size="small" type="default" onClick={decrementPage}>
+              Load Previous
+            </Button>
+          </td>
+        </tr>
+      )} */}
       {items}
-      {qData.qMatrix.length >= pageHeight && <tr><td><Button size="small" type="default" onClick={incrementPage}>Load Next</Button></td></tr> }
+      {/* {qData.qMatrix.length >= pageHeight && (
+        <tr>
+          <td>
+            <Button size="small" type="default" onClick={incrementPage}>
+              Load Next
+            </Button>
+          </td>
+        </tr>
+      )} */}
     </TableBodyStyle>
-  )
-}
+  );
+};
 
-export default TableBody
-
+export default TableBody;

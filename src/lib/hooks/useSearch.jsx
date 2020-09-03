@@ -62,9 +62,23 @@ const useSearch = ({
     })(),
   )
 
+  /*
+  const beginSelections = useCallback(
+    () => qObject.current.beginSelections(["/qHyperCubeDef"]),
+    [true]
+  );
+
+  const endSelections = useCallback(
+    (qAccept) => qObject.current.endSelections(qAccept),
+    []
+  );
+*/
+
   return {
     searchResults,
     select,
+   // beginSelections,
+   // endSelections,
   }
 }
 

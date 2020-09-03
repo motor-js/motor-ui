@@ -7,6 +7,7 @@ import { componentWidth } from "../../../utils";
 
 const BarWrapper = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     props.border !== "none" &&
@@ -17,7 +18,7 @@ const BarWrapper = styled.div`
     props.borderRadius || props.theme.global.chart.borderRadius};
   background-color: ${(props) =>
     props.backgroundColor || props.theme.global.chart.backgroundColor};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.global.chart.margin};
   userselect: ${(props) => props.theme.global.chart.userSelect};
   width: ${(props) => componentWidth(props)};
   display: ${(props) => props.theme.global.chart.display};
@@ -26,6 +27,7 @@ const BarWrapper = styled.div`
 
 const BarWrapperNoData = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
@@ -38,10 +40,9 @@ const BarWrapperNoData = styled.div`
   background-color: ${(props) =>
     props.theme.global.chart.noData.backgroundColor};
   border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
-  height: ${(props) => props.height};
   width: ${(props) => componentWidth(props)};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.global.chart.margin};
 `;
 
 const BarNoDataContent = styled.div`

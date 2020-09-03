@@ -17,6 +17,7 @@ const useSelectionObject = ({ engine }) => {
   }
 
   const clearSelections = async (field, value) => {
+    
     if (field) {
       const qField = await qDoc.getField(field)
       if (value) {

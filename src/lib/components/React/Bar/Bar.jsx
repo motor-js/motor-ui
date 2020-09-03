@@ -150,7 +150,7 @@ Bar.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -214,6 +214,8 @@ Bar.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 Bar.defaultProps = {
@@ -222,7 +224,7 @@ Bar.defaultProps = {
   suppressZero: null,
   width: "100%",
   height: "100%",
-  margin: "5px",
+  margin: null,
   size: "medium",
   showLabels: null,
   fontColor: "",
@@ -235,7 +237,7 @@ Bar.defaultProps = {
   tickSpacing: undefined,
   borderRadius: null,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   roundNum: true,
   barSortOrder: [],
   sortDirection: "",
@@ -251,6 +253,7 @@ Bar.defaultProps = {
   dimensionErrMsg: null,
   measureErrMsg: null,
   otherTotalSpec: null,
+  gridArea: null,
 };
 
 export default Bar;

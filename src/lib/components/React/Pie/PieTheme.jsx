@@ -7,6 +7,7 @@ import { componentWidth } from "../../../utils";
 
 const PieWrapper = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     props.border !== "none" &&
@@ -22,10 +23,12 @@ const PieWrapper = styled.div`
   userselect: ${(props) => props.theme.global.chart.userSelect};
   display: ${(props) => props.theme.global.chart.display};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
+  margin: ${(props) => props.margin || props.theme.global.chart.margin};
 `;
 
 const PieWrapperNoData = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.noData.borderRadius};
@@ -41,7 +44,7 @@ const PieWrapperNoData = styled.div`
 
   vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => props.margin || props.theme.global.chart.margin};
 `;
 
 const PieNoDataContent = styled.div`
@@ -65,14 +68,14 @@ Object.setPrototypeOf(PieNoDataContent.defaultProps, defaultProps);
 
 export { PieWrapper, PieWrapperNoData, PieNoDataContent };
 
-function PieTheme(theme, size, fontColor, chartColor) {
+function PieTheme(theme, size, fontColor, colorArray) {
   const {
     global: { fontFamily, chart, size: fontSize, colorTheme },
     pie: { main },
   } = theme;
 
   // if the prop is undefined, use the base theme
-  const color = chartColor || colorTheme;
+  const color = colorArray || colorTheme;
   const colorPalette = createColorArray(color, theme);
 
   const labelColor = selectColor(chart.label.fontColor, theme);

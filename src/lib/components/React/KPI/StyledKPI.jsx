@@ -41,6 +41,7 @@ function StyledKPI({
   padding,
   backgroundColor,
   autoSizeValue,
+  gridArea,
 }) {
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -113,7 +114,7 @@ function StyledKPI({
 
   return (
     <>
-      {qData && qLayout && isValid ? (
+      {qData && qLayout ? (
         <KPIWrapper
           data-testid="kpiWrapper"
           onClick={() => onClick()}
@@ -127,6 +128,7 @@ function StyledKPI({
           backgroundColor={backgroundColor}
           size={size}
           padding={padding}
+          gridArea={gridArea}
         >
           <KPIGroup>
             <KPILabel
@@ -147,8 +149,11 @@ function StyledKPI({
                 size={size}
                 responsive={responsive}
               >
-                {roundNum && formatValue(qData.qMatrix[0][0].qNum, precision)}
-                {!roundNum && qData.qMatrix[0][0].qText}
+                {roundNum &&
+                  (isValid
+                    ? formatValue(qData.qMatrix[0][0].qNum, precision)
+                    : 0)}
+                {!roundNum && (isValid ? qData.qMatrix[0][0].qText : 0)}
               </KPIValue>
             </KPIValueWrapper>
           </KPIGroup>
@@ -160,6 +165,9 @@ function StyledKPI({
           maxWidth={maxWidth}
           margin={margin}
           width={width}
+          border={border}
+          gridArea={gridArea}
+          backgroundColor={backgroundColor}
         >
           {calcCond || dataError || engineError || <Spinner />}
         </KPIWrapperNoData>

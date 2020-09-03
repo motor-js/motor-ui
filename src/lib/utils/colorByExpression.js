@@ -20,11 +20,11 @@ export const colorByExpression = (
     if (d.qAttrExprInfo.length === 0) return;
     d.qAttrExprInfo.map((attr, idx) => {
       if (
-        attr.id === 'chartColor' &&
-        typeof attr.qFallbackTitle !== 'undefined' &&
+        attr.id === "colorTheme" &&
+        typeof attr.qFallbackTitle !== "undefined" &&
         colorSettings.length === 0 // if multiple dimensions have formula, use first
       ) {
-        colorBy = 'dimension';
+        colorBy = "dimension";
         return (colorSettings[i] = [i, idx]);
       }
     });
@@ -35,10 +35,10 @@ export const colorByExpression = (
       if (m.qAttrExprInfo.length === 0) return;
       m.qAttrExprInfo.forEach((attr, idx) => {
         if (
-          attr.id === 'chartColor' &&
-          typeof attr.qFallbackTitle !== 'undefined'
+          attr.id === "colorTheme" &&
+          typeof attr.qFallbackTitle !== "undefined"
         ) {
-          colorBy = 'expression';
+          colorBy = "expression";
           colorSettings.push([dimensionCount + i, idx]);
         }
       });
@@ -47,8 +47,8 @@ export const colorByExpression = (
 
   if (colorSettings.length !== 0) {
     if (
-      colorBy === 'dimension' ||
-      (colorBy === 'expression' &&
+      colorBy === "dimension" ||
+      (colorBy === "expression" &&
         colorSettings.length === measureCount &&
         measureCount === 1)
     ) {
@@ -57,7 +57,7 @@ export const colorByExpression = (
           .qText;
       });
     } else if (
-      colorBy === 'expression' &&
+      colorBy === "expression" &&
       colorSettings.length === measureCount
     ) {
       qMatrix.map((d, i) => {
@@ -68,7 +68,7 @@ export const colorByExpression = (
         });
       });
     } else if (
-      colorBy === 'expression' &&
+      colorBy === "expression" &&
       colorSettings.length !== measureCount
     ) {
       qMatrix.map((d, i) => {
@@ -93,5 +93,6 @@ export const colorByExpression = (
 
     // showLegend = 'none';
   }
-  return conditionalColors;
+  // return conditionalColors;
+  return conditionalColors.length !== 0 ? conditionalColors : colorPalette;
 };

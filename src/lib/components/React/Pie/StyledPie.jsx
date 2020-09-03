@@ -27,19 +27,20 @@ function StyledPie({
   border,
   backgroundColor,
   borderRadius,
-  chartColor,
+  colorTheme,
   showLegend,
   allowSelections,
   calcCondition,
   suppressZero,
   otherTotalSpec,
   showLabels,
+  gridArea,
   ...rest
 }) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionPieVisible, setSelectionPieVisible] = useState(false);
+  const [isSelectionVisible, setSelectionVisible] = useState(false);
   const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
@@ -50,7 +51,7 @@ function StyledPie({
   let chartSettings = {};
 
   // styles
-  const { PieThemes } = PieTheme(theme, size, fontColor, chartColor);
+  const { PieThemes } = PieTheme(theme, size, fontColor, colorTheme);
   const { PieDefault } = PieThemes;
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
@@ -74,7 +75,7 @@ function StyledPie({
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionPieVisible(false);
+    setSelectionVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -83,7 +84,7 @@ function StyledPie({
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionPieVisible(false);
+    setSelectionVisible(false);
     setRefreshChart(true);
     useSelectionColours = false;
     // setSel([]);
@@ -95,7 +96,7 @@ function StyledPie({
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionPieVisible) {
+    if (isSelectionVisible) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -128,13 +129,17 @@ function StyledPie({
         qLayout,
         qData,
         // chartWidth: width,
-        chartHeight: height,
+        // chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
         setRefreshChart,
         beginSelections,
-        setSelectionPieVisible,
+        setSelectionVisible,
         selections,
         select,
         // buildSelections,
@@ -167,7 +172,9 @@ function StyledPie({
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
           size={size}
         >
@@ -180,16 +187,16 @@ function StyledPie({
             }}
           >
             <SelectionModal
-              isOpen={isSelectionPieVisible}
+              isOpen={isSelectionVisible}
               cancelCallback={cancelCallback}
               confirmCallback={confirmCallback}
               // width={width}
             />
             <div
               style={{
-                border: isSelectionPieVisible ? "1px solid #CCCCCC" : "none",
-                overflowX: isSelectionPieVisible ? "hidden" : "auto",
-                overflowY: isSelectionPieVisible ? "hidden" : "auto",
+                border: isSelectionVisible ? "1px solid #CCCCCC" : "none",
+                overflowX: isSelectionVisible ? "hidden" : "auto",
+                overflowY: isSelectionVisible ? "hidden" : "auto",
                 // width,
               }}
             >
@@ -208,7 +215,9 @@ function StyledPie({
           borderRadius={borderRadius}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
         >
           <PieNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

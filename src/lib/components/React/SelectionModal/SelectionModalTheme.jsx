@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import { defaultProps } from '../../../default-props';
-import { globalStyle } from '../../../utils/styles';
+import styled from "styled-components";
+import { defaultProps } from "../../../default-props";
+import { globalStyle } from "../../../utils/styles";
+import { selectColor } from "../../../utils/colors";
 
 const SelectionModalWrapper = styled.div`
   ${globalStyle}
@@ -16,7 +17,7 @@ const SelectionModalWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-const SelectionModalButton = styled.div`
+const SelectionModalButton = styled.button`
   height: 25px;
   padding: 0 12px;
   margin: 5px 5px;
@@ -27,41 +28,65 @@ const SelectionModalButton = styled.div`
   outline: none;
   cursor: pointer;
   box-sizing: border-box;
-  border-radius: 6px;
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.bckgColor};
-  border: ${(props) => props.border};
-  color: ${(props) => props.color};
-
-  &:hover {
-    background-color: ${(props) => props.hoverbckgColor};
-  }
 `;
 
 const SelectionModalButtonConfirm = styled(SelectionModalButton)`
   background-color: ${(props) =>
-    props.bckgColor || props.theme.selectionModal.bckgColor.confirm};
-  border: ${(props) =>
-    props.border || props.theme.selectionModal.border.confirm};
-  color: ${(props) => props.color || props.theme.selectionModal.color.confirm};
+    selectColor(
+      props.bckgColor || props.theme.selectionModal.bckgColor.confirm,
+      props.theme
+    )};
+  border-color: ${(props) =>
+    selectColor(
+      props.borderColor || props.theme.selectionModal.border.color.confirm,
+      props.theme
+    )};
+  border-size: ${(props) =>
+    props.borderSize || props.theme.selectionModal.border.size.confirm};
+  border-style: ${(props) =>
+    props.borderStyle || props.theme.selectionModal.border.style.confirm};
+  border-radius: ${(props) =>
+    props.borderRadius || props.theme.selectionModal.border.radius.confirm};
+  color: ${(props) =>
+    selectColor(
+      props.color || props.theme.selectionModal.color.confirm,
+      props.theme
+    )};
 
   &:hover {
-    background-color: ${(props) =>
-      props.hoverbckgColor ||
-      props.theme.selectionModal.hoverBckgColor.confirm};
+    opacity: ${(props) =>
+      props.opacity || props.theme.selectionModal.hoverOpacity.confirm};
   }
 `;
+
 const SelectionModalButtonCancel = styled(SelectionModalButton)`
   background-color: ${(props) =>
-    props.bckgColor || props.theme.selectionModal.bckgColor.cancel};
-  border: ${(props) =>
-    props.border || props.theme.selectionModal.border.cancel};
-  color: ${(props) => props.color || props.theme.selectionModal.color.cancel};
+    selectColor(
+      props.bckgColor || props.theme.selectionModal.bckgColor.cancel,
+      props.theme
+    )};
+  border-color: ${(props) =>
+    selectColor(
+      props.borderColor || props.theme.selectionModal.border.color.cancel,
+      props.theme
+    )};
+  border-size: ${(props) =>
+    props.borderSize || props.theme.selectionModal.border.size.cancel};
+  border-style: ${(props) =>
+    props.borderStyle || props.theme.selectionModal.border.style.cancel};
+  border-radius: ${(props) =>
+    props.borderRadius || props.theme.selectionModal.border.radius.cancel};
+  color: ${(props) =>
+    selectColor(
+      props.color || props.theme.selectionModal.color.cancel,
+      props.theme
+    )};
 
   &:hover {
-    background-color: ${(props) =>
-      props.hoverbckgColor || props.theme.selectionModal.hoverBckgColor.cancel};
+    opacity: ${(props) =>
+      props.opacity || props.theme.selectionModal.hoverOpacity.cancel};
   }
 `;
 

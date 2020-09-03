@@ -26,7 +26,12 @@ const StyledSearch = ({
   const [loading, setLoading] = useState(true);
   const searchRef = useRef();
 
-  const { searchResults, select } = useSearch({
+  const { 
+    searchResults,
+    select,
+  //  beginSelections,
+  //  endSelections,
+  } = useSearch({
     engine,
     searchValue,
     dimensions,
@@ -66,8 +71,9 @@ const StyledSearch = ({
 
   // handle select, close suggestions and clear search terms
   const handleSelect = (id) => {
-    //  console.log('called! ', id)
+  //  beginSelections();
     select(id);
+ //   endSelections(true);
     setListOpen(false);
     setSearchValue('');
   };

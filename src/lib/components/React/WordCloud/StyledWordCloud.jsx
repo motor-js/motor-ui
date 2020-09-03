@@ -43,15 +43,16 @@ function StyledWordCloud(props) {
     border,
     backgroundColor,
     borderRadius,
-    chartColor,
+    colorTheme,
     calcCondition,
     suppressZero,
     otherTotalSpec,
+    gridArea,
     ...rest
   } = props;
 
   // styles
-  const { WordCloudThemes } = WordCloudTheme(theme, size, chartColor);
+  const { WordCloudThemes } = WordCloudTheme(theme, size, colorTheme);
   const { WordCloudDefault } = WordCloudThemes;
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
@@ -129,8 +130,10 @@ function StyledWordCloud(props) {
       (chartSettings = {
         qLayout,
         qData,
-        // chartWidth: width,
-        chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -166,7 +169,8 @@ function StyledWordCloud(props) {
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
         >
           <div
@@ -207,8 +211,9 @@ function StyledWordCloud(props) {
           border={border}
           borderRadius={borderRadius}
           size={size}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
-          margin={margin}
         >
           <WordCloudNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

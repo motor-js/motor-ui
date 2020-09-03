@@ -1,15 +1,14 @@
-import React, { useRef, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useContext } from "react";
+import PropTypes from "prop-types";
 import {
   SelectionModalWrapper,
-  SelectionModalButton,
   SelectionModalButtonConfirm,
   SelectionModalButtonCancel,
-} from './SelectionModalTheme';
+} from "./SelectionModalTheme";
 // import useOutsideClick from '../../Hooks/useOutsideClick'
-import { ThemeContext } from 'styled-components';
-import { Check, X } from 'react-feather';
-import defaultTheme from '../../../themes/defaultTheme';
+import { ThemeContext } from "styled-components";
+import { Check, Times } from "@styled-icons/fa-solid";
+import defaultTheme from "../../../themes/defaultTheme";
 
 function StyledSelectionModal({
   confirmCallback,
@@ -19,12 +18,18 @@ function StyledSelectionModal({
   offset,
   width,
   buttonType,
-  hoverBckgColorConfirm,
-  hoverBckgColorCancel,
+  hoverOpacityConfirm,
+  hoverOpacityCancel,
   bckgColorConfirm,
   bckgColorCancel,
-  borderConfirm,
-  borderCancel,
+  borderColorConfirm,
+  borderColorCancel,
+  borderSizeConfirm,
+  borderSizeCancel,
+  borderStyleConfirm,
+  borderStyleCancel,
+  borderRadiusConfirm,
+  borderRadiusCancel,
   colorConfirm,
   colorCancel,
 }) {
@@ -52,31 +57,37 @@ function StyledSelectionModal({
         >
           <SelectionModalButtonCancel
             theme={theme}
-            type='button'
-            className='cancelSelections'
+            type="button"
+            className="cancelSelections"
             bckgColor={bckgColorCancel}
-            border={borderCancel}
+            borderColor={borderColorCancel}
+            borderSize={borderSizeCancel}
+            borderStyle={borderStyleCancel}
+            borderRadius={borderRadiusCancel}
             color={colorCancel}
-            hoverbckgColor={hoverBckgColorCancel}
+            hoverOpacity={hoverOpacityCancel}
             onClick={cancelSelections}
           >
-            {buttonType || theme.selectionModal.buttonType === 'icon' ? (
-              <X className='cancelSelections' />
+            {buttonType || theme.selectionModal.buttonType === "icon" ? (
+              <Times className="cancelSelections" size={20} />
             ) : (
-              <div className='cancelSelections'>CANCEL</div>
+              <div className="cancelSelections">CANCEL</div>
             )}
           </SelectionModalButtonCancel>
           <SelectionModalButtonConfirm
-            type='button'
-            className='confirmSelections'
+            type="button"
+            className="confirmSelections"
             bckgColor={bckgColorConfirm}
-            border={borderConfirm}
+            borderColor={borderColorConfirm}
+            borderSize={borderSizeConfirm}
+            borderStyle={borderStyleConfirm}
+            borderRadius={borderRadiusConfirm}
             color={colorConfirm}
-            hoverbckgColor={hoverBckgColorConfirm}
+            hoverOpacity={hoverOpacityConfirm}
             onClick={confirmSelections}
           >
-            {buttonType || theme.selectionModal.buttonType === 'icon' ? (
-              <Check />
+            {buttonType || theme.selectionModal.buttonType === "icon" ? (
+              <Check size={20} />
             ) : (
               <div>CONFIRM</div>
             )}

@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeContext } from 'styled-components';
-import StyledTable from './StyledTable';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
-import defaultTheme from '../../../themes/defaultTheme';
-import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { ThemeContext } from "styled-components";
+import StyledTable from "./StyledTable";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
+import defaultTheme from "../../../themes/defaultTheme";
+import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
 const Table = ({ config, ...rest }) => {
   const myConfig = config || useContext(ConfigContext);
@@ -23,6 +23,34 @@ const Table = ({ config, ...rest }) => {
     />
   );
 };
+
+const BORDER_SHAPE = PropTypes.shape({
+  color: PropTypes.oneOfType([PropTypes.string]),
+  side: PropTypes.oneOf([
+    "top",
+    "left",
+    "bottom",
+    "right",
+    "start",
+    "end",
+    "horizontal",
+    "vertical",
+    "all",
+    "between",
+  ]),
+  size: PropTypes.oneOfType([PropTypes.string]),
+  style: PropTypes.oneOf([
+    "solid",
+    "dashed",
+    "dotted",
+    "double",
+    "groove",
+    "ridge",
+    "inset",
+    "outset",
+    "hidden",
+  ]),
+});
 
 Table.propTypes = {
   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
@@ -63,15 +91,15 @@ Table.propTypes = {
    */
   tableWidth: PropTypes.string,
   /* table size */
-  size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'xlarge']),
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /* Number of records to be returned per page of the table.
   Note that increasing this will have a performance impact */
   pageHeight: PropTypes.number,
   /* Defines the algorithm used to lay out table cells, rows and columns.
   For more information regarding the impact, please see https://www.w3schools.com/cssref/pr_tab_table-layout.asp */
-  tableLayout: PropTypes.oneOf(['fixed', 'auto']),
+  tableLayout: PropTypes.oneOf(["fixed", "auto"]),
   /* Alignment of header row */
-  headerAlignment: PropTypes.oneOf(['left', 'middle', 'right']),
+  headerAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
   /* header background color */
   headerBackgroundColor: PropTypes.string,
   /* header font color */
@@ -86,7 +114,60 @@ Table.propTypes = {
   highlightOnSelection: PropTypes.bool,
   /* To allow or disable selections */
   allowSelections: PropTypes.bool,
-}
+  /* Text aligmentment */
+  bodyAlignment: PropTypes.oneOf(["left", "center", "right", "leftRight"]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
+  /** Background Color of the chart */
+  backgroundColor: PropTypes.string,
+  /** Border of the Pie Chart, need desc */
+  border: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf([
+      "top",
+      "left",
+      "bottom",
+      "right",
+      "start",
+      "end",
+      "horizontal",
+      "vertical",
+      "all",
+      "between",
+      "none",
+    ]),
+    PropTypes.shape({
+      color: PropTypes.oneOfType([PropTypes.string]),
+      side: PropTypes.oneOf([
+        "top",
+        "left",
+        "bottom",
+        "right",
+        "start",
+        "end",
+        "horizontal",
+        "vertical",
+        "all",
+        "between",
+      ]),
+      size: PropTypes.oneOfType([PropTypes.string]),
+      style: PropTypes.oneOf([
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
+      ]),
+    }),
+    PropTypes.arrayOf(BORDER_SHAPE),
+  ]),
+  /** Border Radius of the chart */
+  borderRadius: PropTypes.string,
+};
 
 Table.defaultProps = {
   config: null,
@@ -94,14 +175,14 @@ Table.defaultProps = {
   calcCondition: undefined,
   columnSortOrder: [],
   grandTotalsFlag: false,
-  margin: '0px',
-  height: '400px',
-  wrapperWidth: '100%',
-  tableWidth: '100%',
-  size: 'medium',
+  margin: null,
+  height: "400px",
+  wrapperWidth: "100%",
+  tableWidth: "100%",
+  size: "medium",
   pageHeight: 30,
-  tableLayout: 'auto',
-  headerAlignment: 'left',
+  tableLayout: "auto",
+  headerAlignment: "left",
   headerBackgroundColor: null,
   headerFontColor: null,
   interactiveSort: false,
@@ -109,6 +190,11 @@ Table.defaultProps = {
   bandedRows: false,
   highlightOnSelection: false,
   allowSelections: true,
-}
+  bodyAlignment: "left",
+  gridArea: null,
+  backgroundColor: null,
+  border: true,
+  borderRadius: null,
+};
 
 export default Table;

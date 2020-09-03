@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { X } from "@styled-icons/feather/X";
+import { Times } from "@styled-icons/fa-solid/Times";
 import { globalStyle } from "../../../utils/styles";
 import { defaultProps } from "../../../default-props";
 import { selectColor } from "../../../utils/colors";
@@ -13,14 +13,16 @@ const overflowStyles = css`
 const SelectionsWrapper = styled.div`
   ${globalStyle};
   ${overflowStyles};
-  max-height: ${props => props.maxHeight};
-  min-height: ${props => props.minHeight};
-  margin: ${props => props.margin};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
+  max-height: ${(props) => props.maxHeight};
+  min-height: ${(props) => props.minHeight};
+  margin: ${(props) => props.margin || props.theme.selections.wrapper.margin};
   display: flex;
-  flex: ${props => props.flex};
+  flex: ${(props) => props.flex};
   align-items: flex-start;
   align-content: flex-start;
-  max-width: ${(props) => props.width};
+  max-width: ${(props) => (props.gridArea ? null : props.maxWidth)};
+  width: ${(props) => (props.gridArea ? null : props.width)};
   border: ${(props) => props.theme.selections.wrapper.border};
   border-radius: ${(props) => props.theme.selections.wrapper.radius};
   background-color: ${(props) =>
@@ -91,13 +93,16 @@ const SelectionsX = styled.span`
   border: 1px solid
     ${(props) =>
       selectColor(props.theme.selections.item.backgroundColor, props.theme)};
+`;
+
+/*
   &:hover {
     border: 1px solid
       ${(props) => selectColor(props.theme.selections.color.clear, props.theme)};
   }
-`;
-
-const XStyled = styled(X)`
+  
+*/
+const XStyled = styled(Times)`
   padding: 1px 1px;
   color: ${(props) =>
     selectColor(props.theme.selections.color.clear, props.theme)};

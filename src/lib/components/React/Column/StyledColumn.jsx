@@ -32,7 +32,7 @@ function StyledColumn({
   border,
   borderRadius,
   backgroundColor,
-  chartColor,
+  colorTheme,
   stacked,
   percentStacked,
   title,
@@ -41,6 +41,7 @@ function StyledColumn({
   allowSelections,
   maxWidth,
   showAxis,
+  showXAxisText,
   maxAxisLength,
   roundNum,
   sortDirection,
@@ -55,6 +56,7 @@ function StyledColumn({
   tickSpacing,
   showGridlines,
   otherTotalSpec,
+  gridArea,
 }) {
   // Ref for d3 object
   const d3Container = useRef(null);
@@ -70,11 +72,13 @@ function StyledColumn({
   let chartSettings = {};
 
   // styles
-  const { ColumnThemes } = ColumnTheme(theme, size, fontColor, chartColor);
+  const { ColumnThemes } = ColumnTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);
   const { ColumnDefault } = ColumnThemes;
+
+  const refMargin = "10px";
 
   // retrieve Column data from HyperCube
   const {
@@ -136,6 +140,11 @@ function StyledColumn({
 
   useEffect(() => {
     let valid;
+    // if (ref.current) {
+    //   // let height = stageCanvasRef.current.offsetHeight;
+    //   // let width = stageCanvasRef.current.offsetWidth;
+    //   console.log("h1", ref.current.offsetHeight);
+    // }
     if (qLayout) {
       // setObjId(qLayout.qInfo.qId);
       setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
@@ -153,7 +162,10 @@ function StyledColumn({
         qLayout,
         qData,
         // propsWidth: width,
-        propsHeight: height,
+        propsHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth,
         useSelectionColours,
@@ -187,6 +199,7 @@ function StyledColumn({
         showAxis: calcDisplayOption(
           showAxis === null ? ColumnDefault.showAxis : showAxis
         ),
+        showXAxisText,
         textOnAxis: calcDisplayOption(
           textOnAxis === null ? ColumnDefault.textOnAxis : textOnAxis
         ),
@@ -213,8 +226,10 @@ function StyledColumn({
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
           width={width}
+          gridArea={gridArea}
         >
           <div
             ref={ref}
@@ -253,7 +268,9 @@ function StyledColumn({
           borderRadius={borderRadius}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
         >
           <ColumnNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

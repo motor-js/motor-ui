@@ -47,7 +47,7 @@ function StyledLine(props) {
     border,
     borderRadius,
     backgroundColor,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     showAxis,
@@ -62,11 +62,12 @@ function StyledLine(props) {
     otherTotalSpec,
     tickSpacing,
     symbol,
+    gridArea,
     ...rest
   } = props;
 
   // styles
-  const { LineThemes } = LineTheme(theme, size, fontColor, chartColor);
+  const { LineThemes } = LineTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);
@@ -147,7 +148,11 @@ function StyledLine(props) {
         qLayout,
         qData,
         // chartWidth: width,
-        chartHeight: height,
+        // chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -200,8 +205,9 @@ function StyledLine(props) {
           border={border}
           borderRadius={borderRadius}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
           width={width}
+          gridArea={gridArea}
         >
           <div
             ref={ref}
@@ -239,8 +245,9 @@ function StyledLine(props) {
           border={border}
           borderRadius={borderRadius}
           size={size}
+          margin={margin || theme.global.chart.margin}
           width={width}
-          margin={margin}
+          gridArea={gridArea}
         >
           <LineNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

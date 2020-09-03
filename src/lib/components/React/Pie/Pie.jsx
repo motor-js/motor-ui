@@ -120,7 +120,7 @@ Pie.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -180,7 +180,8 @@ Pie.propTypes = {
   showLabels: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(["inside", "outside", "altStyle", "none"]),
-  ]),
+  ]) /** Name of the parent grid area to place the box */,
+  gridArea: PropTypes.string,
 };
 
 Pie.defaultProps = {
@@ -189,13 +190,13 @@ Pie.defaultProps = {
   suppressZero: false,
   width: "100%",
   height: "100%",
-  margin: "5px",
+  margin: null,
   size: "medium",
   allowSelections: null,
   fontColor: null,
   border: true,
   backgroundColor: null,
-  chartColor: null,
+  colorTheme: null,
   roundNum: true,
   title: null,
   subTitle: null,
@@ -204,6 +205,7 @@ Pie.defaultProps = {
   cornerRadius: 0,
   padAngle: 0,
   showLabels: null,
+  gridArea: null,
 };
 
 export default Pie;

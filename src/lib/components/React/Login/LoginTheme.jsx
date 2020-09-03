@@ -36,7 +36,7 @@ const LoginWrapper = styled.div`
 
 const LoginHeader = styled.div`
   ${globalStyle};
-  padding: 0.8rem;
+  padding: 0.6rem;
   font-size: ${props => props.theme.global.size.title[props.size]}
 `
 

@@ -44,17 +44,18 @@ function StyledBarPlot(props) {
     border,
     backgroundColor,
     borderRadius,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     calcCondition,
     suppressZero,
     otherTotalSpec,
+    gridArea,
     ...rest
   } = props;
 
   // styles
-  const { BarPlotThemes } = BarPlotTheme(theme, size, fontColor, chartColor);
+  const { BarPlotThemes } = BarPlotTheme(theme, size, fontColor, colorTheme);
   const { BarPlotDefault } = BarPlotThemes;
 
   const { ToolTipThemes } = TooltipTheme(theme, size);
@@ -132,7 +133,11 @@ function StyledBarPlot(props) {
         qLayout,
         qData,
         // chartWidth: width,
-        chartHeight: height,
+        // chartHeight: height,
+        chartHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -169,7 +174,9 @@ function StyledBarPlot(props) {
         <BarPlotWrapper
           border={border}
           backgroundColor={backgroundColor}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
           borderRadius={borderRadius}
         >
@@ -212,7 +219,9 @@ function StyledBarPlot(props) {
           borderRadius={borderRadius}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
         >
           <BarPlotNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

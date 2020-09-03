@@ -47,7 +47,7 @@ function StyledBar(props) {
     border,
     borderRadius,
     backgroundColor,
-    chartColor,
+    colorTheme,
     showLegend,
     allowSelections,
     showAxis,
@@ -62,11 +62,12 @@ function StyledBar(props) {
     otherTotalSpec,
     tickSpacing,
     allowSlantedYAxis,
+    gridArea,
     ...rest
   } = props;
 
   // styles
-  const { BarThemes } = BarTheme(theme, size, fontColor, chartColor);
+  const { BarThemes } = BarTheme(theme, size, fontColor, colorTheme);
   const { ToolTipThemes } = TooltipTheme(theme, size);
   const { TitleThemes } = TitleTheme(theme, size);
   const { LegendThemes } = LegendTheme(theme, backgroundColor);
@@ -147,7 +148,11 @@ function StyledBar(props) {
         qLayout,
         qData,
         // propsWidth: width,
-        propsHeight: height,
+        // propsHeight: height,
+        propsHeight: gridArea
+          ? ref.current.offsetHeight -
+            parseInt(margin || theme.global.chart.margin, 10)
+          : height,
         d3Container,
         screenWidth: ref.current.offsetWidth,
         useSelectionColours,
@@ -203,7 +208,8 @@ function StyledBar(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
           width={width}
         >
           <div
@@ -241,7 +247,9 @@ function StyledBar(props) {
           border={border}
           size={size}
           width={width}
-          margin={margin}
+          margin={margin || theme.global.chart.margin}
+          // chartMargin={margin || theme.global.chart.margin}
+          gridArea={gridArea}
         >
           <BarNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}

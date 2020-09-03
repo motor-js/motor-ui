@@ -120,7 +120,7 @@ BarPlot.propTypes = {
   /** Background Color of the chart */
   backgroundColor: PropTypes.string,
   /** color scheme of the chart */
-  chartColor: PropTypes.oneOfType([
+  colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
       "divergent9",
@@ -175,6 +175,8 @@ BarPlot.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
+  /** Name of the parent grid area to place the box */
+  gridArea: PropTypes.string,
 };
 
 BarPlot.defaultProps = {
@@ -193,6 +195,7 @@ BarPlot.defaultProps = {
   outerRadius: 0,
   padAngle: 0,
   // otherTotalSpec: { qOtherLabel: 'Other', qOtherCount: '5' },
+  gridArea: null,
 };
 
 export default BarPlot;

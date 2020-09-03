@@ -132,12 +132,31 @@ electric
 
 const base = {
   global: {
+    login: {
+      header: "Welcome to your motor js mashup",
+      body: "Please log on to access your application",
+      size: "medium",
+      buttonText: "Login",
+      backgroundColor: "white",
+      buttonFontColor: "white",
+      buttonColor: "brand",
+    },
+    notConnected: {
+      header: "Connection to server lost",
+      body: "Please reload the page to refresh the dashboard",
+      size: "medium",
+      buttonText: "Reload Page",
+      backgroundColor: "white",
+      buttonFontColor: "white",
+      buttonColor: "brand",
+    },
     backgroundColor: "white",
     fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
     colorTheme: "motor",
     color,
     overlay: {
-      background: `rgba(0,0,0,0.3)`,
+      background: `rgb(0,0,0)`,
+      opacity: 0.3,
     },
     border: {
       color: "var(--oc-gray-4)",
@@ -198,7 +217,7 @@ const base = {
     },
     responsiveBreakpoints: {
       mobile: "400px",
-      tablet: "640px",
+      tablet: "840px",
       desktop: "1024px",
     },
     focus: {
@@ -212,6 +231,7 @@ const base = {
       allowSlantedYAxis: false,
       backgroundColor: "white",
       borderRadius: "10px",
+      margin: "10px",
       userSelect: "none",
       suppressZero: false,
       suppressScroll: false,
@@ -219,7 +239,7 @@ const base = {
       showLabels: "none",
       showLegend: true,
       textOnAxis: "both",
-      showAxis: "none",
+      showAxis: "both",
       showGridlines: "solid",
       tickSpacing: "wide",
       maxAxisLength: 80,
@@ -327,8 +347,9 @@ const base = {
       noData: {
         verticalAlign: "top",
         borderRadius: "10px",
-        backgroundColor: "var(--oc-gray-1)",
-        borderCollapse: "collapse",
+        // backgroundColor: "var(--oc-gray-1)",
+        backgroundColor: "white",
+        // borderCollapse: "collapse",
       },
       noDataContent: {
         display: "flex",
@@ -410,36 +431,50 @@ const base = {
       backgroundSize: null,
       transition: null,
     },
+    disabled: {
+      // fontColor:
+      //   "-internal-light-dark(rgba(16, 16, 16, 0.3), rgb(170, 170, 170))",
+      // backgroundColor:
+      //   "-internal-light-dark-color(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3))",
+      // borderColor:
+      //   "-internal-light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3))",
+      fontColor: "rgba(16, 16, 16, 0.3)",
+      backgroundColor: "rgba(239, 239, 239, 0.3)",
+      border: "solid 1px rgba(118, 118, 118, 0.3)",
+      boxShadow: "none",
+    },
   },
   selectionModal: {
     buttonType: "icon",
-    hoverBckgColor: {
-      // confirm: '#00ae70',
-      // confirm: "var(--oc-pink-3)",
-      confirm: "#0aaf54",
-      // cancel: '#ffdada',
-      // cancel: "var(--oc-pink-2)",
-      cancel: "#f05551",
+    hoverOpacity: {
+      confirm: 0.7,
+      cancel: 0.7,
     },
     bckgColor: {
-      // confirm: '#00C781',
-      // confirm: "var(--oc-pink-4)",
       confirm: "#009845",
-      // cancel: 'white',
       cancel: "#dc423f",
     },
     border: {
-      // confirm: '1px solid #00C781',
-      // confirm: "1px solid var(--oc-pink-4)",
-      confirm: "none",
-      // cancel: '1px solid #FF4040',
-      // cancel: "1px solid var(--oc-pink-6)",
-      cancel: "none",
+      color: {
+        confirm: "none",
+        cancel: "none",
+      },
+      size: {
+        confirm: "none",
+        cancel: "none",
+      },
+      style: {
+        confirm: "none",
+        cancel: "none",
+      },
+      radius: {
+        confirm: "8px",
+        cancel: "8px",
+      },
     },
+
     color: {
       confirm: "white",
-      // cancel: '#FF4040',
-      // cancel: "var(--oc-pink-6)",
       cancel: "white",
     },
   },
@@ -456,6 +491,7 @@ const base = {
       backgroundColor: "white",
       borderColor: "brand",
       radius: "8px",
+      margin: "5px 10px",
     },
     item: {
       border: "1px solid",
@@ -470,7 +506,9 @@ const base = {
       radius: "8px",
       textAlign: "center",
       boxSizing: "border-box",
+      margin: "10px",
     },
+    group: { padding: "10px" },
     label: {
       fontColor: "font",
       alignSelf: "center",
@@ -579,9 +617,6 @@ const base = {
   navItem: {
     color: { active: "brand", inactive: "white" },
     textAlign: "left",
-    border: {
-      hover: "border-right 5px solid #FF7272",
-    },
     background: {
       color: { hover: "none" },
     },
@@ -590,104 +625,7 @@ const base = {
       size: "3px",
       style: "solid",
       radius: "0px 8px 8px 0px",
-    },
-
-    size: {
-      tiny: {
-        padding: "5px 10px",
-        mobile: {
-          label: "10px",
-          // value: "16px",
-        },
-        tablet: {
-          label: "10px",
-          // value: "20px",
-        },
-        desktop: {
-          label: "12px",
-          // value: "40px",
-        },
-        largeDesktop: {
-          label: "12px",
-          // value: "40px",
-        },
-      },
-      small: {
-        padding: "5px 10px",
-        mobile: {
-          label: "10px",
-          // value: "20px",
-        },
-        tablet: {
-          label: "10px",
-          // value: "30px",
-        },
-        desktop: {
-          label: "12px",
-          // value: "60px",
-        },
-        largeDesktop: {
-          label: "12px",
-          // value: "60px",
-        },
-      },
-      medium: {
-        padding: "5px 10px",
-        mobile: {
-          label: "14px",
-          // value: "50px",
-        },
-        tablet: {
-          label: "14px",
-          // value: "60px",
-        },
-        desktop: {
-          label: "16px",
-          // value: "80px",
-        },
-        largeDesktop: {
-          label: "16px",
-          // value: "80px",
-        },
-      },
-      large: {
-        padding: "5px 10px",
-        mobile: {
-          label: "16px",
-          // value: "70px",
-        },
-        tablet: {
-          label: "16px",
-          // value: "80px",
-        },
-        desktop: {
-          label: "18px",
-          // value: "100px",
-        },
-        largeDesktop: {
-          label: "18px",
-          // value: "100px",
-        },
-      },
-      xlarge: {
-        padding: "5px 10px",
-        mobile: {
-          label: "18px",
-          // value: "90px",
-        },
-        tablet: {
-          label: "18px",
-          // value: "100px",
-        },
-        desktop: {
-          label: "20px",
-          // value: "120px",
-        },
-        largeDesktop: {
-          label: "20px",
-          // value: "120px",
-        },
-      },
+      hover: "border-right 5px solid #FF7272",
     },
   },
   sidebar: {
@@ -700,7 +638,7 @@ const base = {
     border: {
       // 1px dashed red; border-width: 1px 1px 0 1px;
       color: "#FF7272",
-      radius: "0px 20px 20px 0px",
+      radius: "0px",
       size: "1px",
       style: "solid",
     },
@@ -719,6 +657,9 @@ const base = {
     },
     wrapper: {
       borderColor: "altGray5",
+      margin: "10px",
+      backgroundColor: "white",
+      radius: "8px",
     },
     header: {
       borderColor: "altGray5",
@@ -735,10 +676,267 @@ const base = {
   },
   spinner: {
     type: "ThreeDots",
-    color: "altGray4",
-    size: 30,
+    color: "altGray5",
+    size: 50,
     timeout: 5000,
   },
+  xyChart: {
+    borderRadius: "10px",
+    backgroundColor: "white",
+    suppressZero: false,
+    otherTotalSpec: undefined,
+    showLegend: true,
+    margin: "10px",
+    padding: 0.2,
+    useAnimatedAxes: false,
+    includeZero: true,
+    multiColor: true,
+    autoWidth: false,
+    renderHorizontally: false,
+    events: false,
+    backgroundPattern: null,
+    boxSizing: "border-box",
+    userSelect: "none", // add to props
+    display: "inline-block", // add to props
+    showLabels: true,
+    showPoints: false,
+    roundNum: true,
+    precision: true,
+    showVerticalCrosshair: true,
+    showAxisLine: "none",
+    hideBottomAxis: false,
+    hideLeftAxis: false,
+    noData: {
+      verticalAlign: "top",
+      borderRadius: "10px",
+      // backgroundColor: "var(--oc-gray-1)",
+      backgroundColor: "white",
+      // borderCollapse: "collapse",
+    },
+    noDataContent: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      margin: "10px",
+    },
+    defaultTheme: {
+      baseColor: "#fff",
+      colors: [
+        "#0b7285",
+        "#15aabf",
+        "#fcc419",
+        "#ff8787",
+        "#6741d9",
+        "#e599f7",
+      ],
+      labelStyles: {
+        // Used for legend
+        fill: "#212529",
+        stroke: "none",
+        fontFamily:
+          "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+        fontSize: 12,
+        letterSpacing: 0.4,
+        textAnchor: "middle",
+        fontWeight: 700,
+        pointerEvents: "none",
+      },
+      gridStyles: { stroke: "#adb5bd", strokeWidth: 1 },
+      xAxisStyles: {
+        stroke: "#adb5bd",
+        strokeWidth: 1,
+        label: {
+          bottom: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+          top: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+        },
+      },
+      yAxisStyles: {
+        stroke: "#adb5bd",
+        strokeWidth: 1,
+        label: {
+          left: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dx: "-1.5em",
+          },
+          right: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 700,
+            pointerEvents: "none",
+            dx: "1.5em",
+          },
+        },
+      },
+      xTickStyles: {
+        stroke: "#adb5bd",
+        tickLength: 4,
+        label: {
+          bottom: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dy: "0.125em",
+          },
+          top: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+        },
+      },
+      yTickStyles: {
+        stroke: "#adb5bd",
+        tickLength: 4,
+        label: {
+          left: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "end",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dx: "-0.25em",
+            dy: "0.25em",
+          },
+          right: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 10,
+            letterSpacing: 0.4,
+            textAnchor: "start",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dx: "0.25em",
+            dy: "0.25em",
+          },
+        },
+      },
+      svgLabel: {
+        baseLabel: {
+          fill: "#495057",
+          stroke: "none",
+          fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontSize: 12,
+          letterSpacing: 0.4,
+          fontWeight: 700,
+          textAnchor: "middle",
+          pointerEvents: "none",
+        },
+        baseTickLabel: {
+          fill: "#495057",
+          stroke: "none",
+          fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontSize: 12,
+          letterSpacing: 0.4,
+          fontWeight: 200,
+          textAnchor: "middle",
+          pointerEvents: "none",
+        },
+        tickLabels: {
+          top: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+          right: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            textAnchor: "start",
+            pointerEvents: "none",
+            dx: "0.25em",
+            dy: "0.25em",
+          },
+          bottom: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            dy: "0.25em",
+          },
+          left: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontSize: 12,
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            textAnchor: "end",
+            pointerEvents: "none",
+            dx: "-0.25em",
+            dy: "0.25em",
+          },
+        },
+      },
+    },
+  },
+
   column: {
     main: {
       zoomScrollOnColumnWidth: 30,
@@ -750,13 +948,13 @@ const base = {
       maxWidth: 150,
     },
     columns: {
-      stroke: "var(--oc-gray-4)",
-      strokeWidth: 0.5,
+      stroke: null,
+      strokeWidth: 0,
     },
     overview: {
-      opacity: 0.5,
-      stroke: "var(--oc-gray-4)",
-      strokeWidth: 0.5,
+      opacity: 0,
+      stroke: null,
+      strokeWidth: 0,
     },
   },
   bar: {

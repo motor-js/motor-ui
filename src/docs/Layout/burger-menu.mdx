@@ -17,23 +17,26 @@ import Button from '../../lib/components/React/Button/Button.jsx'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import NavItem from '../../lib/components/React/NavItem/NavItem.jsx'
 import SmartHeading from '../../lib/components/React/SmartHeading/SmartHeading.jsx'
-import SidebarNext from "../../lib/components/React/SidebarNext";
-import { Filter as FilterIcon} from "@styled-icons/feather/filter";
-import { Home, X,  } from "react-feather";
+import SidebarNext from "../../lib/components/React/SidebarNext/SidebarNext.jsx";
+import useSidebar from "../../lib/hooks/useSidebar";
+
 import { config } from '../config/config.js'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 <Playground>
   {() => {
-  return (
-     <Router>
-    <div id="App">
-      <Motor config={config}>
-      <SidebarNext pageWrapId={"page-wrap"} outerContainerId={"App"} type="push">Hello</SidebarNext>
-      <div></div>
-      </Motor>
-    </div>
-     </Router>
-  );
+    const { isOpen, toggle } = useSidebar();
+    
+    const handleClick = () =>{toggle()}
+    return (
+      <Router>
+        <div id="anchor">
+          <Motor config={config}>
+          <div onClick={() => toggle()}>Open</div>
+          <SidebarNext containerId={"anchor"} isOpen={isOpen} type="push"><div>Hello</div></SidebarNext>
+          </Motor>
+        </div>
+      </Router>
+    );
   }}
 </Playground>

@@ -13,6 +13,7 @@ const SmartHeading = ({
   type,
   level,
   margin,
+  fontWeight,
   color,
   locales,
   options,
@@ -26,15 +27,19 @@ const SmartHeading = ({
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState(null);
   const [lastReload, setLastReload] = useState(null);
+  const [description, setDescription] = useState(null);
 
   useEffect(() => {
-    if (engine === undefined) {
+    if (type === "free") setLoading(false);
+    if (engine === undefined || type === "free") {
     } else {
       (async () => {
         const qEngine = await engine;
         const qLayout = await qEngine.getAppLayout();
+
         setTitle(qLayout.qTitle);
         setLastReload(qLayout.qLastReloadTime);
+        setDescription(qLayout.description);
         setLoading(false);
       })();
     }
@@ -45,6 +50,8 @@ const SmartHeading = ({
     text = children || "";
   } else if (type === "appName") {
     text = children ? children + title : `${title}`;
+  } else if (type === "description") {
+    text = children ? children + description : `${description}`;
   } else if (type === "lastReload") {
     // const ts = new Date(lastReload).toLocaleString();
     let ts = new Date(lastReload).toLocaleString();
@@ -68,6 +75,7 @@ const SmartHeading = ({
           size={size}
           margin={margin}
           color={color}
+          fontWeight={fontWeight}
         >
           {text}
         </StyledHeading>
@@ -90,6 +98,7 @@ SmartHeading.propTypes = {
   /* Margin */
   margin: PropTypes.string,
   color: PropTypes.string,
+  fontWeight: PropTypes.string,
   locales: PropTypes.string,
   options: PropTypes.object,
   asDate: PropTypes.bool,
@@ -104,6 +113,7 @@ SmartHeading.defaultProps = {
   level: 1,
   margin: "5px",
   color: null,
+  fontWeight: null,
   locales: null,
   options: null,
   asDate: null,
