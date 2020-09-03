@@ -233,7 +233,7 @@ export default class ChartProvider extends React.Component {
   render() {
     const {
       theme,
-      showLabels,
+      // showLabels,
       showPoints,
       showAxisLine,
       dimensionInfo,
@@ -262,7 +262,7 @@ export default class ChartProvider extends React.Component {
           margin,
           theme,
           dataRegistry,
-          showLabels,
+          // showLabels,
           showPoints,
           showAxisLine,
           dimensionInfo,

@@ -279,6 +279,7 @@ export default function CreateXYChart({
           key={measureInfo[0].qFallbackTitle}
           dataKey={measureInfo[0].qFallbackTitle}
           data={currData}
+          showLabels={showLabels}
           // xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
           // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
           {...dataAccessors[0]}
