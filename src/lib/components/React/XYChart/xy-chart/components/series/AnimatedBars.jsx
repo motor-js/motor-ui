@@ -1,5 +1,6 @@
 import React from "react";
-import { animated, useSprings } from "react-spring";
+// import { animated, useSprings } from "react-spring";
+import { Bar } from "@vx/shape";
 
 export default function AnimatedBars({
   bars,
@@ -9,23 +10,23 @@ export default function AnimatedBars({
   height,
   ...rectProps
 }) {
-  const animatedBars = useSprings(
-    bars.length,
-    bars.map((bar) => ({
-      x: x?.(bar) ?? bar.x,
-      y: y?.(bar) ?? bar.y,
-      width: width?.(bar) ?? bar.width,
-      height: height?.(bar) ?? bar.height,
-      color: bar.color,
-    }))
-  );
+  // const animatedBars = useSprings(
+  //   bars.length,
+  //   bars.map((bar) => ({
+  //     x: x?.(bar) ?? bar.x,
+  //     y: y?.(bar) ?? bar.y,
+  //     width: width?.(bar) ?? bar.width,
+  //     height: height?.(bar) ?? bar.height,
+  //     color: bar.color,
+  //   }))
+  // );
 
   return (
     // react complains when using component if we don't wrap in Fragment
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {animatedBars.map((bar, index) => (
-        <animated.rect
+      {bars.map((bar, index) => (
+        <Bar
           key={`${index}`}
           x={bar.x}
           y={bar.y}

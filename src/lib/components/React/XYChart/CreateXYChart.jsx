@@ -7,6 +7,8 @@ import ChartProvider from "./xy-chart/components/providers/ChartProvider";
 import XYChart from "./xy-chart/components/XYChart";
 import BarSeries from "./xy-chart/components/series/BarSeries";
 import LineSeries from "./xy-chart/components/series/LineSeries";
+import AreaSeries from "./xy-chart/components/series/AreaSeries";
+import PointSeries from "./xy-chart/components/series/PointSeries";
 import ChartBackground from "./xy-chart/components/ChartBackground";
 import EventProvider from "./xy-chart/components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
@@ -14,11 +16,18 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
+<<<<<<< HEAD
 import XYGrid from "./xy-chart/components/XYGrid";
 import GridColumns from './xy-chart/components/grids/GridColumns'
+=======
+import Gradient from "./xy-chart/components/aesthetic/Gradient";
+// import { LinearGradient } from "@vx/gradient";
+// import Grid from "./xy-chart/components/grids/Grid";
+// import { GridRows, GridColumns } from "@vx/grid";
+>>>>>>> 35aff21f2e8603086a44c93fcef6c1d91c6d57cc
 
-import { roundNumber, colorByExpression } from "../../../utils";
-import { formatValue } from "./xy-chart/util/formatValue";
+import { colorByExpression } from "../../../utils";
+import { isNull } from "lodash";
 
 const numDimensionTicks = 5;
 
@@ -95,30 +104,8 @@ export default function CreateXYChart({
   roundNum,
   precision,
   showVerticalCrosshair,
+  showAxis,
 }) {
-  // let datum = [];
-
-  // const newData = qMatrix.map((d, i) => {
-  //   const dim = d[0];
-  //   const measure = d[1];
-  //   measure.qNum = d[2].qNum;
-  //   console.log(i, d);
-  //   datum.push(measure);
-  //   if (i !== 0 || i === ) {
-  //   }
-
-  //   // return [d[0], d[1]];
-  // });
-
-  const newData = qMatrix;
-
-  const data = dimensionInfo.length === 1 ? qMatrix : newData;
-
-  const [currData, setCurrData] = useState(data);
-
-  const getSeriesValues = (d, colIndex) =>
-    dimensionInfo.length !== 1 ? Number(d[1].qNum) : Number(d[colIndex].qNum);
-
   const getChartType = () =>
     type
       ? type
@@ -126,27 +113,50 @@ export default function CreateXYChart({
       ? "bar"
       : "groupedbar";
 
-  // {
-  // const chartType = null;
-
-  // if (
-  //   type === "combo" &&
-  //   dimensionInfo.length === 1 &&
-  //   measureInfo.length === 1
-  // )
-  //   return "bar";
-
-  //   return type
-  //     ? type
-  //     : dimensionInfo.length === 1 && measureInfo.length === 1
-  //     ? "bar"
-  //     : "groupedbar";
-  // };
-
   const [chartType, setchartType] = useState([getChartType()]);
 
-  // console.log(chartType, newData);
-  // console.log(qMatrix);
+  // let datum = [];
+  let series = [];
+  let dimID = null;
+  let items = [];
+  let keys = [];
+  // series.push(dim);
+
+  if (dimensionInfo.length !== 1 && !chartType.includes("scatter")) {
+    qMatrix.forEach((d, i) => {
+      if (isNull(dimID)) {
+        dimID = d[0].qText;
+        series.push(d[0]);
+      }
+
+      if (dimID !== d[0].qText) {
+        items.push(series);
+        series = [];
+        series.push(d[0]);
+        dimID = d[0].qText;
+      }
+      const measure = d[1];
+      measure.qNum = d[2].qNum;
+      if (!keys.includes(measure.qText)) {
+        keys.push(measure.qText);
+      }
+      series.push(measure);
+    });
+
+    items.push(series);
+  }
+
+  const data = dimensionInfo.length === 1 ? qMatrix : items;
+
+  const [currData, setCurrData] = useState(data);
+
+  const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
+
+  // const getSeriesValues = (d, colIndex) => {
+  //   return dimensionInfo.length !== 1
+  //     ? Number(d[1].qNum)
+  //     : Number(d[colIndex].qNum);
+  // };
 
   const dataKeys =
     multiColor &&
@@ -154,6 +164,8 @@ export default function CreateXYChart({
     measureInfo.length === 1 &&
     chartType.includes("bar")
       ? data.map((d) => d[0].qText)
+      : dimensionInfo.length === 2
+      ? keys
       : null;
 
   const canSnapTooltipToDataX =
@@ -169,53 +181,6 @@ export default function CreateXYChart({
     chartType.includes("bar");
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
-
-  const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
-    <>
-      <div>{closestDatum.datum[0].qText}</div>
-      {/* <Console log={closestDatum.datum[0].qText} /> */}
-      <br />
-      {dimensionInfo.length === 1 && measureInfo.length === 1 && dataKeys && (
-        <div
-          style={{
-            color: colorScale(`${closestDatum.datum[0].qText}`),
-            textDecoration: "underline solid currentColor",
-          }}
-        >
-          {measureInfo[0].qFallbackTitle}{" "}
-          {formatValue(
-            closestDatum.datum[1].qNum,
-            roundNum === undefined ? xyChart.roundNum : roundNum,
-            precision === undefined ? xyChart.precision : precision
-          )}
-        </div>
-      )}
-      {measureInfo.map(
-        (measure, index) =>
-          closestData?.[`${measure.qFallbackTitle}`] &&
-          closestDatum.datum[0].qText ===
-            closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
-            <div
-              key={measure.qFallbackTitle}
-              style={{
-                color: colorScale(`${measure.qFallbackTitle}`),
-                textDecoration:
-                  closestDatum.key === `${measure.qFallbackTitle}`
-                    ? "underline solid currentColor"
-                    : "none",
-              }}
-            >
-              {measure.qFallbackTitle}{" "}
-              {formatValue(
-                closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum,
-                roundNum === undefined ? xyChart.roundNum : roundNum,
-                precision === undefined ? xyChart.precision : precision
-              )}
-            </div>
-          )
-      )}
-    </>
-  );
 
   const valueScaleConfig = useMemo(
     () => ({
@@ -235,13 +200,18 @@ export default function CreateXYChart({
     [chartType]
   );
 
-  const dataAccessors = measureInfo.map((measure, index) =>
-    useAccessors(
-      getSeriesValues,
-      dimensionInfo.length + index,
-      renderHorizontally
-    )
-  );
+  const dataAccessors =
+    dimensionInfo.length <= 1
+      ? measureInfo.map((measure, index) =>
+          useAccessors(
+            getSeriesValues,
+            dimensionInfo.length + index,
+            renderHorizontally
+          )
+        )
+      : keys.map((measure, index) =>
+          useAccessors(getSeriesValues, index, renderHorizontally)
+        );
 
   useEffect(() => {
     setCurrData(data);
@@ -281,6 +251,9 @@ export default function CreateXYChart({
   // const gridColor = "#6e0fca";
   // const numTickColumns = 5;
   // const scaleHeight = height / axes.length - scalePadding;
+  const background = "#3b6978";
+  const background2 = "#204051";
+  const accentColor = "#edffea";
 
   return (
     // <div className="container">
@@ -290,10 +263,14 @@ export default function CreateXYChart({
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
-      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-      precision={precision === undefined ? xyChart.precision : precision}
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
+      showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
+      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+      precision={precision === undefined ? xyChart.precision : precision}
+      dimensionInfo={dimensionInfo}
+      measureInfo={measureInfo}
+      dataKeys={dataKeys}
     >
         <div
           className="container"
@@ -312,14 +289,40 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
           >
+            {/* <Gradient
+              style="TealBlue"
+              id="area-background-gradient"
+              // from={background}
+              // to={background2}
+            /> */}
+            <ChartBackground backgroundPattern={backgroundPattern} />
+            {/* <GridRows
+              scale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+              width={100}
+              strokeDasharray="3,3"
+              stroke={accentColor}
+              strokeOpacity={0.3}
+              pointerEvents="none"
+            />
             <GridColumns
               scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-              tickValues={[10]}
-              height={height}
-              width={autoWidth ? undefined : width}
-              stroke="black"
-            />
-            <ChartBackground backgroundPattern={backgroundPattern} />
+              height={100}
+              strokeDasharray="3,3"
+              stroke={accentColor}
+              strokeOpacity={0.3}
+              pointerEvents="none"
+            /> */}
+            {/* <Grid
+          top={margin.top}
+          left={margin.left}
+          xScale={dateScale}
+          yScale={temperatureScale}
+          width={xMax}
+          height={yMax}
+          stroke="black"
+          strokeOpacity={0.1}
+          xOffset={dateScale.bandwidth() / 2}
+        /> */}
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
@@ -332,31 +335,51 @@ export default function CreateXYChart({
             )}
             {chartType.includes("stackedbar") && (
               <Stack horizontal={renderHorizontally}>
-                {measureInfo.map((measure, index) => (
-                  <BarSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ))}
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <BarSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <BarSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))}
               </Stack>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
-                {measureInfo.map((measure, index) => (
-                  <BarSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ))}
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <BarSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <BarSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                      />
+                    ))}
               </Group>
             )}
             {chartType.includes("line") && (
               <>
-                {measureInfo.map((measure, index) => (
+                {// dimensionInfo.length <= 1
+                //   ?
+                measureInfo.map((measure, index) => (
                   <LineSeries
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
@@ -364,7 +387,17 @@ export default function CreateXYChart({
                     {...dataAccessors[index]}
                     strokeWidth={1.5}
                   />
-                ))}
+                ))
+                // : dataKeys.map((measure, index) => (
+                //     <LineSeries
+                //       key={measure}
+                //       dataKey={measure}
+                //       data={currData}
+                //       {...dataAccessors[index]}
+                //       strokeWidth={1.5}
+                //     />
+                //   ))
+                }
               </>
             )}
             {chartType.includes("combo") && measureInfo.length > 1 && (
@@ -383,7 +416,30 @@ export default function CreateXYChart({
                 />
               </>
             )}
+            {chartType.includes("area") &&
+              dimensionInfo.length <= 1 &&
+              measureInfo.map((measure, index) => (
+                <AreaSeries
+                  key={measureInfo[index].qFallbackTitle}
+                  dataKey={measureInfo[index].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[index]}
+                  strokeWidth={1.5}
+                />
+              ))}
+            {chartType.includes("scatter") &&
+              dimensionInfo.length === 1 &&
+              measureInfo.length === 2 && (
+                // measureInfo.map((measure, index) => (
+                <PointSeries
+                  dataKeys={dataKeys ? dataKeys : null}
+                  dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                  data={currData}
+                  {...dataAccessors[0]}
+                />
+              )}
             {/** Temperature axis */}
+
             <AxisComponent
               label={measureInfo[0].qFallbackTitle}
               orientation={
@@ -391,6 +447,7 @@ export default function CreateXYChart({
               }
               numTicks={5}
             />
+
             {dualAxis && (
               <AxisComponent
                 label={measureInfo[1].qFallbackTitle}
@@ -399,6 +456,7 @@ export default function CreateXYChart({
               />
             )}
             {/** Dimension axis */}
+
             <AxisComponent
               // label={dimensionInfo[0].qFallbackTitle}
               orientation={
@@ -419,7 +477,7 @@ export default function CreateXYChart({
           {/*<Tooltip
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
-            renderTooltip={renderTooltip}
+            // renderTooltip={renderTooltip}
             showVerticalCrosshair={showVerticalCrosshair}
           />*/}
           {legendTopBottom === "bottom" && legend}

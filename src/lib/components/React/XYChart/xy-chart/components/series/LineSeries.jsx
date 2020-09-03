@@ -5,7 +5,7 @@ import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-import AnimatedText from "./AnimatedText";
+
 // import { callOrValue, isDefined } from "../../util/chartUtils";
 
 // import { GlyphCircle } from "@vx/glyph";
@@ -31,7 +31,15 @@ function LineSeries({
   horizontal = false,
   ...lineProps
 }) {
-  const { xScale, yScale, colorScale, showPoints } = useContext(ChartContext);
+  const {
+    xScale,
+    yScale,
+    colorScale,
+    showPoints,
+    showLabels,
+    theme,
+    formatValue,
+  } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
@@ -54,10 +62,18 @@ function LineSeries({
 
   const color = colorScale(dataKey) ?? "#222";
 
-  // const primaryColor = "#8921e0";
-  // const secondaryColor = "#00f2ff";
-  // const contrastColor = "#ffffff";
-  // const showLabels = true;
+  const {
+    svgLabel: { baseLabel },
+  } = theme;
+
+  const labelProps = {
+    ...baseLabel,
+    pointerEvents: "none",
+    stroke: "#fff",
+    strokeWidth: 2,
+    paintOrder: "stroke",
+    fontSize: 12,
+  };
 
   return (
     <g className="vx-group line-series">
@@ -83,44 +99,10 @@ function LineSeries({
                 stroke={color}
                 strokeWidth={2}
               />
-              {/* {d[0].qText && (
-                <text
-                  // x={xScale(x(d))}
-                  // y={yScale(y(d))}
-                  left={left}
-                  top={top}
-                  dx={10}
-                  // fill={d.stroke || callOrValue(stroke, d, i)}
-                  fill={color}
-                  stroke="#fff"
-                  strokeWidth={1}
-                  fontSize={12}
-                >
-                  {d[0].qText}
-                </text>
-              )} */}
               {/* {showLabels && (
-                <AnimatedText
-                  bars={data}
-                  x={(bar) => bar.x}
-                  x={(bar) => bar.y}
-                  // x={(bar) => bar.x}
-                  // x={(bar) => Math.min(scaledZeroPosition, bar.x)}
-                  // x={(bar) => minPosition + Math.abs(bar.x - xZeroPosition)}
-                  // x={(bar) =>
-                  //   bar.value >= 0
-                  //     ? minPosition + Math.abs(bar.x - xZeroPosition)
-                  //     : minPosition
-                  // }
-                  // y={(bar) => bar.y + bar.height / 2}
-                  // width={(bar) => bar.width}
-                  // height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
-                  rx={2}
-                  dx={horizontal ? "0.5em" : 0}
-                  dy={horizontal ? 0 : "-0.74em"}
-                  textAnchor="start"
-                  // {...rectProps}
-                />
+                <Text {...labelProps} key={`line-label-${i}`} x={left} y={top}>
+                  {formatValue(d[1].qNum)}
+                </Text>
               )} */}
             </g>
           );

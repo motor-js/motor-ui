@@ -8,25 +8,23 @@
 //    webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
 //  };
 
-/*
 export const config = {
   host: "juno-ui.eu.qlikcloud.com",
   secure: true,
   port: null,
   prefix: "",
-  appId: "0c07cd52-e6a1-45ff-a605-fd37394f90bf",
+  appId: "e6b8cc66-acce-4fd0-9cff-26ea2e987cde",
   qcs: true,
   webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
 };
-*/
 
-export const config = {
-  host: "localhost",
-  secure: false,
-  port: 19077,
-  prefix: "",
-  appId: "c90244fc-83bc-4d61-82c7-9289c7bf19aa",
-};
+// export const config = {
+//   host: "localhost",
+//   secure: false,
+//   port: 19077,
+//   prefix: "",
+//   appId: "c90244fc-83bc-4d61-82c7-9289c7bf19aa",
+// };
 
 /*
 

@@ -22,6 +22,8 @@ CurrentSelections.propTypes = {
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   /** Width of the selections box */
   width: PropTypes.string,
+  /** Max width of the selections box */
+  maxWidth: PropTypes.string,
   /** Set margin */
   margin: PropTypes.string,
   /** Set max height */
@@ -42,7 +44,8 @@ CurrentSelections.propTypes = {
 CurrentSelections.defaultProps = {
   config: null,
   size: "medium",
-  width: "500px",
+  width: "100%",
+  maxWidth: null,
   margin: null,
   maxHeight: "80px",
   minHeight: "80px",

@@ -5,7 +5,7 @@ import ChartContext from "../context/ChartContext";
 import withDefinedContextScales from "../enhancers/withDefinedContextScales";
 
 function Axis(props) {
-  const { theme, xScale, yScale, margin, width, height } = useContext(
+  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
     ChartContext
   );
   const { orientation } = props;
@@ -56,6 +56,20 @@ function Axis(props) {
       : orientation === "right"
       ? width - margin.right
       : 0;
+
+  switch (showAxis) {
+    case false:
+    case "none":
+      theme.xAxisStyles.strokeWidth = 0;
+      theme.yAxisStyles.strokeWidth = 0;
+      break;
+    case "yAxis":
+      theme.xAxisStyles.strokeWidth = 0;
+      break;
+    case "xAxis":
+      theme.yAxisStyles.strokeWidth = 0;
+      break;
+  }
 
   return (
     <BaseAxis

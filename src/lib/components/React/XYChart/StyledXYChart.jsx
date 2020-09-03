@@ -47,7 +47,6 @@ function StyledXYChart(props) {
     colorTheme,
     showLegend,
     // allowSelections,
-    // showAxis,
     // maxAxisLength,
     sortDirection,
     sortOrder,
@@ -243,7 +242,9 @@ function StyledXYChart(props) {
                 xAxisOrientation={xAxisOrientation}
                 yAxisOrientation={yAxisOrientation}
                 legendLeftRight={legendLeftRight}
-                showLegend={showLegend || xyChart.showLegend}
+                showLegend={
+                  showLegend === undefined ? xyChart.showLegend : showLegend
+                }
                 legendTopBottom={legendTopBottom}
                 legendDirection={legendDirection}
                 legendShape={legendShape}

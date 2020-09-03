@@ -11,10 +11,7 @@ import {
   Overlay,
   MenuWrap,
   MenuMain,
-  ItemList,
   CloseIcon,
-  MenuIcon,
-  FilterIcon,
   MenuHeader,
   MenuFooter,
 } from "./SideBarTheme";
@@ -44,23 +41,6 @@ export default (styles) => {
       this.setState(newState, () => {
         !noStateChange && this.props.onStateChange(newState);
 
-        // if (!this.props.disableAutoFocus) {
-        //   // For accessibility reasons, ensures that when we toggle open,
-        //   // we focus the first menu item if one exists.
-        //   if (newState.isOpen) {
-        //     const firstItem = document.querySelector(".bm-item");
-        //     if (firstItem && this.props.focusFirstItem) {
-        //       firstItem.focus();
-        //     }
-        //   } else {
-        //     if (document.activeElement) {
-        //       document.activeElement.blur();
-        //     } else {
-        //       document.body.blur(); // Needed for IE
-        //     }
-        //   }
-        // }
-
         // Timeout ensures wrappers are cleared after animation finishes.
         this.timeoutId && clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
@@ -72,25 +52,14 @@ export default (styles) => {
       });
     }
 
-    toggleDrawer() {
-      console.log("Toggle called");
-      //this.open()}
-    }
-
     open() {
-      if (typeof this.props.onOpen === "function") {
-        this.props.onOpen();
-      } else {
-        this.toggleMenu();
-      }
+      this.props.onOpen();
+      this.toggleMenu();
     }
 
     close() {
-      if (typeof this.props.onClose === "function") {
-        this.props.onClose();
-      } else {
-        this.toggleMenu();
-      }
+      this.props.onClose();
+      this.toggleMenu();
     }
 
     overlayClick() {
@@ -277,6 +246,7 @@ export default (styles) => {
     }
 
     render() {
+
       return (
         <div>
           {!this.props.noOverlay && (
@@ -292,9 +262,6 @@ export default (styles) => {
             isOpen={this.state.isOpen}
             sideBarWidth={this.props.width}
             right={this.props.right}
-            // rows={["60px", "auto", "30px"]}
-            // cols={["auto"]}
-            // areas={[["header"], ["main"], ["footer"]]}
             borderRadius={this.props.borderRadius}
             backgroundColor={this.props.backgroundColor}
             border={this.props.border}
@@ -320,11 +287,7 @@ export default (styles) => {
               <MenuHeader border="bottom">{this.props.header}</MenuHeader>
             )}
             <MenuMain header={this.props.header} footer={this.props.footer}>
-              <ItemList>
-                {React.Children.map(this.props.children, (item) => {
-                  return React.cloneElement(item);
-                })}
-              </ItemList>
+              {this.props.children}
             </MenuMain>
             {this.props.footer && (
               <MenuFooter border="top">{this.props.footer}</MenuFooter>
@@ -332,31 +295,10 @@ export default (styles) => {
             <CloseIcon
               onClick={() => this.close()}
               theme={this.props.theme}
-              size={25}
+              size={20}
               right={this.props.right}
             />
           </MenuWrap>
-          {
-            {
-              menu: (
-                <MenuIcon
-                  openIconColor={this.props.openIconColor}
-                  onClick={() => this.open()}
-                  size={35}
-                  right={this.props.right}
-                />
-              ),
-
-              filter: (
-                <FilterIcon
-                  openIconColor={this.props.openIconColor}
-                  onClick={() => this.open()}
-                  size={35}
-                  right={this.props.right}
-                />
-              ),
-            }[this.props.openIcon]
-          }
         </div>
       );
     }
@@ -391,16 +333,9 @@ export default (styles) => {
   });
 
   Menu.propTypes = {
-    bodyClassName: PropTypes.string,
-    burgerBarClassName: PropTypes.string,
-    burgerButtonClassName: PropTypes.string,
     className: PropTypes.string,
     crossButtonClassName: PropTypes.string,
     crossClassName: PropTypes.string,
-    customBurgerIcon: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.oneOf([false]),
-    ]),
     customCrossIcon: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.oneOf([false]),
@@ -412,9 +347,6 @@ export default (styles) => {
     htmlClassName: PropTypes.string,
     id: PropTypes.string,
     isOpen: PropTypes.bool,
-    itemClassName: PropTypes.string,
-    itemListClassName: PropTypes.string,
-    menuClassName: PropTypes.string,
     morphShapeClassName: PropTypes.string,
     noOverlay: PropTypes.bool,
     noTransition: PropTypes.bool,
@@ -434,7 +366,6 @@ export default (styles) => {
     right: PropTypes.bool,
     styles: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    focusFirstItem: PropTypes.bool,
     headerHeight: PropTypes.string,
     footerHeight: PropTypes.string,
 
@@ -507,8 +438,6 @@ export default (styles) => {
 
   Menu.defaultProps = {
     bodyClassName: "",
-    burgerBarClassName: "",
-    burgerButtonClassName: "",
     className: "",
     crossButtonClassName: "",
     crossClassName: "",
@@ -516,8 +445,6 @@ export default (styles) => {
     disableCloseOnEsc: false,
     htmlClassName: "",
     id: "",
-    itemClassName: "",
-    itemListClassName: "",
     menuClassName: "",
     morphShapeClassName: "",
     noOverlay: false,

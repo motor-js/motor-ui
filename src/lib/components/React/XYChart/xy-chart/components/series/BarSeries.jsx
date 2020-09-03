@@ -7,7 +7,6 @@ import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
 import { Text } from "@vx/text";
-import { formatValue } from "../../util/formatValue";
 
 function BarSeries({
   dataKey,
@@ -26,9 +25,8 @@ function BarSeries({
     colorScale,
     xScale,
     yScale,
-    roundNum,
-    precision,
     showLabels,
+    formatValue,
   } = useContext(ChartContext);
   const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
@@ -55,9 +53,7 @@ function BarSeries({
 
   const renderLabel = ({ datum, labelProps }) =>
     datum.label ? (
-      <Text {...labelProps}>
-        {formatValue(datum.label, roundNum, precision)}
-      </Text>
+      <Text {...labelProps}>{formatValue(datum.label)}</Text>
     ) : null;
 
   const [xMin, xMax] = xScale.range();
@@ -90,7 +86,7 @@ function BarSeries({
   // const x = (d) => d.x;
   // const y = (d) => d.y;
   const x = (d) => d[0].qText;
-  const y = (d) => d[1].qNum;
+  const y = (d) => (horizontal ? d[0].qText : d[1].qNum);
 
   // const barColor = colorScale(dataKey) as string;
 
@@ -105,13 +101,11 @@ function BarSeries({
         const x = getScaledX(datum);
         const y = getScaledY(datum);
         const categoryOffset = categoryScale.offset || 0;
+
         const barPosition =
           categoryScale(categoryField(datum)) - categoryOffset;
 
         const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
-        //  const barLength = horizontal
-        //    ? valueScale(valueField(d)) - minPosition
-        //    : valueScale(valueField(d)) - minPosition;
 
         const barWidth =
           categoryScale.barWidth ||
@@ -135,11 +129,13 @@ function BarSeries({
               key,
               ...labelProps,
               x: horizontal
-                ? minPosition + Math.abs(barLength)
+                ? // ? minPosition + Math.abs(barLength)
+                  minPosition + Math.max(0, barLength)
                 : barPosition + barWidth / 2,
               y: horizontal
                 ? barPosition + barWidth / 2
                 : minPosition + Math.min(0, barLength),
+
               dx: horizontal ? "0.5em" : 0,
               dy: horizontal ? 0 : "-0.74em",
               textAnchor: horizontal ? "start" : "middle",

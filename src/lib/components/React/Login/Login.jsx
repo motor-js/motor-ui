@@ -31,10 +31,16 @@ Login.propTypes = {
   backgroundColor: PropTypes.string,
   buttonFontColor: PropTypes.string,
   buttonColor: PropTypes.string,
+  logo: PropTypes.string,
+  logoHeight: PropTypes.string,
+  logoWidth: PropTypes.string,
 };
 
 Login.defaultProps = {
   config: null,
+  logo: null,
+  logoHeight: null,
+  logoWidth: null,
   // header: 'Welcome to your motor js mashup',
   // body: 'Please log on to access your application',
   // size: 'medium',

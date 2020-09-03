@@ -239,7 +239,7 @@ const base = {
       showLabels: "none",
       showLegend: true,
       textOnAxis: "both",
-      showAxis: "none",
+      showAxis: "both",
       showGridlines: "solid",
       tickSpacing: "wide",
       maxAxisLength: 80,
@@ -703,6 +703,7 @@ const base = {
     roundNum: true,
     precision: true,
     showVerticalCrosshair: true,
+    showAxis: "none",
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",
@@ -740,8 +741,8 @@ const base = {
       },
       gridStyles: { stroke: "#adb5bd", strokeWidth: 1 },
       xAxisStyles: {
-        stroke: "#212529",
-        strokeWidth: 2,
+        stroke: "#adb5bd",
+        strokeWidth: 1,
         label: {
           bottom: {
             fill: "#212529",
