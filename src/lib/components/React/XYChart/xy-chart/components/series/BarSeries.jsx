@@ -1,8 +1,8 @@
 import React, { useContext, useCallback, useMemo } from "react";
-import ChartContext from "../../context/ChartContext";
-import withRegisteredData from "../../enhancers/withRegisteredData";
+// import ChartContext from "../../context/ChartContext";
+// import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
-import useRegisteredData from "../../hooks/useRegisteredData";
+// import useRegisteredData from "../../hooks/useRegisteredData";
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
@@ -12,24 +12,32 @@ import formatValue from "../../util/formatValue";
 function BarSeries({
   dataKey,
   dataKeys,
-  data: _,
-  xAccessor: __,
-  yAccessor: ___,
+  data,
+  // xAccessor,
+  // yAccessor,
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
   showLabels,
   roundNum,
   precision,
+  xScale,
+  yScale,
+  theme,
   ...barProps
 }) {
-  const { theme, colorScale, xScale, yScale } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
+  //   const { colorScale, xScale, yScale } = useContext(ChartContext);
+  // const { xAccessor, yAccessor } = useRegisteredData(dataKey);
+
+  const xAccessor = (d) => d[0].qText;
+  const yAccessor = (d, colIndex) => Number(d[colIndex].qNum);
+
+  // console.log("props", props);
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
     xAccessor,
   ]);
-  const getScaledY = useCallback((d) => yScale(yAccessor(d)), [
+  const getScaledY = useCallback((d) => yScale(yAccessor(d, 1)), [
     yScale,
     yAccessor,
   ]);
@@ -112,7 +120,8 @@ function BarSeries({
 
         const minValue = Math.min(...valueScale.domain());
 
-        const barColor = colorScale(dataKeys ? dataKeys[i] : dataKey);
+        // const barColor = colorScale(dataKeys ? dataKeys[i] : dataKey);
+        const barColor = "red";
 
         const minPosition = valueScale(minValue < 0 ? 0 : minValue);
 
@@ -177,8 +186,9 @@ function BarSeries({
   );
 }
 
-export default withRegisteredData(BarSeries, {
-  legendShape: () => "rect",
-  findNearestDatum: ({ horizontal }) =>
-    horizontal ? findNearestDatumY : findNearestDatumX,
-});
+// export default withRegisteredData(BarSeries, {
+//   legendShape: () => "rect",
+//   findNearestDatum: ({ horizontal }) =>
+//     horizontal ? findNearestDatumY : findNearestDatumX,
+// });
+export default BarSeries;

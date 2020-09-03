@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useCallback } from "react";
 import ParentSize from "@vx/responsive/lib/components/ParentSize";
 import useMeasure from "react-use-measure";
 
-import ChartContext from "../context/ChartContext";
+// import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 
 export default function XYChart(props) {
@@ -15,39 +15,46 @@ export default function XYChart(props) {
     captureEvents = true,
     svgBackground = true,
   } = props;
-  const { findNearestData, setChartDimensions } = useContext(ChartContext);
+  // const { findNearestData, setChartDimensions } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
   const [svgRef, svgBounds] = useMeasure();
 
-  // update dimensions in context
-  useEffect(() => {
-    if (width != null && height != null && width > 0 && height > 0) {
-      setChartDimensions({
-        width: dualAxis ? width - margin.left : width,
-        height,
-        margin,
-      });
+  /** Sets chart dimensions. */
+  const setChartDimensions = ({ width, height, margin }) => {
+    if (width > 0 && height > 0) {
+      this.setState({ width, height, margin }, this.updateScales);
     }
-  }, [setChartDimensions, width, height, margin]);
+  };
 
-  const onMouseMove = useCallback(
-    (event) => {
-      const nearestData = findNearestData(event);
-      if (nearestData.closestDatum && showTooltip) {
-        showTooltip({
-          tooltipData: {
-            ...nearestData,
-            // @TODO remove this and rely on useTooltipInPortal() instead
-            pageX: event.pageX,
-            pageY: event.pageY,
-            svgOriginX: svgBounds?.x,
-            svgOriginY: svgBounds?.y,
-          },
-        });
-      }
-    },
-    [findNearestData, showTooltip, svgBounds]
-  );
+  // update dimensions in context
+  // useEffect(() => {
+  //   if (width != null && height != null && width > 0 && height > 0) {
+  //     setChartDimensions({
+  //       width: dualAxis ? width - margin.left : width,
+  //       height,
+  //       margin,
+  //     });
+  //   }
+  // }, [setChartDimensions, width, height, margin]);
+
+  // const onMouseMove = useCallback(
+  //   (event) => {
+  //     const nearestData = findNearestData(event);
+  //     if (nearestData.closestDatum && showTooltip) {
+  //       showTooltip({
+  //         tooltipData: {
+  //           ...nearestData,
+  //           // @TODO remove this and rely on useTooltipInPortal() instead
+  //           pageX: event.pageX,
+  //           pageY: event.pageY,
+  //           svgOriginX: svgBounds?.x,
+  //           svgOriginY: svgBounds?.y,
+  //         },
+  //       });
+  //     }
+  //   },
+  //   [findNearestData, showTooltip, svgBounds]
+  // );
 
   // if width and height aren't both provided, wrap in auto-sizer
   if (width == null || height == null) {
@@ -78,8 +85,8 @@ export default function XYChart(props) {
             width - margin.left - margin.right - `${dualAxis ? margin.left : 0}`
           }
           height={height - margin.top - margin.bottom}
-          onMouseMove={onMouseMove}
-          onMouseLeave={hideTooltip}
+          // onMouseMove={onMouseMove}
+          // onMouseLeave={hideTooltip}
         />
       )}
     </svg>

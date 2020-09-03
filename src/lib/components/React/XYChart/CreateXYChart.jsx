@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { isNull } from "lodash";
 import Axis from "./xy-chart/components/Axis";
 import AnimatedAxis from "./xy-chart/components/AnimatedAxis";
-import ChartProvider from "./xy-chart/components/providers/ChartProvider";
+// import ChartProvider from "./xy-chart/components/providers/ChartProvider";
 import XYChart from "./xy-chart/components/XYChart";
 import BarSeries from "./xy-chart/components/series/BarSeries";
 import LineSeries from "./xy-chart/components/series/LineSeries";
@@ -18,6 +18,8 @@ import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
 import Gradient from "./xy-chart/components/aesthetic/Gradient";
+import createScale from "./xy-chart/createScale";
+
 // import { LinearGradient } from "@vx/gradient";
 // import Grid from "./xy-chart/components/grids/Grid";
 // import { GridRows, GridColumns } from "@vx/grid";
@@ -55,6 +57,8 @@ const axisBottomMargin = {
   left: 50,
 };
 
+const margin = { top: 30, right: 30, bottom: 30, left: 30 };
+
 /** memoize the accessor functions to prevent re-registering data. */
 function useAccessors(valueAccessor, column, renderHorizontally) {
   return useMemo(
@@ -67,6 +71,11 @@ function useAccessors(valueAccessor, column, renderHorizontally) {
     [renderHorizontally, valueAccessor]
   );
 }
+
+// const xAccessor = (d) => getDimension(d);
+// renderHorizontally ? valueAccessor(d, column) : getDimension(d);
+// const yAccessor = (d) => getSeriesValues(d, column);
+// renderHorizontally ? getDimension(d) : valueAccessor(d, column);
 
 export default function CreateXYChart({
   width,
@@ -260,31 +269,106 @@ export default function CreateXYChart({
   const background2 = "#204051";
   const accentColor = "#edffea";
 
+  // const getScales = ({ margin, width, height }) => {
+  const getScales = () => {
+    // const {
+    //   theme,
+    //   xScale: xScaleConfig,
+    //   yScale: yScaleConfig,
+    //   colorScale: colorScaleConfig,
+    // } = this.props;
+
+    // const    dataRegistry= {
+    //   ...state.dataRegistry,
+    //   ...Object.values(dataToRegister).reduce(
+    //     (combined, curr) => ({
+    //       ...combined,
+    //       [curr.key]: {
+    //         ...curr,
+    //         mouseEvents: curr.mouseEvents !== false,
+    //       },
+    //     }),
+    //     {}
+    //   ),
+    // },
+
+    const combinedData = data.map((datum, index) => ({
+      // key: curr.key,
+      datum,
+      index,
+    }));
+
+    if (width == null || height == null) return;
+
+    let xScale = createScale({
+      data: combinedData.map(({ key, datum }) =>
+        // dataRegistry[key]?.xAccessor(datum)
+        // renderHorizontally ? valueAccessor(d, column) : getDimension(d);
+        getDimension(datum)
+      ),
+      scaleConfig: renderHorizontally ? valueScaleConfig : dateScaleConfig,
+      range: [margin.left, width - margin.right],
+    });
+
+    let yScale = createScale({
+      data: combinedData.map(({ key, datum }) =>
+        // dataRegistry[key]?.yAccessor(datum)
+        // getSeriesValues(d, column)
+        getSeriesValues(datum, 1)
+      ),
+      // scaleConfig: yScaleConfig,
+      scaleConfig: renderHorizontally ? dateScaleConfig : valueScaleConfig,
+      range: [height - margin.bottom, margin.top],
+    });
+
+    // const colorScale = scaleOrdinal({
+    //   domain: Object.keys(dataRegistry),
+    //   range: theme.colors,
+    //   ...colorScaleConfig,
+    // });
+
+    // apply any updates to the scales from the registry
+    // @TODO this order currently overrides any changes from x/yScaleConfig
+    // Object.values(dataRegistry).forEach((registry) => {
+    //   if (registry.xScale) xScale = registry.xScale(xScale);
+    //   if (registry.yScale) yScale = registry.yScale(yScale);
+    // });
+
+    return { xScale, yScale };
+  };
+
+  const { xScale, yScale } = getScales();
+
   return (
     // <div className="container">
 
-    <ChartProvider
-      xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-      yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+    // <ChartProvider
+    //   xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+    //   yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+    // >
+    <XYChart
+      height={height}
+      width={autoWidth ? undefined : width}
+      margin={xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin}
+      dualAxis={dualAxis}
     >
-      <XYChart
-        height={height}
-        width={autoWidth ? undefined : width}
-        margin={xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin}
-        dualAxis={dualAxis}
-      >
-        <BarSeries
-          key={measureInfo[0].qFallbackTitle}
-          dataKey={measureInfo[0].qFallbackTitle}
-          data={currData}
-          showLabels={showLabels}
-          roundNum={roundNum}
-          precision={precision}
-          // xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-          // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
-          {...dataAccessors[0]}
-        />
-      </XYChart>
-    </ChartProvider>
+      <BarSeries
+        key={measureInfo[0].qFallbackTitle}
+        dataKey={measureInfo[0].qFallbackTitle}
+        data={currData}
+        showLabels={showLabels}
+        roundNum={roundNum}
+        precision={precision}
+        theme={themeObj}
+        xScale={xScale}
+        yScale={yScale}
+        // xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+        // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+        // {...dataAccessors[0]}
+        // xAccessor={() => getDimension}
+        // yAccessor={() => getSeriesValues}
+      />
+    </XYChart>
+    // </ChartProvider>
   );
 }

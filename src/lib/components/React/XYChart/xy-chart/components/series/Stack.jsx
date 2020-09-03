@@ -167,6 +167,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
     });
 
     registerData(dataToRegister);
+    console.log("bbb");
 
     // unregister data on unmount
     return () => unregisterData(Object.keys(dataToRegister));
