@@ -41,6 +41,7 @@ function StyledColumn({
   allowSelections,
   maxWidth,
   showAxis,
+  showXAxisText,
   maxAxisLength,
   roundNum,
   sortDirection,
@@ -198,6 +199,7 @@ function StyledColumn({
         showAxis: calcDisplayOption(
           showAxis === null ? ColumnDefault.showAxis : showAxis
         ),
+        showXAxisText,
         textOnAxis: calcDisplayOption(
           textOnAxis === null ? ColumnDefault.textOnAxis : textOnAxis
         ),

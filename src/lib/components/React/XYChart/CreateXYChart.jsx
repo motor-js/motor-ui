@@ -1,37 +1,37 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from 'react'
 // import defaultTheme from "../..//VX/theme/default";
-import Axis from "./xy-chart/components/Axis";
-import AnimatedAxis from "./xy-chart/components/AnimatedAxis";
-import ChartProvider from "./xy-chart/components/providers/ChartProvider";
-import XYChart from "./xy-chart/components/XYChart";
-import BarSeries from "./xy-chart/components/series/BarSeries";
-import LineSeries from "./xy-chart/components/series/LineSeries";
-import AreaSeries from "./xy-chart/components/series/AreaSeries";
-import PointSeries from "./xy-chart/components/series/PointSeries";
-import ChartBackground from "./xy-chart/components/ChartBackground";
-import EventProvider from "./xy-chart/components/providers/TooltipProvider";
-import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
-import Legend from "./xy-chart/components/Legend";
-import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
-import Group from "./xy-chart/components/series/Group";
-import Stack from "./xy-chart/components/series/Stack";
-import Gradient from "./xy-chart/components/aesthetic/Gradient";
+import { isNull } from 'lodash'
+import Axis from './xy-chart/components/Axis'
+import AnimatedAxis from './xy-chart/components/AnimatedAxis'
+import ChartProvider from './xy-chart/components/providers/ChartProvider'
+import XYChart from './xy-chart/components/XYChart'
+import BarSeries from './xy-chart/components/series/BarSeries'
+import LineSeries from './xy-chart/components/series/LineSeries'
+import AreaSeries from './xy-chart/components/series/AreaSeries'
+import PointSeries from './xy-chart/components/series/PointSeries'
+import ChartBackground from './xy-chart/components/ChartBackground'
+import EventProvider from './xy-chart/components/providers/TooltipProvider'
+import Tooltip, { RenderTooltipArgs } from './xy-chart/components/Tooltip'
+import Legend from './xy-chart/components/Legend'
+import CustomLegendShape from './xy-chart/components/CustomLegendShape'
+import Group from './xy-chart/components/series/Group'
+import Stack from './xy-chart/components/series/Stack'
+import Gradient from './xy-chart/components/aesthetic/Gradient'
 // import { LinearGradient } from "@vx/gradient";
 // import Grid from "./xy-chart/components/grids/Grid";
 // import { GridRows, GridColumns } from "@vx/grid";
 
-import { colorByExpression } from "../../../utils";
-import { isNull } from "lodash";
+import { colorByExpression } from '../../../utils'
 
-const numDimensionTicks = 5;
+const numDimensionTicks = 5
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
 //   null // ➜ React components must return something
 // );
 
-const getDimension = (d) => d[0].qText;
+const getDimension = d => d[0].qText
 
 // const getDimension = (d) =>
 //   new Date(
@@ -40,22 +40,24 @@ const getDimension = (d) => d[0].qText;
 //     d[0].qText.split("/")[0]
 //   );
 
-const legendLabelFormat = (d) => d;
+const legendLabelFormat = d => d
 
-const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
-const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
+const axisTopMargin = {
+  top: 40, right: 50, bottom: 30, left: 50,
+}
+const axisBottomMargin = {
+  top: 30, right: 50, bottom: 40, left: 50,
+}
 
 /** memoize the accessor functions to prevent re-registering data. */
 function useAccessors(valueAccessor, column, renderHorizontally) {
   return useMemo(
     () => ({
-      xAccessor: (d) =>
-        renderHorizontally ? valueAccessor(d, column) : getDimension(d),
-      yAccessor: (d) =>
-        renderHorizontally ? getDimension(d) : valueAccessor(d, column),
+      xAccessor: d => (renderHorizontally ? valueAccessor(d, column) : getDimension(d)),
+      yAccessor: d => (renderHorizontally ? getDimension(d) : valueAccessor(d, column)),
     }),
-    [renderHorizontally, valueAccessor]
-  );
+    [renderHorizontally, valueAccessor],
+  )
 }
 
 export default function CreateXYChart({
@@ -101,51 +103,49 @@ export default function CreateXYChart({
   showVerticalCrosshair,
   showAxis,
 }) {
-  const getChartType = () =>
-    type
-      ? type
-      : dimensionInfo.length === 1 && measureInfo.length === 1
-      ? "bar"
-      : "groupedbar";
+  console.log('render')
+  const getChartType = () => (type || (dimensionInfo.length === 1 && measureInfo.length === 1
+    ? 'bar'
+    : 'groupedbar'))
 
-  const [chartType, setchartType] = useState([getChartType()]);
+  const [chartType, setchartType] = useState([getChartType()])
 
   // let datum = [];
-  let series = [];
-  let dimID = null;
-  let items = [];
-  let keys = [];
+  let series = []
+  let dimID = null
+  const items = []
+  const keys = []
   // series.push(dim);
 
-  if (dimensionInfo.length !== 1 && !chartType.includes("scatter")) {
+  if (dimensionInfo.length !== 1 && !chartType.includes('scatter')) {
     qMatrix.forEach((d, i) => {
       if (isNull(dimID)) {
-        dimID = d[0].qText;
-        series.push(d[0]);
+        dimID = d[0].qText
+        series.push(d[0])
       }
 
       if (dimID !== d[0].qText) {
-        items.push(series);
-        series = [];
-        series.push(d[0]);
-        dimID = d[0].qText;
+        items.push(series)
+        series = []
+        series.push(d[0])
+        dimID = d[0].qText
       }
-      const measure = d[1];
-      measure.qNum = d[2].qNum;
+      const measure = d[1]
+      measure.qNum = d[2].qNum
       if (!keys.includes(measure.qText)) {
-        keys.push(measure.qText);
+        keys.push(measure.qText)
       }
-      series.push(measure);
-    });
+      series.push(measure)
+    })
 
-    items.push(series);
+    items.push(series)
   }
 
-  const data = dimensionInfo.length === 1 ? qMatrix : items;
+  const data = dimensionInfo.length === 1 ? qMatrix : items
 
-  const [currData, setCurrData] = useState(data);
+  const [currData, setCurrData] = useState(data)
 
-  const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
+  const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum)
 
   // const getSeriesValues = (d, colIndex) => {
   //   return dimensionInfo.length !== 1
@@ -153,108 +153,99 @@ export default function CreateXYChart({
   //     : Number(d[colIndex].qNum);
   // };
 
-  const dataKeys =
-    multiColor &&
-    dimensionInfo.length == 1 &&
-    measureInfo.length === 1 &&
-    chartType.includes("bar")
-      ? data.map((d) => d[0].qText)
-      : dimensionInfo.length === 2
+  const dataKeys = multiColor
+    && dimensionInfo.length == 1
+    && measureInfo.length === 1
+    && chartType.includes('bar')
+    ? data.map(d => d[0].qText)
+    : dimensionInfo.length === 2
       ? keys
-      : null;
+      : null
 
-  const canSnapTooltipToDataX =
-    (chartType.includes("groupedbar") && renderHorizontally) ||
-    (chartType.includes("stackedbar") && !renderHorizontally) ||
-    (chartType.includes("combo") && !renderHorizontally) ||
-    chartType.includes("bar");
+  const canSnapTooltipToDataX = (chartType.includes('groupedbar') && renderHorizontally)
+    || (chartType.includes('stackedbar') && !renderHorizontally)
+    || (chartType.includes('combo') && !renderHorizontally)
+    || chartType.includes('bar')
 
-  const canSnapTooltipToDataY =
-    (chartType.includes("groupedbar") && !renderHorizontally) ||
-    (chartType.includes("stackedbar") && renderHorizontally) ||
-    (chartType.includes("combo") && renderHorizontally) ||
-    chartType.includes("bar");
+  const canSnapTooltipToDataY = (chartType.includes('groupedbar') && !renderHorizontally)
+    || (chartType.includes('stackedbar') && renderHorizontally)
+    || (chartType.includes('combo') && renderHorizontally)
+    || chartType.includes('bar')
 
-  const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+  const dateScaleConfig = useMemo(() => ({ type: 'band', padding }), [])
 
   const valueScaleConfig = useMemo(
     () => ({
-      type: "linear",
+      type: 'linear',
       clamp: true,
       nice: true,
       domain: undefined,
       includeZero,
     }),
-    [includeZero]
-  );
+    [includeZero],
+  )
 
   const colorScaleConfig = useMemo(
     () => ({
-      domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
+      domain: dataKeys || measureInfo.map(d => d.qFallbackTitle),
     }),
-    [chartType]
-  );
+    [chartType],
+  )
 
-  const dataAccessors =
-    dimensionInfo.length <= 1
-      ? measureInfo.map((measure, index) =>
-          useAccessors(
-            getSeriesValues,
-            dimensionInfo.length + index,
-            renderHorizontally
-          )
-        )
-      : keys.map((measure, index) =>
-          useAccessors(getSeriesValues, index, renderHorizontally)
-        );
+  const dataAccessors = dimensionInfo.length <= 1
+    ? measureInfo.map((measure, index) => useAccessors(
+      getSeriesValues,
+      dimensionInfo.length + index,
+      renderHorizontally,
+    ))
+    : keys.map((measure, index) => useAccessors(getSeriesValues, index, renderHorizontally))
 
   useEffect(() => {
-    setCurrData(data);
-  }, [data]);
+    setCurrData(data)
+  }, [data])
 
   // Check if conditionalColors and if so get the returned color pallette
-  const colors = colorByExpression(qHyperCube, data, colorPalette);
+  const colors = colorByExpression(qHyperCube, data, colorPalette)
 
   const {
     //  global: { colorTheme: globalColorTheme },
     xyChart,
-  } = theme;
+  } = theme
 
   const themeObj = {
     // ...defaultTheme,
     ...theme.xyChart.defaultTheme,
     colors,
-  };
+  }
 
-  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
+  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis
 
   const legend = showLegend ? (
     <Legend
       labelFormat={legendLabelFormat}
-      alignLeft={legendLeftRight === "left"}
+      alignLeft={legendLeftRight === 'left'}
       direction={legendDirection}
       shape={
-        legendShape === "auto"
+        legendShape === 'auto'
           ? undefined
-          : legendShape === "custom"
-          ? CustomLegendShape
-          : legendShape
+          : legendShape === 'custom'
+            ? CustomLegendShape
+            : legendShape
       }
     />
-  ) : null;
+  ) : null
 
   // const gridColor = "#6e0fca";
   // const numTickColumns = 5;
   // const scaleHeight = height / axes.length - scalePadding;
-  const background = "#3b6978";
-  const background2 = "#204051";
-  const accentColor = "#edffea";
+  const background = '#3b6978'
+  const background2 = '#204051'
+  const accentColor = '#edffea'
 
   return (
-    // <div className="container">
+  // <div className="container">
 
     <ChartProvider
-      theme={themeObj}
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
@@ -267,39 +258,21 @@ export default function CreateXYChart({
       measureInfo={measureInfo}
       dataKeys={dataKeys}
     >
-      <EventProvider>
-        {legendTopBottom === "top" && legend}
-        <div
-          className="container"
-          style={{
-            position: "relative",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
           <XYChart
             height={height}
             width={autoWidth ? undefined : width}
             margin={
-              xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
+              xAxisOrientation === 'top' ? axisTopMargin : axisBottomMargin
             }
             dualAxis={dualAxis}
           >
-            {/* <Gradient
-              style="TealBlue"
-              id="area-background-gradient"
-              // from={background}
-              // to={background2}
-            /> */}
-            <ChartBackground backgroundPattern={backgroundPattern} />
-            {/* <GridRows
-              scale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
-              width={100}
-              strokeDasharray="3,3"
-              stroke={accentColor}
-              strokeOpacity={0.3}
-              pointerEvents="none"
+            <BarSeries
+              key={measureInfo[0].qFallbackTitle}
+              dataKey={measureInfo[0].qFallbackTitle}
+              data={currData}
+              xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+              yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+              {...dataAccessors[0]}
             />
             <GridColumns
               scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
@@ -308,7 +281,7 @@ export default function CreateXYChart({
               stroke={accentColor}
               strokeOpacity={0.3}
               pointerEvents="none"
-            /> */}
+            /> 
             {/* <Grid
           top={margin.top}
           left={margin.left}
@@ -470,16 +443,6 @@ export default function CreateXYChart({
               }
             />
           </XYChart>
-
-          <Tooltip
-            snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
-            snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
-            // renderTooltip={renderTooltip}
-            showVerticalCrosshair={showVerticalCrosshair}
-          />
-          {legendTopBottom === "bottom" && legend}
-        </div>
-      </EventProvider>
     </ChartProvider>
-  );
+  )
 }
