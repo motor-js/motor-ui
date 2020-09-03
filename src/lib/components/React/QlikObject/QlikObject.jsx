@@ -33,8 +33,6 @@ const QlikObject = ({
   const { viz } = useCapability(myConfig)
   const [qViz, setQViz] = useState(null)
 
-  console.log('qViz: ',qViz)
-
   const create = async () => {
     const getViz = id ? viz.visualization.get(id) : viz.visualization.create(type, cols, options)
     const _qViz = await getViz
@@ -51,7 +49,7 @@ const QlikObject = ({
   }
 
   const resize = () => {
-    qViz.resize()
+    if (qViz) { qViz.resize() }
   }
 
   useEffect(() => {
@@ -65,17 +63,17 @@ const QlikObject = ({
       } catch (_error) {
         console.warn(_error)
       }
-    }
-    return () => {
-      if (qViz) close();
-      window.removeEventListener('resize', resize);
-    };
+      return () => {
+        if (qViz) close();
+        //window.removeEventListener('resize', resize);
+      };
+      }
   }, [viz, qViz])
 
 
   return (
-    <div style={{ height, border }}>
-      { viz ? (<div ref={node} style={{ height, width }} />) : (<Spinner width={width} size={30} />)}
+    <div style={{ height, width, border, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      { viz ? (<div ref={node} style={{ height, width, minWidth: 'auto', minHeight: 'auto' }} />) : (<Spinner width={width} size={30} />)}
     </div>
   )
 }
@@ -89,7 +87,7 @@ QlikObject.propTypes = {
 }
 
 QlikObject.defaultProps = {
-  height: '100px',
-  width: '300px',
+  height: '100%',
+  width: '100%',
   border: null,
 }
