@@ -30,6 +30,7 @@ const numDimensionTicks = 5;
 // );
 
 const getDimension = (d) => d[0].qText;
+const getElementNumber = (d) => d[0].qElemNumber;
 
 // const getDimension = (d) =>
 //   new Date(
@@ -51,6 +52,7 @@ function useAccessors(valueAccessor, column, renderHorizontally) {
         renderHorizontally ? valueAccessor(d, column) : getDimension(d),
       yAccessor: (d) =>
         renderHorizontally ? getDimension(d) : valueAccessor(d, column),
+      elAccessor: (d) => getElementNumber(d),
     }),
     [renderHorizontally, valueAccessor]
   );

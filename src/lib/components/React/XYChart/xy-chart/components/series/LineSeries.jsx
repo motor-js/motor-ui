@@ -26,6 +26,7 @@ function LineSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   dataKey,
   mouseEvents,
   horizontal = false,
@@ -40,7 +41,8 @@ function LineSeries({
     theme,
     formatValue,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
+  const { data, xAccessor, yAccessor, elAccessor } =
+    useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
     (d) => {

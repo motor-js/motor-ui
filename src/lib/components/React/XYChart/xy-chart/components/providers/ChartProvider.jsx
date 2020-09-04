@@ -185,6 +185,7 @@ export default class ChartProvider extends React.Component {
           data,
           xAccessor,
           yAccessor,
+          elAccessor,
           mouseEvents,
           findNearestDatum = findNearestDatumXY,
         }) => {
@@ -199,6 +200,7 @@ export default class ChartProvider extends React.Component {
             yScale,
             xAccessor,
             yAccessor,
+            elAccessor,
             data,
             width,
             height,

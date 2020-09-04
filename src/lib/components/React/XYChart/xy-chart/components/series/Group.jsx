@@ -1,5 +1,6 @@
 import React, { useContext, useMemo, useEffect } from "react";
-import BarGroup from "@vx/shape/lib/shapes/BarGroup";
+// import BarGroup from "@vx/shape/lib/shapes/BarGroup";
+import BarGroup from "./BarGroup";
 import BarGroupHorizontal from "@vx/shape/lib/shapes/BarGroupHorizontal";
 import { Group as VxGroup } from "@vx/group";
 import { scaleBand } from "@vx/scale";
@@ -98,12 +99,14 @@ export default function Group({
           data,
           xAccessor,
           yAccessor,
+          elAccessor,
           mouseEvents,
         } = child.props;
         dataToRegister[key] = {
           key,
           data,
           xAccessor,
+          elAccessor,
           yAccessor,
           mouseEvents,
           findNearestDatum,
@@ -123,10 +126,11 @@ export default function Group({
   const combinedData = useMemo(() => {
     const dataByGroupValue = {};
     dataKeys.forEach((key) => {
-      const { data = [], xAccessor, yAccessor } = dataRegistry[key] || {};
+      const { data = [], xAccessor, yAccessor, elAccessor } =
+        dataRegistry[key] || {};
 
       // this should exist but double check
-      if (!xAccessor || !yAccessor) return;
+      if (!xAccessor || !yAccessor || !elAccessor) return;
 
       data.forEach((d) => {
         const group = (horizontal ? yAccessor : xAccessor)(d);
@@ -135,6 +139,7 @@ export default function Group({
         dataByGroupValue[groupKey][key] = (horizontal ? xAccessor : yAccessor)(
           d
         );
+        dataByGroupValue[groupKey]["selectionId"] = elAccessor(d);
       });
     });
     return Object.values(dataByGroupValue);

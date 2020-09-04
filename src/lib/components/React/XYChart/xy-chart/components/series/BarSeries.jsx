@@ -14,6 +14,7 @@ function BarSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
@@ -28,7 +29,7 @@ function BarSeries({
     showLabels,
     formatValue,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
+  const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
     xAccessor,
@@ -37,6 +38,7 @@ function BarSeries({
     yScale,
     yAccessor,
   ]);
+  // const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
   const {
     svgLabel: { baseLabel },
