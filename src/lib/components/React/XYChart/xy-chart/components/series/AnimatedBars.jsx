@@ -28,10 +28,10 @@ export default function AnimatedBars({
       {bars.map((bar, index) => (
         <Bar
           key={`${index}`}
-          x={bar.x}
-          y={bar.y}
-          width={bar.width}
-          height={bar.height}
+          x={x?.(bar) ?? bar.x}
+          y={y?.(bar) ?? bar.y}
+          width={width?.(bar) ?? bar.width}
+          height={height?.(bar) ?? bar.height}
           fill={bar.color}
           {...rectProps}
         />
