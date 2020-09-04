@@ -30,11 +30,11 @@ const QlikObject = ({
 }) => {
   const node = useRef(null)
   const myConfig = useContext(ConfigContext)
-  const { viz } = useCapability(myConfig)
+  const { app } = useCapability(myConfig)
   const [qViz, setQViz] = useState(null)
 
   const create = async () => {
-    const getViz = id ? viz.visualization.get(id) : viz.visualization.create(type, cols, options)
+    const getViz = id ? app.visualization.get(id) : app.visualization.create(type, cols, options)
     const _qViz = await getViz
     _qViz.setOptions(options)
     await setQViz(_qViz)
@@ -53,27 +53,44 @@ const QlikObject = ({
   }
 
   useEffect(() => {
-    if (viz) {
+    if(app) {
       try {
         (async () => {
-          if (!qViz) await create();
-          if (qViz) show();
-          window.addEventListener('resize', resize);
+          if (!qViz) await create()
+          if (qViz) show()
+          window.addEventListener('resize', resize)
         })()
       } catch (_error) {
         console.warn(_error)
       }
-      return () => {
-        if (qViz) close();
-        //window.removeEventListener('resize', resize);
-      };
-      }
-  }, [viz, qViz])
 
+      return () => {
+        if (qViz) close()
+        // window.removeEventListener('resize', resize);
+      }
+    }
+  }, [qViz, app])
 
   return (
-    <div style={{ height, width, border, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      { viz ? (<div ref={node} style={{ height, width, minWidth: 'auto', minHeight: 'auto' }} />) : (<Spinner width={width} size={30} />)}
+    <div style={{
+      height, width, border, display: 'flex', alignItems: 'center', justifyContent: 'center',
+    }}
+    >
+      { app
+        ? (
+          <div
+            ref={node}
+            style={{
+              height, width, minWidth, minHeight,
+            }}
+          />
+        )
+        : (
+          <Spinner
+            width={width}
+            size={30}
+          />
+        )}
     </div>
   )
 }
@@ -84,10 +101,24 @@ QlikObject.propTypes = {
   height: PropTypes.string,
   width: PropTypes.string,
   border: PropTypes.string,
+  minWidth: PropTypes.string,
+  minHeight: PropTypes.string,
+  noSelections: PropTypes.bool,
+  noInteraction: PropTypes.bool,
+  type: PropTypes.oneOf([null, 'barchart', 'boxplot', 'combochart', 'distributionplot', 'gauge', 'histogram', 'kpi', 'linechart', 'piechart', 'pivot-table', 'scatterplot', 'table', 'treemap', 'extension']),
+  cols: PropTypes.array,
+  options: PropTypes.object,
 }
 
 QlikObject.defaultProps = {
   height: '100%',
   width: '100%',
   border: null,
+  minWidth: 'auto',
+  minHeight: 'auto',
+  noSelections: false,
+  noInteraction: false,
+  type: null,
+  cols: [],
+  options: {},
 }

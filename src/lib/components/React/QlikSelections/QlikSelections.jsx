@@ -11,23 +11,23 @@ const QlikSelections = ({
 }) => {
   const node = useRef(null)
   const myConfig = useContext(ConfigContext)
-  const { viz } = useCapability(myConfig)
+  const { app } = useCapability(myConfig)
 
   useEffect(() => {
-    if(viz) {
+    if(app) {
       try {
         (async () => {
-          viz.getObject(node.current, 'CurrentSelections')
+          app.getObject(node.current, 'CurrentSelections')
         })();
       } catch (_error) {
         console.warn(_error);
       }
     }
-  },[viz])
+  },[app])
 
   return (
     <div style={{ height, border }}>
-      { viz ? (<div ref={node} width={width} />) : (<Spinner width={width} size={30} />)}
+      { app ? (<div ref={node} width={width} />) : (<Spinner width={width} size={30} />)}
     </div>
   )
 
