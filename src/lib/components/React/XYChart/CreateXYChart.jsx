@@ -267,8 +267,6 @@ export default function CreateXYChart({
       measureInfo={measureInfo}
       dataKeys={dataKeys}
     >
-      <EventProvider>
-        {legendTopBottom === "top" && legend}
         <div
           className="container"
           style={{
@@ -471,15 +469,14 @@ export default function CreateXYChart({
             />
           </XYChart>
 
-          <Tooltip
+          {/*<Tooltip
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
             // renderTooltip={renderTooltip}
             showVerticalCrosshair={showVerticalCrosshair}
-          />
+          />*/}
           {legendTopBottom === "bottom" && legend}
         </div>
-      </EventProvider>
     </ChartProvider>
   );
 }
