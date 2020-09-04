@@ -3,7 +3,7 @@ import cx from "classnames";
 import Line from "@vx/shape/lib/shapes/Line";
 import { Group } from "@vx/group";
 import { Point } from "@vx/point";
-//import { getTicks } from "@vx/scale";
+import getTicks from "../../util/getTicks";
 
 export default function GridColumns({
   top = 0,
@@ -20,10 +20,7 @@ export default function GridColumns({
   tickValues,
   ...restProps
 }) {
-  const ticks = tickValues //?? getTicks(scale, numTicks);
-  
-  console.log(tickValues, scale)
-  
+  const ticks = tickValues ?? getTicks(scale, numTicks);
   return (
     <Group className={cx("vx-columns", className)} top={top} left={left}>
       {ticks.map((d, i) => {

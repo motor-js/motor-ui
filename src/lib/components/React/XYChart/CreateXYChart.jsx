@@ -18,7 +18,8 @@ import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
 import Gradient from "./xy-chart/components/aesthetic/Gradient";
 // import { LinearGradient } from "@vx/gradient";
-// import Grid from "./xy-chart/components/grids/Grid";
+import Grid from "./xy-chart/components/grids/Grid";
+// import XYGrid from "./xy-chart/components/XYGrid";
 // import { GridRows, GridColumns } from "@vx/grid";
 
 import { colorByExpression } from "../../../utils";
@@ -267,6 +268,8 @@ export default function CreateXYChart({
       measureInfo={measureInfo}
       dataKeys={dataKeys}
     >
+      <EventProvider>
+        {legendTopBottom === "top" && legend}
         <div
           className="container"
           style={{
@@ -318,6 +321,16 @@ export default function CreateXYChart({
           strokeOpacity={0.1}
           xOffset={dateScale.bandwidth() / 2}
         /> */}
+            <Grid
+            // stroke={stroke}
+            // strokeWidth={strokeWidth}
+            // strokeDasharray={strokeDasharray}
+            // numTicks={numTicksRows}
+            // lineStyle={rowLineStyle}
+            // offset={yOffset}
+            // tickValues={rowTickValues}
+            />
+
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
@@ -469,14 +482,15 @@ export default function CreateXYChart({
             />
           </XYChart>
 
-          {/*<Tooltip
+          <Tooltip
             snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
             snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
             // renderTooltip={renderTooltip}
             showVerticalCrosshair={showVerticalCrosshair}
-          />*/}
+          />
           {legendTopBottom === "bottom" && legend}
         </div>
+      </EventProvider>
     </ChartProvider>
   );
 }

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import cx from "classnames";
 import Line from "@vx/shape/lib/shapes/Line";
 import { Group } from "@vx/group";
 import { Point } from "@vx/point";
-import { getTicks } from "@vx/scale";
+import getTicks from "../../util/getTicks";
 
 export default function GridRow({
   top = 0,
@@ -21,6 +21,7 @@ export default function GridRow({
   ...restProps
 }) {
   const ticks = tickValues ?? getTicks(scale, numTicks);
+
   return (
     <Group className={cx("vx-rows", className)} top={top} left={left}>
       {ticks.map((d, i) => {

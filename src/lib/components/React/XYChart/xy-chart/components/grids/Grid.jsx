@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import cx from "classnames";
 import { Group } from "@vx/group";
 import GridRows from "./GridRows";
 import GridColumns from "./GridColumns";
 
-export default function Grid({
+import ChartContext from "../../context/ChartContext";
+import withDefinedContextScales from "../..//enhancers/withDefinedContextScales";
+
+function Grid({
   top,
   left,
-  xScale,
-  yScale,
-  width,
-  height,
+  // xScale,
+  // yScale,
+  // width,
+  // height,
   className,
   stroke,
   strokeWidth,
@@ -25,12 +28,15 @@ export default function Grid({
   columnTickValues,
   ...restProps
 }) {
+  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
+    ChartContext
+  );
   return (
     <Group className={cx("vx-grid", className)} top={top} left={left}>
       <GridRows
         className={className}
         scale={yScale}
-        width={width}
+        width={width - margin.left - margin.right}
         stroke={stroke}
         strokeWidth={strokeWidth}
         strokeDasharray={strokeDasharray}
@@ -43,7 +49,7 @@ export default function Grid({
       <GridColumns
         className={className}
         scale={xScale}
-        height={height}
+        height={height - margin.top - margin.bottom}
         stroke={stroke}
         strokeWidth={strokeWidth}
         strokeDasharray={strokeDasharray}
@@ -56,3 +62,5 @@ export default function Grid({
     </Group>
   );
 }
+
+export default withDefinedContextScales(Grid);
