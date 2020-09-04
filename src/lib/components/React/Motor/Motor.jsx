@@ -6,12 +6,15 @@ import { deepMerge } from "../../../utils/object";
 import defaultTheme from "../../../themes/defaultTheme";
 import Login from "../Login";
 import NotConnected from "../NotConnected";
+import useEngine from "../../../hooks/useEngine";
 
-function Motor({ children, theme, config, engine, logo, logoWidth, logoHeight, }) {
+function Motor({ children, theme, config, logo, logoWidth, logoHeight, }) {
   
   const [myTheme, setMyTheme] = useState(defaultTheme);
   const [myConfig, setMyConfig] = useState(config);
   const nextTheme = deepMerge(myTheme, theme);
+  
+  const engine = useEngine(myConfig);
 
   // eslint-disable-next-line react/react-in-jsx-scope
   return (

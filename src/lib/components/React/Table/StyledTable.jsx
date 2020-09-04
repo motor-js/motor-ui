@@ -79,7 +79,7 @@ const StyledTable = ({
 
   // destructure cols
   const { dimensions, measures } = columns[0];
-
+ // console.log(dimensions, measures)
   // calculate the number of columns for HyperCube size
   let numberOfColumns;
   if (dimensions && measures) {

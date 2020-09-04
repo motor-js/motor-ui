@@ -1,14 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
 import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
 import { StyledHeading } from "./HeadingTheme";
 import Spinner from "../Spinner";
 
 const SmartHeading = ({
   children,
-  config,
   size,
   type,
   level,
@@ -21,9 +18,7 @@ const SmartHeading = ({
   asTime,
   addSpace,
 }) => {
-  const myConfig = config || useContext(ConfigContext);
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext)
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState(null);
   const [lastReload, setLastReload] = useState(null);
@@ -87,8 +82,6 @@ const SmartHeading = ({
 };
 
 SmartHeading.propTypes = {
-  /* Configure connection to the Qlik engine */
-  config: PropTypes.object,
   /* Type of text, either free (free text), app last reload timestate, or the app name. */
   type: PropTypes.oneOf(["free", "lastReload", "appName"]),
   /* Override size of the search bar by passing a pixel value */
@@ -107,7 +100,6 @@ SmartHeading.propTypes = {
 };
 
 SmartHeading.defaultProps = {
-  config: null,
   type: "lastReload",
   size: null,
   level: 1,

@@ -2,16 +2,12 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from 'styled-components';
 import StyledSearch from './StyledSearch';
-import { ConfigContext } from '../../../contexts/ConfigProvider';
 import defaultTheme from '../../../themes/defaultTheme';
 import { EngineContext } from '../../../contexts/EngineProvider';
-import useEngine from '../../../hooks/useEngine';
 
-const SearchBar = ({ config, ...rest }) => {
-  const myConfig = config || useContext(ConfigContext);
+const SearchBar = ({ ...rest }) => {
   const myTheme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext) 
 
   return (
     <StyledSearch
@@ -24,8 +20,6 @@ const SearchBar = ({ config, ...rest }) => {
 }
 
 SearchBar.propTypes = {
-  /* Configure connection to the Qlik engine */
-  config: PropTypes.object,
   /* list of dimensions to search for in the app, if left empty, all fields in the app are searched through */
   dimensions: PropTypes.array,
   /* Size of the search bar */
@@ -39,7 +33,6 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  config: null,
   dimensions: [],
   size: 'medium',
   width: '100%',

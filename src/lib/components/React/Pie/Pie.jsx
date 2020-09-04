@@ -2,16 +2,12 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledPie from "./StyledPie";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
 import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
 
 function Pie({ config, ...rest }) {
-  const myConfig = config || useContext(ConfigContext);
   const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext)
 
   return (
     <StyledPie
@@ -52,8 +48,6 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 Pie.propTypes = {
-  /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  config: PropTypes.object,
   /** cols from Qlik Data Model to render in the Pie  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
@@ -185,7 +179,6 @@ Pie.propTypes = {
 };
 
 Pie.defaultProps = {
-  config: null,
   calcCondition: undefined,
   suppressZero: false,
   width: "100%",
