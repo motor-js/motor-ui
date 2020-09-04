@@ -35,6 +35,8 @@ function Grid({
     <Group className={cx("vx-grid", className)} top={top} left={left}>
       <GridRows
         className={className}
+        top={top}
+        left={margin.left}
         scale={yScale}
         width={width - margin.left - margin.right}
         stroke={stroke}
@@ -49,6 +51,8 @@ function Grid({
       <GridColumns
         className={className}
         scale={xScale}
+        top={margin.top}
+        left={left}
         height={height - margin.top - margin.bottom}
         stroke={stroke}
         strokeWidth={strokeWidth}
