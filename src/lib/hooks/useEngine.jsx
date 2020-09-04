@@ -8,8 +8,6 @@ const MAX_RETRIES = 3;
 
 function useEngine(config) {
 
-  console.log('RENDER ENGINE')
-
   const responseInterceptors = [
     {
       // We only want to handle failed responses from QIX Engine:
