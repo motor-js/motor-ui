@@ -8,11 +8,12 @@ import { EngineContext } from "../../../contexts/EngineProvider";
 import useEngine from "../../../hooks/useEngine";
 
 function KPI({ config, ...rest }) {
-  const myConfig = config || useContext(ConfigContext);
+ // const myConfig = config || useContext(ConfigContext);
   const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const engine = useContext(EngineContext) //|| useEngine(myConfig);
 
+  const engineError = null;
+  
   return (
     <StyledKPI
       engine={engine}

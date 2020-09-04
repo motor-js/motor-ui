@@ -6,9 +6,10 @@ import { EngineContext } from '../../../contexts/EngineProvider'
 import useEngine from '../../../hooks/useEngine'
 
 const Button = ({ config, ...rest }) => {
-  const myConfig = config || useContext(ConfigContext)
-  const { engine } = useContext(EngineContext) || useEngine(myConfig)
+  //const myConfig = config || useContext(ConfigContext)
+  const engine = useContext(EngineContext) //|| useEngine(myConfig)
 
+  console.log('RENDER BUTTON')
   return <StyledButton engine={engine} {...rest} />
 }
 
