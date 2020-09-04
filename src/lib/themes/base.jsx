@@ -694,7 +694,6 @@ const base = {
     autoWidth: false,
     renderHorizontally: false,
     events: false,
-    backgroundPattern: null,
     boxSizing: "border-box",
     userSelect: "none", // add to props
     display: "inline-block", // add to props
@@ -738,6 +737,11 @@ const base = {
         textAnchor: "middle",
         fontWeight: 700,
         pointerEvents: "none",
+      },
+      backgroundStyles: {
+        pattern: "Circles",
+        stroke: "#adb5bd",
+        strokeWidth: 0.5,
       },
       gridStyles: { stroke: "#adb5bd", strokeWidth: 1 },
       xAxisStyles: {

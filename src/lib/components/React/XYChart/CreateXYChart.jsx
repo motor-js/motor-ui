@@ -17,10 +17,7 @@ import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
 import Gradient from "./xy-chart/components/aesthetic/Gradient";
-// import { LinearGradient } from "@vx/gradient";
 import Grid from "./xy-chart/components/grids/Grid";
-// import XYGrid from "./xy-chart/components/XYGrid";
-// import { GridRows, GridColumns } from "@vx/grid";
 
 import { colorByExpression } from "../../../utils";
 import { isNull } from "lodash";
@@ -111,12 +108,10 @@ export default function CreateXYChart({
 
   const [chartType, setchartType] = useState([getChartType()]);
 
-  // let datum = [];
   let series = [];
   let dimID = null;
   let items = [];
   let keys = [];
-  // series.push(dim);
 
   if (dimensionInfo.length !== 1 && !chartType.includes("scatter")) {
     qMatrix.forEach((d, i) => {
@@ -294,33 +289,7 @@ export default function CreateXYChart({
               // to={background2}
             /> */}
             <ChartBackground backgroundPattern={backgroundPattern} />
-            {/* <GridRows
-              scale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
-              width={100}
-              strokeDasharray="3,3"
-              stroke={accentColor}
-              strokeOpacity={0.3}
-              pointerEvents="none"
-            />
-            <GridColumns
-              scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-              height={100}
-              strokeDasharray="3,3"
-              stroke={accentColor}
-              strokeOpacity={0.3}
-              pointerEvents="none"
-            /> */}
-            {/* <Grid
-          top={margin.top}
-          left={margin.left}
-          xScale={dateScale}
-          yScale={temperatureScale}
-          width={xMax}
-          height={yMax}
-          stroke="black"
-          strokeOpacity={0.1}
-          xOffset={dateScale.bandwidth() / 2}
-        /> */}
+
             <Grid
             // stroke={stroke}
             // strokeWidth={strokeWidth}

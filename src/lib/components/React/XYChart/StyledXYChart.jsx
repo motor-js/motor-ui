@@ -251,7 +251,8 @@ function StyledXYChart(props) {
                 snapTooltipToDataX={snapTooltipToDataX}
                 snapTooltipToDataY={snapTooltipToDataY}
                 backgroundPattern={
-                  backgroundPattern || xyChart.backgroundPattern
+                  backgroundPattern ||
+                  xyChart.defaultTheme.backgroundStyles.pattern
                 }
                 multiColor={
                   multiColor === undefined ? xyChart.multiColor : multiColor

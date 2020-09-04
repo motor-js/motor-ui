@@ -48,8 +48,8 @@ export default function CustomChartBackground({ backgroundPattern }) {
         width={10}
         height={10}
         orientation={["diagonal"]}
-        stroke={theme?.gridStyles?.stroke}
-        strokeWidth={0.5}
+        stroke={theme?.backgroundStyles?.stroke}
+        strokeWidth={theme?.backgroundStyles?.strokeWidth}
       />
       <rect
         x={0}
