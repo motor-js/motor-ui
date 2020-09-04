@@ -2,18 +2,13 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledKPI from "./StyledKPI";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
 import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
 
-function KPI({ config, ...rest }) {
- // const myConfig = config || useContext(ConfigContext);
+function KPI({ ...rest }) {
   const theme = useContext(ThemeContext) || defaultTheme;
-  const engine = useContext(EngineContext) //|| useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext)
 
-  const engineError = null;
-  
   return (
     <StyledKPI
       engine={engine}
@@ -53,8 +48,6 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 KPI.propTypes = {
-  /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  config: PropTypes.object,
   /** KPI label  */
   label: PropTypes.string,
   /** Calculation Condition */
@@ -148,11 +141,11 @@ KPI.propTypes = {
 };
 
 KPI.defaultProps = {
-  config: null,
   label: null,
   calcCondition: undefined,
   width: "100%",
   border: true,
+  margin: '0px',
   justifyContent: "center",
   textAlign: null,
   size: "medium",

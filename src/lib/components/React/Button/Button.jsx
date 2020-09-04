@@ -5,18 +5,13 @@ import { ConfigContext } from '../../../contexts/ConfigProvider'
 import { EngineContext } from '../../../contexts/EngineProvider'
 import useEngine from '../../../hooks/useEngine'
 
-const Button = ({ config, ...rest }) => {
-  //const myConfig = config || useContext(ConfigContext)
-  const engine = useContext(EngineContext) //|| useEngine(myConfig)
+const Button = ({ ...rest }) => {
+  const { engine } = useContext(EngineContext)
 
-  console.log('RENDER BUTTON')
   return <StyledButton engine={engine} {...rest} />
 }
 
 Button.propTypes = {
-  /** Configuration object to connect to the Qlik engine.
-   Leave null if you are using the Juno parent component */
-  config: PropTypes.object,
   /** Type of the button, choose noAction to use as a regular
    button object, otherwise you can clear selections, go back or forward
    */
@@ -60,7 +55,6 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-  config: null,
   type: 'default',
   block: false,
   onClick: () => {},

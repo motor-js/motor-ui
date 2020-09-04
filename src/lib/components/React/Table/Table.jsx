@@ -5,13 +5,11 @@ import StyledTable from "./StyledTable";
 import { ConfigContext } from "../../../contexts/ConfigProvider";
 import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
 
-const Table = ({ config, ...rest }) => {
-  const myConfig = config || useContext(ConfigContext);
+const Table = ({ ...rest }) => {
+  const myConfig = useContext(ConfigContext);
   const myTheme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext);
 
   return (
     <StyledTable
@@ -53,8 +51,6 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 Table.propTypes = {
-  /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  config: PropTypes.object,
   /* An array of objects to define the data to be used in the component.
   The columns need a dimension and / or measure object. See "Column Definition" below for the detailed object properties */
   columns: PropTypes.array.isRequired,
@@ -170,7 +166,6 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-  config: null,
   columnOrder: [],
   calcCondition: undefined,
   columnSortOrder: [],

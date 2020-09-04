@@ -4,16 +4,12 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledColumn from "./StyledColumn";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
 import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
 
 function Column({ config, ...rest }) {
-  const myConfig = config || useContext(ConfigContext);
   const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext)
 
   return (
     <StyledColumn
@@ -54,8 +50,6 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 Column.propTypes = {
-  /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  config: PropTypes.object,
   /** cols from Qlik Data Model to render in the Column  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
@@ -217,7 +211,6 @@ Column.propTypes = {
 };
 
 Column.defaultProps = {
-  config: null,
   calcCondition: undefined,
   suppressZero: null,
   width: "100%",
