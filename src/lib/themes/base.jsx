@@ -217,7 +217,7 @@ const base = {
     },
     responsiveBreakpoints: {
       mobile: "400px",
-      tablet: "840px",
+      tablet: "640px",
       desktop: "1024px",
     },
     focus: {
@@ -946,13 +946,13 @@ const base = {
       maxWidth: 150,
     },
     columns: {
-      stroke: null,
-      strokeWidth: 0,
+      stroke: "var(--oc-gray-4)",
+      strokeWidth: 0.5,
     },
     overview: {
-      opacity: 0,
-      stroke: null,
-      strokeWidth: 0,
+      opacity: 0.5,
+      stroke: "var(--oc-gray-4)",
+      strokeWidth: 0.5,
     },
   },
   bar: {

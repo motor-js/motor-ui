@@ -49,7 +49,7 @@ const QlikObject = ({
   }
 
   const resize = () => {
-    if (qViz) { qViz.resize() }
+    qViz.resize()
   }
 
   useEffect(() => {
@@ -63,17 +63,17 @@ const QlikObject = ({
       } catch (_error) {
         console.warn(_error)
       }
-      return () => {
-        if (qViz) close();
-        //window.removeEventListener('resize', resize);
-      };
-      }
-  }, [viz, qViz])
+    }
+    return () => {
+      if (qViz) close();
+      window.removeEventListener('resize', resize);
+    };
+  }, [viz])
 
 
   return (
-    <div style={{ height, width, border, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      { viz ? (<div ref={node} style={{ height, width, minWidth: 'auto', minHeight: 'auto' }} />) : (<Spinner width={width} size={30} />)}
+    <div style={{ height, border }}>
+      { viz ? (<div ref={node} height={height} width={width} />) : (<Spinner width={width} size={30} />)}
     </div>
   )
 }
@@ -87,7 +87,7 @@ QlikObject.propTypes = {
 }
 
 QlikObject.defaultProps = {
-  height: '100%',
-  width: '100%',
+  height: '100px',
+  width: '300px',
   border: null,
 }
