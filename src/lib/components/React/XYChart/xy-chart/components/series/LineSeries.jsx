@@ -87,17 +87,23 @@ function LineSeries({
         data.map((d, i) => {
           const left = getScaledX(d);
           const top = getScaledY(d);
+          d.selectionId = d[0].qElemNumber;
           return (
             <g key={`line-glyph-${i}`}>
               <ChartGlyph
                 left={left}
                 top={top}
-                size={110}
+                size={10}
                 // fill={i % 2 === 0 ? primaryColor : contrastColor}
                 // stroke={i % 2 === 0 ? contrastColor : primaryColor}
                 fill={color}
                 stroke={color}
                 strokeWidth={2}
+                style={{ cursor: "pointer " }}
+                onClick={() => {
+                  // setSelectedBar(isSelected ? null : letter);
+                  console.log(d);
+                }}
               />
               {/* {showLabels && (
                 <Text {...labelProps} key={`line-label-${i}`} x={left} y={top}>

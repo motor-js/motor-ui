@@ -46,7 +46,7 @@ function StyledXYChart(props) {
     backgroundColor,
     colorTheme,
     showLegend,
-    // allowSelections,
+    allowSelections,
     // maxAxisLength,
     sortDirection,
     sortOrder,
@@ -272,6 +272,11 @@ function StyledXYChart(props) {
                 showVerticalCrosshair={
                   showVerticalCrosshair === undefined
                     ? xyChart.showVerticalCrosshair
+                    : showVerticalCrosshair
+                }
+                allowSelections={
+                  allowSelections === undefined
+                    ? xyChart.allowSelections
                     : showVerticalCrosshair
                 }
                 // dualAxis={dualAxis}

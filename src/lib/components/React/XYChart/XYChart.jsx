@@ -192,8 +192,8 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.oneOf(["right", "bottom"]),
   ]),
-  // /** Allow Selections */
-  // allowSelections: PropTypes.bool,
+  /** Allow Selections */
+  allowSelections: PropTypes.bool,
   // /** Maximum Width of the Bar */
   // maxWidth: PropTypes.number,
   // /** Force supression of Scroll / Overview chart */
@@ -268,7 +268,6 @@ XYChart.defaultProps = {
   border: true,
   /** Use dual Y axis on the the chart  */
   dualAxis: false,
-  // allowSelections: null,
   // allowSlantedYAxis: null,
   // showGridlines: null,
   // textOnAxis: null,

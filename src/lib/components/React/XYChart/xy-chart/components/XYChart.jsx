@@ -12,7 +12,8 @@ export default function XYChart(props) {
     height,
     margin,
     dualAxis,
-    captureEvents = true,
+    // captureEvents = true,
+    captureEvents,
     svgBackground = true,
   } = props;
   const { findNearestData, setChartDimensions } = useContext(ChartContext);

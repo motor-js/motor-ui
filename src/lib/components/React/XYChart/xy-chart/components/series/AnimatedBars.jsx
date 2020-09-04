@@ -33,6 +33,11 @@ export default function AnimatedBars({
           width={width?.(bar) ?? bar.width}
           height={height?.(bar) ?? bar.height}
           fill={bar.color}
+          style={{ cursor: "pointer " }}
+          onClick={() => {
+            // setSelectedBar(isSelected ? null : letter);
+            console.log(bar);
+          }}
           {...rectProps}
         />
       ))}

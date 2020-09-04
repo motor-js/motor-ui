@@ -103,6 +103,7 @@ export default function CreateXYChart({
   showAxis,
   gridRows,
   gridColumns,
+  allowSelections,
 }) {
   const getChartType = () =>
     type
@@ -286,6 +287,7 @@ export default function CreateXYChart({
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
             dualAxis={dualAxis}
+            captureEvents={!allowSelections}
           >
             <ChartBackground
               style={backgroundStyle}

@@ -102,6 +102,8 @@ function BarSeries({
         const y = getScaledY(datum);
         const categoryOffset = categoryScale.offset || 0;
 
+        const selectionId = datum[0].qElemNumber;
+
         const barPosition =
           categoryScale(categoryField(datum)) - categoryOffset;
 
@@ -152,6 +154,7 @@ function BarSeries({
           y: horizontal ? y : yZeroPosition + Math.min(0, barLength),
           width: horizontal ? Math.abs(barLength) : barThickness,
           height: horizontal ? barThickness : Math.abs(barLength),
+          selectionId,
           color: barColor,
         };
       }),
