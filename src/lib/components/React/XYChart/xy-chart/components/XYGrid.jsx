@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid } from '@vx/grid';
+import React from "react";
+import { Grid } from "@vx/grid";
 
 const XYGrid = ({
   xScale,
@@ -11,9 +11,6 @@ const XYGrid = ({
   stroke,
   strokeOpacity,
 }) => {
-
-  console.log(xScale)
-
   return (
     <Grid
       scale={xScale}
@@ -23,7 +20,7 @@ const XYGrid = ({
       strokeOpacity={strokeOpacity}
       tickValues={[10]}
     />
-  )
-}
+  );
+};
 
-export default XYGrid
+export default XYGrid;

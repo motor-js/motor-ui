@@ -15,54 +15,68 @@ function Grid({
   // width,
   // height,
   className,
-  stroke,
-  strokeWidth,
-  strokeDasharray,
-  numTicksRows,
-  numTicksColumns,
-  rowLineStyle,
-  columnLineStyle,
-  xOffset,
-  yOffset,
-  rowTickValues,
-  columnTickValues,
+  gridRows,
+  gridColumns,
+  // stroke,
+  // strokeWidth,
+  // strokeDasharray,
+  // numTicksRows,
+  // numTicksColumns,
+  // rowLineStyle,
+  // columnLineStyle,
+  // xOffset,
+  // yOffset,
+  // rowTickValues,
+  // columnTickValues,
   ...restProps
 }) {
-  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
+  const { theme, xScale, yScale, margin, width, height } = useContext(
     ChartContext
   );
+
+  const gridRowStyle =
+    gridRows === undefined ? theme?.gridStyles?.rows : gridRows;
+  const gridColumnStyle =
+    gridColumns === undefined ? theme?.gridStyles?.columns : gridColumns;
+
   return (
     <Group className={cx("vx-grid", className)} top={top} left={left}>
-      <GridRows
-        className={className}
-        top={top}
-        left={margin.left}
-        scale={yScale}
-        width={width - margin.left - margin.right}
-        stroke={stroke}
-        strokeWidth={strokeWidth}
-        strokeDasharray={strokeDasharray}
-        numTicks={numTicksRows}
-        lineStyle={rowLineStyle}
-        offset={yOffset}
-        tickValues={rowTickValues}
-        {...restProps}
-      />
-      <GridColumns
-        className={className}
-        scale={xScale}
-        top={margin.top}
-        left={left}
-        height={height - margin.top - margin.bottom}
-        stroke={stroke}
-        strokeWidth={strokeWidth}
-        strokeDasharray={strokeDasharray}
-        numTicks={numTicksColumns}
-        lineStyle={columnLineStyle}
-        offset={xOffset}
-        tickValues={columnTickValues}
-        {...restProps}
-      />
+      {gridRows !== false && (
+        <GridRows
+          className={className}
+          top={top}
+          left={margin.left}
+          scale={yScale}
+          width={width - margin.left - margin.right}
+          // stroke={theme?.gridStyles?.rows.stroke}
+          // strokeWidth={theme?.gridStyles?.rows.strokeWidth}
+          // strokeDasharray={strokeDasharray}
+          // numTicks={numTicksRows}
+          // lineStyle={rowLineStyle}
+          offset={(yScale.bandwidth?.() ?? 0) / 2}
+          // tickValues={rowTickValues}
+          {...gridRowStyle}
+          {...restProps}
+        />
+      )}
+      {gridColumns !== false && (
+        <GridColumns
+          className={className}
+          scale={xScale}
+          top={margin.top}
+          left={left}
+          height={height - margin.top - margin.bottom}
+          // stroke={stroke}
+          // strokeWidth={strokeWidth}
+          // strokeDasharray={strokeDasharray}
+          // numTicks={numTicksColumns}
+          // lineStyle={columnLineStyle}
+          offset={(xScale.bandwidth?.() ?? 0) / 2}
+          // tickValues={columnTickValues}
+          {...gridColumnStyle}
+          {...restProps}
+        />
+      )}
     </Group>
   );
 }

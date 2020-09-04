@@ -54,7 +54,6 @@ function StyledXYChart(props) {
     suppressZero,
     // showLabels,
     // textOnAxis,
-    // showGridlines,
     otherTotalSpec,
     // tickSpacing,
     // allowSlantedYAxis,

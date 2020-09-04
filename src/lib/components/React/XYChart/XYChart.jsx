@@ -94,11 +94,10 @@ XYChart.propTypes = {
   // maxAxisLength: PropTypes.number,
   // /** Allow for the Y axis to be dsiapleyd at 45 degrees */
   // allowSlantedYAxis: PropTypes.bool,
-  // /** Show gridlines on Axis */
-  // showGridlines: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
-  // ]),
+  /** Show gridline rows on Axis */
+  gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  /** Show gridline columns on Axis */
+  gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   // /** Color of the Bar label */
   // fontColor: PropTypes.string,
   /** Border of the Pie Chart, need desc */

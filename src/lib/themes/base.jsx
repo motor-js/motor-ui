@@ -739,11 +739,30 @@ const base = {
         pointerEvents: "none",
       },
       backgroundStyles: {
-        pattern: "Circles",
+        pattern: null,
         stroke: "#adb5bd",
         strokeWidth: 0.5,
       },
-      gridStyles: { stroke: "#adb5bd", strokeWidth: 1 },
+      gridStyles: {
+        rows: {
+          stroke: "#adb5bd",
+          strokeWidth: 1,
+          strokeDasharray: "5,3",
+          numTicks: 10,
+          lineStyle: null,
+          // offset: null,
+          tickValues: null,
+        },
+        columns: {
+          stroke: "#adb5bd",
+          strokeWidth: 1,
+          strokeDasharray: "5,3",
+          numTicks: 10,
+          lineStyle: null,
+          // offset: null,
+          tickValues: null,
+        },
+      },
       xAxisStyles: {
         stroke: "#adb5bd",
         strokeWidth: 1,

@@ -98,6 +98,8 @@ export default function CreateXYChart({
   precision,
   showVerticalCrosshair,
   showAxis,
+  gridRows,
+  gridColumns,
 }) {
   const getChartType = () =>
     type
@@ -242,9 +244,9 @@ export default function CreateXYChart({
   // const gridColor = "#6e0fca";
   // const numTickColumns = 5;
   // const scaleHeight = height / axes.length - scalePadding;
-  const background = "#3b6978";
-  const background2 = "#204051";
-  const accentColor = "#edffea";
+  // const background = "#3b6978";
+  // const background2 = "#204051";
+  // const accentColor = "#edffea";
 
   return (
     // <div className="container">
@@ -290,15 +292,18 @@ export default function CreateXYChart({
             /> */}
             <ChartBackground backgroundPattern={backgroundPattern} />
 
-            <Grid
-            // stroke={stroke}
-            // strokeWidth={strokeWidth}
-            // strokeDasharray={strokeDasharray}
-            // numTicks={numTicksRows}
-            // lineStyle={rowLineStyle}
-            // offset={yOffset}
-            // tickValues={rowTickValues}
-            />
+            {(gridRows !== false || gridColumns !== false) && (
+              <Grid
+                gridRows={gridRows}
+                gridColumns={gridColumns}
+                // strokeWidth={strokeWidth}
+                // strokeDasharray={strokeDasharray}
+                // numTicks={numTicksRows}
+                // lineStyle={rowLineStyle}
+                // offset={yOffset}
+                // tickValues={rowTickValues}
+              />
+            )}
 
             {chartType.includes("bar") && (
               <BarSeries
