@@ -73,6 +73,9 @@ function StyledXYChart(props) {
     snapTooltipToDataX,
     snapTooltipToDataY,
     backgroundPattern,
+    backgroundStyle,
+    backgroundFrom,
+    backgroundTo,
     multiColor,
     // dualAxis,
     // roundNum,
@@ -252,6 +255,16 @@ function StyledXYChart(props) {
                 backgroundPattern={
                   backgroundPattern ||
                   xyChart.defaultTheme.backgroundStyles.pattern
+                }
+                backgroundStyle={
+                  backgroundStyle || xyChart.defaultTheme.backgroundStyles.style
+                }
+                backgroundFrom={
+                  backgroundFrom ||
+                  xyChart.defaultTheme.backgroundStyles.styleFrom
+                }
+                backgroundTo={
+                  backgroundTo || xyChart.defaultTheme.backgroundStyles.styleTo
                 }
                 multiColor={
                   multiColor === undefined ? xyChart.multiColor : multiColor

@@ -9,7 +9,7 @@ import ChartContext from "../context/ChartContext";
 
 const patternId = "xy-chart-pattern";
 
-export default function CustomChartBackground({ backgroundPattern }) {
+export default function CustomChartPattern({ backgroundPattern }) {
   const { theme, margin, width, height } = useContext(ChartContext);
 
   // early return if scale is not available in context

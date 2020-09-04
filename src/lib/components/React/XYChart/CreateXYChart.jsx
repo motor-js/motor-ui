@@ -9,14 +9,14 @@ import BarSeries from "./xy-chart/components/series/BarSeries";
 import LineSeries from "./xy-chart/components/series/LineSeries";
 import AreaSeries from "./xy-chart/components/series/AreaSeries";
 import PointSeries from "./xy-chart/components/series/PointSeries";
-import ChartBackground from "./xy-chart/components/ChartBackground";
+import ChartPattern from "./xy-chart/components/ChartPattern";
 import EventProvider from "./xy-chart/components/providers/TooltipProvider";
 import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
-import Gradient from "./xy-chart/components/aesthetic/Gradient";
+import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 
 import { colorByExpression } from "../../../utils";
@@ -90,6 +90,9 @@ export default function CreateXYChart({
   snapTooltipToDataX,
   snapTooltipToDataY,
   backgroundPattern,
+  backgroundStyle,
+  backgroundFrom,
+  backgroundTo,
   multiColor,
   showLabels,
   showPoints,
@@ -284,13 +287,13 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
           >
-            {/* <Gradient
-              style="TealBlue"
+            <ChartBackground
+              style={backgroundStyle}
               id="area-background-gradient"
-              // from={background}
-              // to={background2}
-            /> */}
-            <ChartBackground backgroundPattern={backgroundPattern} />
+              from={backgroundFrom}
+              to={backgroundTo}
+            />
+            <ChartPattern backgroundPattern={backgroundPattern} />
 
             {(gridRows !== false || gridColumns !== false) && (
               <Grid
