@@ -105,7 +105,6 @@ function LineSeries({
                 strokeWidth={2}
                 style={{ cursor: "pointer " }}
                 onClick={() => {
-                  // setSelectedBar(isSelected ? null : letter);
                   console.log(d);
                 }}
               />

@@ -26,6 +26,7 @@ function AreaSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   dataKey,
   mouseEvents,
   horizontal = false,
@@ -40,7 +41,8 @@ function AreaSeries({
     theme,
     formatValue,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
+  const { data, xAccessor, yAccessor, elAccessor } =
+    useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
     (d) => {
@@ -58,7 +60,9 @@ function AreaSeries({
     [yScale, yAccessor]
   );
 
-  if (!data || !xAccessor || !yAccessor) return null;
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
   const color = colorScale(dataKey) ?? "#222";
 
@@ -98,6 +102,7 @@ function AreaSeries({
         data.map((d, i) => {
           const left = getScaledX(d);
           const top = getScaledY(d);
+          d.selectionId = getElemNumber(d);
           return (
             <g key={`area-glyph-${i}`}>
               <ChartGlyph
@@ -109,6 +114,10 @@ function AreaSeries({
                 fill={color}
                 stroke={color}
                 strokeWidth={2}
+                style={{ cursor: "pointer " }}
+                onClick={() => {
+                  console.log(d);
+                }}
               />
               {/* {showLabels && (
                 <Text {...labelProps} key={`area-label-${i}`} x={left} y={top}>
