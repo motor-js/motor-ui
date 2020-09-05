@@ -60,7 +60,9 @@ function LineSeries({
     [yScale, yAccessor]
   );
 
-  if (!data || !xAccessor || !yAccessor) return null;
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
   const color = colorScale(dataKey) ?? "#222";
 
@@ -89,7 +91,7 @@ function LineSeries({
         data.map((d, i) => {
           const left = getScaledX(d);
           const top = getScaledY(d);
-          d.selectionId = d[0].qElemNumber;
+          d.selectionId = getElemNumber(d);
           return (
             <g key={`line-glyph-${i}`}>
               <ChartGlyph
