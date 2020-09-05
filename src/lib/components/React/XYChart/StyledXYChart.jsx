@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import UseHyperCube from "../../../hooks/useHyperCube";
+import useHyperCube from "../../../hooks/useHyperCube";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
 import {
@@ -102,7 +102,7 @@ function StyledXYChart(props) {
     qData,
     selections,
     select,
-  } = UseHyperCube({
+  } = useHyperCube({
     engine,
     cols,
     qSortByNumeric: numericSortDirection(sortDirection, -1),

@@ -389,22 +389,26 @@ export default function CreateXYChart({
                 }
               </>
             )}
-            {chartType.includes("combo") && measureInfo.length > 1 && (
-              <>
-                <BarSeries
-                  key={measureInfo[0].qFallbackTitle}
-                  dataKey={measureInfo[0].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[0]}
-                />
-                <LineSeries
-                  dataKey={measureInfo[1].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[1]}
-                  strokeWidth={1.5}
-                />
-              </>
-            )}
+            {chartType.includes("combo") &&
+              measureInfo.length > 1 &&
+              measureInfo.map((measure, index) =>
+                measure.qChartType === "bar" ? (
+                  <BarSeries
+                    key={measure.qFallbackTitle}
+                    dataKey={measure.qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ) : (
+                  <LineSeries
+                    key={measure.qFallbackTitle}
+                    dataKey={measure.qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                    strokeWidth={1.5}
+                  />
+                )
+              )}
             {chartType.includes("area") &&
               dimensionInfo.length <= 1 &&
               measureInfo.map((measure, index) => (

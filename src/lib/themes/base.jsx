@@ -699,7 +699,7 @@ const base = {
     userSelect: "none", // add to props
     display: "inline-block", // add to props
     showLabels: true,
-    showPoints: true,
+    showPoints: false,
     roundNum: true,
     precision: true,
     showVerticalCrosshair: true,
