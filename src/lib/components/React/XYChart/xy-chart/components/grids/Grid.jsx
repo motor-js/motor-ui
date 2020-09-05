@@ -30,9 +30,15 @@ function Grid({
   // columnTickValues,
   ...restProps
 }) {
-  const { theme, xScale, yScale, margin, width, height } = useContext(
-    ChartContext
-  );
+  const {
+    theme,
+    chartType,
+    xScale,
+    yScale,
+    margin,
+    width,
+    height,
+  } = useContext(ChartContext);
 
   const gridRowStyle =
     gridRows === undefined ? theme?.gridStyles?.rows : gridRows;
@@ -53,7 +59,14 @@ function Grid({
           // strokeDasharray={strokeDasharray}
           // numTicks={numTicksRows}
           // lineStyle={rowLineStyle}
-          offset={(yScale.bandwidth?.() ?? 0) / 2}
+          offset={
+            chartType.includes("groupedbar") ||
+            chartType.includes("stackedbar") ||
+            chartType.includes("combo") ||
+            chartType.includes("bar")
+              ? (yScale.bandwidth?.() ?? 0) / 2
+              : 0
+          }
           // tickValues={rowTickValues}
           {...gridRowStyle}
           {...restProps}

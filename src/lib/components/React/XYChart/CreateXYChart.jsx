@@ -259,6 +259,7 @@ export default function CreateXYChart({
 
     <ChartProvider
       theme={themeObj}
+      chartType={chartType}
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
