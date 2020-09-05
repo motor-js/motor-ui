@@ -38,7 +38,8 @@ function BarSeries({
     yScale,
     yAccessor,
   ]);
-  // const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
   const {
     svgLabel: { baseLabel },
@@ -102,9 +103,9 @@ function BarSeries({
       data.map((datum, i) => {
         const x = getScaledX(datum);
         const y = getScaledY(datum);
-        const categoryOffset = categoryScale.offset || 0;
+        const selectionId = getElemNumber(datum);
 
-        const selectionId = datum[0].qElemNumber;
+        const categoryOffset = categoryScale.offset || 0;
 
         const barPosition =
           categoryScale(categoryField(datum)) - categoryOffset;

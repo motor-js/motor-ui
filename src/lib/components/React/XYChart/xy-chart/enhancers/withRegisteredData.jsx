@@ -12,7 +12,14 @@ export default function withRegisteredData(
   { findNearestDatum, legendShape }
 ) {
   const WrappedSeriesComponent = (props) => {
-    const { dataKey, data, xAccessor, yAccessor, mouseEvents } = props;
+    const {
+      dataKey,
+      data,
+      xAccessor,
+      yAccessor,
+      elAccessor,
+      mouseEvents,
+    } = props;
     const { xScale, yScale, dataRegistry } = useContext(ChartContext);
 
     useDataRegistry({
@@ -20,6 +27,7 @@ export default function withRegisteredData(
       data,
       xAccessor,
       yAccessor,
+      elAccessor,
       mouseEvents,
       legendShape: legendShape?.(props),
       findNearestDatum: findNearestDatum?.(props),
