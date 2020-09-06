@@ -7,20 +7,7 @@ import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
 
 // import { callOrValue, isDefined } from "../../util/chartUtils";
-
-// import { GlyphCircle } from "@vx/glyph";
-import {
-  Glyph as CustomGlyph,
-  GlyphCircle,
-  GlyphCross,
-  GlyphDiamond,
-  GlyphSquare,
-  GlyphStar,
-  GlyphTriangle,
-  GlyphWye,
-} from "@vx/glyph";
-
-const ChartGlyph = GlyphCircle;
+import { getSymbol } from "../../util/chartUtils";
 
 function LineSeries({
   data: _,
@@ -41,6 +28,7 @@ function LineSeries({
     theme,
     formatValue,
   } = useContext(ChartContext);
+
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
 
@@ -59,6 +47,8 @@ function LineSeries({
     },
     [yScale, yAccessor]
   );
+
+  let ChartGlyph = getSymbol(showPoints.symbol);
 
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
@@ -97,7 +87,7 @@ function LineSeries({
               <ChartGlyph
                 left={left}
                 top={top}
-                size={10}
+                size={showPoints.size || 100}
                 // fill={i % 2 === 0 ? primaryColor : contrastColor}
                 // stroke={i % 2 === 0 ? contrastColor : primaryColor}
                 fill={color}

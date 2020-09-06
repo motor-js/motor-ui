@@ -1,8 +1,18 @@
 /* eslint no-magic-numbers: 'off' */
-import { Children } from 'react';
+import { Children } from "react";
+import {
+  Glyph as CustomGlyph,
+  GlyphCircle,
+  GlyphCross,
+  GlyphDiamond,
+  GlyphSquare,
+  GlyphStar,
+  GlyphTriangle,
+  GlyphWye,
+} from "@vx/glyph";
 
 export function callOrValue(maybeFn, ...args) {
-  if (typeof maybeFn === 'function') {
+  if (typeof maybeFn === "function") {
     return maybeFn(...args);
   }
 
@@ -11,20 +21,22 @@ export function callOrValue(maybeFn, ...args) {
 
 export function componentName(component) {
   if (component && component.type) {
-    return component.type.displayName || component.type.name || 'Component';
+    return component.type.displayName || component.type.name || "Component";
   }
 
-  return '';
+  return "";
 }
 
 export function getChildWithName(name, children) {
-  const ChildOfInterest = Children.toArray(children).filter(c => componentName(c) === name);
+  const ChildOfInterest = Children.toArray(children).filter(
+    (c) => componentName(c) === name
+  );
 
   return ChildOfInterest.length ? ChildOfInterest[0] : null;
 }
 
 export function isDefined(val) {
-  return typeof val !== 'undefined' && val !== null;
+  return typeof val !== "undefined" && val !== null;
 }
 
 export function isAxis(name) {
@@ -36,11 +48,11 @@ export function isBarSeries(name) {
 }
 
 export function isBrush(name) {
-  return name === 'Brush';
+  return name === "Brush";
 }
 
 export function isCirclePackSeries(name) {
-  return name === 'CirclePackSeries';
+  return name === "CirclePackSeries";
 }
 
 export function isCrossHair(name) {
@@ -102,8 +114,14 @@ export function scaleInvert(scale, value) {
 
 export function getDomainFromExtent(scale, start, end, tolerentDelta) {
   let domain;
-  const invertedStart = scaleInvert(scale, start + (start < end ? -tolerentDelta : tolerentDelta));
-  const invertedEnd = scaleInvert(scale, end + (end < start ? -tolerentDelta : tolerentDelta));
+  const invertedStart = scaleInvert(
+    scale,
+    start + (start < end ? -tolerentDelta : tolerentDelta)
+  );
+  const invertedEnd = scaleInvert(
+    scale,
+    end + (end < start ? -tolerentDelta : tolerentDelta)
+  );
   const minValue = Math.min(invertedStart, invertedEnd);
   const maxValue = Math.max(invertedStart, invertedEnd);
   if (scale.invert) {
@@ -131,3 +149,34 @@ export const DEFAULT_CHART_MARGIN = {
   bottom: 64,
   left: 64,
 };
+export function getSymbol(symbol) {
+  switch (symbol) {
+    case "circle":
+      return (symbol = GlyphCircle);
+      break;
+    case "cross":
+      return (symbol = GlyphCross);
+      break;
+    case "diamond":
+      return (symbol = GlyphDiamond);
+      break;
+    case "square":
+      return (symbol = GlyphSquare);
+      break;
+    case "star":
+      return (symbol = GlyphStar);
+      break;
+    case "triangle":
+      return (symbol = GlyphTriangle);
+      break;
+    case "wye":
+      return (symbol = GlyphWye);
+      break;
+    case "custom":
+      return (symbol = CustomGlyph);
+      break;
+    default:
+      return (symbol = GlyphCircle);
+      break;
+  }
+}

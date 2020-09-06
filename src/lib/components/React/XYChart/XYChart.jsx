@@ -204,8 +204,11 @@ XYChart.propTypes = {
   // // scrollRatio: PropTypes.number, // Descoped to later version
   /** Pddding for each bar */
   padding: PropTypes.number,
-  /** Show markers on line chart */
-  showPoints: PropTypes.bool,
+  /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
+  showPoints: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.object, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
+  ]),
   // /** Error messgae to display when invalid dimension */
   // dimensionErrMsg: PropTypes.string,
   // /** Error messgae to display when invalid measure */
