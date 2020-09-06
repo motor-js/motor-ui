@@ -64,8 +64,6 @@ function BarSeries({
     fontSize: 12,
   };
 
-  let currentSelections = [];
-
   const handleClick = (selectionValue) => {
     setRefreshChart(false);
     // useSelectionColours = true;
@@ -73,14 +71,12 @@ function BarSeries({
     let updateList = [];
 
     // setBarColors(diagram);
-    // console.log("c", pendingSelections);
 
     beginSelections();
 
     setSelectionXYChartVisible(true);
 
-    currentSelections = [...pendingSelections, selectionValue];
-    select(0, currentSelections);
+    select(0, [...pendingSelections, selectionValue]);
 
     if (pendingSelections.includes(selectionValue)) {
       updateList = pendingSelections.filter((item) => item != selectionValue);
