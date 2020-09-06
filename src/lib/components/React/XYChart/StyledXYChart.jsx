@@ -25,7 +25,6 @@ function StyledXYChart(props) {
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   // const [sel, setSel] = useState([]);
-  const [pendingSelections, SetPendingSelections] = useState([]);
 
   let useSelectionColours = false;
 
@@ -235,8 +234,6 @@ function StyledXYChart(props) {
                   setRefreshChart={setRefreshChart}
                   setSelectionXYChartVisible={setSelectionXYChartVisible}
                   useSelectionColours={useSelectionColours}
-                  pendingSelections={pendingSelections}
-                  SetPendingSelections={SetPendingSelections}
                   // XYChartThemes={XYChartThemes}
                   colorPalette={colorPalette}
                   type={type}

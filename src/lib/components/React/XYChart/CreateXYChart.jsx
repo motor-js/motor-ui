@@ -73,8 +73,6 @@ export default function CreateXYChart({
   select,
   setSelectionXYChartVisible,
   useSelectionColours,
-  pendingSelections,
-  SetPendingSelections,
   theme,
   padding,
   colorPalette,
@@ -251,39 +249,6 @@ export default function CreateXYChart({
       }
     />
   ) : null;
-
-  // // Create Event Handlers for mouse
-  // function handleClick(selectionValue) {
-  //   setRefreshChart(false);
-  //   // useSelectionColours = true;
-
-  //   let updateList = [];
-  //   // const selectionValue = dim[Object.keys(dim)[1]];
-
-  //   if (pendingSelections.includes(selectionValue)) {
-  //     updateList = pendingSelections.filter((item) => item != selectionValue);
-  //     pendingSelections = updateList;
-  //   } else {
-  //     pendingSelections = [...pendingSelections, selectionValue];
-  //   }
-
-  //   // setBarColors(diagram);
-  //   // console.log(pendingSelections);
-
-  //   beginSelections();
-  //   // return;
-
-  //   setSelectionXYChartVisible(true);
-
-  //   select(0, pendingSelections);
-  // }
-
-  // const gridColor = "#6e0fca";
-  // const numTickColumns = 5;
-  // const scaleHeight = height / axes.length - scalePadding;
-  // const background = "#3b6978";
-  // const background2 = "#204051";
-  // const accentColor = "#edffea";
 
   return (
     // <div className="container">

@@ -43,14 +43,16 @@ export default function AnimatedBars({
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);
             // console.log(bar);
-            setSelectedBar(
-              selectedBar.includes(bar.selectionId)
-                ? selectedBar.filter(function(value, index, arr) {
-                    return value !== bar.selectionId;
-                  })
-                : (selectedBar) => [...selectedBar, bar.selectionId]
-            );
-            handleClick([...selectedBar, bar.selectionId]);
+            const selections = selectedBar.includes(bar.selectionId)
+              ? selectedBar.filter(function(value, index, arr) {
+                  return value !== bar.selectionId;
+                })
+              : [...selectedBar, bar.selectionId];
+
+            console.log(selections);
+            setSelectedBar(selections);
+            handleClick(selections);
+            // handleClick([...selectedBar, bar.selectionId]);
           }}
           {...rectProps}
         />

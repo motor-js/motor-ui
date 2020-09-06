@@ -34,9 +34,6 @@ function BarSeries({
     formatValue,
   } = useContext(ChartContext);
 
-  const [pendingSelections, SetPendingSelections] = useState([]);
-  // let pendingSelections = [];
-
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
 
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
@@ -77,14 +74,6 @@ function BarSeries({
     setSelectionXYChartVisible(true);
 
     select(0, selectionValue);
-
-    // if (pendingSelections.includes(selectionValue)) {
-    //   updateList = pendingSelections.filter((item) => item != selectionValue);
-
-    //   SetPendingSelections(updateList);
-    // } else {
-    //   SetPendingSelections([...pendingSelections, selectionValue]);
-    // }
   };
 
   const renderLabel = ({ datum, labelProps }) =>
@@ -199,7 +188,6 @@ function BarSeries({
       yZeroPosition,
       getScaledX,
       getScaledY,
-      pendingSelections,
     ]
   );
 
