@@ -21,6 +21,7 @@ function reducer(state, action) {
     qLayout.qHyperCube.qMeasureInfo[i].qChartType = d.qChartType;
     qLayout.qHyperCube.qMeasureInfo[i].qShowPoints = d.qShowPoints;
     qLayout.qHyperCube.qMeasureInfo[i].qFillStyle = d.qFillStyle;
+    qLayout.qHyperCube.qMeasureInfo[i].qLegendShape = d.qLegendShape;
   });
 
   switch (type) {
@@ -303,6 +304,7 @@ const useHyperCube = (props) => {
             qChartType: col.qChartType,
             qShowPoints: col.qShowPoints,
             qFillStyle: col.qFillStyle,
+            qLegendShape: col.qLegendShape,
           };
         }
 

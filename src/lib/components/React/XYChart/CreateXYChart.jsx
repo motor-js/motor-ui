@@ -368,13 +368,16 @@ export default function CreateXYChart({
             )}
             {chartType.includes("line") && (
               <>
-                {// dimensionInfo.length <= 1
-                //   ?
-                measureInfo.map((measure, index) => (
+                {measureInfo.map((measure, index) => (
                   <LineSeries
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
                     glyph={measureInfo[index].qShowPoints}
+                    strokeDasharray={
+                      measure.qLegendShape === "dashed"
+                        ? "5,2"
+                        : measure.qLegendShapenull
+                    }
                     data={currData}
                     {...dataAccessors[index]}
                     strokeWidth={1.5}
@@ -407,6 +410,11 @@ export default function CreateXYChart({
                     key={measure.qFallbackTitle}
                     dataKey={measure.qFallbackTitle}
                     glyph={measure.qShowPoints}
+                    strokeDasharray={
+                      measure.qLegendShape === "dashed"
+                        ? "5,2"
+                        : measure.qLegendShapenull
+                    }
                     data={currData}
                     {...dataAccessors[index]}
                     strokeWidth={1.5}

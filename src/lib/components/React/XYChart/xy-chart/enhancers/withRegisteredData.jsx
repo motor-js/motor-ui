@@ -12,6 +12,7 @@ export default function withRegisteredData(
   { findNearestDatum, legendShape }
 ) {
   const WrappedSeriesComponent = (props) => {
+    console.log(props);
     const {
       dataKey,
       data,
