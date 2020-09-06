@@ -76,8 +76,6 @@ function AreaSeries({
     fontSize: 12,
   };
 
-  console.log(fillStyle);
-
   return (
     <g className="vx-group area-series">
       <FillBackground

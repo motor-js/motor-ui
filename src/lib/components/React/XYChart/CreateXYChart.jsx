@@ -93,8 +93,6 @@ export default function CreateXYChart({
   snapTooltipToDataY,
   backgroundPattern,
   backgroundStyle,
-  backgroundFrom,
-  backgroundTo,
   fillStyle,
   // fillFrom,
   // fillTo,
@@ -296,10 +294,10 @@ export default function CreateXYChart({
             captureEvents={!allowSelections}
           >
             <ChartBackground
-              style={backgroundStyle}
+              style={backgroundStyle.style}
               id="area-background-gradient"
-              from={backgroundFrom}
-              to={backgroundTo}
+              from={backgroundStyle.styleFrom}
+              to={backgroundStyle.styleTo}
             />
             <ChartPattern backgroundPattern={backgroundPattern} />
 

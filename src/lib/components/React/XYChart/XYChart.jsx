@@ -237,43 +237,38 @@ XYChart.propTypes = {
   snapTooltipToDataX: PropTypes.bool,
   snapTooltipToDataY: PropTypes.bool,
   backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
-  backgroundStyle: PropTypes.oneOf([
-    "Linear",
-    "Radial",
-    "DarkGreen",
-    "LightGreen",
-    "OrangeRed",
-    "PinkBlue",
-    "PinkRed",
-    "PurpleOrangle",
-    "PurpleRed",
-    "PurpleTeal",
-    "SteelPurple",
-    "TealBlue",
-  ]),
+  /** BackgroundSTyle */
+  /** either : style of one of below or bckgroundFrom and bckgroundTo */
+  /**  Linear  */
+  /**  Radial  */
+  /**  DarkGreen  */
+  /**  LightGreen  */
+  /**  OrangeRed  */
+  /**  PinkBlue  */
+  /**  PinkRed  */
+  /**  PurpleOrangle  */
+  /**  PurpleRed  */
+  /**  PurpleTeal  */
+  /**  SteelPurple  */
+  /**  TealBlue  */
+  backgroundStyle: PropTypes.object,
 
-  backgroundFrom: PropTypes.bool,
-  backgroundTo: PropTypes.bool,
-  // Global fill gradinet for area chart
-  fillStyle: PropTypes.oneOfType([
-    PropTypes.object, // used for from - to
-    PropTypes.oneOf([
-      "Linear",
-      "Radial",
-      "DarkGreen",
-      "LightGreen",
-      "OrangeRed",
-      "PinkBlue",
-      "PinkRed",
-      "PurpleOrangle",
-      "PurpleRed",
-      "PurpleTeal",
-      "SteelPurple",
-      "TealBlue",
-    ]),
-  ]),
-  fillFrom: PropTypes.bool,
-  fillTo: PropTypes.bool,
+  /** fillStyle */
+  /** either : style of one of below or fillFrom and FillTo */
+  /**  Linear  */
+  /**  Radial  */
+  /**  DarkGreen  */
+  /**  LightGreen  */
+  /**  OrangeRed  */
+  /**  PinkBlue  */
+  /**  PinkRed  */
+  /**  PurpleOrangle  */
+  /**  PurpleRed  */
+  /**  PurpleTeal  */
+  /**  SteelPurple  */
+  /**  TealBlue  */
+  fillStyle: PropTypes.object,
+
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */

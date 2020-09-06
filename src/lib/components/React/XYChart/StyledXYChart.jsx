@@ -74,12 +74,8 @@ function StyledXYChart(props) {
     snapTooltipToDataY,
     backgroundPattern,
     backgroundStyle,
-    backgroundFrom,
-    backgroundTo,
     multiColor,
     fillStyle,
-    fillFrom,
-    fillTo,
     // dualAxis,
     // roundNum,
     // precision,
@@ -260,14 +256,7 @@ function StyledXYChart(props) {
                   xyChart.defaultTheme.backgroundStyles.pattern
                 }
                 backgroundStyle={
-                  backgroundStyle || xyChart.defaultTheme.backgroundStyles.style
-                }
-                backgroundFrom={
-                  backgroundFrom ||
-                  xyChart.defaultTheme.backgroundStyles.styleFrom
-                }
-                backgroundTo={
-                  backgroundTo || xyChart.defaultTheme.backgroundStyles.styleTo
+                  backgroundStyle || xyChart.defaultTheme.backgroundStyles
                 }
                 fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
                 // fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
