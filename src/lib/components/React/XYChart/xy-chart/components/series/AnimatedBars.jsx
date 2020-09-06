@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { animated, useSprings } from "react-spring";
 import { Bar } from "@vx/shape";
 
@@ -22,6 +22,9 @@ export default function AnimatedBars({
   //   }))
   // );
 
+  const [selectedBar, setSelectedBar] = useState([]);
+  // console.log(selectedBar);
+
   return (
     // react complains when using component if we don't wrap in Fragment
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -33,12 +36,21 @@ export default function AnimatedBars({
           y={y?.(bar) ?? bar.y}
           width={width?.(bar) ?? bar.width}
           height={height?.(bar) ?? bar.height}
-          fill={bar.color}
+          // fill={bar.color}
+          // fill={isSelected ? "white" : "rgba(23, 233, 217, 0.5)"}
+          fill={selectedBar.includes(bar.selectionId) ? "red" : bar.color}
           style={{ cursor: "pointer " }}
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);
             // console.log(bar);
-            handleClick(bar.selectionId);
+            setSelectedBar(
+              selectedBar.includes(bar.selectionId)
+                ? selectedBar.filter(function(value, index, arr) {
+                    return value !== bar.selectionId;
+                  })
+                : (selectedBar) => [...selectedBar, bar.selectionId]
+            );
+            handleClick([...selectedBar, bar.selectionId]);
           }}
           {...rectProps}
         />

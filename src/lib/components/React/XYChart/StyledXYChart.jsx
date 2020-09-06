@@ -307,6 +307,12 @@ function StyledXYChart(props) {
           border={border}
           size={size}
           margin={margin || xyChart.margin}
+          // height={
+          //   gridArea
+          //     ? ref.current.offsetHeight -
+          //       parseInt(margin || xyChart.margin, 10)
+          //     : parseInt(height, 10)
+          // }
           gridArea={gridArea}
           width={width}
         >

@@ -68,7 +68,7 @@ function BarSeries({
     setRefreshChart(false);
     // useSelectionColours = true;
 
-    let updateList = [];
+    // let updateList = [];
 
     // setBarColors(diagram);
 
@@ -76,15 +76,15 @@ function BarSeries({
 
     setSelectionXYChartVisible(true);
 
-    select(0, [...pendingSelections, selectionValue]);
+    select(0, selectionValue);
 
-    if (pendingSelections.includes(selectionValue)) {
-      updateList = pendingSelections.filter((item) => item != selectionValue);
+    // if (pendingSelections.includes(selectionValue)) {
+    //   updateList = pendingSelections.filter((item) => item != selectionValue);
 
-      SetPendingSelections(updateList);
-    } else {
-      SetPendingSelections([...pendingSelections, selectionValue]);
-    }
+    //   SetPendingSelections(updateList);
+    // } else {
+    //   SetPendingSelections([...pendingSelections, selectionValue]);
+    // }
   };
 
   const renderLabel = ({ datum, labelProps }) =>
