@@ -7,20 +7,7 @@ import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
 
 // import { callOrValue, isDefined } from "../../util/chartUtils";
-
-// import { GlyphCircle } from "@vx/glyph";
-import {
-  Glyph as CustomGlyph,
-  GlyphCircle,
-  GlyphCross,
-  GlyphDiamond,
-  GlyphSquare,
-  GlyphStar,
-  GlyphTriangle,
-  GlyphWye,
-} from "@vx/glyph";
-
-const ChartGlyph = GlyphCircle;
+import { getSymbol } from "../../util/chartUtils";
 
 function AreaSeries({
   data: _,
@@ -61,6 +48,8 @@ function AreaSeries({
   );
 
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  let ChartGlyph = getSymbol(showPoints.symbol);
 
   if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
@@ -108,7 +97,7 @@ function AreaSeries({
               <ChartGlyph
                 left={left}
                 top={top}
-                size={110}
+                size={showPoints.size || 100}
                 // fill={i % 2 === 0 ? primaryColor : contrastColor}
                 // stroke={i % 2 === 0 ? contrastColor : primaryColor}
                 fill={color}
