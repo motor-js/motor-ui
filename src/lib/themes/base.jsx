@@ -719,6 +719,7 @@ const base = {
     },
     defaultTheme: {
       baseColor: "#fff",
+      points: { size: 50, strokeWidth: 2 },
       colors: [
         "#0b7285",
         "#15aabf",

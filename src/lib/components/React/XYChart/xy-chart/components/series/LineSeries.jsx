@@ -7,7 +7,7 @@ import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
 
 // import { callOrValue, isDefined } from "../../util/chartUtils";
-import { getSymbol } from "../../util/chartUtils";
+import { getSymbol, isDefined } from "../../util/chartUtils";
 
 function LineSeries({
   data: _,
@@ -17,6 +17,7 @@ function LineSeries({
   dataKey,
   mouseEvents,
   horizontal = false,
+  glyph,
   ...lineProps
 }) {
   const {
@@ -50,7 +51,9 @@ function LineSeries({
 
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
-  let ChartGlyph = getSymbol(showPoints.symbol);
+  let ChartGlyph = getSymbol(
+    isDefined(glyph) ? glyph.symbol : showPoints.symbol
+  );
 
   if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
@@ -87,12 +90,20 @@ function LineSeries({
               <ChartGlyph
                 left={left}
                 top={top}
-                size={showPoints.size || 100}
+                size={
+                  isDefined(glyph)
+                    ? glyph.size
+                    : showPoints.size || theme.points.size
+                }
                 // fill={i % 2 === 0 ? primaryColor : contrastColor}
                 // stroke={i % 2 === 0 ? contrastColor : primaryColor}
-                fill={color}
-                stroke={color}
-                strokeWidth={2}
+                fill={isDefined(glyph) ? glyph.fill : color}
+                stroke={isDefined(glyph) ? glyph.stroke : color}
+                strokeWidth={
+                  isDefined(glyph)
+                    ? glyph.strokeWidth
+                    : showPoints.strokeWidth || theme.points.strokeWidth
+                }
                 style={{ cursor: "pointer " }}
                 onClick={() => {
                   console.log(d);

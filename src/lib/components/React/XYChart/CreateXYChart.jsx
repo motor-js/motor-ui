@@ -373,6 +373,7 @@ export default function CreateXYChart({
                   <LineSeries
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
+                    glyph={measureInfo[index].qShowPoints}
                     data={currData}
                     {...dataAccessors[index]}
                     strokeWidth={1.5}
@@ -404,6 +405,7 @@ export default function CreateXYChart({
                   <LineSeries
                     key={measure.qFallbackTitle}
                     dataKey={measure.qFallbackTitle}
+                    glyph={measure.qShowPoints}
                     data={currData}
                     {...dataAccessors[index]}
                     strokeWidth={1.5}
@@ -416,6 +418,7 @@ export default function CreateXYChart({
                 <AreaSeries
                   key={measureInfo[index].qFallbackTitle}
                   dataKey={measureInfo[index].qFallbackTitle}
+                  glyph={measureInfo[index].qShowPoints}
                   data={currData}
                   {...dataAccessors[index]}
                   strokeWidth={1.5}

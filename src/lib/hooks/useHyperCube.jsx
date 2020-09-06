@@ -17,9 +17,10 @@ function reducer(state, action) {
     type,
   } = action;
 
-  meausureInfo.map(
-    (d, i) => (qLayout.qHyperCube.qMeasureInfo[i].qChartType = d.qChartType)
-  );
+  meausureInfo.map((d, i) => {
+    qLayout.qHyperCube.qMeasureInfo[i].qChartType = d.qChartType;
+    qLayout.qHyperCube.qMeasureInfo[i].qShowPoints = d.qShowPoints;
+  });
 
   switch (type) {
     case "update":
@@ -299,6 +300,7 @@ const useHyperCube = (props) => {
               },
             ],
             qChartType: col.qChartType,
+            qShowPoints: col.qShowPoints,
           };
         }
 

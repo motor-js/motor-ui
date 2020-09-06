@@ -28,12 +28,12 @@ import { config } from '../config/config.js'
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <XYChart // width={750} height={400}  events={true}
     colorTheme="bio"
-    showPoints={{ symbol: 'circle', size: 100}}
+  //  showPoints={{ symbol: 'circle', size: 100}}
     type="combo"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'CanonicalDate' },
       { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
-      { qField: '=Sum([Forcast Day])', qLabel: 'Forecast Day',qChartType:'line' },
+      { qField: '=Sum([Forcast Day])', qLabel: 'Forecast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} },
     ]}/>
   </Motor>
 </Playground>
