@@ -86,12 +86,8 @@ function BarSeries({
     ? Math.min(maybeYZero, Math.max(yMin, yMax))
     : Math.max(yMin, yMax);
 
-  // const x = (d) => d.x;
-  // const y = (d) => d.y;
   const x = (d) => d[0].qText;
   const y = (d) => (horizontal ? d[0].qText : d[1].qNum);
-
-  // const barColor = colorScale(dataKey) as string;
 
   const categoryScale = horizontal ? yScale : xScale;
   const valueScale = horizontal ? xScale : yScale;
