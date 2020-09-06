@@ -742,19 +742,16 @@ const base = {
       },
       backgroundStyles: {
         pattern: null,
-        style: undefined,
-        styleFrom: undefined,
-        styleTo: undefined,
         stroke: "#adb5bd",
         strokeWidth: 0.5,
-      },
-      fillStyles: {
-        // pattern: null,
         style: undefined,
         styleFrom: undefined,
         styleTo: undefined,
-        // stroke: "#adb5bd",
-        // strokeWidth: 0.5,
+      },
+      fillStyles: {
+        style: undefined,
+        styleFrom: undefined,
+        styleTo: undefined,
       },
       gridStyles: {
         rows: {
