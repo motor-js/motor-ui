@@ -29,11 +29,14 @@ function BarSeries({
     showLabels,
     formatValue,
   } = useContext(ChartContext);
+
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
+
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
     xAccessor,
   ]);
+
   const getScaledY = useCallback((d) => yScale(yAccessor(d)), [
     yScale,
     yAccessor,
