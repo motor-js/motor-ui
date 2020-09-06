@@ -182,118 +182,121 @@ function StyledXYChart(props) {
           gridArea={gridArea}
           width={width}
         >
-          {/* <div
+          <div
             ref={ref}
             style={{
               position: "relative",
               height,
               margin: "10px",
             }}
-          > */}
-          <div
-            style={{
-              border: isSelectionXYChartVisible ? "1px solid #CCCCCC" : "none",
-              overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
-              overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
-              padding: outsidePadding,
-            }}
           >
-            {/* <div
+            <div
+              style={{
+                border: isSelectionXYChartVisible
+                  ? "1px solid #CCCCCC"
+                  : "none",
+                overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
+                overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
+                padding: outsidePadding,
+              }}
+            >
+              {/* <div
                 className="d3-component"
                 height={height}
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
               > */}
-            {qData && qLayout && (
-              <CreateXYChart
-                // width={width}
-                // height={height}
-                width={
-                  gridArea
-                    ? ref.current.offsetWidth
-                    : parseInt(width, 10) - parseInt(outsidePadding, 10) * 2 // Adjust for outside padding
-                }
-                height={
-                  gridArea
-                    ? ref.current.offsetHeight -
-                      parseInt(margin || xyChart.margin, 10)
-                    : parseInt(height, 10)
-                }
-                events={events || xyChart.events}
-                qLayout={qLayout}
-                qData={qData}
-                beginSelections={beginSelections}
-                select={select}
-                theme={theme}
-                setRefreshChart={setRefreshChart}
-                setSelectionXYChartVisible={setSelectionXYChartVisible}
-                useSelectionColours={useSelectionColours}
-                pendingSelections={pendingSelections}
-                SetPendingSelections={SetPendingSelections}
-                // XYChartThemes={XYChartThemes}
-                colorPalette={colorPalette}
-                type={type}
-                padding={padding || xyChart.padding}
-                useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
-                autoWidth={autoWidth || xyChart.autoWidth}
-                renderHorizontally={
-                  renderHorizontally || xyChart.renderHorizontally
-                }
-                includeZero={includeZero || xyChart.includeZero}
-                xAxisOrientation={xAxisOrientation}
-                yAxisOrientation={yAxisOrientation}
-                legendLeftRight={legendLeftRight}
-                showLegend={
-                  showLegend === undefined ? xyChart.showLegend : showLegend
-                }
-                legendTopBottom={legendTopBottom}
-                legendDirection={legendDirection}
-                legendShape={legendShape}
-                snapTooltipToDataX={snapTooltipToDataX}
-                snapTooltipToDataY={snapTooltipToDataY}
-                backgroundPattern={
-                  backgroundPattern ||
-                  xyChart.defaultTheme.backgroundStyles.pattern
-                }
-                backgroundStyle={
-                  backgroundStyle || xyChart.defaultTheme.backgroundStyles
-                }
-                fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
-                // fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
-                // fillTo={fillTo || xyChart.defaultTheme.fillStyles.styleTo}
-                multiColor={
-                  multiColor === undefined ? xyChart.multiColor : multiColor
-                }
-                showVerticalCrosshair={
-                  showVerticalCrosshair === undefined
-                    ? xyChart.showVerticalCrosshair
-                    : showVerticalCrosshair
-                }
-                allowSelections={
-                  allowSelections === undefined
-                    ? xyChart.allowSelections
-                    : showVerticalCrosshair
-                }
-                // dualAxis={dualAxis}
-                // showLabels={
-                //   showLabels === undefined ? xyChart.showLabels : showLabels
-                // }
-                // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-                // precision={
-                //   precision === undefined ? xyChart.precision : precision
-                // }
-                {...rest}
-              />
-            )}
+              {qData && qLayout && (
+                <CreateXYChart
+                  // width={width}
+                  // height={height}
+                  width={
+                    gridArea
+                      ? ref.current.offsetWidth
+                      : parseInt(width, 10) - parseInt(outsidePadding, 10) * 2 // Adjust for outside padding
+                  }
+                  height={
+                    gridArea
+                      ? ref.current.offsetHeight -
+                        parseInt(margin || xyChart.margin, 10)
+                      : parseInt(height, 10)
+                  }
+                  events={events || xyChart.events}
+                  qLayout={qLayout}
+                  qData={qData}
+                  beginSelections={beginSelections}
+                  select={select}
+                  theme={theme}
+                  refreshChart={refreshChart}
+                  setRefreshChart={setRefreshChart}
+                  setSelectionXYChartVisible={setSelectionXYChartVisible}
+                  useSelectionColours={useSelectionColours}
+                  pendingSelections={pendingSelections}
+                  SetPendingSelections={SetPendingSelections}
+                  // XYChartThemes={XYChartThemes}
+                  colorPalette={colorPalette}
+                  type={type}
+                  padding={padding || xyChart.padding}
+                  useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
+                  autoWidth={autoWidth || xyChart.autoWidth}
+                  renderHorizontally={
+                    renderHorizontally || xyChart.renderHorizontally
+                  }
+                  includeZero={includeZero || xyChart.includeZero}
+                  xAxisOrientation={xAxisOrientation}
+                  yAxisOrientation={yAxisOrientation}
+                  legendLeftRight={legendLeftRight}
+                  showLegend={
+                    showLegend === undefined ? xyChart.showLegend : showLegend
+                  }
+                  legendTopBottom={legendTopBottom}
+                  legendDirection={legendDirection}
+                  legendShape={legendShape}
+                  snapTooltipToDataX={snapTooltipToDataX}
+                  snapTooltipToDataY={snapTooltipToDataY}
+                  backgroundPattern={
+                    backgroundPattern ||
+                    xyChart.defaultTheme.backgroundStyles.pattern
+                  }
+                  backgroundStyle={
+                    backgroundStyle || xyChart.defaultTheme.backgroundStyles
+                  }
+                  fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
+                  // fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
+                  // fillTo={fillTo || xyChart.defaultTheme.fillStyles.styleTo}
+                  multiColor={
+                    multiColor === undefined ? xyChart.multiColor : multiColor
+                  }
+                  showVerticalCrosshair={
+                    showVerticalCrosshair === undefined
+                      ? xyChart.showVerticalCrosshair
+                      : showVerticalCrosshair
+                  }
+                  allowSelections={
+                    allowSelections === undefined
+                      ? xyChart.allowSelections
+                      : showVerticalCrosshair
+                  }
+                  // dualAxis={dualAxis}
+                  // showLabels={
+                  //   showLabels === undefined ? xyChart.showLabels : showLabels
+                  // }
+                  // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
+                  // precision={
+                  //   precision === undefined ? xyChart.precision : precision
+                  // }
+                  {...rest}
+                />
+              )}
+            </div>
+            {/* </div> */}
+            <SelectionModal
+              isOpen={isSelectionXYChartVisible}
+              cancelCallback={cancelCallback}
+              confirmCallback={confirmCallback}
+              // width={width}
+            />
           </div>
-          {/* </div> */}
-          <SelectionModal
-            isOpen={isSelectionXYChartVisible}
-            cancelCallback={cancelCallback}
-            confirmCallback={confirmCallback}
-            // width={width}
-          />
-          {/* </div> */}
         </XYChartWrapper>
       ) : (
         <XYChartWrapperNoData

@@ -8,6 +8,7 @@ export default function AnimatedBars({
   y,
   width,
   height,
+  handleClick,
   ...rectProps
 }) {
   // const animatedBars = useSprings(
@@ -36,7 +37,8 @@ export default function AnimatedBars({
           style={{ cursor: "pointer " }}
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);
-            console.log(bar);
+            // console.log(bar);
+            handleClick(bar.selectionId);
           }}
           {...rectProps}
         />

@@ -68,6 +68,7 @@ export default function CreateXYChart({
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
   setRefreshChart,
+  refreshChart,
   beginSelections,
   select,
   setSelectionXYChartVisible,
@@ -213,9 +214,12 @@ export default function CreateXYChart({
           useAccessors(getSeriesValues, index, renderHorizontally)
         );
 
+  // const [refreshChart, setRefreshChart] = useState(true);
+
   useEffect(() => {
-    setCurrData(data);
-  }, [data]);
+    refreshChart && setCurrData(data);
+    // console.log(refreshChart);
+  }, [data, refreshChart]);
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
@@ -247,6 +251,32 @@ export default function CreateXYChart({
       }
     />
   ) : null;
+
+  // // Create Event Handlers for mouse
+  // function handleClick(selectionValue) {
+  //   setRefreshChart(false);
+  //   // useSelectionColours = true;
+
+  //   let updateList = [];
+  //   // const selectionValue = dim[Object.keys(dim)[1]];
+
+  //   if (pendingSelections.includes(selectionValue)) {
+  //     updateList = pendingSelections.filter((item) => item != selectionValue);
+  //     pendingSelections = updateList;
+  //   } else {
+  //     pendingSelections = [...pendingSelections, selectionValue];
+  //   }
+
+  //   // setBarColors(diagram);
+  //   // console.log(pendingSelections);
+
+  //   beginSelections();
+  //   // return;
+
+  //   setSelectionXYChartVisible(true);
+
+  //   select(0, pendingSelections);
+  // }
 
   // const gridColor = "#6e0fca";
   // const numTickColumns = 5;
@@ -316,8 +346,11 @@ export default function CreateXYChart({
 
             {chartType.includes("bar") && (
               <BarSeries
+                beginSelections={beginSelections}
+                select={select}
+                setSelectionXYChartVisible={setSelectionXYChartVisible}
+                setRefreshChart={setRefreshChart}
                 horizontal={renderHorizontally}
-                // dataKey={measureInfo[0].qFallbackTitle}
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
                 data={currData}

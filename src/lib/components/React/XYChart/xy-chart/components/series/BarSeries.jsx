@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from "react";
+import React, { useContext, useCallback, useMemo, useState } from "react";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
@@ -18,6 +18,10 @@ function BarSeries({
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
+  beginSelections,
+  setSelectionXYChartVisible,
+  setRefreshChart,
+  select,
   // showLabels,
   ...barProps
 }) {
@@ -29,6 +33,9 @@ function BarSeries({
     showLabels,
     formatValue,
   } = useContext(ChartContext);
+
+  const [pendingSelections, SetPendingSelections] = useState([]);
+  // let pendingSelections = [];
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
 
@@ -55,6 +62,33 @@ function BarSeries({
     strokeWidth: 2,
     paintOrder: "stroke",
     fontSize: 12,
+  };
+
+  let currentSelections = [];
+
+  const handleClick = (selectionValue) => {
+    setRefreshChart(false);
+    // useSelectionColours = true;
+
+    let updateList = [];
+
+    // setBarColors(diagram);
+    // console.log("c", pendingSelections);
+
+    beginSelections();
+
+    setSelectionXYChartVisible(true);
+
+    currentSelections = [...pendingSelections, selectionValue];
+    select(0, currentSelections);
+
+    if (pendingSelections.includes(selectionValue)) {
+      updateList = pendingSelections.filter((item) => item != selectionValue);
+
+      SetPendingSelections(updateList);
+    } else {
+      SetPendingSelections([...pendingSelections, selectionValue]);
+    }
   };
 
   const renderLabel = ({ datum, labelProps }) =>
@@ -169,12 +203,14 @@ function BarSeries({
       yZeroPosition,
       getScaledX,
       getScaledY,
+      pendingSelections,
     ]
   );
 
   return (
     <g className="vx-chart bar-series">
       <AnimatedBars
+        handleClick={handleClick}
         bars={bars}
         stroke={theme.baseColor ?? "white"}
         {...barProps}
