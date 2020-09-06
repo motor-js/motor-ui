@@ -95,6 +95,9 @@ export default function CreateXYChart({
   backgroundStyle,
   backgroundFrom,
   backgroundTo,
+  fillStyle,
+  fillFrom,
+  fillTo,
   multiColor,
   showLabels,
   showPoints,
@@ -419,6 +422,9 @@ export default function CreateXYChart({
                   key={measureInfo[index].qFallbackTitle}
                   dataKey={measureInfo[index].qFallbackTitle}
                   glyph={measureInfo[index].qShowPoints}
+                  fillStyle={fillStyle}
+                  fillFrom={fillFrom}
+                  fillTo={fillTo}
                   data={currData}
                   {...dataAccessors[index]}
                   strokeWidth={1.5}

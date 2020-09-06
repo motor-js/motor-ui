@@ -5,9 +5,10 @@ import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
+import FillBackground from "../aesthetic/Gradient";
 
-// import { callOrValue, isDefined } from "../../util/chartUtils";
-import { getSymbol } from "../../util/chartUtils";
+// import { callOrValue} from "../../util/chartUtils";
+import { getSymbol, isDefined } from "../../util/chartUtils";
 
 function AreaSeries({
   data: _,
@@ -18,6 +19,9 @@ function AreaSeries({
   mouseEvents,
   horizontal = false,
   glyph,
+  fillStyle,
+  fillFrom,
+  fillTo,
   ...lineProps
 }) {
   const {
@@ -27,6 +31,7 @@ function AreaSeries({
     showPoints,
     showLabels,
     theme,
+
     formatValue,
   } = useContext(ChartContext);
   const { data, xAccessor, yAccessor, elAccessor } =
@@ -73,6 +78,12 @@ function AreaSeries({
 
   return (
     <g className="vx-group area-series">
+      <FillBackground
+        style={fillStyle}
+        id="area-gradient"
+        from={fillFrom}
+        to={fillTo}
+      />
       <AreaClosed
         data={data}
         x={getScaledX}
@@ -82,8 +93,16 @@ function AreaSeries({
       >
         {({ path }) => (
           <AnimatedPath
-            stroke={color}
-            fill={color}
+            stroke={
+              isDefined(fillStyle) || isDefined(fillFrom)
+                ? "url(#area-gradient)"
+                : color
+            }
+            fill={
+              isDefined(fillStyle) || isDefined(fillFrom)
+                ? "url(#area-gradient)"
+                : color
+            }
             {...lineProps}
             d={path(data) || ""}
           />

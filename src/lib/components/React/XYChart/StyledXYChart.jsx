@@ -77,6 +77,9 @@ function StyledXYChart(props) {
     backgroundFrom,
     backgroundTo,
     multiColor,
+    fillStyle,
+    fillFrom,
+    fillTo,
     // dualAxis,
     // roundNum,
     // precision,
@@ -266,6 +269,9 @@ function StyledXYChart(props) {
                 backgroundTo={
                   backgroundTo || xyChart.defaultTheme.backgroundStyles.styleTo
                 }
+                fillStyle={fillStyle || xyChart.defaultTheme.fillStyles.style}
+                fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
+                fillTo={fillTo || xyChart.defaultTheme.fillStyles.styleTo}
                 multiColor={
                   multiColor === undefined ? xyChart.multiColor : multiColor
                 }
