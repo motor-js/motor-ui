@@ -254,19 +254,23 @@ XYChart.propTypes = {
 
   backgroundFrom: PropTypes.bool,
   backgroundTo: PropTypes.bool,
-  fillStyle: PropTypes.oneOf([
-    "Linear",
-    "Radial",
-    "DarkGreen",
-    "LightGreen",
-    "OrangeRed",
-    "PinkBlue",
-    "PinkRed",
-    "PurpleOrangle",
-    "PurpleRed",
-    "PurpleTeal",
-    "SteelPurple",
-    "TealBlue",
+  // Global fill gradinet for area chart
+  fillStyle: PropTypes.oneOfType([
+    PropTypes.object, // used for from - to
+    PropTypes.oneOf([
+      "Linear",
+      "Radial",
+      "DarkGreen",
+      "LightGreen",
+      "OrangeRed",
+      "PinkBlue",
+      "PinkRed",
+      "PurpleOrangle",
+      "PurpleRed",
+      "PurpleTeal",
+      "SteelPurple",
+      "TealBlue",
+    ]),
   ]),
   fillFrom: PropTypes.bool,
   fillTo: PropTypes.bool,

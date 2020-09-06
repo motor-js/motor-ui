@@ -20,8 +20,8 @@ function AreaSeries({
   horizontal = false,
   glyph,
   fillStyle,
-  fillFrom,
-  fillTo,
+  // fillFrom,
+  // fillTo,
   ...lineProps
 }) {
   const {
@@ -76,13 +76,15 @@ function AreaSeries({
     fontSize: 12,
   };
 
+  console.log(fillStyle);
+
   return (
     <g className="vx-group area-series">
       <FillBackground
-        style={fillStyle}
+        style={fillStyle.style}
         id="area-gradient"
-        from={fillFrom}
-        to={fillTo}
+        from={fillStyle.fillFrom}
+        to={fillStyle.fillTo}
       />
       <AreaClosed
         data={data}
@@ -93,16 +95,8 @@ function AreaSeries({
       >
         {({ path }) => (
           <AnimatedPath
-            stroke={
-              isDefined(fillStyle) || isDefined(fillFrom)
-                ? "url(#area-gradient)"
-                : color
-            }
-            fill={
-              isDefined(fillStyle) || isDefined(fillFrom)
-                ? "url(#area-gradient)"
-                : color
-            }
+            stroke={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
+            fill={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
             {...lineProps}
             d={path(data) || ""}
           />

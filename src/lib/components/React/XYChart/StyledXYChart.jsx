@@ -269,9 +269,9 @@ function StyledXYChart(props) {
                 backgroundTo={
                   backgroundTo || xyChart.defaultTheme.backgroundStyles.styleTo
                 }
-                fillStyle={fillStyle || xyChart.defaultTheme.fillStyles.style}
-                fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
-                fillTo={fillTo || xyChart.defaultTheme.fillStyles.styleTo}
+                fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
+                // fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
+                // fillTo={fillTo || xyChart.defaultTheme.fillStyles.styleTo}
                 multiColor={
                   multiColor === undefined ? xyChart.multiColor : multiColor
                 }
