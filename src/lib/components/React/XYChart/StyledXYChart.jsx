@@ -92,6 +92,7 @@ function StyledXYChart(props) {
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
   const outsidePadding = "10px";
+  const refMargin = "10px";
 
   // retrieve XYChart data from HyperCube
   const {
@@ -187,7 +188,8 @@ function StyledXYChart(props) {
             style={{
               position: "relative",
               height,
-              margin: "10px",
+              // margin: "10px",
+              margin: refMargin,
             }}
           >
             <div
@@ -213,7 +215,9 @@ function StyledXYChart(props) {
                   width={
                     gridArea
                       ? ref.current.offsetWidth
-                      : parseInt(width, 10) - parseInt(outsidePadding, 10) * 2 // Adjust for outside padding
+                      : parseInt(width, 10) -
+                        parseInt(outsidePadding, 10) * 2 -
+                        parseInt(refMargin, 10) * 2 // Adjust for outside padding
                   }
                   height={
                     gridArea
