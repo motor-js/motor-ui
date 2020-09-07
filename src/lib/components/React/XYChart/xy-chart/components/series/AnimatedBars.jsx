@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { animated, useSprings } from "react-spring";
 import { Bar } from "@vx/shape";
+// import { StyledBar } from "./BarTheme";
 
 export default function AnimatedBars({
   bars,
@@ -54,6 +55,7 @@ export default function AnimatedBars({
           // fill={isSelected ? "white" : "rgba(23, 233, 217, 0.5)"}
           // fill={selectedBar.includes(bar.selectionId) ? "red" : bar.color}
           fill={bar.color}
+          // barOpacity={0.65}
           opacity={
             // !isSelectionXYChartVisible
             //   ? selection.opacity
