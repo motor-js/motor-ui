@@ -30,10 +30,10 @@ function BarSeries({
     yScale,
     showLabels,
     formatValue,
-    beginSelections,
-    setSelectionXYChartVisible,
-    select,
-    // handleClick,
+    // beginSelections,
+    // setSelectionXYChartVisible,
+    // select,
+    handleClick,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
@@ -63,13 +63,13 @@ function BarSeries({
     fontSize: 12,
   };
 
-  const handleClick = (selectionValue) => {
-    beginSelections();
+  // const handleClick = (selectionValue) => {
+  //   beginSelections();
 
-    setSelectionXYChartVisible(true);
+  //   setSelectionXYChartVisible(true);
 
-    select(0, selectionValue);
-  };
+  //   select(0, selectionValue);
+  // };
 
   const renderLabel = ({ datum, labelProps }) =>
     datum.label ? (

@@ -21,6 +21,7 @@ export default function AnimatedBars({
   //     color: bar.color,
   //   }))
   // );
+  console.log("ddd");
 
   const [selectedBar, setSelectedBar] = useState([]);
   // console.log(selectedBar);

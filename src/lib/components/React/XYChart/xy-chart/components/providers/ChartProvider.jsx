@@ -232,13 +232,13 @@ export default class ChartProvider extends React.Component {
     return val < 0 ? `-${formattedValue}` : formattedValue;
   };
 
-  // handleClick = (selectionValue) => {
-  //   beginSelections();
+  handleClick = (selectionValue) => {
+    this.props.beginSelections();
 
-  //   setSelectionXYChartVisible(true);
+    this.props.setSelectionXYChartVisible(true);
 
-  //   select(0, selectionValue);
-  // };
+    this.props.select(0, selectionValue);
+  };
 
   render() {
     const {
@@ -282,9 +282,9 @@ export default class ChartProvider extends React.Component {
           dimensionInfo,
           measureInfo,
           dataKeys,
-          beginSelections,
-          setSelectionXYChartVisible,
-          select,
+          // beginSelections,
+          // setSelectionXYChartVisible,
+          // select,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
