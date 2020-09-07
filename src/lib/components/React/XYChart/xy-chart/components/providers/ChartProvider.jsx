@@ -253,6 +253,7 @@ export default class ChartProvider extends React.Component {
       beginSelections,
       setSelectionXYChartVisible,
       select,
+      isSelectionXYChartVisible,
     } = this.props;
 
     const {
@@ -285,6 +286,7 @@ export default class ChartProvider extends React.Component {
           // beginSelections,
           // setSelectionXYChartVisible,
           // select,
+          isSelectionXYChartVisible,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

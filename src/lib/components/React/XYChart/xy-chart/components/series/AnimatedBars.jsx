@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { animated, useSprings } from "react-spring";
 import { Bar } from "@vx/shape";
 
@@ -9,6 +9,7 @@ export default function AnimatedBars({
   width,
   height,
   handleClick,
+  isSelectionXYChartVisible,
   ...rectProps
 }) {
   // const animatedBars = useSprings(
@@ -21,10 +22,12 @@ export default function AnimatedBars({
   //     color: bar.color,
   //   }))
   // );
-  console.log("ddd");
 
   const [selectedBar, setSelectedBar] = useState([]);
-  // console.log(selectedBar);
+
+  useEffect(() => {
+    if (!isSelectionXYChartVisible) setSelectedBar([]);
+  }, [isSelectionXYChartVisible]);
 
   return (
     // react complains when using component if we don't wrap in Fragment

@@ -27,7 +27,7 @@ function StyledXYChart(props) {
   const [data, setData] = useState(null);
   // const [sel, setSel] = useState([]);
 
-  let useSelectionColours = false;
+  // let useSelectionColours = false;
 
   // props
   const {
@@ -118,16 +118,16 @@ function StyledXYChart(props) {
     endSelections(false);
     setSelectionXYChartVisible(false);
     setRefreshChart(true);
-    useSelectionColours = false;
+    // useSelectionColours = false;
     // setSel([]);
   };
 
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionXYChartVisible(false);
+    // setSelectionXYChartVisible(false);
     setRefreshChart(true);
-    useSelectionColours = false;
+    // useSelectionColours = false;
     // setSel([]);
   };
 
@@ -174,8 +174,10 @@ function StyledXYChart(props) {
     if (
       (qData && data === null) ||
       (qData && data && qData.qMatrix.length !== data.length)
-    )
+    ) {
       setData(qData.qMatrix);
+      setSelectionXYChartVisible(false);
+    }
     // };
   }, [qData]);
 
@@ -235,14 +237,15 @@ function StyledXYChart(props) {
                 events={events || xyChart.events}
                 qLayout={qLayout}
                 // qData={data}
+                theme={theme}
                 qMatrix={data}
                 beginSelections={beginSelections}
                 select={select}
-                theme={theme}
                 refreshChart={refreshChart}
                 setRefreshChart={setRefreshChart}
                 setSelectionXYChartVisible={setSelectionXYChartVisible}
-                useSelectionColours={useSelectionColours}
+                isSelectionXYChartVisible={isSelectionXYChartVisible}
+                // useSelectionColours={useSelectionColours}
                 // XYChartThemes={XYChartThemes}
                 colorPalette={colorPalette}
                 type={type}

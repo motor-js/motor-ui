@@ -18,9 +18,6 @@ function BarSeries({
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
-  // beginSelections,
-  // setSelectionXYChartVisible,
-  // select,
   ...barProps
 }) {
   const {
@@ -30,10 +27,8 @@ function BarSeries({
     yScale,
     showLabels,
     formatValue,
-    // beginSelections,
-    // setSelectionXYChartVisible,
-    // select,
     handleClick,
+    isSelectionXYChartVisible,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
@@ -190,6 +185,7 @@ function BarSeries({
     <g className="vx-chart bar-series">
       <AnimatedBars
         handleClick={handleClick}
+        isSelectionXYChartVisible={isSelectionXYChartVisible}
         bars={bars}
         stroke={theme.baseColor ?? "white"}
         {...barProps}

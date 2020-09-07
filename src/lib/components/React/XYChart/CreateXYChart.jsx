@@ -71,7 +71,8 @@ export default function CreateXYChart({
   beginSelections,
   select,
   setSelectionXYChartVisible,
-  useSelectionColours,
+  isSelectionXYChartVisible,
+  // useSelectionColours,
   theme,
   padding,
   colorPalette,
@@ -260,8 +261,10 @@ export default function CreateXYChart({
       measureInfo={measureInfo}
       dataKeys={dataKeys}
       beginSelections={beginSelections}
+      // useSelectionColours={useSelectionColours}
       select={select}
       setSelectionXYChartVisible={setSelectionXYChartVisible}
+      isSelectionXYChartVisible={isSelectionXYChartVisible}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -297,9 +300,6 @@ export default function CreateXYChart({
 
             {chartType.includes("bar") && (
               <BarSeries
-                // beginSelections={beginSelections}
-                // select={select}
-                // setSelectionXYChartVisible={setSelectionXYChartVisible}
                 horizontal={renderHorizontally}
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
