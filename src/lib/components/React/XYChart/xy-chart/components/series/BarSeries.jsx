@@ -18,11 +18,9 @@ function BarSeries({
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
-  beginSelections,
-  setSelectionXYChartVisible,
-  setRefreshChart,
-  select,
-  // showLabels,
+  // beginSelections,
+  // setSelectionXYChartVisible,
+  // select,
   ...barProps
 }) {
   const {
@@ -32,6 +30,10 @@ function BarSeries({
     yScale,
     showLabels,
     formatValue,
+    beginSelections,
+    setSelectionXYChartVisible,
+    select,
+    // handleClick,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
@@ -62,13 +64,6 @@ function BarSeries({
   };
 
   const handleClick = (selectionValue) => {
-    setRefreshChart(false);
-    // useSelectionColours = true;
-
-    // let updateList = [];
-
-    // setBarColors(diagram);
-
     beginSelections();
 
     setSelectionXYChartVisible(true);

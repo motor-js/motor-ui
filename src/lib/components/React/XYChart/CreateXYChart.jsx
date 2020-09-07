@@ -68,8 +68,6 @@ export default function CreateXYChart({
     qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
-  setRefreshChart,
-  refreshChart,
   beginSelections,
   select,
   setSelectionXYChartVisible,
@@ -213,11 +211,9 @@ export default function CreateXYChart({
           useAccessors(getSeriesValues, index, renderHorizontally)
         );
 
-  // const [refreshChart, setRefreshChart] = useState(true);
-
   useEffect(() => {
-    refreshChart && setCurrData(data);
-  }, [data, refreshChart]);
+    setCurrData(data);
+  }, [data]);
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
@@ -263,6 +259,9 @@ export default function CreateXYChart({
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}
+      beginSelections={beginSelections}
+      select={select}
+      setSelectionXYChartVisible={setSelectionXYChartVisible}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -298,10 +297,9 @@ export default function CreateXYChart({
 
             {chartType.includes("bar") && (
               <BarSeries
-                beginSelections={beginSelections}
-                select={select}
-                setSelectionXYChartVisible={setSelectionXYChartVisible}
-                setRefreshChart={setRefreshChart}
+                // beginSelections={beginSelections}
+                // select={select}
+                // setSelectionXYChartVisible={setSelectionXYChartVisible}
                 horizontal={renderHorizontally}
                 dataKeys={dataKeys ? dataKeys : null}
                 dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
