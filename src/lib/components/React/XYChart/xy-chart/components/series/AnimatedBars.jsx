@@ -49,10 +49,8 @@ export default function AnimatedBars({
                 })
               : [...selectedBar, bar.selectionId];
 
-            console.log(selections);
             setSelectedBar(selections);
             handleClick(selections);
-            // handleClick([...selectedBar, bar.selectionId]);
           }}
           {...rectProps}
         />

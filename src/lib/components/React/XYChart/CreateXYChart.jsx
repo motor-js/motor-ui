@@ -62,7 +62,8 @@ export default function CreateXYChart({
   width,
   height,
   events = false,
-  qData: { qMatrix },
+  // qData: { qMatrix },
+  qMatrix,
   qLayout: {
     qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
@@ -216,19 +217,14 @@ export default function CreateXYChart({
 
   useEffect(() => {
     refreshChart && setCurrData(data);
-    // console.log(refreshChart);
   }, [data, refreshChart]);
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
 
-  const {
-    //  global: { colorTheme: globalColorTheme },
-    xyChart,
-  } = theme;
+  const { xyChart } = theme;
 
   const themeObj = {
-    // ...defaultTheme,
     ...theme.xyChart.defaultTheme,
     colors,
   };
@@ -297,16 +293,7 @@ export default function CreateXYChart({
             <ChartPattern backgroundPattern={backgroundPattern} />
 
             {(gridRows !== false || gridColumns !== false) && (
-              <Grid
-                gridRows={gridRows}
-                gridColumns={gridColumns}
-                // strokeWidth={strokeWidth}
-                // strokeDasharray={strokeDasharray}
-                // numTicks={numTicksRows}
-                // lineStyle={rowLineStyle}
-                // offset={yOffset}
-                // tickValues={rowTickValues}
-              />
+              <Grid gridRows={gridRows} gridColumns={gridColumns} />
             )}
 
             {chartType.includes("bar") && (
