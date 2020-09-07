@@ -139,7 +139,7 @@ function LineSeries({
 /** Separate component so that we don't use the `useSpring` hook in a render function callback. */
 function AnimatedPath({ d, ...lineProps }) {
   const tweenedPath = useSpring({ d, config: { precision: 0.01 } });
-  return <animated.path d={tweenedPath.d} fill="transparent" {...lineProps} />;
+  return <animated.path d={tweenedPath.d} fill="none" {...lineProps} />;
 }
 
 export default React.memo(

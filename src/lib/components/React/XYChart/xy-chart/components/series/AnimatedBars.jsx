@@ -10,6 +10,7 @@ export default function AnimatedBars({
   height,
   handleClick,
   isSelectionXYChartVisible,
+  theme,
   ...rectProps
 }) {
   // const animatedBars = useSprings(
@@ -22,6 +23,15 @@ export default function AnimatedBars({
   //     color: bar.color,
   //   }))
   // );
+
+  const { selection, nonSelection } = theme;
+
+  const styleProp = (selectionId, styleprop) =>
+    !isSelectionXYChartVisible
+      ? selection[styleprop]
+      : selectedBar.includes(selectionId) && isSelectionXYChartVisible
+      ? selection[styleprop]
+      : nonSelection[styleprop];
 
   const [selectedBar, setSelectedBar] = useState([]);
 
@@ -42,7 +52,17 @@ export default function AnimatedBars({
           height={height?.(bar) ?? bar.height}
           // fill={bar.color}
           // fill={isSelected ? "white" : "rgba(23, 233, 217, 0.5)"}
-          fill={selectedBar.includes(bar.selectionId) ? "red" : bar.color}
+          // fill={selectedBar.includes(bar.selectionId) ? "red" : bar.color}
+          fill={bar.color}
+          opacity={
+            // !isSelectionXYChartVisible
+            //   ? selection.opacity
+            //   : selectedBar.includes(bar.selectionId) &&
+            //     isSelectionXYChartVisible
+            //   ? selection.opacity
+            //   : nonSelection.opacity
+            styleProp(bar.selectionId, "opacity")
+          }
           style={{ cursor: "pointer " }}
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);

@@ -717,6 +717,7 @@ const base = {
       justifyContent: "center",
       margin: "10px",
     },
+
     defaultTheme: {
       baseColor: "#fff",
       points: { size: 50, strokeWidth: 2 },
@@ -772,6 +773,15 @@ const base = {
           // offset: null,
           tickValues: null,
         },
+      },
+      selection: {
+        opacity: 1,
+        stroke: "black",
+        strokeWidth: "1px",
+      },
+      nonSelection: {
+        opacity: 0.5,
+        // background: "var(--oc-gray-1)",
       },
       xAxisStyles: {
         stroke: "#adb5bd",

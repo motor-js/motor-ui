@@ -49,6 +49,8 @@ function BarSeries({
     svgLabel: { baseLabel },
   } = theme;
 
+  // console.log(nonSelection);
+
   const labelProps = {
     ...baseLabel,
     pointerEvents: "none",
@@ -188,6 +190,7 @@ function BarSeries({
         isSelectionXYChartVisible={isSelectionXYChartVisible}
         bars={bars}
         stroke={theme.baseColor ?? "white"}
+        theme={theme}
         {...barProps}
       />
       {Labels.map((Label) => Label)}
