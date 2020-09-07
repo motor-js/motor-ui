@@ -113,12 +113,7 @@ function LineSeries({
                     : showPoints.strokeWidth || theme.points.strokeWidth
                 }
                 style={{ cursor: "pointer " }}
-                // onClick={() => {
-                //   console.log(d);
-                // }}
                 onClick={() => {
-                  // setSelectedBar(isSelected ? null : letter);
-                  // console.log(bar);
                   const selections = selectedBar.includes(d.selectionId)
                     ? selectedBar.filter(function(value, index, arr) {
                         return value !== d.selectionId;
