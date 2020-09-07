@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState, useEffect } from "react";
 import { animated, useSpring } from "react-spring";
 import LinePath from "@vx/shape/lib/shapes/LinePath";
 import ChartContext from "../../context/ChartContext";
@@ -28,6 +28,8 @@ function LineSeries({
     showLabels,
     theme,
     formatValue,
+    handleClick,
+    isSelectionXYChartVisible,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } =
@@ -72,6 +74,12 @@ function LineSeries({
     fontSize: 12,
   };
 
+  const [selectedBar, setSelectedBar] = useState([]);
+
+  useEffect(() => {
+    if (!isSelectionXYChartVisible) setSelectedBar([]);
+  }, [isSelectionXYChartVisible]);
+
   return (
     <g className="vx-group line-series">
       <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
@@ -105,8 +113,20 @@ function LineSeries({
                     : showPoints.strokeWidth || theme.points.strokeWidth
                 }
                 style={{ cursor: "pointer " }}
+                // onClick={() => {
+                //   console.log(d);
+                // }}
                 onClick={() => {
-                  console.log(d);
+                  // setSelectedBar(isSelected ? null : letter);
+                  // console.log(bar);
+                  const selections = selectedBar.includes(d.selectionId)
+                    ? selectedBar.filter(function(value, index, arr) {
+                        return value !== d.selectionId;
+                      })
+                    : [...selectedBar, d.selectionId];
+
+                  setSelectedBar(selections);
+                  handleClick(selections);
                 }}
               />
               {/* {showLabels && (
