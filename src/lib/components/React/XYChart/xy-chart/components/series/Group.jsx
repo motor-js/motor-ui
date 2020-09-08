@@ -34,6 +34,8 @@ export default function Group({
     unregisterData,
     theme,
     formatValue,
+    handleClick,
+    isSelectionXYChartVisible,
   } = useContext(ChartContext);
 
   // extract data keys from child series
@@ -222,6 +224,9 @@ export default function Group({
               width={(bar) => Math.abs(bar.width - scaledZeroPosition)}
               height={(bar) => bar.height}
               rx={2}
+              handleClick={handleClick}
+              theme={theme}
+              isSelectionXYChartVisible={isSelectionXYChartVisible}
               {...rectProps}
             />
             {showLabels &&
@@ -263,6 +268,9 @@ export default function Group({
               width={(bar) => bar.width}
               height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
               rx={2}
+              handleClick={handleClick}
+              isSelectionXYChartVisible={isSelectionXYChartVisible}
+              theme={theme}
               {...rectProps}
             />
             {showLabels &&
