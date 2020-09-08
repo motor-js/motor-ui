@@ -1,7 +1,7 @@
-import React, { useContext, useMemo, useEffect } from "react";
+import React, { useContext, useMemo, useEffect, useCallback } from "react";
 // import BarGroup from "@vx/shape/lib/shapes/BarGroup";
 import BarGroup from "./BarGroup";
-import BarGroupHorizontal from "@vx/shape/lib/shapes/BarGroupHorizontal";
+import BarGroupHorizontal from "./BarGroupHorizontal";
 import { Group as VxGroup } from "@vx/group";
 import { scaleBand } from "@vx/scale";
 import ChartContext from "../../context/ChartContext";
@@ -58,37 +58,40 @@ export default function Group({
   // @todo, this should be refactored such that it can be memoized.
   // currently it references groupScale which depends on xScale, yScale,
   // and thus causes an infinite loop for updating the data registry.
-  const findNearestDatum = (args) => {
-    const nearestDatum = horizontal
-      ? findNearestDatumY(args)
-      : findNearestDatumX(args);
+  const findNearestDatum = useCallback(
+    (args) => {
+      const nearestDatum = horizontal
+        ? findNearestDatumY(args)
+        : findNearestDatumX(args);
 
-    if (!nearestDatum) return null;
+      if (!nearestDatum) return null;
 
-    const distanceX = horizontal
-      ? nearestDatum.distanceX
-      : Math.abs(
-          args.svgMouseX -
-            (args.xScale(args.xAccessor(nearestDatum.datum)) +
-              groupScale(args.key) +
-              groupScale.bandwidth() / 2)
-        );
+      const distanceX = horizontal
+        ? nearestDatum.distanceX
+        : Math.abs(
+            args.svgMouseX -
+              (args.xScale(args.xAccessor(nearestDatum.datum)) +
+                groupScale(args.key) +
+                groupScale.bandwidth() / 2)
+          );
 
-    const distanceY = horizontal
-      ? Math.abs(
-          args.svgMouseY -
-            (args.yScale(args.yAccessor(nearestDatum.datum)) +
-              groupScale(args.key) +
-              groupScale.bandwidth() / 2)
-        )
-      : nearestDatum.distanceY;
+      const distanceY = horizontal
+        ? Math.abs(
+            args.svgMouseY -
+              (args.yScale(args.yAccessor(nearestDatum.datum)) +
+                groupScale(args.key) +
+                groupScale.bandwidth() / 2)
+          )
+        : nearestDatum.distanceY;
 
-    return {
-      ...nearestDatum,
-      distanceX,
-      distanceY,
-    };
-  };
+      return {
+        ...nearestDatum,
+        distanceX,
+        distanceY,
+      };
+    },
+    [horizontal]
+  );
 
   useEffect(
     // register all child data
@@ -121,7 +124,14 @@ export default function Group({
     // @TODO fix findNearestDatum
     // can't include findNearestDatum as it depends on groupScale which depends
     // on the registry so will cause an infinite loop.
-    [registerData, unregisterData, children]
+    [
+      horizontal,
+      registerData,
+      unregisterData,
+      children,
+      findNearestDatum,
+      dataKeys,
+    ]
   );
 
   // merge all child data by x value
