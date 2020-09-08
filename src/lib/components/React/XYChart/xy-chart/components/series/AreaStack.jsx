@@ -26,9 +26,6 @@ export default function Stack({ horizontal, children, ...rectProps }) {
     unregisterData,
     height,
     margin,
-    theme,
-    handleClick,
-    isSelectionXYChartVisible,
   } = useContext(ChartContext) || {};
 
   // extract data keys from child series
@@ -214,10 +211,6 @@ export default function Stack({ horizontal, children, ...rectProps }) {
           <AnimatedBars
             key={`${index}-${barStack.bars.length}`}
             bars={barStack.bars}
-            stroke={theme.baseColor ?? "white"}
-            handleClick={handleClick}
-            isSelectionXYChartVisible={isSelectionXYChartVisible}
-            theme={theme}
             {...rectProps}
           />
         ));
@@ -242,10 +235,6 @@ export default function Stack({ horizontal, children, ...rectProps }) {
           <AnimatedBars
             key={`${index}-${barStack.bars.length}`}
             bars={barStack.bars}
-            stroke={theme.baseColor ?? "white"}
-            handleClick={handleClick}
-            isSelectionXYChartVisible={isSelectionXYChartVisible}
-            theme={theme}
             {...rectProps}
           />
         ));

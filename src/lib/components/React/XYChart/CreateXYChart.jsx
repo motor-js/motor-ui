@@ -16,11 +16,13 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
+import AreaStack from "./xy-chart/components/series/AreaStack";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 
 import { colorByExpression } from "../../../utils";
 import { isNull } from "lodash";
+// import { AreaStack } from "@vx/shape";
 
 const numDimensionTicks = 5;
 
@@ -327,6 +329,18 @@ export default function CreateXYChart({
                       />
                     ))}
               </Stack>
+            )}
+            {chartType.includes("stackedarea") && (
+              <AreaStack horizontal={renderHorizontally}>
+                {measureInfo.map((measure, index) => (
+                  <AreaSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ))}
+              </AreaStack>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
