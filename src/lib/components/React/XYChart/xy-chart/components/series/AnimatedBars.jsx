@@ -68,7 +68,7 @@ export default function AnimatedBars({
           style={{ cursor: "pointer " }}
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);
-            // console.log(bar);
+
             const selections = selectedBar.includes(bar.selectionId)
               ? selectedBar.filter(function(value, index, arr) {
                   return value !== bar.selectionId;

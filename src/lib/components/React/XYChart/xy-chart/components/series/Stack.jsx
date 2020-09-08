@@ -6,8 +6,8 @@ import React, {
   useCallback,
 } from "react";
 import { extent } from "d3-array";
-import BarStack from "@vx/shape/lib/shapes/BarStack";
-import BarStackHorizontal from "@vx/shape/lib/shapes/BarStackHorizontal";
+import BarStack from "../series/BarStack";
+import BarStackHorizontal from "../series/BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
 
 import findNearestDatumY from "../../util/findNearestDatumY";
@@ -94,10 +94,16 @@ export default function Stack({ horizontal, children, ...rectProps }) {
   const combinedData = useMemo(() => {
     const dataByStackValue = {};
     React.Children.forEach(children, (child) => {
-      const { dataKey, data = [], xAccessor, yAccessor } = child.props;
+      const {
+        dataKey,
+        data = [],
+        xAccessor,
+        yAccessor,
+        elAccessor,
+      } = child.props;
 
       // this should exist but double check
-      if (!xAccessor || !yAccessor) return;
+      if (!xAccessor || !yAccessor || !elAccessor) return;
 
       data.forEach((d) => {
         const stack = (horizontal ? yAccessor : xAccessor)(d);
@@ -111,6 +117,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         }
         const value = (horizontal ? xAccessor : yAccessor)(d);
         dataByStackValue[stackKey][dataKey] = value;
+        dataByStackValue[stackKey]["selectionId"] = elAccessor(d);
         dataByStackValue[stackKey][
           value >= 0 ? "positiveSum" : "negativeSum"
         ] += value;
@@ -142,6 +149,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         data,
         xAccessor,
         yAccessor,
+        elAccessor,
         mouseEvents,
       } = child.props;
       dataToRegister[key] = {
@@ -149,6 +157,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         data,
         xAccessor,
         yAccessor,
+        elAccessor,
         mouseEvents,
         findNearestDatum,
       };

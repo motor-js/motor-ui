@@ -6,8 +6,8 @@ import React, {
   useCallback,
 } from "react";
 import { extent } from "d3-array";
-import BarStack from "@vx/shape/lib/shapes/BarStack";
-import BarStackHorizontal from "@vx/shape/lib/shapes/BarStackHorizontal";
+import BarStack from "../series/BarStack";
+import BarStackHorizontal from "../series/BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
 
 import findNearestDatumY from "../../util/findNearestDatumY";

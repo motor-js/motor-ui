@@ -4,17 +4,17 @@ import { Group } from "@vx/group";
 // import Bar from "./Bar";
 import { Bar } from "@vx/shape";
 
-// import getBandwidth from "../util/getBandwidth";
+import getBandwidth from "../../util/getBandwidth";
 
-function getBandwidth(scale) {
-  if ("bandwidth" in scale) {
-    return scale.bandwidth();
-  }
+// function getBandwidth(scale) {
+//   if ("bandwidth" in scale) {
+//     return scale.bandwidth();
+//   }
 
-  const range = scale.range();
-  const domain = scale.domain();
-  return Math.abs(range[range.length - 1] - range[0]) / domain.length;
-}
+//   const range = scale.range();
+//   const domain = scale.domain();
+//   return Math.abs(range[range.length - 1] - range[0]) / domain.length;
+// }
 
 /**
  * Generates bar groups as an array of objects and renders `<rect />`s for each datum grouped by `key`. A general setup might look like this:
