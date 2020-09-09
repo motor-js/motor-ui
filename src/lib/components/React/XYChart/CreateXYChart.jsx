@@ -320,7 +320,8 @@ export default function CreateXYChart({
               <BarSeries
                 horizontal={renderHorizontally}
                 dataKeys={dataKeys ? dataKeys : null}
-                dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                // dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                dataKey={measureInfo[0].qFallbackTitle}
                 data={currData}
                 {...dataAccessors[0]}
               />
@@ -485,14 +486,12 @@ export default function CreateXYChart({
               }
             />
             <Brush
-              // orientation={
-              //   renderHorizontally ? xAxisOrientation : yAxisOrientation
-              // }
               xAxisOrientation={xAxisOrientation}
               yAxisOrientation={yAxisOrientation}
               selectedBoxStyle={selectedBoxStyle}
-              // dataKey={measureInfo[0].qFallbackTitle}
-              // data={currData}
+              brushDirection={"horizontal"}
+              brushRegion={"chart"}
+              handleSize={8}
             />
           </XYChart>
 

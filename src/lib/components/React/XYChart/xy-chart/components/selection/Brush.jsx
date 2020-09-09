@@ -2,7 +2,6 @@ import React, { useContext, useCallback } from "react";
 // import BaseBrush from "@vx/brush/lib/Brush";
 import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
-import useRegisteredData from "../../hooks/useRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 
 const leftRightResizeTriggers = ["left", "right"];
@@ -34,12 +33,10 @@ export default function Brush({
     ChartContext
   );
 
-  const dataKey = measureInfo[0].qFallbackTitle;
-
-  const { data, xAccessor, yAccessor, elAccessor } =
-    useRegisteredData(dataKey) || {};
-
   // console.log(dataRegistry);
+
+  let xAccessor = null;
+  let yAccessor = null;
 
   const getScaledX = useCallback(
     (d) => {
@@ -56,9 +53,6 @@ export default function Brush({
     },
     [yScale, yAccessor]
   );
-
-  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
-  //  const { orientation } = props;
 
   // not yet available in context
   if (!xScale || !yScale) return null;
@@ -87,23 +81,32 @@ export default function Brush({
 
   const onBrushChange = (domain) => {
     if (!domain) return;
+
     const { x0, x1, y0, y1 } = domain.extent;
-    // console.log(domain, x0);
-    // console.log("start");
-    const stockCopy = data
-      .filter((datum) => {
-        const x = getScaledX(datum);
-        const y = getScaledY(datum);
-        // return x > x0 && x < x1 && y > y0 && y < y1;
-        return brushDirection === "horizontal"
-          ? x > x0 + leftOffset && x < x1 + leftOffset
-          : y > y0 + topOffset && y < y1 + topOffset;
-      })
-      .map((obj) => {
-        return getElemNumber(obj);
-      });
-    // setFilteredStock(stockCopy);
-    console.log(stockCopy);
+
+    let selectionIds = [];
+
+    measureInfo.map((m, i) => {
+      const registeredData = dataRegistry[m.qFallbackTitle];
+      xAccessor = registeredData.xAccessor;
+      yAccessor = registeredData.yAccessor;
+
+      const stockCopy = registeredData.data
+        .filter((datum) => {
+          const x = getScaledX(datum);
+          const y = getScaledY(datum);
+          // return x > x0 && x < x1 && y > y0 && y < y1;
+          return brushDirection === "horizontal"
+            ? x > x0 + leftOffset && x < x1 + leftOffset
+            : y > y0 + topOffset && y < y1 + topOffset;
+        })
+        .map((obj) => {
+          return registeredData.elAccessor(obj);
+        });
+      // setFilteredStock(stockCopy);
+      selectionIds = [...selectionIds, ...stockCopy];
+    });
+    console.log(selectionIds);
   };
 
   // const handleBrushChange = (domain) => {
@@ -166,8 +169,6 @@ export default function Brush({
       onClick={onClick}
       selectedBoxStyle={selectedBoxStyle}
       brushRegion={brushRegion}
-      // xAxisOrientation={xAxisOrientation}
-      // yAxisOrientation={yAxisOrientation}
     />
   );
 }
