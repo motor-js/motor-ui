@@ -16,7 +16,7 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import Stack from "./xy-chart/components/series/Stack";
-import AreaStack from "./xy-chart/components/series/AreaStack";
+import StackArea from "./xy-chart/components/series/StackArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 
@@ -330,18 +330,6 @@ export default function CreateXYChart({
                     ))}
               </Stack>
             )}
-            {chartType.includes("stackedarea") && (
-              <AreaStack horizontal={renderHorizontally}>
-                {measureInfo.map((measure, index) => (
-                  <AreaSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ))}
-              </AreaStack>
-            )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
                 {dimensionInfo.length <= 1
@@ -423,6 +411,18 @@ export default function CreateXYChart({
                   strokeWidth={1.5}
                 />
               ))}
+            {chartType.includes("stackedarea") && (
+              <StackArea horizontal={renderHorizontally}>
+                {measureInfo.map((measure, index) => (
+                  <AreaSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={currData}
+                    {...dataAccessors[index]}
+                  />
+                ))}
+              </StackArea>
+            )}
             {chartType.includes("scatter") &&
               dimensionInfo.length === 1 &&
               measureInfo.length === 2 && (
