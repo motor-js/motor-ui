@@ -22,7 +22,7 @@ export default function Brush({
   brushRegion = "chart",
   handleSize = 8,
   initialBrushPosition,
-  onChange,
+  // onChange,
   onClick,
   resizeTriggerAreas,
   selectedBoxStyle,
@@ -79,7 +79,7 @@ export default function Brush({
 
   // const [filteredStock, setFilteredStock] = useState(stock);
 
-  const onBrushChange = (domain) => {
+  const onChange = (domain) => {
     if (!domain) return;
 
     const { x0, x1, y0, y1 } = domain.extent;
@@ -165,7 +165,7 @@ export default function Brush({
           ? initialBrushPosition({ xScale, yScale })
           : undefined
       }
-      onChange={onBrushChange}
+      onChange={onChange}
       onClick={onClick}
       selectedBoxStyle={selectedBoxStyle}
       brushRegion={brushRegion}
