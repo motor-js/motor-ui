@@ -19,7 +19,7 @@ import Stack from "./xy-chart/components/series/Stack";
 import StackArea from "./xy-chart/components/series/StackArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
-import Brush from "./xy-chart/components/Brush";
+import Brush from "./xy-chart/components/selection/Brush";
 
 import { colorByExpression } from "../../../utils";
 import { isNull } from "lodash";
@@ -469,7 +469,13 @@ export default function CreateXYChart({
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
             />
-            <Brush />
+            <Brush
+              // orientation={
+              //   renderHorizontally ? xAxisOrientation : yAxisOrientation
+              // }
+              xAxisOrientation={xAxisOrientation}
+              yAxisOrientation={yAxisOrientation}
+            />
           </XYChart>
 
           <Tooltip

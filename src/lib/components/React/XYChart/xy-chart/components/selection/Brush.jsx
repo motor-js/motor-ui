@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import BaseBrush from "@vx/brush/lib/Brush";
-import ChartContext from "../context/ChartContext";
+// import BaseBrush from "@vx/brush/lib/Brush";
+import BaseBrush from "./BaseBrush";
+import ChartContext from "../../context/ChartContext";
 
 const leftRightResizeTriggers = ["left", "right"];
 const topBottomResizeTriggers = ["top", "bottom"];
@@ -26,8 +27,10 @@ export default function Brush({
   selectedBoxStyle,
   xAxisOrientation,
   yAxisOrientation,
+  orientation,
 }) {
   const { xScale, yScale, margin } = useContext(ChartContext) || {};
+  //  const { orientation } = props;
 
   // not yet available in context
   if (!xScale || !yScale) return null;
@@ -38,9 +41,27 @@ export default function Brush({
   const width = Math.abs(xRange[1] - xRange[0]);
   const height = Math.abs(yRange[1] - yRange[0]);
 
+  const topOffset =
+    xAxisOrientation === "top"
+      ? height - margin.bottom
+      : xAxisOrientation === "bottom"
+      ? margin.top
+      : 0;
+
+  console.log(topOffset, xAxisOrientation);
+
+  const leftOffset =
+    yAxisOrientation === "left"
+      ? margin.left
+      : yAxisOrientation === "right"
+      ? width - margin.right
+      : 0;
+
   return (
     <BaseBrush
       // force clear the brush if any of these change
+      top={topOffset}
+      left={leftOffset}
       key={`${brushRegion}-${xAxisOrientation}-${yAxisOrientation}`}
       xScale={xScale}
       yScale={yScale}
@@ -66,8 +87,8 @@ export default function Brush({
       onClick={onClick}
       selectedBoxStyle={selectedBoxStyle}
       brushRegion={brushRegion}
-      xAxisOrientation={xAxisOrientation}
-      yAxisOrientation={yAxisOrientation}
+      // xAxisOrientation={xAxisOrientation}
+      // yAxisOrientation={yAxisOrientation}
     />
   );
 }
