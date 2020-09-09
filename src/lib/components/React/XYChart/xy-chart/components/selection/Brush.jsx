@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 // import BaseBrush from "@vx/brush/lib/Brush";
 import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
+import useRegisteredData from "../../hooks/useRegisteredData";
+import isValidNumber from "../../typeguards/isValidNumber";
 
 const leftRightResizeTriggers = ["left", "right"];
 const topBottomResizeTriggers = ["top", "bottom"];
@@ -27,9 +29,35 @@ export default function Brush({
   selectedBoxStyle,
   xAxisOrientation,
   yAxisOrientation,
-  orientation,
 }) {
-  const { xScale, yScale, margin } = useContext(ChartContext) || {};
+  const { xScale, yScale, measureInfo, margin, dataRegistry } = useContext(
+    ChartContext
+  );
+
+  const dataKey = measureInfo[0].qFallbackTitle;
+
+  const { data, xAccessor, yAccessor, elAccessor } =
+    useRegisteredData(dataKey) || {};
+
+  // console.log(dataRegistry);
+
+  const getScaledX = useCallback(
+    (d) => {
+      const x = xScale(xAccessor?.(d));
+      return isValidNumber(x) ? x + (xScale.bandwidth?.() ?? 0) / 2 : null;
+    },
+    [xScale, xAccessor]
+  );
+
+  const getScaledY = useCallback(
+    (d) => {
+      const y = yScale(yAccessor?.(d));
+      return isValidNumber(y) ? y + (yScale.bandwidth?.() ?? 0) / 2 : null;
+    },
+    [yScale, yAccessor]
+  );
+
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
   //  const { orientation } = props;
 
   // not yet available in context
@@ -54,6 +82,59 @@ export default function Brush({
       : yAxisOrientation === "right"
       ? width - margin.right
       : 0;
+
+  // const [filteredStock, setFilteredStock] = useState(stock);
+
+  const onBrushChange = (domain) => {
+    if (!domain) return;
+    const { x0, x1, y0, y1 } = domain.extent;
+    // console.log(domain, x0);
+    // console.log("start");
+    const stockCopy = data
+      .filter((datum) => {
+        const x = getScaledX(datum);
+        const y = getScaledY(datum);
+        // return x > x0 && x < x1 && y > y0 && y < y1;
+        return brushDirection === "horizontal"
+          ? x > x0 + leftOffset && x < x1 + leftOffset
+          : y > y0 + topOffset && y < y1 + topOffset;
+      })
+      .map((obj) => {
+        return getElemNumber(obj);
+      });
+    // setFilteredStock(stockCopy);
+    console.log(stockCopy);
+  };
+
+  // const handleBrushChange = (domain) => {
+  //   // const { brushDirection } = this.state;
+  //   let pointData;
+  //   return;
+  //   if (domain) {
+  //     if (brushDirection === "horizontal") {
+  //       pointData = timeSeriesData.filter(
+  //         (point) => point.x > domain.x0 && point.x < domain.x1
+  //       );
+  //     } else if (brushDirection === "vertical") {
+  //       pointData = timeSeriesData.filter(
+  //         (point) => point.y > domain.y0 && point.y < domain.y1
+  //       );
+  //     } else {
+  //       pointData = timeSeriesData.filter(
+  //         (point) =>
+  //           point.x > domain.x0 &&
+  //           point.x < domain.x1 &&
+  //           point.y > domain.y0 &&
+  //           point.y < domain.y1
+  //       );
+  //     }
+  //   } else {
+  //     pointData = [...timeSeriesData];
+  //   }
+  //   this.setState(() => ({
+  //     pointData,
+  //   }));
+  // };
 
   return (
     <BaseBrush
@@ -81,7 +162,7 @@ export default function Brush({
           ? initialBrushPosition({ xScale, yScale })
           : undefined
       }
-      onChange={onChange}
+      onChange={onBrushChange}
       onClick={onClick}
       selectedBoxStyle={selectedBoxStyle}
       brushRegion={brushRegion}
