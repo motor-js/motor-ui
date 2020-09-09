@@ -21,6 +21,8 @@ import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 import Brush from "./xy-chart/components/selection/Brush";
 
+import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
+
 import { colorByExpression } from "../../../utils";
 import { isNull } from "lodash";
 // import { AreaStack } from "@vx/shape";
@@ -246,6 +248,11 @@ export default function CreateXYChart({
     />
   ) : null;
 
+  const selectedBoxStyle = {
+    fill: "url(#brush_pattern)",
+    stroke: "#329af0",
+  };
+
   return (
     // <div className="container">
 
@@ -296,6 +303,14 @@ export default function CreateXYChart({
               to={backgroundStyle.styleTo}
             />
             <ChartPattern backgroundPattern={backgroundPattern} />
+            <PatternLines
+              id="brush_pattern"
+              height={12}
+              width={12}
+              stroke={"#a3daff"}
+              strokeWidth={1}
+              orientation={["diagonal"]}
+            />
 
             {(gridRows !== false || gridColumns !== false) && (
               <Grid gridRows={gridRows} gridColumns={gridColumns} />
@@ -475,6 +490,7 @@ export default function CreateXYChart({
               // }
               xAxisOrientation={xAxisOrientation}
               yAxisOrientation={yAxisOrientation}
+              selectedBoxStyle={selectedBoxStyle}
             />
           </XYChart>
 

@@ -48,8 +48,6 @@ export default function Brush({
       ? margin.top
       : 0;
 
-  console.log(topOffset, xAxisOrientation);
-
   const leftOffset =
     yAxisOrientation === "left"
       ? margin.left
