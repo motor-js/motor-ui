@@ -109,36 +109,6 @@ export default function Brush({
     console.log(selectionIds);
   };
 
-  // const handleBrushChange = (domain) => {
-  //   // const { brushDirection } = this.state;
-  //   let pointData;
-  //   return;
-  //   if (domain) {
-  //     if (brushDirection === "horizontal") {
-  //       pointData = timeSeriesData.filter(
-  //         (point) => point.x > domain.x0 && point.x < domain.x1
-  //       );
-  //     } else if (brushDirection === "vertical") {
-  //       pointData = timeSeriesData.filter(
-  //         (point) => point.y > domain.y0 && point.y < domain.y1
-  //       );
-  //     } else {
-  //       pointData = timeSeriesData.filter(
-  //         (point) =>
-  //           point.x > domain.x0 &&
-  //           point.x < domain.x1 &&
-  //           point.y > domain.y0 &&
-  //           point.y < domain.y1
-  //       );
-  //     }
-  //   } else {
-  //     pointData = [...timeSeriesData];
-  //   }
-  //   this.setState(() => ({
-  //     pointData,
-  //   }));
-  // };
-
   return (
     <BaseBrush
       // force clear the brush if any of these change

@@ -119,7 +119,8 @@ export default function CreateXYChart({
       ? "bar"
       : "groupedbar";
 
-  const [chartType, setchartType] = useState([getChartType()]);
+  // const [chartType, setchartType] = useState([getChartType()]);
+  const chartType = [getChartType()];
 
   let series = [];
   let dimID = null;
