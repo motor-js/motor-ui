@@ -16,7 +16,7 @@ import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
 import StackedBar from "./xy-chart/components/series/StackedBar";
-import StackArea from "./xy-chart/components/series/StackArea";
+import StackedArea from "./xy-chart/components/series/StackedArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 import Brush from "./xy-chart/components/selection/Brush";
@@ -427,16 +427,31 @@ export default function CreateXYChart({
                 />
               ))}
             {chartType.includes("stackedarea") && (
-              <StackArea horizontal={renderHorizontally}>
-                {measureInfo.map((measure, index) => (
-                  <AreaSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ))}
-              </StackArea>
+              <StackedArea>
+                {dimensionInfo.length <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <AreaSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        glyph={measureInfo[index].qShowPoints}
+                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={1.5}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <AreaSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        glyph={measureInfo[index].qShowPoints}
+                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={1.5}
+                      />
+                    ))}
+              </StackedArea>
             )}
             {chartType.includes("scatter") &&
               dimensionInfo.length === 1 &&
