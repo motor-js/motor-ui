@@ -32,7 +32,7 @@ function BarSeries({
     // selectionIds,
   } = useContext(ChartContext);
 
-  console.log(currentSeelctionIds);
+  // console.log(currentSeelctionIds);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
 
@@ -191,7 +191,6 @@ function BarSeries({
     <g className="vx-chart bar-series">
       <AnimatedBars
         handleClick={handleClick}
-        // selectionIds={selectionIds}
         currentSeelctionIds={currentSeelctionIds}
         bars={bars}
         stroke={theme.baseColor ?? "white"}

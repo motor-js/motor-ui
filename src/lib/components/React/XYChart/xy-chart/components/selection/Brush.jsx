@@ -29,9 +29,14 @@ export default function Brush({
   xAxisOrientation,
   yAxisOrientation,
 }) {
-  const { xScale, yScale, measureInfo, margin, dataRegistry } = useContext(
-    ChartContext
-  );
+  const {
+    xScale,
+    yScale,
+    measureInfo,
+    margin,
+    dataRegistry,
+    handleClick,
+  } = useContext(ChartContext);
 
   // console.log(dataRegistry);
 
@@ -106,7 +111,8 @@ export default function Brush({
       // setFilteredStock(stockCopy);
       selectionIds = [...selectionIds, ...stockCopy];
     });
-    console.log(selectionIds);
+    // console.log(selectionIds);
+    handleClick(selectionIds);
   };
 
   return (

@@ -485,14 +485,14 @@ export default function CreateXYChart({
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
             />
-            {/* <Brush
+            <Brush
               xAxisOrientation={xAxisOrientation}
               yAxisOrientation={yAxisOrientation}
               selectedBoxStyle={selectedBoxStyle}
               brushDirection={"horizontal"}
               brushRegion={"chart"}
               handleSize={8}
-            /> */}
+            />
           </XYChart>
 
           <Tooltip

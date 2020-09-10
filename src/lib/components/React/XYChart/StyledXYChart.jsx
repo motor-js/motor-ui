@@ -25,7 +25,7 @@ function StyledXYChart(props) {
   const [data, setData] = useState(null);
   // const [sel, setSel] = useState([]);
 
-  console.log(currentSeelctionIds, "1");
+  // console.log(currentSeelctionIds, "1");
 
   // let useSelectionColours = false;
 
