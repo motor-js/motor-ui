@@ -23,8 +23,7 @@ import Brush from "./xy-chart/components/selection/Brush";
 
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 
-import { colorByExpression } from "../../../utils";
-import { isNull } from "lodash";
+import { colorByExpression, isNull } from "../../../utils";
 // import { AreaStack } from "@vx/shape";
 
 const numDimensionTicks = 5;

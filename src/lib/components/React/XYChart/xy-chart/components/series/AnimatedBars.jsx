@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "@vx/shape";
 // import { StyledBar } from "./BarTheme";
 
+import { isEmpty } from "../../../../../../utils";
+
 export default function AnimatedBars({
   bars,
   x,
@@ -29,10 +31,10 @@ export default function AnimatedBars({
   const { selection, nonSelection } = theme;
 
   const styleProp = (selectionId, styleprop) =>
-    currentSeelctionIds.length === 0
+    isEmpty(currentSeelctionIds)
       ? selection[styleprop]
       : currentSeelctionIds.includes(selectionId) &&
-        currentSeelctionIds.length !== 0
+        !isEmpty(currentSeelctionIds)
       ? selection[styleprop]
       : nonSelection[styleprop];
 

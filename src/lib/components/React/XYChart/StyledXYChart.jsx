@@ -11,7 +11,7 @@ import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
 import { createColorArray } from "../../../utils/colors";
 
-import { numericSortDirection } from "../../../utils";
+import { numericSortDirection, isEmpty } from "../../../utils";
 
 function StyledXYChart(props) {
   // Ref for d3 object
@@ -137,7 +137,7 @@ function StyledXYChart(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (currentSeelctionIds.length === 0) {
+    if (!isEmpty(currentSeelctionIds)) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -207,12 +207,11 @@ function StyledXYChart(props) {
           >
             <div
               style={{
-                border:
-                  currentSeelctionIds.length !== 0
-                    ? "1px solid #CCCCCC"
-                    : "none",
-                overflowX: currentSeelctionIds.length !== 0 ? "hidden" : "auto",
-                overflowY: currentSeelctionIds.length !== 0 ? "hidden" : "auto",
+                border: !isEmpty(currentSeelctionIds)
+                  ? "1px solid #CCCCCC"
+                  : "none",
+                overflowX: !isEmpty(currentSeelctionIds) ? "hidden" : "auto",
+                overflowY: !isEmpty(currentSeelctionIds) ? "hidden" : "auto",
                 padding: outsidePadding,
               }}
             >
@@ -309,7 +308,7 @@ function StyledXYChart(props) {
             </div>
             {/* </div> */}
             <SelectionModal
-              isOpen={currentSeelctionIds.length !== 0}
+              isOpen={!isEmpty(currentSeelctionIds)}
               cancelCallback={cancelCallback}
               confirmCallback={confirmCallback}
               // width={width}
