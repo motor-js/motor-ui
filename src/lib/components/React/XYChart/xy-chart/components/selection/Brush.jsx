@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useRef, useEffect } from "react";
 // import BaseBrush from "@vx/brush/lib/Brush";
 import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
@@ -36,12 +36,19 @@ export default function Brush({
     margin,
     dataRegistry,
     handleClick,
+    currentSeelctionIds,
   } = useContext(ChartContext);
 
   // console.log(dataRegistry);
+  const childRef = useRef();
 
   let xAccessor = null;
   let yAccessor = null;
+
+  useEffect(() => {
+    if (currentSeelctionIds.length === 0 && childRef.current)
+      childRef.current.reset();
+  }, [currentSeelctionIds]);
 
   const getScaledX = useCallback(
     (d) => {
@@ -83,13 +90,12 @@ export default function Brush({
       : 0;
 
   // const [filteredStock, setFilteredStock] = useState(stock);
+  let selectionIds = [];
 
   const onChange = (domain) => {
     if (!domain) return;
 
     const { x0, x1, y0, y1 } = domain.extent;
-
-    let selectionIds = [];
 
     measureInfo.map((m, i) => {
       const registeredData = dataRegistry[m.qFallbackTitle];
@@ -112,8 +118,10 @@ export default function Brush({
       selectionIds = [...selectionIds, ...stockCopy];
     });
     // console.log(selectionIds);
-    handleClick(selectionIds);
+    // handleClick(selectionIds);
   };
+
+  const onMouseUp = () => handleClick(selectionIds);
 
   return (
     <BaseBrush
@@ -142,9 +150,11 @@ export default function Brush({
           : undefined
       }
       onChange={onChange}
+      onMouseUp={onMouseUp}
       onClick={onClick}
       selectedBoxStyle={selectedBoxStyle}
       brushRegion={brushRegion}
+      ref={childRef}
     />
   );
 }
