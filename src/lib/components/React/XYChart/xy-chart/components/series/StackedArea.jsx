@@ -8,6 +8,7 @@ import React, {
 import { extent } from "d3-array";
 import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
+// import interpolatorLookup from "../../util/interpolatorLookup";
 
 import findNearestDatumY from "../../util/findNearestDatumY";
 import findNearestDatumX from "../../util/findNearestDatumX";
@@ -27,6 +28,8 @@ export default function Stack({ children, ...rectProps }) {
     currentSeelctionIds,
     // selectionIds,
   } = useContext(ChartContext) || {};
+
+  const interpolation = "monotoneX";
 
   // extract data keys from child series
   const dataKeys = useMemo(
@@ -140,6 +143,13 @@ export default function Stack({ children, ...rectProps }) {
             // fill="url(#stacked-area-orangered)"
             // fill="url(#stacked-area-orangered)"
             fill={color(stack.key, i)}
+            stroke="#fff"
+            // fillOpacity={0.7}
+            // strokeWidth={1}
+            // curve={
+            //   "linear"
+            //   // interpolatorLookup[interpolation] || interpolatorLookup.monotoneX
+            // }
             onClick={() => {
               if (events) alert(`${stack.key}`);
             }}
