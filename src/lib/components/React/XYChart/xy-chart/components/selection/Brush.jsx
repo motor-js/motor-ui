@@ -4,6 +4,13 @@ import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
 
+// import { numericSortDirection, isEmpty, validData } from "../../../utils";
+import {
+  numericSortDirection,
+  isEmpty,
+  validData,
+} from "../../../../../../utils";
+
 const leftRightResizeTriggers = ["left", "right"];
 const topBottomResizeTriggers = ["top", "bottom"];
 const allResizeTriggers = [
@@ -46,7 +53,7 @@ export default function Brush({
   let yAccessor = null;
 
   useEffect(() => {
-    if (currentSeelctionIds.length === 0 && childRef.current)
+    if (isEmpty(currentSeelctionIds) && childRef.current)
       childRef.current.reset();
   }, [currentSeelctionIds]);
 
