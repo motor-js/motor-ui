@@ -131,13 +131,15 @@ export default function Stack({ children, ...rectProps }) {
       y1={(d) => yScale(d[1])}
       color={colorScale}
     >
-      {({ stacks, path }) =>
-        stacks.map((stack) => (
+      {({ stacks, path, color }) =>
+        stacks.map((stack, i) => (
           <path
             key={`stack-${stack.key}`}
             d={path(stack) || ""}
             stroke="transparent"
-            fill="url(#stacked-area-orangered)"
+            // fill="url(#stacked-area-orangered)"
+            // fill="url(#stacked-area-orangered)"
+            fill={color(stack.key, i)}
             onClick={() => {
               if (events) alert(`${stack.key}`);
             }}
