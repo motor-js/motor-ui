@@ -174,15 +174,15 @@ function StyledXYChart(props) {
       // qData && setData(qData);
       if (
         (qData && data === null) ||
-        (qData && data && qData.qMatrix.length !== data.length && refreshChart)
+        (qData && data && qData.qMatrix.length !== data.length)
       ) {
         setData(qData.qMatrix);
         setCurrentSeelctionIds([]);
       }
       // };
     },
-    [qData],
-    refreshChart
+    [qData]
+    // refreshChart
   );
 
   return (
