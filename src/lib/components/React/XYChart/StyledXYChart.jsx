@@ -11,7 +11,7 @@ import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
 import { createColorArray } from "../../../utils/colors";
 
-import { numericSortDirection, isEmpty } from "../../../utils";
+import { numericSortDirection, isEmpty, validData } from "../../../utils";
 
 function StyledXYChart(props) {
   // Ref for d3 object
@@ -152,16 +152,16 @@ function StyledXYChart(props) {
 
   useEffect(
     () => {
-      // let valid;
-      // if (qLayout) {
-      //   // setObjId(qLayout.qInfo.qId);
-      //   setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
-      //   valid = validData(qLayout, theme);
-      //   if (valid) {
-      //     setIsValid(valid.isValid);
-      //     setDataError(valid.dataError);
-      //   }
-      // }
+      let valid;
+      if (qLayout) {
+        // setObjId(qLayout.qInfo.qId);
+        setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
+        valid = validData(qLayout, theme);
+        if (valid) {
+          setIsValid(valid.isValid);
+          setDataError(valid.dataError);
+        }
+      }
 
       // window.addEventListener("resize", handleResize);
 
@@ -171,7 +171,7 @@ function StyledXYChart(props) {
       // qData && setData(qData);
       if (
         (qData && data === null) ||
-        (qData && data && qData.qMatrix.length !== data.length)
+        (qData && data && qData.qMatrix.length !== data.length && isValid)
       ) {
         setData(qData.qMatrix);
         setCurrentSeelctionIds([]);
