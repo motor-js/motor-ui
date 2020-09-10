@@ -46,7 +46,7 @@ function StyledXYChart(props) {
     backgroundColor,
     colorTheme,
     showLegend,
-    allowSelections,
+    selectionMethod,
     // maxAxisLength,
     sortDirection,
     sortOrder,
@@ -76,9 +76,6 @@ function StyledXYChart(props) {
     backgroundStyle,
     multiColor,
     fillStyle,
-    // dualAxis,
-    // roundNum,
-    // precision,
     showVerticalCrosshair,
     ...rest
   } = props;
@@ -289,22 +286,13 @@ function StyledXYChart(props) {
                     ? xyChart.showVerticalCrosshair
                     : showVerticalCrosshair
                 }
-                allowSelections={
-                  allowSelections === undefined
-                    ? xyChart.allowSelections
-                    : showVerticalCrosshair
+                selectionMethod={
+                  selectionMethod === undefined
+                    ? xyChart.selectionMethod
+                    : selectionMethod
                 }
-                // dualAxis={dualAxis}
-                // showLabels={
-                //   showLabels === undefined ? xyChart.showLabels : showLabels
-                // }
-                // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-                // precision={
-                //   precision === undefined ? xyChart.precision : precision
-                // }
                 {...rest}
               />
-              {/* )} */}
             </div>
             {/* </div> */}
             <SelectionModal

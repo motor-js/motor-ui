@@ -192,8 +192,8 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.oneOf(["right", "bottom"]),
   ]),
-  /** Allow Selections */
-  allowSelections: PropTypes.bool,
+  /** SelectionMethod */
+  selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
   // /** Maximum Width of the Bar */
   // maxWidth: PropTypes.number,
   // /** Force supression of Scroll / Overview chart */

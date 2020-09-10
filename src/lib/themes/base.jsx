@@ -691,6 +691,7 @@ const base = {
     useAnimatedAxes: false,
     includeZero: true,
     multiColor: true,
+    selectionMethod: "brush",
     autoWidth: false,
     renderHorizontally: false,
     allowSelections: true, //captureEvents if captureevents true the cannot make selections

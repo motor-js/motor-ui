@@ -97,8 +97,6 @@ export default function CreateXYChart({
   backgroundPattern,
   backgroundStyle,
   fillStyle,
-  // fillFrom,
-  // fillTo,
   multiColor,
   showLabels,
   showPoints,
@@ -109,7 +107,7 @@ export default function CreateXYChart({
   showAxis,
   gridRows,
   gridColumns,
-  allowSelections,
+  selectionMethod,
 }) {
   const getChartType = () =>
     type
@@ -294,7 +292,7 @@ export default function CreateXYChart({
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
             dualAxis={dualAxis}
-            captureEvents={!allowSelections}
+            captureEvents={selectionMethod === "none"}
           >
             <ChartBackground
               style={backgroundStyle.style}
@@ -303,19 +301,19 @@ export default function CreateXYChart({
               to={backgroundStyle.styleTo}
             />
             <ChartPattern backgroundPattern={backgroundPattern} />
-            <PatternLines
-              id="brush_pattern"
-              height={12}
-              width={12}
-              stroke={"#a3daff"}
-              strokeWidth={1}
-              orientation={["diagonal"]}
-            />
-
+            {selectionMethod === "brush" && (
+              <PatternLines
+                id="brush_pattern"
+                height={12}
+                width={12}
+                stroke={"#a3daff"}
+                strokeWidth={1}
+                orientation={["diagonal"]}
+              />
+            )}
             {(gridRows !== false || gridColumns !== false) && (
               <Grid gridRows={gridRows} gridColumns={gridColumns} />
             )}
-
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
@@ -452,7 +450,6 @@ export default function CreateXYChart({
                 />
               )}
             {/** Temperature axis */}
-
             <AxisComponent
               label={measureInfo[0].qFallbackTitle}
               orientation={
@@ -460,7 +457,6 @@ export default function CreateXYChart({
               }
               numTicks={5}
             />
-
             {dualAxis && (
               <AxisComponent
                 label={measureInfo[1].qFallbackTitle}
@@ -469,7 +465,6 @@ export default function CreateXYChart({
               />
             )}
             {/** Dimension axis */}
-
             <AxisComponent
               // label={dimensionInfo[0].qFallbackTitle}
               orientation={
@@ -485,14 +480,16 @@ export default function CreateXYChart({
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
             />
-            <Brush
-              xAxisOrientation={xAxisOrientation}
-              yAxisOrientation={yAxisOrientation}
-              selectedBoxStyle={selectedBoxStyle}
-              brushDirection={"horizontal"}
-              brushRegion={"chart"}
-              handleSize={8}
-            />
+            {selectionMethod === "brush" && (
+              <Brush
+                xAxisOrientation={xAxisOrientation}
+                yAxisOrientation={yAxisOrientation}
+                selectedBoxStyle={selectedBoxStyle}
+                brushDirection={"horizontal"}
+                brushRegion={"chart"}
+                handleSize={8}
+              />
+            )}
           </XYChart>
 
           <Tooltip
