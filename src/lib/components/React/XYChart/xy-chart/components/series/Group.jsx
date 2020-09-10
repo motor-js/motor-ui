@@ -35,8 +35,11 @@ export default function Group({
     theme,
     formatValue,
     handleClick,
-    isSelectionXYChartVisible,
+    currentSeelctionIds,
+    // selectionIds,
   } = useContext(ChartContext);
+
+  // console.log(selectionIds);
 
   // extract data keys from child series
   const dataKeys = useMemo(
@@ -235,8 +238,9 @@ export default function Group({
               height={(bar) => bar.height}
               rx={2}
               handleClick={handleClick}
+              // selectionIds={selectionIds}
               theme={theme}
-              isSelectionXYChartVisible={isSelectionXYChartVisible}
+              currentSeelctionIds={currentSeelctionIds}
               {...rectProps}
             />
             {showLabels &&
@@ -279,7 +283,8 @@ export default function Group({
               height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
               rx={2}
               handleClick={handleClick}
-              isSelectionXYChartVisible={isSelectionXYChartVisible}
+              // selectionIds={selectionIds}
+              currentSeelctionIds={currentSeelctionIds}
               theme={theme}
               {...rectProps}
             />

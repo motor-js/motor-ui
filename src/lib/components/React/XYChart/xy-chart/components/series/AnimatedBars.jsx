@@ -10,7 +10,8 @@ export default function AnimatedBars({
   width,
   height,
   handleClick,
-  isSelectionXYChartVisible,
+  currentSeelctionIds,
+  // selectionIds,
   theme,
   ...rectProps
 }) {
@@ -28,17 +29,18 @@ export default function AnimatedBars({
   const { selection, nonSelection } = theme;
 
   const styleProp = (selectionId, styleprop) =>
-    !isSelectionXYChartVisible
+    currentSeelctionIds.length === 0
       ? selection[styleprop]
-      : selectedBar.includes(selectionId) && isSelectionXYChartVisible
+      : currentSeelctionIds.includes(selectionId) &&
+        currentSeelctionIds.length !== 0
       ? selection[styleprop]
       : nonSelection[styleprop];
 
-  const [selectedBar, setSelectedBar] = useState([]);
+  // const [selectedBar, setSelectedBar] = useState([]);
 
-  useEffect(() => {
-    if (!isSelectionXYChartVisible) setSelectedBar([]);
-  }, [isSelectionXYChartVisible]);
+  // useEffect(() => {
+  //   if (!currentSeelctionIds) setSelectedBar([]);
+  // }, [currentSeelctionIds]);
 
   return (
     // react complains when using component if we don't wrap in Fragment
@@ -57,10 +59,10 @@ export default function AnimatedBars({
           fill={bar.color}
           // barOpacity={0.65}
           opacity={
-            // !isSelectionXYChartVisible
+            // !currentSeelctionIds
             //   ? selection.opacity
             //   : selectedBar.includes(bar.selectionId) &&
-            //     isSelectionXYChartVisible
+            //     currentSeelctionIds
             //   ? selection.opacity
             //   : nonSelection.opacity
             styleProp(bar.selectionId, "opacity")
@@ -69,13 +71,13 @@ export default function AnimatedBars({
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);
 
-            const selections = selectedBar.includes(bar.selectionId)
-              ? selectedBar.filter(function(value, index, arr) {
+            const selections = currentSeelctionIds.includes(bar.selectionId)
+              ? currentSeelctionIds.filter(function(value, index, arr) {
                   return value !== bar.selectionId;
                 })
-              : [...selectedBar, bar.selectionId];
+              : [...currentSeelctionIds, bar.selectionId];
 
-            setSelectedBar(selections);
+            // setSelectedBar(selections);
             handleClick(selections);
           }}
           {...rectProps}

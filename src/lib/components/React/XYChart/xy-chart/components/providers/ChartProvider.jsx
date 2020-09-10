@@ -27,6 +27,7 @@ export default class ChartProvider extends React.Component {
     width: null,
     height: null,
     combinedData: [],
+    // selectionIds: [],
   };
 
   componentDidUpdate(prevProps) {
@@ -235,7 +236,11 @@ export default class ChartProvider extends React.Component {
   handleClick = (selectionValue) => {
     this.props.beginSelections();
 
-    this.props.setSelectionXYChartVisible(true);
+    this.props.setCurrentSeelctionIds(selectionValue);
+
+    // this.setState({
+    //   selectionIds: selectionValue,
+    // });
 
     this.props.select(0, selectionValue);
   };
@@ -250,11 +255,18 @@ export default class ChartProvider extends React.Component {
       dimensionInfo,
       measureInfo,
       dataKeys,
-      beginSelections,
-      setSelectionXYChartVisible,
-      select,
-      isSelectionXYChartVisible,
+      // beginSelections,
+      // setCurrentSeelctionIds,
+      // select,
+      currentSeelctionIds,
     } = this.props;
+
+    // console.log(currentSeelctionIds);
+    // if (!currentSeelctionIds) {
+    //   this.setState({
+    //     selectionIds: [],
+    //   });
+    // }
 
     const {
       width,
@@ -264,6 +276,7 @@ export default class ChartProvider extends React.Component {
       yScale,
       colorScale,
       dataRegistry,
+      // selectionIds,
     } = this.state;
     return (
       <ChartContext.Provider
@@ -283,10 +296,11 @@ export default class ChartProvider extends React.Component {
           dimensionInfo,
           measureInfo,
           dataKeys,
+          // selectionIds,
           // beginSelections,
-          // setSelectionXYChartVisible,
+          // setCurrentSeelctionIds,
           // select,
-          isSelectionXYChartVisible,
+          currentSeelctionIds,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

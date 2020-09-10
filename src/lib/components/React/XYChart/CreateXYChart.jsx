@@ -75,8 +75,8 @@ export default function CreateXYChart({
   },
   beginSelections,
   select,
-  setSelectionXYChartVisible,
-  isSelectionXYChartVisible,
+  setCurrentSeelctionIds,
+  currentSeelctionIds,
   // useSelectionColours,
   theme,
   padding,
@@ -274,8 +274,8 @@ export default function CreateXYChart({
       beginSelections={beginSelections}
       // useSelectionColours={useSelectionColours}
       select={select}
-      setSelectionXYChartVisible={setSelectionXYChartVisible}
-      isSelectionXYChartVisible={isSelectionXYChartVisible}
+      setCurrentSeelctionIds={setCurrentSeelctionIds}
+      currentSeelctionIds={currentSeelctionIds}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -486,14 +486,14 @@ export default function CreateXYChart({
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
             />
-            <Brush
+            {/* <Brush
               xAxisOrientation={xAxisOrientation}
               yAxisOrientation={yAxisOrientation}
               selectedBoxStyle={selectedBoxStyle}
               brushDirection={"horizontal"}
               brushRegion={"chart"}
               handleSize={8}
-            />
+            /> */}
           </XYChart>
 
           <Tooltip

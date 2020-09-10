@@ -17,15 +17,15 @@ function StyledXYChart(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionXYChartVisible, setSelectionXYChartVisible] = useState(
-    false
-  );
+  const [currentSeelctionIds, setCurrentSeelctionIds] = useState([]);
   const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [data, setData] = useState(null);
   // const [sel, setSel] = useState([]);
+
+  console.log(currentSeelctionIds, "1");
 
   // let useSelectionColours = false;
 
@@ -116,8 +116,8 @@ function StyledXYChart(props) {
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionXYChartVisible(false);
     setRefreshChart(true);
+    setCurrentSeelctionIds([]);
     // useSelectionColours = false;
     // setSel([]);
   };
@@ -125,7 +125,7 @@ function StyledXYChart(props) {
   const confirmCallback = async () => {
     // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    // setSelectionXYChartVisible(false);
+    // setCurrentSeelctionIds([]);
     setRefreshChart(true);
     // useSelectionColours = false;
     // setSel([]);
@@ -137,7 +137,7 @@ function StyledXYChart(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionXYChartVisible) {
+    if (currentSeelctionIds.length === 0) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -153,33 +153,37 @@ function StyledXYChart(props) {
   //   setSel(...sel, s);
   // };
 
-  useEffect(() => {
-    // let valid;
-    // if (qLayout) {
-    //   // setObjId(qLayout.qInfo.qId);
-    //   setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
-    //   valid = validData(qLayout, theme);
-    //   if (valid) {
-    //     setIsValid(valid.isValid);
-    //     setDataError(valid.dataError);
-    //   }
-    // }
+  useEffect(
+    () => {
+      // let valid;
+      // if (qLayout) {
+      //   // setObjId(qLayout.qInfo.qId);
+      //   setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
+      //   valid = validData(qLayout, theme);
+      //   if (valid) {
+      //     setIsValid(valid.isValid);
+      //     setDataError(valid.dataError);
+      //   }
+      // }
 
-    // window.addEventListener("resize", handleResize);
+      // window.addEventListener("resize", handleResize);
 
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    // qData && data && console.log(qData.qMatrix.length, data.length);
-    // qData && setData(qData);
-    if (
-      (qData && data === null) ||
-      (qData && data && qData.qMatrix.length !== data.length)
-    ) {
-      setData(qData.qMatrix);
-      setSelectionXYChartVisible(false);
-    }
-    // };
-  }, [qData]);
+      // return () => {
+      //   window.removeEventListener("resize", handleResize);
+      // qData && data && console.log(qData.qMatrix.length, data.length);
+      // qData && setData(qData);
+      if (
+        (qData && data === null) ||
+        (qData && data && qData.qMatrix.length !== data.length && refreshChart)
+      ) {
+        setData(qData.qMatrix);
+        setCurrentSeelctionIds([]);
+      }
+      // };
+    },
+    [qData],
+    refreshChart
+  );
 
   return (
     <>
@@ -203,11 +207,12 @@ function StyledXYChart(props) {
           >
             <div
               style={{
-                border: isSelectionXYChartVisible
-                  ? "1px solid #CCCCCC"
-                  : "none",
-                overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
-                overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
+                border:
+                  currentSeelctionIds.length !== 0
+                    ? "1px solid #CCCCCC"
+                    : "none",
+                overflowX: currentSeelctionIds.length !== 0 ? "hidden" : "auto",
+                overflowY: currentSeelctionIds.length !== 0 ? "hidden" : "auto",
                 padding: outsidePadding,
               }}
             >
@@ -243,8 +248,8 @@ function StyledXYChart(props) {
                 select={select}
                 refreshChart={refreshChart}
                 setRefreshChart={setRefreshChart}
-                setSelectionXYChartVisible={setSelectionXYChartVisible}
-                isSelectionXYChartVisible={isSelectionXYChartVisible}
+                setCurrentSeelctionIds={setCurrentSeelctionIds}
+                currentSeelctionIds={currentSeelctionIds}
                 // useSelectionColours={useSelectionColours}
                 // XYChartThemes={XYChartThemes}
                 colorPalette={colorPalette}
@@ -304,7 +309,7 @@ function StyledXYChart(props) {
             </div>
             {/* </div> */}
             <SelectionModal
-              isOpen={isSelectionXYChartVisible}
+              isOpen={currentSeelctionIds.length !== 0}
               cancelCallback={cancelCallback}
               confirmCallback={confirmCallback}
               // width={width}
