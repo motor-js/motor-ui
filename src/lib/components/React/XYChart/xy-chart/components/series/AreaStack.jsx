@@ -1,7 +1,6 @@
 import React from "react";
 import cx from "classnames";
-// import Stack from './Stack';
-import Stack from "@vx/shape";
+import Stack from "./Stack";
 
 export default function AreaStack({
   className,

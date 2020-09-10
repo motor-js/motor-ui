@@ -15,7 +15,7 @@ import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
-import Stack from "./xy-chart/components/series/Stack";
+import StackedBar from "./xy-chart/components/series/StackedBar";
 import StackArea from "./xy-chart/components/series/StackArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
@@ -325,7 +325,7 @@ export default function CreateXYChart({
               />
             )}
             {chartType.includes("stackedbar") && (
-              <Stack horizontal={renderHorizontally}>
+              <StackedBar horizontal={renderHorizontally}>
                 {dimensionInfo.length <= 1
                   ? measureInfo.map((measure, index) => (
                       <BarSeries
@@ -343,7 +343,7 @@ export default function CreateXYChart({
                         {...dataAccessors[index]}
                       />
                     ))}
-              </Stack>
+              </StackedBar>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>

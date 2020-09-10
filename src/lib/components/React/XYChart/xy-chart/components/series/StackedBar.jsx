@@ -6,13 +6,13 @@ import React, {
   useCallback,
 } from "react";
 import { extent } from "d3-array";
-import AreaStack from "../series/AreaStack";
-// import BarStackHorizontal from "../series/BarStackHorizontal";
+import BarStack from "./BarStack";
+import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
 
 import findNearestDatumY from "../../util/findNearestDatumY";
 import findNearestDatumX from "../../util/findNearestDatumX";
-// import AnimatedBars from "./AnimatedBars";
+import AnimatedBars from "./AnimatedBars";
 
 const STACK_ACCESSOR = (d) => d.stack;
 
@@ -205,30 +205,63 @@ export default function Stack({ horizontal, children, ...rectProps }) {
 
   const hasSomeNegativeValues = comprehensiveDomain.some((num) => num < 0);
 
-  return (
-    // @TODO types
-    <AreaStack
-      top={margin.top}
-      left={margin.left}
-      keys={keys}
-      data={data}
-      x={(d) => xScale(getDate(d.data))}
-      y0={(d) => yScale(getY0(d))}
-      y1={(d) => yScale(getY1(d))}
+  return horizontal ? (
+    <BarStackHorizontal
+      data={combinedData}
+      keys={dataKeys}
+      height={height - margin.top - margin.bottom}
+      y={STACK_ACCESSOR}
+      xScale={xScale}
+      yScale={yScale}
+      color={colorScale}
+      offset={hasSomeNegativeValues ? "diverging" : undefined}
+      // @TODO support all BarStack props
     >
-      {({ stacks, path }) =>
-        stacks.map((stack) => (
-          <path
-            key={`stack-${stack.key}`}
-            d={path(stack) || ""}
-            stroke="transparent"
-            fill="url(#stacked-area-orangered)"
-            onClick={() => {
-              if (events) alert(`${stack.key}`);
-            }}
+      {(barStacks) => {
+        // use this reference to find nearest mouse values
+        stacks.current = barStacks;
+        return barStacks.map((barStack, index) => (
+          <AnimatedBars
+            key={`${index}-${barStack.bars.length}`}
+            bars={barStack.bars}
+            stroke={theme.baseColor ?? "white"}
+            handleClick={handleClick}
+            // selectionIds={selectionIds}
+            currentSeelctionIds={currentSeelctionIds}
+            theme={theme}
+            {...rectProps}
           />
-        ))
-      }
-    </AreaStack>
+        ));
+      }}
+    </BarStackHorizontal>
+  ) : (
+    // @TODO types
+    <BarStack
+      data={combinedData}
+      keys={dataKeys}
+      x={STACK_ACCESSOR}
+      xScale={xScale}
+      yScale={yScale}
+      color={colorScale}
+      offset={hasSomeNegativeValues ? "diverging" : undefined}
+      // @TODO support all BarStack props
+    >
+      {(barStacks) => {
+        // use this reference to find nearest mouse values
+        stacks.current = barStacks;
+        return barStacks.map((barStack, index) => (
+          <AnimatedBars
+            key={`${index}-${barStack.bars.length}`}
+            bars={barStack.bars}
+            stroke={theme.baseColor ?? "white"}
+            handleClick={handleClick}
+            // selectionIds={selectionIds}
+            currentSeelctionIds={currentSeelctionIds}
+            theme={theme}
+            {...rectProps}
+          />
+        ));
+      }}
+    </BarStack>
   );
 }
