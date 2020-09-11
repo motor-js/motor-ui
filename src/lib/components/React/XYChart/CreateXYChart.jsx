@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-// import defaultTheme from "../..//VX/theme/default";
 import Axis from "./xy-chart/components/Axis";
 import AnimatedAxis from "./xy-chart/components/AnimatedAxis";
 import ChartProvider from "./xy-chart/components/providers/ChartProvider";
@@ -149,6 +148,8 @@ export default function CreateXYChart({
     items.push(series);
   }
 
+  console.log(items);
+
   const data = dimensionInfo.length === 1 ? qMatrix : items;
 
   const [currData, setCurrData] = useState(data);
@@ -183,6 +184,10 @@ export default function CreateXYChart({
     (chartType.includes("combo") && renderHorizontally) ||
     chartType.includes("bar");
 
+  useEffect(() => {
+    setCurrData(data);
+  }, [data]);
+
   const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
 
   const valueScaleConfig = useMemo(
@@ -213,12 +218,12 @@ export default function CreateXYChart({
           )
         )
       : keys.map((measure, index) =>
-          useAccessors(getSeriesValues, index, renderHorizontally)
+          useAccessors(
+            getSeriesValues,
+            dimensionInfo.length - 1 + index,
+            renderHorizontally
+          )
         );
-
-  useEffect(() => {
-    setCurrData(data);
-  }, [data]);
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
