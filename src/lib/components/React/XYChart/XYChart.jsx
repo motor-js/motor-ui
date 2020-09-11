@@ -7,8 +7,8 @@ import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
 import useEngine from "../../../hooks/useEngine";
 
-function XYChart({ config, ...rest }) {
-  const myConfig = config || useContext(ConfigContext);
+function XYChart({ ...rest }) {
+  const myConfig = useContext(ConfigContext);
   const theme = useContext(ThemeContext) || defaultTheme;
   const { engine, engineError } =
     useContext(EngineContext) || useEngine(myConfig);
@@ -52,10 +52,8 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 XYChart.propTypes = {
-  // /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  // config: PropTypes.object,
-  // /** cols from Qlik Data Model to render in the Bar  */
-  // cols: PropTypes.array.isRequired,
+  /** cols from Qlik Data Model to render in the Bar  */
+  cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
   calcCondition: PropTypes.shape({
     qCond: PropTypes.string,
@@ -90,10 +88,6 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
-  // /** Max length of chart axis (in pixels) */
-  // maxAxisLength: PropTypes.number,
-  // /** Allow for the Y axis to be dsiapleyd at 45 degrees */
-  // allowSlantedYAxis: PropTypes.bool,
   /** Show gridline rows on Axis */
   gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   /** Show gridline columns on Axis */
@@ -209,10 +203,6 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.object, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
   ]),
-  // /** Error messgae to display when invalid dimension */
-  // dimensionErrMsg: PropTypes.string,
-  // /** Error messgae to display when invalid measure */
-  // measureErrMsg: PropTypes.string,
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -299,7 +289,6 @@ XYChart.defaultProps = {
   // title: null,
   // subTitle: null,
   // maxWidth: null,
-  // maxAxisLength: null,
   // suppressScroll: null,
   // dimensionErrMsg: null,
   // measureErrMsg: null,
