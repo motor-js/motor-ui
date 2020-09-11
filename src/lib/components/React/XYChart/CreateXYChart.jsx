@@ -148,8 +148,6 @@ export default function CreateXYChart({
     items.push(series);
   }
 
-  console.log(items);
-
   const data = dimensionInfo.length === 1 ? qMatrix : items;
 
   const [currData, setCurrData] = useState(data);
