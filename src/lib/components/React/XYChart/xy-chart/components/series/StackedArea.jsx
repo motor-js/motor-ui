@@ -167,6 +167,53 @@ export default function Stack({ children }) {
             onClick={() => {
               if (events) alert(`${stack.key}`);
             }}
+            onMouseMove={() => {
+              console.log("d");
+            }}
+            // defined={defined}
+            // onClick={
+            //   disableMouseEvents
+            //     ? null
+            //     : onClick &&
+            //       (({ series, index }) => (event) => {
+            //         const datum = findClosestDatum({
+            //           data: series,
+            //           getX: (d) => x(d.data),
+            //           event,
+            //           xScale,
+            //           marginLeft: margin.left,
+            //         });
+            //         onClick({
+            //           event,
+            //           data,
+            //           seriesKey: series.key,
+            //           datum: datum && datum.data,
+            //           color: stackFills[index],
+            //         });
+            //       })
+            // }
+            // onMouseMove={
+            //   disableMouseEvents
+            //     ? null
+            //     : onMouseMove &&
+            //       (({ series, index }) => (event) => {
+            //         const datum = findClosestDatum({
+            //           data: series,
+            //           getX: (d) => x(d.data),
+            //           event,
+            //           xScale,
+            //           marginLeft: margin.left,
+            //         });
+            //         onMouseMove({
+            //           event,
+            //           data,
+            //           seriesKey: series.key,
+            //           datum: datum && datum.data,
+            //           color: stackFills[index],
+            //         });
+            //       })
+            // }
+            // onMouseLeave={disableMouseEvents ? null : () => onMouseLeave}
           />
         ))
       }

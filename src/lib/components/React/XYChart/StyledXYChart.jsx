@@ -88,7 +88,6 @@ function StyledXYChart(props) {
   // if the prop is undefined, use the base theme
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
-  const outsidePadding = "10px";
   const refMargin = "10px";
 
   // retrieve XYChart data from HyperCube
@@ -202,99 +201,82 @@ function StyledXYChart(props) {
               margin: refMargin,
             }}
           >
-            <div
-              style={{
-                border: !isEmpty(currentSeelctionIds)
-                  ? "1px solid #CCCCCC"
-                  : "none",
-                overflowX: !isEmpty(currentSeelctionIds) ? "hidden" : "auto",
-                overflowY: !isEmpty(currentSeelctionIds) ? "hidden" : "auto",
-                padding: outsidePadding,
-              }}
-            >
-              {/* <div
+            {/* <div
                 className="d3-component"
                 height={height}
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
               > */}
-              {/* {qData && qLayout && ( */}
-              <CreateXYChart
-                // width={width}
-                // height={height}
-                width={
-                  gridArea
-                    ? ref.current.offsetWidth
-                    : parseInt(width, 10) -
-                      parseInt(outsidePadding, 10) * 2 -
-                      parseInt(refMargin, 10) * 2 // Adjust for outside padding
-                }
-                height={
-                  gridArea
-                    ? ref.current.offsetHeight -
-                      parseInt(margin || xyChart.margin, 10)
-                    : parseInt(height, 10)
-                }
-                events={events || xyChart.events}
-                qLayout={qLayout}
-                // qData={data}
-                theme={theme}
-                qMatrix={data}
-                beginSelections={beginSelections}
-                select={select}
-                refreshChart={refreshChart}
-                setRefreshChart={setRefreshChart}
-                setCurrentSeelctionIds={setCurrentSeelctionIds}
-                currentSeelctionIds={currentSeelctionIds}
-                // useSelectionColours={useSelectionColours}
-                // XYChartThemes={XYChartThemes}
-                colorPalette={colorPalette}
-                type={type}
-                padding={padding || xyChart.padding}
-                useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
-                autoWidth={autoWidth || xyChart.autoWidth}
-                renderHorizontally={
-                  renderHorizontally || xyChart.renderHorizontally
-                }
-                includeZero={includeZero || xyChart.includeZero}
-                xAxisOrientation={xAxisOrientation}
-                yAxisOrientation={yAxisOrientation}
-                legendLeftRight={legendLeftRight}
-                showLegend={
-                  showLegend === undefined ? xyChart.showLegend : showLegend
-                }
-                legendTopBottom={legendTopBottom}
-                legendDirection={legendDirection}
-                legendShape={legendShape}
-                snapTooltipToDataX={snapTooltipToDataX}
-                snapTooltipToDataY={snapTooltipToDataY}
-                backgroundPattern={
-                  backgroundPattern ||
-                  xyChart.defaultTheme.backgroundStyles.pattern
-                }
-                backgroundStyle={
-                  backgroundStyle || xyChart.defaultTheme.backgroundStyles
-                }
-                fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
-                // fillFrom={fillFrom || xyChart.defaultTheme.fillStyles.styleFrom}
-                // fillTo={fillTo || xyChart.defaultTheme.fillStyles.styleTo}
-                multiColor={
-                  multiColor === undefined ? xyChart.multiColor : multiColor
-                }
-                showVerticalCrosshair={
-                  showVerticalCrosshair === undefined
-                    ? xyChart.showVerticalCrosshair
-                    : showVerticalCrosshair
-                }
-                selectionMethod={
-                  selectionMethod === undefined
-                    ? xyChart.selectionMethod
-                    : selectionMethod
-                }
-                {...rest}
-              />
-            </div>
-            {/* </div> */}
+            {/* {qData && qLayout && ( */}
+            <CreateXYChart
+              // width={width}
+              // height={height}
+              width={
+                gridArea
+                  ? ref.current.offsetWidth
+                  : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+              }
+              height={
+                gridArea
+                  ? ref.current.offsetHeight -
+                    parseInt(margin || xyChart.margin, 10)
+                  : parseInt(height, 10)
+              }
+              events={events || xyChart.events}
+              qLayout={qLayout}
+              // qData={data}
+              theme={theme}
+              qMatrix={data}
+              beginSelections={beginSelections}
+              select={select}
+              refreshChart={refreshChart}
+              setRefreshChart={setRefreshChart}
+              setCurrentSeelctionIds={setCurrentSeelctionIds}
+              currentSeelctionIds={currentSeelctionIds}
+              // useSelectionColours={useSelectionColours}
+              colorPalette={colorPalette}
+              type={type}
+              padding={padding || xyChart.padding}
+              useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
+              autoWidth={autoWidth || xyChart.autoWidth}
+              renderHorizontally={
+                renderHorizontally || xyChart.renderHorizontally
+              }
+              includeZero={includeZero || xyChart.includeZero}
+              xAxisOrientation={xAxisOrientation}
+              yAxisOrientation={yAxisOrientation}
+              legendLeftRight={legendLeftRight}
+              showLegend={
+                showLegend === undefined ? xyChart.showLegend : showLegend
+              }
+              legendTopBottom={legendTopBottom}
+              legendDirection={legendDirection}
+              legendShape={legendShape}
+              snapTooltipToDataX={snapTooltipToDataX}
+              snapTooltipToDataY={snapTooltipToDataY}
+              backgroundPattern={
+                backgroundPattern ||
+                xyChart.defaultTheme.backgroundStyles.pattern
+              }
+              backgroundStyle={
+                backgroundStyle || xyChart.defaultTheme.backgroundStyles
+              }
+              fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
+              multiColor={
+                multiColor === undefined ? xyChart.multiColor : multiColor
+              }
+              showVerticalCrosshair={
+                showVerticalCrosshair === undefined
+                  ? xyChart.showVerticalCrosshair
+                  : showVerticalCrosshair
+              }
+              selectionMethod={
+                selectionMethod === undefined
+                  ? xyChart.selectionMethod
+                  : selectionMethod
+              }
+              {...rest}
+            />
             <SelectionModal
               isOpen={!isEmpty(currentSeelctionIds)}
               cancelCallback={cancelCallback}
