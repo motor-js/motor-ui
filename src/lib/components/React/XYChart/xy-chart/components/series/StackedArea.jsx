@@ -3,16 +3,16 @@ import React, {
   useMemo,
   useEffect,
   useRef,
-  useCallback,
+  // useCallback,
 } from "react";
 import { extent } from "d3-array";
 import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
 
-import findNearestDatumY from "../../util/findNearestDatumY";
-import findNearestDatumX from "../../util/findNearestDatumX";
+// import findNearestDatumY from "../../util/findNearestDatumY";
+// import findNearestDatumX from "../../util/findNearestDatumX";
 
-export default function Stack({ horizontal, children, ...rectProps }) {
+export default function Stack({ children }) {
   const {
     xScale,
     yScale,
@@ -37,56 +37,6 @@ export default function Stack({ horizontal, children, ...rectProps }) {
   // use a ref to the stacks for mouse movements
   const stacks = useRef(null);
 
-  // override the findNearestDatum logic
-  const findNearestDatum = useCallback(
-    (args) => {
-      if (!stacks.current) return null;
-
-      const nearestDatum = horizontal
-        ? findNearestDatumY(args)
-        : findNearestDatumX(args);
-
-      if (!nearestDatum) return null;
-
-      // find the stack for this key, and the bar in that stack corresponding to nearestDatum
-      const stack = stacks.current.find(
-        (currStack) => currStack.key === args.key
-      );
-      const bar = stack?.bars?.[nearestDatum.index];
-
-      if (!bar) return null;
-
-      const distanceX = horizontal
-        ? // if svgMouseX is *on* the bar, set distance to 0
-          args.svgMouseX >= bar.x && args.svgMouseX <= bar.x + bar.width
-          ? 0
-          : // otherwise take the min distance between the left and the right of the bar
-            Math.min(
-              Math.abs(args.svgMouseX - bar.x),
-              Math.abs(args.svgMouseX - (bar.x + bar.width))
-            )
-        : nearestDatum.distanceX;
-
-      const distanceY = horizontal
-        ? nearestDatum.distanceY
-        : // if svgMouseY is *on* the bar, set distance to 0
-        args.svgMouseY >= bar.y && args.svgMouseY <= bar.y + bar.height
-        ? 0
-        : // otherwise take the min distance between the top and the bottom of the bar
-          Math.min(
-            Math.abs(args.svgMouseY - bar.y),
-            Math.abs(args.svgMouseY - (bar.y + bar.height))
-          );
-
-      return {
-        ...nearestDatum,
-        distanceX,
-        distanceY,
-      };
-    },
-    [horizontal]
-  );
-
   // group all child data by stack value, this format is needed by BarStack
   const combinedData = useMemo(() => {
     const dataByStackValue = {};
@@ -103,7 +53,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
       if (!xAccessor || !yAccessor || !elAccessor) return;
 
       data.forEach((d) => {
-        const stack = (horizontal ? yAccessor : xAccessor)(d);
+        const stack = xAccessor(d);
         const stackKey = String(stack);
         if (!dataByStackValue[stackKey]) {
           dataByStackValue[stackKey] = {
@@ -112,7 +62,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
             negativeSum: 0,
           };
         }
-        const value = (horizontal ? xAccessor : yAccessor)(d);
+        const value = yAccessor(d);
         dataByStackValue[stackKey][dataKey] = value;
         dataByStackValue[stackKey]["selectionId"] = elAccessor(d);
         dataByStackValue[stackKey][
@@ -122,7 +72,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
     });
 
     return Object.values(dataByStackValue);
-  }, [horizontal, children]);
+  }, [children]);
 
   // update the domain to account for the (directional) stacked value
   const comprehensiveDomain = useMemo(
@@ -156,22 +106,14 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         yAccessor,
         elAccessor,
         mouseEvents,
-        findNearestDatum,
       };
 
       // only need to update the domain for one of the keys
       if (comprehensiveDomain.length > 0 && dataKeys.indexOf(key) === 0) {
-        if (horizontal) {
-          dataToRegister[key].xScale = (scale) =>
-            scale.domain(
-              extent([...scale.domain(), ...comprehensiveDomain], (d) => d)
-            );
-        } else {
-          dataToRegister[key].yScale = (scale) =>
-            scale.domain(
-              extent([...scale.domain(), ...comprehensiveDomain], (d) => d)
-            );
-        }
+        dataToRegister[key].yScale = (scale) =>
+          scale.domain(
+            extent([...scale.domain(), ...comprehensiveDomain], (d) => d)
+          );
       }
     });
 
@@ -179,15 +121,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
 
     // unregister data on unmount
     return () => unregisterData(Object.keys(dataToRegister));
-  }, [
-    horizontal,
-    comprehensiveDomain,
-    registerData,
-    unregisterData,
-    children,
-    findNearestDatum,
-    dataKeys,
-  ]);
+  }, [comprehensiveDomain, registerData, unregisterData, children, dataKeys]);
 
   // if scales and data are not available in the registry, bail
   if (
