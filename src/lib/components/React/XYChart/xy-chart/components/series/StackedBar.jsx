@@ -28,7 +28,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
     margin,
     theme,
     handleClick,
-    currentSeelctionIds,
+    currentSelectionIds,
     // selectionIds,
   } = useContext(ChartContext) || {};
 
@@ -227,7 +227,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
             stroke={theme.baseColor ?? "white"}
             handleClick={handleClick}
             // selectionIds={selectionIds}
-            currentSeelctionIds={currentSeelctionIds}
+            currentSelectionIds={currentSelectionIds}
             theme={theme}
             {...rectProps}
           />
@@ -256,7 +256,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
             stroke={theme.baseColor ?? "white"}
             handleClick={handleClick}
             // selectionIds={selectionIds}
-            currentSeelctionIds={currentSeelctionIds}
+            currentSelectionIds={currentSelectionIds}
             theme={theme}
             {...rectProps}
           />

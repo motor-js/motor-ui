@@ -74,9 +74,8 @@ export default function CreateXYChart({
   },
   beginSelections,
   select,
-  setCurrentSeelctionIds,
-  currentSeelctionIds,
-  // useSelectionColours,
+  setCurrentSelectionIds,
+  currentSelectionIds,
   theme,
   padding,
   colorPalette,
@@ -108,6 +107,8 @@ export default function CreateXYChart({
   gridRows,
   gridColumns,
   selectionMethod,
+  enableBrush,
+  showBrush,
 }) {
   const getChartType = () =>
     type
@@ -269,10 +270,9 @@ export default function CreateXYChart({
       measureInfo={measureInfo}
       dataKeys={dataKeys}
       beginSelections={beginSelections}
-      // useSelectionColours={useSelectionColours}
       select={select}
-      setCurrentSeelctionIds={setCurrentSeelctionIds}
-      currentSeelctionIds={currentSeelctionIds}
+      setCurrentSelectionIds={setCurrentSelectionIds}
+      currentSelectionIds={currentSelectionIds}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -293,6 +293,7 @@ export default function CreateXYChart({
             }
             dualAxis={dualAxis}
             captureEvents={selectionMethod === "none"}
+            onMouseDown={selectionMethod === "brush" ? enableBrush : null}
           >
             <ChartBackground
               style={backgroundStyle.style}
@@ -301,7 +302,7 @@ export default function CreateXYChart({
               to={backgroundStyle.styleTo}
             />
             <ChartPattern backgroundPattern={backgroundPattern} />
-            {selectionMethod === "brush" && (
+            {showBrush && (
               <PatternLines
                 id="brush_pattern"
                 height={12}
@@ -495,7 +496,7 @@ export default function CreateXYChart({
                 d.toISOString?.().split?.("T")[0] ?? d.toString()
               }
             />
-            {selectionMethod === "brush" && (
+            {showBrush && (
               <Brush
                 xAxisOrientation={xAxisOrientation}
                 yAxisOrientation={yAxisOrientation}

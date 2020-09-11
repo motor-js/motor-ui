@@ -35,7 +35,7 @@ export default function Group({
     theme,
     formatValue,
     handleClick,
-    currentSeelctionIds,
+    currentSelectionIds,
     // selectionIds,
   } = useContext(ChartContext);
 
@@ -240,7 +240,7 @@ export default function Group({
               handleClick={handleClick}
               // selectionIds={selectionIds}
               theme={theme}
-              currentSeelctionIds={currentSeelctionIds}
+              currentSelectionIds={currentSelectionIds}
               {...rectProps}
             />
             {showLabels &&
@@ -284,7 +284,7 @@ export default function Group({
               rx={2}
               handleClick={handleClick}
               // selectionIds={selectionIds}
-              currentSeelctionIds={currentSeelctionIds}
+              currentSelectionIds={currentSelectionIds}
               theme={theme}
               {...rectProps}
             />

@@ -43,19 +43,18 @@ export default function Brush({
     margin,
     dataRegistry,
     handleClick,
-    currentSeelctionIds,
+    currentSelectionIds,
   } = useContext(ChartContext);
 
-  // console.log(dataRegistry);
   const childRef = useRef();
 
   let xAccessor = null;
   let yAccessor = null;
 
   useEffect(() => {
-    if (isEmpty(currentSeelctionIds) && childRef.current)
+    if (isEmpty(currentSelectionIds) && childRef.current)
       childRef.current.reset();
-  }, [currentSeelctionIds]);
+  }, [currentSelectionIds]);
 
   const getScaledX = useCallback(
     (d) => {

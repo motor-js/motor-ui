@@ -277,7 +277,6 @@ XYChart.propTypes = {
 };
 
 XYChart.defaultProps = {
-  // config: null,
   calcCondition: undefined,
   width: "1000px",
   height: "400px", // 100%

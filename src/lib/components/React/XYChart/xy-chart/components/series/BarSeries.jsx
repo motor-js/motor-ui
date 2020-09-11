@@ -28,11 +28,11 @@ function BarSeries({
     showLabels,
     formatValue,
     handleClick,
-    currentSeelctionIds,
+    currentSelectionIds,
     // selectionIds,
   } = useContext(ChartContext);
 
-  // console.log(currentSeelctionIds);
+  // console.log(currentSelectionIds);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
 
@@ -66,7 +66,7 @@ function BarSeries({
   // const handleClick = (selectionValue) => {
   //   beginSelections();
 
-  //   setCurrentSeelctionIds(true);
+  //   setCurrentSelectionIds(true);
 
   //   select(0, selectionValue);
   // };
@@ -191,7 +191,7 @@ function BarSeries({
     <g className="vx-chart bar-series">
       <AnimatedBars
         handleClick={handleClick}
-        currentSeelctionIds={currentSeelctionIds}
+        currentSelectionIds={currentSelectionIds}
         bars={bars}
         stroke={theme.baseColor ?? "white"}
         theme={theme}

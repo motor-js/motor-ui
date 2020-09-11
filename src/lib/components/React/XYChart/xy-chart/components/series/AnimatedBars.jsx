@@ -12,7 +12,7 @@ export default function AnimatedBars({
   width,
   height,
   handleClick,
-  currentSeelctionIds,
+  currentSelectionIds,
   // selectionIds,
   theme,
   ...rectProps
@@ -31,18 +31,18 @@ export default function AnimatedBars({
   const { selection, nonSelection } = theme;
 
   const styleProp = (selectionId, styleprop) =>
-    isEmpty(currentSeelctionIds)
+    isEmpty(currentSelectionIds)
       ? selection[styleprop]
-      : currentSeelctionIds.includes(selectionId) &&
-        !isEmpty(currentSeelctionIds)
+      : currentSelectionIds.includes(selectionId) &&
+        !isEmpty(currentSelectionIds)
       ? selection[styleprop]
       : nonSelection[styleprop];
 
   // const [selectedBar, setSelectedBar] = useState([]);
 
   // useEffect(() => {
-  //   if (!currentSeelctionIds) setSelectedBar([]);
-  // }, [currentSeelctionIds]);
+  //   if (!currentSelectionIds) setSelectedBar([]);
+  // }, [currentSelectionIds]);
 
   return (
     // react complains when using component if we don't wrap in Fragment
@@ -61,10 +61,10 @@ export default function AnimatedBars({
           fill={bar.color}
           // barOpacity={0.65}
           opacity={
-            // !currentSeelctionIds
+            // !currentSelectionIds
             //   ? selection.opacity
             //   : selectedBar.includes(bar.selectionId) &&
-            //     currentSeelctionIds
+            //     currentSelectionIds
             //   ? selection.opacity
             //   : nonSelection.opacity
             styleProp(bar.selectionId, "opacity")
@@ -73,11 +73,11 @@ export default function AnimatedBars({
           onClick={() => {
             // setSelectedBar(isSelected ? null : letter);
 
-            const selections = currentSeelctionIds.includes(bar.selectionId)
-              ? currentSeelctionIds.filter(function(value, index, arr) {
+            const selections = currentSelectionIds.includes(bar.selectionId)
+              ? currentSelectionIds.filter(function(value, index, arr) {
                   return value !== bar.selectionId;
                 })
-              : [...currentSeelctionIds, bar.selectionId];
+              : [...currentSelectionIds, bar.selectionId];
 
             // setSelectedBar(selections);
             handleClick(selections);

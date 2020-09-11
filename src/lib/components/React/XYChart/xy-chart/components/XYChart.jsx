@@ -15,6 +15,7 @@ export default function XYChart(props) {
     // captureEvents = true,
     captureEvents,
     svgBackground = true,
+    onMouseDown,
   } = props;
   const { findNearestData, setChartDimensions } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -58,7 +59,7 @@ export default function XYChart(props) {
   }
 
   return width > 0 && height > 0 ? (
-    <svg ref={svgRef} width={width} height={height}>
+    <svg ref={svgRef} width={width} height={height} onMouseDown={onMouseDown}>
       {svgBackground && (
         <rect
           x={0}

@@ -236,7 +236,7 @@ export default class ChartProvider extends React.Component {
   handleClick = (selectionValue) => {
     this.props.beginSelections();
 
-    this.props.setCurrentSeelctionIds(selectionValue);
+    this.props.setCurrentSelectionIds(selectionValue);
 
     // this.setState({
     //   selectionIds: selectionValue,
@@ -256,13 +256,13 @@ export default class ChartProvider extends React.Component {
       measureInfo,
       dataKeys,
       // beginSelections,
-      // setCurrentSeelctionIds,
+      // setCurrentSelectionIds,
       // select,
-      currentSeelctionIds,
+      currentSelectionIds,
     } = this.props;
 
-    // console.log(currentSeelctionIds);
-    // if (!currentSeelctionIds) {
+    // console.log(currentSelectionIds);
+    // if (!currentSelectionIds) {
     //   this.setState({
     //     selectionIds: [],
     //   });
@@ -298,9 +298,9 @@ export default class ChartProvider extends React.Component {
           dataKeys,
           // selectionIds,
           // beginSelections,
-          // setCurrentSeelctionIds,
+          // setCurrentSelectionIds,
           // select,
-          currentSeelctionIds,
+          currentSelectionIds,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

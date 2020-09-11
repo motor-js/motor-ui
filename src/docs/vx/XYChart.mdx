@@ -19,6 +19,7 @@ import Column from '../../lib/components/React/Column/Column.jsx'
 import XYChart from '../../lib/components/React/XYChart/XYChart.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
 import { config } from '../config/config.js'
 
 <Playground>
@@ -26,12 +27,13 @@ import { config } from '../config/config.js'
  config={config}>  
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
+    <Button type="clearSelections">Clear Selections</Button>
     <XYChart // width={750} height={400}  events={true}
     colorTheme="bio"
-    type="stackedbar"
+    type="stackedarea"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'CanonicalDate' },
-      { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
       { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
     ]}/>
   </Motor>

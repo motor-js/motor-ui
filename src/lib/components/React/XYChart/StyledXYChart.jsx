@@ -17,15 +17,19 @@ function StyledXYChart(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [currentSeelctionIds, setCurrentSeelctionIds] = useState([]);
-  const [refreshChart, setRefreshChart] = useState(true);
+  const [currentSelectionIds, setCurrentSelectionIds] = useState([]);
+  // const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [data, setData] = useState(null);
   // const [sel, setSel] = useState([]);
 
-  // console.log(currentSeelctionIds, "1");
+  const [showBrush, setShowBrush] = useState(false);
+  const enableBrush = () => setShowBrush(true);
+  // const disableBrush = () => setShowBrush(false);
+
+  // console.log(currentSelectionIds, "1");
 
   // let useSelectionColours = false;
 
@@ -112,19 +116,13 @@ function StyledXYChart(props) {
 
   const cancelCallback = () => {
     endSelections(false);
-    setRefreshChart(true);
-    setCurrentSeelctionIds([]);
-    // useSelectionColours = false;
-    // setSel([]);
+    setCurrentSelectionIds([]);
+    setShowBrush(false);
   };
 
   const confirmCallback = async () => {
-    // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    // setCurrentSeelctionIds([]);
-    setRefreshChart(true);
-    // useSelectionColours = false;
-    // setSel([]);
+    setShowBrush(false);
   };
 
   useOutsideClick(ref, () => {
@@ -133,7 +131,7 @@ function StyledXYChart(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (!isEmpty(currentSeelctionIds)) {
+    if (!isEmpty(currentSelectionIds)) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -173,7 +171,7 @@ function StyledXYChart(props) {
         (qData && data && qData.qMatrix.length !== data.length && isValid)
       ) {
         setData(qData.qMatrix);
-        setCurrentSeelctionIds([]);
+        setCurrentSelectionIds([]);
       }
       // };
     },
@@ -229,10 +227,10 @@ function StyledXYChart(props) {
               qMatrix={data}
               beginSelections={beginSelections}
               select={select}
-              refreshChart={refreshChart}
-              setRefreshChart={setRefreshChart}
-              setCurrentSeelctionIds={setCurrentSeelctionIds}
-              currentSeelctionIds={currentSeelctionIds}
+              // refreshChart={refreshChart}
+              // setRefreshChart={setRefreshChart}
+              setCurrentSelectionIds={setCurrentSelectionIds}
+              currentSelectionIds={currentSelectionIds}
               // useSelectionColours={useSelectionColours}
               colorPalette={colorPalette}
               type={type}
@@ -275,10 +273,12 @@ function StyledXYChart(props) {
                   ? xyChart.selectionMethod
                   : selectionMethod
               }
+              enableBrush={enableBrush}
+              showBrush={showBrush}
               {...rest}
             />
             <SelectionModal
-              isOpen={!isEmpty(currentSeelctionIds)}
+              isOpen={!isEmpty(currentSelectionIds)}
               cancelCallback={cancelCallback}
               confirmCallback={confirmCallback}
               // width={width}

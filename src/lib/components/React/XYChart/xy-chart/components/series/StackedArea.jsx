@@ -24,7 +24,7 @@ export default function Stack({ children }) {
     margin,
     theme,
     // handleClick,
-    // currentSeelctionIds,
+    // currentSelectionIds,
     // selectionIds,
   } = useContext(ChartContext) || {};
 
