@@ -135,6 +135,11 @@ export default function Stack({ children }) {
 
   const hasSomeNegativeValues = comprehensiveDomain.some((num) => num < 0);
 
+  const Console = (prop) => (
+    console[Object.keys(prop)[0]](...Object.values(prop)),
+    null // ➜ React components must return something
+  );
+
   return (
     // @TODO types
     <AreaStack
@@ -149,73 +154,75 @@ export default function Stack({ children }) {
       color={colorScale}
     >
       {({ stacks, path, color }) =>
-        stacks.map((stack, i) => (
-          <path
-            key={`stack-${stack.key}`}
-            d={path(stack) || ""}
-            stroke="transparent"
-            // fill="url(#stacked-area-orangered)"
-            // fill="url(#stacked-area-orangered)"
-            fill={color(stack.key, i)}
-            stroke="#fff"
-            // fillOpacity={0.7}
-            // strokeWidth={1}
-            // curve={
-            //   "linear"
-            //   // interpolatorLookup[interpolation] || interpolatorLookup.monotoneX
-            // }
-            onClick={() => {
-              if (events) alert(`${stack.key}`);
-            }}
-            onMouseMove={() => {
-              console.log("d");
-            }}
-            // defined={defined}
-            // onClick={
-            //   disableMouseEvents
-            //     ? null
-            //     : onClick &&
-            //       (({ series, index }) => (event) => {
-            //         const datum = findClosestDatum({
-            //           data: series,
-            //           getX: (d) => x(d.data),
-            //           event,
-            //           xScale,
-            //           marginLeft: margin.left,
-            //         });
-            //         onClick({
-            //           event,
-            //           data,
-            //           seriesKey: series.key,
-            //           datum: datum && datum.data,
-            //           color: stackFills[index],
-            //         });
-            //       })
-            // }
-            // onMouseMove={
-            //   disableMouseEvents
-            //     ? null
-            //     : onMouseMove &&
-            //       (({ series, index }) => (event) => {
-            //         const datum = findClosestDatum({
-            //           data: series,
-            //           getX: (d) => x(d.data),
-            //           event,
-            //           xScale,
-            //           marginLeft: margin.left,
-            //         });
-            //         onMouseMove({
-            //           event,
-            //           data,
-            //           seriesKey: series.key,
-            //           datum: datum && datum.data,
-            //           color: stackFills[index],
-            //         });
-            //       })
-            // }
-            // onMouseLeave={disableMouseEvents ? null : () => onMouseLeave}
-          />
-        ))
+        stacks.map((stack, i) =>
+          !path(stack).includes("MNaN") ? (
+            <path
+              key={`stack-${stack.key}`}
+              d={path(stack) || ""}
+              stroke="transparent"
+              // fill="url(#stacked-area-orangered)"
+              // fill="url(#stacked-area-orangered)"
+              fill={color(stack.key, i)}
+              stroke="#fff"
+              // fillOpacity={0.7}
+              // strokeWidth={1}
+              // curve={
+              //   "linear"
+              //   // interpolatorLookup[interpolation] || interpolatorLookup.monotoneX
+              // }
+              onClick={() => {
+                if (events) alert(`${stack.key}`);
+              }}
+              onMouseMove={() => {
+                console.log("d");
+              }}
+              // defined={defined}
+              // onClick={
+              //   disableMouseEvents
+              //     ? null
+              //     : onClick &&
+              //       (({ series, index }) => (event) => {
+              //         const datum = findClosestDatum({
+              //           data: series,
+              //           getX: (d) => x(d.data),
+              //           event,
+              //           xScale,
+              //           marginLeft: margin.left,
+              //         });
+              //         onClick({
+              //           event,
+              //           data,
+              //           seriesKey: series.key,
+              //           datum: datum && datum.data,
+              //           color: stackFills[index],
+              //         });
+              //       })
+              // }
+              // onMouseMove={
+              //   disableMouseEvents
+              //     ? null
+              //     : onMouseMove &&
+              //       (({ series, index }) => (event) => {
+              //         const datum = findClosestDatum({
+              //           data: series,
+              //           getX: (d) => x(d.data),
+              //           event,
+              //           xScale,
+              //           marginLeft: margin.left,
+              //         });
+              //         onMouseMove({
+              //           event,
+              //           data,
+              //           seriesKey: series.key,
+              //           datum: datum && datum.data,
+              //           color: stackFills[index],
+              //         });
+              //       })
+              // }
+              // onMouseLeave={disableMouseEvents ? null : () => onMouseLeave}
+            />
+          ) : null
+        )
       }
     </AreaStack>
   );
