@@ -1,15 +1,8 @@
 import React, { useContext, useCallback, useMemo } from "react";
-import BaseLegend from "@vx/legend/lib/legends/Legend";
-import Rect from "@vx/legend/lib/shapes/Rect";
-import Circle from "@vx/legend/lib/shapes/Circle";
-import Line from "@vx/legend/lib/shapes/Line";
+import { Legend as BaseLegend } from "@vx/legend";
+import { RectShape, LineShape, CircleShape } from "@vx/legend";
 
 import ChartContext from "../context/ChartContext";
-
-// convenience exports to support easy renderShape overrides
-export const RectShape = Rect;
-export const LineShape = Line;
-export const CircleShape = Circle;
 
 export default function Legend({
   alignLeft = true,

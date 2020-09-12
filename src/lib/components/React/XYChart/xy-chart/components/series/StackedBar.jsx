@@ -106,7 +106,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
       // this should exist but double check
       if (!xAccessor || !yAccessor || !elAccessor) return;
 
-      data.forEach((d) => {
+      data.forEach((d, i) => {
         const stack = (horizontal ? yAccessor : xAccessor)(d);
         const stackKey = String(stack);
         if (!dataByStackValue[stackKey]) {
@@ -116,6 +116,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
             negativeSum: 0,
           };
         }
+
         const value = (horizontal ? xAccessor : yAccessor)(d);
         dataByStackValue[stackKey][dataKey] = value;
         dataByStackValue[stackKey]["selectionId"] = elAccessor(d);
@@ -124,6 +125,8 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         ] += value;
       });
     });
+
+    console.log(Object.values(dataByStackValue));
 
     return Object.values(dataByStackValue);
   }, [horizontal, children]);

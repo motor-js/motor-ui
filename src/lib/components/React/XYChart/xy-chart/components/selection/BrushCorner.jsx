@@ -1,6 +1,6 @@
 /* eslint react/jsx-handler-names: 0 */
 import React from "react";
-import Drag from "@vx/drag/lib/Drag";
+import { Drag } from "@vx/drag";
 
 export default class BrushCorner extends React.Component {
   static defaultProps = {

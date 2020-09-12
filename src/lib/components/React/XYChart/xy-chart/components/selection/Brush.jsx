@@ -1,15 +1,9 @@
 import React, { useContext, useCallback, useRef, useEffect } from "react";
-// import BaseBrush from "@vx/brush/lib/Brush";
 import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
 
-// import { numericSortDirection, isEmpty, validData } from "../../../utils";
-import {
-  numericSortDirection,
-  isEmpty,
-  validData,
-} from "../../../../../../utils";
+import { isEmpty } from "../../../../../../utils";
 
 const leftRightResizeTriggers = ["left", "right"];
 const topBottomResizeTriggers = ["top", "bottom"];

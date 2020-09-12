@@ -146,6 +146,7 @@ export default function Group({
 
       // this should exist but double check
       if (!xAccessor || !yAccessor || !elAccessor) return;
+      // console.log(xAccessor, yAccessor, elAccessor);
 
       data.forEach((d) => {
         const group = (horizontal ? yAccessor : xAccessor)(d);

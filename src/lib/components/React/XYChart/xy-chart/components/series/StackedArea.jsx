@@ -154,8 +154,9 @@ export default function Stack({ children }) {
       color={colorScale}
     >
       {({ stacks, path, color }) =>
-        stacks.map((stack, i) =>
-          !path(stack).includes("MNaN") ? (
+        stacks.map(
+          (stack, i) => (
+            // !path(stack).includes("MNaN") ? (
             <path
               key={`stack-${stack.key}`}
               d={path(stack) || ""}
@@ -221,7 +222,8 @@ export default function Stack({ children }) {
               // }
               // onMouseLeave={disableMouseEvents ? null : () => onMouseLeave}
             />
-          ) : null
+          )
+          // ) : null
         )
       }
     </AreaStack>

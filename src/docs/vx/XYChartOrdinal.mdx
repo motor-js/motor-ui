@@ -30,14 +30,15 @@ import { config } from '../config/config.js'
     prefix: '',
     appId: '62160fbb-1fcc-4852-9edb-42dd048f6a3e',
   }}>  
-  {/* <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
-  <Filter label='Forcast Day' dimension={['Forcast Day']} /> */}
+  <Filter label='Year' dimension={['Year']} />
+  <Filter label='OICA region' dimension={['OICA region']} />
     <XYChart // width={750} height={400}  events={true}
     colorTheme="bio"
-  //  type="groupedbar"
+    selectionMethod="click"
+   type="stackedbar"
     cols={[
       { qField: '[Year]', qLabel: 'Year' },
-   //   { qField: '[OICA region]', qLabel: 'OICA region' },
+    { qField: '[OICA region]', qLabel: 'OICA region' },
       { qField: '=Sum([Car sales])*if(Year=2011,-1,1)', qLabel: 'Car sales' },
    //    { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car ales' },
     ]}/>
