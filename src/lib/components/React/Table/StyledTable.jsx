@@ -309,12 +309,6 @@ const StyledTable = ({
       setSelectionVisible(true);
       setCol(c.id);
 
-      // console.log(c.id, s, selCol);
-      // if (selCol === undefined || c.id === selCol) {
-      //   select(c.id, [...pendingSel, s]);
-      // } else {
-      //   select(c.id, [s]);
-      // }
       select(c.id, [...pendingSel, s]);
     }
   };

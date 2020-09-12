@@ -18,20 +18,13 @@ function StyledXYChart(props) {
   const d3Container = useRef(null);
   const ref = useRef();
   const [currentSelectionIds, setCurrentSelectionIds] = useState([]);
-  // const [refreshChart, setRefreshChart] = useState(true);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [data, setData] = useState(null);
-  // const [sel, setSel] = useState([]);
 
   const [showBrush, setShowBrush] = useState(false);
   const enableBrush = () => setShowBrush(true);
-  // const disableBrush = () => setShowBrush(false);
-
-  // console.log(currentSelectionIds, "1");
-
-  // let useSelectionColours = false;
 
   // props
   const {

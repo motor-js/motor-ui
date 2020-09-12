@@ -32,8 +32,6 @@ function BarSeries({
     // selectionIds,
   } = useContext(ChartContext);
 
-  // console.log(currentSelectionIds);
-
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
 
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
@@ -51,8 +49,6 @@ function BarSeries({
   const {
     svgLabel: { baseLabel },
   } = theme;
-
-  // console.log(nonSelection);
 
   const labelProps = {
     ...baseLabel,

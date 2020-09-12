@@ -117,8 +117,6 @@ export default function Brush({
       // setFilteredStock(stockCopy);
       selectionIds = [...selectionIds, ...stockCopy];
     });
-    // console.log(selectionIds);
-    // handleClick(selectionIds);
   };
 
   const onMouseUp = () => handleClick(selectionIds);
