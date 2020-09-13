@@ -107,6 +107,7 @@ export default function CreateXYChart({
   selectionMethod,
   enableBrush,
   showBrush,
+  percentStacked,
 }) {
   const getChartType = () =>
     type
@@ -145,6 +146,24 @@ export default function CreateXYChart({
     });
 
     items.push(series);
+  }
+
+  if (percentStacked) {
+    if (dimensionInfo.length === 1) {
+      qMatrix.forEach((d, i) => {
+        let positiveSum = 0;
+        let negativeSum = 0;
+        measureInfo.forEach((m, mi) => {
+          const value = d[dimensionInfo.length + mi].qNum;
+          value >= 0 ? (positiveSum += value) : (negativeSum += value);
+        });
+        measureInfo.forEach((m, mi) => {
+          const value = d[dimensionInfo.length + mi].qNum;
+          d[dimensionInfo.length + mi].qNum =
+            Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+        });
+      });
+    }
   }
 
   const data = dimensionInfo.length === 1 ? qMatrix : items;

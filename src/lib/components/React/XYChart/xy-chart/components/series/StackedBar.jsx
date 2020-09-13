@@ -126,7 +126,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
       });
     });
 
-    console.log(Object.values(dataByStackValue));
+    // console.log(Object.values(dataByStackValue));
 
     return Object.values(dataByStackValue);
   }, [horizontal, children]);
