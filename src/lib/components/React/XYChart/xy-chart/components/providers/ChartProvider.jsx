@@ -259,6 +259,8 @@ export default class ChartProvider extends React.Component {
       // setCurrentSelectionIds,
       // select,
       currentSelectionIds,
+      singleDimension,
+      singleMeasure,
     } = this.props;
 
     // console.log(currentSelectionIds);
@@ -296,6 +298,8 @@ export default class ChartProvider extends React.Component {
           dimensionInfo,
           measureInfo,
           dataKeys,
+          singleDimension,
+          singleMeasure,
           // selectionIds,
           // beginSelections,
           // setCurrentSelectionIds,

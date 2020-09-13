@@ -107,14 +107,15 @@ export default function CreateXYChart({
   selectionMethod,
   enableBrush,
   showBrush,
-  percentStacked,
+  asPercent,
 }) {
+  const dimensionCount = dimensionInfo.length;
+  const measureCount = measureInfo.length;
+  const singleDimension = dimensionCount === 1;
+  const singleMeasure = measureCount === 1;
+
   const getChartType = () =>
-    type
-      ? type
-      : dimensionInfo.length === 1 && measureInfo.length === 1
-      ? "bar"
-      : "groupedbar";
+    type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
 
   // const [chartType, setchartType] = useState([getChartType()]);
   const chartType = [getChartType()];
@@ -124,7 +125,7 @@ export default function CreateXYChart({
   let items = [];
   let keys = [];
 
-  if (dimensionInfo.length !== 1 && !chartType.includes("scatter")) {
+  if (dimensionCount !== 1 && !chartType.includes("scatter")) {
     qMatrix.forEach((d, i) => {
       if (isNull(dimID)) {
         dimID = d[0].qText;
@@ -148,43 +149,59 @@ export default function CreateXYChart({
     items.push(series);
   }
 
-  if (percentStacked) {
-    if (dimensionInfo.length === 1) {
+  if (asPercent) {
+    if (singleDimension) {
       qMatrix.forEach((d, i) => {
         let positiveSum = 0;
         let negativeSum = 0;
         measureInfo.forEach((m, mi) => {
-          const value = d[dimensionInfo.length + mi].qNum;
+          const value = d[dimensionCount + mi].qNum;
           value >= 0 ? (positiveSum += value) : (negativeSum += value);
         });
         measureInfo.forEach((m, mi) => {
-          const value = d[dimensionInfo.length + mi].qNum;
-          d[dimensionInfo.length + mi].qNum =
+          const value = d[dimensionCount + mi].qNum;
+          d[dimensionCount + mi].qNum =
             Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
         });
       });
+    } else {
+      if (singleDimension) {
+        qMatrix.forEach((d, i) => {
+          let positiveSum = 0;
+          let negativeSum = 0;
+          measureInfo.forEach((m, mi) => {
+            const value = d[dimensionCount + mi].qNum;
+            value >= 0 ? (positiveSum += value) : (negativeSum += value);
+          });
+          measureInfo.forEach((m, mi) => {
+            const value = d[dimensionCount + mi].qNum;
+            d[dimensionCount + mi].qNum =
+              Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+          });
+        });
+      }
     }
   }
 
-  const data = dimensionInfo.length === 1 ? qMatrix : items;
+  const data = singleDimension ? qMatrix : items;
 
   const [currData, setCurrData] = useState(data);
 
   const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
 
   // const getSeriesValues = (d, colIndex) => {
-  //   return dimensionInfo.length !== 1
+  //   return dimensionCount !== 1
   //     ? Number(d[1].qNum)
   //     : Number(d[colIndex].qNum);
   // };
 
   const dataKeys =
     multiColor &&
-    dimensionInfo.length == 1 &&
-    measureInfo.length === 1 &&
+    dimensionCount == 1 &&
+    singleMeasure &&
     chartType.includes("bar")
       ? data.map((d) => d[0].qText)
-      : dimensionInfo.length === 2
+      : dimensionCount === 2
       ? keys
       : null;
 
@@ -225,18 +242,18 @@ export default function CreateXYChart({
   );
 
   const dataAccessors =
-    dimensionInfo.length <= 1
+    dimensionCount <= 1
       ? measureInfo.map((measure, index) =>
           useAccessors(
             getSeriesValues,
-            dimensionInfo.length + index,
+            dimensionCount + index,
             renderHorizontally
           )
         )
       : keys.map((measure, index) =>
           useAccessors(
             getSeriesValues,
-            dimensionInfo.length - 1 + index,
+            dimensionCount - 1 + index,
             renderHorizontally
           )
         );
@@ -294,6 +311,8 @@ export default function CreateXYChart({
       select={select}
       setCurrentSelectionIds={setCurrentSelectionIds}
       currentSelectionIds={currentSelectionIds}
+      singleDimension={singleDimension}
+      singleMeasure={singleMeasure}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -348,7 +367,7 @@ export default function CreateXYChart({
             )}
             {chartType.includes("stackedbar") && (
               <StackedBar horizontal={renderHorizontally}>
-                {dimensionInfo.length <= 1
+                {dimensionCount <= 1
                   ? measureInfo.map((measure, index) => (
                       <BarSeries
                         key={measureInfo[index].qFallbackTitle}
@@ -369,7 +388,7 @@ export default function CreateXYChart({
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
-                {dimensionInfo.length <= 1
+                {dimensionCount <= 1
                   ? measureInfo.map((measure, index) => (
                       <BarSeries
                         key={measureInfo[index].qFallbackTitle}
@@ -414,7 +433,7 @@ export default function CreateXYChart({
               </>
             )}
             {chartType.includes("combo") &&
-              measureInfo.length > 1 &&
+              measureCount > 1 &&
               measureInfo.map((measure, index) =>
                 measure.qChartType === "bar" ? (
                   <BarSeries
@@ -436,7 +455,7 @@ export default function CreateXYChart({
                 )
               )}
             {chartType.includes("area") &&
-              dimensionInfo.length <= 1 &&
+              dimensionCount <= 1 &&
               measureInfo.map((measure, index) => (
                 <AreaSeries
                   key={measureInfo[index].qFallbackTitle}
@@ -450,7 +469,7 @@ export default function CreateXYChart({
               ))}
             {chartType.includes("stackedarea") && (
               <StackedArea>
-                {dimensionInfo.length <= 1
+                {dimensionCount <= 1
                   ? measureInfo.map((measure, index) => (
                       <AreaSeries
                         key={measureInfo[index].qFallbackTitle}
@@ -476,8 +495,8 @@ export default function CreateXYChart({
               </StackedArea>
             )}
             {chartType.includes("scatter") &&
-              dimensionInfo.length === 1 &&
-              measureInfo.length === 2 && (
+              singleDimension &&
+              measureCount === 2 && (
                 // measureInfo.map((measure, index) => (
                 <PointSeries
                   dataKeys={dataKeys ? dataKeys : null}

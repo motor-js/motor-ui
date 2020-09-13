@@ -23,9 +23,11 @@ export default function Tooltip({
     height,
     theme,
     formatValue,
-    dimensionInfo,
+    // dimensionInfo,
     measureInfo,
     dataKeys,
+    singleDimension,
+    singleMeasure,
   } = useContext(ChartContext) || {};
 
   // early return if there's no tooltip
@@ -66,7 +68,7 @@ export default function Tooltip({
       <div>{closestDatum.datum[0].qText}</div>
       {/* <Console log={closestDatum.datum[0].qText} /> */}
       <br />
-      {dimensionInfo.length === 1 && measureInfo.length === 1 && dataKeys && (
+      {singleDimension === 1 && singleMeasure && dataKeys && (
         <div
           style={{
             color: colorScale(`${closestDatum.datum[0].qText}`),

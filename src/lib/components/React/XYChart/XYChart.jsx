@@ -172,7 +172,7 @@ XYChart.propTypes = {
   // /** Stacked Chart  */
   // stacked: PropTypes.bool,
   /** Stacked Chart  */
-  percentStacked: PropTypes.bool,
+  asPercent: PropTypes.bool,
   /** RoundNum of the Bar */
   roundNum: PropTypes.bool,
   /** Decimai precision for RoundNum of the Bar */
@@ -285,7 +285,7 @@ XYChart.defaultProps = {
   sortOrder: [],
   sortDirection: "",
   // stacked: false,
-  percentStacked: true,
+  asPercent: true,
   // title: null,
   // subTitle: null,
   // maxWidth: null,
