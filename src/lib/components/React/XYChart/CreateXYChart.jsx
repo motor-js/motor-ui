@@ -19,6 +19,7 @@ import StackedArea from "./xy-chart/components/series/StackedArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 import Brush from "./xy-chart/components/selection/Brush";
+import { roundNumber } from "./xy-chart/util/roundNumber";
 
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 
@@ -278,6 +279,21 @@ export default function CreateXYChart({
   const chartHideAxisLine =
     hideAxisLine === undefined ? xyChart.hideAxisLine : hideAxisLine;
 
+  const formatValue = (val) => {
+    // if (val === 0) return roundNumber(Math.abs(val), 0);
+
+    const valPrecision =
+      precision === undefined ? xyChart.precision : precision;
+    const valRoundNum = roundNum === undefined ? xyChart.roundNum : roundNum;
+
+    if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
+    let formattedValue = valRoundNum
+      ? roundNumber(Math.abs(val), valPrecision)
+      : Math.abs(val);
+
+    return val < 0 ? `-${formattedValue}` : formattedValue;
+  };
+
   return (
     // <div className="container">
 
@@ -300,6 +316,7 @@ export default function CreateXYChart({
       currentSelectionIds={currentSelectionIds}
       singleDimension={singleDimension}
       singleMeasure={singleMeasure}
+      formatValue={formatValue}
     >
       <EventProvider>
         {legendTopBottom === "top" && legend}
@@ -507,6 +524,7 @@ export default function CreateXYChart({
                   : false
               }
               // tickFormat={(d) => `${d * 100}%`}
+              tickFormat={(d) => formatValue(d)}
             />
             {/* Y axis (dual)*/}
             {dualAxis && (

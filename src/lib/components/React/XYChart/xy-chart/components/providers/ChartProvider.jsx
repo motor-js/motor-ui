@@ -1,7 +1,6 @@
 import React from "react";
 import { localPoint } from "@vx/event";
 import { scaleOrdinal } from "@vx/scale";
-import { roundNumber } from "../../util/roundNumber";
 
 import theme from "../../../../../../themes/defaultTheme";
 
@@ -224,14 +223,14 @@ export default class ChartProvider extends React.Component {
     return { closestData, closestDatum, svgMouseX, svgMouseY };
   };
 
-  formatValue = (val) => {
-    const { roundNum, precision } = this.props;
-    let formattedValue = roundNum
-      ? roundNumber(Math.abs(val), precision)
-      : Math.abs(val);
+  // formatValue = (val) => {
+  //   const { roundNum, precision } = this.props;
+  //   let formattedValue = roundNum
+  //     ? roundNumber(Math.abs(val), precision)
+  //     : Math.abs(val);
 
-    return val < 0 ? `-${formattedValue}` : formattedValue;
-  };
+  //   return val < 0 ? `-${formattedValue}` : formattedValue;
+  // };
 
   handleClick = (selectionValue) => {
     this.props.beginSelections();
@@ -260,6 +259,7 @@ export default class ChartProvider extends React.Component {
       currentSelectionIds,
       singleDimension,
       singleMeasure,
+      formatValue,
     } = this.props;
 
     // console.log(currentSelectionIds);
@@ -309,7 +309,8 @@ export default class ChartProvider extends React.Component {
           setChartDimensions: this.setChartDimensions,
           setNumberFormat: this.setNumberFormat,
           findNearestData: this.findNearestData,
-          formatValue: this.formatValue,
+          // formatValue: this.formatValue,
+          formatValue,
         }}
       >
         {this.props.children}
