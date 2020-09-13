@@ -68,7 +68,7 @@ export default function Tooltip({
       <div>{closestDatum.datum[0].qText}</div>
       {/* <Console log={closestDatum.datum[0].qText} /> */}
       <br />
-      {singleDimension === 1 && singleMeasure && dataKeys && (
+      {singleDimension && singleMeasure && dataKeys && (
         <div
           style={{
             color: colorScale(`${closestDatum.datum[0].qText}`),
