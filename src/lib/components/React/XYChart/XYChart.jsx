@@ -285,7 +285,7 @@ XYChart.defaultProps = {
   sortOrder: [],
   sortDirection: "",
   // stacked: false,
-  // showAsPercent: true,
+  showAsPercent: true,
   // title: null,
   // subTitle: null,
   // maxWidth: null,
