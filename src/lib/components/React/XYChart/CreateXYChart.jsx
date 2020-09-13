@@ -492,7 +492,7 @@ export default function CreateXYChart({
                   {...dataAccessors[0]}
                 />
               )}
-            {/** Temperature axis */}
+            {/* Y axis */}
             <AxisComponent
               label={measureInfo[0].qFallbackTitle}
               orientation={
@@ -506,7 +506,9 @@ export default function CreateXYChart({
                   ? true
                   : false
               }
+              // tickFormat={(d) => `${d * 100}%`}
             />
+            {/* Y axis (dual)*/}
             {dualAxis && (
               <AxisComponent
                 label={measureInfo[1].qFallbackTitle}
