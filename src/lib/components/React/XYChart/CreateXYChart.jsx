@@ -107,7 +107,7 @@ export default function CreateXYChart({
   selectionMethod,
   enableBrush,
   showBrush,
-  asPercent,
+  showAsPercent,
 }) {
   const dimensionCount = dimensionInfo.length;
   const measureCount = measureInfo.length;
@@ -149,7 +149,7 @@ export default function CreateXYChart({
     items.push(series);
   }
 
-  if (asPercent) {
+  if (showAsPercent) {
     if (singleDimension) {
       qMatrix.forEach((d, i) => {
         let positiveSum = 0;
@@ -165,19 +165,20 @@ export default function CreateXYChart({
         });
       });
     } else {
-      if (singleDimension) {
+      if (!singleDimension) {
         qMatrix.forEach((d, i) => {
-          let positiveSum = 0;
-          let negativeSum = 0;
-          measureInfo.forEach((m, mi) => {
-            const value = d[dimensionCount + mi].qNum;
-            value >= 0 ? (positiveSum += value) : (negativeSum += value);
-          });
-          measureInfo.forEach((m, mi) => {
-            const value = d[dimensionCount + mi].qNum;
-            d[dimensionCount + mi].qNum =
-              Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
-          });
+          console.log(d);
+          // let positiveSum = 0;
+          // let negativeSum = 0;
+          // measureInfo.forEach((m, mi) => {
+          //   const value = d[dimensionCount + mi].qNum;
+          //   value >= 0 ? (positiveSum += value) : (negativeSum += value);
+          // });
+          // measureInfo.forEach((m, mi) => {
+          //   const value = d[dimensionCount + mi].qNum;
+          //   d[dimensionCount + mi].qNum =
+          //     Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+          // });
         });
       }
     }
