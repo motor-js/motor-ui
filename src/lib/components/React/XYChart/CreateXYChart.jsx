@@ -101,7 +101,7 @@ export default function CreateXYChart({
   roundNum,
   precision,
   showVerticalCrosshair,
-  showAxis,
+  hideAxisLine,
   gridRows,
   gridColumns,
   selectionMethod,
@@ -125,7 +125,7 @@ export default function CreateXYChart({
   let items = [];
   let keys = [];
 
-  if (dimensionCount !== 1 && !chartType.includes("scatter")) {
+  if (!singleDimension && !chartType.includes("scatter")) {
     qMatrix.forEach((d, i) => {
       if (isNull(dimID)) {
         dimID = d[0].qText;
@@ -190,7 +190,7 @@ export default function CreateXYChart({
   const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
 
   // const getSeriesValues = (d, colIndex) => {
-  //   return dimensionCount !== 1
+  //   return !singleDimension
   //     ? Number(d[1].qNum)
   //     : Number(d[colIndex].qNum);
   // };
@@ -290,6 +290,9 @@ export default function CreateXYChart({
     stroke: "#329af0",
   };
 
+  const chartHideAxisLine =
+    hideAxisLine === undefined ? xyChart.hideAxisLine : hideAxisLine;
+
   return (
     // <div className="container">
 
@@ -301,7 +304,6 @@ export default function CreateXYChart({
       colorScale={colorScaleConfig}
       showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
       showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
-      showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
       roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
       precision={precision === undefined ? xyChart.precision : precision}
       dimensionInfo={dimensionInfo}
@@ -512,12 +514,26 @@ export default function CreateXYChart({
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
               numTicks={5}
+              hideAxisLine={
+                chartHideAxisLine === true ||
+                chartHideAxisLine === "both" ||
+                chartHideAxisLine === "yAxis"
+                  ? true
+                  : false
+              }
             />
             {dualAxis && (
               <AxisComponent
                 label={measureInfo[1].qFallbackTitle}
                 orientation="right"
                 numTicks={9}
+                hideAxisLine={
+                  chartHideAxisLine === true ||
+                  chartHideAxisLine === "both" ||
+                  chartHideAxisLine === "yAxis"
+                    ? true
+                    : false
+                }
               />
             )}
             {/** Dimension axis */}
@@ -525,6 +541,13 @@ export default function CreateXYChart({
               // label={dimensionInfo[0].qFallbackTitle}
               orientation={
                 renderHorizontally ? yAxisOrientation : xAxisOrientation
+              }
+              hideAxisLine={
+                chartHideAxisLine === true ||
+                chartHideAxisLine === "both" ||
+                chartHideAxisLine === "xAxis"
+                  ? true
+                  : false
               }
               tickValues={currData
                 .filter(

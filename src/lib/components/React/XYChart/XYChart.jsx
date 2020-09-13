@@ -84,7 +84,7 @@ XYChart.propTypes = {
   // /** Spacing of Ticks on Y Axis */
   // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
   /** Display Axis and ticks  */
-  showAxis: PropTypes.oneOfType([
+  hideAxisLine: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
@@ -285,7 +285,7 @@ XYChart.defaultProps = {
   sortOrder: [],
   sortDirection: "",
   // stacked: false,
-  asPercent: true,
+  // asPercent: false,
   // title: null,
   // subTitle: null,
   // maxWidth: null,

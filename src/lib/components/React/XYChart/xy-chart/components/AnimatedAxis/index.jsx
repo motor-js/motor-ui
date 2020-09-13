@@ -18,7 +18,7 @@ const defaultLabelProps = {
 };
 
 function AnimatedAxis(props) {
-  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
+  const { theme, xScale, yScale, margin, width, height } = useContext(
     ChartContext
   );
   const { orientation } = props;
@@ -79,20 +79,6 @@ function AnimatedAxis(props) {
   const axisLabelOffset = props.labelOffset ?? 14;
   const axisLabelProps =
     (props.labelProps || axisStyles?.label?.[orientation]) ?? defaultLabelProps;
-
-  switch (showAxis) {
-    case false:
-    case "none":
-      theme.xAxisStyles.strokeWidth = 0;
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-    case "yAxis":
-      theme.xAxisStyles.strokeWidth = 0;
-      break;
-    case "xAxis":
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-  }
 
   return (
     <BaseAxis
