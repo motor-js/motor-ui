@@ -686,6 +686,7 @@ const base = {
     suppressZero: false,
     otherTotalSpec: undefined,
     showLegend: true,
+    showAxisLabels: "both",
     margin: "10px",
     padding: 0.2,
     useAnimatedAxes: false,

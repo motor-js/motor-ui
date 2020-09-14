@@ -77,10 +77,10 @@ XYChart.propTypes = {
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   showLabels: PropTypes.bool,
   // /** Show text on Axis */
-  // textOnAxis: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
-  // ]),
+  showAxisLabels: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
+  ]),
   // /** Spacing of Ticks on Y Axis */
   // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
   /** Display Axis and ticks  */

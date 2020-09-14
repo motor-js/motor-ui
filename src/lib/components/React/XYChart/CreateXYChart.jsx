@@ -109,6 +109,7 @@ export default function CreateXYChart({
   enableBrush,
   showBrush,
   showAsPercent,
+  showAxisLabels,
 }) {
   const dimensionCount = dimensionInfo.length;
   const measureCount = measureInfo.length;
@@ -278,6 +279,15 @@ export default function CreateXYChart({
 
   const chartHideAxisLine =
     hideAxisLine === undefined ? xyChart.hideAxisLine : hideAxisLine;
+
+  const chartShowAxisLabels =
+    showAxisLabels === undefined ? xyChart.showAxisLabels : showAxisLabels;
+
+  chartShowAxisLabels === true ||
+  chartShowAxisLabels === "both" ||
+  chartShowAxisLabels === "xAxis"
+    ? (axisBottomMargin.bottom += 20)
+    : null;
 
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
@@ -511,7 +521,13 @@ export default function CreateXYChart({
               )}
             {/* Y axis */}
             <AxisComponent
-              label={measureInfo[0].qFallbackTitle}
+              label={
+                chartShowAxisLabels === true ||
+                chartShowAxisLabels === "both" ||
+                chartShowAxisLabels === "yAxis"
+                  ? measureInfo[0].qFallbackTitle
+                  : null
+              }
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
@@ -529,7 +545,13 @@ export default function CreateXYChart({
             {/* Y axis (dual)*/}
             {dualAxis && (
               <AxisComponent
-                label={measureInfo[1].qFallbackTitle}
+                label={
+                  chartShowAxisLabels === true ||
+                  chartShowAxisLabels === "both" ||
+                  chartShowAxisLabels === "yAxis"
+                    ? measureInfo[1].qFallbackTitle
+                    : null
+                }
                 orientation="right"
                 numTicks={9}
                 hideAxisLine={
@@ -544,6 +566,13 @@ export default function CreateXYChart({
             {/** Dimension axis */}
             <AxisComponent
               // label={dimensionInfo[0].qFallbackTitle}
+              label={
+                chartShowAxisLabels === true ||
+                chartShowAxisLabels === "both" ||
+                chartShowAxisLabels === "xAxis"
+                  ? dimensionInfo[0].qFallbackTitle
+                  : null
+              }
               orientation={
                 renderHorizontally ? yAxisOrientation : xAxisOrientation
               }
