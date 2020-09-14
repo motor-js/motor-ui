@@ -31,6 +31,5 @@ export default function getLabelTransform({
     y = -(tickLength + labelOffset);
     transform = `rotate(${sign * 90})`;
   }
-
   return { x, y, transform };
 }

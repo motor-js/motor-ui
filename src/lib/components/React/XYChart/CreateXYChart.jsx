@@ -491,8 +491,25 @@ export default function CreateXYChart({
                   ? true
                   : false
               }
-              // tickFormat={(d) => `${d * 100}%`}
               tickFormat={(d) => formatValue(d)}
+              // tickLabelProps={() => ({
+              //   fill: "red",
+              //   fontSize: 11,
+              //   textAnchor: "end",
+              //   dy: "0.33em",
+              // })}
+              // tickFormat={(d) => `${d * 100}%`}
+              // labelProps={{
+              //   x: width + 30,
+              //   y: -10,
+              //   fill: labelColor,
+              //   fontSize: 18,
+              //   strokeWidth: 0,
+              //   stroke: "#fff",
+              //   paintOrder: "stroke",
+              //   fontFamily: "sans-serif",
+              //   textAnchor: "start",
+              // }}
             />
             {/* Y axis (dual)*/}
             {dualAxis && (

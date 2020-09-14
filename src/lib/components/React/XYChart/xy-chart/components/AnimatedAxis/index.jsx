@@ -2,7 +2,6 @@
 import React, { useContext, useMemo } from "react";
 import cx from "classnames";
 import BaseAxis from "@vx/axis/lib/axis/Axis";
-// import getLabelTransform from "@vx/axis";
 import getLabelTransform from "../../util/getLabelTransform";
 import { Text } from "@vx/text";
 import { animated } from "react-spring";
@@ -77,7 +76,7 @@ function AnimatedAxis(props) {
   const tickLength = props.tickLength ?? tickStyles?.tickLength;
   const axisStroke = props.stroke ?? axisStyles?.stroke;
   const axisStrokeWidth = props.strokeWidth ?? axisStyles?.strokeWidth;
-  const axisLabelOffset = props.labelOffset ?? 14;
+  const axisLabelOffset = props.labelOffset ?? 18; // was 14
   const axisLabelProps =
     (props.labelProps || axisStyles?.label?.[orientation]) ?? defaultLabelProps;
 
