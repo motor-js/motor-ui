@@ -195,6 +195,7 @@ const QlikObject = ({
 export default QlikObject
 
 QlikObject.propTypes = {
+  id: PropTypes.string.isRequired,
   height: PropTypes.string,
   width: PropTypes.string,
   margin: PropTypes.string,
