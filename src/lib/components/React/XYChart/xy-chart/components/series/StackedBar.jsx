@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { extent } from "d3-array";
+import { Group } from "@vx/group";
 import BarStack from "./BarStack";
 import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
@@ -223,18 +224,22 @@ export default function Stack({ horizontal, children, ...rectProps }) {
       {(barStacks) => {
         // use this reference to find nearest mouse values
         stacks.current = barStacks;
-        return barStacks.map((barStack, index) => (
-          <AnimatedBars
-            key={`${index}-${barStack.bars.length}`}
-            bars={barStack.bars}
-            stroke={theme.baseColor ?? "white"}
-            handleClick={handleClick}
-            // selectionIds={selectionIds}
-            currentSelectionIds={currentSelectionIds}
-            theme={theme}
-            {...rectProps}
-          />
-        ));
+        return (
+          <Group className={"vx-bar-stack"}>
+            {barStacks.map((barStack, index) => (
+              <AnimatedBars
+                key={`${index}-${barStack.bars.length}`}
+                bars={barStack.bars}
+                stroke={theme.baseColor ?? "white"}
+                handleClick={handleClick}
+                // selectionIds={selectionIds}
+                currentSelectionIds={currentSelectionIds}
+                theme={theme}
+                {...rectProps}
+              />
+            ))}
+          </Group>
+        );
       }}
     </BarStackHorizontal>
   ) : (
@@ -252,18 +257,22 @@ export default function Stack({ horizontal, children, ...rectProps }) {
       {(barStacks) => {
         // use this reference to find nearest mouse values
         stacks.current = barStacks;
-        return barStacks.map((barStack, index) => (
-          <AnimatedBars
-            key={`${index}-${barStack.bars.length}`}
-            bars={barStack.bars}
-            stroke={theme.baseColor ?? "white"}
-            handleClick={handleClick}
-            // selectionIds={selectionIds}
-            currentSelectionIds={currentSelectionIds}
-            theme={theme}
-            {...rectProps}
-          />
-        ));
+        return (
+          <Group className={"vx-bar-stack"}>
+            {barStacks.map((barStack, index) => (
+              <AnimatedBars
+                key={`${index}-${barStack.bars.length}`}
+                bars={barStack.bars}
+                stroke={theme.baseColor ?? "white"}
+                handleClick={handleClick}
+                // selectionIds={selectionIds}
+                currentSelectionIds={currentSelectionIds}
+                theme={theme}
+                {...rectProps}
+              />
+            ))}
+          </Group>
+        );
       }}
     </BarStack>
   );

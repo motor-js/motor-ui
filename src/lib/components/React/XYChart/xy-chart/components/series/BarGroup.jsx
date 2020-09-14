@@ -81,7 +81,12 @@ export default function BarGroupComponent({
   }));
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (children) return <>{children(barGroups)}</>;
+  if (children)
+    return (
+      <Group className={cx("vx-bar-group", className)} top={top} left={left}>
+        {children(barGroups)}
+      </Group>
+    );
 
   return (
     <Group className={cx("vx-bar-group", className)} top={top} left={left}>
