@@ -18,6 +18,13 @@ import {
   isNull,
 } from "../../../utils";
 
+let measureCount = null;
+let dimensionCount = null;
+let singleDimension = null;
+let singleMeasure = null;
+let dataKeys = null;
+let keys = [];
+
 function StyledXYChart(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
@@ -27,8 +34,6 @@ function StyledXYChart(props) {
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [data, setData] = useState(null);
-  const [keyItems, setKeys] = useState(null);
-  const [dataKeys, setDataKeys] = useState(null);
 
   const [showBrush, setShowBrush] = useState(false);
   const enableBrush = () => setShowBrush(true);
@@ -171,13 +176,15 @@ function StyledXYChart(props) {
       (qData && data === null) ||
       (qData && data && qData.qMatrix.length !== data.length && isValid)
     ) {
-      const singleDimension = qLayout.qHyperCube.qDimensionInfo.length === 1;
-      const singleMeasure = qLayout.qHyperCube.qMeasureInfo.length === 1;
+      dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
+      measureCount = qLayout.qHyperCube.qMeasureInfo.length;
+      singleDimension = dimensionCount === 1;
+      singleMeasure = measureCount === 1;
 
       let series = [];
       let dimID = null;
       let items = [];
-      let keys = [];
+      // let keys = [];
 
       if (!singleDimension && !type.includes("scatter")) {
         qData.qMatrix.forEach((d, i) => {
@@ -203,7 +210,7 @@ function StyledXYChart(props) {
         items.push(series);
       }
 
-      const dataKeys =
+      dataKeys =
         multiColor && singleDimension && singleMeasure && type.includes("bar")
           ? data.map((d) => d[0].qText)
           : !singleDimension
@@ -211,8 +218,8 @@ function StyledXYChart(props) {
           : null;
 
       setData(singleDimension ? qData.qMatrix : items);
-      setKeys(keys);
-      setDataKeys(dataKeys);
+      // setKeys(keys);
+      // setDataKeys(dataKeys);
     }
   }, [qData]);
 
@@ -261,10 +268,12 @@ function StyledXYChart(props) {
               qLayout={qLayout}
               // qData={data}
               theme={theme}
-              // singleDimension={singleDimension}
-              // singleMeasure={singleMeasure}
+              singleDimension={singleDimension}
+              singleMeasure={singleMeasure}
+              measureCount={measureCount}
+              dimensionCount={dimensionCount}
               data={data}
-              keys={keyItems}
+              keys={keys}
               dataKeys={dataKeys}
               beginSelections={beginSelections}
               select={select}

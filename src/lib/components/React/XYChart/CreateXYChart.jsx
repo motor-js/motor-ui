@@ -111,16 +111,11 @@ export default function CreateXYChart({
   showBrush,
   showAsPercent,
   showAxisLabels,
-  //  singleMeasure,
-  //  singleDimension,
-  //  dimensionCount,
-  //  measureCount,
+  singleMeasure,
+  singleDimension,
+  dimensionCount,
+  measureCount,
 }) {
-  const dimensionCount = dimensionInfo.length;
-  const measureCount = measureInfo.length;
-  const singleDimension = dimensionCount === 1;
-  const singleMeasure = measureCount === 1;
-
   const getChartType = () =>
     type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
 
