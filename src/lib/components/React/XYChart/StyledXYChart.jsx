@@ -11,7 +11,12 @@ import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
 import { createColorArray } from "../../../utils/colors";
 
-import { numericSortDirection, isEmpty, validData } from "../../../utils";
+import {
+  numericSortDirection,
+  isEmpty,
+  validData,
+  isNull,
+} from "../../../utils";
 
 function StyledXYChart(props) {
   // Ref for d3 object
@@ -22,6 +27,8 @@ function StyledXYChart(props) {
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [data, setData] = useState(null);
+  const [keyItems, setKeys] = useState(null);
+  const [dataKeys, setDataKeys] = useState(null);
 
   const [showBrush, setShowBrush] = useState(false);
   const enableBrush = () => setShowBrush(true);
@@ -113,6 +120,7 @@ function StyledXYChart(props) {
 
   const confirmCallback = async () => {
     await endSelections(true);
+    setCurrentSelectionIds([]);
     setShowBrush(false);
   };
 
@@ -138,37 +146,75 @@ function StyledXYChart(props) {
   //   setSel(...sel, s);
   // };
 
-  useEffect(
-    () => {
-      let valid;
-      if (qLayout) {
-        // setObjId(qLayout.qInfo.qId);
-        setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
-        valid = validData(qLayout, theme);
-        if (valid) {
-          setIsValid(valid.isValid);
-          setDataError(valid.dataError);
-        }
+  // let keys = [];
+
+  useEffect(() => {
+    let valid;
+    if (qLayout) {
+      // setObjId(qLayout.qInfo.qId);
+      setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
+      valid = validData(qLayout, theme);
+      if (valid) {
+        setIsValid(valid.isValid);
+        setDataError(valid.dataError);
+      }
+    }
+
+    // window.addEventListener("resize", handleResize);
+
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    // qData && data && console.log(qData.qMatrix.length, data.length);
+    // qData && setData(qData);
+
+    if (
+      (qData && data === null) ||
+      (qData && data && qData.qMatrix.length !== data.length && isValid)
+    ) {
+      const singleDimension = qLayout.qHyperCube.qDimensionInfo.length === 1;
+      const singleMeasure = qLayout.qHyperCube.qMeasureInfo.length === 1;
+
+      let series = [];
+      let dimID = null;
+      let items = [];
+      let keys = [];
+
+      if (!singleDimension && !type.includes("scatter")) {
+        qData.qMatrix.forEach((d, i) => {
+          if (isNull(dimID)) {
+            dimID = d[0].qText;
+            series.push(d[0]);
+          }
+
+          if (dimID !== d[0].qText) {
+            items.push(series);
+            series = [];
+            series.push(d[0]);
+            dimID = d[0].qText;
+          }
+          const measure = d[1];
+          measure.qNum = d[2].qNum;
+          if (!keys.includes(measure.qText)) {
+            keys.push(measure.qText);
+          }
+          series.push(measure);
+        });
+
+        items.push(series);
       }
 
-      // window.addEventListener("resize", handleResize);
+      const dataKeys =
+        multiColor && singleDimension && singleMeasure && type.includes("bar")
+          ? data.map((d) => d[0].qText)
+          : !singleDimension
+          ? keys
+          : null;
 
-      // return () => {
-      //   window.removeEventListener("resize", handleResize);
-      // qData && data && console.log(qData.qMatrix.length, data.length);
-      // qData && setData(qData);
-      if (
-        (qData && data === null) ||
-        (qData && data && qData.qMatrix.length !== data.length && isValid)
-      ) {
-        setData(qData.qMatrix);
-        setCurrentSelectionIds([]);
-      }
-      // };
-    },
-    [qData]
-    // refreshChart
-  );
+      setData(singleDimension ? qData.qMatrix : items);
+      setKeys(keys);
+      setDataKeys(dataKeys);
+    }
+  }, [qData]);
 
   return (
     <>
@@ -215,7 +261,11 @@ function StyledXYChart(props) {
               qLayout={qLayout}
               // qData={data}
               theme={theme}
-              qMatrix={data}
+              // singleDimension={singleDimension}
+              // singleMeasure={singleMeasure}
+              data={data}
+              keys={keyItems}
+              dataKeys={dataKeys}
               beginSelections={beginSelections}
               select={select}
               // refreshChart={refreshChart}

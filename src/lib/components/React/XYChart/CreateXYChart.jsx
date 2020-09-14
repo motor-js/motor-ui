@@ -23,7 +23,7 @@ import { roundNumber } from "./xy-chart/util/roundNumber";
 
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 
-import { colorByExpression, isNull } from "../../../utils";
+import { colorByExpression } from "../../../utils";
 
 const numDimensionTicks = 5;
 
@@ -65,8 +65,9 @@ export default function CreateXYChart({
   width,
   height,
   events = false,
-  // qData: { qMatrix },
-  qMatrix,
+  data,
+  keys,
+  dataKeys,
   qLayout: {
     qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
@@ -110,6 +111,10 @@ export default function CreateXYChart({
   showBrush,
   showAsPercent,
   showAxisLabels,
+  //  singleMeasure,
+  //  singleDimension,
+  //  dimensionCount,
+  //  measureCount,
 }) {
   const dimensionCount = dimensionInfo.length;
   const measureCount = measureInfo.length;
@@ -119,37 +124,7 @@ export default function CreateXYChart({
   const getChartType = () =>
     type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
 
-  // const [chartType, setchartType] = useState([getChartType()]);
   const chartType = [getChartType()];
-
-  let series = [];
-  let dimID = null;
-  let items = [];
-  let keys = [];
-
-  if (!singleDimension && !chartType.includes("scatter")) {
-    qMatrix.forEach((d, i) => {
-      if (isNull(dimID)) {
-        dimID = d[0].qText;
-        series.push(d[0]);
-      }
-
-      if (dimID !== d[0].qText) {
-        items.push(series);
-        series = [];
-        series.push(d[0]);
-        dimID = d[0].qText;
-      }
-      const measure = d[1];
-      measure.qNum = d[2].qNum;
-      if (!keys.includes(measure.qText)) {
-        keys.push(measure.qText);
-      }
-      series.push(measure);
-    });
-
-    items.push(series);
-  }
 
   if (showAsPercent) {
     const percentageData = singleDimension ? qMatrix : items;
@@ -170,27 +145,9 @@ export default function CreateXYChart({
     });
   }
 
-  const data = singleDimension ? qMatrix : items;
-
   const [currData, setCurrData] = useState(data);
 
   const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
-
-  // const getSeriesValues = (d, colIndex) => {
-  //   return !singleDimension
-  //     ? Number(d[1].qNum)
-  //     : Number(d[colIndex].qNum);
-  // };
-
-  const dataKeys =
-    multiColor &&
-    dimensionCount == 1 &&
-    singleMeasure &&
-    chartType.includes("bar")
-      ? data.map((d) => d[0].qText)
-      : dimensionCount === 2
-      ? keys
-      : null;
 
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
