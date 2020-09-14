@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react'
 import PropTypes from "prop-types"
-import useCapability from '../../../hooks/useCapability'
-import { ConfigContext } from '../../../contexts/ConfigProvider'
 import Spinner from '../Spinner'
+import { CapabilityContext } from '../../../contexts/CapabilityProvider'
 
 const QlikSelections = ({
   height,
@@ -10,8 +9,7 @@ const QlikSelections = ({
   border,
 }) => {
   const node = useRef(null)
-  const myConfig = useContext(ConfigContext)
-  const { app } = useCapability(myConfig)
+  const { app } = useContext(CapabilityContext)
 
   useEffect(() => {
     if(app) {

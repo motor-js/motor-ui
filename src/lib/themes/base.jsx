@@ -1093,6 +1093,12 @@ const base = {
   modal: {
     radius: "8px",
   },
+  QlikObject: {
+    
+  },
+  QlikSelections: {
+
+  }
 };
 
 export default base;
