@@ -286,8 +286,8 @@ export default function CreateXYChart({
   chartShowAxisLabels === true ||
   chartShowAxisLabels === "both" ||
   chartShowAxisLabels === "xAxis"
-    ? (axisBottomMargin.bottom += 20)
-    : null;
+    ? (axisBottomMargin.bottom = 60)
+    : (axisBottomMargin.bottom = 40);
 
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
