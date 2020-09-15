@@ -681,14 +681,46 @@ const base = {
     timeout: 5000,
   },
   xyChart: {
-    borderRadius: "10px",
-    backgroundColor: "white",
+    wrapper: {
+      borderRadius: "10px",
+      backgroundColor: "white",
+      userSelect: "none", // add to props
+      display: "flex", // add to props
+      boxSizing: "border-box",
+      position: "relative",
+      padding: "16px 16px 0px",
+      fontWeight: 700,
+      color: "rgb(38, 38, 38)",
+      minHeight: "200px",
+      textDecoration: "none",
+      boxShadow: "rgba(0, 0, 0, 0.1) -2px 2px 8px 0px",
+      flexDirection: "column",
+    },
+    titles: {
+      wrapper: {
+        display: "flex",
+        flexDirection: "column",
+        webkitBoxPack: "justify",
+        justifyContent: "space-between",
+        maxHeight: "50px",
+        backgroundColor: "rgb(247, 247, 247)",
+        margin: "-16px -16px 0px",
+        padding: "15px 16px 16px",
+        marginBottom: "10px",
+      },
+      title: {
+        color: "var(--oc-gray-8)",
+      },
+      subTitle: {
+        color: "var(--oc-gray-6)",
+      },
+    },
     suppressZero: false,
     otherTotalSpec: undefined,
     showLegend: true,
     showAxisLabels: "both",
     margin: "10px",
-    padding: 0.2,
+    padding: 0.2, // Padding between bars
     useAnimatedAxes: false,
     includeZero: true,
     multiColor: true,
@@ -697,15 +729,13 @@ const base = {
     renderHorizontally: false,
     allowSelections: true, //captureEvents if captureevents true the cannot make selections
     events: false,
-    boxSizing: "border-box",
-    userSelect: "none", // add to props
-    display: "inline-block", // add to props
+
     showLabels: true,
     showPoints: true,
     roundNum: true,
     precision: true,
     showVerticalCrosshair: true,
-    hideAxisLine: "both",
+    hideAxisLine: "yAxis",
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",
@@ -829,7 +859,7 @@ const base = {
             textAnchor: "middle",
             fontWeight: 700,
             pointerEvents: "none",
-            dx: "-1.5em",
+            dx: "-2em", // "-1.5em",
           },
           right: {
             fill: "#212529",

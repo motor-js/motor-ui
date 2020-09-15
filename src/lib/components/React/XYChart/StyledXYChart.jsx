@@ -236,12 +236,12 @@ function StyledXYChart(props) {
         >
           <div
             ref={ref}
-            style={{
-              position: "relative",
-              height,
-              // margin: "10px",
-              margin: refMargin,
-            }}
+            // style={{
+            //   position: "relative",
+            //   height,
+            //   // margin: "10px",
+            //   margin: refMargin,
+            // }}
           >
             {/* <div
                 className="d3-component"

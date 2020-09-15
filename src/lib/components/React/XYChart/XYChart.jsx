@@ -177,10 +177,10 @@ XYChart.propTypes = {
   roundNum: PropTypes.bool,
   /** Decimai precision for RoundNum of the Bar */
   precision: PropTypes.bool,
-  // /** Title of the Bar */
-  // title: PropTypes.string,
-  // /** Sub Title of the Bar */
-  // subTitle: PropTypes.string,
+  /** Title of the Bar */
+  title: PropTypes.string,
+  /** Sub Title of the Bar */
+  subTitle: PropTypes.string,
   /** Legend of the chart */
   showLegend: PropTypes.oneOfType([
     PropTypes.bool,

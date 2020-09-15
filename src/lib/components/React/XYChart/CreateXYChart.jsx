@@ -14,6 +14,7 @@ import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
+import Title from "./xy-chart/components/titles/Title";
 import StackedBar from "./xy-chart/components/series/StackedBar";
 import StackedArea from "./xy-chart/components/series/StackedArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
@@ -115,7 +116,10 @@ export default function CreateXYChart({
   singleDimension,
   dimensionCount,
   measureCount,
+  title,
+  subTitle,
 }) {
+  // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
     type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
 
@@ -281,6 +285,7 @@ export default function CreateXYChart({
       formatValue={formatValue}
     >
       <EventProvider>
+        {title && <Title title={title} subTitle={subTitle} />}
         {legendTopBottom === "top" && legend}
         <div
           className="container"
@@ -293,7 +298,7 @@ export default function CreateXYChart({
         >
           <XYChart
             height={height}
-            width={autoWidth ? undefined : width}
+            // width={autoWidth ? undefined : width}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
