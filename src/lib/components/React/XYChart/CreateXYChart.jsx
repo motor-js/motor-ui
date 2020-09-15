@@ -492,13 +492,13 @@ export default function CreateXYChart({
                   : false
               }
               tickFormat={(d) => formatValue(d)}
+              // tickFormat={(d) => `${d * 100}%`}
               // tickLabelProps={() => ({
               //   fill: "red",
               //   fontSize: 11,
               //   textAnchor: "end",
               //   dy: "0.33em",
               // })}
-              // tickFormat={(d) => `${d * 100}%`}
               // labelProps={{
               //   x: width + 30,
               //   y: -10,
