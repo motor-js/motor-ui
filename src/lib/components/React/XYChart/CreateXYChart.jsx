@@ -387,27 +387,27 @@ export default function CreateXYChart({
             )}
             {chartType.includes("line") && (
               <>
-                {measureInfo.map((measure, index) => (
-                  <LineSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    glyph={measureInfo[index].qShowPoints}
-                    strokeDasharray={measure.qLegendShape}
-                    data={currData}
-                    {...dataAccessors[index]}
-                    strokeWidth={1.5}
-                  />
-                ))
-                // : dataKeys.map((measure, index) => (
-                //     <LineSeries
-                //       key={measure}
-                //       dataKey={measure}
-                //       data={currData}
-                //       {...dataAccessors[index]}
-                //       strokeWidth={1.5}
-                //     />
-                //   ))
-                }
+                {dimensionCount <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <LineSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        glyph={measureInfo[index].qShowPoints}
+                        strokeDasharray={measure.qLegendShape}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={1.5}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <LineSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={1.5}
+                      />
+                    ))}
               </>
             )}
             {chartType.includes("combo") &&
@@ -461,10 +461,12 @@ export default function CreateXYChart({
                     ))
                   : dataKeys.map((measure, index) => (
                       <AreaSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        glyph={measureInfo[index].qShowPoints}
-                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        // key={measureInfo[index].qFallbackTitle}
+                        // dataKey={measureInfo[index].qFallbackTitle}
+                        key={measure}
+                        dataKey={measure}
+                        // glyph={measureInfo[index].qShowPoints}
+                        // fillStyle={measureInfo[index].qFillStyle || fillStyle}
                         data={currData}
                         {...dataAccessors[index]}
                         strokeWidth={1.5}

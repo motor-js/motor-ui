@@ -76,7 +76,7 @@ export default function Tooltip({
   const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
     <>
       <div>{closestDatum.datum[0].qText}</div>
-      {/* <Console log={closestDatum.datum[0].qText} /> */}
+      {/* <Console log={"dd"} /> */}
       <br />
       {singleDimension && singleMeasure && dataKeys && (
         <div
