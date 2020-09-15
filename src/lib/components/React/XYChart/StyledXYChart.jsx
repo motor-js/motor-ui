@@ -214,15 +214,13 @@ function StyledXYChart(props) {
       }
 
       dataKeys =
-        multiColor && singleDimension && singleMeasure && type.includes("bar")
-          ? data.map((d) => d[0].qText)
+        singleDimension && singleMeasure && type === "bar"
+          ? qData.qMatrix.map((d) => d[0].qText)
           : !singleDimension
           ? keys
           : null;
 
       setData(singleDimension ? qData.qMatrix : items);
-      // setKeys(keys);
-      // setDataKeys(dataKeys);
     }
   }, [qData]);
 
@@ -240,15 +238,15 @@ function StyledXYChart(props) {
             showBoxShadow,
             xyChart.wrapper.showBoxShadow
           )}
+          ref={ref}
         >
           <div
-            ref={ref}
-            // style={{
-            //   position: "relative",
-            //   height,
-            //   // margin: "10px",
-            //   margin: refMargin,
-            // }}
+          // style={{
+          //   position: "relative",
+          //   height,
+          //   // margin: "10px",
+          //   margin: refMargin,
+          // }}
           >
             {/* <div
                 className="d3-component"
@@ -315,25 +313,15 @@ function StyledXYChart(props) {
               }
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
               fillStyle={fillStyle || xyChart.fillStyles}
-              multiColor={
-                // multiColor === undefined ? xyChart.multiColor : multiColor
-                valIfUndefined(multiColor, xyChart.multiColor)
-              }
-              showVerticalCrosshair={
-                // showVerticalCrosshair === undefined
-                //   ? xyChart.showVerticalCrosshair
-                //   : showVerticalCrosshair
-                valIfUndefined(
-                  showVerticalCrosshair,
-                  xyChart.showVerticalCrosshair
-                )
-              }
-              selectionMethod={
-                // selectionMethod === undefined
-                //   ? xyChart.selectionMethod
-                //   : selectionMethod
-                valIfUndefined(selectionMethod, xyChart.selectionMethod)
-              }
+              multiColor={valIfUndefined(multiColor, xyChart.multiColor)}
+              showVerticalCrosshair={valIfUndefined(
+                showVerticalCrosshair,
+                xyChart.showVerticalCrosshair
+              )}
+              selectionMethod={valIfUndefined(
+                selectionMethod,
+                xyChart.selectionMethod
+              )}
               enableBrush={enableBrush}
               showBrush={showBrush}
               {...rest}

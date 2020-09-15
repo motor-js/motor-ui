@@ -852,7 +852,7 @@ const base = {
           textAnchor: "middle",
           fontWeight: 700,
           pointerEvents: "none",
-          dx: "-2em", // "-1.5em",
+          dx: "-1.75em", // "-1.5em",
         },
         right: {
           fill: "#212529",
