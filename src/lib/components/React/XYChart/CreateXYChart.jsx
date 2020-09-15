@@ -207,7 +207,7 @@ export default function CreateXYChart({
   const { xyChart } = theme;
 
   const themeObj = {
-    ...theme.xyChart.defaultTheme,
+    ...theme.xyChart,
     colors,
   };
 

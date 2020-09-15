@@ -10,6 +10,7 @@ function SelectionModal({
   isOpen,
   margin,
   offset,
+  offsetX,
   width,
   buttonType,
   bckgColorConfirm,
@@ -37,6 +38,7 @@ function SelectionModal({
       isOpen={isOpen}
       margin={margin}
       offset={offset}
+      offsetX={offsetX}
       width={width}
       buttonType={buttonType}
       bckgColorConfirm={bckgColorConfirm}
@@ -63,6 +65,7 @@ SelectionModal.propTypes = {
   isOpen: PropTypes.bool,
   margin: PropTypes.string,
   offset: PropTypes.number,
+  offsetX: PropTypes.number,
   width: PropTypes.string,
   buttonType: PropTypes.oneOf(["icon", "text"]),
   hoverOpacityConfirm: PropTypes.string,

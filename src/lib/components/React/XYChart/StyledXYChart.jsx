@@ -84,6 +84,7 @@ function StyledXYChart(props) {
     multiColor,
     fillStyle,
     showVerticalCrosshair,
+    showBoxShadow,
     ...rest
   } = props;
 
@@ -233,6 +234,11 @@ function StyledXYChart(props) {
           margin={margin || xyChart.margin}
           gridArea={gridArea}
           width={width}
+          showBoxShadow={
+            showBoxShadow === undefined
+              ? xyChart.wrapper.showBoxShadow
+              : showBoxShadow
+          }
         >
           <div
             ref={ref}
@@ -303,13 +309,10 @@ function StyledXYChart(props) {
               snapTooltipToDataX={snapTooltipToDataX}
               snapTooltipToDataY={snapTooltipToDataY}
               backgroundPattern={
-                backgroundPattern ||
-                xyChart.defaultTheme.backgroundStyles.pattern
+                backgroundPattern || xyChart.backgroundStyles.pattern
               }
-              backgroundStyle={
-                backgroundStyle || xyChart.defaultTheme.backgroundStyles
-              }
-              fillStyle={fillStyle || xyChart.defaultTheme.fillStyles}
+              backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
+              fillStyle={fillStyle || xyChart.fillStyles}
               multiColor={
                 multiColor === undefined ? xyChart.multiColor : multiColor
               }
@@ -331,6 +334,7 @@ function StyledXYChart(props) {
               isOpen={!isEmpty(currentSelectionIds)}
               cancelCallback={cancelCallback}
               confirmCallback={confirmCallback}
+              offsetX={0}
               // width={width}
             />
           </div>

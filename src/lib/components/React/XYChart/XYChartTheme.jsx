@@ -26,7 +26,8 @@ const XYChartWrapper = styled.div`
   color: ${(props) => props.theme.xyChart.wrapper.color};
   min-height: ${(props) => props.theme.xyChart.wrapper.minHeight};
   text-decoration: ${(props) => props.theme.xyChart.wrapper.textDirection};
-  box-shadow: ${(props) => props.theme.xyChart.wrapper.boxShadow};
+  box-shadow: ${(props) =>
+    props.showBoxShadow ? props.theme.xyChart.wrapper.boxShadow : null};
   flex-direction: ${(props) => props.theme.xyChart.wrapper.flexDirection};
 `;
 

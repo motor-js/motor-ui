@@ -2,21 +2,11 @@ import React from "react";
 import { localPoint } from "@vx/event";
 import { scaleOrdinal } from "@vx/scale";
 
-import theme from "../../../../../../themes/defaultTheme";
-
-const {
-  xyChart: { defaultTheme },
-} = theme;
-
 import ChartContext from "../../context/ChartContext";
 import createScale from "../../createScale";
 import findNearestDatumXY from "../../util/findNearestDatumXY";
 
 export default class ChartProvider extends React.Component {
-  static defaultProps = {
-    theme: defaultTheme,
-  };
-
   state = {
     dataRegistry: {},
     margin: { top: 30, right: 30, bottom: 30, left: 30 },
@@ -261,13 +251,6 @@ export default class ChartProvider extends React.Component {
       singleMeasure,
       formatValue,
     } = this.props;
-
-    // console.log(currentSelectionIds);
-    // if (!currentSelectionIds) {
-    //   this.setState({
-    //     selectionIds: [],
-    //   });
-    // }
 
     const {
       width,

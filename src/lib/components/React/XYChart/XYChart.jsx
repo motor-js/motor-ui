@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledXYChart from "./StyledXYChart";
 import { ConfigContext } from "../../../contexts/ConfigProvider";
-import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
 import useEngine from "../../../hooks/useEngine";
 
 function XYChart({ ...rest }) {
   const myConfig = useContext(ConfigContext);
-  const theme = useContext(ThemeContext) || defaultTheme;
+  const theme = useContext(ThemeContext);
   const { engine, engineError } =
     useContext(EngineContext) || useEngine(myConfig);
 
@@ -94,6 +93,8 @@ XYChart.propTypes = {
   gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   // /** Color of the Bar label */
   // fontColor: PropTypes.string,
+  /** Show shadow around XYChart */
+  showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
     PropTypes.bool,
