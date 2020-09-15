@@ -63,14 +63,12 @@ export default function Tooltip({
 
   const Container = renderInPortal ? Portal : React.Fragment;
 
-  const Console = (prop) => (
-    console[Object.keys(prop)[0]](...Object.values(prop)),
-    null // ➜ React components must return something
-  );
+  // const Console = (prop) => (
+  //   console[Object.keys(prop)[0]](...Object.values(prop)),
+  //   null // ➜ React components must return something
+  // );
 
   const getValue = (measure, data) => {
-    // console.log(data.datum);
-    // data.datum.filter(d)=>{}
     const x = data.datum.filter((s) => s.qText === measure);
     return x[0].qNum;
   };
@@ -91,33 +89,36 @@ export default function Tooltip({
           {formatValue(closestDatum.datum[1].qNum)}
         </div>
       )}
-      {measureInfo.map(
-        (measure, index) =>
-          closestData?.[`${measure.qFallbackTitle}`] &&
-          closestDatum.datum[0].qText ===
-            closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
-            <div
-              key={measure.qFallbackTitle}
-              style={{
-                color: colorScale(`${measure.qFallbackTitle}`),
-                textDecoration:
-                  closestDatum.key === `${measure.qFallbackTitle}`
-                    ? "underline solid currentColor"
-                    : "none",
-                fontWeight:
-                  closestDatum.key === `${measure.qFallbackTitle}`
-                    ? "bold"
-                    : "normal",
-              }}
-            >
-              {measure.qFallbackTitle}{" "}
-              {formatValue(
-                closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum
-              )}
-            </div>
-          )
-      )}
+      {singleDimension &&
+        !singleMeasure &&
+        measureInfo.map(
+          (measure, index) =>
+            closestData?.[`${measure.qFallbackTitle}`] &&
+            closestDatum.datum[0].qText ===
+              closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+              <div
+                key={measure.qFallbackTitle}
+                style={{
+                  color: colorScale(`${measure.qFallbackTitle}`),
+                  textDecoration:
+                    closestDatum.key === `${measure.qFallbackTitle}`
+                      ? "underline solid currentColor"
+                      : "none",
+                  fontWeight:
+                    closestDatum.key === `${measure.qFallbackTitle}`
+                      ? "bold"
+                      : "normal",
+                }}
+              >
+                {measure.qFallbackTitle}{" "}
+                {formatValue(
+                  closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum
+                )}
+              </div>
+            )
+        )}
       {!singleDimension &&
+        singleMeasure &&
         dataKeys &&
         dataKeys.map(
           (measure, index) =>
