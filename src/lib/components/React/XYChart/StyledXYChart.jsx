@@ -18,7 +18,7 @@ import {
   isNull,
 } from "../../../utils";
 
-import { valIfUndefined } from "./xy-chart/util/chartUtils";
+import { valueIfUndefined } from "./xy-chart/util/chartUtils";
 
 let measureCount = null;
 let dimensionCount = null;
@@ -231,7 +231,7 @@ function StyledXYChart(props) {
           margin={margin || xyChart.margin}
           gridArea={gridArea}
           width={width}
-          showBoxShadow={valIfUndefined(
+          showBoxShadow={valueIfUndefined(
             showBoxShadow,
             xyChart.wrapper.showBoxShadow
           )}
@@ -298,7 +298,7 @@ function StyledXYChart(props) {
               legendLeftRight={legendLeftRight}
               showLegend={
                 // showLegend === undefined ? xyChart.showLegend : showLegend
-                valIfUndefined(showLegend, xyChart.showLegend)
+                valueIfUndefined(showLegend, xyChart.showLegend)
               }
               legendTopBottom={legendTopBottom}
               legendDirection={legendDirection}
@@ -310,12 +310,12 @@ function StyledXYChart(props) {
               }
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
               fillStyle={fillStyle || xyChart.fillStyles}
-              multiColor={valIfUndefined(multiColor, xyChart.multiColor)}
-              showVerticalCrosshair={valIfUndefined(
+              multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
+              showVerticalCrosshair={valueIfUndefined(
                 showVerticalCrosshair,
                 xyChart.showVerticalCrosshair
               )}
-              selectionMethod={valIfUndefined(
+              selectionMethod={valueIfUndefined(
                 selectionMethod,
                 xyChart.selectionMethod
               )}

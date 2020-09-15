@@ -38,7 +38,7 @@ export function getChildWithName(name, children) {
 export function isDefined(val) {
   return typeof val !== "undefined" && val !== null;
 }
-export function valIfUndefined(val, alternative) {
+export function valueIfUndefined(val, alternative) {
   return typeof val !== "undefined" && val !== null ? val : alternative;
 }
 

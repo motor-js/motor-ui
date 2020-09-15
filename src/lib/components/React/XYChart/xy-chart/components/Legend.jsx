@@ -3,6 +3,7 @@ import { Legend as BaseLegend } from "@vx/legend";
 import { RectShape, LineShape, CircleShape } from "@vx/legend";
 
 import ChartContext from "../context/ChartContext";
+import { isDefined } from "../util/chartUtils";
 
 export default function Legend({
   alignLeft = true,
@@ -11,16 +12,25 @@ export default function Legend({
   style,
   ...props
 }) {
-  const { theme, margin, colorScale, dataRegistry } = useContext(ChartContext);
+  const {
+    theme,
+    margin,
+    colorScale,
+    dataRegistry,
+    legendLabelStyle,
+  } = useContext(ChartContext);
+
   const legendLabelProps = useMemo(
-    () => ({ style: { ...theme.legendLabelStyles } }),
+    () => ({ style: { ...theme.legendLabelStyles, ...legendLabelStyle } }),
     [theme]
   );
   const legendStyles = useMemo(
     () => ({
       display: "flex",
       background: theme?.baseColor ?? "white",
-      color: theme?.legendLabelStyles?.fill,
+      color: isDefined(legendLabelStyle)
+        ? legendLabelStyle.fill
+        : theme?.legendLabelStyles?.fill,
       paddingLeft: margin.left,
       paddingRight: margin.right,
       [direction === "row" || direction === "row-reverse"

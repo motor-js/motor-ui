@@ -25,7 +25,7 @@ import { roundNumber } from "./xy-chart/util/roundNumber";
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 
 import { colorByExpression } from "../../../utils";
-import { valIfUndefined } from "./xy-chart/util/chartUtils";
+import { valueIfUndefined } from "./xy-chart/util/chartUtils";
 
 const numDimensionTicks = 5;
 
@@ -118,6 +118,7 @@ export default function CreateXYChart({
   measureCount,
   title,
   subTitle,
+  legendLabelStyle,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -233,9 +234,12 @@ export default function CreateXYChart({
     stroke: "#329af0",
   };
 
-  const chartHideAxisLine = valIfUndefined(hideAxisLine, xyChart.hideAxisLine);
+  const chartHideAxisLine = valueIfUndefined(
+    hideAxisLine,
+    xyChart.hideAxisLine
+  );
 
-  const chartShowAxisLabels = valIfUndefined(
+  const chartShowAxisLabels = valueIfUndefined(
     showAxisLabels,
     xyChart.showAxisLabels
   );
@@ -249,8 +253,8 @@ export default function CreateXYChart({
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
-    const valPrecision = valIfUndefined(precision, xyChart.precision);
-    const valRoundNum = valIfUndefined(roundNum, xyChart.roundNum);
+    const valPrecision = valueIfUndefined(precision, xyChart.precision);
+    const valRoundNum = valueIfUndefined(roundNum, xyChart.roundNum);
 
     if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
     let formattedValue = valRoundNum
@@ -269,10 +273,10 @@ export default function CreateXYChart({
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
-      showLabels={valIfUndefined(showLabels, xyChart.showLabels)}
-      showPoints={valIfUndefined(showPoints, xyChart.showPoints)}
-      roundNum={valIfUndefined(roundNum, xyChart.roundNum)}
-      precision={valIfUndefined(precision, xyChart.precision)}
+      showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
+      showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
+      roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
+      precision={valueIfUndefined(precision, xyChart.precision)}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}
@@ -283,6 +287,7 @@ export default function CreateXYChart({
       singleDimension={singleDimension}
       singleMeasure={singleMeasure}
       formatValue={formatValue}
+      legendLabelStyle={legendLabelStyle}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} />}

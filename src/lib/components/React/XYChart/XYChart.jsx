@@ -262,7 +262,7 @@ XYChart.propTypes = {
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
   showVerticalCrosshair: PropTypes.bool,
-  // legendLabelStyle: PropTypes.object,
+  legendLabelStyle: PropTypes.object,
 };
 
 XYChart.defaultProps = {
