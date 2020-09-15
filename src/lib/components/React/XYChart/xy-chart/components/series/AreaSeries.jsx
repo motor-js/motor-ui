@@ -20,8 +20,6 @@ function AreaSeries({
   horizontal = false,
   glyph,
   fillStyle,
-  // fillFrom,
-  // fillTo,
   ...lineProps
 }) {
   const {
@@ -33,6 +31,7 @@ function AreaSeries({
     theme,
 
     formatValue,
+    valueLabelStyle,
   } = useContext(ChartContext);
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
@@ -67,11 +66,7 @@ function AreaSeries({
 
   const labelProps = {
     ...valueLabelStyles,
-    // pointerEvents: "none",
-    // stroke: "#fff",
-    // strokeWidth: 2,
-    // paintOrder: "stroke",
-    // fontSize: 12,
+    ...valueLabelStyle,
   };
 
   return (

@@ -263,6 +263,7 @@ XYChart.propTypes = {
   dualAxis: PropTypes.bool,
   showVerticalCrosshair: PropTypes.bool,
   legendLabelStyle: PropTypes.object,
+  valueLabelStyle: PropTypes.object,
 };
 
 XYChart.defaultProps = {

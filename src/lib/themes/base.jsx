@@ -759,16 +759,12 @@ const base = {
     points: { size: 50, strokeWidth: 2 },
     colors: ["#0b7285", "#15aabf", "#fcc419", "#ff8787", "#6741d9", "#e599f7"],
     legendLabelStyles: {
-      // Used for legend
       fill: "#212529",
       stroke: "none",
-      // fontFamily:
-      //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
       fontFamily,
       fontSize: 12,
       letterSpacing: 0.4,
       textAnchor: "middle",
-      // fontWeight: 700,
       fontWeight: "normal",
       pointerEvents: "none",
     },
@@ -951,11 +947,9 @@ const base = {
     valueLabelStyles: {
       fill: "#495057",
       stroke: "#fff",
-      // fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
       fontFamily,
       fontSize: 12,
       letterSpacing: 0.4,
-      // fontWeight: 700,
       strokeWidth: 2,
       fontWeight: "normal",
       textAnchor: "middle",

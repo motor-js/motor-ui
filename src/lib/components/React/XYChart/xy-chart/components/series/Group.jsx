@@ -36,6 +36,7 @@ export default function Group({
     formatValue,
     handleClick,
     currentSelectionIds,
+    valueLabelStyle,
   } = useContext(ChartContext);
 
   // extract data keys from child series
@@ -195,11 +196,7 @@ export default function Group({
 
   const labelProps = {
     ...valueLabelStyles,
-    // pointerEvents: "none",
-    // stroke: "#fff",
-    // strokeWidth: 2,
-    // paintOrder: "stroke",
-    // fontSize: 12,
+    ...valueLabelStyle,
     dx: horizontal ? "0.5em" : 0,
     dy: horizontal ? 0 : "-0.74em",
     textAnchor: horizontal ? "start" : "middle",

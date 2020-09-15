@@ -30,6 +30,7 @@ function LineSeries({
     formatValue,
     handleClick,
     isSelectionXYChartVisible,
+    valueLabelStyle,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } =
@@ -65,11 +66,7 @@ function LineSeries({
 
   const labelProps = {
     ...valueLabelStyles,
-    // pointerEvents: "none",
-    // stroke: "#fff",
-    // strokeWidth: 2,
-    // paintOrder: "stroke",
-    // fontSize: 12,
+    ...valueLabelStyle,
   };
 
   const [selectedBar, setSelectedBar] = useState([]);

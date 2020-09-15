@@ -119,6 +119,7 @@ export default function CreateXYChart({
   title,
   subTitle,
   legendLabelStyle,
+  valueLabelStyle,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -288,6 +289,7 @@ export default function CreateXYChart({
       singleMeasure={singleMeasure}
       formatValue={formatValue}
       legendLabelStyle={legendLabelStyle}
+      valueLabelStyle={valueLabelStyle}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} />}
