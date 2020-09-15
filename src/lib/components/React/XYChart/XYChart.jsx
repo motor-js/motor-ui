@@ -72,7 +72,6 @@ XYChart.propTypes = {
   margin: PropTypes.string,
   // /** Size of the Bar */
   // size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
-  // /** Size of the Bar */
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   showLabels: PropTypes.bool,
   // /** Show text on Axis */
@@ -269,30 +268,17 @@ XYChart.propTypes = {
 
 XYChart.defaultProps = {
   calcCondition: undefined,
-  width: "1000px",
+  width: "100%",
   height: "400px", // 100%
   // size: "medium",
-  // showLabels: null,
-  // fontColor: "",
   border: true,
   /** Use dual Y axis on the the chart  */
   dualAxis: false,
-  // allowSlantedYAxis: null,
-  // showGridlines: null,
-  // textOnAxis: null,
-  // tickSpacing: undefined,
   colorTheme: null,
-  // roundNum: true,
   sortOrder: [],
   sortDirection: "",
   // stacked: false,
   showAsPercent: false,
-  // title: null,
-  // subTitle: null,
-  // maxWidth: null,
-  // suppressScroll: null,
-  // dimensionErrMsg: null,
-  // measureErrMsg: null,
   gridArea: null,
   type: null, // Logic to determine default chart type in CreateXYChart
   xAxisOrientation: "bottom",
