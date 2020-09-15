@@ -135,11 +135,6 @@ export default function Stack({ children }) {
 
   const hasSomeNegativeValues = comprehensiveDomain.some((num) => num < 0);
 
-  const Console = (prop) => (
-    console[Object.keys(prop)[0]](...Object.values(prop)),
-    null // ➜ React components must return something
-  );
-
   return (
     // @TODO types
     <AreaStack

@@ -63,6 +63,18 @@ export default function Tooltip({
 
   const Container = renderInPortal ? Portal : React.Fragment;
 
+  const Console = (prop) => (
+    console[Object.keys(prop)[0]](...Object.values(prop)),
+    null // ➜ React components must return something
+  );
+
+  const getValue = (measure, data) => {
+    // console.log(data.datum);
+    // data.datum.filter(d)=>{}
+    const x = data.datum.filter((s) => s.qText === measure);
+    return x[0].qNum;
+  };
+
   const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
     <>
       <div>{closestDatum.datum[0].qText}</div>
@@ -92,6 +104,10 @@ export default function Tooltip({
                   closestDatum.key === `${measure.qFallbackTitle}`
                     ? "underline solid currentColor"
                     : "none",
+                fontWeight:
+                  closestDatum.key === `${measure.qFallbackTitle}`
+                    ? "bold"
+                    : "normal",
               }}
             >
               {measure.qFallbackTitle}{" "}
@@ -101,6 +117,29 @@ export default function Tooltip({
             </div>
           )
       )}
+      {!singleDimension &&
+        dataKeys &&
+        dataKeys.map(
+          (measure, index) =>
+            closestData?.[`${measure}`] &&
+            closestDatum.key && (
+              <div
+                key={measure}
+                style={{
+                  color: colorScale(`${measure}`),
+                  textDecoration:
+                    closestDatum.key === `${measure}`
+                      ? "underline solid currentColor"
+                      : "none",
+                  fontWeight:
+                    closestDatum.key === `${measure}` ? "bold" : "normal",
+                }}
+              >
+                {measure}{" "}
+                {formatValue(getValue(measure, closestData[`${measure}`]))}
+              </div>
+            )
+        )}
     </>
   );
 
