@@ -191,17 +191,15 @@ export default function Group({
       Math.max(maybeXZero, Math.min(xMin, xMax))
     : Math.min(xMin, xMax);
 
-  const {
-    svgLabel: { baseLabel },
-  } = theme;
+  const { valueLabelStyles } = theme;
 
   const labelProps = {
-    ...baseLabel,
-    pointerEvents: "none",
-    stroke: "#fff",
-    strokeWidth: 2,
-    paintOrder: "stroke",
-    fontSize: 12,
+    ...valueLabelStyles,
+    // pointerEvents: "none",
+    // stroke: "#fff",
+    // strokeWidth: 2,
+    // paintOrder: "stroke",
+    // fontSize: 12,
     dx: horizontal ? "0.5em" : 0,
     dy: horizontal ? 0 : "-0.74em",
     textAnchor: horizontal ? "start" : "middle",

@@ -45,17 +45,15 @@ function BarSeries({
 
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
-  const {
-    svgLabel: { baseLabel },
-  } = theme;
+  const { valueLabelStyles } = theme;
 
   const labelProps = {
-    ...baseLabel,
-    pointerEvents: "none",
-    stroke: "#fff",
-    strokeWidth: 2,
-    paintOrder: "stroke",
-    fontSize: 12,
+    ...valueLabelStyles,
+    // pointerEvents: "none",
+    // stroke: "#fff",
+    // strokeWidth: 2,
+    // paintOrder: "stroke",
+    // fontSize: 12,
   };
 
   const renderLabel = ({ datum, labelProps }) =>

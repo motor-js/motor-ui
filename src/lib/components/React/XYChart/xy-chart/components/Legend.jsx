@@ -13,14 +13,14 @@ export default function Legend({
 }) {
   const { theme, margin, colorScale, dataRegistry } = useContext(ChartContext);
   const legendLabelProps = useMemo(
-    () => ({ style: { ...theme.labelStyles } }),
+    () => ({ style: { ...theme.legendLabelStyles } }),
     [theme]
   );
   const legendStyles = useMemo(
     () => ({
       display: "flex",
       background: theme?.baseColor ?? "white",
-      color: theme?.labelStyles?.fill,
+      color: theme?.legendLabelStyles?.fill,
       paddingLeft: margin.left,
       paddingRight: margin.right,
       [direction === "row" || direction === "row-reverse"
