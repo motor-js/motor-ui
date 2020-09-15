@@ -130,6 +130,8 @@ dodge
 electric
 */
 
+const fontFamily = "Inter, sans-serif"; /* 'Roboto, sans-serif' */
+
 const base = {
   global: {
     login: {
@@ -151,7 +153,8 @@ const base = {
       buttonColor: "brand",
     },
     backgroundColor: "white",
-    fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
+    // fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
+    fontFamily,
     colorTheme: "motor",
     color,
     overlay: {
@@ -689,7 +692,8 @@ const base = {
       boxSizing: "border-box",
       position: "relative",
       padding: "16px 16px 0px",
-      fontWeight: 700,
+      // fontWeight: 700,
+      fontWeight: "normal",
       color: "rgb(38, 38, 38)",
       minHeight: "200px",
       textDecoration: "none",
@@ -758,12 +762,14 @@ const base = {
       // Used for legend
       fill: "#212529",
       stroke: "none",
-      fontFamily:
-        "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+      // fontFamily:
+      //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+      fontFamily,
       fontSize: 12,
       letterSpacing: 0.4,
       textAnchor: "middle",
-      fontWeight: 700,
+      // fontWeight: 700,
+      fontWeight: "normal",
       pointerEvents: "none",
     },
     backgroundStyles: {
@@ -815,24 +821,28 @@ const base = {
         bottom: {
           fill: "#212529",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 12,
           letterSpacing: 0.4,
           textAnchor: "middle",
-          fontWeight: 700,
+          // fontWeight: 700,
+          fontWeight: "normal",
           pointerEvents: "none",
           dy: "-0.25em",
         },
         top: {
           fill: "#212529",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 12,
           letterSpacing: 0.4,
           textAnchor: "middle",
-          fontWeight: 700,
+          // fontWeight: 700,
+          fontWeight: "normal",
           pointerEvents: "none",
           dy: "-0.25em",
         },
@@ -845,24 +855,28 @@ const base = {
         left: {
           fill: "#212529",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 12,
           letterSpacing: 0.4,
           textAnchor: "middle",
-          fontWeight: 700,
+          // fontWeight: 700,
+          fontWeight: "normal",
           pointerEvents: "none",
           dx: "-1.75em", // "-1.5em",
         },
         right: {
           fill: "#212529",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 12,
           letterSpacing: 0.4,
           textAnchor: "middle",
-          fontWeight: 700,
+          // fontWeight: 700,
+          fontWeight: "normal",
           pointerEvents: "none",
           dx: "1.5em",
         },
@@ -875,8 +889,9 @@ const base = {
         bottom: {
           fill: "#495057",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 10,
           letterSpacing: 0.4,
           textAnchor: "middle",
@@ -887,8 +902,9 @@ const base = {
         top: {
           fill: "#495057",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 10,
           letterSpacing: 0.4,
           textAnchor: "middle",
@@ -905,8 +921,9 @@ const base = {
         left: {
           fill: "#495057",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 10,
           letterSpacing: 0.4,
           textAnchor: "end",
@@ -918,8 +935,9 @@ const base = {
         right: {
           fill: "#495057",
           stroke: "none",
-          fontFamily:
-            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          // fontFamily:
+          //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontFamily,
           fontSize: 10,
           letterSpacing: 0.4,
           textAnchor: "start",
@@ -935,10 +953,12 @@ const base = {
         // Value labels
         fill: "#495057",
         stroke: "none",
-        fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+        // fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+        fontFamily,
         fontSize: 12,
         letterSpacing: 0.4,
-        fontWeight: 700,
+        // fontWeight: 700,
+        fontWeight: "normal",
         textAnchor: "middle",
         pointerEvents: "none",
       },
