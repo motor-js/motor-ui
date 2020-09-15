@@ -25,6 +25,7 @@ import { roundNumber } from "./xy-chart/util/roundNumber";
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 
 import { colorByExpression } from "../../../utils";
+import { valIfUndefined } from "./xy-chart/util/chartUtils";
 
 const numDimensionTicks = 5;
 
@@ -233,11 +234,12 @@ export default function CreateXYChart({
     stroke: "#329af0",
   };
 
-  const chartHideAxisLine =
-    hideAxisLine === undefined ? xyChart.hideAxisLine : hideAxisLine;
+  const chartHideAxisLine = valIfUndefined(hideAxisLine, xyChart.hideAxisLine);
 
-  const chartShowAxisLabels =
-    showAxisLabels === undefined ? xyChart.showAxisLabels : showAxisLabels;
+  const chartShowAxisLabels = valIfUndefined(
+    showAxisLabels,
+    xyChart.showAxisLabels
+  );
 
   chartShowAxisLabels === true ||
   chartShowAxisLabels === "both" ||
@@ -248,9 +250,8 @@ export default function CreateXYChart({
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
-    const valPrecision =
-      precision === undefined ? xyChart.precision : precision;
-    const valRoundNum = roundNum === undefined ? xyChart.roundNum : roundNum;
+    const valPrecision = valIfUndefined(precision, xyChart.precision);
+    const valRoundNum = valIfUndefined(roundNum, xyChart.roundNum);
 
     if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
     let formattedValue = valRoundNum
@@ -269,10 +270,10 @@ export default function CreateXYChart({
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
-      showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
-      showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
-      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-      precision={precision === undefined ? xyChart.precision : precision}
+      showLabels={valIfUndefined(showLabels, xyChart.showLabels)}
+      showPoints={valIfUndefined(showPoints, xyChart.showPoints)}
+      roundNum={valIfUndefined(roundNum, xyChart.roundNum)}
+      precision={valIfUndefined(precision, xyChart.precision)}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}

@@ -38,6 +38,9 @@ export function getChildWithName(name, children) {
 export function isDefined(val) {
   return typeof val !== "undefined" && val !== null;
 }
+export function valIfUndefined(val, alternative) {
+  return typeof val !== "undefined" && val !== null ? val : alternative;
+}
 
 export function isAxis(name) {
   return /axis/gi.test(name);

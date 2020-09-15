@@ -18,6 +18,8 @@ import {
   isNull,
 } from "../../../utils";
 
+import { valIfUndefined } from "./xy-chart/util/chartUtils";
+
 let measureCount = null;
 let dimensionCount = null;
 let singleDimension = null;
@@ -234,11 +236,10 @@ function StyledXYChart(props) {
           margin={margin || xyChart.margin}
           gridArea={gridArea}
           width={width}
-          showBoxShadow={
-            showBoxShadow === undefined
-              ? xyChart.wrapper.showBoxShadow
-              : showBoxShadow
-          }
+          showBoxShadow={valIfUndefined(
+            showBoxShadow,
+            xyChart.wrapper.showBoxShadow
+          )}
         >
           <div
             ref={ref}
@@ -301,7 +302,8 @@ function StyledXYChart(props) {
               yAxisOrientation={yAxisOrientation}
               legendLeftRight={legendLeftRight}
               showLegend={
-                showLegend === undefined ? xyChart.showLegend : showLegend
+                // showLegend === undefined ? xyChart.showLegend : showLegend
+                valIfUndefined(showLegend, xyChart.showLegend)
               }
               legendTopBottom={legendTopBottom}
               legendDirection={legendDirection}
@@ -314,17 +316,23 @@ function StyledXYChart(props) {
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
               fillStyle={fillStyle || xyChart.fillStyles}
               multiColor={
-                multiColor === undefined ? xyChart.multiColor : multiColor
+                // multiColor === undefined ? xyChart.multiColor : multiColor
+                valIfUndefined(multiColor, xyChart.multiColor)
               }
               showVerticalCrosshair={
-                showVerticalCrosshair === undefined
-                  ? xyChart.showVerticalCrosshair
-                  : showVerticalCrosshair
+                // showVerticalCrosshair === undefined
+                //   ? xyChart.showVerticalCrosshair
+                //   : showVerticalCrosshair
+                valIfUndefined(
+                  showVerticalCrosshair,
+                  xyChart.showVerticalCrosshair
+                )
               }
               selectionMethod={
-                selectionMethod === undefined
-                  ? xyChart.selectionMethod
-                  : selectionMethod
+                // selectionMethod === undefined
+                //   ? xyChart.selectionMethod
+                //   : selectionMethod
+                valIfUndefined(selectionMethod, xyChart.selectionMethod)
               }
               enableBrush={enableBrush}
               showBrush={showBrush}
