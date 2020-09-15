@@ -29,7 +29,6 @@ function BarSeries({
     formatValue,
     handleClick,
     currentSelectionIds,
-    // selectionIds,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
@@ -58,14 +57,6 @@ function BarSeries({
     paintOrder: "stroke",
     fontSize: 12,
   };
-
-  // const handleClick = (selectionValue) => {
-  //   beginSelections();
-
-  //   setCurrentSelectionIds(true);
-
-  //   select(0, selectionValue);
-  // };
 
   const renderLabel = ({ datum, labelProps }) =>
     datum.label ? (

@@ -90,8 +90,6 @@ XYChart.propTypes = {
   gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   /** Show gridline columns on Axis */
   gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  // /** Color of the Bar label */
-  // fontColor: PropTypes.string,
   /** Show shadow around XYChart */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */

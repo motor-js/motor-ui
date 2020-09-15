@@ -98,7 +98,6 @@ export default function CreateXYChart({
   backgroundPattern,
   backgroundStyle,
   fillStyle,
-  multiColor,
   showLabels,
   showPoints,
   dualAxis,
