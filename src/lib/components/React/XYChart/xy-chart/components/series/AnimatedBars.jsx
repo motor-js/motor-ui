@@ -109,6 +109,7 @@ export default function AnimatedBars({
             handleClick(selections);
           }}
           onMouseMove={onMouseMove}
+          onMouseLeave={hideTooltip}
           {...rectProps}
         />
       ))}
