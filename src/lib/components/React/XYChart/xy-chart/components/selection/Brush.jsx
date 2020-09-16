@@ -142,9 +142,10 @@ export default function Brush({
             selectionIds = [...selectionIds, ...stockCopy];
           });
     }
+    if (selectionIds.length > 0) handleClick(selectionIds);
   };
 
-  const onMouseUp = () => handleClick(selectionIds);
+  // const onMouseUp = () => handleClick(selectionIds);
 
   return (
     <BaseBrush
@@ -173,7 +174,7 @@ export default function Brush({
           : undefined
       }
       onChange={onChange}
-      onMouseUp={onMouseUp}
+      // onMouseUp={onMouseUp}
       onClick={onClick}
       selectedBoxStyle={selectedBoxStyle}
       brushRegion={brushRegion}
