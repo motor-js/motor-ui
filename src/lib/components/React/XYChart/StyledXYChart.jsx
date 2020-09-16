@@ -70,19 +70,10 @@ function StyledXYChart(props) {
     autoWidth,
     renderHorizontally,
     includeZero,
-    xAxisOrientation,
-    yAxisOrientation,
-    legendLeftRight,
-    legendTopBottom,
-    legendDirection,
-    legendShape,
-    snapTooltipToDataX,
-    snapTooltipToDataY,
     backgroundPattern,
     backgroundStyle,
     multiColor,
     fillStyle,
-    showVerticalCrosshair,
     showBoxShadow,
     ...rest
   } = props;
@@ -293,28 +284,16 @@ function StyledXYChart(props) {
                 renderHorizontally || xyChart.renderHorizontally
               }
               includeZero={includeZero || xyChart.includeZero}
-              xAxisOrientation={xAxisOrientation}
-              yAxisOrientation={yAxisOrientation}
-              legendLeftRight={legendLeftRight}
               showLegend={
                 // showLegend === undefined ? xyChart.showLegend : showLegend
                 valueIfUndefined(showLegend, xyChart.showLegend)
               }
-              legendTopBottom={legendTopBottom}
-              legendDirection={legendDirection}
-              legendShape={legendShape}
-              snapTooltipToDataX={snapTooltipToDataX}
-              snapTooltipToDataY={snapTooltipToDataY}
               backgroundPattern={
                 backgroundPattern || xyChart.backgroundStyles.pattern
               }
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
               fillStyle={fillStyle || xyChart.fillStyles}
               multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
-              showVerticalCrosshair={valueIfUndefined(
-                showVerticalCrosshair,
-                xyChart.showVerticalCrosshair
-              )}
               selectionMethod={valueIfUndefined(
                 selectionMethod,
                 xyChart.selectionMethod

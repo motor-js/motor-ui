@@ -9,11 +9,11 @@ export default function Tooltip({
   // renderTooltip,
   snapToDataX,
   snapToDataY,
-  // showVerticalCrosshair = true,
   showVerticalCrosshair,
   renderInPortal = false,
 }) {
   const { tooltipData } = useContext(TooltipContext) || {};
+
   const {
     margin,
     xScale,
@@ -23,7 +23,6 @@ export default function Tooltip({
     height,
     theme,
     formatValue,
-    // dimensionInfo,
     measureInfo,
     dataKeys,
     singleDimension,

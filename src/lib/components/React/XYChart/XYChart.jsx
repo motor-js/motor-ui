@@ -287,8 +287,6 @@ XYChart.defaultProps = {
   legendTopBottom: "top",
   legendDirection: "row",
   legendShape: "auto",
-  snapTooltipToDataX: true,
-  snapTooltipToDataY: true,
 };
 
 export default XYChart;

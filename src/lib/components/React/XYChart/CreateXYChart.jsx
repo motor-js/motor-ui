@@ -88,8 +88,8 @@ export default function CreateXYChart({
   includeZero,
   xAxisOrientation,
   yAxisOrientation,
-  legendLeftRight,
   showLegend,
+  legendLeftRight,
   legendTopBottom,
   legendDirection,
   legendShape,
@@ -587,10 +587,23 @@ export default function CreateXYChart({
           </XYChart>
 
           <Tooltip
-            snapToDataX={snapTooltipToDataX && canSnapTooltipToDataX}
-            snapToDataY={snapTooltipToDataY && canSnapTooltipToDataY}
+            snapToDataX={
+              valueIfUndefined(
+                snapTooltipToDataX,
+                xyChart.snapTooltipToDataX
+              ) && canSnapTooltipToDataX
+            }
+            snapToDataY={
+              valueIfUndefined(
+                snapTooltipToDataY,
+                xyChart.snapTooltipToDataY
+              ) && canSnapTooltipToDataY
+            }
             // renderTooltip={renderTooltip}
-            showVerticalCrosshair={showVerticalCrosshair}
+            showVerticalCrosshair={valueIfUndefined(
+              showVerticalCrosshair,
+              xyChart.showVerticalCrosshair
+            )}
           />
           {legendTopBottom === "bottom" && legend}
         </div>
