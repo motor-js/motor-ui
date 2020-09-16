@@ -38,6 +38,8 @@ export default function Brush({
     dataRegistry,
     handleClick,
     currentSelectionIds,
+    dataKeys,
+    singleDimension,
   } = useContext(ChartContext);
 
   const childRef = useRef();
@@ -97,26 +99,49 @@ export default function Brush({
 
     const { x0, x1, y0, y1 } = domain.extent;
 
-    measureInfo.map((m, i) => {
-      const registeredData = dataRegistry[m.qFallbackTitle];
-      xAccessor = registeredData.xAccessor;
-      yAccessor = registeredData.yAccessor;
+    {
+      singleDimension
+        ? measureInfo.map((m, i) => {
+            const registeredData = dataRegistry[m.qFallbackTitle];
+            xAccessor = registeredData.xAccessor;
+            yAccessor = registeredData.yAccessor;
 
-      const stockCopy = registeredData.data
-        .filter((datum) => {
-          const x = getScaledX(datum);
-          const y = getScaledY(datum);
-          // return x > x0 && x < x1 && y > y0 && y < y1;
-          return brushDirection === "horizontal"
-            ? x > x0 + leftOffset && x < x1 + leftOffset
-            : y > y0 + topOffset && y < y1 + topOffset;
-        })
-        .map((obj) => {
-          return registeredData.elAccessor(obj);
-        });
-      // setFilteredStock(stockCopy);
-      selectionIds = [...selectionIds, ...stockCopy];
-    });
+            const stockCopy = registeredData.data
+              .filter((datum) => {
+                const x = getScaledX(datum);
+                const y = getScaledY(datum);
+                // return x > x0 && x < x1 && y > y0 && y < y1;
+                return brushDirection === "horizontal"
+                  ? x > x0 + leftOffset && x < x1 + leftOffset
+                  : y > y0 + topOffset && y < y1 + topOffset;
+              })
+              .map((obj) => {
+                return registeredData.elAccessor(obj);
+              });
+            // setFilteredStock(stockCopy);
+            selectionIds = [...selectionIds, ...stockCopy];
+          })
+        : dataKeys.map((m, i) => {
+            const registeredData = dataRegistry[m];
+            xAccessor = registeredData.xAccessor;
+            yAccessor = registeredData.yAccessor;
+
+            const stockCopy = registeredData.data
+              .filter((datum) => {
+                const x = getScaledX(datum);
+                const y = getScaledY(datum);
+                // return x > x0 && x < x1 && y > y0 && y < y1;
+                return brushDirection === "horizontal"
+                  ? x > x0 + leftOffset && x < x1 + leftOffset
+                  : y > y0 + topOffset && y < y1 + topOffset;
+              })
+              .map((obj) => {
+                return registeredData.elAccessor(obj);
+              });
+            // setFilteredStock(stockCopy);
+            selectionIds = [...selectionIds, ...stockCopy];
+          });
+    }
   };
 
   const onMouseUp = () => handleClick(selectionIds);

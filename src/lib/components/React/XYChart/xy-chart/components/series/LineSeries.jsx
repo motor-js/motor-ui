@@ -31,6 +31,7 @@ function LineSeries({
     handleClick,
     isSelectionXYChartVisible,
     valueLabelStyle,
+    currentSelectionIds,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } =
@@ -69,11 +70,11 @@ function LineSeries({
     ...valueLabelStyle,
   };
 
-  const [selectedBar, setSelectedBar] = useState([]);
+  // const [selectedBar, setSelectedBar] = useState([]);
 
-  useEffect(() => {
-    if (!isSelectionXYChartVisible) setSelectedBar([]);
-  }, [isSelectionXYChartVisible]);
+  // useEffect(() => {
+  //   if (!isSelectionXYChartVisible) setSelectedBar([]);
+  // }, [isSelectionXYChartVisible]);
 
   return (
     <g className="vx-group line-series">
@@ -109,13 +110,11 @@ function LineSeries({
                 }
                 style={{ cursor: "pointer " }}
                 onClick={() => {
-                  const selections = selectedBar.includes(d.selectionId)
-                    ? selectedBar.filter(function(value, index, arr) {
+                  const selections = currentSelectionIds.includes(d.selectionId)
+                    ? currentSelectionIds.filter(function(value) {
                         return value !== d.selectionId;
                       })
-                    : [...selectedBar, d.selectionId];
-
-                  setSelectedBar(selections);
+                    : [...currentSelectionIds, d.selectionId];
                   handleClick(selections);
                 }}
               />
