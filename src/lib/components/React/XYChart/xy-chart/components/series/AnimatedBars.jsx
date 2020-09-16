@@ -4,7 +4,6 @@ import { Bar } from "@vx/shape";
 // import { StyledBar } from "./BarTheme";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
-import useMeasure from "react-use-measure";
 
 import { isEmpty } from "../../../../../../utils";
 
@@ -31,9 +30,8 @@ export default function AnimatedBars({
   //   }))
   // );
 
-  const { findNearestData, setChartDimensions } = useContext(ChartContext);
+  const { findNearestData } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
-  const [svgRef, svgBounds] = useMeasure();
 
   const { selection, nonSelection } = theme;
 
@@ -55,19 +53,10 @@ export default function AnimatedBars({
     (event) => {
       const nearestData = findNearestData(event);
       if (nearestData.closestDatum && showTooltip) {
-        showTooltip({
-          tooltipData: {
-            ...nearestData,
-            // @TODO remove this and rely on useTooltipInPortal() instead
-            pageX: event.pageX,
-            pageY: event.pageY,
-            svgOriginX: svgBounds?.x,
-            svgOriginY: svgBounds?.y,
-          },
-        });
+        showTooltip({ tooltipData: { ...nearestData } });
       }
     },
-    [findNearestData, showTooltip, svgBounds]
+    [findNearestData, showTooltip]
   );
 
   return (

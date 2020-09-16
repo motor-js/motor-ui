@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useCallback } from "react";
 import ParentSize from "@vx/responsive/lib/components/ParentSize";
-import useMeasure from "react-use-measure";
+import { useTooltipInPortal } from "@vx/tooltip";
 
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
@@ -17,9 +17,9 @@ export default function XYChart(props) {
     svgBackground = true,
     onMouseDown,
   } = props;
+  const { containerRef, TooltipInPortal } = useTooltipInPortal();
   const { findNearestData, setChartDimensions } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
-  const [svgRef, svgBounds] = useMeasure();
 
   // update dimensions in context
   useEffect(() => {
@@ -36,19 +36,10 @@ export default function XYChart(props) {
     (event) => {
       const nearestData = findNearestData(event);
       if (nearestData.closestDatum && showTooltip) {
-        showTooltip({
-          tooltipData: {
-            ...nearestData,
-            // @TODO remove this and rely on useTooltipInPortal() instead
-            pageX: event.pageX,
-            pageY: event.pageY,
-            svgOriginX: svgBounds?.x,
-            svgOriginY: svgBounds?.y,
-          },
-        });
+        showTooltip({ tooltipData: { ...nearestData } });
       }
     },
-    [findNearestData, showTooltip, svgBounds]
+    [findNearestData, showTooltip]
   );
 
   // if width and height aren't both provided, wrap in auto-sizer
@@ -59,7 +50,12 @@ export default function XYChart(props) {
   }
 
   return width > 0 && height > 0 ? (
-    <svg ref={svgRef} width={width} height={height} onMouseDown={onMouseDown}>
+    <svg
+      ref={containerRef}
+      width={width}
+      height={height}
+      onMouseDown={onMouseDown}
+    >
       {svgBackground && (
         <rect
           x={0}
