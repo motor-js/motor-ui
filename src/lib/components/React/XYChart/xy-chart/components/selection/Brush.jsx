@@ -142,7 +142,7 @@ export default function Brush({
             selectionIds = [...selectionIds, ...stockCopy];
           });
     }
-    if (selectionIds.length > 0) handleClick(selectionIds);
+    if (!isEmpty(selectionIds)) handleClick(selectionIds);
   };
 
   // const onMouseUp = () => handleClick(selectionIds);
