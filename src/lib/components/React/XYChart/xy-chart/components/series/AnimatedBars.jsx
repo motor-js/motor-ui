@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useContext } from "react";
 // import { animated, useSprings } from "react-spring";
 import { Bar } from "@vx/shape";
 // import { StyledBar } from "./BarTheme";
+import ChartContext from "../../context/ChartContext";
+import TooltipContext from "../../context/TooltipContext";
+import useMeasure from "react-use-measure";
 
 import { isEmpty } from "../../../../../../utils";
 
@@ -28,6 +31,10 @@ export default function AnimatedBars({
   //   }))
   // );
 
+  const { findNearestData, setChartDimensions } = useContext(ChartContext);
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+  const [svgRef, svgBounds] = useMeasure();
+
   const { selection, nonSelection } = theme;
 
   const styleProp = (selectionId, styleprop) =>
@@ -43,6 +50,25 @@ export default function AnimatedBars({
   // useEffect(() => {
   //   if (!currentSelectionIds) setSelectedBar([]);
   // }, [currentSelectionIds]);
+
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({
+          tooltipData: {
+            ...nearestData,
+            // @TODO remove this and rely on useTooltipInPortal() instead
+            pageX: event.pageX,
+            pageY: event.pageY,
+            svgOriginX: svgBounds?.x,
+            svgOriginY: svgBounds?.y,
+          },
+        });
+      }
+    },
+    [findNearestData, showTooltip, svgBounds]
+  );
 
   return (
     // react complains when using component if we don't wrap in Fragment
@@ -82,6 +108,7 @@ export default function AnimatedBars({
             // setSelectedBar(selections);
             handleClick(selections);
           }}
+          onMouseMove={onMouseMove}
           {...rectProps}
         />
       ))}
