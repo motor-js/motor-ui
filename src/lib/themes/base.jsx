@@ -739,9 +739,9 @@ const base = {
     showPoints: true,
     roundNum: true,
     precision: true,
-    snapTooltipToDataX: true,
-    snapTooltipToDataY: true,
-    showVerticalCrosshair: true,
+    snapTooltipToDataX: false,
+    snapTooltipToDataY: false,
+    showVerticalCrosshair: false,
     hideAxisLine: "yAxis",
     noData: {
       verticalAlign: "top",

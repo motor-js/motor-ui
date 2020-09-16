@@ -10,7 +10,7 @@ import AreaSeries from "./xy-chart/components/series/AreaSeries";
 import PointSeries from "./xy-chart/components/series/PointSeries";
 import ChartPattern from "./xy-chart/components/ChartPattern";
 import EventProvider from "./xy-chart/components/providers/TooltipProvider";
-import Tooltip, { RenderTooltipArgs } from "./xy-chart/components/Tooltip";
+import Tooltip from "./xy-chart/components/Tooltip";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
@@ -599,7 +599,6 @@ export default function CreateXYChart({
                 xyChart.snapTooltipToDataY
               ) && canSnapTooltipToDataY
             }
-            // renderTooltip={renderTooltip}
             showVerticalCrosshair={valueIfUndefined(
               showVerticalCrosshair,
               xyChart.showVerticalCrosshair

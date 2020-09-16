@@ -76,12 +76,7 @@ export default function AnimatedBars({
           fill={bar.color}
           // barOpacity={0.65}
           opacity={
-            // !currentSelectionIds
-            //   ? selection.opacity
-            //   : selectedBar.includes(bar.selectionId) &&
-            //     currentSelectionIds
-            //   ? selection.opacity
-            //   : nonSelection.opacity
+            // bar.opacity || styleProp(bar.selectionId, "opacity")
             styleProp(bar.selectionId, "opacity")
           }
           style={{ cursor: "pointer " }}
@@ -97,8 +92,14 @@ export default function AnimatedBars({
             // setSelectedBar(selections);
             handleClick(selections);
           }}
+          onMouseEnter={() => {
+            bar.opacity = 0.7;
+          }}
           onMouseMove={onMouseMove}
-          onMouseLeave={hideTooltip}
+          onMouseLeave={() => {
+            // bar.opacity = 1;
+            hideTooltip();
+          }}
           {...rectProps}
         />
       ))}
