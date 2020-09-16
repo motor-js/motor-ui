@@ -138,7 +138,6 @@ export default function Brush({
               .map((obj) => {
                 return registeredData.elAccessor(obj);
               });
-            // setFilteredStock(stockCopy);
             selectionIds = [...selectionIds, ...stockCopy];
           });
     }
