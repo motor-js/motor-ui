@@ -461,8 +461,6 @@ export default function CreateXYChart({
                     ))
                   : dataKeys.map((measure, index) => (
                       <AreaSeries
-                        // key={measureInfo[index].qFallbackTitle}
-                        // dataKey={measureInfo[index].qFallbackTitle}
                         key={measure}
                         dataKey={measure}
                         // glyph={measureInfo[index].qShowPoints}
