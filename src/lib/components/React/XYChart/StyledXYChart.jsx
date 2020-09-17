@@ -75,6 +75,7 @@ function StyledXYChart(props) {
     multiColor,
     fillStyle,
     showBoxShadow,
+    showAsPercent,
     ...rest
   } = props;
 
@@ -208,6 +209,27 @@ function StyledXYChart(props) {
           ? keys
           : null;
 
+      if (showAsPercent) {
+        const percentageData = singleDimension ? qData.qMatrix : items;
+        const keyItems = singleDimension
+          ? qLayout.qHyperCube.qMeasureInfo
+          : keys;
+
+        percentageData.forEach((d, i) => {
+          let positiveSum = 0;
+          let negativeSum = 0;
+          keyItems.forEach((m, mi) => {
+            const value = d[mi + 1].qNum;
+            value >= 0 ? (positiveSum += value) : (negativeSum += value);
+          });
+          keyItems.forEach((m, mi) => {
+            const value = d[mi + 1].qNum;
+            d[mi + 1].qNum =
+              Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+          });
+        });
+      }
+
       setData(singleDimension ? qData.qMatrix : items);
     }
   }, [qData]);
@@ -299,6 +321,7 @@ function StyledXYChart(props) {
                 xyChart.selectionMethod
               )}
               enableBrush={enableBrush}
+              showAsPercent={showAsPercent}
               showBrush={showBrush}
               {...rest}
             />

@@ -128,24 +128,24 @@ export default function CreateXYChart({
 
   const chartType = [getChartType()];
 
-  if (showAsPercent) {
-    const percentageData = singleDimension ? qMatrix : items;
-    const keyItems = singleDimension ? measureInfo : keys;
+  // if (showAsPercent) {
+  //   const percentageData = singleDimension ? qMatrix : items;
+  //   const keyItems = singleDimension ? measureInfo : keys;
 
-    percentageData.forEach((d, i) => {
-      let positiveSum = 0;
-      let negativeSum = 0;
-      keyItems.forEach((m, mi) => {
-        const value = d[mi + 1].qNum;
-        value >= 0 ? (positiveSum += value) : (negativeSum += value);
-      });
-      keyItems.forEach((m, mi) => {
-        const value = d[mi + 1].qNum;
-        d[mi + 1].qNum =
-          Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
-      });
-    });
-  }
+  //   percentageData.forEach((d, i) => {
+  //     let positiveSum = 0;
+  //     let negativeSum = 0;
+  //     keyItems.forEach((m, mi) => {
+  //       const value = d[mi + 1].qNum;
+  //       value >= 0 ? (positiveSum += value) : (negativeSum += value);
+  //     });
+  //     keyItems.forEach((m, mi) => {
+  //       const value = d[mi + 1].qNum;
+  //       d[mi + 1].qNum =
+  //         Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+  //     });
+  //   });
+  // }
 
   const [currData, setCurrData] = useState(data);
 
