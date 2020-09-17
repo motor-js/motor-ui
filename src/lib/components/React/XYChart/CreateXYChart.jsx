@@ -328,9 +328,8 @@ export default function CreateXYChart({
             {showBrush && (
               <PatternLines
                 id="brush_pattern"
-                height={12}
-                width={12}
-                // stroke={"#a3daff"}
+                height={xyChart?.brush.patternHeight ?? 12}
+                width={xyChart?.brush.patternWidth ?? 12}
                 stroke={
                   selectColor(xyChart?.brush.patternStroke, theme) ?? "#a3daff"
                 }

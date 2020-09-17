@@ -766,6 +766,8 @@ const base = {
     brush: {
       stroke: null,
       patternStroke: null,
+      patternWidth: null,
+      patternHeight: null,
     },
     legendStyles: {
       backgroundColor: "#fff",
