@@ -213,15 +213,6 @@ export default class ChartProvider extends React.Component {
     return { closestData, closestDatum, svgMouseX, svgMouseY };
   };
 
-  // formatValue = (val) => {
-  //   const { roundNum, precision } = this.props;
-  //   let formattedValue = roundNum
-  //     ? roundNumber(Math.abs(val), precision)
-  //     : Math.abs(val);
-
-  //   return val < 0 ? `-${formattedValue}` : formattedValue;
-  // };
-
   handleClick = (selectionValue) => {
     this.props.beginSelections();
 

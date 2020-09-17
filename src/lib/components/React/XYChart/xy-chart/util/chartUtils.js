@@ -38,6 +38,11 @@ export function getChildWithName(name, children) {
 export function isDefined(val) {
   return typeof val !== "undefined" && val !== null;
 }
+
+export function isBoolean(val) {
+  return typeof val === "boolean";
+}
+
 export function valueIfUndefined(val, alternative) {
   return typeof val !== "undefined" && val !== null ? val : alternative;
 }

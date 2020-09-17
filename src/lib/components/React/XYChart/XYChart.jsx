@@ -174,7 +174,7 @@ XYChart.propTypes = {
   /** RoundNum of the Bar */
   roundNum: PropTypes.bool,
   /** Decimai precision for RoundNum of the Bar */
-  precision: PropTypes.bool,
+  precision: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   /** Title of the Bar */
   title: PropTypes.string,
   /** Sub Title of the Bar */
@@ -270,7 +270,6 @@ XYChart.propTypes = {
 };
 
 XYChart.defaultProps = {
-  numDimensionTicks: 10,
   calcCondition: undefined,
   width: "100%",
   height: "400px", // 100%
