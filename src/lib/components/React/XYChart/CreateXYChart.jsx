@@ -20,10 +20,10 @@ import StackedArea from "./xy-chart/components/series/StackedArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 import Brush from "./xy-chart/components/selection/Brush";
+
 import { roundNumber } from "./xy-chart/util/roundNumber";
-
+import { selectColor } from "../../../utils/colors";
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
-
 import { colorByExpression } from "../../../utils";
 import { valueIfUndefined } from "./xy-chart/util/chartUtils";
 
@@ -233,7 +233,7 @@ export default function CreateXYChart({
 
   const selectedBoxStyle = {
     fill: "url(#brush_pattern)",
-    stroke: "#329af0",
+    stroke: selectColor(xyChart?.brush.stroke, theme) ?? "#329af0",
   };
 
   const chartHideAxisLine = valueIfUndefined(
@@ -330,7 +330,10 @@ export default function CreateXYChart({
                 id="brush_pattern"
                 height={12}
                 width={12}
-                stroke={"#a3daff"}
+                // stroke={"#a3daff"}
+                stroke={
+                  selectColor(xyChart?.brush.patternStroke, theme) ?? "#a3daff"
+                }
                 strokeWidth={1}
                 orientation={["diagonal"]}
               />
