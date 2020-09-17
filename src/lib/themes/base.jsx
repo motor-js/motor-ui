@@ -742,6 +742,7 @@ const base = {
     snapTooltipToDataX: false,
     snapTooltipToDataY: false,
     showVerticalCrosshair: false,
+    showClosestItem: true, // Used for tooltip
     hideAxisLine: "yAxis",
     noData: {
       verticalAlign: "top",

@@ -120,6 +120,7 @@ export default function CreateXYChart({
   subTitle,
   legendLabelStyle,
   valueLabelStyle,
+  showClosestItem,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -278,6 +279,10 @@ export default function CreateXYChart({
       showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
       roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
       precision={valueIfUndefined(precision, xyChart.precision)}
+      showClosestItem={valueIfUndefined(
+        showClosestItem,
+        xyChart.showClosestItem
+      )}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}

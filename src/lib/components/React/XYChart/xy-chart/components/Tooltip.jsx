@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
 import { TooltipWithBounds, Portal, defaultStyles } from "@vx/tooltip";
 import { scaleOrdinal } from "@vx/scale";
+import { timeParse, timeFormat } from "d3-time-format";
 
 import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
+
+export const parseDate = timeParse("%Y%m%d");
+export const formatDate = timeFormat("%b %d");
+export const formatYear = timeFormat("%Y");
+export const dateFormatter = (date) => formatDate(parseDate(date));
 
 export default function Tooltip({
   // renderTooltip,
@@ -27,6 +33,7 @@ export default function Tooltip({
     dataKeys,
     singleDimension,
     singleMeasure,
+    showClosestItem,
   } = useContext(ChartContext) || {};
 
   // early return if there's no tooltip
@@ -72,76 +79,134 @@ export default function Tooltip({
     return x[0].qNum;
   };
 
-  const renderTooltip = ({ closestData, closestDatum, colorScale }) => (
-    <>
-      <div>{closestDatum.datum[0].qText}</div>
-      {/* <Console log={"dd"} /> */}
-      <br />
-      {singleDimension && singleMeasure && dataKeys && (
-        <div
-          style={{
-            color: colorScale(`${closestDatum.datum[0].qText}`),
-            textDecoration: "underline solid currentColor",
-          }}
-        >
-          {measureInfo[0].qFallbackTitle}{" "}
-          {formatValue(closestDatum.datum[1].qNum)}
-        </div>
-      )}
-      {singleDimension &&
-        !singleMeasure &&
-        measureInfo.map(
-          (measure, index) =>
-            closestData?.[`${measure.qFallbackTitle}`] &&
-            closestDatum.datum[0].qText ===
-              closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+  function renderTooltip({ closestData, closestDatum, colorScale }) {
+    // const { x, x0, y, value } = datum;
+    const seriesKey = closestDatum.key;
+    const color =
+      singleDimension && singleMeasure && dataKeys
+        ? colorScale(`${closestDatum.datum[0].qText}`)
+        : colorScale(`${closestDatum.key}`);
+    let xVal = closestDatum.datum[0].qNum || x0;
+    if (typeof xVal === "string") {
+      xVal = parseDate(xVal) === null ? xVal : dateFormatter(xVal);
+    } else if (typeof xVal !== "string" && Number(xVal) > 1000000) {
+      xVal = formatDate(xVal);
+    }
+    let valIdx = null;
+
+    if (singleDimension) {
+      measureInfo.forEach((v, idx) => {
+        if (v.qFallbackTitle === seriesKey) valIdx = idx + 1;
+      });
+    }
+
+    const yVal = singleDimension
+      ? closestDatum.datum[valIdx].qNum || "--"
+      : closestDatum.datum.filter((d) => d.qText === seriesKey)[0].qNum || "--";
+
+    return (
+      <>
+        {showClosestItem ? (
+          <div>
+            {seriesKey && (
+              <div>
+                <strong style={{ color }}>{seriesKey}</strong>
+              </div>
+            )}
+            <div>
+              <strong style={{ color }}>x </strong>
+              {xVal}
+            </div>
+            <div>
+              <strong style={{ color }}>y </strong>
+              {yVal && formatValue(yVal)}
+            </div>
+            {/*   {data && (
+              <div>
+                <strong style={{ color }}>index </strong>
+                {data.indexOf(datum)}
+              </div>
+            )}{" "}
+            */}
+          </div>
+        ) : (
+          <>
+            {/* <div>{closestDatum.datum[0].qText}</div> */}
+            <div>{xVal}</div>
+            {/* <Console log={"dd"} /> */}
+            <br />
+            {singleDimension && singleMeasure && dataKeys && (
               <div
-                key={measure.qFallbackTitle}
                 style={{
-                  color: colorScale(`${measure.qFallbackTitle}`),
-                  textDecoration:
-                    closestDatum.key === `${measure.qFallbackTitle}`
-                      ? "underline solid currentColor"
-                      : "none",
-                  fontWeight:
-                    closestDatum.key === `${measure.qFallbackTitle}`
-                      ? "bold"
-                      : "normal",
+                  color: colorScale(`${closestDatum.datum[0].qText}`),
+                  textDecoration: "underline solid currentColor",
                 }}
               >
-                {measure.qFallbackTitle}{" "}
-                {formatValue(
-                  closestData[`${measure.qFallbackTitle}`].datum[index + 1].qNum
-                )}
+                {measureInfo[0].qFallbackTitle}{" "}
+                {formatValue(closestDatum.datum[1].qNum)}
               </div>
-            )
+            )}
+            {singleDimension &&
+              !singleMeasure &&
+              measureInfo.map(
+                (measure, index) =>
+                  closestData?.[`${measure.qFallbackTitle}`] &&
+                  closestDatum.datum[0].qText ===
+                    closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+                    <div
+                      key={measure.qFallbackTitle}
+                      style={{
+                        color: colorScale(`${measure.qFallbackTitle}`),
+                        textDecoration:
+                          closestDatum.key === `${measure.qFallbackTitle}`
+                            ? "underline solid currentColor"
+                            : "none",
+                        fontWeight:
+                          closestDatum.key === `${measure.qFallbackTitle}`
+                            ? "bold"
+                            : "normal",
+                      }}
+                    >
+                      {measure.qFallbackTitle}{" "}
+                      {formatValue(
+                        closestData[`${measure.qFallbackTitle}`].datum[
+                          index + 1
+                        ].qNum
+                      )}
+                    </div>
+                  )
+              )}
+            {!singleDimension &&
+              singleMeasure &&
+              dataKeys &&
+              dataKeys.map(
+                (measure, index) =>
+                  closestData?.[`${measure}`] &&
+                  closestDatum.key && (
+                    <div
+                      key={measure}
+                      style={{
+                        color: colorScale(`${measure}`),
+                        textDecoration:
+                          closestDatum.key === `${measure}`
+                            ? "underline solid currentColor"
+                            : "none",
+                        fontWeight:
+                          closestDatum.key === `${measure}` ? "bold" : "normal",
+                      }}
+                    >
+                      {measure}{" "}
+                      {formatValue(
+                        getValue(measure, closestData[`${measure}`])
+                      )}
+                    </div>
+                  )
+              )}
+          </>
         )}
-      {!singleDimension &&
-        singleMeasure &&
-        dataKeys &&
-        dataKeys.map(
-          (measure, index) =>
-            closestData?.[`${measure}`] &&
-            closestDatum.key && (
-              <div
-                key={measure}
-                style={{
-                  color: colorScale(`${measure}`),
-                  textDecoration:
-                    closestDatum.key === `${measure}`
-                      ? "underline solid currentColor"
-                      : "none",
-                  fontWeight:
-                    closestDatum.key === `${measure}` ? "bold" : "normal",
-                }}
-              >
-                {measure}{" "}
-                {formatValue(getValue(measure, closestData[`${measure}`]))}
-              </div>
-            )
-        )}
-    </>
-  );
+      </>
+    );
+  }
 
   return (
     <Container>

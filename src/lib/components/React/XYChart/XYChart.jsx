@@ -264,6 +264,8 @@ XYChart.propTypes = {
   showVerticalCrosshair: PropTypes.bool,
   legendLabelStyle: PropTypes.object,
   valueLabelStyle: PropTypes.object,
+  /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
+  showClosestItem: PropTypes.bool,
 };
 
 XYChart.defaultProps = {

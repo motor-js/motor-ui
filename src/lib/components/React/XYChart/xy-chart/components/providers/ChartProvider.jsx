@@ -252,6 +252,7 @@ export default class ChartProvider extends React.Component {
       formatValue,
       legendLabelStyle,
       valueLabelStyle,
+      showClosestItem = true,
     } = this.props;
 
     const {
@@ -290,6 +291,7 @@ export default class ChartProvider extends React.Component {
           currentSelectionIds,
           legendLabelStyle,
           valueLabelStyle,
+          showClosestItem,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
