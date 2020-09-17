@@ -4,7 +4,9 @@ import { defaultProps } from "../../../../../../default-props";
 // // import { createColorArray } from "../../../../../../utils/colors";
 // // import { selectColor } from "../../../../../../utils/colors";
 // import { componentWidth } from "../../../../../../utils";
-import { Bar } from "@vx/shape";
+// import { Bar } from "@vx/shape";
+import Bar from "../shapes/Bar";
+import { isEmpty } from "../../../../../../utils";
 
 // zoom Example : https://codepen.io/wifeo/pen/qzwkb
 
@@ -32,7 +34,10 @@ import { Bar } from "@vx/shape";
 // Object.setPrototypeOf(BarWrapper.defaultProps, defaultProps);
 
 const StyledBar = styled(Bar)`
-  opacity: ${(props) => props.barOpacity};
+  opacity: ${({ isSelected, theme: { xyChart } }) =>
+    isSelected ? xyChart.selection.opacity : xyChart.nonSelection.opacity}};
+  &:hover {
+    opacity: 0.5;
 `;
 
 StyledBar.defaultProps = {};

@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from "react";
 // import { animated, useSprings } from "react-spring";
-import { Bar } from "@vx/shape";
-// import { StyledBar } from "./BarTheme";
+// import { Bar } from "@vx/shape";
+import { StyledBar as Bar } from "./BarTheme";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 
@@ -35,13 +35,13 @@ export default function AnimatedBars({
 
   const { selection, nonSelection } = theme;
 
-  const styleProp = (selectionId, styleprop) =>
-    isEmpty(currentSelectionIds)
-      ? selection[styleprop]
-      : currentSelectionIds.includes(selectionId) &&
-        !isEmpty(currentSelectionIds)
-      ? selection[styleprop]
-      : nonSelection[styleprop];
+  // const styleProp = (selectionId, styleprop) =>
+  //   isEmpty(currentSelectionIds)
+  //     ? selection[styleprop]
+  //     : currentSelectionIds.includes(selectionId) &&
+  //       !isEmpty(currentSelectionIds)
+  //     ? selection[styleprop]
+  //     : nonSelection[styleprop];
 
   // const [selectedBar, setSelectedBar] = useState([]);
 
@@ -75,9 +75,15 @@ export default function AnimatedBars({
           // fill={selectedBar.includes(bar.selectionId) ? "red" : bar.color}
           fill={bar.color}
           // barOpacity={0.65}
-          opacity={
-            // bar.opacity || styleProp(bar.selectionId, "opacity")
-            styleProp(bar.selectionId, "opacity")
+          // opacity={
+          //   // bar.opacity || styleProp(bar.selectionId, "opacity")
+          //   styleProp(bar.selectionId, "opacity")
+          // }
+          // opacity={isEmpty(currentSelectionIds)}
+          isSelected={
+            isEmpty(currentSelectionIds) ||
+            (currentSelectionIds.includes(bar.selectionId) &&
+              !isEmpty(currentSelectionIds))
           }
           style={{ cursor: "pointer " }}
           onClick={() => {
@@ -92,9 +98,9 @@ export default function AnimatedBars({
             // setSelectedBar(selections);
             handleClick(selections);
           }}
-          onMouseEnter={() => {
-            bar.opacity = 0.7;
-          }}
+          // onMouseEnter={() => {
+          //   bar.opacity = 0.7;
+          // }}
           onMouseMove={onMouseMove}
           onMouseLeave={() => {
             // bar.opacity = 1;
