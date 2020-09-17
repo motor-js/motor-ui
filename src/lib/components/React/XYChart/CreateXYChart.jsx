@@ -119,6 +119,7 @@ export default function CreateXYChart({
   legendLabelStyle,
   valueLabelStyle,
   showClosestItem,
+  useSingleColor,
   numDimensionTicks,
 }) {
   // const showTitles = true; // resize height of chart if title shown
@@ -264,6 +265,10 @@ export default function CreateXYChart({
       showClosestItem={valueIfUndefined(
         showClosestItem,
         xyChart.tooltip.showClosestItem
+      )}
+      useSingleColor={valueIfUndefined(
+        useSingleColor,
+        xyChart.tooltip.useSingleColor
       )}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}

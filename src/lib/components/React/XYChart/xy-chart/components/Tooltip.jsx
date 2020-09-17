@@ -35,6 +35,7 @@ export default function Tooltip({
     singleDimension,
     singleMeasure,
     showClosestItem,
+    useSingleColor,
   } = useContext(ChartContext) || {};
 
   // early return if there's no tooltip
@@ -82,7 +83,7 @@ export default function Tooltip({
 
   function renderTooltip({ closestData, closestDatum, colorScale }) {
     const seriesKey = closestDatum.key;
-    const headingColor = theme.tooltip.useSingleColor
+    const headingColor = useSingleColor
       ? selectColor(theme?.tooltip?.headingColor, theme)
       : null;
 
