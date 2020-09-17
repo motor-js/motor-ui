@@ -50,7 +50,8 @@ export default function CustomChartPattern({ backgroundPattern }) {
         width={10}
         height={10}
         orientation={["diagonal"]}
-        stroke={theme?.backgroundStyles?.stroke}
+        // stroke={theme?.backgroundStyles?.stroke}
+        stroke={selectColor(theme?.backgroundStyles?.stroke, theme)}
         strokeWidth={theme?.backgroundStyles?.strokeWidth}
       />
       <rect

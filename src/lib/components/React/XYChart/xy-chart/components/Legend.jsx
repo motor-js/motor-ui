@@ -31,8 +31,8 @@ export default function Legend({
       background:
         selectColor(theme?.legendStyles.backgroundColor, theme) ?? "white",
       color: isDefined(legendLabelStyle)
-        ? legendLabelStyle.fill
-        : theme?.legendLabelStyles?.fill,
+        ? selectColor(legendLabelStyle.fill, theme)
+        : selectColor(theme?.legendLabelStyles?.fill, theme),
       paddingLeft: margin.left,
       paddingRight: margin.right,
       [direction === "row" || direction === "row-reverse"
