@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { TooltipWithBounds, Portal, defaultStyles } from "@vx/tooltip";
-import { scaleOrdinal } from "@vx/scale";
+import { TooltipWithBounds, Portal } from "@vx/tooltip";
 import { timeParse, timeFormat } from "d3-time-format";
 
 import TooltipContext from "../context/TooltipContext";
@@ -229,8 +228,12 @@ export default function Tooltip({
             transform: `translate(${xCoord}px,${
               renderInPortal ? svgOriginY + margin.top : margin.top
             }px)`,
-            borderLeft: `1px solid ${theme?.xAxisStyles?.stroke ?? "#222"}`,
-            pointerEvents: "none",
+            borderLeft: `${theme?.verticalCrosshair?.width ?? "1px"} ${theme
+              ?.verticalCrosshair?.style ?? "solid"}  ${selectColor(
+              theme?.verticalCrosshair?.color,
+              theme
+            ) ?? "#222"}`,
+            pointerEvents: theme?.tooltip?.pointerEvents,
           }}
         />
       )}
@@ -238,7 +241,13 @@ export default function Tooltip({
         left={xCoord}
         top={yCoord}
         style={{
-          ...defaultStyles,
+          borderRadius: theme?.tooltip?.borderRadius,
+          boxShadow: theme?.tooltip?.boxShadow,
+          fontSize: theme?.tooltip?.fontSize,
+          lineHeight: theme?.tooltip?.lineHeight,
+          padding: theme?.tooltip?.padding,
+          pointerEvents: theme?.tooltip?.pointerEvents,
+          position: theme?.tooltip?.position,
           background:
             selectColor(theme?.tooltip?.backgroundColor, theme) ?? "white",
           color: selectColor(theme?.tooltip?.color, theme) ?? "#222",
