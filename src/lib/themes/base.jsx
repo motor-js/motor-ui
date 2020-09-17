@@ -742,7 +742,6 @@ const base = {
     snapTooltipToDataX: false,
     snapTooltipToDataY: false,
     showVerticalCrosshair: false,
-    showClosestItem: true, // Used for tooltip
     hideAxisLine: "yAxis",
     noData: {
       verticalAlign: "top",
@@ -831,7 +830,11 @@ const base = {
     },
     verticalCrosshair: { color: "brand", width: "1px", style: "solid" },
     tooltip: {
+      showClosestItem: true, // Used for tooltip
+      useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
       color: "altDark",
+      headingColor: "altDark",
+      textAlign: null,
       backgroundColor: "#fff",
       borderRadius: "3px",
       boxShadow: "0 1px 2px rgba(33,33,33,0.2)",

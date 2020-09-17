@@ -263,7 +263,7 @@ export default function CreateXYChart({
       precision={valueIfUndefined(precision, xyChart.precision)}
       showClosestItem={valueIfUndefined(
         showClosestItem,
-        xyChart.showClosestItem
+        xyChart.tooltip.showClosestItem
       )}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
