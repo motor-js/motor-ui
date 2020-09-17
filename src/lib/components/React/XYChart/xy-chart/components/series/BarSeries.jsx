@@ -6,6 +6,7 @@ import useRegisteredData from "../../hooks/useRegisteredData";
 import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
+import { selectColor } from "../../../../../../utils/colors";
 import { Text } from "@vx/text";
 
 function BarSeries({
@@ -175,7 +176,8 @@ function BarSeries({
         handleClick={handleClick}
         currentSelectionIds={currentSelectionIds}
         bars={bars}
-        stroke={theme.baseColor ?? "white"}
+        stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
+        strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
         theme={theme}
         {...barProps}
       />

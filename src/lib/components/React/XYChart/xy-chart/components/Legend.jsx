@@ -4,6 +4,7 @@ import { RectShape, LineShape, CircleShape } from "@vx/legend";
 
 import ChartContext from "../context/ChartContext";
 import { isDefined } from "../util/chartUtils";
+import { selectColor } from "../../../../../utils/colors";
 
 export default function Legend({
   alignLeft = true,
@@ -27,7 +28,8 @@ export default function Legend({
   const legendStyles = useMemo(
     () => ({
       display: "flex",
-      background: theme?.baseColor ?? "white",
+      background:
+        selectColor(theme?.legendStyles.backgroundColor, theme) ?? "white",
       color: isDefined(legendLabelStyle)
         ? legendLabelStyle.fill
         : theme?.legendLabelStyles?.fill,

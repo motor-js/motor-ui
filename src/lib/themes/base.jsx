@@ -734,7 +734,7 @@ const base = {
     renderHorizontally: false,
     allowSelections: true, //captureEvents if captureevents true the cannot make selections
     events: false,
-
+    color,
     showLabels: true,
     showPoints: true,
     roundNum: true,
@@ -759,8 +759,18 @@ const base = {
     },
 
     baseColor: "#fff",
+
+    bar: { stroke: "#fff", strokeWidth: 1 },
     points: { size: 50, strokeWidth: 2 },
     colors: ["#0b7285", "#15aabf", "#fcc419", "#ff8787", "#6741d9", "#e599f7"],
+    legendStyles: {
+      backgroundColor: "#fff",
+      // stroke: "white",
+      // opacity: 1,
+      // borderRadius: "10px",
+      // legendGroup: { opacity: "1", userSelect: "none" },
+      // legendText: { fill: "var(--oc-gray-7)" },
+    },
     legendLabelStyles: {
       fill: "#212529",
       stroke: "none",
@@ -812,6 +822,22 @@ const base = {
     nonSelection: {
       opacity: 0.5,
       // background: "var(--oc-gray-1)",
+    },
+    tooltip: {
+      // position: "absolute",
+      color: "altDark",
+      // display: "none",
+      // minWidth: "80px",
+      // height: "auto",
+      // background: "none repeat scroll 0 0 #ffffff",
+      // padding: "6px",
+      // textAlign: "center",
+      // opacity: 0.9,
+      // pointerEvents: "none",
+      backgroundColor: "#fff",
+      // border: "1px solid var(--oc-gray-2)",
+      // borderRadius: "6px",
+      // boxShadow: "4px 4px 12px rgba(0, 0, 0, .5)",
     },
     xAxisStyles: {
       stroke: "#adb5bd",

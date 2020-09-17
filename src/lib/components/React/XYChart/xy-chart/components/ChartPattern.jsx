@@ -9,6 +9,8 @@ import ChartContext from "../context/ChartContext";
 
 const patternId = "xy-chart-pattern";
 
+import { selectColor } from "../../../../../utils/colors";
+
 export default function CustomChartPattern({ backgroundPattern }) {
   const { theme, margin, width, height } = useContext(ChartContext);
 
@@ -56,7 +58,7 @@ export default function CustomChartPattern({ backgroundPattern }) {
         y={0}
         width={width}
         height={height}
-        fill={theme?.baseColor ?? "#fff"}
+        fill={selectColor(theme?.baseColor, theme) ?? "#fff"}
       />
       <rect
         x={margin.left}

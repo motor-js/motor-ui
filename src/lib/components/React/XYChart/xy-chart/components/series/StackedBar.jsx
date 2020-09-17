@@ -10,6 +10,7 @@ import { Group } from "@vx/group";
 import BarStack from "./BarStack";
 import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
+import { selectColor } from "../../../../../../utils/colors";
 
 import findNearestDatumY from "../../util/findNearestDatumY";
 import findNearestDatumX from "../../util/findNearestDatumX";
@@ -230,7 +231,8 @@ export default function Stack({ horizontal, children, ...rectProps }) {
               <AnimatedBars
                 key={`${index}-${barStack.bars.length}`}
                 bars={barStack.bars}
-                stroke={theme.baseColor ?? "white"}
+                stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
+                strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
                 handleClick={handleClick}
                 // selectionIds={selectionIds}
                 currentSelectionIds={currentSelectionIds}
@@ -263,7 +265,8 @@ export default function Stack({ horizontal, children, ...rectProps }) {
               <AnimatedBars
                 key={`${index}-${barStack.bars.length}`}
                 bars={barStack.bars}
-                stroke={theme.baseColor ?? "white"}
+                stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
+                strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
                 handleClick={handleClick}
                 // selectionIds={selectionIds}
                 currentSelectionIds={currentSelectionIds}

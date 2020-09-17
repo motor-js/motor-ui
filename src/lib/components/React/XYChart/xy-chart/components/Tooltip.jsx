@@ -5,6 +5,7 @@ import { timeParse, timeFormat } from "d3-time-format";
 
 import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
+import { selectColor } from "../../../../../utils/colors";
 
 export const parseDate = timeParse("%Y%m%d");
 export const formatDate = timeFormat("%b %d");
@@ -238,8 +239,9 @@ export default function Tooltip({
         top={yCoord}
         style={{
           ...defaultStyles,
-          background: theme?.baseColor ?? "white",
-          color: theme?.xAxisStyles?.stroke ?? "#222",
+          background:
+            selectColor(theme?.tooltip?.backgroundColor, theme) ?? "white",
+          color: selectColor(theme?.tooltip?.color, theme) ?? "#222",
         }}
       >
         {renderTooltip({ ...tooltipData, colorScale })}
