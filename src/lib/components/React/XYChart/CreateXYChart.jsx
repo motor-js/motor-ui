@@ -27,8 +27,6 @@ import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 import { colorByExpression } from "../../../utils";
 import { valueIfUndefined } from "./xy-chart/util/chartUtils";
 
-const numDimensionTicks = 5;
-
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
 //   null // ➜ React components must return something
@@ -121,6 +119,7 @@ export default function CreateXYChart({
   legendLabelStyle,
   valueLabelStyle,
   showClosestItem,
+  numDimensionTicks,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -128,28 +127,11 @@ export default function CreateXYChart({
 
   const chartType = [getChartType()];
 
-  // if (showAsPercent) {
-  //   const percentageData = singleDimension ? qMatrix : items;
-  //   const keyItems = singleDimension ? measureInfo : keys;
-
-  //   percentageData.forEach((d, i) => {
-  //     let positiveSum = 0;
-  //     let negativeSum = 0;
-  //     keyItems.forEach((m, mi) => {
-  //       const value = d[mi + 1].qNum;
-  //       value >= 0 ? (positiveSum += value) : (negativeSum += value);
-  //     });
-  //     keyItems.forEach((m, mi) => {
-  //       const value = d[mi + 1].qNum;
-  //       d[mi + 1].qNum =
-  //         Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
-  //     });
-  //   });
-  // }
-
   const [currData, setCurrData] = useState(data);
 
   const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
+
+  // const numDimensionTicks = 5;
 
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||

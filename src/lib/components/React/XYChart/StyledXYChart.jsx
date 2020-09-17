@@ -26,6 +26,7 @@ let singleDimension = null;
 let singleMeasure = null;
 let dataKeys = null;
 let keys = [];
+let dimensionTicks = null;
 
 function StyledXYChart(props) {
   // Ref for d3 object
@@ -76,6 +77,7 @@ function StyledXYChart(props) {
     fillStyle,
     showBoxShadow,
     showAsPercent,
+    numDimensionTicks,
     ...rest
   } = props;
 
@@ -209,6 +211,12 @@ function StyledXYChart(props) {
           ? keys
           : null;
 
+      dimensionTicks = Math.min(
+        numDimensionTicks ||
+          (singleDimension ? qData.qMatrix.length : items.length),
+        singleDimension ? qData.qMatrix.length : items.length
+      );
+
       if (showAsPercent) {
         const percentageData = singleDimension ? qData.qMatrix : items;
         const keyItems = singleDimension
@@ -282,6 +290,7 @@ function StyledXYChart(props) {
               events={events || xyChart.events}
               qLayout={qLayout}
               // qData={data}
+              numDimensionTicks={dimensionTicks}
               theme={theme}
               singleDimension={singleDimension}
               singleMeasure={singleMeasure}

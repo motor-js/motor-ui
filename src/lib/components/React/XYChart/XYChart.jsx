@@ -266,9 +266,11 @@ XYChart.propTypes = {
   valueLabelStyle: PropTypes.object,
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
   showClosestItem: PropTypes.bool,
+  numDimensionTicks: PropTypes.number,
 };
 
 XYChart.defaultProps = {
+  numDimensionTicks: 10,
   calcCondition: undefined,
   width: "100%",
   height: "400px", // 100%
