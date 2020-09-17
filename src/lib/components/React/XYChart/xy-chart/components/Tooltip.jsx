@@ -30,6 +30,7 @@ export default function Tooltip({
     theme,
     formatValue,
     measureInfo,
+    dimensionInfo,
     dataKeys,
     singleDimension,
     singleMeasure,
@@ -80,7 +81,6 @@ export default function Tooltip({
   };
 
   function renderTooltip({ closestData, closestDatum, colorScale }) {
-    // const { x, x0, y, value } = datum;
     const seriesKey = closestDatum.key;
     const color =
       singleDimension && singleMeasure && dataKeys
@@ -104,6 +104,10 @@ export default function Tooltip({
       ? closestDatum.datum[valIdx].qNum || "--"
       : closestDatum.datum.filter((d) => d.qText === seriesKey)[0].qNum || "--";
 
+    const yValText = singleDimension
+      ? seriesKey || "--"
+      : measureInfo[0].qFallbackTitle || "--";
+
     return (
       <>
         {showClosestItem ? (
@@ -114,11 +118,13 @@ export default function Tooltip({
               </div>
             )}
             <div>
-              <strong style={{ color }}>x </strong>
+              <strong style={{ color }}>
+                {dimensionInfo[0].qFallbackTitle}{" "}
+              </strong>
               {xVal}
             </div>
             <div>
-              <strong style={{ color }}>y </strong>
+              <strong style={{ color }}>{yValText} </strong>
               {yVal && formatValue(yVal)}
             </div>
             {/*   {data && (
