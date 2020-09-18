@@ -114,24 +114,22 @@ export default function Tooltip({
       ? seriesKey || "--"
       : measureInfo[0].qFallbackTitle || "--";
 
-    const textAlign = theme?.tooltip?.textAlign;
-
     return (
       <>
         {showClosestItem ? (
           <div>
             {seriesKey && (
-              <div style={{ textAlign }}>
+              <div>
                 <strong style={{ color }}>{seriesKey}</strong>
               </div>
             )}
-            <div style={{ textAlign }}>
+            <div>
               <strong style={{ color }}>
                 {dimensionInfo[0].qFallbackTitle}{" "}
               </strong>
               {xVal}
             </div>
-            <div style={{ textAlign }}>
+            <div>
               <strong style={{ color }}>{yValText} </strong>
               {yVal && formatValue(yVal)}
             </div>
@@ -146,7 +144,14 @@ export default function Tooltip({
         ) : (
           <>
             {/* <div>{closestDatum.datum[0].qText}</div> */}
-            <div>{xVal}</div>
+            <div
+            // style={{
+            //   color: "white",
+            //   backgroundColor: "black",
+            // }}
+            >
+              {xVal}
+            </div>
             {/* <Console log={"dd"} /> */}
             <br />
             {singleDimension && singleMeasure && dataKeys && (
@@ -249,16 +254,21 @@ export default function Tooltip({
         left={xCoord}
         top={yCoord}
         style={{
-          borderRadius: theme?.tooltip?.borderRadius,
-          boxShadow: theme?.tooltip?.boxShadow,
-          fontSize: theme?.tooltip?.fontSize,
-          lineHeight: theme?.tooltip?.lineHeight,
-          padding: theme?.tooltip?.padding,
-          pointerEvents: theme?.tooltip?.pointerEvents,
-          position: theme?.tooltip?.position,
+          // borderRadius: theme?.tooltip?.borderRadius,
+          // boxShadow: theme?.tooltip?.boxShadow,
+          // fontSize: theme?.tooltip?.fontSize,
+          // lineHeight: theme?.tooltip?.lineHeight,
+          // padding: theme?.tooltip?.padding,
+          // pointerEvents: theme?.tooltip?.pointerEvents,
+          // position: theme?.tooltip?.position,
+          ...theme?.tooltip?.tooltipStyles,
           background:
-            selectColor(theme?.tooltip?.backgroundColor, theme) ?? "white",
-          color: selectColor(theme?.tooltip?.color, theme) ?? "#222",
+            selectColor(
+              theme?.tooltip?.tooltipStyles?.backgroundColor,
+              theme
+            ) ?? "white",
+          color:
+            selectColor(theme?.tooltip?.tooltipStyles?.color, theme) ?? "#222",
         }}
       >
         {renderTooltip({ ...tooltipData, colorScale })}

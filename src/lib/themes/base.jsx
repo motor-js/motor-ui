@@ -836,17 +836,19 @@ const base = {
     tooltip: {
       showClosestItem: true, // Used for tooltip
       useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
-      color: "altDark",
       headingColor: "altDark",
-      textAlign: null,
-      backgroundColor: "#fff",
-      borderRadius: "3px",
-      boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
-      fontSize: "14px",
-      lineHeight: "1em",
-      padding: ".3rem .5rem",
-      pointerEvents: "none",
-      position: "absolute",
+      tooltipStyles: {
+        borderRadius: "3px",
+        boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+        fontSize: "14px",
+        lineHeight: "1em",
+        padding: ".3rem .5rem",
+        pointerEvents: "none",
+        position: "absolute",
+        backgroundColor: "#fff",
+        color: "altDark",
+        textAlign: null,
+      },
     },
     xAxisStyles: {
       stroke: "#adb5bd",
