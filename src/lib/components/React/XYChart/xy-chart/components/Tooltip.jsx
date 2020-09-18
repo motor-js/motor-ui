@@ -77,13 +77,11 @@ export default function Tooltip({
   // );
 
   const getValue = (measure, data) => {
-    console.log(measure, data);
     const x = data.datum.filter((s) => s.qText === measure);
     return x[0].qNum;
   };
 
   function renderTooltip({ closestData, closestDatum, colorScale }) {
-    console.log(closestDatum);
     const seriesKey = closestDatum.key;
     const headingColor = useSingleColor
       ? selectColor(theme?.tooltip?.headingColor, theme)
@@ -172,9 +170,7 @@ export default function Tooltip({
               !singleMeasure &&
               measureInfo.map(
                 (measure, index) =>
-                  closestData?.[`${measure.qFallbackTitle}`] &&
-                  closestDatum.datum[0].qText ===
-                    closestData[`${measure.qFallbackTitle}`].datum[0].qText && (
+                  closestDatum.datum[0].qText && (
                     <div
                       key={measure.qFallbackTitle}
                       style={{
@@ -190,11 +186,7 @@ export default function Tooltip({
                       }}
                     >
                       {measure.qFallbackTitle}{" "}
-                      {formatValue(
-                        closestData[`${measure.qFallbackTitle}`].datum[
-                          index + 1
-                        ].qNum
-                      )}
+                      {formatValue(closestDatum.datum[index + 1].qNum)}
                     </div>
                   )
               )}
@@ -203,7 +195,7 @@ export default function Tooltip({
               dataKeys &&
               dataKeys.map(
                 (measure, index) =>
-                  closestData?.[`${measure}`] &&
+                  // closestData?.[`${measure}`] &&
                   closestDatum.key && (
                     <div
                       key={measure}
