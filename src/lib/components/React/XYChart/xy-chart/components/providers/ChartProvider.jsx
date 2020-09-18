@@ -210,6 +210,18 @@ export default class ChartProvider extends React.Component {
       );
     }
 
+    if (this.props.chartType.includes("groupedbar")) {
+      const index = Number(event.target.getAttribute("index"));
+      const item = event.target.getAttribute("item");
+
+      const data = Object.values(dataRegistry).filter((d) => d.key === item)[0];
+
+      closestDatum = {
+        key: data.key,
+        datum: data.data[index],
+      };
+    }
+
     return { closestData, closestDatum, svgMouseX, svgMouseY };
   };
 

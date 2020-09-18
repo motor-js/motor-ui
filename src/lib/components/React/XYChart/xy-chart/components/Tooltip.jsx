@@ -92,6 +92,7 @@ export default function Tooltip({
       (singleDimension && singleMeasure && dataKeys
         ? colorScale(`${closestDatum.datum[0].qText}`)
         : colorScale(`${closestDatum.key}`));
+
     let xVal = closestDatum.datum[0].qNum || x0;
     if (typeof xVal === "string") {
       xVal = parseDate(xVal) === null ? xVal : dateFormatter(xVal);

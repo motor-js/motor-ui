@@ -15,7 +15,6 @@ export default function AnimatedBars({
   height,
   handleClick,
   currentSelectionIds,
-  // selectionIds,
   theme,
   ...rectProps
 }) {
@@ -71,6 +70,7 @@ export default function AnimatedBars({
           width={width?.(bar) ?? bar.width}
           height={height?.(bar) ?? bar.height}
           fill={bar.color}
+          item={bar.key}
           isSelected={
             isEmpty(currentSelectionIds)
               ? -1

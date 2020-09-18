@@ -178,7 +178,7 @@ function BarSeries({
         bars={bars}
         stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
         strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
-        theme={theme}
+        // theme={theme}
         {...barProps}
       />
       {Labels.map((Label) => Label)}

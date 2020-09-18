@@ -236,7 +236,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
                 handleClick={handleClick}
                 // selectionIds={selectionIds}
                 currentSelectionIds={currentSelectionIds}
-                theme={theme}
+                // theme={theme}
                 {...rectProps}
               />
             ))}
@@ -245,7 +245,6 @@ export default function Stack({ horizontal, children, ...rectProps }) {
       }}
     </BarStackHorizontal>
   ) : (
-    // @TODO types
     <BarStack
       data={combinedData}
       keys={dataKeys}
@@ -270,7 +269,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
                 handleClick={handleClick}
                 // selectionIds={selectionIds}
                 currentSelectionIds={currentSelectionIds}
-                theme={theme}
+                // theme={theme}
                 {...rectProps}
               />
             ))}

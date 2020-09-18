@@ -59,40 +59,66 @@ export default function Group({
   // @todo, this should be refactored such that it can be memoized.
   // currently it references groupScale which depends on xScale, yScale,
   // and thus causes an infinite loop for updating the data registry.
-  const findNearestDatum = useCallback(
-    (args) => {
-      const nearestDatum = horizontal
-        ? findNearestDatumY(args)
-        : findNearestDatumX(args);
+  // const findNearestDatum = useCallback(
+  //   (args) => {
+  //     // const nearestDatum = horizontal
+  //     //   ? findNearestDatumY(args)
+  //     //   : findNearestDatumX(args);
 
-      if (!nearestDatum) return null;
+  //     // console.log(args.key);
+  //     const groupIndex = Number(event.target.getAttribute("groupIndex"));
+  //     const index = Number(event.target.getAttribute("index")) + 1;
+  //     console.log(args.data[groupIndex][index].qText);
 
-      const distanceX = horizontal
-        ? nearestDatum.distanceX
-        : Math.abs(
-            args.svgMouseX -
-              (args.xScale(args.xAccessor(nearestDatum.datum)) +
-                groupScale(args.key) +
-                groupScale.bandwidth() / 2)
-          );
+  //     const nearestDatum = {
+  //       key: args.data[groupIndex][index].qText,
+  //       datum: [args.data[groupIndex][index]],
+  //       index,
+  //     };
+  //     // console.log(nearestDatum);
+  //     if (!nearestDatum) return null;
 
-      const distanceY = horizontal
-        ? Math.abs(
-            args.svgMouseY -
-              (args.yScale(args.yAccessor(nearestDatum.datum)) +
-                groupScale(args.key) +
-                groupScale.bandwidth() / 2)
-          )
-        : nearestDatum.distanceY;
+  //     // const distanceX = horizontal
+  //     //   ? nearestDatum.distanceX
+  //     //   : Math.abs(
+  //     //       args.svgMouseX -
+  //     //         (args.xScale(args.xAccessor(nearestDatum.datum)) +
+  //     //           groupScale(args.key) +
+  //     //           groupScale.bandwidth() / 2)
+  //     //     );
 
-      return {
-        ...nearestDatum,
-        distanceX,
-        distanceY,
-      };
-    },
-    [horizontal]
-  );
+  //     // const distanceX = horizontal
+  //     //   ? nearestDatum.distanceX
+  //     //   : Math.abs(
+  //     //       args.svgMouseX -
+  //     //         (args.xScale(args.xAccessor(nearestDatum.datum)) +
+  //     //           Number(event.target.getAttribute("x")) +
+  //     //           (Number(event.target.getAttribute("width")) * 4) / 2)
+  //     //     );
+
+  //     // console.log(nearestDatum.datum);
+  //     const distanceX = args.svgMouseX - Number(event.target.getAttribute("x"));
+
+  //     const distanceY = horizontal
+  //       ? Math.abs(
+  //           args.svgMouseY -
+  //             (args.yScale(args.yAccessor(nearestDatum.datum)) +
+  //               groupScale(args.key) +
+  //               groupScale.bandwidth() / 2)
+  //         )
+  //       // : nearestDatum.distanceY;
+  //     :  0;
+
+  //     console.log(distanceX, distanceY);
+
+  //     return {
+  //       ...nearestDatum,
+  //       distanceX,
+  //       distanceY,
+  //     };
+  //   },
+  //   [horizontal]
+  // );
 
   useEffect(
     // register all child data
@@ -115,7 +141,7 @@ export default function Group({
           elAccessor,
           yAccessor,
           mouseEvents,
-          findNearestDatum,
+          // findNearestDatum,
         };
       });
 
@@ -130,7 +156,7 @@ export default function Group({
       registerData,
       unregisterData,
       children,
-      findNearestDatum,
+      // findNearestDatum,
       dataKeys,
     ]
   );
@@ -216,7 +242,7 @@ export default function Group({
       color={colorScale}
     >
       {(barGroups) =>
-        barGroups.map((barGroup) => (
+        barGroups.map((barGroup, index) => (
           // @TODO if we use <animated.g /> we might be able to make this animate on first render
           <VxGroup
             key={`bar-group-${barGroup.index}-${barGroup.y0}`}
@@ -230,9 +256,8 @@ export default function Group({
               height={(bar) => bar.height}
               rx={2}
               handleClick={handleClick}
-              // selectionIds={selectionIds}
-              theme={theme}
               currentSelectionIds={currentSelectionIds}
+              index={index}
               {...rectProps}
             />
             {showLabels &&
@@ -262,7 +287,7 @@ export default function Group({
       color={(dataKey) => colorScale(dataKey)}
     >
       {(barGroups) =>
-        barGroups.map((barGroup) => (
+        barGroups.map((barGroup, index) => (
           <VxGroup
             key={`bar-group-${barGroup.index}-${barGroup.x0}`}
             left={barGroup.x0}
@@ -275,9 +300,8 @@ export default function Group({
               height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
               rx={2}
               handleClick={handleClick}
-              // selectionIds={selectionIds}
               currentSelectionIds={currentSelectionIds}
-              theme={theme}
+              index={index}
               {...rectProps}
             />
             {showLabels &&
