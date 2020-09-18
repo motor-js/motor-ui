@@ -255,8 +255,6 @@ export default class ChartProvider extends React.Component {
       formatValue,
       legendLabelStyle,
       valueLabelStyle,
-      showClosestItem = true,
-      useSingleColor = false,
     } = this.props;
 
     const {
@@ -295,8 +293,6 @@ export default class ChartProvider extends React.Component {
           currentSelectionIds,
           legendLabelStyle,
           valueLabelStyle,
-          showClosestItem,
-          useSingleColor,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

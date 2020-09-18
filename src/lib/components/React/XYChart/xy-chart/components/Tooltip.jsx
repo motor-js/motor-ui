@@ -17,6 +17,8 @@ export default function Tooltip({
   snapToDataY,
   showVerticalCrosshair,
   renderInPortal = false,
+  showClosestItem,
+  useSingleColor,
 }) {
   const { tooltipData } = useContext(TooltipContext) || {};
 
@@ -34,8 +36,6 @@ export default function Tooltip({
     dataKeys,
     singleDimension,
     singleMeasure,
-    showClosestItem,
-    useSingleColor,
   } = useContext(ChartContext) || {};
 
   // early return if there's no tooltip

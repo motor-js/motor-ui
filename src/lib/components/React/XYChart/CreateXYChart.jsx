@@ -262,14 +262,6 @@ export default function CreateXYChart({
       showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
       roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
       precision={valueIfUndefined(precision, xyChart.precision)}
-      showClosestItem={valueIfUndefined(
-        showClosestItem,
-        xyChart.tooltip.showClosestItem
-      )}
-      useSingleColor={valueIfUndefined(
-        useSingleColor,
-        xyChart.tooltip.useSingleColor
-      )}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}
@@ -596,6 +588,14 @@ export default function CreateXYChart({
             showVerticalCrosshair={valueIfUndefined(
               showVerticalCrosshair,
               xyChart.showVerticalCrosshair
+            )}
+            showClosestItem={valueIfUndefined(
+              showClosestItem,
+              xyChart.tooltip.showClosestItem
+            )}
+            useSingleColor={valueIfUndefined(
+              useSingleColor,
+              xyChart.tooltip.useSingleColor
             )}
           />
           {legendTopBottom === "bottom" && legend}
