@@ -29,7 +29,7 @@ function AreaSeries({
     showPoints,
     showLabels,
     theme,
-
+    size,
     formatValue,
     valueLabelStyle,
   } = useContext(ChartContext);
@@ -66,6 +66,7 @@ function AreaSeries({
 
   const labelProps = {
     ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
     ...valueLabelStyle,
   };
 

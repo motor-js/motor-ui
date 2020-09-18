@@ -19,10 +19,17 @@ export default function Legend({
     colorScale,
     dataRegistry,
     legendLabelStyle,
+    size,
   } = useContext(ChartContext);
 
   const legendLabelProps = useMemo(
-    () => ({ style: { ...theme.legendLabelStyles, ...legendLabelStyle } }),
+    () => ({
+      style: {
+        ...theme.legendLabelStyles,
+        fontSize: theme.legendLabelStyles.fontSize[size],
+        ...legendLabelStyle,
+      },
+    }),
     [theme]
   );
   const legendStyles = useMemo(

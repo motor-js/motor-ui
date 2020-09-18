@@ -36,6 +36,7 @@ export default function Tooltip({
     dataKeys,
     singleDimension,
     singleMeasure,
+    size,
   } = useContext(ChartContext) || {};
 
   // early return if there's no tooltip
@@ -254,6 +255,7 @@ export default function Tooltip({
           // pointerEvents: theme?.tooltip?.pointerEvents,
           // position: theme?.tooltip?.position,
           ...theme?.tooltip?.tooltipStyles,
+          fontSize: theme?.tooltip?.tooltipStyles?.fontSize[size],
           background:
             selectColor(
               theme?.tooltip?.tooltipStyles?.backgroundColor,

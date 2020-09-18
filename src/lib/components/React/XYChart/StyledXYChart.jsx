@@ -307,6 +307,7 @@ function StyledXYChart(props) {
               currentSelectionIds={currentSelectionIds}
               // useSelectionColours={useSelectionColours}
               colorPalette={colorPalette}
+              size={size}
               type={type}
               padding={padding || xyChart.padding}
               useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}

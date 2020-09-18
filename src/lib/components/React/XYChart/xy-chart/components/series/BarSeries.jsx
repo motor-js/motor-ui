@@ -31,6 +31,7 @@ function BarSeries({
     handleClick,
     currentSelectionIds,
     valueLabelStyle,
+    size,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
@@ -51,6 +52,7 @@ function BarSeries({
 
   const labelProps = {
     ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
     ...valueLabelStyle,
   };
 

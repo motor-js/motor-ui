@@ -5,7 +5,7 @@ import ChartContext from "../context/ChartContext";
 import withDefinedContextScales from "../enhancers/withDefinedContextScales";
 
 function Axis(props) {
-  const { theme, xScale, yScale, margin, width, height } = useContext(
+  const { theme, xScale, yScale, margin, width, height, size } = useContext(
     ChartContext
   );
   const { orientation } = props;
@@ -29,7 +29,12 @@ function Axis(props) {
 
     return themeTickLabelProps
       ? // by default, wrap tick labels within the allotted margin space
-        () => ({ ...themeTickLabelProps, width: margin[orientation] })
+        () => ({
+          ...themeTickLabelProps,
+          width: margin[orientation],
+          fontSize:
+            theme?.[themeTickStylesKey]?.label?.[orientation].fontSize[size],
+        })
       : undefined;
   }, [theme, props.tickLabelProps, themeTickStylesKey, orientation, margin]);
 

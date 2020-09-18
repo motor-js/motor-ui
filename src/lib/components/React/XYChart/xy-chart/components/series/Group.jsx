@@ -37,6 +37,7 @@ export default function Group({
     handleClick,
     currentSelectionIds,
     valueLabelStyle,
+    size,
   } = useContext(ChartContext);
 
   // extract data keys from child series
@@ -222,6 +223,7 @@ export default function Group({
 
   const labelProps = {
     ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
     ...valueLabelStyle,
     dx: horizontal ? "0.5em" : 0,
     dy: horizontal ? 0 : "-0.74em",

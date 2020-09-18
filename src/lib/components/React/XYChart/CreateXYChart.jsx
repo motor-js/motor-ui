@@ -82,6 +82,7 @@ export default function CreateXYChart({
   type,
   useAnimatedAxes,
   autoWidth,
+  size,
   renderHorizontally,
   includeZero,
   xAxisOrientation,
@@ -262,6 +263,7 @@ export default function CreateXYChart({
       showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
       roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
       precision={valueIfUndefined(precision, xyChart.precision)}
+      size={size}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}

@@ -255,6 +255,7 @@ export default class ChartProvider extends React.Component {
       formatValue,
       legendLabelStyle,
       valueLabelStyle,
+      size,
     } = this.props;
 
     const {
@@ -290,6 +291,7 @@ export default class ChartProvider extends React.Component {
           // beginSelections,
           // setCurrentSelectionIds,
           // select,
+          size,
           currentSelectionIds,
           legendLabelStyle,
           valueLabelStyle,

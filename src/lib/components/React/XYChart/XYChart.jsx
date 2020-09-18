@@ -70,8 +70,8 @@ XYChart.propTypes = {
   height: PropTypes.string,
   /** The amount of margin around the component */
   margin: PropTypes.string,
-  // /** Size of the Bar */
-  // size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
+  /** Size of the Bar */
+  size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   showLabels: PropTypes.bool,
   // /** Show text on Axis */
@@ -274,7 +274,7 @@ XYChart.defaultProps = {
   calcCondition: undefined,
   width: "100%",
   height: "400px", // 100%
-  // size: "medium",
+  size: "medium",
   border: true,
   /** Use dual Y axis on the the chart  */
   dualAxis: false,

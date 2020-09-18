@@ -32,6 +32,7 @@ function LineSeries({
     isSelectionXYChartVisible,
     valueLabelStyle,
     currentSelectionIds,
+    size,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } =
@@ -67,6 +68,7 @@ function LineSeries({
 
   const labelProps = {
     ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
     ...valueLabelStyle,
   };
 
