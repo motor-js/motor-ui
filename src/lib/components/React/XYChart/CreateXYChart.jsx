@@ -92,8 +92,6 @@ export default function CreateXYChart({
   legendTopBottom,
   legendDirection,
   legendShape,
-  snapTooltipToDataX,
-  snapTooltipToDataY,
   backgroundPattern,
   backgroundStyle,
   fillStyle,
@@ -575,18 +573,8 @@ export default function CreateXYChart({
           </XYChart>
 
           <Tooltip
-            snapToDataX={
-              valueIfUndefined(
-                snapTooltipToDataX,
-                xyChart.snapTooltipToDataX
-              ) && canSnapTooltipToDataX
-            }
-            snapToDataY={
-              valueIfUndefined(
-                snapTooltipToDataY,
-                xyChart.snapTooltipToDataY
-              ) && canSnapTooltipToDataY
-            }
+            snapToDataX={canSnapTooltipToDataX}
+            snapToDataY={canSnapTooltipToDataY}
             showVerticalCrosshair={valueIfUndefined(
               showVerticalCrosshair,
               xyChart.showVerticalCrosshair

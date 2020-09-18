@@ -222,8 +222,6 @@ XYChart.propTypes = {
   legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
   legendDirection: PropTypes.oneOf(["row", "column"]),
   legendShape: PropTypes.string,
-  snapTooltipToDataX: PropTypes.bool,
-  snapTooltipToDataY: PropTypes.bool,
   backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
   /** BackgroundSTyle */
   /** either : style of one of below or bckgroundFrom and bckgroundTo */

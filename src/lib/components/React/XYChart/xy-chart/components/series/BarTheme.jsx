@@ -23,7 +23,7 @@ const handleBarStyle = (props) => {
 
   return css`
     &:hover {
-      ${xyChart.hover};
+      ${!xyChart.showVerticalCrosshair ? xyChart.hover : null};
     }
   `;
 };
