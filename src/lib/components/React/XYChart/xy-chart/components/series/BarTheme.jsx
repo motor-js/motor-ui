@@ -1,43 +1,35 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { defaultProps } from "../../../../../../default-props";
-// import { globalStyle, borderStyle } from "../../../../../../utils/styles";
-// // import { createColorArray } from "../../../../../../utils/colors";
-// // import { selectColor } from "../../../../../../utils/colors";
-// import { componentWidth } from "../../../../../../utils";
-// import { Bar } from "@vx/shape";
 import Bar from "../shapes/Bar";
-import { isEmpty } from "../../../../../../utils";
 
 // zoom Example : https://codepen.io/wifeo/pen/qzwkb
 
-// const BarWrapper = styled.div`
-//   ${globalStyle};
-//   ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
-//   ${(props) =>
-//     props.border &&
-//     props.border !== "none" &&
-//     (Array.isArray(props.border, props.theme)
-//       ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
-//       : borderStyle(props.border, props.theme, "chart"))};
-//   border-radius: ${(props) =>
-//     props.borderRadius || props.theme.global.chart.borderRadius};
-//   background-color: ${(props) =>
-//     props.backgroundColor || props.theme.global.chart.backgroundColor};
-//   margin: ${(props) => props.margin || props.theme.global.chart.margin};
-//   userselect: ${(props) => props.theme.global.chart.userSelect};
-//   width: ${(props) => componentWidth(props)};
-//   display: ${(props) => props.theme.global.chart.display};
-//   box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-// `;
+const handleBarStyle = (props) => {
+  const {
+    isSelected,
+    theme: { xyChart },
+  } = props;
 
-// BarWrapper.defaultProps = {};
-// Object.setPrototypeOf(BarWrapper.defaultProps, defaultProps);
+  if (isSelected === 1) {
+    return css`
+      ${xyChart.selection};
+    `;
+  }
+  if (isSelected === 0) {
+    return css`
+      ${xyChart.nonSelection};
+    `;
+  }
+
+  return css`
+    &:hover {
+      ${xyChart.hover};
+    }
+  `;
+};
 
 const StyledBar = styled(Bar)`
-  opacity: ${({ isSelected, theme: { xyChart } }) =>
-    isSelected ? xyChart.selection.opacity : xyChart.nonSelection.opacity}};
-  &:hover {
-    opacity: 0.5;
+  ${(props) => handleBarStyle(props)};
 `;
 
 StyledBar.defaultProps = {};

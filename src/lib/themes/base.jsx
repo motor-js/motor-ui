@@ -821,10 +821,14 @@ const base = {
     },
     selection: {
       opacity: 1,
-      stroke: "black",
-      strokeWidth: "1px",
+      // stroke: "black",
+      // strokeWidth: "1px",
     },
     nonSelection: {
+      opacity: 0.5,
+      // background: "var(--oc-gray-1)",
+    },
+    hover: {
       opacity: 0.5,
       // background: "var(--oc-gray-1)",
     },

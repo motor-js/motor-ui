@@ -33,7 +33,7 @@ export default function AnimatedBars({
   const { findNearestData } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
-  const { selection, nonSelection } = theme;
+  // const { selection, nonSelection } = theme;
 
   // const styleProp = (selectionId, styleprop) =>
   //   isEmpty(currentSelectionIds)
@@ -70,25 +70,16 @@ export default function AnimatedBars({
           y={y?.(bar) ?? bar.y}
           width={width?.(bar) ?? bar.width}
           height={height?.(bar) ?? bar.height}
-          // fill={bar.color}
-          // fill={isSelected ? "white" : "rgba(23, 233, 217, 0.5)"}
-          // fill={selectedBar.includes(bar.selectionId) ? "red" : bar.color}
           fill={bar.color}
-          // barOpacity={0.65}
-          // opacity={
-          //   // bar.opacity || styleProp(bar.selectionId, "opacity")
-          //   styleProp(bar.selectionId, "opacity")
-          // }
-          // opacity={isEmpty(currentSelectionIds)}
           isSelected={
-            isEmpty(currentSelectionIds) ||
-            (currentSelectionIds.includes(bar.selectionId) &&
-              !isEmpty(currentSelectionIds))
+            isEmpty(currentSelectionIds)
+              ? -1
+              : currentSelectionIds.includes(bar.selectionId)
+              ? 1
+              : 0
           }
-          style={{ cursor: "pointer " }}
+          style={{ cursor: "pointer" }}
           onClick={() => {
-            // setSelectedBar(isSelected ? null : letter);
-
             const selections = currentSelectionIds.includes(bar.selectionId)
               ? currentSelectionIds.filter(function(value, index, arr) {
                   return value !== bar.selectionId;
@@ -98,12 +89,8 @@ export default function AnimatedBars({
             // setSelectedBar(selections);
             handleClick(selections);
           }}
-          // onMouseEnter={() => {
-          //   bar.opacity = 0.7;
-          // }}
           onMouseMove={onMouseMove}
           onMouseLeave={() => {
-            // bar.opacity = 1;
             hideTooltip();
           }}
           {...rectProps}
