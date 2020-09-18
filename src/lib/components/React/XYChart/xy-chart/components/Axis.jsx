@@ -62,11 +62,17 @@ function Axis(props) {
       ? width - margin.right
       : 0;
 
+  const labelProps = {
+    ...axisStyles?.label?.[orientation],
+    fontSize: axisStyles?.label?.[orientation].fontSize[size],
+  };
+  console.log(labelProps);
+
   return (
     <BaseAxis
       top={topOffset}
       left={leftOffset}
-      labelProps={axisStyles?.label?.[orientation]}
+      labelProps={labelProps}
       stroke={axisStyles?.stroke}
       strokeWidth={axisStyles?.strokeWidth}
       tickLength={tickStyles?.tickLength}
