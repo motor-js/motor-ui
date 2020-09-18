@@ -66,7 +66,6 @@ function Axis(props) {
     ...axisStyles?.label?.[orientation],
     fontSize: axisStyles?.label?.[orientation].fontSize[size],
   };
-  console.log(labelProps);
 
   return (
     <BaseAxis
