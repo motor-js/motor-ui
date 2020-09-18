@@ -77,11 +77,13 @@ export default function Tooltip({
   // );
 
   const getValue = (measure, data) => {
+    console.log(measure, data);
     const x = data.datum.filter((s) => s.qText === measure);
     return x[0].qNum;
   };
 
   function renderTooltip({ closestData, closestDatum, colorScale }) {
+    console.log(closestDatum);
     const seriesKey = closestDatum.key;
     const headingColor = useSingleColor
       ? selectColor(theme?.tooltip?.headingColor, theme)
@@ -215,10 +217,7 @@ export default function Tooltip({
                           closestDatum.key === `${measure}` ? "bold" : "normal",
                       }}
                     >
-                      {measure}{" "}
-                      {formatValue(
-                        getValue(measure, closestData[`${measure}`])
-                      )}
+                      {measure} {formatValue(getValue(measure, closestDatum))}
                     </div>
                   )
               )}
