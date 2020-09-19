@@ -77,10 +77,8 @@ export default function Tooltip({
   //   null // ➜ React components must return something
   // );
 
-  const getValue = (measure, data) => {
-    const x = data.datum.filter((s) => s.qText === measure);
-    return x[0].qNum;
-  };
+  const getValue = (measure, data) =>
+    data.datum.filter((s) => s.qText === measure)[0].qNum;
 
   function renderTooltip({ closestData, closestDatum, colorScale }) {
     const seriesKey = closestDatum.key;
