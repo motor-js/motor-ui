@@ -1,6 +1,6 @@
 ---
-name: XYChart
-route: /xychart
+name: XYChart Line
+route: /xychartline
 menu: vx
 ---
 
@@ -30,11 +30,28 @@ import { config } from '../config/config.js'
     <Button type="clearSelections">Clear Selections</Button>
     <XYChart // width={750} height={400}  events={true}
     colorTheme="bio"
-    type="groupedbar"
-      cols={[
-      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
-   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
-      { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+    type="line"
+    cols={[
+      { qField: 'Month', qLabel: 'Month' },
+      //   { qField: 'Product Group Desc', qLabel: 'Product Group' },
+      { qField: 'Sales Rep Name', qLabel: 'Sales Rep' },
+      {
+        qField: '=Sum ([Sales Amount])',
+        qLabel: 'Sales $',
+        //                           qNumFormat: {
+        //      "qType": "R",
+        //      "qnDec": 14,
+        //      "qUseThou": 1,
+        //    //  "qFmt": "##############",
+        //      "qFmt": '#,##0.00%',
+        //      "qDec": ".",
+        //      "qThou": ","
+        //    },
+      },
+      //  {
+      //    qField: '=Sum([Sales Margin Amount])',
+      //    qLabel: 'Margin Amount'
+      //  }
     ]}/>
   </Motor>
 </Playground>
