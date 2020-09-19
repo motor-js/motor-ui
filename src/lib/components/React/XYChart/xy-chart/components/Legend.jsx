@@ -42,10 +42,12 @@ export default function Legend({
         : selectColor(theme?.legendLabelStyles?.fill, theme),
       paddingLeft: margin.left,
       paddingRight: margin.right,
+
       [direction === "row" || direction === "row-reverse"
         ? "justifyContent"
         : "alignItems"]: alignLeft ? "flex-start" : "flex-end",
       style,
+      overflow: "hidden",
     }),
     [theme, margin, alignLeft, direction, style]
   );

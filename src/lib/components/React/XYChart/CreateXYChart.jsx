@@ -25,7 +25,7 @@ import { roundNumber } from "./xy-chart/util/roundNumber";
 import { selectColor } from "../../../utils/colors";
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 import { colorByExpression } from "../../../utils";
-import { valueIfUndefined } from "./xy-chart/util/chartUtils";
+import { valueIfUndefined, isDefined } from "./xy-chart/util/chartUtils";
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
@@ -129,7 +129,8 @@ export default function CreateXYChart({
 
   const [currData, setCurrData] = useState(data);
 
-  const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum);
+  const getSeriesValues = (d, colIndex) =>
+    isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
 
   // const numDimensionTicks = 5;
 
