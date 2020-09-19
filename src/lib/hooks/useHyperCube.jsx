@@ -18,11 +18,13 @@ function reducer(state, action) {
   } = action;
 
   meausureInfo.map((d, i) => {
-    qLayout.qHyperCube.qMeasureInfo[i].qChartType = d.qChartType;
-    qLayout.qHyperCube.qMeasureInfo[i].qShowPoints = d.qShowPoints;
-    qLayout.qHyperCube.qMeasureInfo[i].qFillStyle = d.qFillStyle;
-    qLayout.qHyperCube.qMeasureInfo[i].qLegendShape =
-      d.qLegendShape === "dashed" ? "5,2" : null;
+    if (qLayout.qHyperCube.qMeasureInfo[i]) {
+      qLayout.qHyperCube.qMeasureInfo[i].qChartType = d.qChartType;
+      qLayout.qHyperCube.qMeasureInfo[i].qShowPoints = d.qShowPoints;
+      qLayout.qHyperCube.qMeasureInfo[i].qFillStyle = d.qFillStyle;
+      qLayout.qHyperCube.qMeasureInfo[i].qLegendShape =
+        d.qLegendShape === "dashed" ? "5,2" : null;
+    }
   });
 
   switch (type) {

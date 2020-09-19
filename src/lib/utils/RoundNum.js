@@ -1,3 +1,5 @@
+import { isBoolean } from "../components/React/XYChart/xy-chart/util/chartUtils";
+
 export function roundNumber(numb, precision) {
   let num = numb;
   let decimals = isBoolean(precision)
