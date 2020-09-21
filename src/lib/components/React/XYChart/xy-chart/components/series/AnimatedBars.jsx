@@ -13,8 +13,8 @@ export default function AnimatedBars({
   y,
   width,
   height,
-  handleClick,
-  currentSelectionIds,
+  // handleClick,
+  // currentSelectionIds,
   theme,
   ...rectProps
 }) {
@@ -29,7 +29,9 @@ export default function AnimatedBars({
   //   }))
   // );
 
-  const { findNearestData } = useContext(ChartContext);
+  const { findNearestData, handleClick, currentSelectionIds } = useContext(
+    ChartContext
+  );
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
   // const { selection, nonSelection } = theme;

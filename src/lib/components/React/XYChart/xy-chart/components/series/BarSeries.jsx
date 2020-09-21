@@ -29,7 +29,7 @@ function BarSeries({
     showLabels,
     formatValue,
     handleClick,
-    currentSelectionIds,
+    // currentSelectionIds,
     valueLabelStyle,
     size,
   } = useContext(ChartContext);
@@ -176,7 +176,7 @@ function BarSeries({
     <g className="vx-chart bar-series">
       <AnimatedBars
         handleClick={handleClick}
-        currentSelectionIds={currentSelectionIds}
+        // currentSelectionIds={currentSelectionIds}
         bars={bars}
         stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
         strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}

@@ -34,8 +34,8 @@ export default function Group({
     unregisterData,
     theme,
     formatValue,
-    handleClick,
-    currentSelectionIds,
+    // handleClick,
+    // currentSelectionIds,
     valueLabelStyle,
     size,
   } = useContext(ChartContext);
@@ -257,8 +257,8 @@ export default function Group({
               width={(bar) => Math.abs(bar.width - scaledZeroPosition)}
               height={(bar) => bar.height}
               rx={2}
-              handleClick={handleClick}
-              currentSelectionIds={currentSelectionIds}
+              // handleClick={handleClick}
+              // currentSelectionIds={currentSelectionIds}
               index={index}
               {...rectProps}
             />
@@ -301,8 +301,8 @@ export default function Group({
               width={(bar) => bar.width}
               height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
               rx={2}
-              handleClick={handleClick}
-              currentSelectionIds={currentSelectionIds}
+              // handleClick={handleClick}
+              // currentSelectionIds={currentSelectionIds}
               index={index}
               {...rectProps}
             />
