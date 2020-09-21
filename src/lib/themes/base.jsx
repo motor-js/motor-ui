@@ -879,7 +879,8 @@ const base = {
           textAnchor: "middle",
           fontWeight: "normal",
           pointerEvents: "none",
-          dy: "-0.25em",
+          // dy: "-0.25em",
+          dy: "0.25em",
         },
         top: {
           fill: "#212529",
