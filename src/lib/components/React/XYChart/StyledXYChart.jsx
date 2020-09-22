@@ -119,8 +119,8 @@ function StyledXYChart(props) {
 
   const confirmCallback = async () => {
     await endSelections(true);
-    // setCurrentSelectionIds([]);
-    // setShowBrush(false);
+    setCurrentSelectionIds([]);
+    setShowBrush(false);
   };
 
   useOutsideClick(ref, () => {
@@ -165,16 +165,22 @@ function StyledXYChart(props) {
     //   window.removeEventListener("resize", handleResize);
     // qData && data && console.log(qData.qMatrix.length, data.length);
     // qData && setData(qData);
-    let series = [];
-    let dimID = null;
-    let items = [];
-    // let keys = [];
 
-    if (qLayout) {
+    if (
+      // (qData && data === null) ||
+      // (qData && data && qData.qMatrix.length !== data.length && isValid)
+      (qData && data === null) ||
+      (qData && data && isValid)
+    ) {
       dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
       measureCount = qLayout.qHyperCube.qMeasureInfo.length;
       singleDimension = dimensionCount === 1;
       singleMeasure = measureCount === 1;
+
+      let series = [];
+      let dimID = null;
+      let items = [];
+      // let keys = [];
 
       if (!singleDimension && !type.includes("scatter")) {
         qData.qMatrix.forEach((d, i) => {
@@ -199,19 +205,6 @@ function StyledXYChart(props) {
 
         items.push(series);
       }
-    }
-
-    if (
-      (qData && data === null) ||
-      // (qData && data && qData.qMatrix.length !== data.length && isValid)
-      (qData &&
-        data &&
-        (singleDimension ? qData.qMatrix.length : items.length) !==
-          data.length &&
-        isValid)
-    ) {
-      setCurrentSelectionIds([]);
-      setShowBrush(false);
 
       dataKeys =
         singleDimension && singleMeasure && type === "bar"
