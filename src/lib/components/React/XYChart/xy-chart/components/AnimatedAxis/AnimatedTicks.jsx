@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import cx from "classnames";
 import { animated, useTransition, interpolate } from "react-spring";
-import { Text } from "@vx/text";
+import { Text } from "@visx/text";
 
 const defaultTickLabelProps = (/** tickValue, index */) => ({
   textAnchor: "middle",

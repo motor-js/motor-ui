@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from "react";
 import { animated, useSpring } from "react-spring";
-import { AreaClosed } from "@vx/shape";
+import { AreaClosed } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";

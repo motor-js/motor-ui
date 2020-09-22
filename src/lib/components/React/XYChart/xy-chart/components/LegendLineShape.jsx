@@ -1,6 +1,6 @@
-// @TODO move this to @vx/legend
+// @TODO move this to @visx/legend
 import React from "react";
-import { Group } from "@vx/group";
+import { Group } from "@visx/group";
 
 export default function ShapeLine({ fill, width, height, style }) {
   const cleanHeight =

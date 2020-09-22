@@ -1,7 +1,7 @@
 import React from "react";
-import { Group } from "@vx/group";
-import { Bar } from "@vx/shape";
-import { Drag } from "@vx/drag";
+import { Group } from "@visx/group";
+import { Bar } from "@visx/shape";
+import { Drag } from "@visx/drag";
 
 import BrushHandle from "./BrushHandle";
 import BrushCorner from "./BrushCorner";

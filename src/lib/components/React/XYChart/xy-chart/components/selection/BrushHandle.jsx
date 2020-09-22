@@ -1,6 +1,6 @@
 /* eslint react/jsx-handler-names: 0 */
 import React from "react";
-import { Drag } from "@vx/drag";
+import { Drag } from "@visx/drag";
 
 /** BrushHandle's are placed along the bounds of the brush and handle Drag events which update the passed brush. */
 export default class BrushHandle extends React.Component {

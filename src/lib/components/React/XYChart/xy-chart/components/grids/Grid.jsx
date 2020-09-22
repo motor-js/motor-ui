@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import cx from "classnames";
-import { Group } from "@vx/group";
+import { Group } from "@visx/group";
 import GridRows from "./GridRows";
 import GridColumns from "./GridColumns";
 

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import cx from "classnames";
-import Line from "@vx/shape/lib/shapes/Line";
-import { Group } from "@vx/group";
-import { Point } from "@vx/point";
+import { Line } from "@visx/shape";
+import { Group } from "@visx/group";
+import { Point } from "@visx/point";
 import getTicks from "../../util/getTicks";
 
 export default function GridRow({

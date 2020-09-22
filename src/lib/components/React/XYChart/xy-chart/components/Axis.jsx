@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import BaseAxis from "@vx/axis/lib/axis/Axis";
+import { Axis as BaseAxis } from "@visx/axis";
 
 import ChartContext from "../context/ChartContext";
 import withDefinedContextScales from "../enhancers/withDefinedContextScales";

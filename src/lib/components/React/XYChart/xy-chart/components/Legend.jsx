@@ -1,6 +1,6 @@
 import React, { useContext, useCallback, useMemo } from "react";
-import { Legend as BaseLegend } from "@vx/legend";
-import { RectShape, LineShape, CircleShape } from "@vx/legend";
+import { Legend as BaseLegend } from "@visx/legend";
+import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import ChartContext from "../context/ChartContext";
 import { isDefined } from "../util/chartUtils";

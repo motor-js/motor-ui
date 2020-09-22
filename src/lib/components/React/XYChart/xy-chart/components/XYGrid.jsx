@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@vx/grid";
+import { Grid } from "@visx/grid";
 
 const XYGrid = ({
   xScale,

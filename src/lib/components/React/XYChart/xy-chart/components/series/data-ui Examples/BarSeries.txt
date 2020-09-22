@@ -1,7 +1,7 @@
-import { Bar } from "@vx/shape";
+import { Bar } from "@visx/shape";
 import { FocusBlurHandler } from "@data-ui/shared";
-import { Group } from "@vx/group";
-import { Text } from "@vx/text";
+import { Group } from "@visx/group";
+import { Text } from "@visx/text";
 import PropTypes from "prop-types";
 import React from "react";
 import { color as themeColors, svgLabel } from "@data-ui/theme";

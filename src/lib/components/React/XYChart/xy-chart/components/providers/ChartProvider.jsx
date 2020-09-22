@@ -1,6 +1,6 @@
 import React from "react";
-import { localPoint } from "@vx/event";
-import { scaleOrdinal } from "@vx/scale";
+import { localPoint } from "@visx/event";
+import { scaleOrdinal } from "@visx/scale";
 
 import ChartContext from "../../context/ChartContext";
 import createScale from "../../createScale";

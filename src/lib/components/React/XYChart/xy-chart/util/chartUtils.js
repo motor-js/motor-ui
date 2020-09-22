@@ -9,7 +9,7 @@ import {
   GlyphStar,
   GlyphTriangle,
   GlyphWye,
-} from "@vx/glyph";
+} from "@visx/glyph";
 
 export function callOrValue(maybeFn, ...args) {
   if (typeof maybeFn === "function") {

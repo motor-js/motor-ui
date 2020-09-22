@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TooltipWithBounds, Portal } from "@vx/tooltip";
+import { TooltipWithBounds, Portal } from "@visx/tooltip";
 import { timeParse, timeFormat } from "d3-time-format";
 
 import TooltipContext from "../context/TooltipContext";

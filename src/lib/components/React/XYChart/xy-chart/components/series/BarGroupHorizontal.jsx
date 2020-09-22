@@ -1,8 +1,8 @@
 import React from "react";
 import cx from "classnames";
-import { Group } from "@vx/group";
+import { Group } from "@visx/group";
 // import Bar from "./Bar";
-import { Bar } from "@vx/shape";
+import { Bar } from "@visx/shape";
 import getBandwidth from "../../util/getBandwidth";
 
 export default function BarGroupHorizontalComponent({

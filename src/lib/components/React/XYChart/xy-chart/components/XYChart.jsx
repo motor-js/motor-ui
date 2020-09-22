@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useCallback } from "react";
-import ParentSize from "@vx/responsive/lib/components/ParentSize";
-import { useTooltipInPortal } from "@vx/tooltip";
+import { ParentSize } from "@visx/responsive";
+import { useTooltipInPortal } from "@visx/tooltip";
 
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";

@@ -1,6 +1,6 @@
 import React, { useContext, useCallback, useState, useEffect } from "react";
 import { animated, useSpring } from "react-spring";
-import LinePath from "@vx/shape/lib/shapes/LinePath";
+import { LinePath } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";

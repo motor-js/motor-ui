@@ -7,7 +7,7 @@ import findNearestDatumX from "../../util/findNearestDatumX";
 import findNearestDatumY from "../../util/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
 import { selectColor } from "../../../../../../utils/colors";
-import { Text } from "@vx/text";
+import { Text } from "@visx/text";
 
 function BarSeries({
   dataKey,

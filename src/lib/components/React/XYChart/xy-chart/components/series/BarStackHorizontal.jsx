@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "classnames";
 import { stack as d3stack, SeriesPoint } from "d3-shape";
-import { Group } from "@vx/group";
+import { Group } from "@visx/group";
 import { getFirstItem, getSecondItem } from "../../util/accessors";
 import getBandwidth from "../../util/getBandwidth";
 import setNumOrAccessor from "../../util/setNumberOrNumberAccessor";

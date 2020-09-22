@@ -1,4 +1,4 @@
-import { voronoi } from "@vx/voronoi";
+import { voronoi } from "@visx/voronoi";
 
 // finds the datum nearest to svgMouseX/Y using voronoi
 export default function findNearestDatumXY({

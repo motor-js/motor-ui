@@ -11,7 +11,7 @@ import {
   GradientPurpleTeal,
   GradientSteelPurple,
   GradientTealBlue,
-} from "@vx/gradient";
+} from "@visx/gradient";
 
 function Gradient({ style, id, from, to }) {
   let Gradient = null;

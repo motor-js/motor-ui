@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { extent } from "d3-array";
-import { Group } from "@vx/group";
+import { Group } from "@visx/group";
 import BarStack from "./BarStack";
 import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";

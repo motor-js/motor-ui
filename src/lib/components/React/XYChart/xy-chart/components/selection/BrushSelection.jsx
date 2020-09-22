@@ -1,6 +1,6 @@
 /* eslint react/jsx-handler-names: 0 */
 import React from "react";
-import { Drag } from "@vx/drag";
+import { Drag } from "@visx/drag";
 
 const DRAGGING_OVERLAY_STYLES = { cursor: "move" };
 

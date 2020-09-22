@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useContext, useMemo } from "react";
 import cx from "classnames";
-import BaseAxis from "@vx/axis/lib/axis/Axis";
+import { Axis as BaseAxis } from "@visx/axis";
 import getLabelTransform from "../../util/getLabelTransform";
-import { Text } from "@vx/text";
+import { Text } from "@visx/text";
 import { animated } from "react-spring";
 
 import AnimatedTicks from "./AnimatedTicks";

@@ -1,5 +1,5 @@
 import React, { useContext, useCallback } from "react";
-import { Circle } from "@vx/shape";
+import { Circle } from "@visx/shape";
 
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
