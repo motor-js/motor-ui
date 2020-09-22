@@ -18,7 +18,12 @@ export default function XYChart(props) {
     onMouseDown,
   } = props;
   const { containerRef, TooltipInPortal } = useTooltipInPortal();
-  const { findNearestData, setChartDimensions } = useContext(ChartContext);
+  const {
+    findNearestData,
+    setChartDimensions,
+    chartType,
+    singleMeasure,
+  } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
   // update dimensions in context
@@ -67,19 +72,25 @@ export default function XYChart(props) {
         />
       )}
       {children}
-      {captureEvents && (
-        <rect
-          x={margin.left}
-          y={margin.top}
-          fill="transparent"
-          width={
-            width - margin.left - margin.right - `${dualAxis ? margin.left : 0}`
-          }
-          height={height - margin.top - margin.bottom}
-          onMouseMove={onMouseMove}
-          onMouseLeave={hideTooltip}
-        />
-      )}
+      {captureEvents &&
+        // Revist once Group has been made part of XYCHart
+        // https://github.com/airbnb/visx/projects/3
+        !(chartType.includes("groupedbar") && singleMeasure) && (
+          <rect
+            x={margin.left}
+            y={margin.top}
+            fill="transparent"
+            width={
+              width -
+              margin.left -
+              margin.right -
+              `${dualAxis ? margin.left : 0}`
+            }
+            height={height - margin.top - margin.bottom}
+            onMouseMove={onMouseMove}
+            onMouseLeave={hideTooltip}
+          />
+        )}
     </svg>
   ) : null;
 }
