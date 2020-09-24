@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useEffect, useCallback } from "react";
 // import BarGroup from "@visx/shape/lib/shapes/BarGroup";
 import BarGroup from "./BarGroup";
 import BarGroupHorizontal from "./BarGroupHorizontal";
-import { Group as VxGroup } from "@visx/group";
+import { Group as VisxGroup } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
@@ -246,7 +246,7 @@ export default function Group({
       {(barGroups) =>
         barGroups.map((barGroup, index) => (
           // @TODO if we use <animated.g /> we might be able to make this animate on first render
-          <VxGroup
+          <VisxGroup
             key={`bar-group-${barGroup.index}-${barGroup.y0}`}
             top={barGroup.y0}
           >
@@ -273,7 +273,7 @@ export default function Group({
                   {formatValue(bar.value)}
                 </Text>
               ))}
-          </VxGroup>
+          </VisxGroup>
         ))
       }
     </BarGroupHorizontal>
@@ -290,7 +290,7 @@ export default function Group({
     >
       {(barGroups) =>
         barGroups.map((barGroup, index) => (
-          <VxGroup
+          <VisxGroup
             key={`bar-group-${barGroup.index}-${barGroup.x0}`}
             left={barGroup.x0}
           >
@@ -317,7 +317,7 @@ export default function Group({
                   {formatValue(bar.value)}
                 </Text>
               ))}
-          </VxGroup>
+          </VisxGroup>
         ))
       }
     </BarGroup>
