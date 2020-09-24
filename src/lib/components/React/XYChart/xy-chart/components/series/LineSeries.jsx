@@ -79,7 +79,7 @@ function LineSeries({
   // }, [isSelectionXYChartVisible]);
 
   return (
-    <g className="vx-group line-series">
+    <g className="visx-group line-series">
       <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
         {({ path }) => (
           <AnimatedPath stroke={color} {...lineProps} d={path(data) || ""} />

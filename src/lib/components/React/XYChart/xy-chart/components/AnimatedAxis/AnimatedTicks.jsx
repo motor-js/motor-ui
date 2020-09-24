@@ -107,7 +107,7 @@ export default function AnimatedTicks({
           index
         );
         return (
-          <animated.g key={key} className={cx("vx-axis-tick", tickClassName)}>
+          <animated.g key={key} className={cx("visx-axis-tick", tickClassName)}>
             {!hideTicks && (
               <animated.line
                 x1={fromX}

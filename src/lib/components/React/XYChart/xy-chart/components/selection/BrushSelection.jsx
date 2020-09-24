@@ -107,7 +107,7 @@ export default class BrushSelection extends React.Component {
               y={Math.min(brush.extent.y0, brush.extent.y1)}
               width={width}
               height={height}
-              className="vx-brush-selection"
+              className="visx-brush-selection"
               onMouseDown={disableDraggingSelection ? undefined : dragStart}
               onMouseLeave={(event) => {
                 if (onMouseLeave) onMouseLeave(event);

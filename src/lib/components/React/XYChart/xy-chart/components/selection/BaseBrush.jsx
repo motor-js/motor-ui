@@ -324,7 +324,7 @@ export default class BaseBrush extends React.Component {
     const resizeTriggerAreaSet = new Set(resizeTriggerAreas);
 
     return (
-      <Group className="vx-brush" top={top} left={left}>
+      <Group className="visx-brush" top={top} left={left}>
         {/* overlay */}
         <Drag
           width={stageWidth}
@@ -336,7 +336,7 @@ export default class BaseBrush extends React.Component {
         >
           {({ dragStart, isDragging, dragMove, dragEnd }) => (
             <Bar
-              className="vx-brush-overlay"
+              className="visx-brush-overlay"
               fill="transparent"
               x={0}
               y={0}

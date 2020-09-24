@@ -43,7 +43,7 @@ export default function Stack({
     <Group top={top} left={left}>
       {stacks.map((series, i) => (
         <path
-          className={cx("vx-stack", className)}
+          className={cx("visx-stack", className)}
           key={`stack-${i}-${series.key || ""}`}
           d={path(series) || ""}
           fill={color?.(series.key, i)}

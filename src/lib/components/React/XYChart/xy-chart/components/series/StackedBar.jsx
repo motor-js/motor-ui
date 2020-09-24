@@ -226,7 +226,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         // use this reference to find nearest mouse values
         stacks.current = barStacks;
         return (
-          <Group className={"vx-bar-stack"}>
+          <Group className={"visx-bar-stack"}>
             {barStacks.map((barStack, index) => (
               <AnimatedBars
                 key={`${index}-${barStack.bars.length}`}
@@ -259,7 +259,7 @@ export default function Stack({ horizontal, children, ...rectProps }) {
         // use this reference to find nearest mouse values
         stacks.current = barStacks;
         return (
-          <Group className={"vx-bar-stack"}>
+          <Group className={"visx-bar-stack"}>
             {barStacks.map((barStack, index) => (
               <AnimatedBars
                 key={`${index}-${barStack.bars.length}`}

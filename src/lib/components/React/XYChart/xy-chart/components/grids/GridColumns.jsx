@@ -22,7 +22,7 @@ export default function GridColumns({
 }) {
   const ticks = tickValues ?? getTicks(scale, numTicks);
   return (
-    <Group className={cx("vx-columns", className)} top={top} left={left}>
+    <Group className={cx("visx-columns", className)} top={top} left={left}>
       {ticks.map((d, i) => {
         const x = offset ? (scale(d) || 0) + offset : scale(d) || 0;
         const fromPoint = new Point({

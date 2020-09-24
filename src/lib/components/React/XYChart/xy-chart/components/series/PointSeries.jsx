@@ -56,7 +56,7 @@ function PointSeries({
   // const y = (d) => d[2].qNum;
 
   return (
-    <g className="vx-group line-series">
+    <g className="visx-group line-series">
       {data.map((point, i) => (
         <Circle
           key={`point-${point[0]}-${i}`}

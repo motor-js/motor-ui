@@ -47,7 +47,7 @@ export default function BarGroupHorizontalComponent({
 
   return (
     <Group
-      className={cx("vx-bar-group-horizontal", className)}
+      className={cx("visx-bar-group-horizontal", className)}
       top={top}
       left={left}
     >

@@ -46,7 +46,7 @@ export default function AreaStack({
         (({ stacks, path }) =>
           stacks.map((series, i) => (
             <path
-              className={cx("vx-area-stack", className)}
+              className={cx("visx-area-stack", className)}
               key={`area-stack-${i}-${series.key || ""}`}
               d={path(series) || ""}
               fill={color?.(series.key, i)}

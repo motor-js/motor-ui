@@ -32,6 +32,24 @@ import { valueIfUndefined, isDefined } from "./xy-chart/util/chartUtils";
 //   null // ➜ React components must return something
 // );
 
+// // export const parseDate = timeParse("%Y%m%d");
+// export const parseDate = timeParse("%d/%m/%Y");
+// // export const formatDate = timeFormat("%b %d");
+// // export const formatDate = timeFormat("%B %d, %Y");
+// export const formatDate = timeFormat("%B %d, %Y");
+// // export const formatDate = timeFormat("%d/%B/%Y");
+// export const formatYear = timeFormat("%Y");
+// // const getDimension = (d) => {
+// //   console.log(
+// //     parseDate(d[0].qText),
+// //     parseDate(d[0].qNum),
+// //     formatDate(parseDate(d[0].qText))
+// //   );
+// //   return formatDate(parseDate(d[0].qText));
+// // };
+
+// export const dateFormatter = (date) => formatDate(parseDate(date));
+
 const getDimension = (d) => d[0].qText;
 const getElementNumber = (d) => d[0].qElemNumber;
 

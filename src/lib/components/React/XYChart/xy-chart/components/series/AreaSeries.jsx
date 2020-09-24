@@ -71,7 +71,7 @@ function AreaSeries({
   };
 
   return (
-    <g className="vx-group area-series">
+    <g className="visx-group area-series">
       <FillBackground
         style={fillStyle.style}
         id="area-gradient"

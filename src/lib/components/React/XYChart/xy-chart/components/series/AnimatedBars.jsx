@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from "react";
 // import { animated, useSprings } from "react-spring";
-// import { Bar } from "@vx/shape";
+// import { Bar } from "@visx/shape";
 import { StyledBar as Bar } from "./BarTheme";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";

@@ -69,7 +69,7 @@ export default function BarStackHorizontal({
 
   return (
     <Group
-      className={cx("vx-bar-stack-horizontal", className)}
+      className={cx("visx-bar-stack-horizontal", className)}
       top={top}
       left={left}
     >

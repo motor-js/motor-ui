@@ -110,7 +110,7 @@ function AnimatedAxis(props) {
 
           {!props.hideAxisLine && (
             <animated.line
-              className={cx("vx-axis-line", props.axisLineClassName)}
+              className={cx("visx-axis-line", props.axisLineClassName)}
               x1={axisFromPoint.x}
               x2={axisToPoint.x}
               y1={axisFromPoint.y}
@@ -122,7 +122,7 @@ function AnimatedAxis(props) {
           )}
           {props.label && (
             <Text
-              className={cx("vx-axis-label", props.labelClassName)}
+              className={cx("visx-axis-label", props.labelClassName)}
               {...getLabelTransform({
                 labelOffset: axisLabelOffset,
                 labelProps: axisLabelProps,

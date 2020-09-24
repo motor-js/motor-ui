@@ -42,7 +42,7 @@ import getBandwidth from "../../util/getBandwidth";
  * });
  * ```
  *
- * Example: [https://vx-demo.now.sh/bargroup](https://vx-demo.now.sh/bargroup)
+ * Example: [https://airbnb.io/visx/bargroup](https://airbnb.io/visx/bargroup)
  */
 export default function BarGroupComponent({
   data,
@@ -83,13 +83,13 @@ export default function BarGroupComponent({
   // eslint-disable-next-line react/jsx-no-useless-fragment
   if (children)
     return (
-      <Group className={cx("vx-bar-group", className)} top={top} left={left}>
+      <Group className={cx("visx-bar-group", className)} top={top} left={left}>
         {children(barGroups)}
       </Group>
     );
 
   return (
-    <Group className={cx("vx-bar-group", className)} top={top} left={left}>
+    <Group className={cx("visx-bar-group", className)} top={top} left={left}>
       {barGroups.map((barGroup) => (
         <Group
           key={`bar-group-${barGroup.index}-${barGroup.x0}`}

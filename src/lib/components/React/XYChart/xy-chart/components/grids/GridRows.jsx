@@ -24,7 +24,7 @@ export default function GridRow({
   const ticks = tickValues ?? getTicks(scale, numTicks);
 
   return (
-    <Group className={cx("vx-rows", className)} top={top} left={left}>
+    <Group className={cx("visx-rows", className)} top={top} left={left}>
       {ticks.map((d, i) => {
         const y = offset ? (scale(d) || 0) + offset : scale(d) || 0;
         const fromPoint = new Point({

@@ -46,7 +46,7 @@ function Grid({
     gridColumns === undefined ? theme?.gridStyles?.columns : gridColumns;
 
   return (
-    <Group className={cx("vx-grid", className)} top={top} left={left}>
+    <Group className={cx("visx-grid", className)} top={top} left={left}>
       {gridRows !== false && (
         <GridRows
           className={className}

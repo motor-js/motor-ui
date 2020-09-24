@@ -1,7 +1,7 @@
 ---
 name: Example
 route: /example
-menu: vx
+menu: visx
 ---
 
 <h1 style={{ margin: '0px' }}>Bar Chart</h1>

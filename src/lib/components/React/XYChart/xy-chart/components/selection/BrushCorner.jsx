@@ -158,7 +158,7 @@ export default class BrushCorner extends React.Component {
               onMouseDown={dragStart}
               onMouseMove={dragMove}
               onMouseUp={dragEnd}
-              className={`vx-brush-corner-${type}`}
+              className={`visx-brush-corner-${type}`}
               style={{ cursor, pointerEvents, ...styleProp }}
               {...corner}
             />

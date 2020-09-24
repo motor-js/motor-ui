@@ -173,7 +173,7 @@ function BarSeries({
   );
 
   return (
-    <g className="vx-chart bar-series">
+    <g className="visx-chart bar-series">
       <AnimatedBars
         handleClick={handleClick}
         // currentSelectionIds={currentSelectionIds}

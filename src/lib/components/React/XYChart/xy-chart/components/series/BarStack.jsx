@@ -70,7 +70,7 @@ export default function BarStackComponent({
   if (children) return <>{children(barStacks)}</>;
 
   return (
-    <Group className={cx("vx-bar-stack", className)} top={top} left={left}>
+    <Group className={cx("visx-bar-stack", className)} top={top} left={left}>
       {barStacks.map((barStack) =>
         barStack.bars.map((bar) => (
           <AnimatedBars
