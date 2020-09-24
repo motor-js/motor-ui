@@ -256,6 +256,7 @@ export default class ChartProvider extends React.Component {
       legendLabelStyle,
       valueLabelStyle,
       size,
+      // isContinuousAxes,
     } = this.props;
 
     const {
@@ -273,6 +274,7 @@ export default class ChartProvider extends React.Component {
         value={{
           xScale,
           yScale,
+          // isContinuousAxes,
           colorScale,
           width,
           height,

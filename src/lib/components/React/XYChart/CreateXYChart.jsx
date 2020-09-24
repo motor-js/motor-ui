@@ -20,6 +20,7 @@ import StackedArea from "./xy-chart/components/series/StackedArea";
 import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
 import Grid from "./xy-chart/components/grids/Grid";
 import Brush from "./xy-chart/components/selection/Brush";
+import { timeParse, timeFormat } from "d3-time-format";
 
 import { roundNumber } from "./xy-chart/util/roundNumber";
 import { selectColor } from "../../../utils/colors";
@@ -32,52 +33,27 @@ import { valueIfUndefined, isDefined } from "./xy-chart/util/chartUtils";
 //   null // ➜ React components must return something
 // );
 
-// // export const parseDate = timeParse("%Y%m%d");
-// export const parseDate = timeParse("%d/%m/%Y");
-// // export const formatDate = timeFormat("%b %d");
-// // export const formatDate = timeFormat("%B %d, %Y");
-// export const formatDate = timeFormat("%B %d, %Y");
-// // export const formatDate = timeFormat("%d/%B/%Y");
-// export const formatYear = timeFormat("%Y");
-// // const getDimension = (d) => {
-// //   console.log(
-// //     parseDate(d[0].qText),
-// //     parseDate(d[0].qNum),
-// //     formatDate(parseDate(d[0].qText))
-// //   );
-// //   return formatDate(parseDate(d[0].qText));
-// // };
+const parseDate = "Excel";
 
-// export const dateFormatter = (date) => formatDate(parseDate(date));
+// const parseDate = timeParse("%d/%m/%Y");
+// const parseDate = timeParse("%d/%m/%Y");
+const formatDate = timeFormat("%d %B, %Y");
 
-const getDimension = (d) => d[0].qText;
-const getElementNumber = (d) => d[0].qElemNumber;
+// export const dateFormatter = (d) => formatDate(parseDate(d));
+export const dateFormatter = (d) => {
+  return formatDate(
+    parseDate === "Excel"
+      ? new Date((d - (25567 + 1)) * 86400 * 1000)
+      : timeParse(parseDate)(d)
+  );
+};
 
-// const getDimension = (d) =>
-//   new Date(
-//     d[0].qText.split("/")[2],
-//     d[0].qText.split("/")[1] - 1,
-//     d[0].qText.split("/")[0]
-//   );
+// formatDate(new Date((d - (25567 + 1)) * 86400 * 1000));
 
 const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
-
-/** memoize the accessor functions to prevent re-registering data. */
-function useAccessors(valueAccessor, column, renderHorizontally) {
-  return useMemo(
-    () => ({
-      xAccessor: (d) =>
-        renderHorizontally ? valueAccessor(d, column) : getDimension(d),
-      yAccessor: (d) =>
-        renderHorizontally ? getDimension(d) : valueAccessor(d, column),
-      elAccessor: (d) => getElementNumber(d),
-    }),
-    [renderHorizontally, valueAccessor]
-  );
-}
 
 export default function CreateXYChart({
   width,
@@ -147,8 +123,34 @@ export default function CreateXYChart({
 
   const [currData, setCurrData] = useState(data);
 
+  // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
+
+  // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
+  const getDimension = (d) => d[0].qText;
   const getSeriesValues = (d, colIndex) =>
     isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
+  const getElementNumber = (d) => d[0].qElemNumber;
+
+  // const getDimension = (d) =>
+  //   new Date(
+  //     d[0].qText.split("/")[2],
+  //     d[0].qText.split("/")[1] - 1,
+  //     d[0].qText.split("/")[0]
+  //   );
+
+  /** memoize the accessor functions to prevent re-registering data. */
+  function useAccessors(valueAccessor, column, renderHorizontally) {
+    return useMemo(
+      () => ({
+        xAccessor: (d) =>
+          renderHorizontally ? valueAccessor(d, column) : getDimension(d),
+        yAccessor: (d) =>
+          renderHorizontally ? getDimension(d) : valueAccessor(d, column),
+        elAccessor: (d) => getElementNumber(d),
+      }),
+      [renderHorizontally, valueAccessor]
+    );
+  }
 
   // const numDimensionTicks = 5;
 
@@ -169,6 +171,12 @@ export default function CreateXYChart({
   }, [data]);
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+  // const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
+
+  // const dateScaleConfig = useMemo(
+  //   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
+  //   []
+  // );
 
   const valueScaleConfig = useMemo(
     () => ({
@@ -275,6 +283,7 @@ export default function CreateXYChart({
       chartType={chartType}
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+      // isContinuousAxes={isContinuousAxes}
       colorScale={colorScaleConfig}
       showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
       showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
@@ -575,9 +584,10 @@ export default function CreateXYChart({
                     i % Math.round((arr.length - 1) / numDimensionTicks) === 0
                 )
                 .map((d) => getDimension(d))}
-              tickFormat={(d) =>
-                d.toISOString?.().split?.("T")[0] ?? d.toString()
-              }
+              // tickFormat={(d) =>
+              //   // width > 400 || isContinuousAxes ? dateFormatter(d) : null
+              //   isContinuousAxes ? dateFormatter(d) : d
+              // }
             />
             {showBrush && (
               <Brush

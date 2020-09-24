@@ -26,10 +26,9 @@ function BarSeries({
     colorScale,
     xScale,
     yScale,
+    // isContinuousAxes,
     showLabels,
     formatValue,
-    handleClick,
-    // currentSelectionIds,
     valueLabelStyle,
     size,
   } = useContext(ChartContext);
@@ -89,6 +88,7 @@ function BarSeries({
     : Math.max(yMin, yMax);
 
   const x = (d) => d[0].qText;
+  // const x = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const y = (d) => (horizontal ? d[0].qText : d[1].qNum);
 
   const categoryScale = horizontal ? yScale : xScale;
@@ -175,7 +175,7 @@ function BarSeries({
   return (
     <g className="visx-chart bar-series">
       <AnimatedBars
-        handleClick={handleClick}
+        // handleClick={handleClick}
         // currentSelectionIds={currentSelectionIds}
         bars={bars}
         stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
