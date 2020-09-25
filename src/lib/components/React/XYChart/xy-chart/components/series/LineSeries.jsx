@@ -56,9 +56,7 @@ function LineSeries({
 
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
-  let ChartGlyph = getSymbol(
-    isDefined(glyph) ? glyph.symbol : showPoints.symbol
-  );
+  let ChartGlyph = getSymbol(isDefined(glyph) ? glyph.symbol : showPoints);
 
   if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 

@@ -257,6 +257,8 @@ export default class ChartProvider extends React.Component {
       valueLabelStyle,
       size,
       // isContinuousAxes,
+      formatTooltipDate,
+      parseDateFormat,
     } = this.props;
 
     const {
@@ -297,6 +299,8 @@ export default class ChartProvider extends React.Component {
           currentSelectionIds,
           legendLabelStyle,
           valueLabelStyle,
+          parseDateFormat,
+          formatTooltipDate,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

@@ -6,11 +6,6 @@ import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
 import { selectColor } from "../../../../../utils/colors";
 
-export const parseDate = timeParse("%Y%m%d");
-export const formatDate = timeFormat("%b %d");
-export const formatYear = timeFormat("%Y");
-export const dateFormatter = (date) => formatDate(parseDate(date));
-
 export default function Tooltip({
   // renderTooltip,
   snapToDataX,
@@ -37,7 +32,16 @@ export default function Tooltip({
     singleDimension,
     singleMeasure,
     size,
+    formatTooltipDate,
+    parseDateFormat,
   } = useContext(ChartContext) || {};
+
+  // const parseDate = timeParse("%Y%m%d");
+  // const formatDate = timeFormat("%b %d");
+  const parseDate = timeParse(parseDateFormat);
+  const formatDate = timeFormat(formatTooltipDate);
+  // const formatYear = timeFormat("%Y");
+  const dateFormatter = (date) => formatDate(parseDate(date));
 
   // early return if there's no tooltip
   const {
@@ -92,12 +96,22 @@ export default function Tooltip({
         ? colorScale(`${closestDatum.datum[0].qText}`)
         : colorScale(`${closestDatum.key}`));
 
-    let xVal = closestDatum.datum[0].qNum || x0;
-    if (typeof xVal === "string") {
-      xVal = parseDate(xVal) === null ? xVal : dateFormatter(xVal);
-    } else if (typeof xVal !== "string" && Number(xVal) > 1000000) {
-      xVal = formatDate(xVal);
-    }
+    let xVal = closestDatum.datum[0].qText || x0;
+    xVal =
+      parseDate(xVal) === null || formatTooltipDate === null
+        ? xVal
+        : dateFormatter(xVal);
+    //  if (typeof xVal === "string") {
+
+    //  } else if (
+    //    typeof xVal !== "string" &&
+    //    Number(xVal) > 40000
+    //  ) {
+    //    // for Excel number formatted date
+    //    xVal = formatDate(
+    //      new Date((xVal - (25567 + 1)) * 86400 * 1000)
+    //    );
+    //  }
     let valIdx = null;
 
     if (singleDimension) {

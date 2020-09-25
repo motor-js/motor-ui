@@ -30,11 +30,18 @@ import { config } from '../config/config.js'
     <Button type="clearSelections">Clear Selections</Button>
     <XYChart // width={750} height={400}  events={true}
     colorTheme="bio"
-    type="bar"
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+     showLabels={false}
+    // showPoints={false}
+     showPoints='star'
+    type="combo"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
- //     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
     ]}/>
   </Motor>
 </Playground>

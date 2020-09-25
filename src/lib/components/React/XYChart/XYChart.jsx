@@ -199,7 +199,7 @@ XYChart.propTypes = {
   /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
   showPoints: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.object, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
+    PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
   ]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
@@ -265,7 +265,15 @@ XYChart.propTypes = {
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
   showClosestItem: PropTypes.bool,
   useSingleColor: PropTypes.bool,
-  numDimensionTicks: PropTypes.number,
+  // numDimensionTicks: PropTypes.number,
+  /** Input format of date supplied from engine (in qText) */
+  parseDateFormat: PropTypes.string,
+  /** Format of dates to be displayed on XAxis. */
+  formatAxisDate: PropTypes.string,
+  /** Format of dates to be displayed on Tooltip. */
+  formatTooltipDate: PropTypes.string,
+  /** Line stroke width */
+  strokeWidth: PropTypes.number,
 };
 
 XYChart.defaultProps = {
@@ -289,6 +297,10 @@ XYChart.defaultProps = {
   legendTopBottom: "top",
   legendDirection: "row",
   legendShape: "auto",
+  parseDateFormat: null,
+  formatAxisDate: null,
+  formatTooltipDate: null,
+  strokeWidth: null,
 };
 
 export default XYChart;

@@ -33,21 +33,6 @@ import { valueIfUndefined, isDefined } from "./xy-chart/util/chartUtils";
 //   null // ➜ React components must return something
 // );
 
-const parseDate = "Excel";
-
-// const parseDate = timeParse("%d/%m/%Y");
-// const parseDate = timeParse("%d/%m/%Y");
-const formatDate = timeFormat("%d %B, %Y");
-
-// export const dateFormatter = (d) => formatDate(parseDate(d));
-export const dateFormatter = (d) => {
-  return formatDate(
-    parseDate === "Excel"
-      ? new Date((d - (25567 + 1)) * 86400 * 1000)
-      : timeParse(parseDate)(d)
-  );
-};
-
 // formatDate(new Date((d - (25567 + 1)) * 86400 * 1000));
 
 const legendLabelFormat = (d) => d;
@@ -113,7 +98,11 @@ export default function CreateXYChart({
   valueLabelStyle,
   showClosestItem,
   useSingleColor,
-  numDimensionTicks,
+  // numDimensionTicks,
+  parseDateFormat,
+  formatAxisDate,
+  formatTooltipDate,
+  strokeWidth,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -122,6 +111,18 @@ export default function CreateXYChart({
   const chartType = [getChartType()];
 
   const [currData, setCurrData] = useState(data);
+
+  //  const formatDate = timeFormat("%d %B, %Y");
+  const formatDate = timeFormat(formatAxisDate);
+
+  const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
+  // const dateFormatter = (d) => {
+  //   return formatDate(
+  //     parseDateFormat === "Excel"
+  //       ? new Date((d - (25567 + 1)) * 86400 * 1000)
+  //       : timeParse(parseDateFormat)(d)
+  //   );
+  // };
 
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
 
@@ -151,8 +152,6 @@ export default function CreateXYChart({
       [renderHorizontally, valueAccessor]
     );
   }
-
-  // const numDimensionTicks = 5;
 
   const canSnapTooltipToDataX =
     (chartType.includes("groupedbar") && renderHorizontally) ||
@@ -302,6 +301,8 @@ export default function CreateXYChart({
       formatValue={formatValue}
       legendLabelStyle={legendLabelStyle}
       valueLabelStyle={valueLabelStyle}
+      parseDateFormat={parseDateFormat}
+      formatTooltipDate={formatTooltipDate}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} />}
@@ -410,7 +411,7 @@ export default function CreateXYChart({
                         strokeDasharray={measure.qLegendShape}
                         data={currData}
                         {...dataAccessors[index]}
-                        strokeWidth={1.5}
+                        strokeWidth={strokeWidth}
                       />
                     ))
                   : dataKeys.map((measure, index) => (
@@ -419,7 +420,7 @@ export default function CreateXYChart({
                         dataKey={measure}
                         data={currData}
                         {...dataAccessors[index]}
-                        strokeWidth={1.5}
+                        strokeWidth={strokeWidth}
                       />
                     ))}
               </>
@@ -442,7 +443,7 @@ export default function CreateXYChart({
                     strokeDasharray={measure.qLegendShape}
                     data={currData}
                     {...dataAccessors[index]}
-                    strokeWidth={1.5}
+                    strokeWidth={strokeWidth}
                   />
                 )
               )}
@@ -456,7 +457,7 @@ export default function CreateXYChart({
                   fillStyle={measureInfo[index].qFillStyle || fillStyle}
                   data={currData}
                   {...dataAccessors[index]}
-                  strokeWidth={1.5}
+                  strokeWidth={strokeWidth}
                 />
               ))}
             {chartType.includes("stackedarea") && (
@@ -470,7 +471,7 @@ export default function CreateXYChart({
                         fillStyle={measureInfo[index].qFillStyle || fillStyle}
                         data={currData}
                         {...dataAccessors[index]}
-                        strokeWidth={1.5}
+                        strokeWidth={strokeWidth}
                       />
                     ))
                   : dataKeys.map((measure, index) => (
@@ -481,7 +482,7 @@ export default function CreateXYChart({
                         // fillStyle={measureInfo[index].qFillStyle || fillStyle}
                         data={currData}
                         {...dataAccessors[index]}
-                        strokeWidth={1.5}
+                        strokeWidth={strokeWidth}
                       />
                     ))}
               </StackedArea>
@@ -509,7 +510,7 @@ export default function CreateXYChart({
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
-              numTicks={5}
+              // numTicks={5}
               hideAxisLine={
                 chartHideAxisLine === true ||
                 chartHideAxisLine === "both" ||
@@ -548,7 +549,7 @@ export default function CreateXYChart({
                     : null
                 }
                 orientation="right"
-                numTicks={9}
+                // numTicks={9}
                 hideAxisLine={
                   chartHideAxisLine === true ||
                   chartHideAxisLine === "both" ||
@@ -578,16 +579,16 @@ export default function CreateXYChart({
                   ? true
                   : false
               }
-              tickValues={currData
-                .filter(
-                  (d, i, arr) =>
-                    i % Math.round((arr.length - 1) / numDimensionTicks) === 0
-                )
-                .map((d) => getDimension(d))}
-              // tickFormat={(d) =>
-              //   // width > 400 || isContinuousAxes ? dateFormatter(d) : null
-              //   isContinuousAxes ? dateFormatter(d) : d
-              // }
+              // tickValues={currData
+              //   .filter(
+              //     (d, i, arr) =>
+              //       i % Math.round((arr.length - 1) / numDimensionTicks) === 0
+              //   )
+              //   .map((d) => getDimension(d))}
+              tickFormat={(d) =>
+                parseDateFormat && formatAxisDate ? dateFormatter(d) : d
+              }
+              // width > 400 || isContinuousAxes ? dateFormatter(d) : null
             />
             {showBrush && (
               <Brush
