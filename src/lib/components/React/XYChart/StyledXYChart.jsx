@@ -77,7 +77,7 @@ function StyledXYChart(props) {
     fillStyle,
     showBoxShadow,
     showAsPercent,
-    // numDimensionTicks,
+    numDimensionTicks,
     ...rest
   } = props;
 
@@ -292,7 +292,7 @@ function StyledXYChart(props) {
               events={events || xyChart.events}
               qLayout={qLayout}
               // qData={data}
-              // numDimensionTicks={dimensionTicks}
+              numDimensionTicks={numDimensionTicks}
               theme={theme}
               singleDimension={singleDimension}
               singleMeasure={singleMeasure}

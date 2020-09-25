@@ -265,7 +265,8 @@ XYChart.propTypes = {
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
   showClosestItem: PropTypes.bool,
   useSingleColor: PropTypes.bool,
-  // numDimensionTicks: PropTypes.number,
+  /** Number of ticks for the X Axis. Leave blank to auto calculate */
+  numDimensionTicks: PropTypes.number,
   /** Input format of date supplied from engine (in qText) */
   parseDateFormat: PropTypes.string,
   /** Format of dates to be displayed on XAxis. */
@@ -301,6 +302,7 @@ XYChart.defaultProps = {
   formatAxisDate: null,
   formatTooltipDate: null,
   strokeWidth: null,
+  numDimensionTicks: null,
 };
 
 export default XYChart;

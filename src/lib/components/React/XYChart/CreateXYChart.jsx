@@ -98,7 +98,7 @@ export default function CreateXYChart({
   valueLabelStyle,
   showClosestItem,
   useSingleColor,
-  // numDimensionTicks,
+  numDimensionTicks,
   parseDateFormat,
   formatAxisDate,
   formatTooltipDate,
@@ -579,12 +579,18 @@ export default function CreateXYChart({
                   ? true
                   : false
               }
-              // tickValues={currData
-              //   .filter(
-              //     (d, i, arr) =>
-              //       i % Math.round((arr.length - 1) / numDimensionTicks) === 0
-              //   )
-              //   .map((d) => getDimension(d))}
+              tickValues={
+                numDimensionTicks === null
+                  ? null
+                  : currData
+                      .filter(
+                        (d, i, arr) =>
+                          i %
+                            Math.round((arr.length - 1) / numDimensionTicks) ===
+                          0
+                      )
+                      .map((d) => getDimension(d))
+              }
               tickFormat={(d) =>
                 parseDateFormat && formatAxisDate ? dateFormatter(d) : d
               }
