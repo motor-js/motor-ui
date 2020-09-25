@@ -99,6 +99,8 @@ export default function CreateXYChart({
   showClosestItem,
   useSingleColor,
   numDimensionTicks,
+  numMeasureTicks,
+  numMeasureDualTicks,
   parseDateFormat,
   formatAxisDate,
   formatTooltipDate,
@@ -510,7 +512,7 @@ export default function CreateXYChart({
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
-              // numTicks={5}
+              numTicks={numMeasureTicks}
               hideAxisLine={
                 chartHideAxisLine === true ||
                 chartHideAxisLine === "both" ||
@@ -549,7 +551,7 @@ export default function CreateXYChart({
                     : null
                 }
                 orientation="right"
-                // numTicks={9}
+                numTicks={numMeasureDualTicks}
                 hideAxisLine={
                   chartHideAxisLine === true ||
                   chartHideAxisLine === "both" ||
