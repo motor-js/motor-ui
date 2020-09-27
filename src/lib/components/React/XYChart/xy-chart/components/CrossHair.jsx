@@ -34,9 +34,6 @@ const propTypes = {
   stroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   strokeDasharray: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   strokeWidth: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-
-  // likely injected by parent
-  series: PropTypes.objectOf(PropTypes.object),
 };
 
 const defaultProps = {
@@ -51,7 +48,6 @@ const defaultProps = {
   },
   fullHeight: false,
   fullWidth: false,
-  series: {},
   showCircle: true,
   showMultipleCircles: false,
   showHorizontalLine: true,
@@ -69,7 +65,6 @@ function CrossHair({
   fullHeight,
   fullWidth,
   lineStyles,
-  series,
   showHorizontalLine,
   showCircle,
   showMultipleCircles,
@@ -143,15 +138,7 @@ function CrossHair({
   const [xMin, xMax] = extent(xScale.range());
   const [yMin, yMax] = extent(yScale.range());
 
-  const circleData =
-    showMultipleCircles && series && Object.keys(series).length > 0
-      ? Object.keys(series).map((seriesKey) => ({
-          seriesKey,
-          ...series[seriesKey],
-        }))
-      : [closestDatum.datum];
-
-  // console.log("circleData", circleData);
+  const circleData = [closestDatum.datum];
 
   const circlePositions = circleData.map((d) => ({
     x: getScaledX(d),
