@@ -11,7 +11,6 @@ export default function Tooltip({
   snapToDataX,
   snapToDataY,
   showVerticalCrosshair,
-  renderInPortal = false,
   showClosestItem,
   useSingleColor,
 }) {
@@ -59,22 +58,14 @@ export default function Tooltip({
   const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
 
   const xCoord = snapToDataX
-    ? xScale(xAccessor(closestDatum.datum)) +
-      (xScale.bandwidth?.() ?? 0) / 2 +
-      (renderInPortal ? svgOriginX : 0)
-    : renderInPortal
-    ? pageX
+    ? xScale(xAccessor(closestDatum.datum)) + (xScale.bandwidth?.() ?? 0) / 2
     : svgMouseX;
 
   const yCoord = snapToDataY
-    ? yScale(yAccessor(closestDatum.datum)) -
-      (yScale.bandwidth?.() ?? 0) / 2 +
-      (renderInPortal ? svgOriginY : 0)
-    : renderInPortal
-    ? pageY
+    ? yScale(yAccessor(closestDatum.datum)) - (yScale.bandwidth?.() ?? 0) / 2
     : svgMouseY;
 
-  const Container = renderInPortal ? Portal : React.Fragment;
+  // const Container = React.Fragment;
 
   // const Console = (prop) => (
   //   console[Object.keys(prop)[0]](...Object.values(prop)),
@@ -233,8 +224,8 @@ export default function Tooltip({
   }
 
   return (
-    <Container>
-      {/** @TODO not doing this in SVG is jank. Better solution? */}
+    <>
+      {/** @TODO remove the fragemnt above and the div as CrossHair now added*/}
       {yScale && showVerticalCrosshair && (
         <div
           style={{
@@ -243,9 +234,7 @@ export default function Tooltip({
             height: height - margin.top - margin.bottom,
             top: 0,
             left: 0,
-            transform: `translate(${xCoord}px,${
-              renderInPortal ? svgOriginY + margin.top : margin.top
-            }px)`,
+            transform: `translate(${xCoord}px,${margin.top}px)`,
             borderLeft: `${theme?.verticalCrosshair?.width ?? "1px"} ${theme
               ?.verticalCrosshair?.style ?? "solid"}  ${selectColor(
               theme?.verticalCrosshair?.color,
@@ -279,6 +268,6 @@ export default function Tooltip({
       >
         {renderTooltip({ ...tooltipData, colorScale })}
       </TooltipWithBounds>
-    </Container>
+    </>
   );
 }

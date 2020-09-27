@@ -77,20 +77,17 @@ function CrossHair({
 
   const { tooltipData } = useContext(TooltipContext) || {};
 
-  // early return if there's no tooltip
   const {
     closestDatum,
     svgMouseX,
     svgMouseY,
-    pageX,
-    pageY,
-    svgOriginX,
-    svgOriginY,
+    // pageX,
+    // pageY,
+    // svgOriginX,
+    // svgOriginY,
   } = tooltipData || {};
 
-  // if (!xScale || !yScale || !getScaledX || !getScaledY) return null;
-  // if (!xScale || !yScale) return null;
-
+  // early return if there's no tooltip
   if (
     !xScale ||
     !yScale ||
@@ -100,13 +97,12 @@ function CrossHair({
   )
     return null;
 
-  //  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
   const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
   console.log(closestDatum, closestDatum.key);
 
   // accessors
-  const getX = (d) => d && d[0].qText;
-  const getY = (d) => d && d.y;
+  // const getX = (d) => d && d[0].qText;
+  // const getY = (d) => d && d.y;
   //  const getX = (d) => {
   //    console.log(d);
   //    return d && d[0].qText;
@@ -144,8 +140,6 @@ function CrossHair({
     x: getScaledX(d),
     y: getScaledY(d),
   }));
-
-  console.log(circlePositions[0].y);
 
   return (
     <Group style={GROUP_STYLE}>
