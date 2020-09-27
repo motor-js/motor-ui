@@ -4,7 +4,7 @@ import { Group } from "@visx/group";
 // import Bar from "./Bar";
 import { Bar } from "@visx/shape";
 
-import getBandwidth from "../../util/getBandwidth";
+import getBandwidth from "../../utils/getBandwidth";
 
 /**
  * Generates bar groups as an array of objects and renders `<rect />`s for each datum grouped by `key`. A general setup might look like this:

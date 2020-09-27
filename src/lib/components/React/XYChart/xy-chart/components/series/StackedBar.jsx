@@ -12,8 +12,8 @@ import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
 import { selectColor } from "../../../../../../utils/colors";
 
-import findNearestDatumY from "../../util/findNearestDatumY";
-import findNearestDatumX from "../../util/findNearestDatumX";
+import findNearestDatumY from "../../utils/findNearestDatumY";
+import findNearestDatumX from "../../utils/findNearestDatumX";
 import AnimatedBars from "./AnimatedBars";
 
 const STACK_ACCESSOR = (d) => d.stack;

@@ -5,8 +5,8 @@ import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-import findNearestDatumX from "../../util/findNearestDatumX";
-import findNearestDatumY from "../../util/findNearestDatumY";
+import findNearestDatumX from "../../utils/findNearestDatumX";
+import findNearestDatumY from "../../utils/findNearestDatumY";
 
 function PointSeries({
   data: _,

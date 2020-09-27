@@ -7,8 +7,8 @@ import { scaleBand } from "@visx/scale";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
 
-import findNearestDatumX from "../../util/findNearestDatumX";
-import findNearestDatumY from "../../util/findNearestDatumY";
+import findNearestDatumX from "../../utils/findNearestDatumX";
+import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
 import { Text } from "@visx/text";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "classnames";
 import { Group } from "@visx/group";
-import { area, stack as stackPath } from "../../util/D3ShapeFactories";
+import { area, stack as stackPath } from "../../utils/D3ShapeFactories";
 
 export default function Stack({
   className,

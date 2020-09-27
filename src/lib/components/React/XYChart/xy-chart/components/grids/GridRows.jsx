@@ -3,7 +3,7 @@ import cx from "classnames";
 import { Line } from "@visx/shape";
 import { Group } from "@visx/group";
 import { Point } from "@visx/point";
-import getTicks from "../../util/getTicks";
+import getTicks from "../../utils/getTicks";
 
 export default function GridRow({
   top = 0,

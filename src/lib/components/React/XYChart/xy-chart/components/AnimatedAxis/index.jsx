@@ -2,7 +2,7 @@
 import React, { useContext, useMemo } from "react";
 import cx from "classnames";
 import { Axis as BaseAxis } from "@visx/axis";
-import getLabelTransform from "../../util/getLabelTransform";
+import getLabelTransform from "../../utils/getLabelTransform";
 import { Text } from "@visx/text";
 import { animated } from "react-spring";
 

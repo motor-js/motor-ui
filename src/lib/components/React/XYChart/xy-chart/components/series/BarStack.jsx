@@ -3,11 +3,11 @@ import cx from "classnames";
 // import { stack as d3stack, SeriesPoint } from "d3-shape";
 import * as d3 from "d3-shape";
 import { Group } from "@visx/group";
-import { getFirstItem, getSecondItem } from "../../util/accessors";
-import getBandwidth from "../../util/getBandwidth";
-import setNumOrAccessor from "../../util/setNumberOrNumberAccessor";
-import stackOrder from "../../util/stackOrder";
-import stackOffset from "../../util/stackOffset";
+import { getFirstItem, getSecondItem } from "../../utils/accessors";
+import getBandwidth from "../../utils/getBandwidth";
+import setNumOrAccessor from "../../utils/setNumberOrNumberAccessor";
+import stackOrder from "../../utils/stackOrder";
+import stackOffset from "../../utils/stackOffset";
 // import Bar from "./Bar";
 import AnimatedBars from "./AnimatedBars";
 

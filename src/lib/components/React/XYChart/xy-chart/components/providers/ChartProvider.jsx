@@ -4,7 +4,7 @@ import { scaleOrdinal } from "@visx/scale";
 
 import ChartContext from "../../context/ChartContext";
 import createScale from "../../createScale";
-import findNearestDatumXY from "../../util/findNearestDatumXY";
+import findNearestDatumXY from "../../utils/findNearestDatumXY";
 
 export default class ChartProvider extends React.Component {
   state = {

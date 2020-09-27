@@ -3,7 +3,7 @@ import cx from "classnames";
 import { Group } from "@visx/group";
 // import Bar from "./Bar";
 import { Bar } from "@visx/shape";
-import getBandwidth from "../../util/getBandwidth";
+import getBandwidth from "../../utils/getBandwidth";
 
 export default function BarGroupHorizontalComponent({
   data,

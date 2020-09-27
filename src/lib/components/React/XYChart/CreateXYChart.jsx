@@ -11,6 +11,7 @@ import PointSeries from "./xy-chart/components/series/PointSeries";
 import ChartPattern from "./xy-chart/components/ChartPattern";
 import EventProvider from "./xy-chart/components/providers/TooltipProvider";
 import Tooltip from "./xy-chart/components/Tooltip";
+import CrossHair from "./xy-chart/components/CrossHair";
 import Legend from "./xy-chart/components/Legend";
 import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
 import Group from "./xy-chart/components/series/Group";
@@ -22,11 +23,11 @@ import Grid from "./xy-chart/components/grids/Grid";
 import Brush from "./xy-chart/components/selection/Brush";
 import { timeParse, timeFormat } from "d3-time-format";
 
-import { roundNumber } from "./xy-chart/util/roundNumber";
+import { roundNumber } from "./xy-chart/utils/roundNumber";
 import { selectColor } from "../../../utils/colors";
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
 import { colorByExpression } from "../../../utils";
-import { valueIfUndefined, isDefined } from "./xy-chart/util/chartUtils";
+import { valueIfUndefined, isDefined } from "./xy-chart/utils/chartUtils";
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
@@ -597,6 +598,27 @@ export default function CreateXYChart({
                 parseDateFormat && formatAxisDate ? dateFormatter(d) : d
               }
               // width > 400 || isContinuousAxes ? dateFormatter(d) : null
+            />
+            <CrossHair
+              fullHeight
+              showHorizontalLine={false}
+              strokeDasharray=""
+              // circleSize={(d) => (d.y === tooltipData.datum.y ? 6 : 4)}
+              // circleStroke={(d) =>
+              //   d.y === tooltipData.datum.y ? "#fff" : d.color
+              // }
+              // circleStyles={{ strokeWidth: 1.5 }}
+              // circleFill={(d) =>
+              //   d.y === tooltipData.datum.y ? d.color : "#fff"
+              // }
+              circleSize={4}
+              circleStroke="red"
+              circleStyles={{ strokeWidth: 1.5 }}
+              circleFill="orange"
+              // showCircle={useVoronoiTrigger || !this.state.programmaticTrigger}
+              // showMultipleCircles={!useVoronoiTrigger && showMultipleCircles}
+              showCircle={true}
+              showMultipleCircles={false}
             />
             {showBrush && (
               <Brush
