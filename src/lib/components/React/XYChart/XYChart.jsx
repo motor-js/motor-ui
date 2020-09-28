@@ -263,25 +263,36 @@ XYChart.propTypes = {
   dualAxis: PropTypes.bool,
   /** Show CrossHair on the chart  */
   showCrossHair: PropTypes.bool,
+  /** Styling of the CrossHair. */
   crossHairStyles: PropTypes.object,
+  /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
+  /** Styling of the Value labels. */
   valueLabelStyle: PropTypes.object,
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
   showClosestItem: PropTypes.bool,
   /** Only use one color for the toolyip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
+  /** Snap to X Axis (normally true for bar or combo) */
+  snapToDataX: PropTypes.bool,
+  /** Snap to Y Axis (normally true for bar or combo) */
+  snapToDataY: PropTypes.bool,
+  /** Input format of date supplied from engine (in qText) */
+  parseDateFormat: PropTypes.string,
+  /** Format of dates to be displayed on Tooltip. */
+  formatTooltipDate: PropTypes.string,
+  /** Reposition the tooltip. */
+  shiftTooltipTop: PropTypes.number,
+  /** Reposition the tooltip. */
+  shiftTooltipLeft: PropTypes.number,
   /** Number of ticks for the X Axis. Leave blank to auto calculate */
   numDimensionTicks: PropTypes.number,
   /** Number of ticks for the Y Axis. Leave blank to auto calculate */
   numMeasureTicks: PropTypes.number,
   /** Number of ticks for the dual Y Axis. Leave blank to auto calculate */
   numMeasureDualTicks: PropTypes.number,
-  /** Input format of date supplied from engine (in qText) */
-  parseDateFormat: PropTypes.string,
   /** Format of dates to be displayed on XAxis. */
   formatAxisDate: PropTypes.string,
-  /** Format of dates to be displayed on Tooltip. */
-  formatTooltipDate: PropTypes.string,
   /** Line stroke width */
   strokeWidth: PropTypes.number,
 };

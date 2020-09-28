@@ -108,6 +108,10 @@ export default function CreateXYChart({
   strokeWidth,
   showCrossHair,
   showTooltip,
+  snapToDataX,
+  snapToDataY,
+  shiftTooltipTop,
+  shiftTooltipLeft,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -691,12 +695,20 @@ export default function CreateXYChart({
           </XYChart>
           {showTooltip && (
             <Tooltip
-              snapToDataX={canSnapTooltipToDataX}
-              snapToDataY={canSnapTooltipToDataY}
+              snapToDataX={valueIfUndefined(
+                snapToDataX,
+                xyChart.tooltip.snapToDataX
+              )}
+              snapToDataY={valueIfUndefined(
+                snapToDataY,
+                xyChart.tooltip.snapToDataY
+              )}
               showClosestItem={valueIfUndefined(
                 showClosestItem,
                 xyChart.tooltip.showClosestItem
               )}
+              shiftTooltipTop={shiftTooltipTop}
+              shiftTooltipLeft={shiftTooltipLeft}
               useSingleColor={valueIfUndefined(
                 useSingleColor,
                 xyChart.tooltip.useSingleColor

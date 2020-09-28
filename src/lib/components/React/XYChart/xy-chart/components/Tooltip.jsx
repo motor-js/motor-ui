@@ -9,6 +9,8 @@ import { selectColor } from "../../../../../utils/colors";
 export default function Tooltip({
   snapToDataX,
   snapToDataY,
+  shiftTooltipTop = 0,
+  shiftTooltipLeft = 0,
   showClosestItem,
   useSingleColor,
 }) {
@@ -48,12 +50,16 @@ export default function Tooltip({
   const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
 
   const xCoord = snapToDataX
-    ? xScale(xAccessor(closestDatum.datum)) + (xScale.bandwidth?.() ?? 0) / 2
-    : svgMouseX;
+    ? xScale(xAccessor(closestDatum.datum)) +
+      (xScale.bandwidth?.() ?? 0) / 2 +
+      shiftTooltipLeft
+    : svgMouseX + shiftTooltipLeft;
 
   const yCoord = snapToDataY
-    ? yScale(yAccessor(closestDatum.datum)) - (yScale.bandwidth?.() ?? 0) / 2
-    : svgMouseY;
+    ? yScale(yAccessor(closestDatum.datum)) -
+      (yScale.bandwidth?.() ?? 0) / 2 +
+      shiftTooltipTop
+    : svgMouseY + shiftTooltipTop;
 
   const getValue = (measure, data) =>
     data.datum.filter((s) => s.qText === measure)[0].qNum;
