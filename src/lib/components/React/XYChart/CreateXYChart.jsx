@@ -520,8 +520,8 @@ export default function CreateXYChart({
                       <AreaSeries
                         key={measure}
                         dataKey={measure}
-                        // glyph={measureInfo[index].qShowPoints}
-                        // fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        glyph={measureInfo.qShowPoints}
+                        fillStyle={measureInfo.qFillStyle || fillStyle}
                         data={currData}
                         {...dataAccessors[index]}
                         strokeWidth={strokeWidth}

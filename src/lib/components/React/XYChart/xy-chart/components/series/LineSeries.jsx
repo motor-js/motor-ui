@@ -74,12 +74,6 @@ function LineSeries({
     ...valueLabelStyle,
   };
 
-  // const [selectedBar, setSelectedBar] = useState([]);
-
-  // useEffect(() => {
-  //   if (!isSelectionXYChartVisible) setSelectedBar([]);
-  // }, [isSelectionXYChartVisible]);
-
   const onMouseMove = useCallback(
     (event) => {
       const nearestData = findNearestData(event);
@@ -113,8 +107,6 @@ function LineSeries({
                     ? glyph.size
                     : showPoints.size || theme.points.size
                 }
-                // fill={i % 2 === 0 ? primaryColor : contrastColor}
-                // stroke={i % 2 === 0 ? contrastColor : primaryColor}
                 fill={isDefined(glyph) ? glyph.fill : color}
                 stroke={isDefined(glyph) ? glyph.stroke : color}
                 strokeWidth={
