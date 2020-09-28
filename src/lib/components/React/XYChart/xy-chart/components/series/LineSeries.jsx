@@ -2,6 +2,7 @@ import React, { useContext, useCallback, useState, useEffect } from "react";
 import { animated, useSpring } from "react-spring";
 import { LinePath } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
+import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
@@ -33,7 +34,10 @@ function LineSeries({
     valueLabelStyle,
     currentSelectionIds,
     size,
+    findNearestData,
   } = useContext(ChartContext);
+
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
@@ -76,6 +80,16 @@ function LineSeries({
   //   if (!isSelectionXYChartVisible) setSelectedBar([]);
   // }, [isSelectionXYChartVisible]);
 
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({ tooltipData: { ...nearestData } });
+      }
+    },
+    [findNearestData, showTooltip]
+  );
+
   return (
     <g className="visx-group line-series">
       <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
@@ -116,6 +130,10 @@ function LineSeries({
                       })
                     : [...currentSelectionIds, d.selectionId];
                   handleClick(selections);
+                }}
+                onMouseMove={onMouseMove}
+                onMouseLeave={() => {
+                  hideTooltip();
                 }}
               />
               {/* {showLabels && (
