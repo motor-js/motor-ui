@@ -415,7 +415,7 @@ export default function CreateXYChart({
             )}
             {chartType.includes("line") && (
               <>
-                {dimensionCount <= 1
+                {singleDimension
                   ? measureInfo.map((measure, index) => (
                       <LineSeries
                         key={measureInfo[index].qFallbackTitle}
@@ -439,7 +439,7 @@ export default function CreateXYChart({
               </>
             )}
             {chartType.includes("combo") &&
-              measureCount > 1 &&
+              !singleMeasure &&
               measureInfo.map((measure, index) =>
                 measure.qChartType === "bar" ? (
                   <BarSeries
@@ -460,7 +460,7 @@ export default function CreateXYChart({
                   />
                 )
               )}
-            {chartType.includes("area") &&
+            {/* {chartType.includes("area") &&
               dimensionCount <= 1 &&
               measureInfo.map((measure, index) => (
                 <AreaSeries
@@ -472,7 +472,36 @@ export default function CreateXYChart({
                   {...dataAccessors[index]}
                   strokeWidth={strokeWidth}
                 />
-              ))}
+              ))} */}
+            {chartType.includes("area") && (
+              <>
+                {singleDimension
+                  ? measureInfo.map((measure, index) => (
+                      <AreaSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        glyph={measureInfo[index].qShowPoints}
+                        strokeDasharray={measureInfo[index].qLegendShape}
+                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={strokeWidth}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <AreaSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        glyph={measure.qShowPoints}
+                        fillStyle={measure.qFillStyle || fillStyle}
+                        strokeDasharray={measure.qLegendShape}
+                        {...dataAccessors[index]}
+                        strokeWidth={strokeWidth}
+                      />
+                    ))}
+              </>
+            )}
             {chartType.includes("stackedarea") && (
               <StackedArea>
                 {dimensionCount <= 1

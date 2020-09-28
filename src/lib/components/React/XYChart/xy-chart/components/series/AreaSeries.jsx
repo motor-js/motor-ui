@@ -2,6 +2,7 @@ import React, { useContext, useCallback } from "react";
 import { animated, useSpring } from "react-spring";
 import { AreaClosed } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
+import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
@@ -32,7 +33,12 @@ function AreaSeries({
     size,
     formatValue,
     valueLabelStyle,
+    findNearestData,
+    handleClick,
   } = useContext(ChartContext);
+
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
 
@@ -69,6 +75,16 @@ function AreaSeries({
     fontSize: valueLabelStyles.fontSize[size],
     ...valueLabelStyle,
   };
+
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({ tooltipData: { ...nearestData } });
+      }
+    },
+    [findNearestData, showTooltip]
+  );
 
   return (
     <g className="visx-group area-series">
@@ -120,8 +136,20 @@ function AreaSeries({
                     : showPoints.strokeWidth || theme.points.strokeWidth
                 }
                 style={{ cursor: "pointer " }}
+                // onClick={() => {
+                //   console.log(d);
+                // }}
                 onClick={() => {
-                  console.log(d);
+                  const selections = currentSelectionIds.includes(d.selectionId)
+                    ? currentSelectionIds.filter(function(value) {
+                        return value !== d.selectionId;
+                      })
+                    : [...currentSelectionIds, d.selectionId];
+                  handleClick(selections);
+                }}
+                onMouseMove={onMouseMove}
+                onMouseLeave={() => {
+                  hideTooltip();
                 }}
               />
               {/* {showLabels && (
