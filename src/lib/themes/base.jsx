@@ -863,8 +863,8 @@ const base = {
     },
     verticalCrosshair: { color: "brand", width: "1px", style: "solid" },
     tooltip: {
-      snapToDataX: false,
-      snapToDataX: false,
+      // snapToDataX: false,
+      // snapToDataX: false,
       showClosestItem: true, // Used for tooltip
       useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
       headingColor: "altDark",

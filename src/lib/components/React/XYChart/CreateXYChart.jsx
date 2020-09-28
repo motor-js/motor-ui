@@ -162,17 +162,21 @@ export default function CreateXYChart({
     );
   }
 
-  const canSnapTooltipToDataX =
+  const canSnapTooltipToDataX = valueIfUndefined(
+    snapToDataX,
     (chartType.includes("groupedbar") && renderHorizontally) ||
-    (chartType.includes("stackedbar") && !renderHorizontally) ||
-    (chartType.includes("combo") && !renderHorizontally) ||
-    chartType.includes("bar");
+      (chartType.includes("stackedbar") && !renderHorizontally) ||
+      (chartType.includes("combo") && !renderHorizontally) ||
+      chartType.includes("bar")
+  );
 
-  const canSnapTooltipToDataY =
+  const canSnapTooltipToDataY = valueIfUndefined(
+    snapToDataY,
     (chartType.includes("groupedbar") && !renderHorizontally) ||
-    (chartType.includes("stackedbar") && renderHorizontally) ||
-    (chartType.includes("combo") && renderHorizontally) ||
-    chartType.includes("bar");
+      (chartType.includes("stackedbar") && renderHorizontally) ||
+      (chartType.includes("combo") && !renderHorizontally) ||
+      chartType.includes("bar")
+  );
 
   useEffect(() => {
     setCurrData(data);
@@ -695,14 +699,8 @@ export default function CreateXYChart({
           </XYChart>
           {showTooltip && (
             <Tooltip
-              snapToDataX={valueIfUndefined(
-                snapToDataX,
-                xyChart.tooltip.snapToDataX
-              )}
-              snapToDataY={valueIfUndefined(
-                snapToDataY,
-                xyChart.tooltip.snapToDataY
-              )}
+              snapToDataX={canSnapTooltipToDataX}
+              snapToDataY={canSnapTooltipToDataY}
               showClosestItem={valueIfUndefined(
                 showClosestItem,
                 xyChart.tooltip.showClosestItem
