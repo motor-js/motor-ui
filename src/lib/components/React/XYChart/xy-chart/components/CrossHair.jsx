@@ -73,7 +73,8 @@ function CrossHair({
   strokeDasharray,
   strokeWidth,
 }) {
-  const { xScale, yScale, dataRegistry } = useContext(ChartContext) || {};
+  const { xScale, yScale, dataRegistry, dataKeys, measureInfo } =
+    useContext(ChartContext) || {};
 
   const { tooltipData } = useContext(TooltipContext) || {};
 
@@ -97,8 +98,9 @@ function CrossHair({
   )
     return null;
 
+  // console.log(dataKeys, measureInfo);
+
   const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
-  console.log(closestDatum, closestDatum.key);
 
   // accessors
   // const getX = (d) => d && d[0].qText;
@@ -135,11 +137,14 @@ function CrossHair({
   const [yMin, yMax] = extent(yScale.range());
 
   const circleData = [closestDatum.datum];
+  //  console.log(closestDatum, closestDatum.key);
 
   const circlePositions = circleData.map((d) => ({
     x: getScaledX(d),
     y: getScaledY(d),
   }));
+
+  console.log(circleData, circlePositions);
 
   return (
     <Group style={GROUP_STYLE}>
@@ -175,7 +180,7 @@ function CrossHair({
       {(showCircle || showMultipleCircles) &&
         circleData.map((d, i) => {
           const { x, y } = circlePositions[i];
-
+          // console.log(d, i);
           return (
             isDefined(x) &&
             isDefined(y) && (
