@@ -7,10 +7,8 @@ import ChartContext from "../context/ChartContext";
 import { selectColor } from "../../../../../utils/colors";
 
 export default function Tooltip({
-  // renderTooltip,
   snapToDataX,
   snapToDataY,
-  showVerticalCrosshair,
   showClosestItem,
   useSingleColor,
 }) {
@@ -43,15 +41,7 @@ export default function Tooltip({
   const dateFormatter = (date) => formatDate(parseDate(date));
 
   // early return if there's no tooltip
-  const {
-    closestDatum,
-    svgMouseX,
-    svgMouseY,
-    pageX,
-    pageY,
-    svgOriginX,
-    svgOriginY,
-  } = tooltipData || {};
+  const { closestDatum, svgMouseX, svgMouseY } = tooltipData || {};
 
   if (!closestDatum || svgMouseX == null || svgMouseY == null) return null;
 
@@ -64,13 +54,6 @@ export default function Tooltip({
   const yCoord = snapToDataY
     ? yScale(yAccessor(closestDatum.datum)) - (yScale.bandwidth?.() ?? 0) / 2
     : svgMouseY;
-
-  // const Container = React.Fragment;
-
-  // const Console = (prop) => (
-  //   console[Object.keys(prop)[0]](...Object.values(prop)),
-  //   null // ➜ React components must return something
-  // );
 
   const getValue = (measure, data) =>
     data.datum.filter((s) => s.qText === measure)[0].qNum;
@@ -224,50 +207,20 @@ export default function Tooltip({
   }
 
   return (
-    <>
-      {/** @TODO remove the fragemnt above and the div as CrossHair now added*/}
-      {yScale && showVerticalCrosshair && (
-        <div
-          style={{
-            position: "absolute",
-            width: 1,
-            height: height - margin.top - margin.bottom,
-            top: 0,
-            left: 0,
-            transform: `translate(${xCoord}px,${margin.top}px)`,
-            borderLeft: `${theme?.verticalCrosshair?.width ?? "1px"} ${theme
-              ?.verticalCrosshair?.style ?? "solid"}  ${selectColor(
-              theme?.verticalCrosshair?.color,
-              theme
-            ) ?? "#222"}`,
-            pointerEvents: theme?.tooltip?.pointerEvents,
-          }}
-        />
-      )}
-      <TooltipWithBounds
-        left={xCoord}
-        top={yCoord}
-        style={{
-          // borderRadius: theme?.tooltip?.borderRadius,
-          // boxShadow: theme?.tooltip?.boxShadow,
-          // fontSize: theme?.tooltip?.fontSize,
-          // lineHeight: theme?.tooltip?.lineHeight,
-          // padding: theme?.tooltip?.padding,
-          // pointerEvents: theme?.tooltip?.pointerEvents,
-          // position: theme?.tooltip?.position,
-          ...theme?.tooltip?.tooltipStyles,
-          fontSize: theme?.tooltip?.tooltipStyles?.fontSize[size],
-          background:
-            selectColor(
-              theme?.tooltip?.tooltipStyles?.backgroundColor,
-              theme
-            ) ?? "white",
-          color:
-            selectColor(theme?.tooltip?.tooltipStyles?.color, theme) ?? "#222",
-        }}
-      >
-        {renderTooltip({ ...tooltipData, colorScale })}
-      </TooltipWithBounds>
-    </>
+    <TooltipWithBounds
+      left={xCoord}
+      top={yCoord}
+      style={{
+        ...theme?.tooltip?.tooltipStyles,
+        fontSize: theme?.tooltip?.tooltipStyles?.fontSize[size],
+        background:
+          selectColor(theme?.tooltip?.tooltipStyles?.backgroundColor, theme) ??
+          "white",
+        color:
+          selectColor(theme?.tooltip?.tooltipStyles?.color, theme) ?? "#222",
+      }}
+    >
+      {renderTooltip({ ...tooltipData, colorScale })}
+    </TooltipWithBounds>
   );
 }

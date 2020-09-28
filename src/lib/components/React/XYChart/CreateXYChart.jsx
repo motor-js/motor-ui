@@ -80,7 +80,7 @@ export default function CreateXYChart({
   dualAxis,
   roundNum,
   precision,
-  showVerticalCrosshair,
+  crossHairStyles,
   hideAxisLine,
   gridRows,
   gridColumns,
@@ -599,27 +599,25 @@ export default function CreateXYChart({
               }
               // width > 400 || isContinuousAxes ? dateFormatter(d) : null
             />
-            {/* <CrossHair
-              fullHeight
-              showHorizontalLine={false}
+            <CrossHair
+              fullHeight={valueIfUndefined(
+                crossHairStyles && crossHairStyles.fullHeight,
+                xyChart.crossHair.fullHeight
+              )}
+              fullWidth={valueIfUndefined(
+                crossHairStyles && crossHairStyles.fullWidth,
+                xyChart.crossHair.fullWidth
+              )}
+              showHorizontalLine={valueIfUndefined(
+                crossHairStyles && crossHairStyles.showHorizontalLine,
+                xyChart.crossHair.showHorizontalLine
+              )}
               strokeDasharray=""
-              // circleSize={(d) => (d.y === tooltipData.datum.y ? 6 : 4)}
-              // circleStroke={(d) =>
-              //   d.y === tooltipData.datum.y ? "#fff" : d.color
-              // }
-              // circleStyles={{ strokeWidth: 1.5 }}
-              // circleFill={(d) =>
-              //   d.y === tooltipData.datum.y ? d.color : "#fff"
-              // }
               circleSize={4}
-              circleStroke="red"
               circleStyles={{ strokeWidth: 1.5 }}
-              circleFill="orange"
-              // showCircle={useVoronoiTrigger || !this.state.programmaticTrigger}
-              // showMultipleCircles={!useVoronoiTrigger && showMultipleCircles}
               showCircle={true}
               showMultipleCircles={false}
-            /> */}
+            />
             {showBrush && (
               <Brush
                 xAxisOrientation={xAxisOrientation}
@@ -635,10 +633,6 @@ export default function CreateXYChart({
           <Tooltip
             snapToDataX={canSnapTooltipToDataX}
             snapToDataY={canSnapTooltipToDataY}
-            showVerticalCrosshair={valueIfUndefined(
-              showVerticalCrosshair,
-              xyChart.showVerticalCrosshair
-            )}
             showClosestItem={valueIfUndefined(
               showClosestItem,
               xyChart.tooltip.showClosestItem

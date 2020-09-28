@@ -739,8 +739,13 @@ const base = {
     showPoints: true,
     roundNum: true,
     precision: true,
-    showVerticalCrosshair: false,
+
     hideAxisLine: "yAxis",
+    crossHair: {
+      fullHeight: null,
+      fullWidth: null,
+      showHorizontalLine: true,
+    },
     noData: {
       verticalAlign: "top",
       borderRadius: "10px",
@@ -1201,12 +1206,8 @@ const base = {
   modal: {
     radius: "8px",
   },
-  QlikObject: {
-    
-  },
-  QlikSelections: {
-
-  }
+  QlikObject: {},
+  QlikSelections: {},
 };
 
 export default base;

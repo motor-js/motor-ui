@@ -259,7 +259,7 @@ XYChart.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
-  showVerticalCrosshair: PropTypes.bool,
+  crossHairStyles: PropTypes.object,
   legendLabelStyle: PropTypes.object,
   valueLabelStyle: PropTypes.object,
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */

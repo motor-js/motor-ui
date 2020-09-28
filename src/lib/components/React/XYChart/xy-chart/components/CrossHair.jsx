@@ -16,8 +16,8 @@ const propTypes = {
   fullHeight: PropTypes.bool,
   fullWidth: PropTypes.bool,
   circleSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  circleFill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  circleStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  // circleFill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  // circleStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   circleStyles: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(
@@ -38,8 +38,8 @@ const propTypes = {
 
 const defaultProps = {
   circleSize: 4,
-  circleFill: "#495057",
-  circleStroke: "#ffffff",
+  // circleFill: "#495057",
+  // circleStroke: "#ffffff",
   circleStyles: {
     pointerEvents: "none",
   },
@@ -58,9 +58,9 @@ const defaultProps = {
 };
 
 function CrossHair({
-  circleFill,
+  // circleFill,
   circleSize,
-  circleStroke,
+  // circleStroke,
   circleStyles,
   fullHeight,
   fullWidth,
@@ -73,89 +73,53 @@ function CrossHair({
   strokeDasharray,
   strokeWidth,
 }) {
-  const { xScale, yScale, dataRegistry, dataKeys, measureInfo } =
+  const { xScale, yScale, colorScale, dataKeys, measureInfo } =
     useContext(ChartContext) || {};
 
   const { tooltipData } = useContext(TooltipContext) || {};
 
-  const {
-    closestDatum,
-    svgMouseX,
-    svgMouseY,
-    // pageX,
-    // pageY,
-    // svgOriginX,
-    // svgOriginY,
-  } = tooltipData || {};
-
-  // early return if there's no tooltip
-  if (
-    !xScale ||
-    !yScale ||
-    !closestDatum ||
-    svgMouseX == null ||
-    svgMouseY == null
-  )
-    return null;
-
-  // console.log(dataKeys, measureInfo);
-
-  const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
+  const { closestDatum } = tooltipData || {};
 
   // accessors
-  // const getX = (d) => d && d[0].qText;
-  // const getY = (d) => d && d.y;
-  //  const getX = (d) => {
-  //    console.log(d);
-  //    return d && d[0].qText;
-  //  };
-  // const getX = (d) => 100;
-  // const getY = (d) => 150;
 
-  // const getScaledX = (d) =>
-  //   xScale(getX(d) || 0) + (xScale.bandwidth ? xScale.bandwidth() / 2 : 0);
-  // const getScaledY = (d) =>
-  //   yScale(getY(d) || 0) + (yScale.bandwidth ? yScale.bandwidth() / 2 : 0);
+  const getX = (d) => d && d.qText;
+  const getY = (d) => d && d.qNum;
 
-  const getScaledX = useCallback(
-    (d) => {
-      const x = xScale(xAccessor?.(d));
-      return isValidNumber(x) ? x + (xScale.bandwidth?.() ?? 0) / 2 : null;
-    },
-    [xScale, xAccessor]
-  );
+  const getScaledX = (d) =>
+    xScale(getX(d) || 0) + (xScale.bandwidth ? xScale.bandwidth() / 2 : 0);
+  const getScaledY = (d) =>
+    yScale(getY(d) || 0) + (yScale.bandwidth ? yScale.bandwidth() / 2 : 0);
 
-  const getScaledY = useCallback(
-    (d) => {
-      const y = yScale(yAccessor?.(d));
-      return isValidNumber(y) ? y + (yScale.bandwidth?.() ?? 0) / 2 : null;
-    },
-    [yScale, yAccessor]
-  );
+  // early return if there's no tooltip
+  if (!xScale || !yScale || !closestDatum) return null;
 
   const [xMin, xMax] = extent(xScale.range());
   const [yMin, yMax] = extent(yScale.range());
 
-  const circleData = [closestDatum.datum];
-  //  console.log(closestDatum, closestDatum.key);
+  const circles = dataKeys || measureInfo.map((d) => d.qFallbackTitle);
 
-  const circlePositions = circleData.map((d) => ({
-    x: getScaledX(d),
-    y: getScaledY(d),
-  }));
+  const circlePositions = circles.map((d, i) => {
+    return {
+      key: d,
+      x: getScaledX(closestDatum.datum[0]),
+      y: getScaledY(closestDatum.datum[i + 1]),
+    };
+  });
 
-  console.log(circleData, circlePositions);
+  const closestCircle = circlePositions.filter(
+    (d) => d.key === closestDatum.key
+  );
 
   return (
     <Group style={GROUP_STYLE}>
       {showHorizontalLine &&
         !showMultipleCircles &&
-        isDefined(circlePositions[0].y) && (
+        isDefined(closestCircle[0].y) && (
           <Line
-            from={{ x: xMin, y: circlePositions[0].y }}
+            from={{ x: xMin, y: closestCircle[0].y }}
             to={{
-              x: fullWidth ? xMax : circlePositions[0].x,
-              y: circlePositions[0].y,
+              x: fullWidth ? xMax : closestCircle[0].x,
+              y: closestCircle[0].y,
             }}
             style={lineStyles}
             stroke={stroke}
@@ -163,12 +127,12 @@ function CrossHair({
             strokeWidth={strokeWidth}
           />
         )}
-      {showVerticalLine && isDefined(circlePositions[0].x) && (
+      {showVerticalLine && isDefined(closestCircle[0].x) && (
         <Line
-          from={{ x: circlePositions[0].x, y: yMax }}
+          from={{ x: closestCircle[0].x, y: yMax }}
           to={{
-            x: circlePositions[0].x,
-            y: fullHeight ? yMin : circlePositions[0].y,
+            x: closestCircle[0].x,
+            y: fullHeight ? yMin : closestCircle[0].y,
           }}
           style={lineStyles}
           stroke={stroke}
@@ -178,9 +142,13 @@ function CrossHair({
       )}
 
       {(showCircle || showMultipleCircles) &&
-        circleData.map((d, i) => {
+        circles.map((d, i) => {
           const { x, y } = circlePositions[i];
-          // console.log(d, i);
+          const circleFill = colorScale(circles[i]);
+          const circleStroke = colorScale(circles[i]);
+
+          if (!showMultipleCircles && d !== closestDatum.key) return null;
+
           return (
             isDefined(x) &&
             isDefined(y) && (
