@@ -744,10 +744,7 @@ const base = {
     crossHair: {
       fullHeight: false,
       fullWidth: false,
-      circleSize: 4,
-      circleStyles: {
-        pointerEvents: "none",
-      },
+
       lineStyles: {
         pointerEvents: "none",
       },
@@ -755,9 +752,16 @@ const base = {
       showMultipleCircles: false,
       showHorizontalLine: true,
       showVerticalLine: true,
-      stroke: "#868e96",
+      stroke: "multi",
       strokeDasharray: "5,2",
       strokeWidth: 1,
+      circleSize: 5,
+      circleStyles: {
+        pointerEvents: "none",
+      },
+      circleStroke: "multi",
+      circleFill: "multi",
+      circleStrokeWidth: 1,
     },
     noData: {
       verticalAlign: "top",

@@ -643,6 +643,18 @@ export default function CreateXYChart({
                   crossHairStyles && crossHairStyles.stroke,
                   xyChart.crossHair.stroke
                 )}
+                circleStroke={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleStroke,
+                  xyChart.crossHair.circleStroke
+                )}
+                circleFill={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleFill,
+                  xyChart.crossHair.circleFill
+                )}
+                circleStrokeWidth={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleStrokeWidth,
+                  xyChart.crossHair.circleStrokeWidth
+                )}
                 strokeDasharray={valueIfUndefined(
                   crossHairStyles && crossHairStyles.strokeDasharray,
                   xyChart.crossHair.strokeDasharray

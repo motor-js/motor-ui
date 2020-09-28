@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { extent } from "d3-array";
 
@@ -8,6 +8,7 @@ import { Line } from "@visx/shape";
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 import { callOrValue, isDefined } from "../utils/chartUtils";
+import { selectColor } from "../../../../../utils/colors";
 import isValidNumber from "../typeguards/isValidNumber";
 
 const GROUP_STYLE = { pointerEvents: "none" };
@@ -16,8 +17,8 @@ const propTypes = {
   fullHeight: PropTypes.bool,
   fullWidth: PropTypes.bool,
   circleSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  // circleFill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  // circleStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  circleFill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  circleStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   circleStyles: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(
@@ -34,12 +35,13 @@ const propTypes = {
   stroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   strokeDasharray: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   strokeWidth: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  circleStrokeWidth: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
 };
 
 function CrossHair({
-  // circleFill,
+  circleFill,
   circleSize,
-  // circleStroke,
+  circleStroke,
   circleStyles,
   fullHeight,
   fullWidth,
@@ -51,8 +53,9 @@ function CrossHair({
   stroke,
   strokeDasharray,
   strokeWidth,
+  circleStrokeWidth,
 }) {
-  const { xScale, yScale, colorScale, dataKeys, measureInfo } =
+  const { xScale, yScale, theme, colorScale, dataKeys, measureInfo } =
     useContext(ChartContext) || {};
 
   const { tooltipData } = useContext(TooltipContext) || {};
@@ -101,7 +104,11 @@ function CrossHair({
               y: closestCircle[0].y,
             }}
             style={lineStyles}
-            stroke={stroke}
+            stroke={
+              "multi"
+                ? colorScale(closestDatum.key)
+                : selectColor(stroke, theme) ?? "#868e96"
+            }
             strokeDasharray={strokeDasharray}
             strokeWidth={strokeWidth}
           />
@@ -114,7 +121,11 @@ function CrossHair({
             y: fullHeight ? yMin : closestCircle[0].y,
           }}
           style={lineStyles}
-          stroke={stroke}
+          stroke={
+            "multi"
+              ? colorScale(closestDatum.key)
+              : selectColor(stroke, theme) ?? "#868e96"
+          }
           strokeDasharray={strokeDasharray}
           strokeWidth={strokeWidth}
         />
@@ -123,8 +134,11 @@ function CrossHair({
       {(showCircle || showMultipleCircles) &&
         circles.map((d, i) => {
           const { x, y } = circlePositions[i];
-          const circleFill = colorScale(circles[i]);
-          const circleStroke = colorScale(circles[i]);
+          const fill =
+            circleFill === "multi" ? colorScale(circles[i]) : circleFill;
+
+          const stroke =
+            circleStroke === "multi" ? colorScale(circles[i]) : circleStroke;
 
           if (!showMultipleCircles && d !== closestDatum.key) return null;
 
@@ -136,9 +150,9 @@ function CrossHair({
                 cx={x}
                 cy={y}
                 r={callOrValue(circleSize, d, i)}
-                fill={callOrValue(circleFill, d, i)}
-                strokeWidth={1}
-                stroke={callOrValue(circleStroke, d, i)}
+                fill={callOrValue(fill, d, i)}
+                strokeWidth={circleStrokeWidth}
+                stroke={callOrValue(stroke, d, i)}
                 style={callOrValue(circleStyles, d, i)}
               />
             )
