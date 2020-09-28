@@ -107,6 +107,7 @@ export default function CreateXYChart({
   formatTooltipDate,
   strokeWidth,
   showCrossHair,
+  showTooltip,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -676,19 +677,20 @@ export default function CreateXYChart({
               />
             )}
           </XYChart>
-
-          <Tooltip
-            snapToDataX={canSnapTooltipToDataX}
-            snapToDataY={canSnapTooltipToDataY}
-            showClosestItem={valueIfUndefined(
-              showClosestItem,
-              xyChart.tooltip.showClosestItem
-            )}
-            useSingleColor={valueIfUndefined(
-              useSingleColor,
-              xyChart.tooltip.useSingleColor
-            )}
-          />
+          {showTooltip && (
+            <Tooltip
+              snapToDataX={canSnapTooltipToDataX}
+              snapToDataY={canSnapTooltipToDataY}
+              showClosestItem={valueIfUndefined(
+                showClosestItem,
+                xyChart.tooltip.showClosestItem
+              )}
+              useSingleColor={valueIfUndefined(
+                useSingleColor,
+                xyChart.tooltip.useSingleColor
+              )}
+            />
+          )}
           {legendTopBottom === "bottom" && legend}
         </div>
       </EventProvider>

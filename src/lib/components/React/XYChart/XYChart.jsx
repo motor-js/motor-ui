@@ -184,6 +184,8 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.oneOf(["right", "bottom"]),
   ]),
+  /** Show tooltip */
+  showTooltip: PropTypes.bool,
   /** SelectionMethod */
   selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
   // /** Maximum Width of the Bar */
@@ -313,6 +315,7 @@ XYChart.defaultProps = {
   numMeasureTicks: null,
   numMeasureDualTicks: null,
   showCrossHair: true,
+  showTooltip: true,
 };
 
 export default XYChart;

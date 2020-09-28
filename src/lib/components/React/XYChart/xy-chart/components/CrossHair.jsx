@@ -105,7 +105,7 @@ function CrossHair({
             }}
             style={lineStyles}
             stroke={
-              "multi"
+              stroke === "multi"
                 ? colorScale(closestDatum.key)
                 : selectColor(stroke, theme) ?? "#868e96"
             }
@@ -122,7 +122,7 @@ function CrossHair({
           }}
           style={lineStyles}
           stroke={
-            "multi"
+            stroke === "multi"
               ? colorScale(closestDatum.key)
               : selectColor(stroke, theme) ?? "#868e96"
           }
