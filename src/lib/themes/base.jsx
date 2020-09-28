@@ -742,9 +742,22 @@ const base = {
 
     hideAxisLine: "yAxis",
     crossHair: {
-      fullHeight: null,
-      fullWidth: null,
+      fullHeight: false,
+      fullWidth: false,
+      circleSize: 4,
+      circleStyles: {
+        pointerEvents: "none",
+      },
+      lineStyles: {
+        pointerEvents: "none",
+      },
+      showCircle: true,
+      showMultipleCircles: false,
       showHorizontalLine: true,
+      showVerticalLine: true,
+      stroke: "#868e96",
+      strokeDasharray: "5,2",
+      strokeWidth: 1,
     },
     noData: {
       verticalAlign: "top",

@@ -259,6 +259,8 @@ XYChart.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
+  /** Show CrossHair on the chart  */
+  showCrossHair: PropTypes.bool,
   crossHairStyles: PropTypes.object,
   legendLabelStyle: PropTypes.object,
   valueLabelStyle: PropTypes.object,
@@ -310,6 +312,7 @@ XYChart.defaultProps = {
   numDimensionTicks: null,
   numMeasureTicks: null,
   numMeasureDualTicks: null,
+  showCrossHair: true,
 };
 
 export default XYChart;

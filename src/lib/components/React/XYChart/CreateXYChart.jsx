@@ -106,6 +106,7 @@ export default function CreateXYChart({
   formatAxisDate,
   formatTooltipDate,
   strokeWidth,
+  showCrossHair,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -599,25 +600,59 @@ export default function CreateXYChart({
               }
               // width > 400 || isContinuousAxes ? dateFormatter(d) : null
             />
-            <CrossHair
-              fullHeight={valueIfUndefined(
-                crossHairStyles && crossHairStyles.fullHeight,
-                xyChart.crossHair.fullHeight
-              )}
-              fullWidth={valueIfUndefined(
-                crossHairStyles && crossHairStyles.fullWidth,
-                xyChart.crossHair.fullWidth
-              )}
-              showHorizontalLine={valueIfUndefined(
-                crossHairStyles && crossHairStyles.showHorizontalLine,
-                xyChart.crossHair.showHorizontalLine
-              )}
-              strokeDasharray=""
-              circleSize={4}
-              circleStyles={{ strokeWidth: 1.5 }}
-              showCircle={true}
-              showMultipleCircles={false}
-            />
+            {showCrossHair && (
+              <CrossHair
+                fullHeight={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.fullHeight,
+                  xyChart.crossHair.fullHeight
+                )}
+                fullWidth={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.fullWidth,
+                  xyChart.crossHair.fullWidth
+                )}
+                circleSize={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleSize,
+                  xyChart.crossHair.circleSize
+                )}
+                showHorizontalLine={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.showHorizontalLine,
+                  xyChart.crossHair.showHorizontalLine
+                )}
+                showVerticalLine={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.showVerticalLine,
+                  xyChart.crossHair.showVerticalLine
+                )}
+                strokeDasharray=""
+                circleStyles={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleStyles,
+                  xyChart.crossHair.circleStyles
+                )}
+                lineStyles={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.lineStyles,
+                  xyChart.crossHair.lineStyles
+                )}
+                showCircle={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.showCircle,
+                  xyChart.crossHair.showCircle
+                )}
+                showMultipleCircles={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.showMultipleCircles,
+                  xyChart.crossHair.showMultipleCircles
+                )}
+                stroke={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.stroke,
+                  xyChart.crossHair.stroke
+                )}
+                strokeDasharray={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.strokeDasharray,
+                  xyChart.crossHair.strokeDasharray
+                )}
+                strokeWidth={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.strokeWidth,
+                  xyChart.crossHair.strokeWidth
+                )}
+              />
+            )}
             {showBrush && (
               <Brush
                 xAxisOrientation={xAxisOrientation}

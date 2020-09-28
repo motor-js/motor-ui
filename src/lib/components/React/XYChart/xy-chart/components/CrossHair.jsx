@@ -36,27 +36,6 @@ const propTypes = {
   strokeWidth: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
 };
 
-const defaultProps = {
-  circleSize: 4,
-  // circleFill: "#495057",
-  // circleStroke: "#ffffff",
-  circleStyles: {
-    pointerEvents: "none",
-  },
-  lineStyles: {
-    pointerEvents: "none",
-  },
-  fullHeight: false,
-  fullWidth: false,
-  showCircle: true,
-  showMultipleCircles: false,
-  showHorizontalLine: true,
-  showVerticalLine: true,
-  stroke: "#868e96",
-  strokeDasharray: "5,2",
-  strokeWidth: 1,
-};
-
 function CrossHair({
   // circleFill,
   circleSize,
@@ -170,7 +149,7 @@ function CrossHair({
 }
 
 CrossHair.propTypes = propTypes;
-CrossHair.defaultProps = defaultProps;
+// CrossHair.defaultProps = defaultProps;
 CrossHair.displayName = "CrossHair";
 
 export default CrossHair;
