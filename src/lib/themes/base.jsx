@@ -749,7 +749,7 @@ const base = {
         pointerEvents: "none",
       },
       showCircle: true,
-      showMultipleCircles: false,
+      showMultipleCircles: true,
       showHorizontalLine: true,
       showVerticalLine: true,
       stroke: "multi",
@@ -759,9 +759,12 @@ const base = {
       circleStyles: {
         pointerEvents: "none",
       },
-      circleStroke: "multi",
       circleFill: "multi",
+      circleClosestFill: "multi",
+      circleStroke: "multi",
+      circleClosestStroke: "multi",
       circleStrokeWidth: 1,
+      highlightClosetsCircle: true,
     },
     noData: {
       verticalAlign: "top",

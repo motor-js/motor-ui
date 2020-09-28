@@ -18,6 +18,8 @@ const propTypes = {
   fullWidth: PropTypes.bool,
   circleSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   circleFill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  circleClosestFill: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  circleClosestStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   circleStroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   circleStyles: PropTypes.oneOfType([
     PropTypes.func,
@@ -32,6 +34,7 @@ const propTypes = {
   showMultipleCircles: PropTypes.bool,
   showHorizontalLine: PropTypes.bool,
   showVerticalLine: PropTypes.bool,
+  highlightClosetsCircle: PropTypes.bool,
   stroke: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   strokeDasharray: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   strokeWidth: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
@@ -40,6 +43,8 @@ const propTypes = {
 
 function CrossHair({
   circleFill,
+  circleClosestFill,
+  circleClosestStroke,
   circleSize,
   circleStroke,
   circleStyles,
@@ -54,6 +59,7 @@ function CrossHair({
   strokeDasharray,
   strokeWidth,
   circleStrokeWidth,
+  highlightClosetsCircle,
 }) {
   const { xScale, yScale, theme, colorScale, dataKeys, measureInfo } =
     useContext(ChartContext) || {};
@@ -82,15 +88,24 @@ function CrossHair({
 
   const circlePositions = circles.map((d, i) => {
     return {
-      key: d,
+      closest: d === closestDatum.key,
       x: getScaledX(closestDatum.datum[0]),
       y: getScaledY(closestDatum.datum[i + 1]),
     };
   });
 
-  const closestCircle = circlePositions.filter(
-    (d) => d.key === closestDatum.key
-  );
+  const closestCircle = circlePositions.filter((d) => d.closest);
+
+  const circleColor = (highlightCloset, closest, closestColor, color, i) => {
+    if (highlightCloset) {
+      if (closest) {
+        return closestColor === "multi" ? colorScale(circles[i]) : closestColor;
+      } else {
+        return color === "multi" ? colorScale(circles[i]) : color;
+      }
+    }
+    return color === "multi" ? colorScale(circles[i]) : color;
+  };
 
   return (
     <Group style={GROUP_STYLE}>
@@ -133,12 +148,24 @@ function CrossHair({
 
       {(showCircle || showMultipleCircles) &&
         circles.map((d, i) => {
-          const { x, y } = circlePositions[i];
-          const fill =
-            circleFill === "multi" ? colorScale(circles[i]) : circleFill;
+          const { x, y, closest } = circlePositions[i];
+          const fill = circleColor(
+            highlightClosetsCircle,
+            closest,
 
-          const stroke =
-            circleStroke === "multi" ? colorScale(circles[i]) : circleStroke;
+            selectColor(circleClosestFill, theme),
+            selectColor(circleFill, theme),
+            i
+          );
+          const stroke = circleColor(
+            highlightClosetsCircle,
+            closest,
+
+            selectColor(circleClosestStroke, theme),
+            selectColor(circleStroke, theme),
+            i
+          );
+          // circleStroke === "multi" ? colorScale(circles[i]) : circleStroke;
 
           if (!showMultipleCircles && d !== closestDatum.key) return null;
 

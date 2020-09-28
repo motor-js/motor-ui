@@ -652,6 +652,14 @@ export default function CreateXYChart({
                   crossHairStyles && crossHairStyles.circleFill,
                   xyChart.crossHair.circleFill
                 )}
+                circleClosestFill={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleClosestFill,
+                  xyChart.crossHair.circleClosestFill
+                )}
+                circleClosestStroke={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.circleClosestStroke,
+                  xyChart.crossHair.circleClosestStroke
+                )}
                 circleStrokeWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStrokeWidth,
                   xyChart.crossHair.circleStrokeWidth
@@ -663,6 +671,10 @@ export default function CreateXYChart({
                 strokeWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.strokeWidth,
                   xyChart.crossHair.strokeWidth
+                )}
+                highlightClosetsCircle={valueIfUndefined(
+                  crossHairStyles && crossHairStyles.highlightClosetsCircle,
+                  xyChart.crossHair.highlightClosetsCircle
                 )}
               />
             )}
