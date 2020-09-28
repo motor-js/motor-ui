@@ -1,34 +1,25 @@
 import React, { useContext, useCallback } from "react";
 import { animated, useSpring } from "react-spring";
-import { AreaClosed } from "@vx/shape";
+import { AreaClosed } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
+import FillBackground from "../aesthetic/Gradient";
 
-// import { callOrValue, isDefined } from "../../util/chartUtils";
-
-// import { GlyphCircle } from "@vx/glyph";
-import {
-  Glyph as CustomGlyph,
-  GlyphCircle,
-  GlyphCross,
-  GlyphDiamond,
-  GlyphSquare,
-  GlyphStar,
-  GlyphTriangle,
-  GlyphWye,
-} from "@vx/glyph";
-
-const ChartGlyph = GlyphCircle;
+// import { callOrValue} from "../../utils/chartUtils";
+import { getSymbol, isDefined } from "../../utils/chartUtils";
 
 function AreaSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   dataKey,
   mouseEvents,
   horizontal = false,
+  glyph,
+  fillStyle,
   ...lineProps
 }) {
   const {
@@ -38,9 +29,12 @@ function AreaSeries({
     showPoints,
     showLabels,
     theme,
+    size,
     formatValue,
+    valueLabelStyle,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
+  const { data, xAccessor, yAccessor, elAccessor } =
+    useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
     (d) => {
@@ -58,25 +52,32 @@ function AreaSeries({
     [yScale, yAccessor]
   );
 
-  if (!data || !xAccessor || !yAccessor) return null;
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  let ChartGlyph = getSymbol(
+    isDefined(glyph) ? glyph.symbol : showPoints.symbol
+  );
+
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
   const color = colorScale(dataKey) ?? "#222";
 
-  const {
-    svgLabel: { baseLabel },
-  } = theme;
+  const { valueLabelStyles } = theme;
 
   const labelProps = {
-    ...baseLabel,
-    pointerEvents: "none",
-    stroke: "#fff",
-    strokeWidth: 2,
-    paintOrder: "stroke",
-    fontSize: 12,
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
   };
 
   return (
-    <g className="vx-group area-series">
+    <g className="visx-group area-series">
+      <FillBackground
+        style={fillStyle.style}
+        id="area-gradient"
+        from={fillStyle.fillFrom}
+        to={fillStyle.fillTo}
+      />
       <AreaClosed
         data={data}
         x={getScaledX}
@@ -86,8 +87,8 @@ function AreaSeries({
       >
         {({ path }) => (
           <AnimatedPath
-            stroke={color}
-            fill={color}
+            stroke={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
+            fill={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
             {...lineProps}
             d={path(data) || ""}
           />
@@ -98,17 +99,30 @@ function AreaSeries({
         data.map((d, i) => {
           const left = getScaledX(d);
           const top = getScaledY(d);
+          d.selectionId = getElemNumber(d);
           return (
             <g key={`area-glyph-${i}`}>
               <ChartGlyph
                 left={left}
                 top={top}
-                size={110}
+                size={
+                  isDefined(glyph)
+                    ? glyph.size
+                    : showPoints.size || theme.points.size
+                }
                 // fill={i % 2 === 0 ? primaryColor : contrastColor}
                 // stroke={i % 2 === 0 ? contrastColor : primaryColor}
-                fill={color}
-                stroke={color}
-                strokeWidth={2}
+                fill={isDefined(glyph) ? glyph.fill : color}
+                stroke={isDefined(glyph) ? glyph.stroke : color}
+                strokeWidth={
+                  isDefined(glyph)
+                    ? glyph.strokeWidth
+                    : showPoints.strokeWidth || theme.points.strokeWidth
+                }
+                style={{ cursor: "pointer " }}
+                onClick={() => {
+                  console.log(d);
+                }}
               />
               {/* {showLabels && (
                 <Text {...labelProps} key={`area-label-${i}`} x={left} y={top}>

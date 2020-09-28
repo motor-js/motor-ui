@@ -1,11 +1,11 @@
 import React, { useContext, useMemo } from "react";
-import BaseAxis from "@vx/axis/lib/axis/Axis";
+import { Axis as BaseAxis } from "@visx/axis";
 
 import ChartContext from "../context/ChartContext";
 import withDefinedContextScales from "../enhancers/withDefinedContextScales";
 
 function Axis(props) {
-  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
+  const { theme, xScale, yScale, margin, width, height, size } = useContext(
     ChartContext
   );
   const { orientation } = props;
@@ -29,7 +29,12 @@ function Axis(props) {
 
     return themeTickLabelProps
       ? // by default, wrap tick labels within the allotted margin space
-        () => ({ ...themeTickLabelProps, width: margin[orientation] })
+        () => ({
+          ...themeTickLabelProps,
+          width: margin[orientation],
+          fontSize:
+            theme?.[themeTickStylesKey]?.label?.[orientation].fontSize[size],
+        })
       : undefined;
   }, [theme, props.tickLabelProps, themeTickStylesKey, orientation, margin]);
 
@@ -57,25 +62,16 @@ function Axis(props) {
       ? width - margin.right
       : 0;
 
-  switch (showAxis) {
-    case false:
-    case "none":
-      theme.xAxisStyles.strokeWidth = 0;
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-    case "yAxis":
-      theme.xAxisStyles.strokeWidth = 0;
-      break;
-    case "xAxis":
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-  }
+  const labelProps = {
+    ...axisStyles?.label?.[orientation],
+    fontSize: axisStyles?.label?.[orientation].fontSize[size],
+  };
 
   return (
     <BaseAxis
       top={topOffset}
       left={leftOffset}
-      labelProps={axisStyles?.label?.[orientation]}
+      labelProps={labelProps}
       stroke={axisStyles?.stroke}
       strokeWidth={axisStyles?.strokeWidth}
       tickLength={tickStyles?.tickLength}

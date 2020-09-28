@@ -1159,7 +1159,6 @@ export default function createLine({
               : markerColor(i);
           } else if (pendingSelections.includes(elemNumber)) {
             setStyle(self, SelectedMarker);
-            //console.log(i);
             return conditionalColors.length === 0
               ? color(rangeBands[focusLineIndex])
               : markerColor(i);

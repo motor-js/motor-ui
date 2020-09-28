@@ -1,7 +1,7 @@
-import { Area, LinePath } from "@vx/shape";
+import { Area, LinePath } from "@visx/shape";
 import { color } from "../../theme";
 import { FocusBlurHandler } from "../../shared";
-import { Group } from "@vx/group";
+import { Group } from "@visx/group";
 import PropTypes from "prop-types";
 import React from "react";
 

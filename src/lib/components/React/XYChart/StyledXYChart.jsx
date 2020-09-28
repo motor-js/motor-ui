@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import UseHyperCube from "../../../hooks/useHyperCube";
+import useHyperCube from "../../../hooks/useHyperCube";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
 import {
@@ -11,23 +11,35 @@ import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
 import { createColorArray } from "../../../utils/colors";
 
-import { numericSortDirection } from "../../../utils";
+import {
+  numericSortDirection,
+  isEmpty,
+  validData,
+  isNull,
+} from "../../../utils";
+
+import { valueIfUndefined } from "./xy-chart/utils/chartUtils";
+
+let measureCount = null;
+let dimensionCount = null;
+let singleDimension = null;
+let singleMeasure = null;
+let dataKeys = null;
+let keys = [];
+// let dimensionTicks = null;
 
 function StyledXYChart(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
-  const [isSelectionXYChartVisible, setSelectionXYChartVisible] = useState(
-    false
-  );
-  const [refreshChart, setRefreshChart] = useState(true);
+  const [currentSelectionIds, setCurrentSelectionIds] = useState([]);
   const [calcCond, setCalcCond] = useState(null);
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
-  // const [sel, setSel] = useState([]);
-  const [pendingSelections, SetPendingSelections] = useState([]);
+  const [data, setData] = useState(null);
 
-  let useSelectionColours = false;
+  const [showBrush, setShowBrush] = useState(false);
+  const enableBrush = () => setShowBrush(true);
 
   // props
   const {
@@ -40,24 +52,18 @@ function StyledXYChart(props) {
     events,
     margin,
     size,
-    // fontColor,
     border,
     borderRadius,
     backgroundColor,
     colorTheme,
     showLegend,
-    // allowSelections,
-    // maxAxisLength,
+    selectionMethod,
     sortDirection,
     sortOrder,
     calcCondition,
     suppressZero,
-    // showLabels,
-    // textOnAxis,
-    // showGridlines,
     otherTotalSpec,
     // tickSpacing,
-    // allowSlantedYAxis,
     gridArea,
     type,
     padding,
@@ -65,20 +71,13 @@ function StyledXYChart(props) {
     autoWidth,
     renderHorizontally,
     includeZero,
-    xAxisOrientation,
-    yAxisOrientation,
-    legendLeftRight,
-    legendTopBottom,
-    legendDirection,
-    legendShape,
-    snapTooltipToDataX,
-    snapTooltipToDataY,
     backgroundPattern,
+    backgroundStyle,
     multiColor,
-    // dualAxis,
-    // roundNum,
-    // precision,
-    showVerticalCrosshair,
+    fillStyle,
+    showBoxShadow,
+    showAsPercent,
+    numDimensionTicks,
     ...rest
   } = props;
 
@@ -90,7 +89,7 @@ function StyledXYChart(props) {
   // if the prop is undefined, use the base theme
   const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
-  const outsidePadding = "10px";
+  const refMargin = "10px";
 
   // retrieve XYChart data from HyperCube
   const {
@@ -100,7 +99,7 @@ function StyledXYChart(props) {
     qData,
     selections,
     select,
-  } = UseHyperCube({
+  } = useHyperCube({
     engine,
     cols,
     qSortByNumeric: numericSortDirection(sortDirection, -1),
@@ -114,19 +113,14 @@ function StyledXYChart(props) {
 
   const cancelCallback = () => {
     endSelections(false);
-    setSelectionXYChartVisible(false);
-    setRefreshChart(true);
-    useSelectionColours = false;
-    // setSel([]);
+    setCurrentSelectionIds([]);
+    setShowBrush(false);
   };
 
   const confirmCallback = async () => {
-    // sel === [] ? '' : await select(0, sel);
     await endSelections(true);
-    setSelectionXYChartVisible(false);
-    setRefreshChart(true);
-    useSelectionColours = false;
-    // setSel([]);
+    setCurrentSelectionIds([]);
+    setShowBrush(false);
   };
 
   useOutsideClick(ref, () => {
@@ -135,7 +129,7 @@ function StyledXYChart(props) {
       event.target.parentNode.classList.contains("cancelSelections")
     )
       return;
-    if (isSelectionXYChartVisible) {
+    if (!isEmpty(currentSelectionIds)) {
       const outsideClick = !ref.current.contains(event.target);
       if (outsideClick && selections) confirmCallback();
     }
@@ -151,28 +145,108 @@ function StyledXYChart(props) {
   //   setSel(...sel, s);
   // };
 
-  // useEffect(() => {
-  //   let valid;
-  //   if (qLayout) {
-  //     // setObjId(qLayout.qInfo.qId);
-  //     setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
-  //     valid = validData(qLayout, theme);
-  //     if (valid) {
-  //       setIsValid(valid.isValid);
-  //       setDataError(valid.dataError);
-  //     }
-  //   }
+  // let keys = [];
 
-  //   window.addEventListener("resize", handleResize);
+  useEffect(() => {
+    let valid;
+    if (qLayout) {
+      // setObjId(qLayout.qInfo.qId);
+      setCalcCond(qLayout.qHyperCube.qCalcCondMsg);
+      valid = validData(qLayout, theme);
+      if (valid) {
+        setIsValid(valid.isValid);
+        setDataError(valid.dataError);
+      }
+    }
 
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, [qLayout, qData, d3Container.current]);
+    // window.addEventListener("resize", handleResize);
+
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    // qData && data && console.log(qData.qMatrix.length, data.length);
+    // qData && setData(qData);
+
+    if (
+      // (qData && data === null) ||
+      // (qData && data && qData.qMatrix.length !== data.length && isValid)
+      (qData && data === null) ||
+      (qData && data && isValid)
+    ) {
+      dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
+      measureCount = qLayout.qHyperCube.qMeasureInfo.length;
+      singleDimension = dimensionCount === 1;
+      singleMeasure = measureCount === 1;
+
+      let series = [];
+      let dimID = null;
+      let items = [];
+      // let keys = [];
+
+      if (!singleDimension && !type.includes("scatter")) {
+        qData.qMatrix.forEach((d, i) => {
+          if (isNull(dimID)) {
+            dimID = d[0].qText;
+            series.push(d[0]);
+          }
+
+          if (dimID !== d[0].qText) {
+            items.push(series);
+            series = [];
+            series.push(d[0]);
+            dimID = d[0].qText;
+          }
+          const measure = d[1];
+          measure.qNum = d[2].qNum;
+          if (!keys.includes(measure.qText)) {
+            keys.push(measure.qText);
+          }
+          series.push(measure);
+        });
+
+        items.push(series);
+      }
+
+      dataKeys =
+        singleDimension && singleMeasure && type === "bar"
+          ? qData.qMatrix.map((d) => d[0].qText)
+          : !singleDimension
+          ? keys
+          : null;
+
+      // dimensionTicks = Math.min(
+      //   numDimensionTicks ||
+      //     (singleDimension ? qData.qMatrix.length : items.length),
+      //   singleDimension ? qData.qMatrix.length : items.length
+      // );
+
+      if (showAsPercent) {
+        const percentageData = singleDimension ? qData.qMatrix : items;
+        const keyItems = singleDimension
+          ? qLayout.qHyperCube.qMeasureInfo
+          : keys;
+
+        percentageData.forEach((d, i) => {
+          let positiveSum = 0;
+          let negativeSum = 0;
+          keyItems.forEach((m, mi) => {
+            const value = d[mi + 1].qNum;
+            value >= 0 ? (positiveSum += value) : (negativeSum += value);
+          });
+          keyItems.forEach((m, mi) => {
+            const value = d[mi + 1].qNum;
+            d[mi + 1].qNum =
+              Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+          });
+        });
+      }
+
+      setData(singleDimension ? qData.qMatrix : items);
+    }
+  }, [qData]);
 
   return (
     <>
-      {qData && qLayout && !dataError ? (
+      {data && qLayout && !dataError ? (
         <XYChartWrapper
           border={border}
           backgroundColor={backgroundColor}
@@ -180,22 +254,19 @@ function StyledXYChart(props) {
           margin={margin || xyChart.margin}
           gridArea={gridArea}
           width={width}
+          showBoxShadow={valueIfUndefined(
+            showBoxShadow,
+            xyChart.wrapper.showBoxShadow
+          )}
+          ref={ref}
         >
-          {/* <div
-            ref={ref}
-            style={{
-              position: "relative",
-              height,
-              margin: "10px",
-            }}
-          > */}
           <div
-            style={{
-              border: isSelectionXYChartVisible ? "1px solid #CCCCCC" : "none",
-              overflowX: isSelectionXYChartVisible ? "hidden" : "auto",
-              overflowY: isSelectionXYChartVisible ? "hidden" : "auto",
-              padding: outsidePadding,
-            }}
+          // style={{
+          //   position: "relative",
+          //   height,
+          //   // margin: "10px",
+          //   margin: refMargin,
+          // }}
           >
             {/* <div
                 className="d3-component"
@@ -203,90 +274,89 @@ function StyledXYChart(props) {
                 ref={d3Container}
                 onClick={(e) => e.stopPropagation()}
               > */}
-            {qData && qLayout && (
-              <CreateXYChart
-                // width={width}
-                // height={height}
-                width={
-                  gridArea
-                    ? ref.current.offsetWidth
-                    : parseInt(width, 10) - parseInt(outsidePadding, 10) * 2 // Adjust for outside padding
-                }
-                height={
-                  gridArea
-                    ? ref.current.offsetHeight -
-                      parseInt(margin || xyChart.margin, 10)
-                    : parseInt(height, 10)
-                }
-                events={events || xyChart.events}
-                qLayout={qLayout}
-                qData={qData}
-                beginSelections={beginSelections}
-                select={select}
-                theme={theme}
-                setRefreshChart={setRefreshChart}
-                setSelectionXYChartVisible={setSelectionXYChartVisible}
-                useSelectionColours={useSelectionColours}
-                pendingSelections={pendingSelections}
-                SetPendingSelections={SetPendingSelections}
-                // XYChartThemes={XYChartThemes}
-                colorPalette={colorPalette}
-                type={type}
-                padding={padding || xyChart.padding}
-                useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
-                autoWidth={autoWidth || xyChart.autoWidth}
-                renderHorizontally={
-                  renderHorizontally || xyChart.renderHorizontally
-                }
-                includeZero={includeZero || xyChart.includeZero}
-                xAxisOrientation={xAxisOrientation}
-                yAxisOrientation={yAxisOrientation}
-                legendLeftRight={legendLeftRight}
-                showLegend={
-                  showLegend === undefined ? xyChart.showLegend : showLegend
-                }
-                legendTopBottom={legendTopBottom}
-                legendDirection={legendDirection}
-                legendShape={legendShape}
-                snapTooltipToDataX={snapTooltipToDataX}
-                snapTooltipToDataY={snapTooltipToDataY}
-                backgroundPattern={
-                  backgroundPattern || xyChart.backgroundPattern
-                }
-                multiColor={
-                  multiColor === undefined ? xyChart.multiColor : multiColor
-                }
-                showVerticalCrosshair={
-                  showVerticalCrosshair === undefined
-                    ? xyChart.showVerticalCrosshair
-                    : showVerticalCrosshair
-                }
-                // dualAxis={dualAxis}
-                // showLabels={
-                //   showLabels === undefined ? xyChart.showLabels : showLabels
-                // }
-                // roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-                // precision={
-                //   precision === undefined ? xyChart.precision : precision
-                // }
-                {...rest}
-              />
-            )}
+            {/* {qData && qLayout && ( */}
+            <CreateXYChart
+              // width={width}
+              // height={height}
+              width={
+                gridArea
+                  ? ref.current.offsetWidth
+                  : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+              }
+              height={
+                gridArea
+                  ? ref.current.offsetHeight -
+                    parseInt(margin || xyChart.margin, 10)
+                  : parseInt(height, 10)
+              }
+              events={events || xyChart.events}
+              qLayout={qLayout}
+              // qData={data}
+              numDimensionTicks={numDimensionTicks}
+              theme={theme}
+              singleDimension={singleDimension}
+              singleMeasure={singleMeasure}
+              measureCount={measureCount}
+              dimensionCount={dimensionCount}
+              data={data}
+              keys={keys}
+              dataKeys={dataKeys}
+              beginSelections={beginSelections}
+              select={select}
+              // refreshChart={refreshChart}
+              // setRefreshChart={setRefreshChart}
+              setCurrentSelectionIds={setCurrentSelectionIds}
+              currentSelectionIds={currentSelectionIds}
+              // useSelectionColours={useSelectionColours}
+              colorPalette={colorPalette}
+              size={size}
+              type={type}
+              padding={padding || xyChart.padding}
+              useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
+              autoWidth={autoWidth || xyChart.autoWidth}
+              renderHorizontally={
+                renderHorizontally || xyChart.renderHorizontally
+              }
+              includeZero={includeZero || xyChart.includeZero}
+              showLegend={
+                // showLegend === undefined ? xyChart.showLegend : showLegend
+                valueIfUndefined(showLegend, xyChart.showLegend)
+              }
+              backgroundPattern={
+                backgroundPattern || xyChart.backgroundStyles.pattern
+              }
+              backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
+              fillStyle={fillStyle || xyChart.fillStyles}
+              multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
+              selectionMethod={valueIfUndefined(
+                selectionMethod,
+                xyChart.selectionMethod
+              )}
+              enableBrush={enableBrush}
+              showAsPercent={showAsPercent}
+              showBrush={showBrush}
+              {...rest}
+            />
+            <SelectionModal
+              isOpen={!isEmpty(currentSelectionIds)}
+              cancelCallback={cancelCallback}
+              confirmCallback={confirmCallback}
+              offsetX={0}
+              // width={width}
+            />
           </div>
-          {/* </div> */}
-          <SelectionModal
-            isOpen={isSelectionXYChartVisible}
-            cancelCallback={cancelCallback}
-            confirmCallback={confirmCallback}
-            // width={width}
-          />
-          {/* </div> */}
         </XYChartWrapper>
       ) : (
         <XYChartWrapperNoData
           border={border}
           size={size}
           margin={margin || xyChart.margin}
+          // height={
+          //   gridArea
+          //     ? ref.current.offsetHeight -
+          //       parseInt(margin || xyChart.margin, 10)
+          //     : parseInt(height, 10)
+          // }
           gridArea={gridArea}
           width={width}
         >

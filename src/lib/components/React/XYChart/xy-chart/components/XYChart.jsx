@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useCallback } from "react";
-import ParentSize from "@vx/responsive/lib/components/ParentSize";
-import useMeasure from "react-use-measure";
+import { ParentSize } from "@visx/responsive";
+import { useTooltipInPortal } from "@visx/tooltip";
 
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
@@ -12,12 +12,19 @@ export default function XYChart(props) {
     height,
     margin,
     dualAxis,
-    captureEvents = true,
+    // captureEvents = true,
+    captureEvents,
     svgBackground = true,
+    onMouseDown,
   } = props;
-  const { findNearestData, setChartDimensions } = useContext(ChartContext);
+  const { containerRef, TooltipInPortal } = useTooltipInPortal();
+  const {
+    findNearestData,
+    setChartDimensions,
+    chartType,
+    singleMeasure,
+  } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
-  const [svgRef, svgBounds] = useMeasure();
 
   // update dimensions in context
   useEffect(() => {
@@ -34,19 +41,10 @@ export default function XYChart(props) {
     (event) => {
       const nearestData = findNearestData(event);
       if (nearestData.closestDatum && showTooltip) {
-        showTooltip({
-          tooltipData: {
-            ...nearestData,
-            // @TODO remove this and rely on useTooltipInPortal() instead
-            pageX: event.pageX,
-            pageY: event.pageY,
-            svgOriginX: svgBounds?.x,
-            svgOriginY: svgBounds?.y,
-          },
-        });
+        showTooltip({ tooltipData: { ...nearestData } });
       }
     },
-    [findNearestData, showTooltip, svgBounds]
+    [findNearestData, showTooltip]
   );
 
   // if width and height aren't both provided, wrap in auto-sizer
@@ -57,7 +55,12 @@ export default function XYChart(props) {
   }
 
   return width > 0 && height > 0 ? (
-    <svg ref={svgRef} width={width} height={height}>
+    <svg
+      ref={containerRef}
+      width={width}
+      height={height}
+      onMouseDown={onMouseDown}
+    >
       {svgBackground && (
         <rect
           x={0}
@@ -69,19 +72,25 @@ export default function XYChart(props) {
         />
       )}
       {children}
-      {captureEvents && (
-        <rect
-          x={margin.left}
-          y={margin.top}
-          fill="transparent"
-          width={
-            width - margin.left - margin.right - `${dualAxis ? margin.left : 0}`
-          }
-          height={height - margin.top - margin.bottom}
-          onMouseMove={onMouseMove}
-          onMouseLeave={hideTooltip}
-        />
-      )}
+      {captureEvents &&
+        // Revist once Group has been made part of XYCHart
+        // https://github.com/airbnb/visx/projects/3
+        !(chartType.includes("groupedbar") && singleMeasure) && (
+          <rect
+            x={margin.left}
+            y={margin.top}
+            fill="transparent"
+            width={
+              width -
+              margin.left -
+              margin.right -
+              `${dualAxis ? margin.left : 0}`
+            }
+            height={height - margin.top - margin.bottom}
+            onMouseMove={onMouseMove}
+            onMouseLeave={hideTooltip}
+          />
+        )}
     </svg>
   ) : null;
 }

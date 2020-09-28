@@ -1,34 +1,23 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState, useEffect } from "react";
 import { animated, useSpring } from "react-spring";
-import LinePath from "@vx/shape/lib/shapes/LinePath";
+import { LinePath } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
 
-// import { callOrValue, isDefined } from "../../util/chartUtils";
-
-// import { GlyphCircle } from "@vx/glyph";
-import {
-  Glyph as CustomGlyph,
-  GlyphCircle,
-  GlyphCross,
-  GlyphDiamond,
-  GlyphSquare,
-  GlyphStar,
-  GlyphTriangle,
-  GlyphWye,
-} from "@vx/glyph";
-
-const ChartGlyph = GlyphCircle;
+// import { callOrValue, isDefined } from "../../utils/chartUtils";
+import { getSymbol, isDefined } from "../../utils/chartUtils";
 
 function LineSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   dataKey,
   mouseEvents,
   horizontal = false,
+  glyph,
   ...lineProps
 }) {
   const {
@@ -39,8 +28,15 @@ function LineSeries({
     showLabels,
     theme,
     formatValue,
+    handleClick,
+    isSelectionXYChartVisible,
+    valueLabelStyle,
+    currentSelectionIds,
+    size,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
+
+  const { data, xAccessor, yAccessor, elAccessor } =
+    useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
     (d) => {
@@ -58,25 +54,30 @@ function LineSeries({
     [yScale, yAccessor]
   );
 
-  if (!data || !xAccessor || !yAccessor) return null;
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  let ChartGlyph = getSymbol(isDefined(glyph) ? glyph.symbol : showPoints);
+
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
   const color = colorScale(dataKey) ?? "#222";
 
-  const {
-    svgLabel: { baseLabel },
-  } = theme;
+  const { valueLabelStyles } = theme;
 
   const labelProps = {
-    ...baseLabel,
-    pointerEvents: "none",
-    stroke: "#fff",
-    strokeWidth: 2,
-    paintOrder: "stroke",
-    fontSize: 12,
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
   };
 
+  // const [selectedBar, setSelectedBar] = useState([]);
+
+  // useEffect(() => {
+  //   if (!isSelectionXYChartVisible) setSelectedBar([]);
+  // }, [isSelectionXYChartVisible]);
+
   return (
-    <g className="vx-group line-series">
+    <g className="visx-group line-series">
       <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
         {({ path }) => (
           <AnimatedPath stroke={color} {...lineProps} d={path(data) || ""} />
@@ -87,17 +88,35 @@ function LineSeries({
         data.map((d, i) => {
           const left = getScaledX(d);
           const top = getScaledY(d);
+          d.selectionId = getElemNumber(d);
           return (
             <g key={`line-glyph-${i}`}>
               <ChartGlyph
                 left={left}
                 top={top}
-                size={110}
+                size={
+                  isDefined(glyph)
+                    ? glyph.size
+                    : showPoints.size || theme.points.size
+                }
                 // fill={i % 2 === 0 ? primaryColor : contrastColor}
                 // stroke={i % 2 === 0 ? contrastColor : primaryColor}
-                fill={color}
-                stroke={color}
-                strokeWidth={2}
+                fill={isDefined(glyph) ? glyph.fill : color}
+                stroke={isDefined(glyph) ? glyph.stroke : color}
+                strokeWidth={
+                  isDefined(glyph)
+                    ? glyph.strokeWidth
+                    : showPoints.strokeWidth || theme.points.strokeWidth
+                }
+                style={{ cursor: "pointer " }}
+                onClick={() => {
+                  const selections = currentSelectionIds.includes(d.selectionId)
+                    ? currentSelectionIds.filter(function(value) {
+                        return value !== d.selectionId;
+                      })
+                    : [...currentSelectionIds, d.selectionId];
+                  handleClick(selections);
+                }}
               />
               {/* {showLabels && (
                 <Text {...labelProps} key={`line-label-${i}`} x={left} y={top}>
@@ -114,7 +133,7 @@ function LineSeries({
 /** Separate component so that we don't use the `useSpring` hook in a render function callback. */
 function AnimatedPath({ d, ...lineProps }) {
   const tweenedPath = useSpring({ d, config: { precision: 0.01 } });
-  return <animated.path d={tweenedPath.d} fill="transparent" {...lineProps} />;
+  return <animated.path d={tweenedPath.d} fill="none" {...lineProps} />;
 }
 
 export default React.memo(

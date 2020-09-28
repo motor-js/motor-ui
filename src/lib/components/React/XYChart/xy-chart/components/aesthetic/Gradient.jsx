@@ -11,7 +11,7 @@ import {
   GradientPurpleTeal,
   GradientSteelPurple,
   GradientTealBlue,
-} from "@vx/gradient";
+} from "@visx/gradient";
 
 function Gradient({ style, id, from, to }) {
   let Gradient = null;
@@ -54,10 +54,10 @@ function Gradient({ style, id, from, to }) {
       Gradient = GradientTealBlue;
       break;
     default:
-      Gradient = LinearGradient;
+      Gradient = null;
       break;
   }
-  return <Gradient id={id} from={from} to={to} />;
+  return Gradient ? <Gradient id={id} from={from} to={to} /> : null;
 }
 
 export default Gradient;

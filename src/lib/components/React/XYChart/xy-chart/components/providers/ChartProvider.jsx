@@ -1,23 +1,12 @@
 import React from "react";
-import { localPoint } from "@vx/event";
-import { scaleOrdinal } from "@vx/scale";
-import { roundNumber } from "../../util/roundNumber";
-
-import theme from "../../../../../../themes/defaultTheme";
-
-const {
-  xyChart: { defaultTheme },
-} = theme;
+import { localPoint } from "@visx/event";
+import { scaleOrdinal } from "@visx/scale";
 
 import ChartContext from "../../context/ChartContext";
 import createScale from "../../createScale";
-import findNearestDatumXY from "../../util/findNearestDatumXY";
+import findNearestDatumXY from "../../utils/findNearestDatumXY";
 
 export default class ChartProvider extends React.Component {
-  static defaultProps = {
-    theme: defaultTheme,
-  };
-
   state = {
     dataRegistry: {},
     margin: { top: 30, right: 30, bottom: 30, left: 30 },
@@ -27,6 +16,7 @@ export default class ChartProvider extends React.Component {
     width: null,
     height: null,
     combinedData: [],
+    // selectionIds: [],
   };
 
   componentDidUpdate(prevProps) {
@@ -185,6 +175,7 @@ export default class ChartProvider extends React.Component {
           data,
           xAccessor,
           yAccessor,
+          elAccessor,
           mouseEvents,
           findNearestDatum = findNearestDatumXY,
         }) => {
@@ -199,6 +190,7 @@ export default class ChartProvider extends React.Component {
             yScale,
             xAccessor,
             yAccessor,
+            elAccessor,
             data,
             width,
             height,
@@ -218,27 +210,55 @@ export default class ChartProvider extends React.Component {
       );
     }
 
+    if (this.props.chartType.includes("groupedbar")) {
+      const index = Number(event.target.getAttribute("index"));
+      const item = event.target.getAttribute("item");
+
+      const data = Object.values(dataRegistry).filter((d) => d.key === item)[0];
+
+      closestDatum = {
+        key: data.key,
+        datum: data.data[index],
+      };
+    }
+
     return { closestData, closestDatum, svgMouseX, svgMouseY };
   };
 
-  formatValue = (val) => {
-    const { roundNum, precision } = this.props;
-    let formattedValue = roundNum
-      ? roundNumber(Math.abs(val), precision)
-      : Math.abs(val);
+  handleClick = (selectionValue) => {
+    this.props.beginSelections();
 
-    return val < 0 ? `-${formattedValue}` : formattedValue;
+    this.props.setCurrentSelectionIds(selectionValue);
+
+    // this.setState({
+    //   selectionIds: selectionValue,
+    // });
+
+    this.props.select(0, selectionValue);
   };
 
   render() {
     const {
       theme,
+      chartType,
       showLabels,
       showPoints,
-      showAxis,
       dimensionInfo,
       measureInfo,
       dataKeys,
+      // beginSelections,
+      // setCurrentSelectionIds,
+      // select,
+      currentSelectionIds,
+      singleDimension,
+      singleMeasure,
+      formatValue,
+      legendLabelStyle,
+      valueLabelStyle,
+      size,
+      // isContinuousAxes,
+      formatTooltipDate,
+      parseDateFormat,
     } = this.props;
 
     const {
@@ -249,30 +269,46 @@ export default class ChartProvider extends React.Component {
       yScale,
       colorScale,
       dataRegistry,
+      // selectionIds,
     } = this.state;
     return (
       <ChartContext.Provider
         value={{
           xScale,
           yScale,
+          // isContinuousAxes,
           colorScale,
           width,
           height,
           margin,
           theme,
+          chartType,
           dataRegistry,
           showLabels,
           showPoints,
-          showAxis,
           dimensionInfo,
           measureInfo,
           dataKeys,
+          singleDimension,
+          singleMeasure,
+          // selectionIds,
+          // beginSelections,
+          // setCurrentSelectionIds,
+          // select,
+          size,
+          currentSelectionIds,
+          legendLabelStyle,
+          valueLabelStyle,
+          parseDateFormat,
+          formatTooltipDate,
+          handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,
           setChartDimensions: this.setChartDimensions,
           setNumberFormat: this.setNumberFormat,
           findNearestData: this.findNearestData,
-          formatValue: this.formatValue,
+          // formatValue: this.formatValue,
+          formatValue,
         }}
       >
         {this.props.children}

@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import cx from "classnames";
-import Line from "@vx/shape/lib/shapes/Line";
-import { Group } from "@vx/group";
-import { Point } from "@vx/point";
-import { getTicks } from "@vx/scale";
+import { Line } from "@visx/shape";
+import { Group } from "@visx/group";
+import { Point } from "@visx/point";
+import getTicks from "../../utils/getTicks";
 
 export default function GridRow({
   top = 0,
   left = 0,
   scale,
   width,
-  stroke = "#eaf0f6",
-  strokeWidth = 1,
+  // stroke = "#eaf0f6",
+  stroke,
+  strokeWidth,
   strokeDasharray,
   className,
-  numTicks = 10,
+  numTicks,
   lineStyle,
   offset,
   tickValues,
   ...restProps
 }) {
   const ticks = tickValues ?? getTicks(scale, numTicks);
+
   return (
-    <Group className={cx("vx-rows", className)} top={top} left={left}>
+    <Group className={cx("visx-rows", className)} top={top} left={left}>
       {ticks.map((d, i) => {
         const y = offset ? (scale(d) || 0) + offset : scale(d) || 0;
         const fromPoint = new Point({

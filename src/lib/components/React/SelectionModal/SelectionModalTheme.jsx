@@ -7,6 +7,7 @@ const SelectionModalWrapper = styled.div`
   ${globalStyle}
   margin: ${(props) => props.margin};
   top: ${(props) => `${props.offset}px`};
+  left: ${(props) => `${props.offsetX}px`};
   width: ${(props) => props.width};
   position: absolute;
   z-index: 100;

@@ -12,20 +12,28 @@ const XYChartWrapper = styled.div`
       ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
       : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
-    props.borderRadius || props.theme.xyChart.borderRadius};
+    props.borderRadius || props.theme.xyChart.wrapper.borderRadius};
   background-color: ${(props) =>
-    props.backgroundColor || props.theme.xyChart.backgroundColor};
+    props.backgroundColor || props.theme.xyChart.wrapper.backgroundColor};
   margin: ${(props) => props.margin};
-  userselect: ${(props) => props.theme.xyChart.userSelect};
+  userselect: ${(props) => props.theme.xyChart.wrapper.userSelect};
   width: ${(props) => componentWidth(props)};
-  // width: ${(props) => props.width};
-  display: ${(props) => props.theme.xyChart.display};
-  box-sizing: ${(props) => props.theme.xyChart.boxSizing};
+  display: ${(props) => props.theme.xyChart.wrapper.display};
+  box-sizing: ${(props) => props.theme.xyChart.wrapper.boxSizing};
+  position: ${(props) => props.theme.xyChart.wrapper.position};
+  padding: ${(props) => props.theme.xyChart.wrapper.padding};
+  font-weight: ${(props) => props.theme.xyChart.wrapper.fontWeight};
+  color: ${(props) => props.theme.xyChart.wrapper.color};
+  min-height: ${(props) => props.theme.xyChart.wrapper.minHeight};
+  text-decoration: ${(props) => props.theme.xyChart.wrapper.textDirection};
+  box-shadow: ${(props) =>
+    props.showBoxShadow ? props.theme.xyChart.wrapper.boxShadow : null};
+  flex-direction: ${(props) => props.theme.xyChart.wrapper.flexDirection};
 `;
 
 const XYChartWrapperNoData = styled.div`
   ${globalStyle};
-    ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     (Array.isArray(props.border, props.theme)
@@ -39,9 +47,14 @@ const XYChartWrapperNoData = styled.div`
   border-collapse: ${(props) => props.theme.xyChart.noData.borderCollapse};
   height: ${(props) => props.height};
   width: ${(props) => componentWidth(props)};
-  // width: ${(props) => props.width};
-  box-sizing: ${(props) => props.theme.xyChart.boxSizing};
+  box-sizing: ${(props) => props.theme.xyChart.wrapper.boxSizing};
+  position: ${(props) => props.theme.xyChart.wrapper.position};
+  padding: ${(props) => props.theme.xyChart.wrapper.padding};
   margin: ${(props) => props.margin};
+  font-weight: ${(props) => props.theme.xyChart.wrapper.fontWeight};
+  color: ${(props) => props.theme.xyChart.wrapper.color};
+  min-height: ${(props) => props.theme.xyChart.wrapper.minHeight};
+  box-shadow: ${(props) => props.theme.xyChart.wrapper.boxShadow};
 `;
 
 const XYChartNoDataContent = styled.div`

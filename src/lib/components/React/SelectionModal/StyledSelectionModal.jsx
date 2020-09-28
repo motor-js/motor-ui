@@ -16,6 +16,7 @@ function StyledSelectionModal({
   isOpen,
   margin,
   offset,
+  offsetX,
   width,
   buttonType,
   hoverOpacityConfirm,
@@ -52,6 +53,7 @@ function StyledSelectionModal({
         <SelectionModalWrapper
           ref={ref}
           offset={offset}
+          offsetX={offsetX}
           width={width}
           margin={margin}
         >

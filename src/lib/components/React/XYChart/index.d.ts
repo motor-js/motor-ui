@@ -29,7 +29,7 @@ export interface XYChartProps {
   showLabels?: showLabelsType;
   textOnAxis?: textOnAxisType;
   tickSpacing?: tickSpacingType;
-  showAxis?: showAxisType;
+  hideAxisLine?: showAxisType;
   maxAxisLength?: number;
   allowSlantedYAxis?: boolean;
   showGridlines?: showGridlinesType;

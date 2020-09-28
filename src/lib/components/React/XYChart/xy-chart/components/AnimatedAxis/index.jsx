@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useContext, useMemo } from "react";
 import cx from "classnames";
-import BaseAxis from "@vx/axis/lib/axis/Axis";
-import getLabelTransform from "@vx/axis/lib/utils/labelTransform";
-import { Text } from "@vx/text";
+import { Axis as BaseAxis } from "@visx/axis";
+import getLabelTransform from "../../utils/getLabelTransform";
+import { Text } from "@visx/text";
 import { animated } from "react-spring";
 
 import AnimatedTicks from "./AnimatedTicks";
@@ -18,7 +18,7 @@ const defaultLabelProps = {
 };
 
 function AnimatedAxis(props) {
-  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
+  const { theme, xScale, yScale, margin, width, height, size } = useContext(
     ChartContext
   );
   const { orientation } = props;
@@ -76,23 +76,13 @@ function AnimatedAxis(props) {
   const tickLength = props.tickLength ?? tickStyles?.tickLength;
   const axisStroke = props.stroke ?? axisStyles?.stroke;
   const axisStrokeWidth = props.strokeWidth ?? axisStyles?.strokeWidth;
-  const axisLabelOffset = props.labelOffset ?? 14;
+  const axisLabelOffset = props.labelOffset ?? 18; // was 14
   const axisLabelProps =
-    (props.labelProps || axisStyles?.label?.[orientation]) ?? defaultLabelProps;
-
-  switch (showAxis) {
-    case false:
-    case "none":
-      theme.xAxisStyles.strokeWidth = 0;
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-    case "yAxis":
-      theme.xAxisStyles.strokeWidth = 0;
-      break;
-    case "xAxis":
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-  }
+    (props.labelProps || {
+      ...axisStyles?.label?.[orientation],
+      fontSize: axisStyles?.label?.[orientation].fontSize[size],
+    }) ??
+    defaultLabelProps;
 
   return (
     <BaseAxis
@@ -120,7 +110,7 @@ function AnimatedAxis(props) {
 
           {!props.hideAxisLine && (
             <animated.line
-              className={cx("vx-axis-line", props.axisLineClassName)}
+              className={cx("visx-axis-line", props.axisLineClassName)}
               x1={axisFromPoint.x}
               x2={axisToPoint.x}
               y1={axisFromPoint.y}
@@ -132,7 +122,7 @@ function AnimatedAxis(props) {
           )}
           {props.label && (
             <Text
-              className={cx("vx-axis-label", props.labelClassName)}
+              className={cx("visx-axis-label", props.labelClassName)}
               {...getLabelTransform({
                 labelOffset: axisLabelOffset,
                 labelProps: axisLabelProps,

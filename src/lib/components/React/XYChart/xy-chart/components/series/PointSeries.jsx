@@ -1,17 +1,18 @@
 import React, { useContext, useCallback } from "react";
-import { Circle } from "@vx/shape";
+import { Circle } from "@visx/shape";
 
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-import findNearestDatumX from "../../util/findNearestDatumX";
-import findNearestDatumY from "../../util/findNearestDatumY";
+import findNearestDatumX from "../../utils/findNearestDatumX";
+import findNearestDatumY from "../../utils/findNearestDatumY";
 
 function PointSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   dataKey,
   mouseEvents,
   horizontal = false,
@@ -26,7 +27,8 @@ function PointSeries({
     theme,
     formatValue,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey) || {};
+  const { data, xAccessor, yAccessor, elAccessor } =
+    useRegisteredData(dataKey) || {};
 
   const getScaledX = useCallback(
     (d) => {
@@ -44,7 +46,9 @@ function PointSeries({
     [yScale, yAccessor]
   );
 
-  if (!data || !xAccessor || !yAccessor) return null;
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
   const color = colorScale(dataKey) ?? "#222";
 
@@ -52,7 +56,7 @@ function PointSeries({
   // const y = (d) => d[2].qNum;
 
   return (
-    <g className="vx-group line-series">
+    <g className="visx-group line-series">
       {data.map((point, i) => (
         <Circle
           key={`point-${point[0]}-${i}`}
@@ -61,10 +65,17 @@ function PointSeries({
           // cy={yScale(y(point))}
           cx={getScaledX(point)}
           cy={getScaledY(point)}
+          // selectionId={getElemNumber(point)}
           // r={i % 3 === 0 ? 2 : 3}
           r={3}
           // fill={tooltipData === point ? "white" : "#f6c431"}
           fill="#f6c431"
+          style={{ cursor: "pointer " }}
+          onClick={() => {
+            // setSelectedBar(isSelected ? null : letter);
+            point.selectionId = getElemNumber(point);
+            console.log(point);
+          }}
         />
       ))}
     </g>

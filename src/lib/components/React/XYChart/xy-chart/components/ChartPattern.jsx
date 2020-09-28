@@ -9,7 +9,9 @@ import ChartContext from "../context/ChartContext";
 
 const patternId = "xy-chart-pattern";
 
-export default function CustomChartBackground({ backgroundPattern }) {
+import { selectColor } from "../../../../../utils/colors";
+
+export default function CustomChartPattern({ backgroundPattern }) {
   const { theme, margin, width, height } = useContext(ChartContext);
 
   // early return if scale is not available in context
@@ -48,15 +50,16 @@ export default function CustomChartBackground({ backgroundPattern }) {
         width={10}
         height={10}
         orientation={["diagonal"]}
-        stroke={theme?.gridStyles?.stroke}
-        strokeWidth={0.5}
+        // stroke={theme?.backgroundStyles?.stroke}
+        stroke={selectColor(theme?.backgroundStyles?.stroke, theme)}
+        strokeWidth={theme?.backgroundStyles?.strokeWidth}
       />
       <rect
         x={0}
         y={0}
         width={width}
         height={height}
-        fill={theme?.baseColor ?? "#fff"}
+        fill={selectColor(theme?.baseColor, theme) ?? "#fff"}
       />
       <rect
         x={margin.left}

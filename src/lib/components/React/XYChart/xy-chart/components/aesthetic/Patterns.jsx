@@ -3,4 +3,4 @@ export {
   PatternHexagons,
   PatternLines,
   PatternWaves,
-} from "@vx/pattern";
+} from "@visx/pattern";

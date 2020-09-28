@@ -1,0 +1,57 @@
+---
+name: XYChart Line
+route: /xychartline
+menu: visx
+---
+
+<h1 style={{ margin: '0px' }}>XYChart</h1>
+
+<br />
+
+## Usage
+
+Here is a bar chart.
+Check out the props and example usage below 💡
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Column from '../../lib/components/React/Column/Column.jsx'
+import XYChart from '../../lib/components/React/XYChart/XYChart.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+<Motor  
+ config={config}>  
+  <Filter label='Month' dimension={['Month']} />
+  <Filter label='Sales Rep' dimension={['Sales Rep Name']} />
+    <Button type="clearSelections">Clear Selections</Button>
+    <XYChart // width={750} height={400}  events={true}
+    colorTheme="bio"
+    type="line"
+    cols={[
+      { qField: 'Month', qLabel: 'Month' },
+      //   { qField: 'Product Group Desc', qLabel: 'Product Group' },
+      { qField: 'Sales Rep Name', qLabel: 'Sales Rep' },
+      {
+        qField: '=Sum ([Sales Amount])',
+        qLabel: 'Sales $',
+        //                           qNumFormat: {
+        //      "qType": "R",
+        //      "qnDec": 14,
+        //      "qUseThou": 1,
+        //    //  "qFmt": "##############",
+        //      "qFmt": '#,##0.00%',
+        //      "qDec": ".",
+        //      "qThou": ","
+        //    },
+      },
+      //  {
+      //    qField: '=Sum([Sales Margin Amount])',
+      //    qLabel: 'Margin Amount'
+      //  }
+    ]}/>
+  </Motor>
+</Playground>

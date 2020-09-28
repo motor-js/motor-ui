@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import cx from "classnames";
 import { animated, useTransition, interpolate } from "react-spring";
-import { Text } from "@vx/text";
+import { Text } from "@visx/text";
 
 const defaultTickLabelProps = (/** tickValue, index */) => ({
   textAnchor: "middle",
@@ -107,7 +107,7 @@ export default function AnimatedTicks({
           index
         );
         return (
-          <animated.g key={key} className={cx("vx-axis-tick", tickClassName)}>
+          <animated.g key={key} className={cx("visx-axis-tick", tickClassName)}>
             {!hideTicks && (
               <animated.line
                 x1={fromX}

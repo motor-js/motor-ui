@@ -4,7 +4,7 @@ import {
   scaleUtc,
   scaleBand,
   scaleOrdinal,
-} from "@vx/scale";
+} from "@visx/scale";
 import { extent } from "d3-array";
 
 export default function createScale({

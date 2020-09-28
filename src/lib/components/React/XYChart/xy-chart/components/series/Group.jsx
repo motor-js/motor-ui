@@ -1,15 +1,16 @@
-import React, { useContext, useMemo, useEffect } from "react";
-import BarGroup from "@vx/shape/lib/shapes/BarGroup";
-import BarGroupHorizontal from "@vx/shape/lib/shapes/BarGroupHorizontal";
-import { Group as VxGroup } from "@vx/group";
-import { scaleBand } from "@vx/scale";
+import React, { useContext, useMemo, useEffect, useCallback } from "react";
+// import BarGroup from "@visx/shape/lib/shapes/BarGroup";
+import BarGroup from "./BarGroup";
+import BarGroupHorizontal from "./BarGroupHorizontal";
+import { Group as VisxGroup } from "@visx/group";
+import { scaleBand } from "@visx/scale";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
 
-import findNearestDatumX from "../../util/findNearestDatumX";
-import findNearestDatumY from "../../util/findNearestDatumY";
+import findNearestDatumX from "../../utils/findNearestDatumX";
+import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
-import { Text } from "@vx/text";
+import { Text } from "@visx/text";
 
 const GROUP_ACCESSOR = (d) => d.group;
 
@@ -33,6 +34,10 @@ export default function Group({
     unregisterData,
     theme,
     formatValue,
+    // handleClick,
+    // currentSelectionIds,
+    valueLabelStyle,
+    size,
   } = useContext(ChartContext);
 
   // extract data keys from child series
@@ -55,37 +60,66 @@ export default function Group({
   // @todo, this should be refactored such that it can be memoized.
   // currently it references groupScale which depends on xScale, yScale,
   // and thus causes an infinite loop for updating the data registry.
-  const findNearestDatum = (args) => {
-    const nearestDatum = horizontal
-      ? findNearestDatumY(args)
-      : findNearestDatumX(args);
+  // const findNearestDatum = useCallback(
+  //   (args) => {
+  //     // const nearestDatum = horizontal
+  //     //   ? findNearestDatumY(args)
+  //     //   : findNearestDatumX(args);
 
-    if (!nearestDatum) return null;
+  //     // console.log(args.key);
+  //     const groupIndex = Number(event.target.getAttribute("groupIndex"));
+  //     const index = Number(event.target.getAttribute("index")) + 1;
+  //     console.log(args.data[groupIndex][index].qText);
 
-    const distanceX = horizontal
-      ? nearestDatum.distanceX
-      : Math.abs(
-          args.svgMouseX -
-            (args.xScale(args.xAccessor(nearestDatum.datum)) +
-              groupScale(args.key) +
-              groupScale.bandwidth() / 2)
-        );
+  //     const nearestDatum = {
+  //       key: args.data[groupIndex][index].qText,
+  //       datum: [args.data[groupIndex][index]],
+  //       index,
+  //     };
+  //     // console.log(nearestDatum);
+  //     if (!nearestDatum) return null;
 
-    const distanceY = horizontal
-      ? Math.abs(
-          args.svgMouseY -
-            (args.yScale(args.yAccessor(nearestDatum.datum)) +
-              groupScale(args.key) +
-              groupScale.bandwidth() / 2)
-        )
-      : nearestDatum.distanceY;
+  //     // const distanceX = horizontal
+  //     //   ? nearestDatum.distanceX
+  //     //   : Math.abs(
+  //     //       args.svgMouseX -
+  //     //         (args.xScale(args.xAccessor(nearestDatum.datum)) +
+  //     //           groupScale(args.key) +
+  //     //           groupScale.bandwidth() / 2)
+  //     //     );
 
-    return {
-      ...nearestDatum,
-      distanceX,
-      distanceY,
-    };
-  };
+  //     // const distanceX = horizontal
+  //     //   ? nearestDatum.distanceX
+  //     //   : Math.abs(
+  //     //       args.svgMouseX -
+  //     //         (args.xScale(args.xAccessor(nearestDatum.datum)) +
+  //     //           Number(event.target.getAttribute("x")) +
+  //     //           (Number(event.target.getAttribute("width")) * 4) / 2)
+  //     //     );
+
+  //     // console.log(nearestDatum.datum);
+  //     const distanceX = args.svgMouseX - Number(event.target.getAttribute("x"));
+
+  //     const distanceY = horizontal
+  //       ? Math.abs(
+  //           args.svgMouseY -
+  //             (args.yScale(args.yAccessor(nearestDatum.datum)) +
+  //               groupScale(args.key) +
+  //               groupScale.bandwidth() / 2)
+  //         )
+  //       // : nearestDatum.distanceY;
+  //     :  0;
+
+  //     console.log(distanceX, distanceY);
+
+  //     return {
+  //       ...nearestDatum,
+  //       distanceX,
+  //       distanceY,
+  //     };
+  //   },
+  //   [horizontal]
+  // );
 
   useEffect(
     // register all child data
@@ -98,15 +132,17 @@ export default function Group({
           data,
           xAccessor,
           yAccessor,
+          elAccessor,
           mouseEvents,
         } = child.props;
         dataToRegister[key] = {
           key,
           data,
           xAccessor,
+          elAccessor,
           yAccessor,
           mouseEvents,
-          findNearestDatum,
+          // findNearestDatum,
         };
       });
 
@@ -116,17 +152,25 @@ export default function Group({
     // @TODO fix findNearestDatum
     // can't include findNearestDatum as it depends on groupScale which depends
     // on the registry so will cause an infinite loop.
-    [registerData, unregisterData, children]
+    [
+      horizontal,
+      registerData,
+      unregisterData,
+      children,
+      // findNearestDatum,
+      dataKeys,
+    ]
   );
 
   // merge all child data by x value
   const combinedData = useMemo(() => {
     const dataByGroupValue = {};
     dataKeys.forEach((key) => {
-      const { data = [], xAccessor, yAccessor } = dataRegistry[key] || {};
+      const { data = [], xAccessor, yAccessor, elAccessor } =
+        dataRegistry[key] || {};
 
       // this should exist but double check
-      if (!xAccessor || !yAccessor) return;
+      if (!xAccessor || !yAccessor || !elAccessor) return;
 
       data.forEach((d) => {
         const group = (horizontal ? yAccessor : xAccessor)(d);
@@ -135,6 +179,7 @@ export default function Group({
         dataByGroupValue[groupKey][key] = (horizontal ? xAccessor : yAccessor)(
           d
         );
+        dataByGroupValue[groupKey]["selectionId"] = elAccessor(d);
       });
     });
     return Object.values(dataByGroupValue);
@@ -174,17 +219,12 @@ export default function Group({
       Math.max(maybeXZero, Math.min(xMin, xMax))
     : Math.min(xMin, xMax);
 
-  const {
-    svgLabel: { baseLabel },
-  } = theme;
+  const { valueLabelStyles } = theme;
 
   const labelProps = {
-    ...baseLabel,
-    pointerEvents: "none",
-    stroke: "#fff",
-    strokeWidth: 2,
-    paintOrder: "stroke",
-    fontSize: 12,
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
     dx: horizontal ? "0.5em" : 0,
     dy: horizontal ? 0 : "-0.74em",
     textAnchor: horizontal ? "start" : "middle",
@@ -204,9 +244,9 @@ export default function Group({
       color={colorScale}
     >
       {(barGroups) =>
-        barGroups.map((barGroup) => (
+        barGroups.map((barGroup, index) => (
           // @TODO if we use <animated.g /> we might be able to make this animate on first render
-          <VxGroup
+          <VisxGroup
             key={`bar-group-${barGroup.index}-${barGroup.y0}`}
             top={barGroup.y0}
           >
@@ -217,6 +257,9 @@ export default function Group({
               width={(bar) => Math.abs(bar.width - scaledZeroPosition)}
               height={(bar) => bar.height}
               rx={2}
+              // handleClick={handleClick}
+              // currentSelectionIds={currentSelectionIds}
+              index={index}
               {...rectProps}
             />
             {showLabels &&
@@ -230,7 +273,7 @@ export default function Group({
                   {formatValue(bar.value)}
                 </Text>
               ))}
-          </VxGroup>
+          </VisxGroup>
         ))
       }
     </BarGroupHorizontal>
@@ -246,8 +289,8 @@ export default function Group({
       color={(dataKey) => colorScale(dataKey)}
     >
       {(barGroups) =>
-        barGroups.map((barGroup) => (
-          <VxGroup
+        barGroups.map((barGroup, index) => (
+          <VisxGroup
             key={`bar-group-${barGroup.index}-${barGroup.x0}`}
             left={barGroup.x0}
           >
@@ -258,6 +301,9 @@ export default function Group({
               width={(bar) => bar.width}
               height={(bar) => Math.abs(scaledZeroPosition - bar.y)}
               rx={2}
+              // handleClick={handleClick}
+              // currentSelectionIds={currentSelectionIds}
+              index={index}
               {...rectProps}
             />
             {showLabels &&
@@ -271,7 +317,7 @@ export default function Group({
                   {formatValue(bar.value)}
                 </Text>
               ))}
-          </VxGroup>
+          </VisxGroup>
         ))
       }
     </BarGroup>

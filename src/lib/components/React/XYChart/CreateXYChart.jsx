@@ -1,311 +1,369 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { useState, useMemo, useEffect } from 'react'
-// import defaultTheme from "../..//VX/theme/default";
-import { isNull } from 'lodash'
-import Axis from './xy-chart/components/Axis'
-import AnimatedAxis from './xy-chart/components/AnimatedAxis'
-import ChartProvider from './xy-chart/components/providers/ChartProvider'
-import XYChart from './xy-chart/components/XYChart'
-import BarSeries from './xy-chart/components/series/BarSeries'
-import LineSeries from './xy-chart/components/series/LineSeries'
-import AreaSeries from './xy-chart/components/series/AreaSeries'
-import PointSeries from './xy-chart/components/series/PointSeries'
-import ChartBackground from './xy-chart/components/ChartBackground'
-import EventProvider from './xy-chart/components/providers/TooltipProvider'
-import Tooltip, { RenderTooltipArgs } from './xy-chart/components/Tooltip'
-import Legend from './xy-chart/components/Legend'
-import CustomLegendShape from './xy-chart/components/CustomLegendShape'
-import Group from './xy-chart/components/series/Group'
-import Stack from './xy-chart/components/series/Stack'
-import Gradient from './xy-chart/components/aesthetic/Gradient'
-// import { LinearGradient } from "@vx/gradient";
-// import Grid from "./xy-chart/components/grids/Grid";
-// import { GridRows, GridColumns } from "@vx/grid";
+import React, { useState, useMemo, useEffect } from "react";
+import Axis from "./xy-chart/components/Axis";
+import AnimatedAxis from "./xy-chart/components/AnimatedAxis";
+import ChartProvider from "./xy-chart/components/providers/ChartProvider";
+import XYChart from "./xy-chart/components/XYChart";
+import BarSeries from "./xy-chart/components/series/BarSeries";
+import LineSeries from "./xy-chart/components/series/LineSeries";
+import AreaSeries from "./xy-chart/components/series/AreaSeries";
+import PointSeries from "./xy-chart/components/series/PointSeries";
+import ChartPattern from "./xy-chart/components/ChartPattern";
+import EventProvider from "./xy-chart/components/providers/TooltipProvider";
+import Tooltip from "./xy-chart/components/Tooltip";
+import CrossHair from "./xy-chart/components/CrossHair";
+import Legend from "./xy-chart/components/Legend";
+import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
+import Group from "./xy-chart/components/series/Group";
+import Title from "./xy-chart/components/titles/Title";
+import StackedBar from "./xy-chart/components/series/StackedBar";
+import StackedArea from "./xy-chart/components/series/StackedArea";
+import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
+import Grid from "./xy-chart/components/grids/Grid";
+import Brush from "./xy-chart/components/selection/Brush";
+import { timeParse, timeFormat } from "d3-time-format";
 
-import { colorByExpression } from '../../../utils'
-
-const numDimensionTicks = 5
+import { roundNumber } from "./xy-chart/utils/roundNumber";
+import { selectColor } from "../../../utils/colors";
+import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
+import { colorByExpression } from "../../../utils";
+import { valueIfUndefined, isDefined } from "./xy-chart/utils/chartUtils";
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
 //   null // ➜ React components must return something
 // );
 
-const getDimension = d => d[0].qText
+// formatDate(new Date((d - (25567 + 1)) * 86400 * 1000));
 
-// const getDimension = (d) =>
-//   new Date(
-//     d[0].qText.split("/")[2],
-//     d[0].qText.split("/")[1] - 1,
-//     d[0].qText.split("/")[0]
-//   );
+const legendLabelFormat = (d) => d;
 
-const legendLabelFormat = d => d
-
-const axisTopMargin = {
-  top: 40, right: 50, bottom: 30, left: 50,
-}
-const axisBottomMargin = {
-  top: 30, right: 50, bottom: 40, left: 50,
-}
-
-/** memoize the accessor functions to prevent re-registering data. */
-function useAccessors(valueAccessor, column, renderHorizontally) {
-  return useMemo(
-    () => ({
-      xAccessor: d => (renderHorizontally ? valueAccessor(d, column) : getDimension(d)),
-      yAccessor: d => (renderHorizontally ? getDimension(d) : valueAccessor(d, column)),
-    }),
-    [renderHorizontally, valueAccessor],
-  )
-}
+const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
+const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
 export default function CreateXYChart({
   width,
   height,
   events = false,
-  qData: { qMatrix },
+  data,
+  keys,
+  dataKeys,
   qLayout: {
     qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
-  setRefreshChart,
   beginSelections,
   select,
-  setSelectionXYChartVisible,
-  useSelectionColours,
-  pendingSelections,
-  SetPendingSelections,
+  setCurrentSelectionIds,
+  currentSelectionIds,
   theme,
   padding,
   colorPalette,
   type,
   useAnimatedAxes,
   autoWidth,
+  size,
   renderHorizontally,
   includeZero,
   xAxisOrientation,
   yAxisOrientation,
-  legendLeftRight,
   showLegend,
+  legendLeftRight,
   legendTopBottom,
   legendDirection,
   legendShape,
-  snapTooltipToDataX,
-  snapTooltipToDataY,
   backgroundPattern,
-  multiColor,
+  backgroundStyle,
+  fillStyle,
   showLabels,
   showPoints,
   dualAxis,
   roundNum,
   precision,
   showVerticalCrosshair,
-  showAxis,
+  hideAxisLine,
+  gridRows,
+  gridColumns,
+  selectionMethod,
+  enableBrush,
+  showBrush,
+  showAsPercent,
+  showAxisLabels,
+  singleMeasure,
+  singleDimension,
+  dimensionCount,
+  measureCount,
+  title,
+  subTitle,
+  legendLabelStyle,
+  valueLabelStyle,
+  showClosestItem,
+  useSingleColor,
+  numDimensionTicks,
+  numMeasureTicks,
+  numMeasureDualTicks,
+  parseDateFormat,
+  formatAxisDate,
+  formatTooltipDate,
+  strokeWidth,
 }) {
-  console.log('render')
-  const getChartType = () => (type || (dimensionInfo.length === 1 && measureInfo.length === 1
-    ? 'bar'
-    : 'groupedbar'))
+  // const showTitles = true; // resize height of chart if title shown
+  const getChartType = () =>
+    type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
 
-  const [chartType, setchartType] = useState([getChartType()])
+  const chartType = [getChartType()];
 
-  // let datum = [];
-  let series = []
-  let dimID = null
-  const items = []
-  const keys = []
-  // series.push(dim);
+  const [currData, setCurrData] = useState(data);
 
-  if (dimensionInfo.length !== 1 && !chartType.includes('scatter')) {
-    qMatrix.forEach((d, i) => {
-      if (isNull(dimID)) {
-        dimID = d[0].qText
-        series.push(d[0])
-      }
+  //  const formatDate = timeFormat("%d %B, %Y");
+  const formatDate = timeFormat(formatAxisDate);
 
-      if (dimID !== d[0].qText) {
-        items.push(series)
-        series = []
-        series.push(d[0])
-        dimID = d[0].qText
-      }
-      const measure = d[1]
-      measure.qNum = d[2].qNum
-      if (!keys.includes(measure.qText)) {
-        keys.push(measure.qText)
-      }
-      series.push(measure)
-    })
-
-    items.push(series)
-  }
-
-  const data = dimensionInfo.length === 1 ? qMatrix : items
-
-  const [currData, setCurrData] = useState(data)
-
-  const getSeriesValues = (d, colIndex) => Number(d[colIndex].qNum)
-
-  // const getSeriesValues = (d, colIndex) => {
-  //   return dimensionInfo.length !== 1
-  //     ? Number(d[1].qNum)
-  //     : Number(d[colIndex].qNum);
+  const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
+  // const dateFormatter = (d) => {
+  //   return formatDate(
+  //     parseDateFormat === "Excel"
+  //       ? new Date((d - (25567 + 1)) * 86400 * 1000)
+  //       : timeParse(parseDateFormat)(d)
+  //   );
   // };
 
-  const dataKeys = multiColor
-    && dimensionInfo.length == 1
-    && measureInfo.length === 1
-    && chartType.includes('bar')
-    ? data.map(d => d[0].qText)
-    : dimensionInfo.length === 2
-      ? keys
-      : null
+  // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
 
-  const canSnapTooltipToDataX = (chartType.includes('groupedbar') && renderHorizontally)
-    || (chartType.includes('stackedbar') && !renderHorizontally)
-    || (chartType.includes('combo') && !renderHorizontally)
-    || chartType.includes('bar')
+  // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
+  const getDimension = (d) => d[0].qText;
+  const getSeriesValues = (d, colIndex) =>
+    isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
+  const getElementNumber = (d) => d[0].qElemNumber;
 
-  const canSnapTooltipToDataY = (chartType.includes('groupedbar') && !renderHorizontally)
-    || (chartType.includes('stackedbar') && renderHorizontally)
-    || (chartType.includes('combo') && renderHorizontally)
-    || chartType.includes('bar')
+  // const getDimension = (d) =>
+  //   new Date(
+  //     d[0].qText.split("/")[2],
+  //     d[0].qText.split("/")[1] - 1,
+  //     d[0].qText.split("/")[0]
+  //   );
 
-  const dateScaleConfig = useMemo(() => ({ type: 'band', padding }), [])
+  /** memoize the accessor functions to prevent re-registering data. */
+  function useAccessors(valueAccessor, column, renderHorizontally) {
+    return useMemo(
+      () => ({
+        xAccessor: (d) =>
+          renderHorizontally ? valueAccessor(d, column) : getDimension(d),
+        yAccessor: (d) =>
+          renderHorizontally ? getDimension(d) : valueAccessor(d, column),
+        elAccessor: (d) => getElementNumber(d),
+      }),
+      [renderHorizontally, valueAccessor]
+    );
+  }
+
+  const canSnapTooltipToDataX =
+    (chartType.includes("groupedbar") && renderHorizontally) ||
+    (chartType.includes("stackedbar") && !renderHorizontally) ||
+    (chartType.includes("combo") && !renderHorizontally) ||
+    chartType.includes("bar");
+
+  const canSnapTooltipToDataY =
+    (chartType.includes("groupedbar") && !renderHorizontally) ||
+    (chartType.includes("stackedbar") && renderHorizontally) ||
+    (chartType.includes("combo") && renderHorizontally) ||
+    chartType.includes("bar");
+
+  useEffect(() => {
+    setCurrData(data);
+  }, [data]);
+
+  const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+  // const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
+
+  // const dateScaleConfig = useMemo(
+  //   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
+  //   []
+  // );
 
   const valueScaleConfig = useMemo(
     () => ({
-      type: 'linear',
+      type: "linear",
       clamp: true,
       nice: true,
       domain: undefined,
       includeZero,
     }),
-    [includeZero],
-  )
+    [includeZero]
+  );
 
   const colorScaleConfig = useMemo(
     () => ({
-      domain: dataKeys || measureInfo.map(d => d.qFallbackTitle),
+      domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
     }),
-    [chartType],
-  )
+    [chartType]
+  );
 
-  const dataAccessors = dimensionInfo.length <= 1
-    ? measureInfo.map((measure, index) => useAccessors(
-      getSeriesValues,
-      dimensionInfo.length + index,
-      renderHorizontally,
-    ))
-    : keys.map((measure, index) => useAccessors(getSeriesValues, index, renderHorizontally))
-
-  useEffect(() => {
-    setCurrData(data)
-  }, [data])
+  const dataAccessors =
+    dimensionCount <= 1
+      ? measureInfo.map((measure, index) =>
+          useAccessors(
+            getSeriesValues,
+            dimensionCount + index,
+            renderHorizontally
+          )
+        )
+      : keys.map((measure, index) =>
+          useAccessors(
+            getSeriesValues,
+            dimensionCount - 1 + index,
+            renderHorizontally
+          )
+        );
 
   // Check if conditionalColors and if so get the returned color pallette
-  const colors = colorByExpression(qHyperCube, data, colorPalette)
+  const colors = colorByExpression(qHyperCube, data, colorPalette);
 
-  const {
-    //  global: { colorTheme: globalColorTheme },
-    xyChart,
-  } = theme
+  const { xyChart } = theme;
 
   const themeObj = {
-    // ...defaultTheme,
-    ...theme.xyChart.defaultTheme,
+    ...theme.xyChart,
     colors,
-  }
+  };
 
-  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis
+  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 
   const legend = showLegend ? (
     <Legend
       labelFormat={legendLabelFormat}
-      alignLeft={legendLeftRight === 'left'}
+      alignLeft={legendLeftRight === "left"}
       direction={legendDirection}
       shape={
-        legendShape === 'auto'
+        legendShape === "auto"
           ? undefined
-          : legendShape === 'custom'
-            ? CustomLegendShape
-            : legendShape
+          : legendShape === "custom"
+          ? CustomLegendShape
+          : legendShape
       }
     />
-  ) : null
+  ) : null;
 
-  // const gridColor = "#6e0fca";
-  // const numTickColumns = 5;
-  // const scaleHeight = height / axes.length - scalePadding;
-  const background = '#3b6978'
-  const background2 = '#204051'
-  const accentColor = '#edffea'
+  const selectedBoxStyle = {
+    fill: "url(#brush_pattern)",
+    stroke: selectColor(xyChart?.brush.stroke, theme) ?? "#329af0",
+  };
+
+  const chartHideAxisLine = valueIfUndefined(
+    hideAxisLine,
+    xyChart.hideAxisLine
+  );
+
+  const chartShowAxisLabels = valueIfUndefined(
+    showAxisLabels,
+    xyChart.showAxisLabels
+  );
+
+  chartShowAxisLabels === true ||
+  chartShowAxisLabels === "both" ||
+  chartShowAxisLabels === "xAxis"
+    ? (axisBottomMargin.bottom = 60)
+    : (axisBottomMargin.bottom = 40);
+
+  const formatValue = (val) => {
+    // if (val === 0) return roundNumber(Math.abs(val), 0);
+
+    const valPrecision = valueIfUndefined(precision, xyChart.precision);
+    const valRoundNum = valueIfUndefined(roundNum, xyChart.roundNum);
+
+    if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
+    let formattedValue = valRoundNum
+      ? roundNumber(Math.abs(val), valPrecision)
+      : Math.abs(val);
+
+    return val < 0 ? `-${formattedValue}` : formattedValue;
+  };
 
   return (
-  // <div className="container">
+    // <div className="container">
 
     <ChartProvider
+      theme={themeObj}
+      chartType={chartType}
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+      // isContinuousAxes={isContinuousAxes}
       colorScale={colorScaleConfig}
-      showLabels={showLabels === undefined ? xyChart.showLabels : showLabels}
-      showPoints={showPoints === undefined ? xyChart.showPoints : showPoints}
-      showAxis={showAxis === undefined ? xyChart.showAxis : showAxis}
-      roundNum={roundNum === undefined ? xyChart.roundNum : roundNum}
-      precision={precision === undefined ? xyChart.precision : precision}
+      showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
+      showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
+      roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
+      precision={valueIfUndefined(precision, xyChart.precision)}
+      size={size}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
       dataKeys={dataKeys}
+      beginSelections={beginSelections}
+      select={select}
+      setCurrentSelectionIds={setCurrentSelectionIds}
+      currentSelectionIds={currentSelectionIds}
+      singleDimension={singleDimension}
+      singleMeasure={singleMeasure}
+      formatValue={formatValue}
+      legendLabelStyle={legendLabelStyle}
+      valueLabelStyle={valueLabelStyle}
+      parseDateFormat={parseDateFormat}
+      formatTooltipDate={formatTooltipDate}
     >
+      <EventProvider>
+        {title && <Title title={title} subTitle={subTitle} />}
+        {legendTopBottom === "top" && legend}
+        <div
+          className="container"
+          style={{
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <XYChart
             height={height}
-            width={autoWidth ? undefined : width}
+            // width={autoWidth ? undefined : width}
             margin={
-              xAxisOrientation === 'top' ? axisTopMargin : axisBottomMargin
+              xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
             dualAxis={dualAxis}
+            captureEvents={selectionMethod === "none"}
+            onMouseDown={selectionMethod === "brush" ? enableBrush : null}
           >
-            <BarSeries
-              key={measureInfo[0].qFallbackTitle}
-              dataKey={measureInfo[0].qFallbackTitle}
-              data={currData}
-              xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-              yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
-              {...dataAccessors[0]}
+            <ChartBackground
+              style={backgroundStyle.style}
+              id="area-background-gradient"
+              from={backgroundStyle.styleFrom}
+              to={backgroundStyle.styleTo}
             />
-            <GridColumns
-              scale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-              height={100}
-              strokeDasharray="3,3"
-              stroke={accentColor}
-              strokeOpacity={0.3}
-              pointerEvents="none"
-            /> 
-            {/* <Grid
-          top={margin.top}
-          left={margin.left}
-          xScale={dateScale}
-          yScale={temperatureScale}
-          width={xMax}
-          height={yMax}
-          stroke="black"
-          strokeOpacity={0.1}
-          xOffset={dateScale.bandwidth() / 2}
-        /> */}
+            <ChartPattern backgroundPattern={backgroundPattern} />
+            {showBrush && (
+              <PatternLines
+                id="brush_pattern"
+                height={xyChart?.brush.patternHeight ?? 12}
+                width={xyChart?.brush.patternWidth ?? 12}
+                stroke={
+                  selectColor(xyChart?.brush.patternStroke, theme) ?? "#a3daff"
+                }
+                strokeWidth={1}
+                orientation={["diagonal"]}
+              />
+            )}
+            {(gridRows !== false || gridColumns !== false) && (
+              <Grid gridRows={gridRows} gridColumns={gridColumns} />
+            )}
             {chartType.includes("bar") && (
               <BarSeries
                 horizontal={renderHorizontally}
-                // dataKey={measureInfo[0].qFallbackTitle}
                 dataKeys={dataKeys ? dataKeys : null}
-                dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                // dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                dataKey={measureInfo[0].qFallbackTitle}
                 data={currData}
                 {...dataAccessors[0]}
               />
             )}
             {chartType.includes("stackedbar") && (
-              <Stack horizontal={renderHorizontally}>
-                {dimensionInfo.length <= 1
+              <StackedBar horizontal={renderHorizontally}>
+                {dimensionCount <= 1
                   ? measureInfo.map((measure, index) => (
                       <BarSeries
                         key={measureInfo[index].qFallbackTitle}
@@ -322,11 +380,11 @@ export default function CreateXYChart({
                         {...dataAccessors[index]}
                       />
                     ))}
-              </Stack>
+              </StackedBar>
             )}
             {chartType.includes("groupedbar") && (
               <Group horizontal={renderHorizontally}>
-                {dimensionInfo.length <= 1
+                {dimensionCount <= 1
                   ? measureInfo.map((measure, index) => (
                       <BarSeries
                         key={measureInfo[index].qFallbackTitle}
@@ -347,59 +405,94 @@ export default function CreateXYChart({
             )}
             {chartType.includes("line") && (
               <>
-                {// dimensionInfo.length <= 1
-                //   ?
-                measureInfo.map((measure, index) => (
-                  <LineSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
+                {dimensionCount <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <LineSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        glyph={measureInfo[index].qShowPoints}
+                        strokeDasharray={measure.qLegendShape}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={strokeWidth}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <LineSeries
+                        key={measure}
+                        dataKey={measure}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={strokeWidth}
+                      />
+                    ))}
+              </>
+            )}
+            {chartType.includes("combo") &&
+              measureCount > 1 &&
+              measureInfo.map((measure, index) =>
+                measure.qChartType === "bar" ? (
+                  <BarSeries
+                    key={measure.qFallbackTitle}
+                    dataKey={measure.qFallbackTitle}
                     data={currData}
                     {...dataAccessors[index]}
-                    strokeWidth={1.5}
                   />
-                ))
-                // : dataKeys.map((measure, index) => (
-                //     <LineSeries
-                //       key={measure}
-                //       dataKey={measure}
-                //       data={currData}
-                //       {...dataAccessors[index]}
-                //       strokeWidth={1.5}
-                //     />
-                //   ))
-                }
-              </>
-            )}
-            {chartType.includes("combo") && measureInfo.length > 1 && (
-              <>
-                <BarSeries
-                  key={measureInfo[0].qFallbackTitle}
-                  dataKey={measureInfo[0].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[0]}
-                />
-                <LineSeries
-                  dataKey={measureInfo[1].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[1]}
-                  strokeWidth={1.5}
-                />
-              </>
-            )}
+                ) : (
+                  <LineSeries
+                    key={measure.qFallbackTitle}
+                    dataKey={measure.qFallbackTitle}
+                    glyph={measure.qShowPoints}
+                    strokeDasharray={measure.qLegendShape}
+                    data={currData}
+                    {...dataAccessors[index]}
+                    strokeWidth={strokeWidth}
+                  />
+                )
+              )}
             {chartType.includes("area") &&
-              dimensionInfo.length <= 1 &&
+              dimensionCount <= 1 &&
               measureInfo.map((measure, index) => (
                 <AreaSeries
                   key={measureInfo[index].qFallbackTitle}
                   dataKey={measureInfo[index].qFallbackTitle}
+                  glyph={measureInfo[index].qShowPoints}
+                  fillStyle={measureInfo[index].qFillStyle || fillStyle}
                   data={currData}
                   {...dataAccessors[index]}
-                  strokeWidth={1.5}
+                  strokeWidth={strokeWidth}
                 />
               ))}
+            {chartType.includes("stackedarea") && (
+              <StackedArea>
+                {dimensionCount <= 1
+                  ? measureInfo.map((measure, index) => (
+                      <AreaSeries
+                        key={measureInfo[index].qFallbackTitle}
+                        dataKey={measureInfo[index].qFallbackTitle}
+                        glyph={measureInfo[index].qShowPoints}
+                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={strokeWidth}
+                      />
+                    ))
+                  : dataKeys.map((measure, index) => (
+                      <AreaSeries
+                        key={measure}
+                        dataKey={measure}
+                        // glyph={measureInfo[index].qShowPoints}
+                        // fillStyle={measureInfo[index].qFillStyle || fillStyle}
+                        data={currData}
+                        {...dataAccessors[index]}
+                        strokeWidth={strokeWidth}
+                      />
+                    ))}
+              </StackedArea>
+            )}
             {chartType.includes("scatter") &&
-              dimensionInfo.length === 1 &&
-              measureInfo.length === 2 && (
+              singleDimension &&
+              measureCount === 2 && (
                 // measureInfo.map((measure, index) => (
                 <PointSeries
                   dataKeys={dataKeys ? dataKeys : null}
@@ -408,41 +501,156 @@ export default function CreateXYChart({
                   {...dataAccessors[0]}
                 />
               )}
-            {/** Temperature axis */}
-
+            {/* Y axis */}
             <AxisComponent
-              label={measureInfo[0].qFallbackTitle}
+              label={
+                chartShowAxisLabels === true ||
+                chartShowAxisLabels === "both" ||
+                chartShowAxisLabels === "yAxis"
+                  ? measureInfo[0].qFallbackTitle
+                  : null
+              }
               orientation={
                 renderHorizontally ? xAxisOrientation : yAxisOrientation
               }
-              numTicks={5}
+              numTicks={numMeasureTicks}
+              hideAxisLine={
+                chartHideAxisLine === true ||
+                chartHideAxisLine === "both" ||
+                chartHideAxisLine === "yAxis"
+                  ? true
+                  : false
+              }
+              tickFormat={(d) => formatValue(d)}
+              // tickFormat={(d) => `${d * 100}%`}
+              // tickLabelProps={() => ({
+              //   fill: "red",
+              //   fontSize: 11,
+              //   textAnchor: "end",
+              //   dy: "0.33em",
+              // })}
+              // labelProps={{
+              //   x: width + 30,
+              //   y: -10,
+              //   fill: labelColor,
+              //   fontSize: 18,
+              //   strokeWidth: 0,
+              //   stroke: "#fff",
+              //   paintOrder: "stroke",
+              //   fontFamily: "sans-serif",
+              //   textAnchor: "start",
+              // }}
             />
-
+            {/* Y axis (dual)*/}
             {dualAxis && (
               <AxisComponent
-                label={measureInfo[1].qFallbackTitle}
+                label={
+                  chartShowAxisLabels === true ||
+                  chartShowAxisLabels === "both" ||
+                  chartShowAxisLabels === "yAxis"
+                    ? measureInfo[1].qFallbackTitle
+                    : null
+                }
                 orientation="right"
-                numTicks={9}
+                numTicks={numMeasureDualTicks}
+                hideAxisLine={
+                  chartHideAxisLine === true ||
+                  chartHideAxisLine === "both" ||
+                  chartHideAxisLine === "yAxis"
+                    ? true
+                    : false
+                }
               />
             )}
             {/** Dimension axis */}
-
             <AxisComponent
               // label={dimensionInfo[0].qFallbackTitle}
+              label={
+                chartShowAxisLabels === true ||
+                chartShowAxisLabels === "both" ||
+                chartShowAxisLabels === "xAxis"
+                  ? dimensionInfo[0].qFallbackTitle
+                  : null
+              }
               orientation={
                 renderHorizontally ? yAxisOrientation : xAxisOrientation
               }
-              tickValues={currData
-                .filter(
-                  (d, i, arr) =>
-                    i % Math.round((arr.length - 1) / numDimensionTicks) === 0
-                )
-                .map((d) => getDimension(d))}
-              tickFormat={(d) =>
-                d.toISOString?.().split?.("T")[0] ?? d.toString()
+              hideAxisLine={
+                chartHideAxisLine === true ||
+                chartHideAxisLine === "both" ||
+                chartHideAxisLine === "xAxis"
+                  ? true
+                  : false
               }
+              tickValues={
+                numDimensionTicks === null
+                  ? null
+                  : currData
+                      .filter(
+                        (d, i, arr) =>
+                          i %
+                            Math.round((arr.length - 1) / numDimensionTicks) ===
+                          0
+                      )
+                      .map((d) => getDimension(d))
+              }
+              tickFormat={(d) =>
+                parseDateFormat && formatAxisDate ? dateFormatter(d) : d
+              }
+              // width > 400 || isContinuousAxes ? dateFormatter(d) : null
             />
+            {/* <CrossHair
+              fullHeight
+              showHorizontalLine={false}
+              strokeDasharray=""
+              // circleSize={(d) => (d.y === tooltipData.datum.y ? 6 : 4)}
+              // circleStroke={(d) =>
+              //   d.y === tooltipData.datum.y ? "#fff" : d.color
+              // }
+              // circleStyles={{ strokeWidth: 1.5 }}
+              // circleFill={(d) =>
+              //   d.y === tooltipData.datum.y ? d.color : "#fff"
+              // }
+              circleSize={4}
+              circleStroke="red"
+              circleStyles={{ strokeWidth: 1.5 }}
+              circleFill="orange"
+              // showCircle={useVoronoiTrigger || !this.state.programmaticTrigger}
+              // showMultipleCircles={!useVoronoiTrigger && showMultipleCircles}
+              showCircle={true}
+              showMultipleCircles={false}
+            /> */}
+            {showBrush && (
+              <Brush
+                xAxisOrientation={xAxisOrientation}
+                yAxisOrientation={yAxisOrientation}
+                selectedBoxStyle={selectedBoxStyle}
+                brushDirection={"horizontal"}
+                brushRegion={"chart"}
+                handleSize={8}
+              />
+            )}
           </XYChart>
+
+          <Tooltip
+            snapToDataX={canSnapTooltipToDataX}
+            snapToDataY={canSnapTooltipToDataY}
+            showVerticalCrosshair={valueIfUndefined(
+              showVerticalCrosshair,
+              xyChart.showVerticalCrosshair
+            )}
+            showClosestItem={valueIfUndefined(
+              showClosestItem,
+              xyChart.tooltip.showClosestItem
+            )}
+            useSingleColor={valueIfUndefined(
+              useSingleColor,
+              xyChart.tooltip.useSingleColor
+            )}
+          />
+          {legendTopBottom === "bottom" && legend}
+        </div>
+      </EventProvider>
     </ChartProvider>
-  )
+  );
 }

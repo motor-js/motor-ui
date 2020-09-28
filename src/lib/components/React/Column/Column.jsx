@@ -183,7 +183,6 @@ Column.propTypes = {
     PropTypes.bool,
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
-  showXAxisText: PropTypes.bool,
   /** Max length of chart axis (in pixels) */
   maxAxisLength: PropTypes.number,
   /** Force supression of Scroll / Overview chart */
@@ -228,7 +227,6 @@ Column.defaultProps = {
   textOnAxis: null,
   showGridlines: null,
   showAxis: null,
-  showXAxisText: true,
   roundNum: true,
   columnSortOrder: [],
   sortDirection: "",

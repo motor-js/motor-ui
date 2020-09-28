@@ -1,15 +1,10 @@
 import React, { useContext, useCallback, useMemo } from "react";
-import BaseLegend from "@vx/legend/lib/legends/Legend";
-import Rect from "@vx/legend/lib/shapes/Rect";
-import Circle from "@vx/legend/lib/shapes/Circle";
-import Line from "@vx/legend/lib/shapes/Line";
+import { Legend as BaseLegend } from "@visx/legend";
+import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import ChartContext from "../context/ChartContext";
-
-// convenience exports to support easy renderShape overrides
-export const RectShape = Rect;
-export const LineShape = Line;
-export const CircleShape = Circle;
+import { isDefined } from "../utils/chartUtils";
+import { selectColor } from "../../../../../utils/colors";
 
 export default function Legend({
   alignLeft = true,
@@ -18,22 +13,41 @@ export default function Legend({
   style,
   ...props
 }) {
-  const { theme, margin, colorScale, dataRegistry } = useContext(ChartContext);
+  const {
+    theme,
+    margin,
+    colorScale,
+    dataRegistry,
+    legendLabelStyle,
+    size,
+  } = useContext(ChartContext);
+
   const legendLabelProps = useMemo(
-    () => ({ style: { ...theme.labelStyles } }),
+    () => ({
+      style: {
+        ...theme.legendLabelStyles,
+        fontSize: theme.legendLabelStyles.fontSize[size],
+        ...legendLabelStyle,
+      },
+    }),
     [theme]
   );
   const legendStyles = useMemo(
     () => ({
       display: "flex",
-      background: theme?.baseColor ?? "white",
-      color: theme?.labelStyles?.fill,
+      background:
+        selectColor(theme?.legendStyles.backgroundColor, theme) ?? "white",
+      color: isDefined(legendLabelStyle)
+        ? selectColor(legendLabelStyle.fill, theme)
+        : selectColor(theme?.legendLabelStyles?.fill, theme),
       paddingLeft: margin.left,
       paddingRight: margin.right,
+
       [direction === "row" || direction === "row-reverse"
         ? "justifyContent"
         : "alignItems"]: alignLeft ? "flex-start" : "flex-end",
       style,
+      overflow: "hidden",
     }),
     [theme, margin, alignLeft, direction, style]
   );

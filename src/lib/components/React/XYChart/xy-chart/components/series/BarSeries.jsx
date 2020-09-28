@@ -1,12 +1,13 @@
-import React, { useContext, useCallback, useMemo } from "react";
+import React, { useContext, useCallback, useMemo, useState } from "react";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-import findNearestDatumX from "../../util/findNearestDatumX";
-import findNearestDatumY from "../../util/findNearestDatumY";
+import findNearestDatumX from "../../utils/findNearestDatumX";
+import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
-import { Text } from "@vx/text";
+import { selectColor } from "../../../../../../utils/colors";
+import { Text } from "@visx/text";
 
 function BarSeries({
   dataKey,
@@ -14,10 +15,10 @@ function BarSeries({
   data: _,
   xAccessor: __,
   yAccessor: ___,
+  elAccessor: ____,
   mouseEvents,
   horizontal,
   barThickness: barThicknessProp,
-  // showLabels,
   ...barProps
 }) {
   const {
@@ -25,30 +26,33 @@ function BarSeries({
     colorScale,
     xScale,
     yScale,
+    // isContinuousAxes,
     showLabels,
     formatValue,
+    valueLabelStyle,
+    size,
   } = useContext(ChartContext);
-  const { data, xAccessor, yAccessor } = useRegisteredData(dataKey);
+
+  const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
+
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
     xAccessor,
   ]);
+
   const getScaledY = useCallback((d) => yScale(yAccessor(d)), [
     yScale,
     yAccessor,
   ]);
 
-  const {
-    svgLabel: { baseLabel },
-  } = theme;
+  const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
+
+  const { valueLabelStyles } = theme;
 
   const labelProps = {
-    ...baseLabel,
-    pointerEvents: "none",
-    stroke: "#fff",
-    strokeWidth: 2,
-    paintOrder: "stroke",
-    fontSize: 12,
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
   };
 
   const renderLabel = ({ datum, labelProps }) =>
@@ -83,12 +87,9 @@ function BarSeries({
     ? Math.min(maybeYZero, Math.max(yMin, yMax))
     : Math.max(yMin, yMax);
 
-  // const x = (d) => d.x;
-  // const y = (d) => d.y;
   const x = (d) => d[0].qText;
+  // const x = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const y = (d) => (horizontal ? d[0].qText : d[1].qNum);
-
-  // const barColor = colorScale(dataKey) as string;
 
   const categoryScale = horizontal ? yScale : xScale;
   const valueScale = horizontal ? xScale : yScale;
@@ -100,6 +101,8 @@ function BarSeries({
       data.map((datum, i) => {
         const x = getScaledX(datum);
         const y = getScaledY(datum);
+        const selectionId = getElemNumber(datum);
+
         const categoryOffset = categoryScale.offset || 0;
 
         const barPosition =
@@ -152,6 +155,7 @@ function BarSeries({
           y: horizontal ? y : yZeroPosition + Math.min(0, barLength),
           width: horizontal ? Math.abs(barLength) : barThickness,
           height: horizontal ? barThickness : Math.abs(barLength),
+          selectionId,
           color: barColor,
         };
       }),
@@ -164,14 +168,19 @@ function BarSeries({
       yZeroPosition,
       getScaledX,
       getScaledY,
+      // selectionIds,
     ]
   );
 
   return (
-    <g className="vx-chart bar-series">
+    <g className="visx-chart bar-series">
       <AnimatedBars
+        // handleClick={handleClick}
+        // currentSelectionIds={currentSelectionIds}
         bars={bars}
-        stroke={theme.baseColor ?? "white"}
+        stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
+        strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
+        // theme={theme}
         {...barProps}
       />
       {Labels.map((Label) => Label)}

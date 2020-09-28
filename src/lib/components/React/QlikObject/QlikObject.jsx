@@ -1,13 +1,15 @@
-import React, {
-  useRef, useEffect, useState, useContext,
-} from 'react'
-import PropTypes from 'prop-types'
-import { CapabilityContext } from '../../../contexts/CapabilityProvider'
-import Spinner from '../Spinner'
+import React, { useRef, useEffect, useState, useContext } from "react";
+import PropTypes from "prop-types";
+import { CapabilityContext } from "../../../contexts/CapabilityProvider";
+import Spinner from "../Spinner";
 import {
-  QlikWrapper, QlikHeader, QlikHeaderText, StyledDots, StyledCircle,
-} from './QlikObjectTheme'
-import Menu from '../Menu'
+  QlikWrapper,
+  QlikHeader,
+  QlikHeaderText,
+  StyledDots,
+  StyledCircle,
+} from "./QlikObjectTheme";
+import Menu from "../Menu";
 
 const QlikObject = ({
   id,
@@ -35,101 +37,110 @@ const QlikObject = ({
   exportPdfTitle,
   exportPdfOptions,
 }) => {
-  const node = useRef(null)
-  const wrapper = useRef(null)
-  const outerRef = useRef(null)
+  const node = useRef(null);
+  const wrapper = useRef(null);
+  const outerRef = useRef(null);
 
-  const initHeight = parseInt(height, 10)
+  const initHeight = parseInt(height, 10);
   //const urlFix = url => url.split(/(?=http.?:\/\/)(.*)(?=http.?:\/\/)/)[2]
 
-  const { app } = useContext(CapabilityContext)
+  const { app } = useContext(CapabilityContext);
 
-  const [qViz, setQViz] = useState(null)
-  const [open, setOpen] = useState(false)
-  const [elemHeight, setElemHeight] = useState(height)
+  const [qViz, setQViz] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [elemHeight, setElemHeight] = useState(height);
 
   const create = async () => {
-    const getViz = id ? app.visualization.get(id) : app.visualization.create(type, cols, options)
-    const _qViz = await getViz
-    _qViz.setOptions(options)
-    await setQViz(_qViz)
-  }
+    const getViz = id
+      ? app.visualization.get(id)
+      : app.visualization.create(type, cols, options);
+    const _qViz = await getViz;
+    _qViz.setOptions(options);
+    await setQViz(_qViz);
+  };
 
   const show = () => {
-    qViz.show(node.current, { noSelections, noInteraction })
-  }
+    qViz.show(node.current, { noSelections, noInteraction });
+  };
 
   const close = () => {
-    qViz.close()
-  }
+    qViz.close();
+  };
 
   const resize = () => {
-    if (qViz) { qViz.resize() }
-  }
+    qViz.resize();
+  };
 
   useEffect(() => {
     if (app) {
       try {
         (async () => {
-          if (!qViz) await create()
-          if (qViz) show()
-          window.addEventListener('resize', resize)
+          if (!qViz) await create();
+          if (qViz) show();
+          window.addEventListener("resize", resize);
           //   const elemHeight = wrapper.current.offsetHeight
           //   setElemHeight(elemHeight)
-        })()
+        })();
       } catch (_error) {
-        console.warn(_error)
+        console.warn(_error);
       }
 
       return () => {
-        if (qViz) close()
+        if (qViz) close();
         // window.removeEventListener('resize', resize);
-      }
+      };
     }
-  }, [qViz, app])
+  }, [qViz, app]);
 
-  const action = async type => {
+  const action = async (type) => {
     switch (type) {
       default:
       // case 'clearSelections':
       //  if (app) qApp.clearAll();
       //  if (qDoc) qDoc.clearAll();
       //  break;
-      case 'exportData':
+      case "exportData":
         if (qViz) {
-          const _options = (options) || { format: 'CSV_T', state: 'P' }
-          const url = await qViz.exportData(_options)
-          const _url = url //.split(/(?=http.?:\/\/)(.*)(?=http.?:\/\/)/)[2]
-          window.open(_url, '_blank')
+          const _options = options || { format: "CSV_T", state: "P" };
+          const url = await qViz.exportData(_options);
+          const _url = url; //.split(/(?=http.?:\/\/)(.*)(?=http.?:\/\/)/)[2]
+          window.open(_url, "_blank");
         }
-        break
-      case 'exportImg':
+        break;
+      case "exportImg":
         if (qViz) {
-          const _options = /*options ||*/ { width: 300, height: 400, format: 'JPG' }
-          const url = await qViz.exportImg(_options)
-          const _url = url
-          window.open(_url, '_blank')
+          const _options = /*options ||*/ {
+            width: 300,
+            height: 400,
+            format: "JPG",
+          };
+          const url = await qViz.exportImg(_options);
+          const _url = url;
+          window.open(_url, "_blank");
         }
-        break
-      case 'exportPdf':
+        break;
+      case "exportPdf":
         if (qViz) {
-          const _options = (options) || { documentSize: 'a4', orientation: 'landscape', aspectRatio: 2 }
-          const url = await qViz.exportPdf(_options)
-          const _url = await url
-          window.open(_url, '_blank')
+          const _options = options || {
+            documentSize: "a4",
+            orientation: "landscape",
+            aspectRatio: 2,
+          };
+          const url = await qViz.exportPdf(_options);
+          const _url = await url;
+          window.open(_url, "_blank");
         }
-        break
+        break;
     }
-  }
+  };
 
   const exportDataCallback = () => {
-    action('exportData')
-  }
+    action("exportData");
+  };
 
-    const exportImageCallback = () => {
-    action('exportImg')
-  }
-
+  const exportImageCallback = () => {
+    action("exportImg");
+  };
 
   return (
     <QlikWrapper
@@ -143,56 +154,46 @@ const QlikObject = ({
       minHeight={minHeight}
       header={header}
     >
-      { app
-        ? (
+      {app ? (
+        <div
+          style={{
+            height,
+            width: "100%",
+            minWidth,
+          }}
+        >
+          {header && (
+            <QlikHeader minWidth={minWidth}>
+              <QlikHeaderText>{title}</QlikHeaderText>
+              <StyledCircle>
+                <StyledDots onClick={() => setOpen(!open)} />
+                <Menu
+                  open={open}
+                  outerRef={outerRef}
+                  exportDataCallback={exportDataCallback}
+                  exportImageCallback={exportImageCallback}
+                />
+              </StyledCircle>
+            </QlikHeader>
+          )}
           <div
+            ref={node}
             style={{
               height,
-              width: '100%',
+              width: "100%",
               minWidth,
+              minHeight,
             }}
-          >
-            { header
-              && (
-              <QlikHeader
-                minWidth={minWidth}
-              >
-                <QlikHeaderText>{title}</QlikHeaderText>
-                <StyledCircle>
-                  <StyledDots
-                    onClick={() => setOpen(!open)}
-                  />
-                  <Menu
-                    open={open}
-                    outerRef={outerRef}
-                    exportDataCallback={exportDataCallback}
-                    exportImageCallback={exportImageCallback}
-                  />
-                </StyledCircle>
-              </QlikHeader>
-              )}
-            <div
-              ref={node}
-              style={{
-                height,
-                width: '100%',
-                minWidth,
-                minHeight,
-              }}
-            />
-          </div>
-        )
-        : (
-          <Spinner
-            width={width}
-            size={30}
           />
-        )}
+        </div>
+      ) : (
+        <Spinner width={width} size={30} />
+      )}
     </QlikWrapper>
-  )
-}
+  );
+};
 
-export default QlikObject
+export default QlikObject;
 
 QlikObject.propTypes = {
   id: PropTypes.string.isRequired,
@@ -205,25 +206,41 @@ QlikObject.propTypes = {
   minHeight: PropTypes.string,
   noSelections: PropTypes.bool,
   noInteraction: PropTypes.bool,
-  type: PropTypes.oneOf([null, 'barchart', 'boxplot', 'combochart', 'distributionplot', 'gauge', 'histogram', 'kpi', 'linechart', 'piechart', 'pivot-table', 'scatterplot', 'table', 'treemap', 'extension']),
+  type: PropTypes.oneOf([
+    null,
+    "barchart",
+    "boxplot",
+    "combochart",
+    "distributionplot",
+    "gauge",
+    "histogram",
+    "kpi",
+    "linechart",
+    "piechart",
+    "pivot-table",
+    "scatterplot",
+    "table",
+    "treemap",
+    "extension",
+  ]),
   cols: PropTypes.array,
   options: PropTypes.object,
   header: PropTypes.bool,
-}
+};
 
 QlikObject.defaultProps = {
-  height: '100%',
-  width: '100%',
-  margin: '25px',
+  height: "100%",
+  width: "100%",
+  margin: "25px",
   border: null,
-  borderRadius: '8px',
-  minWidth: 'auto',
-  minHeight: 'auto',
+  borderRadius: "8px",
+  minWidth: "auto",
+  minHeight: "auto",
   noSelections: false,
   noInteraction: false,
   type: null,
   cols: [],
   options: {},
   header: false,
-  title: 'Jira Task Hours',
-}
+  title: "Jira Task Hours",
+};
