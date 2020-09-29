@@ -40,6 +40,8 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
     formatValue,
     singleDimension,
     measureInfo,
+    currentSelectionIds,
+    handleClick,
   } = useContext(ChartContext) || {};
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -280,6 +282,72 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
                 {...rectProps}
               />
             ))}
+            {(showPoints || showLabels) &&
+              combinedData.map((d, i) => {
+                let cum = 0;
+                return keys.map((dataKey, ki) => {
+                  const value = d[dataKey];
+                  cum += value;
+                  // const left = xScale(d.stack);
+                  // const top = yScale(cum);
+                  const left = xScale(cum);
+                  const top = yScale(d.stack) + yScale.bandwidth() / 2;
+                  const id = i * ki + ki;
+                  const color = colorScale(dataKey) ?? "#222";
+                  return (
+                    <g key={`area-glyph-${id}`} className={`area-glyph-${id}`}>
+                      {showPoints && (
+                        <ChartGlyph
+                          left={left}
+                          top={top}
+                          size={
+                            isDefined(glyph)
+                              ? glyph.size
+                              : showPoints.size || theme.points.size
+                          }
+                          fill={isDefined(glyph) ? glyph.fill : color}
+                          stroke={isDefined(glyph) ? glyph.stroke : color}
+                          strokeWidth={
+                            isDefined(glyph)
+                              ? glyph.strokeWidth
+                              : showPoints.strokeWidth ||
+                                theme.points.strokeWidth
+                          }
+                          style={{ cursor: "pointer " }}
+                          onClick={() => {
+                            const selections = currentSelectionIds.includes(
+                              d.selectionId
+                            )
+                              ? currentSelectionIds.filter(function(value) {
+                                  return value !== d.selectionId;
+                                })
+                              : [...currentSelectionIds, d.selectionId];
+                            handleClick(selections);
+                          }}
+                          onMouseMove={onMouseMove}
+                          onMouseLeave={() => {
+                            hideTooltip();
+                          }}
+                        />
+                      )}
+                      {showLabels && (
+                        <Text
+                          {...labelProps}
+                          key={`line-label-${i}`}
+                          x={left}
+                          y={top}
+                          dx="0.5em"
+                          dy={0}
+                          textAnchor="start"
+                          verticalAnchor="middle"
+                        >
+                          {formatValue(value)}
+                        </Text>
+                      )}
+                    </g>
+                  );
+                });
+              })}
           </Group>
         );
       }}
@@ -367,6 +435,8 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
                           y={top}
                           dx={0}
                           dy="-0.74em"
+                          textAnchor="middle"
+                          verticalAnchor="end"
                         >
                           {formatValue(value)}
                         </Text>
