@@ -36,6 +36,9 @@ function AreaSeries({
     valueLabelStyle,
     findNearestData,
     handleClick,
+    measureInfo,
+    dimensionInfo,
+    singleDimension,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -87,7 +90,19 @@ function AreaSeries({
     [findNearestData, showTooltip]
   );
 
-  const getValue = (d) => d.filter((val) => val.qText === dataKey)[0].qNum;
+  // const getValue = (d) => d.filter((val) => val.qText === dataKey)[0].qNum;
+  const getValue = (d) => {
+    if (singleDimension) {
+      let measureId = null;
+
+      measureInfo.map((d, i) => {
+        if (d.qFallbackTitle === dataKey) measureId = i;
+      });
+      return d[dimensionInfo.length + measureId].qNum;
+    } else {
+      return d.filter((val) => val.qText === dataKey)[0].qNum;
+    }
+  };
 
   return (
     <g className="visx-group area-series">

@@ -37,7 +37,6 @@ function LineSeries({
     findNearestData,
     measureInfo,
     dimensionInfo,
-
     singleDimension,
   } = useContext(ChartContext);
 
@@ -87,8 +86,6 @@ function LineSeries({
     },
     [findNearestData, showTooltip]
   );
-
-  // const getValue = (d) => d.filter((val) => val.qText === dataKey)[0].qNum;
 
   const getValue = (d) => {
     if (singleDimension) {
