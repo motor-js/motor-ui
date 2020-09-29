@@ -39,6 +39,7 @@ function AreaSeries({
     measureInfo,
     dimensionInfo,
     singleDimension,
+    currentSelectionIds,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -90,6 +91,17 @@ function AreaSeries({
     [findNearestData, showTooltip]
   );
 
+  const onClick = (event) => {
+    const nearestData = findNearestData(event);
+    const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
+    const selections = currentSelectionIds.includes(selectionId)
+      ? currentSelectionIds.filter(function(value) {
+          return value !== selectionId;
+        })
+      : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  };
+
   // const getValue = (d) => d.filter((val) => val.qText === dataKey)[0].qNum;
   const getValue = (d) => {
     if (singleDimension) {
@@ -121,6 +133,11 @@ function AreaSeries({
       >
         {({ path }) => (
           <AnimatedPath
+            onClick={onClick}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => {
+              hideTooltip();
+            }}
             stroke={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
             fill={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
             {...lineProps}
