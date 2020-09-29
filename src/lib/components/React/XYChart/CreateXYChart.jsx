@@ -642,6 +642,7 @@ export default function CreateXYChart({
             />
             {showCrossHair && (
               <CrossHair
+                horizontal={renderHorizontally}
                 fullHeight={valueIfUndefined(
                   crossHairStyles && crossHairStyles.fullHeight,
                   xyChart.crossHair.fullHeight

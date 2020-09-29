@@ -227,7 +227,11 @@ export default function Stack({ children, glyph }) {
           let cum = 0;
           return keys.map((dataKey, ki) => {
             const value = d[dataKey];
-            cum += value;
+            cum =
+              cum === d.negativeSum && d.positiveSum > 0
+                ? value
+                : (cum += value);
+            // cum += value;
             const left = xScale(d.stack);
             const top = yScale(cum);
             const id = i * ki + ki;

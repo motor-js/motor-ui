@@ -60,6 +60,7 @@ function CrossHair({
   strokeWidth,
   circleStrokeWidth,
   highlightClosetsCircle,
+  horizontal,
 }) {
   const { xScale, yScale, theme, colorScale, dataKeys, measureInfo } =
     useContext(ChartContext) || {};

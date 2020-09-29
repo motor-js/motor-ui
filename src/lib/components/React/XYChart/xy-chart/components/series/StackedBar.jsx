@@ -287,9 +287,14 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
                 let cum = 0;
                 return keys.map((dataKey, ki) => {
                   const value = d[dataKey];
-                  cum += value;
-                  // const left = xScale(d.stack);
-                  // const top = yScale(cum);
+
+                  cum =
+                    cum === d.negativeSum && d.positiveSum > 0
+                      ? value
+                      : (cum += value);
+
+                  // cum += value;
+
                   const left = xScale(cum);
                   const top = yScale(d.stack) + yScale.bandwidth() / 2;
                   const id = i * ki + ki;
@@ -386,7 +391,12 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
                 let cum = 0;
                 return keys.map((dataKey, ki) => {
                   const value = d[dataKey];
-                  cum += value;
+
+                  cum =
+                    cum === d.negativeSum && d.positiveSum > 0
+                      ? value
+                      : (cum += value);
+
                   const left = xScale(d.stack) + xScale.bandwidth() / 2;
                   const top = yScale(cum);
                   const id = i * ki + ki;
