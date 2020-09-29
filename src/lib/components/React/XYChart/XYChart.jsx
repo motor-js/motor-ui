@@ -277,6 +277,10 @@ XYChart.propTypes = {
   snapToDataX: PropTypes.bool,
   /** Snap to Y Axis (normally true for bar or combo) */
   snapToDataY: PropTypes.bool,
+  /** Show value only for Tooltip */
+  valueOnly: PropTypes.bool,
+  /** Show single line fo text and value for tooltip */
+  valueWithText: PropTypes.bool,
   /** Input format of date supplied from engine (in qText) */
   parseDateFormat: PropTypes.string,
   /** Format of dates to be displayed on Tooltip. */
