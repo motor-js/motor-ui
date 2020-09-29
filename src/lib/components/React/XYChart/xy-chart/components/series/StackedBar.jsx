@@ -7,10 +7,13 @@ import React, {
 } from "react";
 import { extent } from "d3-array";
 import { Group } from "@visx/group";
+import { Text } from "@visx/text";
 import BarStack from "./BarStack";
 import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
+import TooltipContext from "../../context/TooltipContext";
 import { selectColor } from "../../../../../../utils/colors";
+import { getSymbol, isDefined } from "../../utils/chartUtils";
 
 import findNearestDatumY from "../../utils/findNearestDatumY";
 import findNearestDatumX from "../../utils/findNearestDatumX";
@@ -18,7 +21,7 @@ import AnimatedBars from "./AnimatedBars";
 
 const STACK_ACCESSOR = (d) => d.stack;
 
-export default function Stack({ horizontal, children, ...rectProps }) {
+export default function Stack({ horizontal, children, glyph, ...rectProps }) {
   const {
     xScale,
     yScale,
@@ -29,10 +32,17 @@ export default function Stack({ horizontal, children, ...rectProps }) {
     height,
     margin,
     theme,
-    // handleClick,
-    // currentSelectionIds,
-    // selectionIds,
+    findNearestData,
+    showPoints,
+    showLabels,
+    size,
+    valueLabelStyle,
+    formatValue,
+    singleDimension,
+    measureInfo,
   } = useContext(ChartContext) || {};
+
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
   // extract data keys from child series
   const dataKeys = useMemo(
@@ -198,6 +208,20 @@ export default function Stack({ horizontal, children, ...rectProps }) {
     dataKeys,
   ]);
 
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({
+          tooltipData: {
+            ...nearestData,
+          },
+        });
+      }
+    },
+    [findNearestData, showTooltip]
+  );
+
   // if scales and data are not available in the registry, bail
   if (
     dataKeys.some((key) => dataRegistry[key] == null) ||
@@ -209,6 +233,22 @@ export default function Stack({ horizontal, children, ...rectProps }) {
   }
 
   const hasSomeNegativeValues = comprehensiveDomain.some((num) => num < 0);
+
+  const { valueLabelStyles } = theme;
+
+  const labelProps = {
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
+  };
+
+  let ChartGlyph = getSymbol(
+    isDefined(glyph) ? glyph.symbol : showPoints.symbol
+  );
+
+  const keys = singleDimension
+    ? measureInfo.map((d) => d.qFallbackTitle)
+    : dataKeys;
 
   return horizontal ? (
     <BarStackHorizontal
@@ -273,6 +313,68 @@ export default function Stack({ horizontal, children, ...rectProps }) {
                 {...rectProps}
               />
             ))}
+            {(showPoints || showLabels) &&
+              combinedData.map((d, i) => {
+                let cum = 0;
+                return keys.map((dataKey, ki) => {
+                  const value = d[dataKey];
+                  cum += value;
+                  const left = xScale(d.stack) + xScale.bandwidth() / 2;
+                  const top = yScale(cum);
+                  const id = i * ki + ki;
+                  const color = colorScale(dataKey) ?? "#222";
+                  return (
+                    <g key={`area-glyph-${id}`} className={`area-glyph-${id}`}>
+                      {showPoints && (
+                        <ChartGlyph
+                          left={left}
+                          top={top}
+                          size={
+                            isDefined(glyph)
+                              ? glyph.size
+                              : showPoints.size || theme.points.size
+                          }
+                          fill={isDefined(glyph) ? glyph.fill : color}
+                          stroke={isDefined(glyph) ? glyph.stroke : color}
+                          strokeWidth={
+                            isDefined(glyph)
+                              ? glyph.strokeWidth
+                              : showPoints.strokeWidth ||
+                                theme.points.strokeWidth
+                          }
+                          style={{ cursor: "pointer " }}
+                          onClick={() => {
+                            const selections = currentSelectionIds.includes(
+                              d.selectionId
+                            )
+                              ? currentSelectionIds.filter(function(value) {
+                                  return value !== d.selectionId;
+                                })
+                              : [...currentSelectionIds, d.selectionId];
+                            handleClick(selections);
+                          }}
+                          onMouseMove={onMouseMove}
+                          onMouseLeave={() => {
+                            hideTooltip();
+                          }}
+                        />
+                      )}
+                      {showLabels && (
+                        <Text
+                          {...labelProps}
+                          key={`line-label-${i}`}
+                          x={left}
+                          y={top}
+                          dx={0}
+                          dy="-0.74em"
+                        >
+                          {formatValue(value)}
+                        </Text>
+                      )}
+                    </g>
+                  );
+                });
+              })}
           </Group>
         );
       }}
