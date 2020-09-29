@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo, useState } from "react";
+import React, { useContext, useCallback, useMemo } from "react";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import isValidNumber from "../../typeguards/isValidNumber";
@@ -6,7 +6,7 @@ import useRegisteredData from "../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
-import { selectColor } from "../../../../../../utils/colors";
+import { selectColor } from "../../../../../../utils";
 import { Text } from "@visx/text";
 
 function BarSeries({

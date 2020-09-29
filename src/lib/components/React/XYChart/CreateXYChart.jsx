@@ -24,9 +24,8 @@ import Brush from "./xy-chart/components/selection/Brush";
 import { timeParse, timeFormat } from "d3-time-format";
 
 import { roundNumber } from "./xy-chart/utils/roundNumber";
-import { selectColor } from "../../../utils/colors";
 import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
-import { colorByExpression } from "../../../utils";
+import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "./xy-chart/utils/chartUtils";
 
 // const Console = (prop) => (

@@ -4,7 +4,7 @@ import { timeParse, timeFormat } from "d3-time-format";
 
 import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
-import { selectColor } from "../../../../../utils/colors";
+import { isNull, selectColor } from "../../../../../utils";
 
 export default function Tooltip({
   snapToDataX,
@@ -78,9 +78,10 @@ export default function Tooltip({
 
     let xVal = closestDatum.datum[0].qText || x0;
     xVal =
-      parseDate(xVal) === null || formatTooltipDate === null
+      isNull(parseDate(xVal)) || isNull(formatTooltipDate)
         ? xVal
         : dateFormatter(xVal);
+
     //  if (typeof xVal === "string") {
 
     //  } else if (

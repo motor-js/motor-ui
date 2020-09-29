@@ -9,7 +9,7 @@ import {
 } from "./XYChartTheme";
 import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
-import { createColorArray } from "../../../utils/colors";
+import { createColorArray } from "../../../utils";
 
 import {
   numericSortDirection,

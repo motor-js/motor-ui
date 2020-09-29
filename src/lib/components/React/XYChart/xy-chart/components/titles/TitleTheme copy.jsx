@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { defaultProps } from "../../../../../../default-props";
-import { globalStyle, borderStyle } from "../../../../../../utils/styles";
-import { selectColor } from "../../../../../../utils/colors";
+import { selectColor, globalStyle } from "../../../../../../utils";
 
 const TitleWrapper = styled.div`
   ${globalStyle};

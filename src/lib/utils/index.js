@@ -13,3 +13,5 @@ export { isNull, isEmpty } from "./lodash";
 export { legendPosition } from "./legendPosition";
 export { componentWidth } from "./componentWidth";
 export { default as exportData } from "./exportData";
+export { selectColor, createColorArray } from "./colors";
+export { globalStyle, borderStyle } from "./styles";
