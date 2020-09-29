@@ -421,7 +421,7 @@ export default function CreateXYChart({
                         key={measureInfo[index].qFallbackTitle}
                         dataKey={measureInfo[index].qFallbackTitle}
                         glyph={measureInfo[index].qShowPoints}
-                        strokeDasharray={measure.qLegendShape}
+                        strokeDasharray={measureInfo[index].qLegendShape}
                         data={currData}
                         {...dataAccessors[index]}
                         strokeWidth={strokeWidth}
@@ -432,6 +432,8 @@ export default function CreateXYChart({
                         key={measure}
                         dataKey={measure}
                         data={currData}
+                        glyph={measure.qShowPoints}
+                        strokeDasharray={measure.qLegendShape}
                         {...dataAccessors[index]}
                         strokeWidth={strokeWidth}
                       />
