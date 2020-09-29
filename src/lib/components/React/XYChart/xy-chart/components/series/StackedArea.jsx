@@ -6,12 +6,15 @@ import React, {
   useCallback,
 } from "react";
 import { extent } from "d3-array";
+import { Text } from "@visx/text";
 import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import { selectColor } from "../../../../../../utils/colors";
 
-export default function Stack({ children }) {
+import { getSymbol, isDefined } from "../../utils/chartUtils";
+
+export default function Stack({ children, glyph }) {
   const {
     xScale,
     yScale,
@@ -25,7 +28,11 @@ export default function Stack({ children }) {
     handleClick,
     findNearestData,
     currentSelectionIds,
-    // selectionIds,
+    showPoints,
+    showLabels,
+    size,
+    valueLabelStyle,
+    formatValue,
   } = useContext(ChartContext) || {};
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -162,48 +169,115 @@ export default function Stack({ children }) {
   ) {
     return null;
   }
-  // console.log(theme);
 
-  // const { valueLabelStyles, stackedArea } = theme;
+  const { valueLabelStyles } = theme;
 
-  // const labelProps = {
-  //   ...valueLabelStyles,
-  //   fontSize: valueLabelStyles.fontSize[size],
-  //   ...valueLabelStyle,
-  // };
+  const labelProps = {
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
+  };
+
+  let ChartGlyph = getSymbol(
+    isDefined(glyph) ? glyph.symbol : showPoints.symbol
+  );
+
+  const keys = dataKeys;
 
   return (
-    // @TODO types
-    <AreaStack
-      top={margin.top}
-      left={margin.left}
-      data={combinedData}
-      keys={dataKeys}
-      x={(d) => xScale(d.data.stack)}
-      y0={(d) => yScale(d[0])}
-      y1={(d) => yScale(d[1])}
-      offset={hasSomeNegativeValues ? "diverging" : undefined}
-      color={colorScale}
-    >
-      {({ stacks, path, color }) =>
-        stacks.map((stack, i) => (
-          // !path(stack).includes("MNaN") ? (
-          <path
-            key={`stack-${stack.key}`}
-            d={path(stack) || ""}
-            fill={color(stack.key, i)}
-            stroke={selectColor(theme?.stackedArea.stroke, theme) ?? "white"}
-            strokeWidth={
-              selectColor(theme?.stackedArea.strokeWidth, theme) ?? 1
-            }
-            onClick={onClick}
-            onMouseMove={onMouseMove}
-            onMouseLeave={() => {
-              hideTooltip();
-            }}
-          />
-        ))
-      }
-    </AreaStack>
+    <g className="visx-group area-series">
+      <AreaStack
+        top={margin.top}
+        left={margin.left}
+        data={combinedData}
+        keys={dataKeys}
+        x={(d) => xScale(d.data.stack)}
+        y0={(d) => yScale(d[0])}
+        y1={(d) => yScale(d[1])}
+        offset={hasSomeNegativeValues ? "diverging" : undefined}
+        color={colorScale}
+      >
+        {({ stacks, path, color }) =>
+          stacks.map((stack, i) => (
+            // !path(stack).includes("MNaN") ? (
+            <path
+              key={`stack-${stack.key}`}
+              d={path(stack) || ""}
+              fill={color(stack.key, i)}
+              stroke={selectColor(theme?.stackedArea.stroke, theme) ?? "white"}
+              strokeWidth={
+                selectColor(theme?.stackedArea.strokeWidth, theme) ?? 1
+              }
+              onClick={onClick}
+              onMouseMove={onMouseMove}
+              onMouseLeave={() => {
+                hideTooltip();
+              }}
+            />
+          ))
+        }
+      </AreaStack>
+      {(showPoints || showLabels) &&
+        combinedData.map((d, i) => {
+          let cum = 0;
+          return keys.map((dataKey, ki) => {
+            const value = d[dataKey];
+            cum += value;
+            const left = xScale(d.stack);
+            const top = yScale(cum);
+            const id = i * ki + ki;
+            const color = colorScale(dataKey) ?? "#222";
+            return (
+              <g key={`area-glyph-${id}`} className={`area-glyph-${id}`}>
+                {showPoints && (
+                  <ChartGlyph
+                    left={left}
+                    top={top}
+                    size={
+                      isDefined(glyph)
+                        ? glyph.size
+                        : showPoints.size || theme.points.size
+                    }
+                    fill={isDefined(glyph) ? glyph.fill : color}
+                    stroke={isDefined(glyph) ? glyph.stroke : color}
+                    strokeWidth={
+                      isDefined(glyph)
+                        ? glyph.strokeWidth
+                        : showPoints.strokeWidth || theme.points.strokeWidth
+                    }
+                    style={{ cursor: "pointer " }}
+                    onClick={() => {
+                      const selections = currentSelectionIds.includes(
+                        d.selectionId
+                      )
+                        ? currentSelectionIds.filter(function(value) {
+                            return value !== d.selectionId;
+                          })
+                        : [...currentSelectionIds, d.selectionId];
+                      handleClick(selections);
+                    }}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={() => {
+                      hideTooltip();
+                    }}
+                  />
+                )}
+                {showLabels && (
+                  <Text
+                    {...labelProps}
+                    key={`line-label-${i}`}
+                    x={left}
+                    y={top}
+                    dx={0}
+                    dy="-0.74em"
+                  >
+                    {formatValue(value)}
+                  </Text>
+                )}
+              </g>
+            );
+          });
+        })}
+    </g>
   );
 }
