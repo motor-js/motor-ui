@@ -62,17 +62,27 @@ function CrossHair({
   highlightClosetsCircle,
   horizontal,
 }) {
-  const { xScale, yScale, theme, colorScale, dataKeys, measureInfo } =
-    useContext(ChartContext) || {};
+  const {
+    xScale,
+    yScale,
+    theme,
+    colorScale,
+    dataKeys,
+    measureInfo,
+    dimensionInfo,
+    chartType,
+  } = useContext(ChartContext) || {};
 
   const { tooltipData } = useContext(TooltipContext) || {};
 
   const { closestDatum } = tooltipData || {};
 
-  // accessors
+  const stackedChart =
+    chartType.includes("stackedbar") || chartType.includes("stackedarea");
 
+  // accessors
   const getX = (d) => d && d.qText;
-  const getY = (d) => d && d.qNum;
+  const getY = (d) => d && (!stackedChart ? d.qNum : d.qNumCumulative);
 
   const getScaledX = (d) =>
     xScale(getX(d) || 0) + (xScale.bandwidth ? xScale.bandwidth() / 2 : 0);
@@ -81,6 +91,15 @@ function CrossHair({
 
   // early return if there's no tooltip
   if (!xScale || !yScale || !closestDatum) return null;
+
+  let cumulativeSum = 0;
+  if (stackedChart) {
+    closestDatum.datum.map((d, i) => {
+      cumulativeSum = i !== 0 ? (cumulativeSum += d.qNum) : cumulativeSum;
+
+      d.qNumCumulative = cumulativeSum;
+    });
+  }
 
   const [xMin, xMax] = extent(xScale.range());
   const [yMin, yMax] = extent(yScale.range());
