@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { extent } from "d3-array";
 import { Text } from "@visx/text";
+import { Group } from "@visx/group";
 import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
@@ -33,6 +34,8 @@ export default function Stack({ children, glyph }) {
     size,
     valueLabelStyle,
     formatValue,
+    singleDimension,
+    measureInfo,
   } = useContext(ChartContext) || {};
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -182,10 +185,12 @@ export default function Stack({ children, glyph }) {
     isDefined(glyph) ? glyph.symbol : showPoints.symbol
   );
 
-  const keys = dataKeys;
+  const keys = singleDimension
+    ? measureInfo.map((d) => d.qFallbackTitle)
+    : dataKeys;
 
   return (
-    <g className="visx-group area-series">
+    <Group className={"visx-area-stack"}>
       <AreaStack
         top={margin.top}
         left={margin.left}
@@ -278,6 +283,6 @@ export default function Stack({ children, glyph }) {
             );
           });
         })}
-    </g>
+    </Group>
   );
 }
