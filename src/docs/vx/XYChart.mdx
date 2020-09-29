@@ -35,9 +35,10 @@ import { config } from '../config/config.js'
     // showClosestItem={false}
     // useSingleColor
      showLabels={false}
+     selectionMethod='click'
     // showPoints={false}
      showPoints='star'
-    type="combo"
+    type="stackedarea"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},

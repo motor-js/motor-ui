@@ -783,6 +783,7 @@ const base = {
     baseColor: "#fff",
 
     bar: { stroke: "#fff", strokeWidth: 1 },
+    stackedArea: { stroke: "#fff", strokeWidth: 1 },
     points: { size: 50, strokeWidth: 2 },
     colors: ["#0b7285", "#15aabf", "#fcc419", "#ff8787", "#6741d9", "#e599f7"],
     brush: {

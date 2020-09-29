@@ -3,14 +3,13 @@ import React, {
   useMemo,
   useEffect,
   useRef,
-  // useCallback,
+  useCallback,
 } from "react";
 import { extent } from "d3-array";
 import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
-
-// import findNearestDatumY from "../../util/findNearestDatumY";
-// import findNearestDatumX from "../../util/findNearestDatumX";
+import TooltipContext from "../../context/TooltipContext";
+import { selectColor } from "../../../../../../utils/colors";
 
 export default function Stack({ children }) {
   const {
@@ -23,10 +22,13 @@ export default function Stack({ children }) {
     height,
     margin,
     theme,
-    // handleClick,
-    // currentSelectionIds,
+    handleClick,
+    findNearestData,
+    currentSelectionIds,
     // selectionIds,
   } = useContext(ChartContext) || {};
+
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
   // extract data keys from child series
   const dataKeys = useMemo(
@@ -124,6 +126,34 @@ export default function Stack({ children }) {
   }, [comprehensiveDomain, registerData, unregisterData, children, dataKeys]);
 
   // if scales and data are not available in the registry, bail
+
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({
+          tooltipData: {
+            ...nearestData,
+          },
+        });
+      }
+    },
+    [findNearestData, showTooltip]
+  );
+
+  const onClick = (event) => {
+    const nearestData = findNearestData(event);
+    const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
+    const selections = currentSelectionIds.includes(selectionId)
+      ? currentSelectionIds.filter(function(value) {
+          return value !== selectionId;
+        })
+      : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  };
+
+  const hasSomeNegativeValues = comprehensiveDomain.some((num) => num < 0);
+
   if (
     dataKeys.some((key) => dataRegistry[key] == null) ||
     !xScale ||
@@ -132,8 +162,15 @@ export default function Stack({ children }) {
   ) {
     return null;
   }
+  // console.log(theme);
 
-  const hasSomeNegativeValues = comprehensiveDomain.some((num) => num < 0);
+  // const { valueLabelStyles, stackedArea } = theme;
+
+  // const labelProps = {
+  //   ...valueLabelStyles,
+  //   fontSize: valueLabelStyles.fontSize[size],
+  //   ...valueLabelStyle,
+  // };
 
   return (
     // @TODO types
@@ -149,77 +186,25 @@ export default function Stack({ children }) {
       color={colorScale}
     >
       {({ stacks, path, color }) =>
-        stacks.map(
-          (stack, i) => (
-            // !path(stack).includes("MNaN") ? (
-            <path
-              key={`stack-${stack.key}`}
-              d={path(stack) || ""}
-              stroke="transparent"
-              // fill="url(#stacked-area-orangered)"
-              // fill="url(#stacked-area-orangered)"
-              fill={color(stack.key, i)}
-              stroke="#fff"
-              // fillOpacity={0.7}
-              // strokeWidth={1}
-              // curve={
-              //   "linear"
-              //   // interpolatorLookup[interpolation] || interpolatorLookup.monotoneX
-              // }
-              onClick={() => {
-                if (events) alert(`${stack.key}`);
-              }}
-              onMouseMove={() => {
-                console.log("d");
-              }}
-              // defined={defined}
-              // onClick={
-              //   disableMouseEvents
-              //     ? null
-              //     : onClick &&
-              //       (({ series, index }) => (event) => {
-              //         const datum = findClosestDatum({
-              //           data: series,
-              //           getX: (d) => x(d.data),
-              //           event,
-              //           xScale,
-              //           marginLeft: margin.left,
-              //         });
-              //         onClick({
-              //           event,
-              //           data,
-              //           seriesKey: series.key,
-              //           datum: datum && datum.data,
-              //           color: stackFills[index],
-              //         });
-              //       })
-              // }
-              // onMouseMove={
-              //   disableMouseEvents
-              //     ? null
-              //     : onMouseMove &&
-              //       (({ series, index }) => (event) => {
-              //         const datum = findClosestDatum({
-              //           data: series,
-              //           getX: (d) => x(d.data),
-              //           event,
-              //           xScale,
-              //           marginLeft: margin.left,
-              //         });
-              //         onMouseMove({
-              //           event,
-              //           data,
-              //           seriesKey: series.key,
-              //           datum: datum && datum.data,
-              //           color: stackFills[index],
-              //         });
-              //       })
-              // }
-              // onMouseLeave={disableMouseEvents ? null : () => onMouseLeave}
-            />
-          )
-          // ) : null
-        )
+        stacks.map((stack, i) => (
+          // !path(stack).includes("MNaN") ? (
+          <path
+            key={`stack-${stack.key}`}
+            d={path(stack) || ""}
+            fill={color(stack.key, i)}
+            // stroke={stackedArea.stroke}
+            // strokeWidth={stackedArea.strokeWidth}
+            stroke={selectColor(theme?.stackedArea.stroke, theme) ?? "white"}
+            strokeWidth={
+              selectColor(theme?.stackedArea.strokeWidth, theme) ?? 1
+            }
+            onClick={onClick}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => {
+              hideTooltip();
+            }}
+          />
+        ))
       }
     </AreaStack>
   );
