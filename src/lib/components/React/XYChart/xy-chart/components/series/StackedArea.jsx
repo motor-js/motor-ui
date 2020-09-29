@@ -192,8 +192,6 @@ export default function Stack({ children }) {
             key={`stack-${stack.key}`}
             d={path(stack) || ""}
             fill={color(stack.key, i)}
-            // stroke={stackedArea.stroke}
-            // strokeWidth={stackedArea.strokeWidth}
             stroke={selectColor(theme?.stackedArea.stroke, theme) ?? "white"}
             strokeWidth={
               selectColor(theme?.stackedArea.strokeWidth, theme) ?? 1
