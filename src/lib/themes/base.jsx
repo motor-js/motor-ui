@@ -866,6 +866,8 @@ const base = {
     tooltip: {
       // snapToDataX: false,
       // snapToDataX: false,
+      valueOnly: false,
+      valueWithText: false,
       showClosestItem: true, // Used for tooltip
       useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
       headingColor: "altDark",

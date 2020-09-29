@@ -13,6 +13,8 @@ export default function Tooltip({
   shiftTooltipLeft = 0,
   showClosestItem,
   useSingleColor,
+  valueOnly,
+  valueWithText,
 }) {
   const { tooltipData } = useContext(TooltipContext) || {};
 
@@ -111,7 +113,12 @@ export default function Tooltip({
 
     return (
       <>
-        {showClosestItem ? (
+        {valueOnly || valueWithText ? (
+          <div>
+            {valueWithText && <strong style={{ color }}>{yValText} </strong>}
+            {yVal && formatValue(yVal)}
+          </div>
+        ) : showClosestItem ? (
           <div>
             {seriesKey && (
               <div>
@@ -147,7 +154,6 @@ export default function Tooltip({
             >
               {xVal}
             </div>
-            {/* <Console log={"dd"} /> */}
             <br />
             {singleDimension && singleMeasure && dataKeys && (
               <div

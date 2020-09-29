@@ -111,6 +111,8 @@ export default function CreateXYChart({
   snapToDataY,
   shiftTooltipTop,
   shiftTooltipLeft,
+  valueOnly,
+  valueWithText,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -735,6 +737,11 @@ export default function CreateXYChart({
               showClosestItem={valueIfUndefined(
                 showClosestItem,
                 xyChart.tooltip.showClosestItem
+              )}
+              valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
+              valueWithText={valueIfUndefined(
+                valueWithText,
+                xyChart.tooltip.valueWithText
               )}
               shiftTooltipTop={shiftTooltipTop}
               shiftTooltipLeft={shiftTooltipLeft}
