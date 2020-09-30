@@ -87,6 +87,17 @@ function LineSeries({
     [findNearestData, showTooltip]
   );
 
+  const onLineClick = (event) => {
+    const nearestData = findNearestData(event);
+    const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
+    const selections = currentSelectionIds.includes(selectionId)
+      ? currentSelectionIds.filter(function(value) {
+          return value !== selectionId;
+        })
+      : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  };
+
   const getValue = (d) => {
     if (singleDimension) {
       let measureId = null;
@@ -107,17 +118,10 @@ function LineSeries({
           <AnimatedPath
             stroke={color}
             onMouseMove={onMouseMove}
+            onClick={onLineClick}
             onMouseLeave={() => {
               hideTooltip();
             }}
-            // onClick={() => {
-            //   const selections = currentSelectionIds.includes(d.selectionId)
-            //     ? currentSelectionIds.filter(function(value) {
-            //         return value !== d.selectionId;
-            //       })
-            //     : [...currentSelectionIds, d.selectionId];
-            //   handleClick(selections);
-            // }}
             {...lineProps}
             d={path(data) || ""}
           />
