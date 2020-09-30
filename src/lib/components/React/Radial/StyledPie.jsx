@@ -2,20 +2,16 @@ import React, { useRef, useEffect, useState } from "react";
 import useHyperCube from "../../../hooks/useHyperCube";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
-import {
-  XYChartWrapper,
-  XYChartWrapperNoData,
-  XYChartNoDataContent,
-} from "./PieTheme";
+import { PieWrapper, PieWrapperNoData, PieNoDataContent } from "./PieTheme";
 import Spinner from "../Spinner";
-import CreateXYChart from "./CreatePie";
-import { createColorArray } from "../../../utils";
+import CreatePie from "./CreatePie";
 
 import {
   numericSortDirection,
   isEmpty,
   validData,
   isNull,
+  createColorArray,
 } from "../../../utils";
 
 import { valueIfUndefined } from "../visx/utils/chartUtils";
@@ -26,9 +22,8 @@ let singleDimension = null;
 let singleMeasure = null;
 let dataKeys = null;
 let keys = [];
-// let dimensionTicks = null;
 
-function StyledXYChart(props) {
+function StyledPie(props) {
   // Ref for d3 object
   const d3Container = useRef(null);
   const ref = useRef();
@@ -67,8 +62,6 @@ function StyledXYChart(props) {
     gridArea,
     type,
     padding,
-    useAnimatedAxes,
-    autoWidth,
     renderHorizontally,
     includeZero,
     backgroundPattern,
@@ -77,7 +70,6 @@ function StyledXYChart(props) {
     fillStyle,
     showBoxShadow,
     showAsPercent,
-    numDimensionTicks,
     ...rest
   } = props;
 
@@ -137,7 +129,7 @@ function StyledXYChart(props) {
 
   const handleResize = () => {
     if (typeof calcCond === "undefined" && dataError.length === 0) {
-      // CreateXYChart({ ...chartSettings, screenWidth: ref.current.offsetWidth });
+      // CreatePie({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
 
@@ -213,12 +205,6 @@ function StyledXYChart(props) {
           ? keys
           : null;
 
-      // dimensionTicks = Math.min(
-      //   numDimensionTicks ||
-      //     (singleDimension ? qData.qMatrix.length : items.length),
-      //   singleDimension ? qData.qMatrix.length : items.length
-      // );
-
       if (showAsPercent) {
         const percentageData = singleDimension ? qData.qMatrix : items;
         const keyItems = singleDimension
@@ -247,7 +233,7 @@ function StyledXYChart(props) {
   return (
     <>
       {data && qLayout && !dataError ? (
-        <XYChartWrapper
+        <PieWrapper
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
@@ -275,7 +261,7 @@ function StyledXYChart(props) {
                 onClick={(e) => e.stopPropagation()}
               > */}
             {/* {qData && qLayout && ( */}
-            <CreateXYChart
+            <CreatePie
               // width={width}
               // height={height}
               width={
@@ -291,8 +277,6 @@ function StyledXYChart(props) {
               }
               events={events || xyChart.events}
               qLayout={qLayout}
-              // qData={data}
-              numDimensionTicks={numDimensionTicks}
               theme={theme}
               singleDimension={singleDimension}
               singleMeasure={singleMeasure}
@@ -312,8 +296,6 @@ function StyledXYChart(props) {
               size={size}
               type={type}
               padding={padding || xyChart.padding}
-              useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
-              autoWidth={autoWidth || xyChart.autoWidth}
               renderHorizontally={
                 renderHorizontally || xyChart.renderHorizontally
               }
@@ -345,9 +327,9 @@ function StyledXYChart(props) {
               // width={width}
             />
           </div>
-        </XYChartWrapper>
+        </PieWrapper>
       ) : (
-        <XYChartWrapperNoData
+        <PieWrapperNoData
           border={border}
           size={size}
           margin={margin || xyChart.margin}
@@ -360,13 +342,13 @@ function StyledXYChart(props) {
           gridArea={gridArea}
           width={width}
         >
-          <XYChartNoDataContent height={height}>
+          <PieNoDataContent height={height}>
             {calcCond || dataError || engineError || <Spinner />}
-          </XYChartNoDataContent>
-        </XYChartWrapperNoData>
+          </PieNoDataContent>
+        </PieWrapperNoData>
       )}
     </>
   );
 }
 
-export default StyledXYChart;
+export default StyledPie;

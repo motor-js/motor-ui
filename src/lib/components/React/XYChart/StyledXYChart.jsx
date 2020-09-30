@@ -9,13 +9,14 @@ import {
 } from "./XYChartTheme";
 import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
-import { createColorArray } from "../../../utils";
+// import { createColorArray } from "../../../utils";
 
 import {
   numericSortDirection,
   isEmpty,
   validData,
   isNull,
+  createColorArray,
 } from "../../../utils";
 
 import { valueIfUndefined } from "../visx/utils/chartUtils";

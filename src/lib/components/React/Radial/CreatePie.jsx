@@ -1,26 +1,14 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-import Axis from "../visx/components/Axis";
-import AnimatedAxis from "../visx/components/AnimatedAxis";
 import ChartProvider from "../visx/components/providers/ChartProvider";
 import XYChart from "../visx/components/XYChart";
-import BarSeries from "../visx/components/series/BarSeries";
-import LineSeries from "../visx/components/series/LineSeries";
-import AreaSeries from "../visx/components/series/AreaSeries";
-import PointSeries from "../visx/components/series/PointSeries";
 import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
 import Tooltip from "../visx/components/Tooltip";
-import CrossHair from "../visx/components/CrossHair";
 import Legend from "../visx/components/Legend";
 import CustomLegendShape from "../visx/components/CustomLegendShape";
-import Group from "../visx/components/series/Group";
 import Title from "../visx/components/titles/Title";
-import StackedBar from "../visx/components/series/StackedBar";
-import StackedArea from "../visx/components/series/StackedArea";
 import ChartBackground from "../visx/components/aesthetic/Gradient";
-import Grid from "../visx/components/grids/Grid";
-import Brush from "../visx/components/selection/Brush";
 import { timeParse, timeFormat } from "d3-time-format";
 
 import { roundNumber } from "../visx/utils/roundNumber";
@@ -28,19 +16,12 @@ import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 
-// const Console = (prop) => (
-//   console[Object.keys(prop)[0]](...Object.values(prop)),
-//   null // ➜ React components must return something
-// );
-
-// formatDate(new Date((d - (25567 + 1)) * 86400 * 1000));
-
 const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
-export default function CreateXYChart({
+export default function CreatePie({
   width,
   height,
   events = false,
@@ -59,8 +40,6 @@ export default function CreateXYChart({
   padding,
   colorPalette,
   type,
-  useAnimatedAxes,
-  autoWidth,
   size,
   renderHorizontally,
   includeZero,
@@ -98,9 +77,6 @@ export default function CreateXYChart({
   valueLabelStyle,
   showClosestItem,
   useSingleColor,
-  numDimensionTicks,
-  numMeasureTicks,
-  numMeasureDualTicks,
   parseDateFormat,
   formatAxisDate,
   formatTooltipDate,
@@ -126,13 +102,6 @@ export default function CreateXYChart({
   const formatDate = timeFormat(formatAxisDate);
 
   const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
-  // const dateFormatter = (d) => {
-  //   return formatDate(
-  //     parseDateFormat === "Excel"
-  //       ? new Date((d - (25567 + 1)) * 86400 * 1000)
-  //       : timeParse(parseDateFormat)(d)
-  //   );
-  // };
 
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
 
@@ -235,8 +204,6 @@ export default function CreateXYChart({
     ...theme.xyChart,
     colors,
   };
-
-  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
 
   const legend = showLegend ? (
     <Legend
@@ -357,376 +324,6 @@ export default function CreateXYChart({
                 }
                 strokeWidth={1}
                 orientation={["diagonal"]}
-              />
-            )}
-            {(gridRows !== false || gridColumns !== false) && (
-              <Grid gridRows={gridRows} gridColumns={gridColumns} />
-            )}
-            {chartType.includes("bar") && (
-              <BarSeries
-                horizontal={renderHorizontally}
-                dataKeys={dataKeys ? dataKeys : null}
-                // dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
-                dataKey={measureInfo[0].qFallbackTitle}
-                data={currData}
-                {...dataAccessors[0]}
-              />
-            )}
-            {chartType.includes("stackedbar") && (
-              <StackedBar horizontal={renderHorizontally}>
-                {dimensionCount <= 1
-                  ? measureInfo.map((measure, index) => (
-                      <BarSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        data={currData}
-                        {...dataAccessors[index]}
-                      />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <BarSeries
-                        key={measure}
-                        dataKey={measure}
-                        data={currData}
-                        {...dataAccessors[index]}
-                      />
-                    ))}
-              </StackedBar>
-            )}
-            {chartType.includes("groupedbar") && (
-              <Group horizontal={renderHorizontally}>
-                {dimensionCount <= 1
-                  ? measureInfo.map((measure, index) => (
-                      <BarSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        data={currData}
-                        {...dataAccessors[index]}
-                      />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <BarSeries
-                        key={measure}
-                        dataKey={measure}
-                        data={currData}
-                        {...dataAccessors[index]}
-                      />
-                    ))}
-              </Group>
-            )}
-            {chartType.includes("line") && (
-              <>
-                {singleDimension
-                  ? measureInfo.map((measure, index) => (
-                      <LineSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        glyph={measureInfo[index].qShowPoints}
-                        strokeDasharray={measureInfo[index].qLegendShape}
-                        data={currData}
-                        {...dataAccessors[index]}
-                        strokeWidth={strokeWidth}
-                      />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <LineSeries
-                        key={measure}
-                        dataKey={measure}
-                        data={currData}
-                        glyph={measure.qShowPoints}
-                        strokeDasharray={measure.qLegendShape}
-                        {...dataAccessors[index]}
-                        strokeWidth={strokeWidth}
-                      />
-                    ))}
-              </>
-            )}
-            {chartType.includes("combo") &&
-              !singleMeasure &&
-              measureInfo.map((measure, index) =>
-                measure.qChartType === "bar" ? (
-                  <BarSeries
-                    key={measure.qFallbackTitle}
-                    dataKey={measure.qFallbackTitle}
-                    data={currData}
-                    {...dataAccessors[index]}
-                  />
-                ) : (
-                  <LineSeries
-                    key={measure.qFallbackTitle}
-                    dataKey={measure.qFallbackTitle}
-                    glyph={measure.qShowPoints}
-                    strokeDasharray={measure.qLegendShape}
-                    data={currData}
-                    {...dataAccessors[index]}
-                    strokeWidth={strokeWidth}
-                  />
-                )
-              )}
-            {/* {chartType.includes("area") &&
-              dimensionCount <= 1 &&
-              measureInfo.map((measure, index) => (
-                <AreaSeries
-                  key={measureInfo[index].qFallbackTitle}
-                  dataKey={measureInfo[index].qFallbackTitle}
-                  glyph={measureInfo[index].qShowPoints}
-                  fillStyle={measureInfo[index].qFillStyle || fillStyle}
-                  data={currData}
-                  {...dataAccessors[index]}
-                  strokeWidth={strokeWidth}
-                />
-              ))} */}
-            {chartType.includes("area") && (
-              <>
-                {singleDimension
-                  ? measureInfo.map((measure, index) => (
-                      <AreaSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        glyph={measureInfo[index].qShowPoints}
-                        strokeDasharray={measureInfo[index].qLegendShape}
-                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
-                        data={currData}
-                        {...dataAccessors[index]}
-                        strokeWidth={strokeWidth}
-                      />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <AreaSeries
-                        key={measure}
-                        dataKey={measure}
-                        data={currData}
-                        glyph={measure.qShowPoints}
-                        fillStyle={measure.qFillStyle || fillStyle}
-                        strokeDasharray={measure.qLegendShape}
-                        {...dataAccessors[index]}
-                        strokeWidth={strokeWidth}
-                      />
-                    ))}
-              </>
-            )}
-            {chartType.includes("stackedarea") && (
-              <StackedArea>
-                {dimensionCount <= 1
-                  ? measureInfo.map((measure, index) => (
-                      <AreaSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        glyph={measureInfo[index].qShowPoints}
-                        fillStyle={measureInfo[index].qFillStyle || fillStyle}
-                        data={currData}
-                        {...dataAccessors[index]}
-                        strokeWidth={strokeWidth}
-                      />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <AreaSeries
-                        key={measure}
-                        dataKey={measure}
-                        glyph={measureInfo.qShowPoints}
-                        fillStyle={measureInfo.qFillStyle || fillStyle}
-                        data={currData}
-                        {...dataAccessors[index]}
-                        strokeWidth={strokeWidth}
-                      />
-                    ))}
-              </StackedArea>
-            )}
-            {chartType.includes("scatter") &&
-              singleDimension &&
-              measureCount === 2 && (
-                // measureInfo.map((measure, index) => (
-                <PointSeries
-                  dataKeys={dataKeys ? dataKeys : null}
-                  dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[0]}
-                />
-              )}
-            {/* Y axis */}
-            <AxisComponent
-              label={
-                chartShowAxisLabels === true ||
-                chartShowAxisLabels === "both" ||
-                chartShowAxisLabels === "yAxis"
-                  ? measureInfo[0].qFallbackTitle
-                  : null
-              }
-              orientation={
-                renderHorizontally ? xAxisOrientation : yAxisOrientation
-              }
-              numTicks={numMeasureTicks}
-              hideAxisLine={
-                chartHideAxisLine === true ||
-                chartHideAxisLine === "both" ||
-                chartHideAxisLine === "yAxis"
-                  ? true
-                  : false
-              }
-              tickFormat={(d) => formatValue(d)}
-              // tickFormat={(d) => `${d * 100}%`}
-              // tickLabelProps={() => ({
-              //   fill: "red",
-              //   fontSize: 11,
-              //   textAnchor: "end",
-              //   dy: "0.33em",
-              // })}
-              // labelProps={{
-              //   x: width + 30,
-              //   y: -10,
-              //   fill: labelColor,
-              //   fontSize: 18,
-              //   strokeWidth: 0,
-              //   stroke: "#fff",
-              //   paintOrder: "stroke",
-              //   fontFamily: "sans-serif",
-              //   textAnchor: "start",
-              // }}
-            />
-            {/* Y axis (dual)*/}
-            {dualAxis && (
-              <AxisComponent
-                label={
-                  chartShowAxisLabels === true ||
-                  chartShowAxisLabels === "both" ||
-                  chartShowAxisLabels === "yAxis"
-                    ? measureInfo[1].qFallbackTitle
-                    : null
-                }
-                orientation="right"
-                numTicks={numMeasureDualTicks}
-                hideAxisLine={
-                  chartHideAxisLine === true ||
-                  chartHideAxisLine === "both" ||
-                  chartHideAxisLine === "yAxis"
-                    ? true
-                    : false
-                }
-              />
-            )}
-            {/** Dimension axis */}
-            <AxisComponent
-              // label={dimensionInfo[0].qFallbackTitle}
-              label={
-                chartShowAxisLabels === true ||
-                chartShowAxisLabels === "both" ||
-                chartShowAxisLabels === "xAxis"
-                  ? dimensionInfo[0].qFallbackTitle
-                  : null
-              }
-              orientation={
-                renderHorizontally ? yAxisOrientation : xAxisOrientation
-              }
-              hideAxisLine={
-                chartHideAxisLine === true ||
-                chartHideAxisLine === "both" ||
-                chartHideAxisLine === "xAxis"
-                  ? true
-                  : false
-              }
-              tickValues={
-                numDimensionTicks === null
-                  ? null
-                  : currData
-                      .filter(
-                        (d, i, arr) =>
-                          i %
-                            Math.round((arr.length - 1) / numDimensionTicks) ===
-                          0
-                      )
-                      .map((d) => getDimension(d))
-              }
-              tickFormat={(d) =>
-                parseDateFormat && formatAxisDate ? dateFormatter(d) : d
-              }
-              // width > 400 || isContinuousAxes ? dateFormatter(d) : null
-            />
-            {showCrossHair && (
-              <CrossHair
-                horizontal={renderHorizontally}
-                fullHeight={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.fullHeight,
-                  xyChart.crossHair.fullHeight
-                )}
-                fullWidth={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.fullWidth,
-                  xyChart.crossHair.fullWidth
-                )}
-                circleSize={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleSize,
-                  xyChart.crossHair.circleSize
-                )}
-                showHorizontalLine={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.showHorizontalLine,
-                  xyChart.crossHair.showHorizontalLine
-                )}
-                showVerticalLine={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.showVerticalLine,
-                  xyChart.crossHair.showVerticalLine
-                )}
-                strokeDasharray=""
-                circleStyles={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleStyles,
-                  xyChart.crossHair.circleStyles
-                )}
-                lineStyles={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.lineStyles,
-                  xyChart.crossHair.lineStyles
-                )}
-                showCircle={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.showCircle,
-                  xyChart.crossHair.showCircle
-                )}
-                showMultipleCircles={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.showMultipleCircles,
-                  xyChart.crossHair.showMultipleCircles
-                )}
-                stroke={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.stroke,
-                  xyChart.crossHair.stroke
-                )}
-                circleStroke={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleStroke,
-                  xyChart.crossHair.circleStroke
-                )}
-                circleFill={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleFill,
-                  xyChart.crossHair.circleFill
-                )}
-                circleClosestFill={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleClosestFill,
-                  xyChart.crossHair.circleClosestFill
-                )}
-                circleClosestStroke={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleClosestStroke,
-                  xyChart.crossHair.circleClosestStroke
-                )}
-                circleStrokeWidth={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.circleStrokeWidth,
-                  xyChart.crossHair.circleStrokeWidth
-                )}
-                strokeDasharray={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.strokeDasharray,
-                  xyChart.crossHair.strokeDasharray
-                )}
-                strokeWidth={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.strokeWidth,
-                  xyChart.crossHair.strokeWidth
-                )}
-                highlightClosetsCircle={valueIfUndefined(
-                  crossHairStyles && crossHairStyles.highlightClosetsCircle,
-                  xyChart.crossHair.highlightClosetsCircle
-                )}
-              />
-            )}
-            {showBrush && (
-              <Brush
-                xAxisOrientation={xAxisOrientation}
-                yAxisOrientation={yAxisOrientation}
-                selectedBoxStyle={selectedBoxStyle}
-                brushDirection={"horizontal"}
-                brushRegion={"chart"}
-                handleSize={8}
               />
             )}
           </XYChart>

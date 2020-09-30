@@ -214,8 +214,6 @@ Pie.propTypes = {
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
   type: PropTypes.string,
-  useAnimatedAxes: PropTypes.bool,
-  autoWidth: PropTypes.bool,
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
@@ -289,12 +287,6 @@ Pie.propTypes = {
   shiftTooltipTop: PropTypes.number,
   /** Reposition the tooltip. */
   shiftTooltipLeft: PropTypes.number,
-  /** Number of ticks for the X Axis. Leave blank to auto calculate */
-  numDimensionTicks: PropTypes.number,
-  /** Number of ticks for the Y Axis. Leave blank to auto calculate */
-  numMeasureTicks: PropTypes.number,
-  /** Number of ticks for the dual Y Axis. Leave blank to auto calculate */
-  numMeasureDualTicks: PropTypes.number,
   /** Format of dates to be displayed on XAxis. */
   formatAxisDate: PropTypes.string,
   /** Line stroke width */
@@ -326,9 +318,6 @@ Pie.defaultProps = {
   formatAxisDate: null,
   formatTooltipDate: null,
   strokeWidth: null,
-  numDimensionTicks: null,
-  numMeasureTicks: null,
-  numMeasureDualTicks: null,
   showCrossHair: true,
   showTooltip: true,
 };
