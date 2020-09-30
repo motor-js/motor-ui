@@ -177,12 +177,11 @@ function StyledPie(props) {
             <CreatePie
               // width={width}
               // height={height}
-              // width={
-              //   gridArea
-              //     ? ref.current.offsetWidth
-              //     : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
-              // }
-              width={500} // AG
+              width={
+                gridArea
+                  ? ref.current.offsetWidth
+                  : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+              }
               height={
                 gridArea
                   ? ref.current.offsetHeight -

@@ -185,7 +185,8 @@ export default function CreatePie({
           <RadialChart
             // {...chartProps}
             margin={margin}
-            width={width}
+            // width={width}
+            width={500} // AG
             height={height}
             renderTooltip={({ datum, fraction }) => {
               const { label } = datum;

@@ -50,7 +50,7 @@ const defaultProps = {
   cornerRadius: 3,
   // fill: (arc) =>
   //   arc.data && arc.data.label ? grayScale(arc.data.label) : "#dddddd",
-  fill: "#dddddd",
+  fill: "#dddddd", // AG
   fillOpacity: 1,
   stroke: "#ffffff",
   strokeWidth: 1,
