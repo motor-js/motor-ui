@@ -64,7 +64,6 @@ function StyledPie(props) {
     padding,
     renderHorizontally,
     includeZero,
-    backgroundPattern,
     backgroundStyle,
     multiColor,
     fillStyle,
@@ -264,11 +263,12 @@ function StyledPie(props) {
             <CreatePie
               // width={width}
               // height={height}
-              width={
-                gridArea
-                  ? ref.current.offsetWidth
-                  : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
-              }
+              // width={
+              //   gridArea
+              //     ? ref.current.offsetWidth
+              //     : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+              // }
+              width={500} // AG
               height={
                 gridArea
                   ? ref.current.offsetHeight -
@@ -300,13 +300,7 @@ function StyledPie(props) {
                 renderHorizontally || xyChart.renderHorizontally
               }
               includeZero={includeZero || xyChart.includeZero}
-              showLegend={
-                // showLegend === undefined ? xyChart.showLegend : showLegend
-                valueIfUndefined(showLegend, xyChart.showLegend)
-              }
-              backgroundPattern={
-                backgroundPattern || xyChart.backgroundStyles.pattern
-              }
+              showLegend={valueIfUndefined(showLegend, xyChart.showLegend)}
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
               fillStyle={fillStyle || xyChart.fillStyles}
               multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
@@ -316,7 +310,6 @@ function StyledPie(props) {
               )}
               enableBrush={enableBrush}
               showAsPercent={showAsPercent}
-              showBrush={showBrush}
               {...rest}
             />
             <SelectionModal

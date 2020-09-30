@@ -205,7 +205,6 @@ Pie.propTypes = {
   legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
   legendDirection: PropTypes.oneOf(["row", "column"]),
   legendShape: PropTypes.string,
-  backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
   /** BackgroundSTyle */
   /** either : style of one of below or bckgroundFrom and bckgroundTo */
   /**  Linear  */
@@ -240,8 +239,6 @@ Pie.propTypes = {
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
-  /** Use dual Y axis on the the chart  */
-  dualAxis: PropTypes.bool,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
@@ -278,8 +275,6 @@ Pie.defaultProps = {
   height: "400px", // 100%
   size: "medium",
   border: true,
-  /** Use dual Y axis on the the chart  */
-  dualAxis: false,
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",

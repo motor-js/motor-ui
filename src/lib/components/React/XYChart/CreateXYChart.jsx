@@ -463,19 +463,6 @@ export default function CreateXYChart({
                   />
                 )
               )}
-            {/* {chartType.includes("area") &&
-              dimensionCount <= 1 &&
-              measureInfo.map((measure, index) => (
-                <AreaSeries
-                  key={measureInfo[index].qFallbackTitle}
-                  dataKey={measureInfo[index].qFallbackTitle}
-                  glyph={measureInfo[index].qShowPoints}
-                  fillStyle={measureInfo[index].qFillStyle || fillStyle}
-                  data={currData}
-                  {...dataAccessors[index]}
-                  strokeWidth={strokeWidth}
-                />
-              ))} */}
             {chartType.includes("area") && (
               <>
                 {singleDimension

@@ -2,6 +2,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ChartProvider from "../visx/components/providers/ChartProvider";
 import XYChart from "../visx/components/XYChart";
+import RadialChart from "../visx/components/RadialChart";
 import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
 import Tooltip from "../visx/components/Tooltip";
@@ -11,10 +12,15 @@ import Title from "../visx/components/titles/Title";
 import ChartBackground from "../visx/components/aesthetic/Gradient";
 import { timeParse, timeFormat } from "d3-time-format";
 
+import ArcSeries from "../visx/components/series/ArcSeries";
+import ArcLabel from "../visx/components/label/ArcLabel";
+
 import { roundNumber } from "../visx/utils/roundNumber";
 import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
+
+import { browserUsage } from "@visx/mock-data";
 
 const legendLabelFormat = (d) => d;
 
@@ -49,17 +55,14 @@ export default function CreatePie({
   legendTopBottom,
   legendDirection,
   legendShape,
-  backgroundPattern,
   backgroundStyle,
   fillStyle,
   showLabels,
   showPoints,
-  dualAxis,
   roundNum,
   precision,
   selectionMethod,
   enableBrush,
-  showBrush,
   showAsPercent,
   singleMeasure,
   singleDimension,
@@ -83,94 +86,38 @@ export default function CreatePie({
   valueOnly,
   valueWithText,
 }) {
-  // const showTitles = true; // resize height of chart if title shown
-  const getChartType = () =>
-    type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
-
-  const chartType = [getChartType()];
-
   const [currData, setCurrData] = useState(data);
 
-  //  const formatDate = timeFormat("%d %B, %Y");
-  const formatDate = timeFormat(formatAxisDate);
+  // //  const formatDate = timeFormat("%d %B, %Y");
+  // const formatDate = timeFormat(formatAxisDate);
 
-  const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
+  // const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
 
-  const getDimension = (d) => d[0].qText;
-  const getSeriesValues = (d, colIndex) =>
-    isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
-  const getElementNumber = (d) => d[0].qElemNumber;
-
-  /** memoize the accessor functions to prevent re-registering data. */
-  function useAccessors(valueAccessor, column, renderHorizontally) {
-    return useMemo(
-      () => ({
-        xAccessor: (d) =>
-          renderHorizontally ? valueAccessor(d, column) : getDimension(d),
-        yAccessor: (d) =>
-          renderHorizontally ? getDimension(d) : valueAccessor(d, column),
-        elAccessor: (d) => getElementNumber(d),
-      }),
-      [renderHorizontally, valueAccessor]
-    );
-  }
-
-  const canSnapTooltipToDataX = valueIfUndefined(
-    snapToDataX,
-    (chartType.includes("groupedbar") && renderHorizontally) ||
-      (chartType.includes("stackedbar") && !renderHorizontally) ||
-      (chartType.includes("combo") && !renderHorizontally) ||
-      chartType.includes("bar")
-  );
-
-  const canSnapTooltipToDataY = valueIfUndefined(
-    snapToDataY,
-    (chartType.includes("groupedbar") && !renderHorizontally) ||
-      (chartType.includes("stackedbar") && renderHorizontally) ||
-      (chartType.includes("combo") && !renderHorizontally) ||
-      chartType.includes("bar")
-  );
+  // const getDimension = (d) => d[0].qText;
+  // const getSeriesValues = (d, colIndex) =>
+  //   isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
+  // const getElementNumber = (d) => d[0].qElemNumber;
 
   useEffect(() => {
     setCurrData(data);
   }, [data]);
 
-  const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+  // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
 
-  const valueScaleConfig = useMemo(
-    () => ({
-      type: "linear",
-      clamp: true,
-      nice: true,
-      domain: undefined,
-      includeZero,
-    }),
-    [includeZero]
-  );
+  // const valueScaleConfig = useMemo(
+  //   () => ({
+  //     type: "linear",
+  //     clamp: true,
+  //     nice: true,
+  //     domain: undefined,
+  //     includeZero,
+  //   }),
+  //   [includeZero]
+  // );
 
-  const colorScaleConfig = useMemo(
-    () => ({
-      domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
-    }),
-    [chartType]
-  );
-
-  const dataAccessors =
-    dimensionCount <= 1
-      ? measureInfo.map((measure, index) =>
-          useAccessors(
-            getSeriesValues,
-            dimensionCount + index,
-            renderHorizontally
-          )
-        )
-      : keys.map((measure, index) =>
-          useAccessors(
-            getSeriesValues,
-            dimensionCount - 1 + index,
-            renderHorizontally
-          )
-        );
+  const colorScaleConfig = () => ({
+    domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
+  });
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
@@ -211,14 +158,48 @@ export default function CreatePie({
     return val < 0 ? `-${formattedValue}` : formattedValue;
   };
 
-  return (
-    // <div className="container">
+  /* eslint-disable react/prop-types */
+  const chartProps = {
+    ariaLabel: "This is a radial-chart chart of...",
+    margin: { top: 0, left: 0, bottom: 0, right: 0 },
+    width,
+    height,
+    renderTooltip: ({ datum, fraction }) => (
+      <div>
+        <div>
+          <strong>{datum.label}</strong>
+        </div>
+        <div>{(fraction * 100).toFixed()}%</div>
+      </div>
+    ),
+  };
 
+  const browsersLast = browserUsage[browserUsage.length - 1];
+  const browserFractions = Object.entries(browsersLast)
+    .filter(([key]) => key !== "date")
+    .map(([key, fraction]) => ({
+      value: parseFloat(fraction),
+      label: key,
+    }));
+
+  const seriesProps = {
+    data: browserFractions,
+    pieValue: (d) => d.value,
+    label: (arc) => `${arc.data.value.toFixed(1)}%`,
+    labelComponent: <ArcLabel fill="#fff" fontSize={10} />,
+    innerRadius: (radius) => 0.35 * radius,
+    outerRadius: (radius) => 0.6 * radius,
+    labelRadius: (radius) => 0.47 * radius,
+    stroke: "#fff",
+    strokeWidth: 1.5,
+  };
+
+  return (
     <ChartProvider
       theme={themeObj}
-      chartType={chartType}
-      xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-      yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+      // chartType={chartType}
+      // xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
+      // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
       showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
       showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
@@ -252,40 +233,53 @@ export default function CreatePie({
             flexDirection: "column",
           }}
         >
-          <XYChart
+          {/* <XYChart
             height={height}
             // width={autoWidth ? undefined : width}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
-            dualAxis={dualAxis}
             captureEvents={selectionMethod === "none"}
             onMouseDown={selectionMethod === "brush" ? enableBrush : null}
+          > */}
+          <RadialChart
+            {...chartProps}
+            renderTooltip={({ datum, fraction }) => {
+              const { label } = datum;
+              const style = { color: categoryColorScale(label) };
+
+              return (
+                <div>
+                  <div>
+                    <strong style={style}>{label}</strong>
+                  </div>
+                  <div>{(fraction * 100).toFixed()}%</div>
+                </div>
+              );
+            }}
           >
-            <ChartBackground
+            {/* <ChartBackground
               style={backgroundStyle.style}
               id="area-background-gradient"
               from={backgroundStyle.styleFrom}
               to={backgroundStyle.styleTo}
+            /> */}
+
+            <ArcSeries
+              {...seriesProps}
+              labelComponent={
+                <ArcLabel stroke="#222" fill="#fff" fontSize={10} />
+              }
+              innerRadius={0}
+              // fill={(arc) => categoryColorScale(arc.data.label)}
+              fill="red" // AG
             />
-            <ChartPattern backgroundPattern={backgroundPattern} />
-            {showBrush && (
-              <PatternLines
-                id="brush_pattern"
-                height={xyChart?.brush.patternHeight ?? 12}
-                width={xyChart?.brush.patternWidth ?? 12}
-                stroke={
-                  selectColor(xyChart?.brush.patternStroke, theme) ?? "#a3daff"
-                }
-                strokeWidth={1}
-                orientation={["diagonal"]}
-              />
-            )}
-          </XYChart>
+          </RadialChart>
+          {/* </XYChart> */}
           {showTooltip && (
             <Tooltip
-              snapToDataX={canSnapTooltipToDataX}
-              snapToDataY={canSnapTooltipToDataY}
+              // snapToDataX={canSnapTooltipToDataX}
+              // snapToDataY={canSnapTooltipToDataY}
               showClosestItem={valueIfUndefined(
                 showClosestItem,
                 xyChart.tooltip.showClosestItem
