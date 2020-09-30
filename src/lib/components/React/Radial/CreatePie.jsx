@@ -43,7 +43,6 @@ export default function CreatePie({
   setCurrentSelectionIds,
   currentSelectionIds,
   theme,
-  padding,
   colorPalette,
   type,
   size,
@@ -58,7 +57,6 @@ export default function CreatePie({
   backgroundStyle,
   fillStyle,
   showLabels,
-  showPoints,
   roundNum,
   precision,
   selectionMethod,
@@ -75,21 +73,16 @@ export default function CreatePie({
   showClosestItem,
   useSingleColor,
   parseDateFormat,
-  formatAxisDate,
   formatTooltipDate,
   strokeWidth,
   showTooltip,
-  snapToDataX,
-  snapToDataY,
+
   shiftTooltipTop,
   shiftTooltipLeft,
   valueOnly,
   valueWithText,
 }) {
   const [currData, setCurrData] = useState(data);
-
-  // //  const formatDate = timeFormat("%d %B, %Y");
-  // const formatDate = timeFormat(formatAxisDate);
 
   // const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
 
@@ -182,17 +175,17 @@ export default function CreatePie({
       label: key,
     }));
 
-  const seriesProps = {
-    data: browserFractions,
-    pieValue: (d) => d.value,
-    label: (arc) => `${arc.data.value.toFixed(1)}%`,
-    labelComponent: <ArcLabel fill="#fff" fontSize={10} />,
-    innerRadius: (radius) => 0.35 * radius,
-    outerRadius: (radius) => 0.6 * radius,
-    labelRadius: (radius) => 0.47 * radius,
-    stroke: "#fff",
-    strokeWidth: 1.5,
-  };
+  // const seriesProps = {
+  //   data: browserFractions,
+  //   pieValue: (d) => d.value,
+  //   label: (arc) => `${arc.data.value.toFixed(1)}%`,
+  //   labelComponent: <ArcLabel fill="#fff" fontSize={10} />,
+  //   innerRadius: (radius) => 0.35 * radius,
+  //   outerRadius: (radius) => 0.6 * radius,
+  //   labelRadius: (radius) => 0.47 * radius,
+  //   stroke: "#fff",
+  //   strokeWidth: 1.5,
+  // };
 
   return (
     <ChartProvider
@@ -202,7 +195,6 @@ export default function CreatePie({
       // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
       showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
-      showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
       roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
       precision={valueIfUndefined(precision, xyChart.precision)}
       size={size}
@@ -266,20 +258,28 @@ export default function CreatePie({
             /> */}
 
             <ArcSeries
-              {...seriesProps}
+              // {...seriesProps}
+              data={browserFractions}
+              pieValue={(d) => d.value}
+              label={(arc) => `${arc.data.value.toFixed(1)}%`}
+              // labelComponent={<ArcLabel fill="#fff" fontSize={10} />}
+              innerRadius={(radius) => 0.35 * radius}
+              outerRadius={(radius) => 0.6 * radius}
+              labelRadius={(radius) => 0.47 * radius}
+              stroke={"#fff"}
+              strokeWidth={1.5}
               labelComponent={
                 <ArcLabel stroke="#222" fill="#fff" fontSize={10} />
               }
               innerRadius={0}
               // fill={(arc) => categoryColorScale(arc.data.label)}
+              // fill={(arc) => colorScale(arc.data.label)}
               fill="red" // AG
             />
           </RadialChart>
           {/* </XYChart> */}
           {showTooltip && (
             <Tooltip
-              // snapToDataX={canSnapTooltipToDataX}
-              // snapToDataY={canSnapTooltipToDataY}
               showClosestItem={valueIfUndefined(
                 showClosestItem,
                 xyChart.tooltip.showClosestItem

@@ -61,7 +61,6 @@ function StyledPie(props) {
     // tickSpacing,
     gridArea,
     type,
-    padding,
     renderHorizontally,
     includeZero,
     backgroundStyle,
@@ -149,13 +148,6 @@ function StyledPie(props) {
         setDataError(valid.dataError);
       }
     }
-
-    // window.addEventListener("resize", handleResize);
-
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    // qData && data && console.log(qData.qMatrix.length, data.length);
-    // qData && setData(qData);
 
     if (
       // (qData && data === null) ||
@@ -245,21 +237,7 @@ function StyledPie(props) {
           )}
           ref={ref}
         >
-          <div
-          // style={{
-          //   position: "relative",
-          //   height,
-          //   // margin: "10px",
-          //   margin: refMargin,
-          // }}
-          >
-            {/* <div
-                className="d3-component"
-                height={height}
-                ref={d3Container}
-                onClick={(e) => e.stopPropagation()}
-              > */}
-            {/* {qData && qLayout && ( */}
+          <div>
             <CreatePie
               // width={width}
               // height={height}
@@ -287,15 +265,11 @@ function StyledPie(props) {
               dataKeys={dataKeys}
               beginSelections={beginSelections}
               select={select}
-              // refreshChart={refreshChart}
-              // setRefreshChart={setRefreshChart}
               setCurrentSelectionIds={setCurrentSelectionIds}
               currentSelectionIds={currentSelectionIds}
-              // useSelectionColours={useSelectionColours}
               colorPalette={colorPalette}
               size={size}
               type={type}
-              padding={padding || xyChart.padding}
               renderHorizontally={
                 renderHorizontally || xyChart.renderHorizontally
               }

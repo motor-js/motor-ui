@@ -172,21 +172,6 @@ Pie.propTypes = {
   showTooltip: PropTypes.bool,
   /** SelectionMethod */
   selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
-  // /** Maximum Width of the Bar */
-  // maxWidth: PropTypes.number,
-  // /** Force supression of Scroll / Overview chart */
-  // suppressScroll: PropTypes.bool,
-  // // /** Allow for bushes to be resized on chart */
-  // // allowZoom: PropTypes.bool, // Descoped to later version
-  // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
-  // // scrollRatio: PropTypes.number, // Descoped to later version
-  /** Pddding for each bar */
-  padding: PropTypes.number,
-  /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
-  showPoints: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
-  ]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -247,10 +232,6 @@ Pie.propTypes = {
   showClosestItem: PropTypes.bool,
   /** Only use one color for the toolyip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
-  /** Snap to X Axis (normally true for bar or combo) */
-  snapToDataX: PropTypes.bool,
-  /** Snap to Y Axis (normally true for bar or combo) */
-  snapToDataY: PropTypes.bool,
   /** Show value only for Tooltip */
   valueOnly: PropTypes.bool,
   /** Show single line fo text and value for tooltip */
@@ -263,8 +244,6 @@ Pie.propTypes = {
   shiftTooltipTop: PropTypes.number,
   /** Reposition the tooltip. */
   shiftTooltipLeft: PropTypes.number,
-  /** Format of dates to be displayed on XAxis. */
-  formatAxisDate: PropTypes.string,
   /** Line stroke width */
   strokeWidth: PropTypes.number,
 };
@@ -288,7 +267,6 @@ Pie.defaultProps = {
   legendDirection: "row",
   legendShape: "auto",
   parseDateFormat: null,
-  formatAxisDate: null,
   formatTooltipDate: null,
   strokeWidth: null,
   showTooltip: true,
