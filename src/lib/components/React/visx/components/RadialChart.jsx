@@ -6,7 +6,6 @@ import React from "react";
 
 export const propTypes = {
   // ...withTooltipPropTypes,
-  ariaLabel: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
@@ -41,15 +40,7 @@ export default function RadialChart(props) {
   //   );
   // }
 
-  const {
-    ariaLabel,
-    children,
-    width,
-    height,
-    margin,
-    onMouseMove,
-    onMouseLeave,
-  } = props;
+  const { children, width, height, margin, onMouseMove, onMouseLeave } = props;
 
   const completeMargin = { ...defaultProps.margin, ...margin };
   const innerWidth = width - completeMargin.left - completeMargin.right;
@@ -58,7 +49,7 @@ export default function RadialChart(props) {
   if (innerWidth < MIN_SIZE || innerHeight < MIN_SIZE) return null;
 
   return (
-    <svg aria-label={ariaLabel} role="img" width={width} height={height}>
+    <svg role="img" width={width} height={height}>
       <Group
         top={height / 2 - completeMargin.top}
         left={width / 2 + margin.left}

@@ -165,29 +165,29 @@ function StyledPie(props) {
       let items = [];
       // let keys = [];
 
-      if (!singleDimension && !type.includes("scatter")) {
-        qData.qMatrix.forEach((d, i) => {
-          if (isNull(dimID)) {
-            dimID = d[0].qText;
-            series.push(d[0]);
-          }
+      // if (!singleDimension && !type.includes("scatter")) {
+      //   qData.qMatrix.forEach((d, i) => {
+      //     if (isNull(dimID)) {
+      //       dimID = d[0].qText;
+      //       series.push(d[0]);
+      //     }
 
-          if (dimID !== d[0].qText) {
-            items.push(series);
-            series = [];
-            series.push(d[0]);
-            dimID = d[0].qText;
-          }
-          const measure = d[1];
-          measure.qNum = d[2].qNum;
-          if (!keys.includes(measure.qText)) {
-            keys.push(measure.qText);
-          }
-          series.push(measure);
-        });
+      //     if (dimID !== d[0].qText) {
+      //       items.push(series);
+      //       series = [];
+      //       series.push(d[0]);
+      //       dimID = d[0].qText;
+      //     }
+      //     const measure = d[1];
+      //     measure.qNum = d[2].qNum;
+      //     if (!keys.includes(measure.qText)) {
+      //       keys.push(measure.qText);
+      //     }
+      //     series.push(measure);
+      //   });
 
-        items.push(series);
-      }
+      //   items.push(series);
+      // }
 
       dataKeys =
         singleDimension && singleMeasure && type === "bar"
@@ -196,28 +196,34 @@ function StyledPie(props) {
           ? keys
           : null;
 
-      if (showAsPercent) {
-        const percentageData = singleDimension ? qData.qMatrix : items;
-        const keyItems = singleDimension
-          ? qLayout.qHyperCube.qMeasureInfo
-          : keys;
+      // if (showAsPercent) {
+      //   const percentageData = singleDimension ? qData.qMatrix : items;
+      //   const keyItems = singleDimension
+      //     ? qLayout.qHyperCube.qMeasureInfo
+      //     : keys;
 
-        percentageData.forEach((d, i) => {
-          let positiveSum = 0;
-          let negativeSum = 0;
-          keyItems.forEach((m, mi) => {
-            const value = d[mi + 1].qNum;
-            value >= 0 ? (positiveSum += value) : (negativeSum += value);
-          });
-          keyItems.forEach((m, mi) => {
-            const value = d[mi + 1].qNum;
-            d[mi + 1].qNum =
-              Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
-          });
-        });
-      }
+      //   percentageData.forEach((d, i) => {
+      //     let positiveSum = 0;
+      //     let negativeSum = 0;
+      //     keyItems.forEach((m, mi) => {
+      //       const value = d[mi + 1].qNum;
+      //       value >= 0 ? (positiveSum += value) : (negativeSum += value);
+      //     });
+      //     keyItems.forEach((m, mi) => {
+      //       const value = d[mi + 1].qNum;
+      //       d[mi + 1].qNum =
+      //         Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
+      //     });
+      //   });
+      // }
 
-      setData(singleDimension ? qData.qMatrix : items);
+      // setData(singleDimension ? qData.qMatrix : items);
+      setData(
+        qData.qMatrix.map((d) => ({
+          value: (d[1].qNum / qLayout.qHyperCube.qGrandTotalRow[0].qNum) * 100,
+          label: d[0].qText,
+        }))
+      );
     }
   }, [qData]);
 

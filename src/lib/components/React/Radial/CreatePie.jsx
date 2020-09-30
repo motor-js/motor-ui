@@ -20,12 +20,11 @@ import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 
-import { browserUsage } from "@visx/mock-data";
-
 const legendLabelFormat = (d) => d;
 
 const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
 const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
+const margin = { top: 0, left: 0, bottom: 0, right: 0 };
 
 export default function CreatePie({
   width,
@@ -84,29 +83,9 @@ export default function CreatePie({
 }) {
   const [currData, setCurrData] = useState(data);
 
-  // const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
-
-  // const getDimension = (d) => d[0].qText;
-  // const getSeriesValues = (d, colIndex) =>
-  //   isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
-  // const getElementNumber = (d) => d[0].qElemNumber;
-
   useEffect(() => {
     setCurrData(data);
   }, [data]);
-
-  // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
-
-  // const valueScaleConfig = useMemo(
-  //   () => ({
-  //     type: "linear",
-  //     clamp: true,
-  //     nice: true,
-  //     domain: undefined,
-  //     includeZero,
-  //   }),
-  //   [includeZero]
-  // );
 
   const colorScaleConfig = () => ({
     domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
@@ -152,47 +131,22 @@ export default function CreatePie({
   };
 
   /* eslint-disable react/prop-types */
-  const chartProps = {
-    ariaLabel: "This is a radial-chart chart of...",
-    margin: { top: 0, left: 0, bottom: 0, right: 0 },
-    width,
-    height,
-    renderTooltip: ({ datum, fraction }) => (
-      <div>
-        <div>
-          <strong>{datum.label}</strong>
-        </div>
-        <div>{(fraction * 100).toFixed()}%</div>
-      </div>
-    ),
-  };
-
-  const browsersLast = browserUsage[browserUsage.length - 1];
-  const browserFractions = Object.entries(browsersLast)
-    .filter(([key]) => key !== "date")
-    .map(([key, fraction]) => ({
-      value: parseFloat(fraction),
-      label: key,
-    }));
-
-  // const seriesProps = {
-  //   data: browserFractions,
-  //   pieValue: (d) => d.value,
-  //   label: (arc) => `${arc.data.value.toFixed(1)}%`,
-  //   labelComponent: <ArcLabel fill="#fff" fontSize={10} />,
-  //   innerRadius: (radius) => 0.35 * radius,
-  //   outerRadius: (radius) => 0.6 * radius,
-  //   labelRadius: (radius) => 0.47 * radius,
-  //   stroke: "#fff",
-  //   strokeWidth: 1.5,
+  // const chartProps = {
+  //   // width,
+  //   // height,
+  //   renderTooltip: ({ datum, fraction }) => (
+  //     <div>
+  //       <div>
+  //         <strong>{datum.label}</strong>
+  //       </div>
+  //       <div>{(fraction * 100).toFixed()}%</div>
+  //     </div>
+  //   ),
   // };
 
   return (
     <ChartProvider
       theme={themeObj}
-      // chartType={chartType}
-      // xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-      // yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       colorScale={colorScaleConfig}
       showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
       roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
@@ -235,7 +189,10 @@ export default function CreatePie({
             onMouseDown={selectionMethod === "brush" ? enableBrush : null}
           > */}
           <RadialChart
-            {...chartProps}
+            // {...chartProps}
+            margin={margin}
+            width={width}
+            height={height}
             renderTooltip={({ datum, fraction }) => {
               const { label } = datum;
               const style = { color: categoryColorScale(label) };
@@ -259,7 +216,7 @@ export default function CreatePie({
 
             <ArcSeries
               // {...seriesProps}
-              data={browserFractions}
+              data={currData}
               pieValue={(d) => d.value}
               label={(arc) => `${arc.data.value.toFixed(1)}%`}
               // labelComponent={<ArcLabel fill="#fff" fontSize={10} />}
