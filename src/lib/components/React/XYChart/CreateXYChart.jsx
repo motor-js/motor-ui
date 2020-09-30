@@ -319,7 +319,7 @@ export default function CreateXYChart({
       formatTooltipDate={formatTooltipDate}
     >
       <EventProvider>
-        {title && <Title title={title} subTitle={subTitle} />}
+        {title && <Title title={title} subTitle={subTitle} size={size} />}
         {legendTopBottom === "top" && legend}
         <div
           className="container"

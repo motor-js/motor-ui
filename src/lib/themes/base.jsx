@@ -715,9 +715,23 @@ const base = {
       },
       title: {
         color: "var(--oc-gray-8)",
+        fontSize: {
+          tiny: "16px",
+          small: "18px",
+          medium: "20px",
+          large: "22px",
+          xlarge: "24px",
+        },
       },
       subTitle: {
         color: "var(--oc-gray-6)",
+        fontSize: {
+          tiny: "12px",
+          small: "14px",
+          medium: "16px",
+          large: "18px",
+          xlarge: "20px",
+        },
       },
     },
     suppressZero: false,

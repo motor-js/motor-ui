@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { defaultProps } from "../../../../../../default-props";
 import { globalStyle, borderStyle } from "../../../../../../utils";
 import { selectColor } from "../../../../../../utils";
+import { Text } from "@visx/text";
 
 const TitleWrapper = styled.div`
   ${globalStyle};
@@ -27,10 +28,11 @@ const Title = styled.h4`
       props.color || props.theme.xyChart.titles.title.color,
       props.theme
     )};
-  // font-size: ${(props) => props.size};
+  font-size: ${({ size, theme }) => theme.xyChart.titles.title.fontSize[size]};
   // font-weight: ${(props) => props.fontWeight};
   margin: ${(props) => props.margin};
 `;
+
 const SubTitle = styled.h5`
   ${globalStyle};
   color: ${(props) =>
@@ -38,7 +40,8 @@ const SubTitle = styled.h5`
       props.color || props.theme.xyChart.titles.subTitle.color,
       props.theme
     )};
-  // font-size: ${(props) => props.size};
+    font-size: ${({ size, theme }) =>
+      theme.xyChart.titles.subTitle.fontSize[size]};
   // font-weight: ${(props) => props.fontWeight};
   margin: ${(props) => props.margin};
 `;
