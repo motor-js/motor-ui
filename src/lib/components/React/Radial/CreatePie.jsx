@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
 import ChartProvider from "../visx/components/providers/ChartProvider";
-import XYChart from "../visx/components/XYChart";
 import RadialChart from "../visx/components/RadialChart";
 import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
@@ -10,7 +9,6 @@ import Legend from "../visx/components/Legend";
 import CustomLegendShape from "../visx/components/CustomLegendShape";
 import Title from "../visx/components/titles/Title";
 import ChartBackground from "../visx/components/aesthetic/Gradient";
-import { timeParse, timeFormat } from "d3-time-format";
 
 import ArcSeries from "../visx/components/series/ArcSeries";
 import ArcLabel from "../visx/components/label/ArcLabel";
@@ -31,7 +29,6 @@ export default function CreatePie({
   height,
   events = false,
   data,
-  keys,
   dataKeys,
   qLayout: {
     qHyperCube,
@@ -45,8 +42,6 @@ export default function CreatePie({
   colorPalette,
   type,
   size,
-  renderHorizontally,
-  includeZero,
   xAxisOrientation,
   showLegend,
   legendLeftRight,
@@ -59,7 +54,6 @@ export default function CreatePie({
   roundNum,
   precision,
   selectionMethod,
-  enableBrush,
   showAsPercent,
   singleMeasure,
   singleDimension,
@@ -186,7 +180,7 @@ export default function CreatePie({
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }
             captureEvents={selectionMethod === "none"}
-            onMouseDown={selectionMethod === "brush" ? enableBrush : null}
+    
           > */}
           <RadialChart
             // {...chartProps}

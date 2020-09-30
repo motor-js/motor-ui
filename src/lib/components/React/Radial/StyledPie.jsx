@@ -21,7 +21,6 @@ let dimensionCount = null;
 let singleDimension = null;
 let singleMeasure = null;
 let dataKeys = null;
-let keys = [];
 
 function StyledPie(props) {
   // Ref for d3 object
@@ -32,9 +31,6 @@ function StyledPie(props) {
   const [dataError, setDataError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [data, setData] = useState(null);
-
-  const [showBrush, setShowBrush] = useState(false);
-  const enableBrush = () => setShowBrush(true);
 
   // props
   const {
@@ -61,8 +57,6 @@ function StyledPie(props) {
     // tickSpacing,
     gridArea,
     type,
-    renderHorizontally,
-    includeZero,
     backgroundStyle,
     multiColor,
     fillStyle,
@@ -104,13 +98,11 @@ function StyledPie(props) {
   const cancelCallback = () => {
     endSelections(false);
     setCurrentSelectionIds([]);
-    setShowBrush(false);
   };
 
   const confirmCallback = async () => {
     await endSelections(true);
     setCurrentSelectionIds([]);
-    setShowBrush(false);
   };
 
   useOutsideClick(ref, () => {
@@ -130,12 +122,6 @@ function StyledPie(props) {
       // CreatePie({ ...chartSettings, screenWidth: ref.current.offsetWidth });
     }
   };
-
-  // const buildSelections = (s) => {
-  //   setSel(...sel, s);
-  // };
-
-  // let keys = [];
 
   useEffect(() => {
     let valid;
@@ -160,64 +146,8 @@ function StyledPie(props) {
       singleDimension = dimensionCount === 1;
       singleMeasure = measureCount === 1;
 
-      let series = [];
-      let dimID = null;
-      let items = [];
-      // let keys = [];
+      dataKeys = qData.qMatrix.map((d) => d[0].qText);
 
-      // if (!singleDimension && !type.includes("scatter")) {
-      //   qData.qMatrix.forEach((d, i) => {
-      //     if (isNull(dimID)) {
-      //       dimID = d[0].qText;
-      //       series.push(d[0]);
-      //     }
-
-      //     if (dimID !== d[0].qText) {
-      //       items.push(series);
-      //       series = [];
-      //       series.push(d[0]);
-      //       dimID = d[0].qText;
-      //     }
-      //     const measure = d[1];
-      //     measure.qNum = d[2].qNum;
-      //     if (!keys.includes(measure.qText)) {
-      //       keys.push(measure.qText);
-      //     }
-      //     series.push(measure);
-      //   });
-
-      //   items.push(series);
-      // }
-
-      dataKeys =
-        singleDimension && singleMeasure && type === "bar"
-          ? qData.qMatrix.map((d) => d[0].qText)
-          : !singleDimension
-          ? keys
-          : null;
-
-      // if (showAsPercent) {
-      //   const percentageData = singleDimension ? qData.qMatrix : items;
-      //   const keyItems = singleDimension
-      //     ? qLayout.qHyperCube.qMeasureInfo
-      //     : keys;
-
-      //   percentageData.forEach((d, i) => {
-      //     let positiveSum = 0;
-      //     let negativeSum = 0;
-      //     keyItems.forEach((m, mi) => {
-      //       const value = d[mi + 1].qNum;
-      //       value >= 0 ? (positiveSum += value) : (negativeSum += value);
-      //     });
-      //     keyItems.forEach((m, mi) => {
-      //       const value = d[mi + 1].qNum;
-      //       d[mi + 1].qNum =
-      //         Math.abs(value) / (value >= 0 ? positiveSum : negativeSum);
-      //     });
-      //   });
-      // }
-
-      // setData(singleDimension ? qData.qMatrix : items);
       setData(
         qData.qMatrix.map((d) => ({
           value: (d[1].qNum / qLayout.qHyperCube.qGrandTotalRow[0].qNum) * 100,
@@ -267,7 +197,6 @@ function StyledPie(props) {
               measureCount={measureCount}
               dimensionCount={dimensionCount}
               data={data}
-              keys={keys}
               dataKeys={dataKeys}
               beginSelections={beginSelections}
               select={select}
@@ -276,10 +205,6 @@ function StyledPie(props) {
               colorPalette={colorPalette}
               size={size}
               type={type}
-              renderHorizontally={
-                renderHorizontally || xyChart.renderHorizontally
-              }
-              includeZero={includeZero || xyChart.includeZero}
               showLegend={valueIfUndefined(showLegend, xyChart.showLegend)}
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
               fillStyle={fillStyle || xyChart.fillStyles}
@@ -288,7 +213,6 @@ function StyledPie(props) {
                 selectionMethod,
                 xyChart.selectionMethod
               )}
-              enableBrush={enableBrush}
               showAsPercent={showAsPercent}
               {...rest}
             />

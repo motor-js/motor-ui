@@ -183,8 +183,6 @@ Pie.propTypes = {
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
   type: PropTypes.string,
-  renderHorizontally: PropTypes.bool,
-  includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
   legendLeftRight: PropTypes.oneOf(["left", "right"]),
   legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
