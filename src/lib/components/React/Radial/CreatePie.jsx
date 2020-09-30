@@ -44,7 +44,6 @@ export default function CreatePie({
   renderHorizontally,
   includeZero,
   xAxisOrientation,
-  yAxisOrientation,
   showLegend,
   legendLeftRight,
   legendTopBottom,
@@ -58,15 +57,10 @@ export default function CreatePie({
   dualAxis,
   roundNum,
   precision,
-  crossHairStyles,
-  hideAxisLine,
-  gridRows,
-  gridColumns,
   selectionMethod,
   enableBrush,
   showBrush,
   showAsPercent,
-  showAxisLabels,
   singleMeasure,
   singleDimension,
   dimensionCount,
@@ -81,7 +75,6 @@ export default function CreatePie({
   formatAxisDate,
   formatTooltipDate,
   strokeWidth,
-  showCrossHair,
   showTooltip,
   snapToDataX,
   snapToDataY,
@@ -103,20 +96,10 @@ export default function CreatePie({
 
   const dateFormatter = (d) => formatDate(timeParse(parseDateFormat)(d));
 
-  // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
-
-  // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) => d[0].qText;
   const getSeriesValues = (d, colIndex) =>
     isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
   const getElementNumber = (d) => d[0].qElemNumber;
-
-  // const getDimension = (d) =>
-  //   new Date(
-  //     d[0].qText.split("/")[2],
-  //     d[0].qText.split("/")[1] - 1,
-  //     d[0].qText.split("/")[0]
-  //   );
 
   /** memoize the accessor functions to prevent re-registering data. */
   function useAccessors(valueAccessor, column, renderHorizontally) {
@@ -153,12 +136,6 @@ export default function CreatePie({
   }, [data]);
 
   const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
-  // const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
-
-  // const dateScaleConfig = useMemo(
-  //   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
-  //   []
-  // );
 
   const valueScaleConfig = useMemo(
     () => ({
@@ -220,27 +197,6 @@ export default function CreatePie({
     />
   ) : null;
 
-  const selectedBoxStyle = {
-    fill: "url(#brush_pattern)",
-    stroke: selectColor(xyChart?.brush.stroke, theme) ?? "#329af0",
-  };
-
-  const chartHideAxisLine = valueIfUndefined(
-    hideAxisLine,
-    xyChart.hideAxisLine
-  );
-
-  const chartShowAxisLabels = valueIfUndefined(
-    showAxisLabels,
-    xyChart.showAxisLabels
-  );
-
-  chartShowAxisLabels === true ||
-  chartShowAxisLabels === "both" ||
-  chartShowAxisLabels === "xAxis"
-    ? (axisBottomMargin.bottom = 60)
-    : (axisBottomMargin.bottom = 40);
-
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
@@ -263,7 +219,6 @@ export default function CreatePie({
       chartType={chartType}
       xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
-      // isContinuousAxes={isContinuousAxes}
       colorScale={colorScaleConfig}
       showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
       showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}

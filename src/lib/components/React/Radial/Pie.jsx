@@ -74,22 +74,6 @@ Pie.propTypes = {
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   showLabels: PropTypes.bool,
-  // /** Show text on Axis */
-  showAxisLabels: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
-  ]),
-  // /** Spacing of Ticks on Y Axis */
-  // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
-  /** Display Axis and ticks  */
-  hideAxisLine: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
-  ]),
-  /** Show gridline rows on Axis */
-  gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  /** Show gridline columns on Axis */
-  gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   /** Show shadow around Pie */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
@@ -217,7 +201,6 @@ Pie.propTypes = {
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
-  yAxisOrientation: PropTypes.oneOf(["left", "right"]),
   legendLeftRight: PropTypes.oneOf(["left", "right"]),
   legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
   legendDirection: PropTypes.oneOf(["row", "column"]),
@@ -259,10 +242,6 @@ Pie.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
-  /** Show CrossHair on the chart  */
-  showCrossHair: PropTypes.bool,
-  /** Styling of the CrossHair. */
-  crossHairStyles: PropTypes.object,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
@@ -309,7 +288,6 @@ Pie.defaultProps = {
   gridArea: null,
   type: null, // Logic to determine default chart type in CreateXYChart
   xAxisOrientation: "bottom",
-  yAxisOrientation: "left",
   legendLeftRight: "right",
   legendTopBottom: "top",
   legendDirection: "row",
@@ -318,7 +296,6 @@ Pie.defaultProps = {
   formatAxisDate: null,
   formatTooltipDate: null,
   strokeWidth: null,
-  showCrossHair: true,
   showTooltip: true,
 };
 
