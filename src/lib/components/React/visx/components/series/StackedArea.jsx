@@ -11,7 +11,7 @@ import { Group } from "@visx/group";
 import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
-import { selectColor } from "../../../../../../utils";
+import { selectColor } from "../../../../../utils";
 
 import { getSymbol, isDefined } from "../../utils/chartUtils";
 

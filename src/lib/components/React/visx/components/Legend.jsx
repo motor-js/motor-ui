@@ -4,7 +4,7 @@ import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import ChartContext from "../context/ChartContext";
 import { isDefined } from "../utils/chartUtils";
-import { selectColor } from "../../../../../utils";
+import { selectColor } from "../../../../utils";
 
 export default function Legend({
   alignLeft = true,

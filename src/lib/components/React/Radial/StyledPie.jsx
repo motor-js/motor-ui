@@ -6,9 +6,9 @@ import {
   XYChartWrapper,
   XYChartWrapperNoData,
   XYChartNoDataContent,
-} from "./XYChartTheme";
+} from "./PieTheme";
 import Spinner from "../Spinner";
-import CreateXYChart from "./CreateXYChart";
+import CreateXYChart from "./CreatePie";
 import { createColorArray } from "../../../utils";
 
 import {

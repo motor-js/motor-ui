@@ -6,7 +6,7 @@ import useRegisteredData from "../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
-import { selectColor } from "../../../../../../utils";
+import { selectColor } from "../../../../../utils";
 import { Text } from "@visx/text";
 
 function BarSeries({

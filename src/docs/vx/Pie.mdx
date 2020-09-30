@@ -4,7 +4,7 @@ route: /visxPie
 menu: visx
 ---
 
-<h1 style={{ margin: '0px' }}>XYChart</h1>
+<h1 style={{ margin: '0px' }}>Pie</h1>
 
 <br />
 
@@ -15,7 +15,7 @@ Check out the props and example usage below 💡
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import XYChart from '../../lib/components/React/Radial/Pie.jsx'
+import Pie from '../../lib/components/React/Radial/Pie.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import Button from '../../lib/components/React/Button/Button.jsx'
@@ -33,8 +33,8 @@ import { config } from '../config/config.js'
   <Filter label='Year' dimension={['Year']} />
   <Filter label='OICA region' dimension={['OICA region']} />
       <Button type="clearSelections">Clear Selections</Button>
-    <XYChart // width={750} height={400}  events={true}
-    title="test"
+    <Pie // width={750} height={400}  events={true}
+    title="Pie test"
     subTitle="subTitle"
     colorTheme="bio"
     selectionMethod="none"

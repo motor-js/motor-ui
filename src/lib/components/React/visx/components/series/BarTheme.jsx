@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { defaultProps } from "../../../../../../default-props";
+import { defaultProps } from "../../../../../default-props";
 import Bar from "../shapes/Bar";
 
 // zoom Example : https://codepen.io/wifeo/pen/qzwkb

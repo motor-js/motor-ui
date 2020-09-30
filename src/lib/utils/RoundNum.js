@@ -1,4 +1,4 @@
-import { isBoolean } from "../components/React/XYChart/xy-chart/utils/chartUtils";
+import { isBoolean } from "../components/React/visx/utils/chartUtils";
 
 export function roundNumber(numb, precision) {
   let num = numb;

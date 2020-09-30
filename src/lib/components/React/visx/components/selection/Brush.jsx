@@ -3,7 +3,7 @@ import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
 import isValidNumber from "../../typeguards/isValidNumber";
 
-import { isEmpty } from "../../../../../../utils";
+import { isEmpty } from "../../../../../utils";
 
 const leftRightResizeTriggers = ["left", "right"];
 const topBottomResizeTriggers = ["top", "bottom"];

@@ -5,7 +5,7 @@ import { StyledBar as Bar } from "./BarTheme";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 
-import { isEmpty } from "../../../../../../utils";
+import { isEmpty } from "../../../../../utils";
 
 export default function AnimatedBars({
   bars,

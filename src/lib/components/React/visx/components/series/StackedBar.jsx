@@ -12,7 +12,7 @@ import BarStack from "./BarStack";
 import BarStackHorizontal from "./BarStackHorizontal";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
-import { selectColor } from "../../../../../../utils";
+import { selectColor } from "../../../../../utils";
 import { getSymbol, isDefined } from "../../utils/chartUtils";
 
 import findNearestDatumY from "../../utils/findNearestDatumY";
