@@ -104,7 +104,23 @@ function LineSeries({
     <g className="visx-group line-series">
       <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
         {({ path }) => (
-          <AnimatedPath stroke={color} {...lineProps} d={path(data) || ""} />
+          <AnimatedPath
+            stroke={color}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => {
+              hideTooltip();
+            }}
+            // onClick={() => {
+            //   const selections = currentSelectionIds.includes(d.selectionId)
+            //     ? currentSelectionIds.filter(function(value) {
+            //         return value !== d.selectionId;
+            //       })
+            //     : [...currentSelectionIds, d.selectionId];
+            //   handleClick(selections);
+            // }}
+            {...lineProps}
+            d={path(data) || ""}
+          />
         )}
       </LinePath>
 
