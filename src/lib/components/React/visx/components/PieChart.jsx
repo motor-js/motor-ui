@@ -1,17 +1,13 @@
 import React, { useState, useContext, useCallback } from "react";
-import Pie, { ProvidedProps, PieArcDatum } from "@visx/shape/lib/shapes/Pie";
+import { ParentSize } from "@visx/responsive";
+import { Pie } from "@visx/shape";
 import { scaleOrdinal } from "@visx/scale";
 import { Group } from "@visx/group";
 import { GradientPinkBlue } from "@visx/gradient";
-import letterFrequency, {
-  LetterFrequency,
-} from "@visx/mock-data/lib/mocks/letterFrequency";
-import browserUsage, {
-  BrowserUsage as Browsers,
-} from "@visx/mock-data/lib/mocks/browserUsage";
+import letterFrequency from "@visx/mock-data/lib/mocks/letterFrequency";
+import browserUsage from "@visx/mock-data/lib/mocks/browserUsage";
 import { animated, useTransition, interpolate } from "react-spring";
 
-import { ParentSize } from "@visx/responsive";
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
@@ -55,6 +51,7 @@ export default function PieChart(props) {
   const { width, height, margin = defaultMargin, animate = false } = props;
 
   const { containerRef, TooltipInPortal } = useTooltipInPortal();
+
   const {
     findNearestData,
     setChartDimensions,
@@ -108,7 +105,7 @@ export default function PieChart(props) {
           }
           pieValue={usage}
           outerRadius={radius}
-          innerRadius={radius - donutThickness}
+          innerRadius={radius - donutThickness} // null if 1 measures
           cornerRadius={3}
           padAngle={0.005}
         >
@@ -130,39 +127,42 @@ export default function PieChart(props) {
             />
           )}
         </Pie>
-        <Pie
-          data={
-            selectedAlphabetLetter
-              ? letters.filter(
-                  ({ letter }) => letter === selectedAlphabetLetter
-                )
-              : letters
-          }
-          pieValue={frequency}
-          pieSortValues={() => -1}
-          outerRadius={radius - donutThickness * 1.3}
-        >
-          {(pie) => (
-            <AnimatedPie
-              {...pie}
-              animate={animate}
-              getKey={({ data: { letter } }) => letter}
-              // onClickDatum={({ data: { letter } }) =>
-              //   animate &&
-              //   setSelectedAlphabetLetter(
-              //     selectedAlphabetLetter && selectedAlphabetLetter === letter
-              //       ? null
-              //       : letter
-              //   )
-              // }
-              onClickDatum={({ data: { letter } }) => console.log(letter)}
-              onMouseMoveDatum={({ data }) => console.log(data)}
-              getColor={({ data: { letter } }) =>
-                getLetterFrequencyColor(letter)
-              }
-            />
-          )}
-        </Pie>
+        {/* Inner Circle */}
+        {1 === 2 && (
+          <Pie
+            data={
+              selectedAlphabetLetter
+                ? letters.filter(
+                    ({ letter }) => letter === selectedAlphabetLetter
+                  )
+                : letters
+            }
+            pieValue={frequency}
+            pieSortValues={() => -1}
+            outerRadius={radius - donutThickness * 1.3}
+          >
+            {(pie) => (
+              <AnimatedPie
+                {...pie}
+                animate={animate}
+                getKey={({ data: { letter } }) => letter}
+                // onClickDatum={({ data: { letter } }) =>
+                //   animate &&
+                //   setSelectedAlphabetLetter(
+                //     selectedAlphabetLetter && selectedAlphabetLetter === letter
+                //       ? null
+                //       : letter
+                //   )
+                // }
+                onClickDatum={({ data: { letter } }) => console.log(letter)}
+                onMouseMoveDatum={({ data }) => console.log(data)}
+                getColor={({ data: { letter } }) =>
+                  getLetterFrequencyColor(letter)
+                }
+              />
+            )}
+          </Pie>
+        )}
       </Group>
     </svg>
   );
