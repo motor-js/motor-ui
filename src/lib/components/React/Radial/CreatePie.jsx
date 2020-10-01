@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import ChartProvider from "../visx/components/providers/ChartProvider";
 import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
-import Tooltip from "../visx/components/Tooltip";
+import Tooltip from "../visx/components/PieTooltip";
 import Legend from "../visx/components/Legend";
 import CustomLegendShape from "../visx/components/CustomLegendShape";
 import Title from "../visx/components/titles/Title";
@@ -75,6 +75,7 @@ export default function CreatePie({
   cornerRadius,
   padAngle,
   donutThickness,
+  margin,
 }) {
   const [currData, setCurrData] = useState(data);
 
@@ -150,17 +151,17 @@ export default function CreatePie({
       // showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
       // roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
       // precision={valueIfUndefined(precision, xyChart.precision)}
-      // size={size}
+      size={size}
       // dimensionInfo={dimensionInfo}
       // measureInfo={measureInfo}
       dataKeys={dataKeys}
-      // beginSelections={beginSelections}
-      // select={select}
-      // setCurrentSelectionIds={setCurrentSelectionIds}
-      // currentSelectionIds={currentSelectionIds}
+      beginSelections={beginSelections}
+      select={select}
+      setCurrentSelectionIds={setCurrentSelectionIds}
+      currentSelectionIds={currentSelectionIds}
       singleDimension={singleDimension}
       singleMeasure={singleMeasure}
-      // formatValue={formatValue}
+      formatValue={formatValue}
       // legendLabelStyle={legendLabelStyle}
       // valueLabelStyle={valueLabelStyle}
       // parseDateFormat={parseDateFormat}
@@ -196,25 +197,26 @@ export default function CreatePie({
               donutThickness,
               xyChart.pie.donutThickness
             )}
+            margin={valueIfUndefined(margin, xyChart.pie.margin)}
             // captureEvents={selectionMethod === "none"}
           />
           {showTooltip && (
             <Tooltip
-              showClosestItem={valueIfUndefined(
-                showClosestItem,
-                xyChart.tooltip.showClosestItem
-              )}
-              valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
-              valueWithText={valueIfUndefined(
-                valueWithText,
-                xyChart.tooltip.valueWithText
-              )}
+              // showClosestItem={valueIfUndefined(
+              //   showClosestItem,
+              //   xyChart.tooltip.showClosestItem
+              // )}
+              // valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
+              // valueWithText={valueIfUndefined(
+              //   valueWithText,
+              //   xyChart.tooltip.valueWithText
+              // )}
               shiftTooltipTop={shiftTooltipTop}
               shiftTooltipLeft={shiftTooltipLeft}
-              useSingleColor={valueIfUndefined(
-                useSingleColor,
-                xyChart.tooltip.useSingleColor
-              )}
+              // useSingleColor={valueIfUndefined(
+              //   useSingleColor,
+              //   xyChart.tooltip.useSingleColor
+              // )}
             />
           )}
           {legendTopBottom === "bottom" && legend}

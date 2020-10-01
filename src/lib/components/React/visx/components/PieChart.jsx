@@ -2,6 +2,7 @@ import React, { useState, useContext, useCallback } from "react";
 import { ParentSize } from "@visx/responsive";
 import { Pie } from "@visx/shape";
 import { scaleOrdinal } from "@visx/scale";
+import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { GradientPinkBlue } from "@visx/gradient";
 import { animated, useTransition, interpolate } from "react-spring";
@@ -9,13 +10,13 @@ import { animated, useTransition, interpolate } from "react-spring";
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
+import { getSymbol, isDefined, valueIfUndefined } from "../utils/chartUtils";
 
 export default function PieChart(props) {
-  const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 };
   const {
     width,
     height,
-    margin = defaultMargin,
+    margin,
     animate = false,
     data,
     cornerRadius,
@@ -29,11 +30,12 @@ export default function PieChart(props) {
     findNearestData,
     setChartDimensions,
     chartType,
+    currentSelectionIds,
+    handleClick,
     singleMeasure,
     singleDimension,
     dataKeys,
     theme,
-    // colorScale,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -56,14 +58,14 @@ export default function PieChart(props) {
   const centerY = innerHeight / 2;
   const centerX = innerWidth / 2;
 
-  // console.log(data);
+  const onMouseMoveDatum = (event, { data }) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
 
-  const onMouseMoveDatum = ({ data }) => {
-    // const nearestData = findNearestData(event);
-    // if (nearestData.closestDatum && showTooltip) {
-    //   showTooltip({ tooltipData: { ...nearestData } });
-    // }
-    // console.log(data);
+    if (data && showTooltip) {
+      showTooltip({
+        tooltipData: { ...data, svgMouseX, svgMouseY, colorScale },
+      });
+    }
   };
 
   if (width == null || height == null) {
@@ -71,6 +73,15 @@ export default function PieChart(props) {
       <ParentSize>{(dims) => <PieChart {...dims} {...props} />}</ParentSize>
     );
   }
+
+  const onClick = ({ data: { selectionId } }) => {
+    const selections = currentSelectionIds.includes(selectionId)
+      ? currentSelectionIds.filter(function(value) {
+          return value !== selectionId;
+        })
+      : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  };
 
   return (
     <svg width={width} height={height} ref={containerRef}>
@@ -86,7 +97,7 @@ export default function PieChart(props) {
           data={data}
           pieValue={pieValue}
           outerRadius={radius}
-          innerRadius={radius - donutThickness} // null if 1 measures
+          innerRadius={radius - valueIfUndefined(donutThickness, radius)} // null if 1 measures
           cornerRadius={cornerRadius}
           padAngle={padAngle}
         >
@@ -95,7 +106,8 @@ export default function PieChart(props) {
               {...pie}
               animate={animate}
               getKey={(arc) => arc.data.label}
-              onClickDatum={({ data: { label } }) => console.log(label)}
+              // onClickDatum={({ data: { label } }) => console.log(label)}
+              onClickDatum={onClick}
               onMouseMoveDatum={onMouseMoveDatum}
               onMouseLeave={hideTooltip}
               getColor={(arc) => colorScale(arc.data.label)}
@@ -116,7 +128,8 @@ export default function PieChart(props) {
                 animate={animate}
                 getKey={({ data: { letter } }) => letter}
                 onClickDatum={({ data: { letter } }) => console.log(letter)}
-                onMouseMoveDatum={({ data }) => console.log(data)}
+                // onMouseMoveDatum={({ data }) => console.log(data)}
+                onMouseMoveDatum={onMouseMoveDatum}
                 // getColor={({ data: { letter } }) =>
                 //   getLetterFrequencyColor(letter)
                 // }
@@ -185,7 +198,7 @@ function AnimatedPie({
               )}
               fill={getColor(arc)}
               onClick={() => onClickDatum(arc)}
-              onMouseMove={() => onMouseMoveDatum(arc)}
+              onMouseMove={(e) => onMouseMoveDatum(e, arc)}
               onMouseLeave={onMouseLeave}
               onTouchStart={() => onClickDatum(arc)}
             />

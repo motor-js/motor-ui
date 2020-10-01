@@ -250,6 +250,8 @@ Pie.propTypes = {
   padAngle: PropTypes.number,
   /** Padding Angle */
   donutThickness: PropTypes.number,
+  /** Padding Angle */
+  margin: PropTypes.object,
 };
 
 Pie.defaultProps = {

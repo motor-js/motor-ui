@@ -799,7 +799,12 @@ const base = {
     bar: { stroke: "#fff", strokeWidth: 1 },
     stackedArea: { stroke: "#fff", strokeWidth: 1 },
     points: { size: 50, strokeWidth: 2 },
-    pie: { cornerRadius: 3, padAngle: 0.005, donutThickness: 50 },
+    pie: {
+      margin: { top: 20, right: 20, bottom: 20, left: 20 },
+      cornerRadius: 3,
+      padAngle: 0.005,
+      donutThickness: 50,
+    },
     colors: ["#0b7285", "#15aabf", "#fcc419", "#ff8787", "#6741d9", "#e599f7"],
     brush: {
       stroke: null,
