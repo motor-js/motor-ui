@@ -51,11 +51,11 @@ export default function PieChart(props) {
     range: theme.colors,
   });
 
-  const getOpacity = (selectionId) => {
+  const getStyle = (selectionId) => {
     return isEmpty(currentSelectionIds) ||
       currentSelectionIds.includes(selectionId)
-      ? 1
-      : 0.5;
+      ? theme.selection
+      : theme.nonSelection;
   };
 
   if (width < 10) return null;
@@ -119,7 +119,7 @@ export default function PieChart(props) {
               onMouseMoveDatum={onMouseMoveDatum}
               onMouseLeave={hideTooltip}
               getColor={(arc) => colorScale(arc.data.label)}
-              getOpacity={(arc) => getOpacity(arc.data.selectionId)}
+              getStyle={(arc) => getStyle(arc.data.selectionId)}
             />
           )}
         </Pie>
@@ -143,7 +143,7 @@ export default function PieChart(props) {
                 //   getLetterFrequencyColor(letter)
                 // }
                 getColor={(arc) => colorScale(arc.data.label)}
-                getOpacity={(arc) => getOpacity(arc.data.selectionId)}
+                getStyle={(arc) => getStyle(arc.data.selectionId)}
               />
             )}
           </Pie>
@@ -172,7 +172,7 @@ function AnimatedPie({
   path,
   getKey,
   getColor,
-  getOpacity,
+  getStyle,
   onClickDatum,
   onMouseMoveDatum,
   onMouseLeave,
@@ -208,7 +208,7 @@ function AnimatedPie({
                   })
               )}
               fill={getColor(arc)}
-              opacity={getOpacity(arc)}
+              style={getStyle(arc)}
               onClick={() => onClickDatum(arc)}
               onMouseMove={(e) => onMouseMoveDatum(e, arc)}
               onMouseLeave={onMouseLeave}
