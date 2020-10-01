@@ -11,6 +11,7 @@ import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
 import { getSymbol, isDefined, valueIfUndefined } from "../utils/chartUtils";
+import { isEmpty } from "../../../../utils";
 
 export default function PieChart(props) {
   const {
@@ -49,6 +50,13 @@ export default function PieChart(props) {
     domain: dataKeys,
     range: theme.colors,
   });
+
+  const getOpacity = (selectionId) => {
+    return isEmpty(currentSelectionIds) ||
+      currentSelectionIds.includes(selectionId)
+      ? 1
+      : 0.5;
+  };
 
   if (width < 10) return null;
 
@@ -111,6 +119,7 @@ export default function PieChart(props) {
               onMouseMoveDatum={onMouseMoveDatum}
               onMouseLeave={hideTooltip}
               getColor={(arc) => colorScale(arc.data.label)}
+              getOpacity={(arc) => getOpacity(arc.data.selectionId)}
             />
           )}
         </Pie>
@@ -134,6 +143,7 @@ export default function PieChart(props) {
                 //   getLetterFrequencyColor(letter)
                 // }
                 getColor={(arc) => colorScale(arc.data.label)}
+                getOpacity={(arc) => getOpacity(arc.data.selectionId)}
               />
             )}
           </Pie>
@@ -162,6 +172,7 @@ function AnimatedPie({
   path,
   getKey,
   getColor,
+  getOpacity,
   onClickDatum,
   onMouseMoveDatum,
   onMouseLeave,
@@ -197,6 +208,7 @@ function AnimatedPie({
                   })
               )}
               fill={getColor(arc)}
+              opacity={getOpacity(arc)}
               onClick={() => onClickDatum(arc)}
               onMouseMove={(e) => onMouseMoveDatum(e, arc)}
               onMouseLeave={onMouseLeave}

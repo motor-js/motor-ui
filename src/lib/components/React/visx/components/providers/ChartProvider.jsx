@@ -230,10 +230,6 @@ export default class ChartProvider extends React.Component {
 
     this.props.setCurrentSelectionIds(selectionValue);
 
-    // this.setState({
-    //   selectionIds: selectionValue,
-    // });
-
     this.props.select(0, selectionValue);
   };
 

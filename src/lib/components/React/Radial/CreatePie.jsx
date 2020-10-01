@@ -122,7 +122,7 @@ export default function CreatePie({
     const valPrecision = valueIfUndefined(precision, xyChart.precision);
     const valRoundNum = valueIfUndefined(roundNum, xyChart.roundNum);
 
-    if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
+    if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
     let formattedValue = valRoundNum
       ? roundNumber(Math.abs(val), valPrecision)
       : Math.abs(val);
