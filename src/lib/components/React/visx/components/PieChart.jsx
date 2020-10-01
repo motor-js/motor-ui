@@ -137,11 +137,7 @@ export default function PieChart(props) {
                 animate={animate}
                 getKey={({ data: { letter } }) => letter}
                 onClickDatum={({ data: { letter } }) => console.log(letter)}
-                // onMouseMoveDatum={({ data }) => console.log(data)}
                 onMouseMoveDatum={onMouseMoveDatum}
-                // getColor={({ data: { letter } }) =>
-                //   getLetterFrequencyColor(letter)
-                // }
                 getColor={(arc) => colorScale(arc.data.label)}
                 getStyle={(arc) => getStyle(arc.data.selectionId)}
               />
