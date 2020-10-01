@@ -1,12 +1,20 @@
-import { Arc, Pie } from "@visx/shape";
+import { Pie } from "@visx/shape";
 import React from "react";
 import PropTypes from "prop-types";
 
 import ArcLabel from "../label/ArcLabel";
-import callOrValue from "../../utils/callOrValue";
+// import callOrValue from "../../utils/callOrValue";
 // import { singleHueScaleFactory } from "../../utils/fillScaleFactory";
 
 // const grayScale = singleHueScaleFactory(); // AG
+
+function callOrValue(maybeFn, data) {
+  if (typeof maybeFn === "function") {
+    return maybeFn(data);
+  }
+
+  return maybeFn;
+}
 
 const propTypes = {
   data: PropTypes.arrayOf(

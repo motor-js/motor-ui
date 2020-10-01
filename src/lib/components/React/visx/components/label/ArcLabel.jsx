@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import ChartContext from "../../context/ChartContext";
-// import { svgLabel } from "@data-ui/theme";
 
-// import additionalProps from "../util/additionalProps";
-import additionalProps from "../../utils/additionalProps";
+// import additionalProps from "../../utils/additionalProps";
 
 // const { baseLabel } = svgLabel;
 
@@ -25,29 +22,31 @@ const defaultProps = {
   children: null,
 };
 
-export default function ArcLabel({ x, y, children, arc, ...rest }) {
-  const {
-    xScale,
-    yScale,
-    colorScale,
-    showPoints,
-    showLabels,
-    theme,
-    size,
-    formatValue,
-    valueLabelStyle,
-    findNearestData,
-    handleClick,
-    measureInfo,
-    dimensionInfo,
-    singleDimension,
-    currentSelectionIds,
-  } = useContext(ChartContext);
+export default function ArcLabel({
+  x,
+  y,
+  theme: { valueLabelStyles },
+  stroke,
+  fill,
+  fontSize,
+  paintOrder,
+  children,
+  arc,
+  ...rest
+}) {
+  //  const { valueLabelStyles } = theme;
 
-  const { valueLabelStyles } = theme;
   return (
-    // <text x={x} y={y} {...baseLabel} {...additionalProps(rest, arc)}>
-    <text x={x} y={y} {...valueLabelStyles} {...additionalProps(rest, arc)}>
+    // <text x={x} y={y} {...valueLabelStyles} {...additionalProps(rest, arc)}>
+    <text
+      x={x}
+      y={y}
+      {...valueLabelStyles}
+      stroke={stroke}
+      fill={fill}
+      fontSize={fontSize}
+      paintOrder={paintOrder}
+    >
       {children}
     </text>
   );

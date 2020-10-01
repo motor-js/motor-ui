@@ -221,7 +221,12 @@ export default function CreatePie({
               stroke={"#fff"}
               strokeWidth={1.5}
               labelComponent={
-                <ArcLabel stroke="#222" fill="#fff" fontSize={10} />
+                <ArcLabel
+                  stroke="#222"
+                  fill="#fff"
+                  fontSize={10}
+                  theme={themeObj}
+                />
               }
               innerRadius={0}
               // fill={(arc) => categoryColorScale(arc.data.label)}
