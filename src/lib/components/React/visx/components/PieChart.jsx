@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import Pie, { ProvidedProps, PieArcDatum } from "@visx/shape/lib/shapes/Pie";
 import { scaleOrdinal } from "@visx/scale";
 import { Group } from "@visx/group";
@@ -12,6 +12,9 @@ import browserUsage, {
 import { animated, useTransition, interpolate } from "react-spring";
 
 import { ParentSize } from "@visx/responsive";
+import ChartContext from "../context/ChartContext";
+import TooltipContext from "../context/TooltipContext";
+import { useTooltipInPortal } from "@visx/tooltip";
 
 const letters = letterFrequency.slice(0, 4);
 const browserNames = Object.keys(browserUsage[0]).filter((k) => k !== "date");
@@ -49,7 +52,18 @@ const getLetterFrequencyColor = scaleOrdinal({
 
 export default function PieChart(props) {
   const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 };
-  const { width, height, margin = defaultMargin, animate = true } = props;
+  const { width, height, margin = defaultMargin, animate = false } = props;
+
+  const { containerRef, TooltipInPortal } = useTooltipInPortal();
+  const {
+    findNearestData,
+    setChartDimensions,
+    chartType,
+    singleMeasure,
+  } = useContext(ChartContext);
+
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+
   const [selectedBrowser, setSelectedBrowser] = useState(null);
   const [selectedAlphabetLetter, setSelectedAlphabetLetter] = useState(null);
 
@@ -62,6 +76,14 @@ export default function PieChart(props) {
   const centerX = innerWidth / 2;
   const donutThickness = 50;
 
+  const onMouseMoveDatum = ({ data }) => {
+    // const nearestData = findNearestData(event);
+    // if (nearestData.closestDatum && showTooltip) {
+    //   showTooltip({ tooltipData: { ...nearestData } });
+    // }
+    console.log(data);
+  };
+
   if (width == null || height == null) {
     return (
       <ParentSize>{(dims) => <PieChart {...dims} {...props} />}</ParentSize>
@@ -69,7 +91,7 @@ export default function PieChart(props) {
   }
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} ref={containerRef}>
       <GradientPinkBlue id="visx-pie-gradient" />
       <rect
         rx={14}
@@ -102,6 +124,8 @@ export default function PieChart(props) {
               //   )
               // }
               onClickDatum={({ data: { label } }) => console.log(label)}
+              onMouseMoveDatum={onMouseMoveDatum}
+              onMouseLeave={hideTooltip}
               getColor={(arc) => getBrowserColor(arc.data.label)}
             />
           )}
@@ -132,6 +156,7 @@ export default function PieChart(props) {
               //   )
               // }
               onClickDatum={({ data: { letter } }) => console.log(letter)}
+              onMouseMoveDatum={({ data }) => console.log(data)}
               getColor={({ data: { letter } }) =>
                 getLetterFrequencyColor(letter)
               }
@@ -143,22 +168,29 @@ export default function PieChart(props) {
   );
 }
 
-const fromLeaveTransition = ({ startAngle, endAngle }) => ({
+const fromLeaveTransition = ({ endAngle }) => ({
   // enter from 360° if end angle is > 180°
-  // startAngle: endAngle > Math.PI ? 2 * Math.PI : 0,
-  // endAngle: endAngle > Math.PI ? 2 * Math.PI : 0,
-  // opacity: 0,
-  startAngle,
-  endAngle,
-  opacity: 1,
+  startAngle: endAngle > Math.PI ? 2 * Math.PI : 0,
+  endAngle: endAngle > Math.PI ? 2 * Math.PI : 0,
+  opacity: 0,
 });
+
 const enterUpdateTransition = ({ startAngle, endAngle }) => ({
   startAngle,
   endAngle,
   opacity: 1,
 });
 
-function AnimatedPie({ animate, arcs, path, getKey, getColor, onClickDatum }) {
+function AnimatedPie({
+  animate,
+  arcs,
+  path,
+  getKey,
+  getColor,
+  onClickDatum,
+  onMouseMoveDatum,
+  onMouseLeave,
+}) {
   const transitions = useTransition(
     arcs,
     getKey,
@@ -191,6 +223,8 @@ function AnimatedPie({ animate, arcs, path, getKey, getColor, onClickDatum }) {
               )}
               fill={getColor(arc)}
               onClick={() => onClickDatum(arc)}
+              onMouseMove={() => onMouseMoveDatum(arc)}
+              onMouseLeave={onMouseLeave}
               onTouchStart={() => onClickDatum(arc)}
             />
             {hasSpaceForLabel && (
