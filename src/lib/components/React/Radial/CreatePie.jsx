@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
 import ChartProvider from "../visx/components/providers/ChartProvider";
-import RadialChart from "../visx/components/RadialChart";
 import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
 import Tooltip from "../visx/components/Tooltip";
@@ -10,8 +9,7 @@ import CustomLegendShape from "../visx/components/CustomLegendShape";
 import Title from "../visx/components/titles/Title";
 import ChartBackground from "../visx/components/aesthetic/Gradient";
 
-import ArcSeries from "../visx/components/series/ArcSeries";
-import ArcLabel from "../visx/components/label/ArcLabel";
+import PieSeries from "../visx/components/PieChart";
 
 import { roundNumber } from "../visx/utils/roundNumber";
 import { PatternLines } from "../visx/components/aesthetic/Patterns";
@@ -181,59 +179,21 @@ export default function CreatePie({
             }
             captureEvents={selectionMethod === "none"}
     
-          > */}
-          <RadialChart
-            // {...chartProps}
-            margin={margin}
-            // width={width}
-            width={500} // AG
-            height={height}
-            renderTooltip={({ datum, fraction }) => {
-              const { label } = datum;
-              const style = { color: categoryColorScale(label) };
-
-              return (
-                <div>
-                  <div>
-                    <strong style={style}>{label}</strong>
-                  </div>
-                  <div>{(fraction * 100).toFixed()}%</div>
-                </div>
-              );
-            }}
-          >
-            {/* <ChartBackground
+          > */}{" "}
+          {/* <ChartBackground
               style={backgroundStyle.style}
               id="area-background-gradient"
               from={backgroundStyle.styleFrom}
               to={backgroundStyle.styleTo}
             /> */}
-
-            <ArcSeries
-              // {...seriesProps}
-              data={currData}
-              pieValue={(d) => d.value}
-              label={(arc) => `${arc.data.value.toFixed(1)}%`}
-              // labelComponent={<ArcLabel fill="#fff" fontSize={10} />}
-              innerRadius={(radius) => 0.35 * radius}
-              outerRadius={(radius) => 0.6 * radius}
-              labelRadius={(radius) => 0.47 * radius}
-              stroke={"#fff"}
-              strokeWidth={1.5}
-              labelComponent={
-                <ArcLabel
-                  stroke="#222"
-                  fill="#fff"
-                  fontSize={10}
-                  theme={themeObj}
-                />
-              }
-              innerRadius={0}
-              // fill={(arc) => categoryColorScale(arc.data.label)}
-              // fill={(arc) => colorScale(arc.data.label)}
-              fill="red" // AG
-            />
-          </RadialChart>
+          <PieSeries
+            height={height}
+            // width={autoWidth ? undefined : width}
+            // width={600}
+            // margin={
+            //   xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
+            // }
+          />
           {/* </XYChart> */}
           {showTooltip && (
             <Tooltip
