@@ -72,6 +72,9 @@ export default function CreatePie({
   shiftTooltipLeft,
   valueOnly,
   valueWithText,
+  cornerRadius,
+  padAngle,
+  donutThickness,
 }) {
   const [currData, setCurrData] = useState(data);
 
@@ -79,12 +82,16 @@ export default function CreatePie({
     setCurrData(data);
   }, [data]);
 
-  const colorScaleConfig = () => ({
-    domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
-  });
-
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
+
+  // const colorScaleConfig = () => ({
+  //   domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
+  // });
+  // const colorScale = () => ({
+  //   domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
+  //   range:colors
+  // });
 
   const { xyChart } = theme;
 
@@ -139,25 +146,25 @@ export default function CreatePie({
   return (
     <ChartProvider
       theme={themeObj}
-      colorScale={colorScaleConfig}
-      showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
-      roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
-      precision={valueIfUndefined(precision, xyChart.precision)}
-      size={size}
-      dimensionInfo={dimensionInfo}
-      measureInfo={measureInfo}
+      // colorScale={colorScaleConfig}
+      // showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
+      // roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
+      // precision={valueIfUndefined(precision, xyChart.precision)}
+      // size={size}
+      // dimensionInfo={dimensionInfo}
+      // measureInfo={measureInfo}
       dataKeys={dataKeys}
-      beginSelections={beginSelections}
-      select={select}
-      setCurrentSelectionIds={setCurrentSelectionIds}
-      currentSelectionIds={currentSelectionIds}
+      // beginSelections={beginSelections}
+      // select={select}
+      // setCurrentSelectionIds={setCurrentSelectionIds}
+      // currentSelectionIds={currentSelectionIds}
       singleDimension={singleDimension}
       singleMeasure={singleMeasure}
-      formatValue={formatValue}
-      legendLabelStyle={legendLabelStyle}
-      valueLabelStyle={valueLabelStyle}
-      parseDateFormat={parseDateFormat}
-      formatTooltipDate={formatTooltipDate}
+      // formatValue={formatValue}
+      // legendLabelStyle={legendLabelStyle}
+      // valueLabelStyle={valueLabelStyle}
+      // parseDateFormat={parseDateFormat}
+      // formatTooltipDate={formatTooltipDate}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} size={size} />}
@@ -171,15 +178,6 @@ export default function CreatePie({
             flexDirection: "column",
           }}
         >
-          {/* <XYChart
-            height={height}
-            // width={autoWidth ? undefined : width}
-            margin={
-              xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
-            }
-            captureEvents={selectionMethod === "none"}
-    
-          > */}{" "}
           {/* <ChartBackground
               style={backgroundStyle.style}
               id="area-background-gradient"
@@ -188,13 +186,18 @@ export default function CreatePie({
             /> */}
           <PieSeries
             height={height}
-            // width={autoWidth ? undefined : width}
-            // width={600}
-            // margin={
-            //   xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
-            // }
+            data={currData}
+            cornerRadius={valueIfUndefined(
+              cornerRadius,
+              xyChart.pie.cornerRadius
+            )}
+            padAngle={valueIfUndefined(padAngle, xyChart.pie.padAngle)}
+            donutThickness={valueIfUndefined(
+              donutThickness,
+              xyChart.pie.donutThickness
+            )}
+            // captureEvents={selectionMethod === "none"}
           />
-          {/* </XYChart> */}
           {showTooltip && (
             <Tooltip
               showClosestItem={valueIfUndefined(

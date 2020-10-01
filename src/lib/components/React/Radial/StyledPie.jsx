@@ -150,8 +150,11 @@ function StyledPie(props) {
 
       setData(
         qData.qMatrix.map((d) => ({
-          value: (d[1].qNum / qLayout.qHyperCube.qGrandTotalRow[0].qNum) * 100,
           label: d[0].qText,
+          value: d[1].qNum,
+          selectionId: d[0].qElemNumber,
+          percent:
+            (d[1].qNum / qLayout.qHyperCube.qGrandTotalRow[0].qNum) * 100,
         }))
       );
     }

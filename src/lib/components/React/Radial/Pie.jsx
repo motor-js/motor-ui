@@ -244,6 +244,12 @@ Pie.propTypes = {
   shiftTooltipLeft: PropTypes.number,
   /** Line stroke width */
   strokeWidth: PropTypes.number,
+  /** Corner radius */
+  cornerRadius: PropTypes.number,
+  /** Padding Angle */
+  padAngle: PropTypes.number,
+  /** Padding Angle */
+  donutThickness: PropTypes.number,
 };
 
 Pie.defaultProps = {
