@@ -73,18 +73,22 @@ export default function CreatePie({
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
 
-  const { xyChart } = theme;
+  const {
+    global: { chart },
+    pie,
+  } = theme;
 
   const themeObj = {
-    ...theme.xyChart,
+    ...theme.global.chart,
+    pie: { ...theme.pie },
     colors,
   };
 
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
-    const valPrecision = valueIfUndefined(precision, xyChart.precision);
-    const valRoundNum = valueIfUndefined(roundNum, xyChart.roundNum);
+    const valPrecision = valueIfUndefined(precision, chart.precision);
+    const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
 
     if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
     let formattedValue = valRoundNum
@@ -98,9 +102,9 @@ export default function CreatePie({
     <ChartProvider
       theme={themeObj}
       // colorScale={colorScaleConfig}
-      showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
-      // roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
-      // precision={valueIfUndefined(precision, xyChart.precision)}
+      showLabels={valueIfUndefined(showLabels, chart.showLabels)}
+      // roundNum={valueIfUndefined(roundNum, chart.roundNum)}
+      // precision={valueIfUndefined(precision, chart.precision)}
       size={size}
       // dimensionInfo={dimensionInfo}
       // measureInfo={measureInfo}
@@ -132,44 +136,38 @@ export default function CreatePie({
             height={height}
             data={currData}
             backgroundStyle={backgroundStyle}
-            cornerRadius={valueIfUndefined(
-              cornerRadius,
-              xyChart.pie.cornerRadius
-            )}
+            cornerRadius={valueIfUndefined(cornerRadius, pie.cornerRadius)}
             legendTopBottom={legendTopBottom}
             legendLeftRight={legendLeftRight}
             legendShape={legendShape}
             legendDirection={legendDirection}
             showLegend={showLegend}
-            padAngle={valueIfUndefined(padAngle, xyChart.pie.padAngle)}
-            isDonut={valueIfUndefined(isDonut, xyChart.pie.isDonut)}
-            strokeWidth={valueIfUndefined(strokeWidth, xyChart.pie.strokeWidth)}
-            stroke={selectColor(
-              valueIfUndefined(isDonut, xyChart.pie.stroke),
-              theme
-            )}
+            padAngle={valueIfUndefined(padAngle, pie.padAngle)}
+            isDonut={valueIfUndefined(isDonut, pie.isDonut)}
+            strokeWidth={valueIfUndefined(strokeWidth, pie.strokeWidth)}
+            stroke={selectColor(valueIfUndefined(isDonut, pie.stroke), theme)}
             donutThickness={valueIfUndefined(
               donutThickness,
-              xyChart.pie.donutThickness
+              pie.donutThickness
             )}
-            margin={valueIfUndefined(margin, xyChart.pie.margin)}
-            valPrecision={valueIfUndefined(precision, xyChart.precision)}
+            margin={valueIfUndefined(margin, pie.margin)}
+            valPrecision={valueIfUndefined(precision, chart.precision)}
             selectionMethod={selectionMethod}
           />
           {showTooltip && (
             <Tooltip
             // showClosestItem={valueIfUndefined(
             //   showClosestItem,
-            //   xyChart.tooltip.showClosestItem
+            //   chart.tooltip.showClosestItem
             // )}
-            // valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
+            // valueOnly={valueIfUndefined(valueOnly, chart.tooltip.valueOnly)}
             // valueWithText={valueIfUndefined(
             //   valueWithText,
-            //   xyChart.tooltip.valueWithText
+            //   chart.tooltip.valueWithText
             // )}
             // useSingleColor={valueIfUndefined(
             //   useSingleColor,
-            //   xyChart.tooltip.useSingleColor
+            //   chart.tooltip.useSingleColor
             // )}
             />
           )}

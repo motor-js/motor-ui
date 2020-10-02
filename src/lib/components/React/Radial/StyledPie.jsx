@@ -64,8 +64,7 @@ function StyledPie(props) {
   } = props;
 
   const {
-    global: { colorTheme: globalColorTheme },
-    xyChart,
+    global: { colorTheme: globalColorTheme, chart },
   } = theme;
 
   // if the prop is undefined, use the base theme
@@ -88,8 +87,8 @@ function StyledPie(props) {
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
-    qSuppressZero: suppressZero || xyChart.suppressZero,
-    qOtherTotalSpec: otherTotalSpec || xyChart.otherTotalSpec,
+    qSuppressZero: suppressZero || chart.suppressZero,
+    qOtherTotalSpec: otherTotalSpec || chart.otherTotalSpec,
     qSuppressZero: true,
   });
 
@@ -165,12 +164,12 @@ function StyledPie(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin || xyChart.margin}
+          margin={margin || chart.margin}
           gridArea={gridArea}
           width={width}
           showBoxShadow={valueIfUndefined(
             showBoxShadow,
-            xyChart.wrapper.showBoxShadow
+            chart.wrapper.showBoxShadow
           )}
           ref={ref}
         >
@@ -186,10 +185,10 @@ function StyledPie(props) {
               height={
                 gridArea
                   ? ref.current.offsetHeight -
-                    parseInt(margin || xyChart.margin, 10)
+                    parseInt(margin || chart.margin, 10)
                   : parseInt(height, 10)
               }
-              events={events || xyChart.events}
+              events={events || chart.events}
               qLayout={qLayout}
               theme={theme}
               singleDimension={singleDimension}
@@ -205,13 +204,13 @@ function StyledPie(props) {
               colorPalette={colorPalette}
               size={size}
               type={type}
-              showLegend={valueIfUndefined(showLegend, xyChart.showLegend)}
-              backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
-              // fillStyle={fillStyle || xyChart.fillStyles}
-              multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
+              showLegend={valueIfUndefined(showLegend, chart.showLegend)}
+              backgroundStyle={backgroundStyle || chart.backgroundStyles}
+              // fillStyle={fillStyle || chart.fillStyles}
+              multiColor={valueIfUndefined(multiColor, chart.multiColor)}
               selectionMethod={valueIfUndefined(
                 selectionMethod,
-                xyChart.selectionMethod
+                chart.selectionMethod
               )}
               showAsPercent={showAsPercent}
               {...rest}
@@ -229,11 +228,11 @@ function StyledPie(props) {
         <PieWrapperNoData
           border={border}
           size={size}
-          margin={margin || xyChart.margin}
+          margin={margin || chart.margin}
           // height={
           //   gridArea
           //     ? ref.current.offsetHeight -
-          //       parseInt(margin || xyChart.margin, 10)
+          //       parseInt(margin || chart.margin, 10)
           //     : parseInt(height, 10)
           // }
           gridArea={gridArea}
