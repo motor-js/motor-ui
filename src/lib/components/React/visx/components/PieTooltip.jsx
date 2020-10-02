@@ -6,16 +6,16 @@ import TooltipContext from "../context/TooltipContext";
 import ChartContext from "../context/ChartContext";
 import { isNull, selectColor } from "../../../../utils";
 
-export default function Tooltip({
-  snapToDataX,
-  snapToDataY,
-  shiftTooltipTop = 0,
-  shiftTooltipLeft = 0,
-  showClosestItem,
-  useSingleColor,
-  valueOnly,
-  valueWithText,
-}) {
+export default function Tooltip(
+  {
+    // snapToDataX,
+    // snapToDataY,
+    // showClosestItem,
+    // useSingleColor,
+    // valueOnly,
+    // valueWithText,
+  }
+) {
   const { tooltipData } = useContext(TooltipContext) || {};
 
   const { theme, formatValue, size, formatTooltipDate, parseDateFormat } =
@@ -30,9 +30,9 @@ export default function Tooltip({
 
   if (svgMouseX == null || svgMouseY == null) return null;
 
-  const xCoord = svgMouseX + shiftTooltipLeft;
+  const xCoord = svgMouseX;
 
-  const yCoord = svgMouseY + shiftTooltipTop;
+  const yCoord = svgMouseY;
 
   function renderTooltip({ label, value, percent, colorScale }) {
     const color = colorScale(`${label}`);
@@ -49,8 +49,8 @@ export default function Tooltip({
 
   return (
     <TooltipWithBounds
-      left={xCoord}
-      top={yCoord}
+      left={svgMouseX}
+      top={svgMouseY}
       style={{
         ...theme?.tooltip?.tooltipStyles,
         fontSize: theme?.tooltip?.tooltipStyles?.fontSize[size],

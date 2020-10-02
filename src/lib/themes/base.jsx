@@ -801,6 +801,8 @@ const base = {
     points: { size: 50, strokeWidth: 2 },
     pie: {
       margin: { top: 20, right: 20, bottom: 20, left: 20 },
+      stroke: "#adb5bd",
+      strokeWidth: 0.5,
       cornerRadius: 3,
       padAngle: 0.005,
       isDonut: true,

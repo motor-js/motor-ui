@@ -171,7 +171,7 @@ Pie.propTypes = {
   /** Show tooltip */
   showTooltip: PropTypes.bool,
   /** SelectionMethod */
-  selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
+  selectionMethod: PropTypes.oneOf(["click", "none"]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -182,8 +182,6 @@ Pie.propTypes = {
   ]),
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
-  type: PropTypes.string,
-  xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
   legendLeftRight: PropTypes.oneOf(["left", "right"]),
   legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
   legendDirection: PropTypes.oneOf(["row", "column"]),
@@ -204,21 +202,21 @@ Pie.propTypes = {
   /**  TealBlue  */
   backgroundStyle: PropTypes.object,
 
-  /** fillStyle */
-  /** either : style of one of below or fillFrom and FillTo */
-  /**  Linear  */
-  /**  Radial  */
-  /**  DarkGreen  */
-  /**  LightGreen  */
-  /**  OrangeRed  */
-  /**  PinkBlue  */
-  /**  PinkRed  */
-  /**  PurpleOrangle  */
-  /**  PurpleRed  */
-  /**  PurpleTeal  */
-  /**  SteelPurple  */
-  /**  TealBlue  */
-  fillStyle: PropTypes.object,
+  // /** fillStyle */
+  // /** either : style of one of below or fillFrom and FillTo */
+  // /**  Linear  */
+  // /**  Radial  */
+  // /**  DarkGreen  */
+  // /**  LightGreen  */
+  // /**  OrangeRed  */
+  // /**  PinkBlue  */
+  // /**  PinkRed  */
+  // /**  PurpleOrangle  */
+  // /**  PurpleRed  */
+  // /**  PurpleTeal  */
+  // /**  SteelPurple  */
+  // /**  TealBlue  */
+  // fillStyle: PropTypes.object,
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
@@ -226,24 +224,22 @@ Pie.propTypes = {
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
   valueLabelStyle: PropTypes.object,
-  /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
-  showClosestItem: PropTypes.bool,
-  /** Only use one color for the toolyip instead of multi color per item. */
-  useSingleColor: PropTypes.bool,
-  /** Show value only for Tooltip */
-  valueOnly: PropTypes.bool,
-  /** Show single line fo text and value for tooltip */
-  valueWithText: PropTypes.bool,
-  /** Input format of date supplied from engine (in qText) */
-  parseDateFormat: PropTypes.string,
-  /** Format of dates to be displayed on Tooltip. */
-  formatTooltipDate: PropTypes.string,
-  /** Reposition the tooltip. */
-  shiftTooltipTop: PropTypes.number,
-  /** Reposition the tooltip. */
-  shiftTooltipLeft: PropTypes.number,
-  /** Line stroke width */
+  // /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
+  // showClosestItem: PropTypes.bool,
+  // /** Only use one color for the toolyip instead of multi color per item. */
+  // useSingleColor: PropTypes.bool,
+  // /** Show value only for Tooltip */
+  // valueOnly: PropTypes.bool,
+  // /** Show single line fo text and value for tooltip */
+  // valueWithText: PropTypes.bool,
+  // /** Input format of date supplied from engine (in qText) */
+  // parseDateFormat: PropTypes.string,
+  // /** Format of dates to be displayed on Tooltip. */
+  // formatTooltipDate: PropTypes.string,
+  /** Line stroke width around each segemnt */
   strokeWidth: PropTypes.number,
+  /** Line stroke color around each segemnt */
+  stroke: PropTypes.string,
   /** Corner radius */
   cornerRadius: PropTypes.number,
   /** Padding Angle */
@@ -268,8 +264,6 @@ Pie.defaultProps = {
   // stacked: false,
   showAsPercent: false,
   gridArea: null,
-  type: null, // Logic to determine default chart type in CreateXYChart
-  xAxisOrientation: "bottom",
   showLegend: false,
   legendLeftRight: "right",
   legendTopBottom: "top",

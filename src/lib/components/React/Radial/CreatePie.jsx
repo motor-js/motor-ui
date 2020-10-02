@@ -1,11 +1,8 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ChartProvider from "../visx/components/providers/ChartProvider";
-import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
 import Tooltip from "../visx/components/PieTooltip";
-// import Legend from "../visx/components/Legend";
-// import CustomLegendShape from "../visx/components/CustomLegendShape";
 import Title from "../visx/components/titles/Title";
 
 import PieSeries from "../visx/components/PieChart";
@@ -13,18 +10,11 @@ import PieSeries from "../visx/components/PieChart";
 import { roundNumber } from "../visx/utils/roundNumber";
 import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
-import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
-
-// const legendLabelFormat = (d) => d;
-
-// const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
-// const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
-// const margin = { top: 0, left: 0, bottom: 0, right: 0 };
+import { valueIfUndefined } from "../visx/utils/chartUtils";
 
 export default function CreatePie({
   width,
   height,
-  events = false,
   data,
   dataKeys,
   qLayout: {
@@ -37,16 +27,14 @@ export default function CreatePie({
   currentSelectionIds,
   theme,
   colorPalette,
-  type,
   size,
-  xAxisOrientation,
   showLegend,
   legendLeftRight,
   legendTopBottom,
   legendDirection,
   legendShape,
   backgroundStyle,
-  fillStyle,
+  // fillStyle,
   showLabels,
   roundNum,
   precision,
@@ -54,23 +42,21 @@ export default function CreatePie({
   showAsPercent,
   singleMeasure,
   singleDimension,
-  dimensionCount,
-  measureCount,
+  // dimensionCount,
+  // measureCount,
   title,
   subTitle,
   legendLabelStyle,
   valueLabelStyle,
-  showClosestItem,
-  useSingleColor,
-  parseDateFormat,
-  formatTooltipDate,
+  // showClosestItem,
+  // useSingleColor,
+  // parseDateFormat,
+  // formatTooltipDate,
   strokeWidth,
+  stroke,
   showTooltip,
-
-  shiftTooltipTop,
-  shiftTooltipLeft,
-  valueOnly,
-  valueWithText,
+  // valueOnly,
+  // valueWithText,
   cornerRadius,
   padAngle,
   donutThickness,
@@ -85,14 +71,6 @@ export default function CreatePie({
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
-
-  // const colorScaleConfig = () => ({
-  //   domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
-  // });
-  // const colorScale = () => ({
-  //   domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
-  //   range:colors
-  // });
 
   const { xyChart } = theme;
 
@@ -115,25 +93,11 @@ export default function CreatePie({
     return val < 0 ? `-${formattedValue}` : formattedValue;
   };
 
-  /* eslint-disable react/prop-types */
-  // const chartProps = {
-  //   // width,
-  //   // height,
-  //   renderTooltip: ({ datum, fraction }) => (
-  //     <div>
-  //       <div>
-  //         <strong>{datum.label}</strong>
-  //       </div>
-  //       <div>{(fraction * 100).toFixed()}%</div>
-  //     </div>
-  //   ),
-  // };
-
   return (
     <ChartProvider
       theme={themeObj}
       // colorScale={colorScaleConfig}
-      // showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
+      showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
       // roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
       // precision={valueIfUndefined(precision, xyChart.precision)}
       size={size}
@@ -178,31 +142,34 @@ export default function CreatePie({
             showLegend={showLegend}
             padAngle={valueIfUndefined(padAngle, xyChart.pie.padAngle)}
             isDonut={valueIfUndefined(isDonut, xyChart.pie.isDonut)}
+            strokeWidth={valueIfUndefined(strokeWidth, xyChart.pie.strokeWidth)}
+            stroke={selectColor(
+              valueIfUndefined(isDonut, xyChart.pie.stroke),
+              theme
+            )}
             donutThickness={valueIfUndefined(
               donutThickness,
               xyChart.pie.donutThickness
             )}
             margin={valueIfUndefined(margin, xyChart.pie.margin)}
             valPrecision={valueIfUndefined(precision, xyChart.precision)}
-            // captureEvents={selectionMethod === "none"}
+            selectionMethod={selectionMethod}
           />
           {showTooltip && (
             <Tooltip
-              // showClosestItem={valueIfUndefined(
-              //   showClosestItem,
-              //   xyChart.tooltip.showClosestItem
-              // )}
-              // valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
-              // valueWithText={valueIfUndefined(
-              //   valueWithText,
-              //   xyChart.tooltip.valueWithText
-              // )}
-              shiftTooltipTop={shiftTooltipTop}
-              shiftTooltipLeft={shiftTooltipLeft}
-              // useSingleColor={valueIfUndefined(
-              //   useSingleColor,
-              //   xyChart.tooltip.useSingleColor
-              // )}
+            // showClosestItem={valueIfUndefined(
+            //   showClosestItem,
+            //   xyChart.tooltip.showClosestItem
+            // )}
+            // valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
+            // valueWithText={valueIfUndefined(
+            //   valueWithText,
+            //   xyChart.tooltip.valueWithText
+            // )}
+            // useSingleColor={valueIfUndefined(
+            //   useSingleColor,
+            //   xyChart.tooltip.useSingleColor
+            // )}
             />
           )}
           {/* {legendTopBottom === "bottom" && legend} */}

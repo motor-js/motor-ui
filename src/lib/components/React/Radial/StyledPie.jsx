@@ -10,7 +10,6 @@ import {
   numericSortDirection,
   isEmpty,
   validData,
-  isNull,
   createColorArray,
 } from "../../../utils";
 
@@ -54,12 +53,11 @@ function StyledPie(props) {
     calcCondition,
     suppressZero,
     otherTotalSpec,
-    // tickSpacing,
     gridArea,
     type,
     backgroundStyle,
     multiColor,
-    fillStyle,
+    // fillStyle,
     showBoxShadow,
     showAsPercent,
     ...rest
@@ -139,7 +137,7 @@ function StyledPie(props) {
       // (qData && data === null) ||
       // (qData && data && qData.qMatrix.length !== data.length && isValid)
       (qData && data === null) ||
-      (qData && data && isValid)
+      (qData && data)
     ) {
       dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
       measureCount = qLayout.qHyperCube.qMeasureInfo.length;
@@ -196,8 +194,8 @@ function StyledPie(props) {
               theme={theme}
               singleDimension={singleDimension}
               singleMeasure={singleMeasure}
-              measureCount={measureCount}
-              dimensionCount={dimensionCount}
+              // measureCount={measureCount}
+              // dimensionCount={dimensionCount}
               data={data}
               dataKeys={dataKeys}
               beginSelections={beginSelections}
@@ -209,7 +207,7 @@ function StyledPie(props) {
               type={type}
               showLegend={valueIfUndefined(showLegend, xyChart.showLegend)}
               backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
-              fillStyle={fillStyle || xyChart.fillStyles}
+              // fillStyle={fillStyle || xyChart.fillStyles}
               multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
               selectionMethod={valueIfUndefined(
                 selectionMethod,

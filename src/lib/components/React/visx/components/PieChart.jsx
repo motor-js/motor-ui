@@ -1,10 +1,9 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import { ParentSize } from "@visx/responsive";
 import { Pie } from "@visx/shape";
 import { scaleOrdinal } from "@visx/scale";
 import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
-import { GradientPinkBlue } from "@visx/gradient";
 import { animated, useTransition, interpolate } from "react-spring";
 import Legend from "../components/Legend";
 import ChartBackground from "../components/aesthetic/Gradient";
@@ -32,6 +31,9 @@ export default function PieChart(props) {
     showLegend,
     valPrecision,
     backgroundStyle,
+    selectionMethod,
+    stroke,
+    strokeWidth,
   } = props;
 
   const { containerRef } = useTooltipInPortal();
@@ -46,6 +48,7 @@ export default function PieChart(props) {
     formatValue,
     valueLabelStyle,
     size,
+    showLabels,
   } = useContext(ChartContext);
 
   const { colors, selection, nonSelection, valueLabelStyles } = theme;
@@ -100,6 +103,7 @@ export default function PieChart(props) {
   }
 
   const onClick = ({ data: { selectionId } }) => {
+    if (selectionMethod === "none") return;
     const selections = currentSelectionIds.includes(selectionId)
       ? currentSelectionIds.filter(function(value) {
           return value !== selectionId;
@@ -157,7 +161,6 @@ export default function PieChart(props) {
                 {...pie}
                 animate={animate}
                 getKey={(arc) => arc.data.label}
-                // onClickDatum={({ data: { label } }) => console.log(label)}
                 onClickDatum={onClick}
                 onMouseMoveDatum={onMouseMoveDatum}
                 onMouseLeave={hideTooltip}
@@ -166,6 +169,9 @@ export default function PieChart(props) {
                 valPrecision={valPrecision}
                 formatValue={formatValue}
                 pieLabelStyle={pieLabelStyle}
+                showLabels={showLabels}
+                stroke={stroke}
+                strokeWidth={strokeWidth}
               />
             )}
           </Pie>
@@ -189,6 +195,9 @@ export default function PieChart(props) {
                   valPrecision={valPrecision}
                   formatValue={formatValue}
                   pieLabelStyle={pieLabelStyle}
+                  showLabels={showLabels}
+                  stroke={stroke}
+                  strokeWidth={strokeWidth}
                 />
               )}
             </Pie>
@@ -219,8 +228,11 @@ function AnimatedPie({
   path,
   getKey,
   getColor,
+  stroke,
+  strokeWidth,
   valPrecision,
   formatValue,
+  showLabels,
   pieLabelStyle,
   getStyle,
   onClickDatum,
@@ -238,6 +250,7 @@ function AnimatedPie({
       leave: animate ? fromLeaveTransition : enterUpdateTransition,
     }
   );
+
   return (
     <>
       {transitions.map(({ item: arc, props, key }) => {
@@ -263,12 +276,14 @@ function AnimatedPie({
               )}
               fill={getColor(arc)}
               style={getStyle(arc)}
+              strokeWidth={strokeWidth}
+              stroke={stroke}
               onClick={() => onClickDatum(arc)}
               onMouseMove={(e) => onMouseMoveDatum(e, arc)}
               onMouseLeave={onMouseLeave}
               onTouchStart={() => onClickDatum(arc)}
             />
-            {hasSpaceForLabel && (
+            {hasSpaceForLabel && showLabels && (
               <animated.g style={{ opacity: props.opacity }}>
                 <text x={centroidX} y={centroidY} dy=".33em" {...pieLabelStyle}>
                   {pieText}
