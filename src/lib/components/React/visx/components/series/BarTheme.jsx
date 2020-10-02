@@ -7,23 +7,26 @@ import Bar from "../shapes/Bar";
 const handleBarStyle = (props) => {
   const {
     isSelected,
-    theme: { xyChart },
+    theme: {
+      global: { chart },
+      crossHair,
+    },
   } = props;
 
   if (isSelected === 1) {
     return css`
-      ${xyChart.selection};
+      ${chart.selection};
     `;
   }
   if (isSelected === 0) {
     return css`
-      ${xyChart.nonSelection};
+      ${chart.nonSelection};
     `;
   }
 
   return css`
     &:hover {
-      ${!xyChart.crossHair.showVerticalLine ? xyChart.hover : null};
+      ${!crossHair.showVerticalLine ? chart.hover : null};
     }
   `;
 };

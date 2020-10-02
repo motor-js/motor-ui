@@ -232,7 +232,10 @@ export default function CreateXYChart({
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
-  const { chart } = theme.global;
+  const {
+    global: { chart },
+    crossHair: crossHairStyle,
+  } = theme;
 
   const themeObj = {
     ...theme.global.chart,
@@ -636,76 +639,76 @@ export default function CreateXYChart({
                 horizontal={renderHorizontally}
                 fullHeight={valueIfUndefined(
                   crossHairStyles && crossHairStyles.fullHeight,
-                  chart.crossHair.fullHeight
+                  crossHairStyle.fullHeight
                 )}
                 fullWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.fullWidth,
-                  chart.crossHair.fullWidth
+                  crossHairStyle.fullWidth
                 )}
                 circleSize={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleSize,
-                  chart.crossHair.circleSize
+                  crossHairStyle.circleSize
                 )}
                 showHorizontalLine={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showHorizontalLine,
-                  chart.crossHair.showHorizontalLine
+                  crossHairStyle.showHorizontalLine
                 )}
                 showVerticalLine={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showVerticalLine,
-                  chart.crossHair.showVerticalLine
+                  crossHairStyle.showVerticalLine
                 )}
                 strokeDasharray=""
                 circleStyles={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStyles,
-                  chart.crossHair.circleStyles
+                  crossHairStyle.circleStyles
                 )}
                 lineStyles={valueIfUndefined(
                   crossHairStyles && crossHairStyles.lineStyles,
-                  chart.crossHair.lineStyles
+                  crossHairStyle.lineStyles
                 )}
                 showCircle={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showCircle,
-                  chart.crossHair.showCircle
+                  crossHairStyle.showCircle
                 )}
                 showMultipleCircles={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showMultipleCircles,
-                  chart.crossHair.showMultipleCircles
+                  crossHairStyle.showMultipleCircles
                 )}
                 stroke={valueIfUndefined(
                   crossHairStyles && crossHairStyles.stroke,
-                  chart.crossHair.stroke
+                  crossHairStyle.stroke
                 )}
                 circleStroke={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStroke,
-                  chart.crossHair.circleStroke
+                  crossHairStyle.circleStroke
                 )}
                 circleFill={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleFill,
-                  chart.crossHair.circleFill
+                  crossHairStyle.circleFill
                 )}
                 circleClosestFill={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleClosestFill,
-                  chart.crossHair.circleClosestFill
+                  crossHairStyle.circleClosestFill
                 )}
                 circleClosestStroke={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleClosestStroke,
-                  chart.crossHair.circleClosestStroke
+                  crossHairStyle.circleClosestStroke
                 )}
                 circleStrokeWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStrokeWidth,
-                  chart.crossHair.circleStrokeWidth
+                  crossHairStyle.circleStrokeWidth
                 )}
                 strokeDasharray={valueIfUndefined(
                   crossHairStyles && crossHairStyles.strokeDasharray,
-                  chart.crossHair.strokeDasharray
+                  crossHairStyle.strokeDasharray
                 )}
                 strokeWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.strokeWidth,
-                  chart.crossHair.strokeWidth
+                  crossHairStyle.strokeWidth
                 )}
                 highlightClosetsCircle={valueIfUndefined(
                   crossHairStyles && crossHairStyles.highlightClosetsCircle,
-                  chart.crossHair.highlightClosetsCircle
+                  crossHairStyle.highlightClosetsCircle
                 )}
               />
             )}

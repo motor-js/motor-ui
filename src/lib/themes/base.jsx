@@ -310,31 +310,7 @@ const base = {
       precision: true,
 
       hideAxisLine: "yAxis",
-      crossHair: {
-        fullHeight: false,
-        fullWidth: false,
 
-        lineStyles: {
-          pointerEvents: "none",
-        },
-        showCircle: true,
-        showMultipleCircles: true,
-        showHorizontalLine: true,
-        showVerticalLine: true,
-        stroke: "multi",
-        strokeDasharray: "5,2",
-        strokeWidth: 1,
-        circleSize: 5,
-        circleStyles: {
-          pointerEvents: "none",
-        },
-        circleFill: "white",
-        circleClosestFill: "multi",
-        circleStroke: "multi",
-        circleClosestStroke: "multi",
-        circleStrokeWidth: 1,
-        highlightClosetsCircle: true,
-      },
       noData: {
         verticalAlign: "top",
         borderRadius: "10px",
@@ -435,7 +411,7 @@ const base = {
         opacity: 0.5,
         // background: "var(--oc-gray-1)",
       },
-      // verticalCrosshair: { color: "brand", width: "1px", style: "solid" },
+
       tooltip: {
         // snapToDataX: false,
         // snapToDataX: false,
@@ -645,6 +621,31 @@ const base = {
         paintOrder: "stroke",
       },
     },
+  },
+  crossHair: {
+    fullHeight: false,
+    fullWidth: false,
+
+    lineStyles: {
+      pointerEvents: "none",
+    },
+    showCircle: true,
+    showMultipleCircles: true,
+    showHorizontalLine: true,
+    showVerticalLine: true,
+    stroke: "multi",
+    strokeDasharray: "5,2",
+    strokeWidth: 1,
+    circleSize: 5,
+    circleStyles: {
+      pointerEvents: "none",
+    },
+    circleFill: "white",
+    circleClosestFill: "multi",
+    circleStroke: "multi",
+    circleClosestStroke: "multi",
+    circleStrokeWidth: 1,
+    highlightClosetsCircle: true,
   },
   filter: {
     color: {
