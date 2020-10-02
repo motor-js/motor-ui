@@ -5,8 +5,8 @@ export { default as XYChart } from "./components/charts/XYChart";
 export { default as BarSeries } from "./components/series/BarSeries";
 export { default as LineSeries } from "./components/series/LineSeries";
 
-export { default as ChartContext } from "./context/ChartContext";
-export { default as TooltipContext } from "./context/TooltipContext";
+// export { default as ChartContext } from "./context/ChartContext";
+// export { default as TooltipContext } from "./context/TooltipContext";
 
 export { default as AreaSeries } from "./components/series/AreaSeries";
 export { default as PointSeries } from "./components/series/PointSeries";

@@ -137,7 +137,7 @@ function StyledPie(props) {
       // (qData && data === null) ||
       // (qData && data && qData.qMatrix.length !== data.length && isValid)
       (qData && data === null) ||
-      (qData && data)
+      (qData && data && isValid)
     ) {
       dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
       measureCount = qLayout.qHyperCube.qMeasureInfo.length;
