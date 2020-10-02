@@ -140,8 +140,6 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
       });
     });
 
-    // console.log(Object.values(dataByStackValue));
-
     return Object.values(dataByStackValue);
   }, [horizontal, children]);
 
@@ -275,10 +273,6 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
                 bars={barStack.bars}
                 stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
                 strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
-                // handleClick={handleClick}
-                // selectionIds={selectionIds}
-                // currentSelectionIds={currentSelectionIds}
-                // theme={theme}
                 {...rectProps}
               />
             ))}
@@ -379,10 +373,6 @@ export default function Stack({ horizontal, children, glyph, ...rectProps }) {
                 bars={barStack.bars}
                 stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
                 strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
-                // handleClick={handleClick}
-                // selectionIds={selectionIds}
-                // currentSelectionIds={currentSelectionIds}
-                // theme={theme}
                 {...rectProps}
               />
             ))}

@@ -87,8 +87,6 @@ export default function AnimatedBars({
                   return value !== bar.selectionId;
                 })
               : [...currentSelectionIds, bar.selectionId];
-
-            // setSelectedBar(selections);
             handleClick(selections);
           }}
           onMouseMove={onMouseMove}

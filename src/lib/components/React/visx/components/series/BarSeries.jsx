@@ -175,12 +175,9 @@ function BarSeries({
   return (
     <g className="visx-chart bar-series">
       <AnimatedBars
-        // handleClick={handleClick}
-        // currentSelectionIds={currentSelectionIds}
         bars={bars}
         stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
         strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
-        // theme={theme}
         {...barProps}
       />
       {Labels.map((Label) => Label)}
