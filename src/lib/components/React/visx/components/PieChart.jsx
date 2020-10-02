@@ -23,6 +23,7 @@ export default function PieChart(props) {
     cornerRadius,
     padAngle,
     donutThickness,
+    isDonut,
   } = props;
 
   const { containerRef, TooltipInPortal } = useTooltipInPortal();
@@ -105,7 +106,9 @@ export default function PieChart(props) {
           data={data}
           pieValue={pieValue}
           outerRadius={radius}
-          innerRadius={radius - valueIfUndefined(donutThickness, radius)} // null if 1 measures
+          innerRadius={
+            isDonut ? radius - valueIfUndefined(donutThickness, radius) : 0
+          } // null if 1 measures
           cornerRadius={cornerRadius}
           padAngle={padAngle}
         >

@@ -75,6 +75,7 @@ export default function CreatePie({
   cornerRadius,
   padAngle,
   donutThickness,
+  isDonut,
   margin,
 }) {
   const [currData, setCurrData] = useState(data);
@@ -193,6 +194,7 @@ export default function CreatePie({
               xyChart.pie.cornerRadius
             )}
             padAngle={valueIfUndefined(padAngle, xyChart.pie.padAngle)}
+            isDonut={valueIfUndefined(isDonut, xyChart.pie.isDonut)}
             donutThickness={valueIfUndefined(
               donutThickness,
               xyChart.pie.donutThickness

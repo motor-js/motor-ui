@@ -248,9 +248,11 @@ Pie.propTypes = {
   cornerRadius: PropTypes.number,
   /** Padding Angle */
   padAngle: PropTypes.number,
-  /** Padding Angle */
+  /** Dispaly charta s donut */
+  isDonut: PropTypes.bool,
+  /** Thickness of the donut */
   donutThickness: PropTypes.number,
-  /** Padding Angle */
+  /** Margin of the cahrt */
   margin: PropTypes.object,
 };
 
