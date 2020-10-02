@@ -1,4 +1,4 @@
-export { default as Axis } from "./components/Axis";
+export { default as Axis } from "./components/aesthetic/Axis";
 export { default as AnimatedAxis } from "./components/AnimatedAxis";
 export { default as ChartProvider } from "./components/providers/ChartProvider";
 export { default as XYChart } from "./components/charts/XYChart";
@@ -19,7 +19,7 @@ export { default as Tooltip } from "./components/aesthetic/Tooltip";
 export { default as PieTooltip } from "./components/aesthetic/PieTooltip";
 export { default as CrossHair } from "./components/aesthetic/CrossHair";
 export { default as Legend } from "./components/aesthetic/Legend";
-export { default as CustomLegendShape } from "./components/CustomLegendShape";
+export { default as CustomLegendShape } from "./components/aesthetic/CustomLegendShape";
 export { default as Group } from "./components/series/Group";
 export { default as Title } from "./components/titles/Title";
 
