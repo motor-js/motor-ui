@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ChartContext from "../context/ChartContext";
+import ChartContext from "../components/React/visx/context/ChartContext";
 
 export default function useRegisteredData(dataKey) {
   const { dataRegistry } = useContext(ChartContext);

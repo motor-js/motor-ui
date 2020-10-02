@@ -6,7 +6,7 @@ import { Text } from "@visx/text";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
-import useRegisteredData from "../../hooks/useRegisteredData";
+import useRegisteredData from "../../../../../hooks/useRegisteredData";
 import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
 
 function LineSeries({
