@@ -2,9 +2,9 @@ import React, { useContext, useCallback, useMemo } from "react";
 import { Legend as BaseLegend } from "@visx/legend";
 import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
-import ChartContext from "../context/ChartContext";
-import { isDefined } from "../utils/chartUtils";
-import { selectColor } from "../../../../utils";
+import ChartContext from "../../context/ChartContext";
+import { isDefined } from "../../utils/chartUtils";
+import { selectColor } from "../../../../../utils";
 
 export default function Legend({
   alignLeft = true,

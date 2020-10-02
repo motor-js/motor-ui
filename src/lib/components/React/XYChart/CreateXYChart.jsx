@@ -1,32 +1,35 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-import Axis from "../visx/components/Axis";
-import AnimatedAxis from "../visx/components/AnimatedAxis";
-import ChartProvider from "../visx/components/providers/ChartProvider";
-import XYChart from "../visx/components/XYChart";
-import BarSeries from "../visx/components/series/BarSeries";
-import LineSeries from "../visx/components/series/LineSeries";
-import AreaSeries from "../visx/components/series/AreaSeries";
-import PointSeries from "../visx/components/series/PointSeries";
-import ChartPattern from "../visx/components/ChartPattern";
-import EventProvider from "../visx/components/providers/TooltipProvider";
-import Tooltip from "../visx/components/Tooltip";
-import CrossHair from "../visx/components/CrossHair";
-import Legend from "../visx/components/Legend";
-import CustomLegendShape from "../visx/components/CustomLegendShape";
-import Group from "../visx/components/series/Group";
-import Title from "../visx/components/titles/Title";
-import StackedBar from "../visx/components/series/StackedBar";
-import StackedArea from "../visx/components/series/StackedArea";
-import ChartBackground from "../visx/components/aesthetic/Gradient";
-import Grid from "../visx/components/grids/Grid";
-import Brush from "../visx/components/selection/Brush";
 import { timeParse, timeFormat } from "d3-time-format";
 
+import {
+  AnimatedAxis,
+  AreaSeries,
+  Axis,
+  BarSeries,
+  Brush,
+  ChartBackground,
+  ChartPattern,
+  ChartProvider,
+  CrossHair,
+  CustomLegendShape,
+  EventProvider,
+  Grid,
+  Group,
+  Legend,
+  LineSeries,
+  PatternLines,
+  PointSeries,
+  StackedArea,
+  StackedBar,
+  Title,
+  Tooltip,
+  XYChart,
+} from "../visx";
+
 import { roundNumber } from "../visx/utils/roundNumber";
-import { PatternLines } from "../visx/components/aesthetic/Patterns";
-import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
+import { colorByExpression, selectColor } from "../../../utils";
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),

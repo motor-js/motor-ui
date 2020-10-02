@@ -1,16 +1,17 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useEffect } from "react";
-import ChartProvider from "../visx/components/providers/ChartProvider";
-import EventProvider from "../visx/components/providers/TooltipProvider";
-import Tooltip from "../visx/components/PieTooltip";
-import Title from "../visx/components/titles/Title";
-
-import PieSeries from "../visx/components/PieChart";
+import {
+  ChartProvider,
+  EventProvider,
+  Title,
+  PieTooltip as Tooltip,
+  PatternLines,
+  PieChart,
+} from "../visx";
 
 import { roundNumber } from "../visx/utils/roundNumber";
-import { PatternLines } from "../visx/components/aesthetic/Patterns";
-import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined } from "../visx/utils/chartUtils";
+import { colorByExpression, selectColor } from "../../../utils";
 
 export default function CreatePie({
   width,
@@ -127,7 +128,7 @@ export default function CreatePie({
             flexDirection: "column",
           }}
         >
-          <PieSeries
+          <PieChart
             height={height}
             data={currData}
             backgroundStyle={backgroundStyle}

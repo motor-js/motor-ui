@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useCallback } from "react";
 import { ParentSize } from "@visx/responsive";
 import { useTooltipInPortal } from "@visx/tooltip";
 
-import ChartContext from "../context/ChartContext";
-import TooltipContext from "../context/TooltipContext";
+import ChartContext from "../../context/ChartContext";
+import TooltipContext from "../../context/TooltipContext";
 
 export default function XYChart(props) {
   const {
