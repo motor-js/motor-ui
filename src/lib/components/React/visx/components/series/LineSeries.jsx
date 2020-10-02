@@ -2,14 +2,12 @@ import React, { useContext, useCallback } from "react";
 import { animated, useSpring } from "react-spring";
 import { LinePath } from "@visx/shape";
 import { Text } from "@visx/text";
+
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
-import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
-
-// import { callOrValue, isDefined } from "../../utils/chartUtils";
-import { getSymbol, isDefined } from "../../utils/chartUtils";
+import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
 
 function LineSeries({
   data: _,

@@ -1,14 +1,13 @@
 import React, { useContext, useMemo, useEffect, useCallback } from "react";
-// import BarGroup from "@visx/shape/lib/shapes/BarGroup";
 import BarGroup from "./BarGroup";
 import BarGroupHorizontal from "./BarGroupHorizontal";
 import { Group as VisxGroup } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import ChartContext from "../../context/ChartContext";
-import isValidNumber from "../../typeguards/isValidNumber";
+import { isValidNumber } from "../../utils/chartUtils";
 
-import findNearestDatumX from "../../utils/findNearestDatumX";
-import findNearestDatumY from "../../utils/findNearestDatumY";
+// import findNearestDatumX from "../../utils/findNearestDatumX";
+// import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
 import { Text } from "@visx/text";
 

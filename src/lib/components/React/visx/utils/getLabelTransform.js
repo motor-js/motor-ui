@@ -1,5 +1,3 @@
-import Orientation from "../constants/orientation";
-
 export default function getLabelTransform({
   labelOffset,
   labelProps,
@@ -8,6 +6,13 @@ export default function getLabelTransform({
   tickLabelFontSize,
   tickLength,
 }) {
+  const Orientation = {
+    top: "top",
+    left: "left",
+    right: "right",
+    bottom: "bottom",
+  };
+
   const sign =
     orientation === Orientation.left || orientation === Orientation.top
       ? -1

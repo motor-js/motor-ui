@@ -120,6 +120,10 @@ export function scaleInvert(scale, value) {
   return scale.invert(value);
 }
 
+export function isValidNumber(_) {
+  return _ != null && typeof _ === "number" && !isNaN(_) && isFinite(_);
+}
+
 export function getDomainFromExtent(scale, start, end, tolerentDelta) {
   let domain;
   const invertedStart = scaleInvert(

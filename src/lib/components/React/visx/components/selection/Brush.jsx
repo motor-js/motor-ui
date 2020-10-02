@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useRef, useEffect } from "react";
 import BaseBrush from "./BaseBrush";
 import ChartContext from "../../context/ChartContext";
-import isValidNumber from "../../typeguards/isValidNumber";
+import { isValidNumber } from "../../utils/chartUtils";
 
 import { isEmpty } from "../../../../../utils";
 

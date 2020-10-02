@@ -9,7 +9,6 @@ import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 import { callOrValue, isDefined } from "../utils/chartUtils";
 import { selectColor } from "../../../../utils";
-import isValidNumber from "../typeguards/isValidNumber";
 
 const GROUP_STYLE = { pointerEvents: "none" };
 

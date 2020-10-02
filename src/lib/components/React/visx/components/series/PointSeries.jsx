@@ -3,7 +3,7 @@ import { Circle } from "@visx/shape";
 
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
-import isValidNumber from "../../typeguards/isValidNumber";
+import { isValidNumber } from "../../utils/chartUtils";
 import useRegisteredData from "../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
@@ -22,10 +22,10 @@ function PointSeries({
     xScale,
     yScale,
     colorScale,
-    showPoints,
-    showLabels,
-    theme,
-    formatValue,
+    // showPoints,
+    // showLabels,
+    // theme,
+    // formatValue,
   } = useContext(ChartContext);
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};

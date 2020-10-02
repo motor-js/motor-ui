@@ -5,12 +5,10 @@ import { Text } from "@visx/text";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
-import isValidNumber from "../../typeguards/isValidNumber";
 import useRegisteredData from "../../hooks/useRegisteredData";
 import FillBackground from "../aesthetic/Gradient";
 
-// import { callOrValue} from "../../utils/chartUtils";
-import { getSymbol, isDefined } from "../../utils/chartUtils";
+import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
 
 function AreaSeries({
   data: _,
