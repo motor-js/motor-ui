@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import ChartContext from "../components/React/visx/context/ChartContext";
+import ChartContext from "../context/ChartContext";
 
 export default function useDataRegistry({
   data,

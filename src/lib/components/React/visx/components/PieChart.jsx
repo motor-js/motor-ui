@@ -4,16 +4,14 @@ import { Pie } from "@visx/shape";
 import { scaleOrdinal } from "@visx/scale";
 import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
-import { useTooltipInPortal } from "@visx/tooltip";
 import { animated, useTransition, interpolate } from "react-spring";
+import Legend from "../components/Legend";
+import ChartBackground from "../components/aesthetic/Gradient";
 
-import Legend from "../../components/aesthetic/Legend";
-import ChartBackground from "../../components/aesthetic/Gradient";
-
-import ChartContext from "../../context/ChartContext";
-import TooltipContext from "../../context/TooltipContext";
-
-import { isEmpty } from "../../../../../utils";
+import ChartContext from "../context/ChartContext";
+import TooltipContext from "../context/TooltipContext";
+import { useTooltipInPortal } from "@visx/tooltip";
+import { isEmpty } from "../../../../utils";
 
 export default function PieChart(props) {
   const {

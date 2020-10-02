@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ChartContext from "../context/ChartContext";
-import useDataRegistry from "../../../../hooks/useRegisteredData";
+import useDataRegistry from "../hooks/useDataRegistry";
 
 /**
  * An HOC that handles registering the Series's data and renders the

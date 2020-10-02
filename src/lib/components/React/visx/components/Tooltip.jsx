@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { TooltipWithBounds } from "@visx/tooltip";
 import { timeParse, timeFormat } from "d3-time-format";
 
-import TooltipContext from "../../context/TooltipContext";
-import ChartContext from "../../context/ChartContext";
-import { isNull, selectColor } from "../../../../../utils";
+import TooltipContext from "../context/TooltipContext";
+import ChartContext from "../context/ChartContext";
+import { isNull, selectColor } from "../../../../utils";
 
 export default function Tooltip({
   snapToDataX,

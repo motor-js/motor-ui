@@ -4,11 +4,12 @@ import {
   PatternHexagons,
   PatternLines,
   PatternWaves,
-} from "./Patterns";
-import ChartContext from "../../context/ChartContext";
-import { selectColor } from "../../../../../utils";
+} from "./aesthetic/Patterns";
+import ChartContext from "../context/ChartContext";
 
 const patternId = "xy-chart-pattern";
+
+import { selectColor } from "../../../../utils";
 
 export default function CustomChartPattern({ backgroundPattern }) {
   const { theme, margin, width, height } = useContext(ChartContext);

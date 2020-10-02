@@ -5,10 +5,10 @@ import { extent } from "d3-array";
 import { Group } from "@visx/group";
 import { Line } from "@visx/shape";
 
-import ChartContext from "../../context/ChartContext";
-import TooltipContext from "../../context/TooltipContext";
-import { callOrValue, isDefined } from "../../utils/chartUtils";
-import { selectColor } from "../../../../../utils";
+import ChartContext from "../context/ChartContext";
+import TooltipContext from "../context/TooltipContext";
+import { callOrValue, isDefined } from "../utils/chartUtils";
+import { selectColor } from "../../../../utils";
 
 const GROUP_STYLE = { pointerEvents: "none" };
 

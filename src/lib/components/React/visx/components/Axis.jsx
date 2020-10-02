@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from "react";
 import { Axis as BaseAxis } from "@visx/axis";
 
-import ChartContext from "../../context/ChartContext";
-import withDefinedContextScales from "../../enhancers/withDefinedContextScales";
+import ChartContext from "../context/ChartContext";
+import withDefinedContextScales from "../enhancers/withDefinedContextScales";
 
 function Axis(props) {
   const { theme, xScale, yScale, margin, width, height, size } = useContext(
