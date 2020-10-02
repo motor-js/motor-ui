@@ -73,7 +73,7 @@ function StyledPie(props) {
 
   const refMargin = "10px";
 
-  // retrieve XYChart data from HyperCube
+  // retrieve Pie data from HyperCube
   const {
     beginSelections,
     endSelections,

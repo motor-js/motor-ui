@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import StyledXYChart from "./StyledPie";
+import StyledPie from "./StyledPie";
 import { ConfigContext } from "../../../contexts/ConfigProvider";
 import { EngineContext } from "../../../contexts/EngineProvider";
 import useEngine from "../../../hooks/useEngine";
@@ -13,7 +13,7 @@ function Pie({ ...rest }) {
     useContext(EngineContext) || useEngine(myConfig);
 
   return (
-    <StyledXYChart
+    <StyledPie
       engine={engine}
       theme={theme}
       engineError={engineError}
