@@ -342,7 +342,7 @@ export default function CreateXYChart({
           >
             <ChartBackground
               style={backgroundStyle.style}
-              id="area-background-gradient"
+              id="visx-background-gradient"
               from={backgroundStyle.styleFrom}
               to={backgroundStyle.styleTo}
             />

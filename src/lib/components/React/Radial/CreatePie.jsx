@@ -7,7 +7,6 @@ import Tooltip from "../visx/components/PieTooltip";
 // import Legend from "../visx/components/Legend";
 // import CustomLegendShape from "../visx/components/CustomLegendShape";
 import Title from "../visx/components/titles/Title";
-import ChartBackground from "../visx/components/aesthetic/Gradient";
 
 import PieSeries from "../visx/components/PieChart";
 
@@ -102,21 +101,6 @@ export default function CreatePie({
     colors,
   };
 
-  // const legend = showLegend ? (
-  //   <Legend
-  //     labelFormat={legendLabelFormat}
-  //     alignLeft={legendLeftRight === "left"}
-  //     direction={legendDirection}
-  //     shape={
-  //       legendShape === "auto"
-  //         ? undefined
-  //         : legendShape === "custom"
-  //         ? CustomLegendShape
-  //         : legendShape
-  //     }
-  //   />
-  // ) : null;
-
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
@@ -163,14 +147,13 @@ export default function CreatePie({
       singleDimension={singleDimension}
       singleMeasure={singleMeasure}
       formatValue={formatValue}
-      // legendLabelStyle={legendLabelStyle}
-      // valueLabelStyle={valueLabelStyle}
+      legendLabelStyle={legendLabelStyle}
+      valueLabelStyle={valueLabelStyle}
       // parseDateFormat={parseDateFormat}
       // formatTooltipDate={formatTooltipDate}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} size={size} />}
-        {/* {legendTopBottom === "top" && legend} */}
         <div
           className="container"
           style={{
@@ -180,15 +163,10 @@ export default function CreatePie({
             flexDirection: "column",
           }}
         >
-          {/* <ChartBackground
-              style={backgroundStyle.style}
-              id="area-background-gradient"
-              from={backgroundStyle.styleFrom}
-              to={backgroundStyle.styleTo}
-            /> */}
           <PieSeries
             height={height}
             data={currData}
+            backgroundStyle={backgroundStyle}
             cornerRadius={valueIfUndefined(
               cornerRadius,
               xyChart.pie.cornerRadius

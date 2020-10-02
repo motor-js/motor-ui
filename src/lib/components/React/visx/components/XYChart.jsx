@@ -67,7 +67,7 @@ export default function XYChart(props) {
           y={0}
           width={width}
           height={height}
-          fill="url(#area-background-gradient)"
+          fill="url(#visx-background-gradient)"
           rx={14}
         />
       )}

@@ -7,11 +7,11 @@ import { Group } from "@visx/group";
 import { GradientPinkBlue } from "@visx/gradient";
 import { animated, useTransition, interpolate } from "react-spring";
 import Legend from "../components/Legend";
+import ChartBackground from "../components/aesthetic/Gradient";
 
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
-import { getSymbol, isDefined, valueIfUndefined } from "../utils/chartUtils";
 import { isEmpty } from "../../../../utils";
 
 export default function PieChart(props) {
@@ -31,6 +31,7 @@ export default function PieChart(props) {
     legendDirection,
     showLegend,
     valPrecision,
+    backgroundStyle,
   } = props;
 
   const { containerRef } = useTooltipInPortal();
@@ -43,7 +44,17 @@ export default function PieChart(props) {
     dataKeys,
     theme,
     formatValue,
+    valueLabelStyle,
+    size,
   } = useContext(ChartContext);
+
+  const { colors, selection, nonSelection, valueLabelStyles } = theme;
+
+  const pieLabelStyle = {
+    ...valueLabelStyles,
+    ...valueLabelStyle,
+    fontSize: valueLabelStyles.fontSize[size],
+  };
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
@@ -54,14 +65,14 @@ export default function PieChart(props) {
   // color scales
   const colorScale = scaleOrdinal({
     domain: dataKeys,
-    range: theme.colors,
+    range: colors,
   });
 
   const getStyle = (selectionId) => {
     return isEmpty(currentSelectionIds) ||
       currentSelectionIds.includes(selectionId)
-      ? theme.selection
-      : theme.nonSelection;
+      ? selection
+      : nonSelection;
   };
 
   if (width < 10) return null;
@@ -118,7 +129,12 @@ export default function PieChart(props) {
     <>
       {legendTopBottom === "top" && legend}
       <svg width={width} height={height} ref={containerRef}>
-        <GradientPinkBlue id="visx-pie-gradient" />
+        <ChartBackground
+          style={backgroundStyle.style}
+          id="visx-pie-gradient"
+          from={backgroundStyle.styleFrom}
+          to={backgroundStyle.styleTo}
+        />
 
         <rect
           rx={14}
@@ -126,6 +142,7 @@ export default function PieChart(props) {
           height={height}
           fill="url('#visx-pie-gradient')"
         />
+
         <Group top={centerY + margin.top} left={centerX + margin.left}>
           <Pie
             data={data}
@@ -148,6 +165,7 @@ export default function PieChart(props) {
                 getStyle={(arc) => getStyle(arc.data.selectionId)}
                 valPrecision={valPrecision}
                 formatValue={formatValue}
+                pieLabelStyle={pieLabelStyle}
               />
             )}
           </Pie>
@@ -170,6 +188,7 @@ export default function PieChart(props) {
                   getStyle={(arc) => getStyle(arc.data.selectionId)}
                   valPrecision={valPrecision}
                   formatValue={formatValue}
+                  pieLabelStyle={pieLabelStyle}
                 />
               )}
             </Pie>
@@ -202,6 +221,7 @@ function AnimatedPie({
   getColor,
   valPrecision,
   formatValue,
+  pieLabelStyle,
   getStyle,
   onClickDatum,
   onMouseMoveDatum,
@@ -250,15 +270,7 @@ function AnimatedPie({
             />
             {hasSpaceForLabel && (
               <animated.g style={{ opacity: props.opacity }}>
-                <text
-                  fill="white"
-                  x={centroidX}
-                  y={centroidY}
-                  dy=".33em"
-                  fontSize={9}
-                  textAnchor="middle"
-                  pointerEvents="none"
-                >
+                <text x={centroidX} y={centroidY} dy=".33em" {...pieLabelStyle}>
                   {pieText}
                 </text>
               </animated.g>
