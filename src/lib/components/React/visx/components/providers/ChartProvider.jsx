@@ -3,7 +3,7 @@ import { localPoint } from "@visx/event";
 import { scaleOrdinal } from "@visx/scale";
 
 import ChartContext from "../../context/ChartContext";
-import createScale from "../../createScale";
+import createScale from "../../utils/createScale";
 import findNearestDatumXY from "../../utils/findNearestDatumXY";
 
 export default class ChartProvider extends React.Component {
@@ -16,7 +16,6 @@ export default class ChartProvider extends React.Component {
     width: null,
     height: null,
     combinedData: [],
-    // selectionIds: [],
   };
 
   componentDidUpdate(prevProps) {
