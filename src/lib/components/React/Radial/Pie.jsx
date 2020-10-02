@@ -270,6 +270,7 @@ Pie.defaultProps = {
   gridArea: null,
   type: null, // Logic to determine default chart type in CreateXYChart
   xAxisOrientation: "bottom",
+  showLegend: false,
   legendLeftRight: "right",
   legendTopBottom: "top",
   legendDirection: "row",

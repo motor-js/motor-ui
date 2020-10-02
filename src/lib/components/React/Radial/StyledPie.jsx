@@ -185,7 +185,6 @@ function StyledPie(props) {
                   ? ref.current.offsetWidth
                   : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
               }
-              width={500} // AG
               height={
                 gridArea
                   ? ref.current.offsetHeight -

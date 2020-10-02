@@ -6,6 +6,7 @@ import { localPoint } from "@visx/event";
 import { Group } from "@visx/group";
 import { GradientPinkBlue } from "@visx/gradient";
 import { animated, useTransition, interpolate } from "react-spring";
+import Legend from "../components/Legend";
 
 import ChartContext from "../context/ChartContext";
 import TooltipContext from "../context/TooltipContext";
@@ -24,20 +25,24 @@ export default function PieChart(props) {
     padAngle,
     donutThickness,
     isDonut,
+    legendTopBottom,
+    legendLeftRight,
+    legendShape,
+    legendDirection,
+    showLegend,
+    valPrecision,
   } = props;
 
-  const { containerRef, TooltipInPortal } = useTooltipInPortal();
+  const { containerRef } = useTooltipInPortal();
 
   const {
-    findNearestData,
-    setChartDimensions,
-    chartType,
     currentSelectionIds,
     handleClick,
     singleMeasure,
     singleDimension,
     dataKeys,
     theme,
+    formatValue,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -92,63 +97,87 @@ export default function PieChart(props) {
     handleClick(selections);
   };
 
+  const legend = showLegend ? (
+    <Legend
+      direction={legendDirection}
+      scale={colorScale}
+      shape={
+        legendShape === "auto"
+          ? undefined
+          : legendShape === "custom"
+          ? CustomLegendShape
+          : legendShape
+      }
+      fill={({ datum }) => colorScale(datum)}
+      labelFormat={(label) => label}
+      alignLeft={legendLeftRight === "left"}
+    />
+  ) : null;
+
   return (
-    <svg width={width} height={height} ref={containerRef}>
-      <GradientPinkBlue id="visx-pie-gradient" />
-      <rect
-        rx={14}
-        width={width}
-        height={height}
-        fill="url('#visx-pie-gradient')"
-      />
-      <Group top={centerY + margin.top} left={centerX + margin.left}>
-        <Pie
-          data={data}
-          pieValue={pieValue}
-          outerRadius={radius}
-          innerRadius={
-            isDonut ? radius - valueIfUndefined(donutThickness, radius) : 0
-          } // null if 1 measures
-          cornerRadius={cornerRadius}
-          padAngle={padAngle}
-        >
-          {(pie) => (
-            <AnimatedPie
-              {...pie}
-              animate={animate}
-              getKey={(arc) => arc.data.label}
-              // onClickDatum={({ data: { label } }) => console.log(label)}
-              onClickDatum={onClick}
-              onMouseMoveDatum={onMouseMoveDatum}
-              onMouseLeave={hideTooltip}
-              getColor={(arc) => colorScale(arc.data.label)}
-              getStyle={(arc) => getStyle(arc.data.selectionId)}
-            />
-          )}
-        </Pie>
-        {/* Inner Circle */}
-        {!(singleDimension && singleMeasure) && (
+    <>
+      {legendTopBottom === "top" && legend}
+      <svg width={width} height={height} ref={containerRef}>
+        <GradientPinkBlue id="visx-pie-gradient" />
+
+        <rect
+          rx={14}
+          width={width}
+          height={height}
+          fill="url('#visx-pie-gradient')"
+        />
+        <Group top={centerY + margin.top} left={centerX + margin.left}>
           <Pie
             data={data}
-            pieValue={secondPieValue}
-            pieSortValues={() => -1}
-            outerRadius={radius - donutThickness * 1.3}
+            pieValue={pieValue}
+            outerRadius={radius}
+            innerRadius={isDonut ? radius - donutThickness : 0}
+            cornerRadius={cornerRadius}
+            padAngle={padAngle}
           >
             {(pie) => (
               <AnimatedPie
                 {...pie}
                 animate={animate}
-                getKey={({ data: { letter } }) => letter}
-                onClickDatum={({ data: { letter } }) => console.log(letter)}
+                getKey={(arc) => arc.data.label}
+                // onClickDatum={({ data: { label } }) => console.log(label)}
+                onClickDatum={onClick}
                 onMouseMoveDatum={onMouseMoveDatum}
+                onMouseLeave={hideTooltip}
                 getColor={(arc) => colorScale(arc.data.label)}
                 getStyle={(arc) => getStyle(arc.data.selectionId)}
+                valPrecision={valPrecision}
+                formatValue={formatValue}
               />
             )}
           </Pie>
-        )}
-      </Group>
-    </svg>
+          {/* Inner Circle */}
+          {!(singleDimension && singleMeasure) && (
+            <Pie
+              data={data}
+              pieValue={secondPieValue}
+              pieSortValues={() => -1}
+              outerRadius={radius - donutThickness * 1.3}
+            >
+              {(pie) => (
+                <AnimatedPie
+                  {...pie}
+                  animate={animate}
+                  getKey={({ data: { letter } }) => letter}
+                  onClickDatum={({ data: { letter } }) => console.log(letter)}
+                  onMouseMoveDatum={onMouseMoveDatum}
+                  getColor={(arc) => colorScale(arc.data.label)}
+                  getStyle={(arc) => getStyle(arc.data.selectionId)}
+                  valPrecision={valPrecision}
+                  formatValue={formatValue}
+                />
+              )}
+            </Pie>
+          )}
+        </Group>
+      </svg>
+      {legendTopBottom === "bottom" && legend}
+    </>
   );
 }
 
@@ -171,6 +200,8 @@ function AnimatedPie({
   path,
   getKey,
   getColor,
+  valPrecision,
+  formatValue,
   getStyle,
   onClickDatum,
   onMouseMoveDatum,
@@ -192,6 +223,10 @@ function AnimatedPie({
       {transitions.map(({ item: arc, props, key }) => {
         const [centroidX, centroidY] = path.centroid(arc);
         const hasSpaceForLabel = arc.endAngle - arc.startAngle >= 0.1;
+        // const pieText = `${arc.data.label}
+        //  (${arc.data.percent.toFixed(valPrecision)}%)
+        //  ${formatValue(arc.data.value)}`;
+        const pieText = `${arc.data.label}`;
 
         return (
           <g key={key}>
@@ -224,7 +259,7 @@ function AnimatedPie({
                   textAnchor="middle"
                   pointerEvents="none"
                 >
-                  {getKey(arc)}
+                  {pieText}
                 </text>
               </animated.g>
             )}

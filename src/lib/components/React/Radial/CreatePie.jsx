@@ -4,8 +4,8 @@ import ChartProvider from "../visx/components/providers/ChartProvider";
 import ChartPattern from "../visx/components/ChartPattern";
 import EventProvider from "../visx/components/providers/TooltipProvider";
 import Tooltip from "../visx/components/PieTooltip";
-import Legend from "../visx/components/Legend";
-import CustomLegendShape from "../visx/components/CustomLegendShape";
+// import Legend from "../visx/components/Legend";
+// import CustomLegendShape from "../visx/components/CustomLegendShape";
 import Title from "../visx/components/titles/Title";
 import ChartBackground from "../visx/components/aesthetic/Gradient";
 
@@ -16,11 +16,11 @@ import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 
-const legendLabelFormat = (d) => d;
+// const legendLabelFormat = (d) => d;
 
-const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
-const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
-const margin = { top: 0, left: 0, bottom: 0, right: 0 };
+// const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
+// const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
+// const margin = { top: 0, left: 0, bottom: 0, right: 0 };
 
 export default function CreatePie({
   width,
@@ -102,20 +102,20 @@ export default function CreatePie({
     colors,
   };
 
-  const legend = showLegend ? (
-    <Legend
-      labelFormat={legendLabelFormat}
-      alignLeft={legendLeftRight === "left"}
-      direction={legendDirection}
-      shape={
-        legendShape === "auto"
-          ? undefined
-          : legendShape === "custom"
-          ? CustomLegendShape
-          : legendShape
-      }
-    />
-  ) : null;
+  // const legend = showLegend ? (
+  //   <Legend
+  //     labelFormat={legendLabelFormat}
+  //     alignLeft={legendLeftRight === "left"}
+  //     direction={legendDirection}
+  //     shape={
+  //       legendShape === "auto"
+  //         ? undefined
+  //         : legendShape === "custom"
+  //         ? CustomLegendShape
+  //         : legendShape
+  //     }
+  //   />
+  // ) : null;
 
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
@@ -170,7 +170,7 @@ export default function CreatePie({
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} size={size} />}
-        {legendTopBottom === "top" && legend}
+        {/* {legendTopBottom === "top" && legend} */}
         <div
           className="container"
           style={{
@@ -193,6 +193,11 @@ export default function CreatePie({
               cornerRadius,
               xyChart.pie.cornerRadius
             )}
+            legendTopBottom={legendTopBottom}
+            legendLeftRight={legendLeftRight}
+            legendShape={legendShape}
+            legendDirection={legendDirection}
+            showLegend={showLegend}
             padAngle={valueIfUndefined(padAngle, xyChart.pie.padAngle)}
             isDonut={valueIfUndefined(isDonut, xyChart.pie.isDonut)}
             donutThickness={valueIfUndefined(
@@ -200,6 +205,7 @@ export default function CreatePie({
               xyChart.pie.donutThickness
             )}
             margin={valueIfUndefined(margin, xyChart.pie.margin)}
+            valPrecision={valueIfUndefined(precision, xyChart.precision)}
             // captureEvents={selectionMethod === "none"}
           />
           {showTooltip && (
@@ -221,7 +227,7 @@ export default function CreatePie({
               // )}
             />
           )}
-          {legendTopBottom === "bottom" && legend}
+          {/* {legendTopBottom === "bottom" && legend} */}
         </div>
       </EventProvider>
     </ChartProvider>
