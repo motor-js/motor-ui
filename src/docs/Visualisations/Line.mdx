@@ -28,6 +28,15 @@ import { config } from '../config/config.js'
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
     <Line // width={750} height={400}  events={true}
+       colorTheme="bio"
+      // formatTooltipDate="%B %Y"
+      // parseDateFormat="%d/%m/%Y"
+      // showClosestItem={false}
+      // useSingleColor
+      showCrossHair={false}
+      showLabels={true}
+      selectionMethod="click"
+      showPoints={true}
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},

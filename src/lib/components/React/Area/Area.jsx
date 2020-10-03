@@ -2,22 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Area({ cols, ...rest }) {
+function Area({ type, cols, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
       type="area"
       cols={cols}
-      colorTheme="bio"
-      // stacked  // add this prop to amke stacked
-      // formatTooltipDate="%B %Y"
-      // parseDateFormat="%d/%m/%Y"
-      // showClosestItem={false}
-      // useSingleColor
-      showCrossHair={false}
-      showLabels={true}
-      selectionMethod="click"
-      showPoints={true}
-      // showPoints='star'
+      {...rest}
     />
   );
 }

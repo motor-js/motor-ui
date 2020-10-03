@@ -2,22 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Bar({ cols, ...rest }) {
+function Bar({ type, cols, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
       type="bar"
       cols={cols}
-      colorTheme="bio"
-      // stacked  // add this prop to make stacked otherwise grouped if multiple dims /measures
-      // formatTooltipDate="%B %Y"
-      // parseDateFormat="%d/%m/%Y"
-      // showClosestItem={false}
-      // useSingleColor
-      showCrossHair={false}
-      showLabels={true}
-      selectionMethod="click"
-      showPoints={true}
-      // showPoints='star'
+      {...rest}
     />
   );
 }
