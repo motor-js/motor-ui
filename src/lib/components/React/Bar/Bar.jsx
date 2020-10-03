@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Bar({ type, cols, ...rest }) {
+function Bar({ cols, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
       type="bar"
@@ -203,7 +203,6 @@ Bar.propTypes = {
   ]),
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
-  type: PropTypes.string,
   useAnimatedAxes: PropTypes.bool,
   autoWidth: PropTypes.bool,
   renderHorizontally: PropTypes.bool,
@@ -305,7 +304,6 @@ Bar.defaultProps = {
   // stacked: false,
   showAsPercent: false,
   gridArea: null,
-  type: null, // Logic to determine default chart type in CreateXYChart
   xAxisOrientation: "bottom",
   yAxisOrientation: "left",
   legendLeftRight: "right",
