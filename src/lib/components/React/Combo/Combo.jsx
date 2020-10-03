@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Bar({ cols, ...rest }) {
+function Combo({ cols, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
-      type="bar"
+      type="combo"
       cols={cols}
       colorTheme="bio"
-      // stacked  // add this prop to make stacked otherwise grouped if multiple dims /measures
       // formatTooltipDate="%B %Y"
       // parseDateFormat="%d/%m/%Y"
       // showClosestItem={false}
@@ -50,8 +49,8 @@ const BORDER_SHAPE = PropTypes.shape({
   ]),
 });
 
-Bar.propTypes = {
-  /** cols from Qlik Data Model to render in the Bar  */
+Combo.propTypes = {
+  /** cols from Qlik Data Model to render in the Combo  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
   calcCondition: PropTypes.shape({
@@ -60,17 +59,17 @@ Bar.propTypes = {
   }),
   /** Supress zeo vlaues in the the chart  */
   suppressZero: PropTypes.bool,
-  /** Bar Sort Order */
+  /** Combo Sort Order */
   sortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
-  /** Bar width */
+  /** Combo width */
   width: PropTypes.string,
-  /** The height of the Bar */
+  /** The height of the Combo */
   height: PropTypes.string,
   /** The amount of margin around the component */
   margin: PropTypes.string,
-  /** Size of the Bar */
+  /** Size of the Combo */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   showLabels: PropTypes.bool,
@@ -90,7 +89,7 @@ Bar.propTypes = {
   gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   /** Show gridline columns on Axis */
   gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  /** Show shadow around Bar Chart */
+  /** Show shadow around Combo Chart */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
@@ -171,13 +170,13 @@ Bar.propTypes = {
   // stacked: PropTypes.bool,
   /** Stacked Chart  */
   showAsPercent: PropTypes.bool,
-  /** RoundNum of the Bar */
+  /** RoundNum of the Combo */
   roundNum: PropTypes.bool,
-  /** Decimai precision for RoundNum of the Bar */
+  /** Decimai precision for RoundNum of the Combo */
   precision: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  /** Title of the Bar */
+  /** Title of the Combo */
   title: PropTypes.string,
-  /** Sub Title of the Bar */
+  /** Sub Title of the Combo */
   subTitle: PropTypes.string,
   /** Legend of the chart */
   showLegend: PropTypes.oneOfType([
@@ -188,7 +187,7 @@ Bar.propTypes = {
   showTooltip: PropTypes.bool,
   /** SelectionMethod */
   selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
-  // /** Maximum Width of the Bar */
+  // /** Maximum Width of the Combo */
   // maxWidth: PropTypes.number,
   // /** Force supression of Scroll / Overview chart */
   // suppressScroll: PropTypes.bool,
@@ -297,11 +296,11 @@ Bar.propTypes = {
   numMeasureDualTicks: PropTypes.number,
   /** Format of dates to be displayed on XAxis. */
   formatAxisDate: PropTypes.string,
-  /** Line stroke width */
+  /** Combo stroke width */
   strokeWidth: PropTypes.number,
 };
 
-Bar.defaultProps = {
+Combo.defaultProps = {
   calcCondition: undefined,
   width: "100%",
   height: "400px", // 100%
@@ -333,4 +332,4 @@ Bar.defaultProps = {
   showTooltip: true,
 };
 
-export default Bar;
+export default Combo;

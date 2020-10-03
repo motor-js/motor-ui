@@ -1,0 +1,47 @@
+---
+name: Bar
+route: /bar
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>XYChart</h1>
+
+<br />
+
+## Usage
+
+Here is a bar chart.
+Check out the props and example usage below 💡
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Bar from '../../lib/components/React/Bar/Bar.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+<Motor  
+ config={config}>  
+  <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
+  <Filter label='Forcast Day' dimension={['Forcast Day']} />
+    <Button type="clearSelections">Clear Selections</Button>
+    <Bar // width={750} height={400}  events={true}
+    colorTheme="bio"
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+     showLabels={true}
+     selectionMethod='click'
+     showPoints={true}
+    // showPoints='star'
+    type="stackedarea"
+      cols={[
+      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+    ]}/>
+  </Motor>
+</Playground>

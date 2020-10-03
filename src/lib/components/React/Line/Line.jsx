@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Bar({ cols, ...rest }) {
+function Line({ cols, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
-      type="bar"
+      type="line"
       cols={cols}
       colorTheme="bio"
-      // stacked  // add this prop to make stacked otherwise grouped if multiple dims /measures
       // formatTooltipDate="%B %Y"
       // parseDateFormat="%d/%m/%Y"
       // showClosestItem={false}
@@ -50,8 +49,8 @@ const BORDER_SHAPE = PropTypes.shape({
   ]),
 });
 
-Bar.propTypes = {
-  /** cols from Qlik Data Model to render in the Bar  */
+Line.propTypes = {
+  /** cols from Qlik Data Model to render in the Line  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
   calcCondition: PropTypes.shape({
@@ -60,17 +59,17 @@ Bar.propTypes = {
   }),
   /** Supress zeo vlaues in the the chart  */
   suppressZero: PropTypes.bool,
-  /** Bar Sort Order */
+  /** Line Sort Order */
   sortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
-  /** Bar width */
+  /** Line width */
   width: PropTypes.string,
-  /** The height of the Bar */
+  /** The height of the Line */
   height: PropTypes.string,
   /** The amount of margin around the component */
   margin: PropTypes.string,
-  /** Size of the Bar */
+  /** Size of the Line */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
   showLabels: PropTypes.bool,
@@ -90,7 +89,7 @@ Bar.propTypes = {
   gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   /** Show gridline columns on Axis */
   gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  /** Show shadow around Bar Chart */
+  /** Show shadow around Line Chart */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
@@ -171,13 +170,13 @@ Bar.propTypes = {
   // stacked: PropTypes.bool,
   /** Stacked Chart  */
   showAsPercent: PropTypes.bool,
-  /** RoundNum of the Bar */
+  /** RoundNum of the Line */
   roundNum: PropTypes.bool,
-  /** Decimai precision for RoundNum of the Bar */
+  /** Decimai precision for RoundNum of the Line */
   precision: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  /** Title of the Bar */
+  /** Title of the Line */
   title: PropTypes.string,
-  /** Sub Title of the Bar */
+  /** Sub Title of the Line */
   subTitle: PropTypes.string,
   /** Legend of the chart */
   showLegend: PropTypes.oneOfType([
@@ -188,7 +187,7 @@ Bar.propTypes = {
   showTooltip: PropTypes.bool,
   /** SelectionMethod */
   selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
-  // /** Maximum Width of the Bar */
+  // /** Maximum Width of the Line */
   // maxWidth: PropTypes.number,
   // /** Force supression of Scroll / Overview chart */
   // suppressScroll: PropTypes.bool,
@@ -301,7 +300,7 @@ Bar.propTypes = {
   strokeWidth: PropTypes.number,
 };
 
-Bar.defaultProps = {
+Line.defaultProps = {
   calcCondition: undefined,
   width: "100%",
   height: "400px", // 100%
@@ -333,4 +332,4 @@ Bar.defaultProps = {
   showTooltip: true,
 };
 
-export default Bar;
+export default Line;

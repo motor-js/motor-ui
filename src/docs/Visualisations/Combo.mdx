@@ -1,6 +1,6 @@
 ---
-name: Bar
-route: /bar
+name: Combo
+route: /Combo
 menu: Visualisations
 ---
 
@@ -15,7 +15,7 @@ Check out the props and example usage below 💡
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import XYChart from '../../lib/components/React/XYChart/XYChart.jsx'
+import Combo from '../../lib/components/React/Combo/Combo.jsx'
 import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import Filter from '../../lib/components/React/Filter/Filter.jsx'
 import Button from '../../lib/components/React/Button/Button.jsx'
@@ -27,17 +27,7 @@ import { config } from '../config/config.js'
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
-    <XYChart // width={750} height={400}  events={true}
-    colorTheme="bio"
-    // formatTooltipDate="%B %Y"
-    // parseDateFormat="%d/%m/%Y"
-    // showClosestItem={false}
-    // useSingleColor
-     showLabels={true}
-     selectionMethod='click'
-     showPoints={true}
-    // showPoints='star'
-    type="stackedarea"
+    <Combo // width={750} height={400}  events={true}
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
