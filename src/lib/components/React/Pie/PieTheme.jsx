@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import { defaultProps } from "../../../default-props";
 import { globalStyle, borderStyle } from "../../../utils/styles";
-import { createColorArray } from "../../../utils/colors";
-import { selectColor } from "../../../utils/colors";
 import { componentWidth } from "../../../utils";
 
 const PieWrapper = styled.div`
   ${globalStyle};
-  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
     props.border &&
     props.border !== "none" &&
@@ -15,40 +12,55 @@ const PieWrapper = styled.div`
       ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
       : borderStyle(props.border, props.theme, "chart"))};
   border-radius: ${(props) =>
-    props.borderRadius || props.theme.global.chart.borderRadius};
+    props.borderRadius || props.theme.global.chart.wrapper.borderRadius};
   background-color: ${(props) =>
-    props.backgroundColor || props.theme.global.chart.backgroundColor};
+    props.backgroundColor || props.theme.global.chart.wrapper.backgroundColor};
   margin: ${(props) => props.margin};
+  userselect: ${(props) => props.theme.global.chart.wrapper.userSelect};
   width: ${(props) => componentWidth(props)};
-  userselect: ${(props) => props.theme.global.chart.userSelect};
-  display: ${(props) => props.theme.global.chart.display};
-  box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.margin || props.theme.global.chart.margin};
+  display: ${(props) => props.theme.global.chart.wrapper.display};
+  box-sizing: ${(props) => props.theme.global.chart.wrapper.boxSizing};
+  position: ${(props) => props.theme.global.chart.wrapper.position};
+  padding: ${(props) => props.theme.global.chart.wrapper.padding};
+  font-weight: ${(props) => props.theme.global.chart.wrapper.fontWeight};
+  color: ${(props) => props.theme.global.chart.wrapper.color};
+  min-height: ${(props) => props.theme.global.chart.wrapper.minHeight};
+  text-decoration: ${(props) => props.theme.global.chart.wrapper.textDirection};
+  box-shadow: ${(props) =>
+    props.showBoxShadow ? props.theme.global.chart.wrapper.boxShadow : null};
+  flex-direction: ${(props) => props.theme.global.chart.wrapper.flexDirection};
 `;
 
 const PieWrapperNoData = styled.div`
   ${globalStyle};
   ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
+  ${(props) =>
+    props.border &&
+    (Array.isArray(props.border, props.theme)
+      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
+      : borderStyle(props.border, props.theme, "chart"))};
+  vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
   display: ${(props) => props.theme.global.chart.noData.display};
   border-radius: ${(props) =>
     props.borderRadius || props.theme.global.chart.noData.borderRadius};
   background-color: ${(props) =>
     props.theme.global.chart.noData.backgroundColor};
   border-collapse: ${(props) => props.theme.global.chart.noData.borderCollapse};
+  height: ${(props) => props.height};
   width: ${(props) => componentWidth(props)};
-  ${(props) =>
-    props.border &&
-    (Array.isArray(props.border, props.theme)
-      ? props.border.map((border) => borderStyle(border, props.theme, "chart"))
-      : borderStyle(props.border, props.theme, "chart"))};
-
-  vertical-align: ${(props) => props.theme.global.chart.noData.verticalAlign};
-  box-sizing: ${(props) => props.theme.global.chart.boxSizing};
-  margin: ${(props) => props.margin || props.theme.global.chart.margin};
+  box-sizing: ${(props) => props.theme.global.chart.wrapper.boxSizing};
+  position: ${(props) => props.theme.global.chart.wrapper.position};
+  padding: ${(props) => props.theme.global.chart.wrapper.padding};
+  margin: ${(props) => props.margin};
+  font-weight: ${(props) => props.theme.global.chart.wrapper.fontWeight};
+  color: ${(props) => props.theme.global.chart.wrapper.color};
+  min-height: ${(props) => props.theme.global.chart.wrapper.minHeight};
+  box-shadow: ${(props) => props.theme.global.chart.wrapper.boxShadow};
 `;
 
 const PieNoDataContent = styled.div`
   ${globalStyle};
+  ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
   margin: ${(props) => props.theme.global.chart.noDataContent.margin};
   align-items: ${(props) => props.theme.global.chart.noDataContent.alignItems};
@@ -67,75 +79,3 @@ PieNoDataContent.defaultProps = {};
 Object.setPrototypeOf(PieNoDataContent.defaultProps, defaultProps);
 
 export { PieWrapper, PieWrapperNoData, PieNoDataContent };
-
-function PieTheme(theme, size, fontColor, colorArray) {
-  const {
-    global: { fontFamily, chart, size: fontSize, colorTheme },
-    pie: { main },
-  } = theme;
-
-  // if the prop is undefined, use the base theme
-  const color = colorArray || colorTheme;
-  const colorPalette = createColorArray(color, theme);
-
-  const labelColor = selectColor(chart.label.fontColor, theme);
-
-  const PieDefault = {
-    allowSelections: chart.allowSelections,
-    suppressZero: chart.suppressZero,
-    showLabels: chart.showLabels,
-    showLegend: chart.showLegend,
-    otherTotalSpec: main.otherTotalSpec,
-    dimensionErrMsg: chart.error.dimensionErrMsg,
-    measureErrMsg: chart.error.measureErrMsg,
-  };
-
-  const PieChartStyle = {
-    "font-family": fontFamily,
-    "font-size": fontSize.font[size],
-  };
-
-  const PieLabelStyle = {
-    "font-size": fontSize.font[size],
-    fill: fontColor || labelColor,
-  };
-
-  const PieStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "left",
-    maxhighlightColor: "#006593",
-    padding: "10px 0px 10px 15px",
-    fontFamily,
-    fontSize: fontSize.font[size],
-    chartValueSize: "15px",
-    cursor: "pointer",
-    userSelect: "none",
-  };
-
-  const SelectedPie = {
-    opacity: chart.selection.opacity,
-    stroke: chart.selection.stroke,
-    "stroke-width": chart.selection.strokeWidth,
-  };
-
-  const NonSelectedPie = {
-    opacity: chart.nonSelection.opacity,
-  };
-
-  const PieThemes = {
-    colorPalette,
-    PieDefault,
-    PieChartStyle,
-    PieLabelStyle,
-    PieStyle,
-    SelectedPie,
-    NonSelectedPie,
-  };
-
-  return {
-    PieThemes,
-  };
-}
-
-export default PieTheme;

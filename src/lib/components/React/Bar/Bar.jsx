@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import StyledBar from "./StyledBar";
+import XYChart from "../XYChart";
 import defaultTheme from "../../../themes/defaultTheme";
 import { EngineContext } from "../../../contexts/EngineProvider";
 
 function Bar({ ...rest }) {
   const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } = useContext(EngineContext)
+  const { engine, engineError } = useContext(EngineContext);
 
   return (
-    <StyledBar
+    <XYChart
       engine={engine}
       theme={theme}
       engineError={engineError}
