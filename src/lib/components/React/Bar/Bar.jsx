@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Bar({ cols, ...rest }) {
+function Bar({ cols, stacked, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
-      type="bar"
+      type={cols.length === 2 ? "bar" : stacked ? "stackedbar" : "groupedbar"}
       cols={cols}
       {...rest}
     />
@@ -157,8 +157,8 @@ Bar.propTypes = {
     ]),
     PropTypes.array,
   ]),
-  // /** Stacked Chart  */
-  // stacked: PropTypes.bool,
+  /** Stacked Chart  */
+  stacked: PropTypes.bool,
   /** Stacked Chart  */
   showAsPercent: PropTypes.bool,
   /** RoundNum of the Bar */
@@ -301,7 +301,7 @@ Bar.defaultProps = {
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  // stacked: false,
+  stacked: false,
   showAsPercent: false,
   gridArea: null,
   xAxisOrientation: "bottom",

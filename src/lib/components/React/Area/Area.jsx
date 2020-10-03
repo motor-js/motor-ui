@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
-function Area({ cols, ...rest }) {
+function Area({ cols, stacked, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
-      type="area"
+      type={cols.length !== 2 && stacked ? "stackedarea" : "area"}
       cols={cols}
       {...rest}
     />
@@ -157,8 +157,8 @@ Area.propTypes = {
     ]),
     PropTypes.array,
   ]),
-  // /** Stacked Chart  */
-  // stacked: PropTypes.bool,
+  /** Stacked Chart  */
+  stacked: PropTypes.bool,
   /** Stacked Chart  */
   showAsPercent: PropTypes.bool,
   /** RoundNum of the Area */
@@ -301,7 +301,7 @@ Area.defaultProps = {
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  // stacked: false,
+  stacked: false,
   showAsPercent: false,
   gridArea: null,
   xAxisOrientation: "bottom",
