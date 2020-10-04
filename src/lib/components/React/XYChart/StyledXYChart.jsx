@@ -9,16 +9,16 @@ import {
 } from "./XYChartTheme";
 import Spinner from "../Spinner";
 import CreateXYChart from "./CreateXYChart";
-import { createColorArray } from "../../../utils";
 
 import {
   numericSortDirection,
   isEmpty,
   validData,
   isNull,
+  createColorArray,
 } from "../../../utils";
 
-import { valueIfUndefined } from "./xy-chart/utils/chartUtils";
+import { valueIfUndefined } from "../visx/utils/chartUtils";
 
 let measureCount = null;
 let dimensionCount = null;
@@ -82,8 +82,7 @@ function StyledXYChart(props) {
   } = props;
 
   const {
-    global: { colorTheme: globalColorTheme },
-    xyChart,
+    global: { colorTheme: globalColorTheme, chart },
   } = theme;
 
   // if the prop is undefined, use the base theme
@@ -106,8 +105,8 @@ function StyledXYChart(props) {
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
-    qSuppressZero: suppressZero || xyChart.suppressZero,
-    qOtherTotalSpec: otherTotalSpec || xyChart.otherTotalSpec,
+    qSuppressZero: suppressZero || chart.suppressZero,
+    qOtherTotalSpec: otherTotalSpec || chart.otherTotalSpec,
     qSuppressZero: true,
   });
 
@@ -246,12 +245,12 @@ function StyledXYChart(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin || xyChart.margin}
+          margin={margin || chart.margin}
           gridArea={gridArea}
           width={width}
           showBoxShadow={valueIfUndefined(
             showBoxShadow,
-            xyChart.wrapper.showBoxShadow
+            chart.wrapper.showBoxShadow
           )}
           ref={ref}
         >
@@ -281,10 +280,10 @@ function StyledXYChart(props) {
               height={
                 gridArea
                   ? ref.current.offsetHeight -
-                    parseInt(margin || xyChart.margin, 10)
+                    parseInt(margin || chart.margin, 10)
                   : parseInt(height, 10)
               }
-              events={events || xyChart.events}
+              events={events || chart.events}
               qLayout={qLayout}
               // qData={data}
               numDimensionTicks={numDimensionTicks}
@@ -306,26 +305,26 @@ function StyledXYChart(props) {
               colorPalette={colorPalette}
               size={size}
               type={type}
-              padding={padding || xyChart.padding}
-              useAnimatedAxes={useAnimatedAxes || xyChart.useAnimatedAxes}
-              autoWidth={autoWidth || xyChart.autoWidth}
+              padding={padding || chart.padding}
+              useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
+              autoWidth={autoWidth || chart.autoWidth}
               renderHorizontally={
-                renderHorizontally || xyChart.renderHorizontally
+                renderHorizontally || chart.renderHorizontally
               }
-              includeZero={includeZero || xyChart.includeZero}
+              includeZero={includeZero || chart.includeZero}
               showLegend={
-                // showLegend === undefined ? xyChart.showLegend : showLegend
-                valueIfUndefined(showLegend, xyChart.showLegend)
+                // showLegend === undefined ? chart.showLegend : showLegend
+                valueIfUndefined(showLegend, chart.showLegend)
               }
               backgroundPattern={
-                backgroundPattern || xyChart.backgroundStyles.pattern
+                backgroundPattern || chart.backgroundStyles.pattern
               }
-              backgroundStyle={backgroundStyle || xyChart.backgroundStyles}
-              fillStyle={fillStyle || xyChart.fillStyles}
-              multiColor={valueIfUndefined(multiColor, xyChart.multiColor)}
+              backgroundStyle={backgroundStyle || chart.backgroundStyles}
+              fillStyle={fillStyle || chart.fillStyles}
+              multiColor={valueIfUndefined(multiColor, chart.multiColor)}
               selectionMethod={valueIfUndefined(
                 selectionMethod,
-                xyChart.selectionMethod
+                chart.selectionMethod
               )}
               enableBrush={enableBrush}
               showAsPercent={showAsPercent}
@@ -345,11 +344,11 @@ function StyledXYChart(props) {
         <XYChartWrapperNoData
           border={border}
           size={size}
-          margin={margin || xyChart.margin}
+          margin={margin || chart.margin}
           // height={
           //   gridArea
           //     ? ref.current.offsetHeight -
-          //       parseInt(margin || xyChart.margin, 10)
+          //       parseInt(margin || chart.margin, 10)
           //     : parseInt(height, 10)
           // }
           gridArea={gridArea}

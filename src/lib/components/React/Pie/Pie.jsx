@@ -2,12 +2,15 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledPie from "./StyledPie";
-import defaultTheme from "../../../themes/defaultTheme";
+import { ConfigContext } from "../../../contexts/ConfigProvider";
 import { EngineContext } from "../../../contexts/EngineProvider";
+import useEngine from "../../../hooks/useEngine";
 
-function Pie({ config, ...rest }) {
-  const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } = useContext(EngineContext)
+function Pie({ ...rest }) {
+  const myConfig = useContext(ConfigContext);
+  const theme = useContext(ThemeContext);
+  const { engine, engineError } =
+    useContext(EngineContext) || useEngine(myConfig);
 
   return (
     <StyledPie
@@ -48,20 +51,31 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 Pie.propTypes = {
-  /** cols from Qlik Data Model to render in the Pie  */
+  /** cols from Qlik Data Model to render in the Bar  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
-  calcCondition: PropTypes.object,
+  calcCondition: PropTypes.shape({
+    qCond: PropTypes.string,
+    qMsg: PropTypes.string,
+  }),
   /** Supress zeo vlaues in the the chart  */
   suppressZero: PropTypes.bool,
-  /** Pie width */
+  /** Bar Sort Order */
+  sortOrder: PropTypes.array,
+  /** Sort Ascending or descending */
+  sortDirection: PropTypes.string,
+  /** Bar width */
   width: PropTypes.string,
-  /** The height of the Pie */
+  /** The height of the Bar */
   height: PropTypes.string,
   /** The amount of margin around the component */
   margin: PropTypes.string,
-  /** Size of the Pie */
+  /** Size of the Bar */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
+  // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
+  showLabels: PropTypes.bool,
+  /** Show shadow around Pie */
+  showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
     PropTypes.bool,
@@ -107,13 +121,11 @@ Pie.propTypes = {
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
-  /** Border Radius on the Pie */
+  // /** Border radius of the chart */
   borderRadius: PropTypes.string,
-  /** Color of the Labels on the Pie */
-  fontColor: PropTypes.string,
-  /** Background Color of the chart */
+  // /** Background Color of the chart */
   backgroundColor: PropTypes.string,
-  /** color scheme of the chart */
+  // /** color scheme of the chart */
   colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
       "motor",
@@ -139,29 +151,27 @@ Pie.propTypes = {
     ]),
     PropTypes.array,
   ]),
-  /** RoundNum of the Pie */
+  // /** Stacked Chart  */
+  // stacked: PropTypes.bool,
+  /** Stacked Chart  */
+  showAsPercent: PropTypes.bool,
+  /** RoundNum of the Bar */
   roundNum: PropTypes.bool,
-  /** Title of the Pie */
+  /** Decimai precision for RoundNum of the Bar */
+  precision: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  /** Title of the Bar */
   title: PropTypes.string,
-  /** Sub Title of the Pie */
+  /** Sub Title of the Bar */
   subTitle: PropTypes.string,
-  /** Legend of the Pie */
+  /** Legend of the chart */
   showLegend: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(["right", "bottom"]),
   ]),
-  /** Allow Selections */
-  allowSelections: PropTypes.bool,
-  /** Display as Donut chart */
-  innerRadius: PropTypes.number,
-  /** Display as Donut chart */
-  cornerRadius: PropTypes.number,
-  /** Display as Donut chart */
-  padAngle: PropTypes.number,
-  /** Error messgae to display when invalid dimension */
-  dimensionErrMsg: PropTypes.string,
-  /** Error messgae to display when invalid measure */
-  measureErrMsg: PropTypes.string,
+  /** Show tooltip */
+  showTooltip: PropTypes.bool,
+  /** SelectionMethod */
+  selectionMethod: PropTypes.oneOf(["click", "none"]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -170,35 +180,99 @@ Pie.propTypes = {
       qOtherCount: PropTypes.string,
     }),
   ]),
-  /** Show chart values */
-  showLabels: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(["inside", "outside", "altStyle", "none"]),
-  ]) /** Name of the parent grid area to place the box */,
+  /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
+  legendLeftRight: PropTypes.oneOf(["left", "right"]),
+  legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
+  legendDirection: PropTypes.oneOf(["row", "column"]),
+  legendShape: PropTypes.string,
+  /** BackgroundSTyle */
+  /** either : style of one of below or bckgroundFrom and bckgroundTo */
+  /**  Linear  */
+  /**  Radial  */
+  /**  DarkGreen  */
+  /**  LightGreen  */
+  /**  OrangeRed  */
+  /**  PinkBlue  */
+  /**  PinkRed  */
+  /**  PurpleOrangle  */
+  /**  PurpleRed  */
+  /**  PurpleTeal  */
+  /**  SteelPurple  */
+  /**  TealBlue  */
+  backgroundStyle: PropTypes.object,
+
+  // /** fillStyle */
+  // /** either : style of one of below or fillFrom and FillTo */
+  // /**  Linear  */
+  // /**  Radial  */
+  // /**  DarkGreen  */
+  // /**  LightGreen  */
+  // /**  OrangeRed  */
+  // /**  PinkBlue  */
+  // /**  PinkRed  */
+  // /**  PurpleOrangle  */
+  // /**  PurpleRed  */
+  // /**  PurpleTeal  */
+  // /**  SteelPurple  */
+  // /**  TealBlue  */
+  // fillStyle: PropTypes.object,
+
+  multiColor: PropTypes.bool,
+  events: PropTypes.bool,
+  /** Styling of the Legend labels. */
+  legendLabelStyle: PropTypes.object,
+  /** Styling of the Value labels. */
+  valueLabelStyle: PropTypes.object,
+  // /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
+  // showClosestItem: PropTypes.bool,
+  // /** Only use one color for the toolyip instead of multi color per item. */
+  // useSingleColor: PropTypes.bool,
+  // /** Show value only for Tooltip */
+  // valueOnly: PropTypes.bool,
+  // /** Show single line fo text and value for tooltip */
+  // valueWithText: PropTypes.bool,
+  // /** Input format of date supplied from engine (in qText) */
+  // parseDateFormat: PropTypes.string,
+  // /** Format of dates to be displayed on Tooltip. */
+  // formatTooltipDate: PropTypes.string,
+  /** Line stroke width around each segemnt */
+  strokeWidth: PropTypes.number,
+  /** Line stroke color around each segemnt */
+  stroke: PropTypes.string,
+  /** Corner radius */
+  cornerRadius: PropTypes.number,
+  /** Padding Angle */
+  padAngle: PropTypes.number,
+  /** Dispaly charta s donut */
+  isDonut: PropTypes.bool,
+  /** Thickness of the donut */
+  donutThickness: PropTypes.number,
+  /** Margin of the cahrt */
+  margin: PropTypes.object,
 };
 
 Pie.defaultProps = {
   calcCondition: undefined,
-  suppressZero: false,
   width: "100%",
-  height: "100%",
-  margin: null,
+  height: "400px", // 100%
   size: "medium",
-  allowSelections: null,
-  fontColor: null,
   border: true,
-  backgroundColor: null,
   colorTheme: null,
-  roundNum: true,
-  title: null,
-  subTitle: null,
-  showLegend: true,
-  innerRadius: 0,
-  cornerRadius: 0,
-  padAngle: 0,
-  showLabels: null,
+  sortOrder: [],
+  sortDirection: "",
+  // stacked: false,
+  showAsPercent: false,
   gridArea: null,
+  showLegend: false,
+  legendLeftRight: "right",
+  legendTopBottom: "top",
+  legendDirection: "row",
+  legendShape: "auto",
+  parseDateFormat: null,
+  formatTooltipDate: null,
+  strokeWidth: null,
+  showTooltip: true,
 };
 
 export default Pie;

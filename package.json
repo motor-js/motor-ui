@@ -55,9 +55,7 @@
     "@visx/text": "^1.0.0",
     "@visx/tooltip": "^1.0.0",
     "@visx/voronoi": "^1.0.0",
-    "d3": "^5.15.0",
     "d3-array": "^2.6.0",
-    "d3-cloud": "^1.2.5",
     "d3-shape": "^2.0.0",
     "enigma.js": "^2.6.3",
     "gatsby-link": "^2.4.13",
@@ -71,6 +69,7 @@
     "react-router-dom": "^5.2.0",
     "react-spring": "^8.0.27",
     "rollup-plugin-typescript2": "^0.27.1",
+    "styled-components": "^5.2.0",
     "uuid": "^3.3.2"
   },
   "peerDependencies": {

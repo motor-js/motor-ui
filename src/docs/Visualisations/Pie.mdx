@@ -1,129 +1,54 @@
 ---
 name: Pie
-route: /piechart
+route: /Pie
 menu: Visualisations
 ---
 
-<h1 style={{ margin: '0px' }}>Pie Chart</h1>
-<h3 style={{ margin: '0px' }}><em>A pie chart</em></h3>
-
-<br />
-
-## Import
-
-```javascript
-  import { Pie } from 'motor-ui'
-```
+<h1 style={{ margin: '0px' }}>Pie</h1>
 
 <br />
 
 ## Usage
 
+Here is a bar chart.
+Check out the props and example usage below 💡
+
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import Pie from '../../lib/components/React/Pie/Pie.jsx';
-import Motor from '../../lib/components/React/Motor/Motor.jsx';
+import Pie from '../../lib/components/React/Pie/Pie.jsx'
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
+import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Button from '../../lib/components/React/Button/Button.jsx'
 import { config } from '../config/config.js'
 
 <Playground>
-<Motor config={config}>  
-  <Pie
-    title='Pie Chart'
+<Motor  
+   config={{
+    host: 'localhost',
+    secure: false,
+    port: 19077,
+    prefix: '',
+    appId: '62160fbb-1fcc-4852-9edb-42dd048f6a3e',
+  }}>  
+  <Filter label='Year' dimension={['Year']} />
+  <Filter label='OICA region' dimension={['OICA region']} />
+      <Button type="clearSelections">Clear Selections</Button>
+    <Pie // width={750} height={400}  events={true}
+       backgroundStyle={{ style: 'PinkBlue', size: 100 }}
+    title="Pie test"
+    subTitle="subTitle"
+    colorTheme="bio"
+    selectionMethod="none"
+    showClosestItem={false}
+    showTooltip={true}
+    showLabels={true}
+    showPoints={true}
+    // useSingleColor
     cols={[
-      { qField: 'country', qLabel: 'Country' },
-      { qField: '=Count(winery)', qLabel: 'No of Wineries' }
-    ]}
-  />
-</Motor>
-
+      { qField: '[Year]', qLabel: 'Year' },
+//{ qField: '[OICA region]', qLabel: 'OICA region' },
+     // { qField: '=Sum([Car sales])*if(Year=2011,-1,1)', qLabel: 'Car sales' },
+     { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car ales' },
+    ]}/>
+  </Motor>
 </Playground>
-
-<br />
-
-<Playground>
-<Motor config={config}>  
-  <Pie
-    size='small'
-    title='Donut Chart'
-    subTitle='Sub Title'
-    cols={[
-      { qField: 'province', qLabel: 'Province' },
-      { qField: '=Count(winery)', qLabel: 'No of Wineries' }
-    ]}
-    innerRadius={55}
-    cornerRadius={5}
-    padAngle={0.03}
-    showLabels="outside"
-  />
-</Motor>
-</Playground>
-
-<br />
-
-## Props
-
-<Props of={Pie} />
-
-<br />
-
-## Theming
-
-
-### Entry Point
-
-```javascript
-theme.pie
-```
-
-### Object
-
-Example below is taken from the Motor Theme.
-
-```javascript
-
-pie: {
-   /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  config: PropTypes.object,
-  /** Pie label  */
-  label: PropTypes.string,
-  /** cols from Qlik Data Model to render in the Pie  */
-  cols: PropTypes.array.isRequired,
-  /** Calc condition for the chart  */
-  calcCondition: PropTypes.object,
-  /** Supress zeo vlaues in the the chart  */
-  suppressZero: PropTypes.bool,
-  /** Pie width */
-  width: PropTypes.string,
-  /** The height of the Pie */
-  height: PropTypes.string,
-  /** The amount of margin around the component */
-  margin: PropTypes.string,
-  /** Whether the KPI size should scale for tablet and mobile */
-  responsive: PropTypes.bool,
-  /** Size of the Pie */
-  size: PropTypes.string,
-  /** Color of the Labels on the Pie */
-  fontColor: PropTypes.string,
-  /** Border of the Pie Chart. Enter as CSS style. Set to "none" to hide border */
-  chartBorder: PropTypes.string,
-  /** Background Color of the chart */
-  backgroundColor: PropTypes.string,
-  /** RoundNum of the Pie */
-  roundNum: PropTypes.bool,
-  /** Title of the Pie */
-  title: PropTypes.string,
-  /** Sub Title of the Pie */
-  subTitle: PropTypes.string,
-  /** Legend of the Pie */
-  showLegend: PropTypes.bool,
-  /** Display as Donut chart */
-  innerRadius: PropTypes.number,
-  /** Display as Donut chart */
-  cornerRadius: PropTypes.number,
-  /** Display as Donut chart */
-  padAngle: PropTypes.number,
-  /** Error messgae to display when invalid dimension or measure */
-  dataErrorMsg: PropTypes.string,
-  },
-
-```

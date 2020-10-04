@@ -1,19 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { ThemeContext } from "styled-components";
-import StyledLine from "./StyledLine";
-import defaultTheme from "../../../themes/defaultTheme";
-import { EngineContext } from "../../../contexts/EngineProvider";
+import XYChart from "../XYChart";
 
-function Line({ config, ...rest }) {
-  const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } = useContext(EngineContext) 
-
+function Line({ cols, ...rest }) {
   return (
-    <StyledLine
-      engine={engine}
-      theme={theme}
-      engineError={engineError}
+    <XYChart // width={750} height={400}  events={true}
+      type="line"
+      cols={cols}
       {...rest}
     />
   );
@@ -48,18 +41,17 @@ const BORDER_SHAPE = PropTypes.shape({
 });
 
 Line.propTypes = {
-  /** Configuration object to connect to the Qlik Engine. Must include Qlik site URL and an App name */
-  config: PropTypes.object,
   /** cols from Qlik Data Model to render in the Line  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
-  calcCondition: PropTypes.object,
-  /** Supress zeo values in the the chart  */
+  calcCondition: PropTypes.shape({
+    qCond: PropTypes.string,
+    qMsg: PropTypes.string,
+  }),
+  /** Supress zeo vlaues in the the chart  */
   suppressZero: PropTypes.bool,
-  /** Use dual Y axis on the the chart  */
-  dualAxis: PropTypes.bool,
   /** Line Sort Order */
-  columnSortOrder: PropTypes.array,
+  sortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
   /** Line width */
@@ -70,22 +62,26 @@ Line.propTypes = {
   margin: PropTypes.string,
   /** Size of the Line */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
-  /** Labels on markers of the Lines */
-  showLabels: PropTypes.oneOf(["top", "none"]),
-  /** Show text on Axis */
-  textOnAxis: PropTypes.oneOfType([
+  // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
+  showLabels: PropTypes.bool,
+  // /** Show text on Axis */
+  showAxisLabels: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
-  /** Spacing of Ticks on Y Axis */
-  tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
-  /** Show gridlines on Axis */
-  showGridlines: PropTypes.oneOfType([
+  // /** Spacing of Ticks on Y Axis */
+  // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
+  /** Display Axis and ticks  */
+  hideAxisLine: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
+    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
-  /** Fontcolor of the Line labels */
-  fontColor: PropTypes.string,
+  /** Show gridline rows on Axis */
+  gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  /** Show gridline columns on Axis */
+  gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  /** Show shadow around Line Chart */
+  showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
     PropTypes.bool,
@@ -131,14 +127,13 @@ Line.propTypes = {
     }),
     PropTypes.arrayOf(BORDER_SHAPE),
   ]),
-  /** Border radius of the chart */
+  // /** Border radius of the chart */
   borderRadius: PropTypes.string,
-  /** Background Color of the chart */
+  // /** Background Color of the chart */
   backgroundColor: PropTypes.string,
-  /** color scheme of the chart */
+  // /** color scheme of the chart */
   colorTheme: PropTypes.oneOfType([
     PropTypes.oneOf([
-      "brand",
       "motor",
       "divergent9",
       "divergent13",
@@ -162,65 +157,42 @@ Line.propTypes = {
     ]),
     PropTypes.array,
   ]),
-  /** Shape of the curve for the chart */
-  curve: PropTypes.oneOf([
-    "Linear",
-    "Basis",
-    "Bundle",
-    "Cardinal",
-    "CatmullRom",
-    "MonotoneX",
-    "MonotoneY",
-    "Natural",
-    "Step",
-    "StepAfter",
-    "StepBefore",
-    "BasisClosed",
-  ]),
-  /** Shape of the symbol to be used on the line */
-  symbol: PropTypes.oneOf([
-    "circle",
-    "cross",
-    "diamond",
-    "square",
-    "star",
-    "triangle",
-    "wye",
-    "none",
-  ]),
+  // /** Stacked Chart  */
+  // stacked: PropTypes.bool,
+  /** Stacked Chart  */
+  showAsPercent: PropTypes.bool,
   /** RoundNum of the Line */
   roundNum: PropTypes.bool,
+  /** Decimai precision for RoundNum of the Line */
+  precision: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   /** Title of the Line */
   title: PropTypes.string,
   /** Sub Title of the Line */
   subTitle: PropTypes.string,
-  /** Legend of the Line */
+  /** Legend of the chart */
   showLegend: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(["right", "bottom"]),
-  ]) /** Allow Selections */,
-  allowSelections: PropTypes.bool,
-  /** Display Axis and ticks  */
-  showAxis: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
-  /** Max length of chart axis (in pixels) */
-  maxAxisLength: PropTypes.number,
-  /** Display chart as Area chart */
-  areaChart: PropTypes.bool,
-  /** Display chart as Stacked Area chart */
-  stacked: PropTypes.bool,
-  /** Force supression of Scroll / Overview chart */
-  suppressScroll: PropTypes.bool,
-  // /** Allow for bushes to be resized on chart */
-  // allowZoom: PropTypes.bool, // Descoped to later version
-  // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
-  // scrollRatio: PropTypes.number, // Descoped to later version
-  /** Error messgae to display when invalid dimension */
-  dimensionErrMsg: PropTypes.string,
-  /** Error messgae to display when invalid measure */
-  measureErrMsg: PropTypes.string,
+  /** Show tooltip */
+  showTooltip: PropTypes.bool,
+  /** SelectionMethod */
+  selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
+  // /** Maximum Width of the Line */
+  // maxWidth: PropTypes.number,
+  // /** Force supression of Scroll / Overview chart */
+  // suppressScroll: PropTypes.bool,
+  // // /** Allow for bushes to be resized on chart */
+  // // allowZoom: PropTypes.bool, // Descoped to later version
+  // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
+  // // scrollRatio: PropTypes.number, // Descoped to later version
+  /** Pddding for each bar */
+  padding: PropTypes.number,
+  /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
+  showPoints: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
+  ]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -228,40 +200,125 @@ Line.propTypes = {
       qOtherLabel: PropTypes.string,
       qOtherCount: PropTypes.string,
     }),
-  ]) /** Name of the parent grid area to place the box */,
+  ]),
+  /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
+  useAnimatedAxes: PropTypes.bool,
+  autoWidth: PropTypes.bool,
+  renderHorizontally: PropTypes.bool,
+  includeZero: PropTypes.bool,
+  xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
+  yAxisOrientation: PropTypes.oneOf(["left", "right"]),
+  legendLeftRight: PropTypes.oneOf(["left", "right"]),
+  legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
+  legendDirection: PropTypes.oneOf(["row", "column"]),
+  legendShape: PropTypes.string,
+  backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
+  /** BackgroundSTyle */
+  /** either : style of one of below or bckgroundFrom and bckgroundTo */
+  /**  Linear  */
+  /**  Radial  */
+  /**  DarkGreen  */
+  /**  LightGreen  */
+  /**  OrangeRed  */
+  /**  PinkBlue  */
+  /**  PinkRed  */
+  /**  PurpleOrangle  */
+  /**  PurpleRed  */
+  /**  PurpleTeal  */
+  /**  SteelPurple  */
+  /**  TealBlue  */
+  backgroundStyle: PropTypes.object,
+
+  /** fillStyle */
+  /** either : style of one of below or fillFrom and FillTo */
+  /**  Linear  */
+  /**  Radial  */
+  /**  DarkGreen  */
+  /**  LightGreen  */
+  /**  OrangeRed  */
+  /**  PinkBlue  */
+  /**  PinkRed  */
+  /**  PurpleOrangle  */
+  /**  PurpleRed  */
+  /**  PurpleTeal  */
+  /**  SteelPurple  */
+  /**  TealBlue  */
+  fillStyle: PropTypes.object,
+
+  multiColor: PropTypes.bool,
+  events: PropTypes.bool,
+  /** Use dual Y axis on the the chart  */
+  dualAxis: PropTypes.bool,
+  /** Show CrossHair on the chart  */
+  showCrossHair: PropTypes.bool,
+  /** Styling of the CrossHair. */
+  crossHairStyles: PropTypes.object,
+  /** Styling of the Legend labels. */
+  legendLabelStyle: PropTypes.object,
+  /** Styling of the Value labels. */
+  valueLabelStyle: PropTypes.object,
+  /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
+  showClosestItem: PropTypes.bool,
+  /** Only use one color for the toolyip instead of multi color per item. */
+  useSingleColor: PropTypes.bool,
+  /** Snap to X Axis (normally true for bar or combo) */
+  snapToDataX: PropTypes.bool,
+  /** Snap to Y Axis (normally true for bar or combo) */
+  snapToDataY: PropTypes.bool,
+  /** Show value only for Tooltip */
+  valueOnly: PropTypes.bool,
+  /** Show single line fo text and value for tooltip */
+  valueWithText: PropTypes.bool,
+  /** Input format of date supplied from engine (in qText) */
+  parseDateFormat: PropTypes.string,
+  /** Format of dates to be displayed on Tooltip. */
+  formatTooltipDate: PropTypes.string,
+  /** Reposition the tooltip. */
+  shiftTooltipTop: PropTypes.number,
+  /** Reposition the tooltip. */
+  shiftTooltipLeft: PropTypes.number,
+  /** Number of ticks for the X Axis. Leave blank to auto calculate */
+  numDimensionTicks: PropTypes.number,
+  /** Number of ticks for the Y Axis. Leave blank to auto calculate */
+  numMeasureTicks: PropTypes.number,
+  /** Number of ticks for the dual Y Axis. Leave blank to auto calculate */
+  numMeasureDualTicks: PropTypes.number,
+  /** Format of dates to be displayed on XAxis. */
+  formatAxisDate: PropTypes.string,
+  /** Line stroke width */
+  strokeWidth: PropTypes.number,
 };
 
 Line.defaultProps = {
-  config: null,
   calcCondition: undefined,
-  suppressZero: true,
-  dualAxis: false,
   width: "100%",
-  height: "100%",
-  margin: null,
+  height: "400px", // 100%
   size: "medium",
-  showLabels: null,
-  fontColor: "",
   border: true,
-  backgroundColor: null,
+  /** Use dual Y axis on the the chart  */
+  dualAxis: false,
   colorTheme: null,
-  tickSpacing: undefined,
-  allowSelections: null,
-  showGridlines: null,
-  showAxis: null,
-  textOnAxis: null,
-  curve: "Linear",
-  symbol: null,
-  roundNum: true,
-  title: null,
-  subTitle: null,
-  showLegend: false,
-  columnSortOrder: [],
+  sortOrder: [],
   sortDirection: "",
-  areaChart: false,
-  stacked: false,
+  // stacked: false,
+  showAsPercent: false,
   gridArea: null,
+  xAxisOrientation: "bottom",
+  yAxisOrientation: "left",
+  legendLeftRight: "right",
+  legendTopBottom: "top",
+  legendDirection: "row",
+  legendShape: "auto",
+  parseDateFormat: null,
+  formatAxisDate: null,
+  formatTooltipDate: null,
+  strokeWidth: null,
+  numDimensionTicks: null,
+  numMeasureTicks: null,
+  numMeasureDualTicks: null,
+  showCrossHair: true,
+  showTooltip: true,
 };
 
 export default Line;

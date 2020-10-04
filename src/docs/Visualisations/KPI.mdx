@@ -10,23 +10,23 @@ menu: Visualisations
 import { Props } from 'docz'
 import { Playground } from 'docz'
 import KPI from '../../lib/components/React/KPI/KPI.jsx';
+import Motor from '../../lib/components/React/Motor/Motor.jsx'
 import { config } from '../config/config.js'
 
 <Playground>
+ <Motor  
+ config={config}>  
     <KPI
-        config={config}
-                    cols={[
+                      cols={[
               {
-                qField:
-                  "=Sum( { $< [Claim Notification Date.autoCalendar.InYTD]={1}, [Claim Notification Date.autoCalendar.YearsAgo]={0} > } [Total Claim Cost])/1000000",
-                qLabel: "Margin Amount",
-                qNumType: "M",qNumFmt: "£#,##0",
+                qField:'=Sum([Hours])',                qLabel: "Hours",
+              //  qNumType: "M",qNumFmt: "£#,##0",
               },
             ]}
-            roundNum={false}
-        label='Count of Countries'
+            roundNum={true}
+        label='Sum of Hours'
         size='medium'
         border={{color:'brand'}}
     />
-
+  </Motor>
 </Playground>

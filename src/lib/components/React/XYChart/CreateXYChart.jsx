@@ -1,32 +1,36 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import React, { useState, useMemo, useEffect } from "react";
-import Axis from "./xy-chart/components/Axis";
-import AnimatedAxis from "./xy-chart/components/AnimatedAxis";
-import ChartProvider from "./xy-chart/components/providers/ChartProvider";
-import XYChart from "./xy-chart/components/XYChart";
-import BarSeries from "./xy-chart/components/series/BarSeries";
-import LineSeries from "./xy-chart/components/series/LineSeries";
-import AreaSeries from "./xy-chart/components/series/AreaSeries";
-import PointSeries from "./xy-chart/components/series/PointSeries";
-import ChartPattern from "./xy-chart/components/ChartPattern";
-import EventProvider from "./xy-chart/components/providers/TooltipProvider";
-import Tooltip from "./xy-chart/components/Tooltip";
-import CrossHair from "./xy-chart/components/CrossHair";
-import Legend from "./xy-chart/components/Legend";
-import CustomLegendShape from "./xy-chart/components/CustomLegendShape";
-import Group from "./xy-chart/components/series/Group";
-import Title from "./xy-chart/components/titles/Title";
-import StackedBar from "./xy-chart/components/series/StackedBar";
-import StackedArea from "./xy-chart/components/series/StackedArea";
-import ChartBackground from "./xy-chart/components/aesthetic/Gradient";
-import Grid from "./xy-chart/components/grids/Grid";
-import Brush from "./xy-chart/components/selection/Brush";
+
+import {
+  AreaSeries,
+  PointSeries,
+  ChartPattern,
+  EventProvider,
+  Tooltip,
+  CrossHair,
+  Legend,
+  CustomLegendShape,
+  Axis,
+  AnimatedAxis,
+  ChartProvider,
+  XYChart,
+  BarSeries,
+  LineSeries,
+  Group,
+  Title,
+  StackedBar,
+  StackedArea,
+  ChartBackground,
+  Grid,
+  Brush,
+} from "../visx";
+
 import { timeParse, timeFormat } from "d3-time-format";
 
-import { roundNumber } from "./xy-chart/utils/roundNumber";
-import { PatternLines } from "./xy-chart/components/aesthetic/Patterns";
+import { roundNumber } from "../visx/utils/roundNumber";
+import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
-import { valueIfUndefined, isDefined } from "./xy-chart/utils/chartUtils";
+import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
@@ -228,11 +232,16 @@ export default function CreateXYChart({
 
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
-
-  const { xyChart } = theme;
+  const {
+    global: { chart },
+    crossHair: crossHairStyle,
+  } = theme;
 
   const themeObj = {
-    ...theme.xyChart,
+    ...theme.global.chart,
+    bar: { ...theme.bar },
+    points: { ...theme.points },
+    stackedArea: { ...theme.stackedArea },
     colors,
   };
 
@@ -255,17 +264,14 @@ export default function CreateXYChart({
 
   const selectedBoxStyle = {
     fill: "url(#brush_pattern)",
-    stroke: selectColor(xyChart?.brush.stroke, theme) ?? "#329af0",
+    stroke: selectColor(chart?.brush.stroke, theme) ?? "#329af0",
   };
 
-  const chartHideAxisLine = valueIfUndefined(
-    hideAxisLine,
-    xyChart.hideAxisLine
-  );
+  const chartHideAxisLine = valueIfUndefined(hideAxisLine, chart.hideAxisLine);
 
   const chartShowAxisLabels = valueIfUndefined(
     showAxisLabels,
-    xyChart.showAxisLabels
+    chart.showAxisLabels
   );
 
   chartShowAxisLabels === true ||
@@ -277,8 +283,8 @@ export default function CreateXYChart({
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
-    const valPrecision = valueIfUndefined(precision, xyChart.precision);
-    const valRoundNum = valueIfUndefined(roundNum, xyChart.roundNum);
+    const valPrecision = valueIfUndefined(precision, chart.precision);
+    const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
 
     if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
     let formattedValue = valRoundNum
@@ -298,10 +304,10 @@ export default function CreateXYChart({
       yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
       // isContinuousAxes={isContinuousAxes}
       colorScale={colorScaleConfig}
-      showLabels={valueIfUndefined(showLabels, xyChart.showLabels)}
-      showPoints={valueIfUndefined(showPoints, xyChart.showPoints)}
-      roundNum={valueIfUndefined(roundNum, xyChart.roundNum)}
-      precision={valueIfUndefined(precision, xyChart.precision)}
+      showLabels={valueIfUndefined(showLabels, chart.showLabels)}
+      showPoints={valueIfUndefined(showPoints, chart.showPoints)}
+      roundNum={valueIfUndefined(roundNum, chart.roundNum)}
+      precision={valueIfUndefined(precision, chart.precision)}
       size={size}
       dimensionInfo={dimensionInfo}
       measureInfo={measureInfo}
@@ -319,7 +325,7 @@ export default function CreateXYChart({
       formatTooltipDate={formatTooltipDate}
     >
       <EventProvider>
-        {title && <Title title={title} subTitle={subTitle} />}
+        {title && <Title title={title} subTitle={subTitle} size={size} />}
         {legendTopBottom === "top" && legend}
         <div
           className="container"
@@ -342,7 +348,7 @@ export default function CreateXYChart({
           >
             <ChartBackground
               style={backgroundStyle.style}
-              id="area-background-gradient"
+              id="visx-background-gradient"
               from={backgroundStyle.styleFrom}
               to={backgroundStyle.styleTo}
             />
@@ -350,10 +356,10 @@ export default function CreateXYChart({
             {showBrush && (
               <PatternLines
                 id="brush_pattern"
-                height={xyChart?.brush.patternHeight ?? 12}
-                width={xyChart?.brush.patternWidth ?? 12}
+                height={chart?.brush.patternHeight ?? 12}
+                width={chart?.brush.patternWidth ?? 12}
                 stroke={
-                  selectColor(xyChart?.brush.patternStroke, theme) ?? "#a3daff"
+                  selectColor(chart?.brush.patternStroke, theme) ?? "#a3daff"
                 }
                 strokeWidth={1}
                 orientation={["diagonal"]}
@@ -463,19 +469,6 @@ export default function CreateXYChart({
                   />
                 )
               )}
-            {/* {chartType.includes("area") &&
-              dimensionCount <= 1 &&
-              measureInfo.map((measure, index) => (
-                <AreaSeries
-                  key={measureInfo[index].qFallbackTitle}
-                  dataKey={measureInfo[index].qFallbackTitle}
-                  glyph={measureInfo[index].qShowPoints}
-                  fillStyle={measureInfo[index].qFillStyle || fillStyle}
-                  data={currData}
-                  {...dataAccessors[index]}
-                  strokeWidth={strokeWidth}
-                />
-              ))} */}
             {chartType.includes("area") && (
               <>
                 {singleDimension
@@ -646,76 +639,76 @@ export default function CreateXYChart({
                 horizontal={renderHorizontally}
                 fullHeight={valueIfUndefined(
                   crossHairStyles && crossHairStyles.fullHeight,
-                  xyChart.crossHair.fullHeight
+                  crossHairStyle.fullHeight
                 )}
                 fullWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.fullWidth,
-                  xyChart.crossHair.fullWidth
+                  crossHairStyle.fullWidth
                 )}
                 circleSize={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleSize,
-                  xyChart.crossHair.circleSize
+                  crossHairStyle.circleSize
                 )}
                 showHorizontalLine={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showHorizontalLine,
-                  xyChart.crossHair.showHorizontalLine
+                  crossHairStyle.showHorizontalLine
                 )}
                 showVerticalLine={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showVerticalLine,
-                  xyChart.crossHair.showVerticalLine
+                  crossHairStyle.showVerticalLine
                 )}
                 strokeDasharray=""
                 circleStyles={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStyles,
-                  xyChart.crossHair.circleStyles
+                  crossHairStyle.circleStyles
                 )}
                 lineStyles={valueIfUndefined(
                   crossHairStyles && crossHairStyles.lineStyles,
-                  xyChart.crossHair.lineStyles
+                  crossHairStyle.lineStyles
                 )}
                 showCircle={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showCircle,
-                  xyChart.crossHair.showCircle
+                  crossHairStyle.showCircle
                 )}
                 showMultipleCircles={valueIfUndefined(
                   crossHairStyles && crossHairStyles.showMultipleCircles,
-                  xyChart.crossHair.showMultipleCircles
+                  crossHairStyle.showMultipleCircles
                 )}
                 stroke={valueIfUndefined(
                   crossHairStyles && crossHairStyles.stroke,
-                  xyChart.crossHair.stroke
+                  crossHairStyle.stroke
                 )}
                 circleStroke={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStroke,
-                  xyChart.crossHair.circleStroke
+                  crossHairStyle.circleStroke
                 )}
                 circleFill={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleFill,
-                  xyChart.crossHair.circleFill
+                  crossHairStyle.circleFill
                 )}
                 circleClosestFill={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleClosestFill,
-                  xyChart.crossHair.circleClosestFill
+                  crossHairStyle.circleClosestFill
                 )}
                 circleClosestStroke={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleClosestStroke,
-                  xyChart.crossHair.circleClosestStroke
+                  crossHairStyle.circleClosestStroke
                 )}
                 circleStrokeWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.circleStrokeWidth,
-                  xyChart.crossHair.circleStrokeWidth
+                  crossHairStyle.circleStrokeWidth
                 )}
                 strokeDasharray={valueIfUndefined(
                   crossHairStyles && crossHairStyles.strokeDasharray,
-                  xyChart.crossHair.strokeDasharray
+                  crossHairStyle.strokeDasharray
                 )}
                 strokeWidth={valueIfUndefined(
                   crossHairStyles && crossHairStyles.strokeWidth,
-                  xyChart.crossHair.strokeWidth
+                  crossHairStyle.strokeWidth
                 )}
                 highlightClosetsCircle={valueIfUndefined(
                   crossHairStyles && crossHairStyles.highlightClosetsCircle,
-                  xyChart.crossHair.highlightClosetsCircle
+                  crossHairStyle.highlightClosetsCircle
                 )}
               />
             )}
@@ -736,18 +729,18 @@ export default function CreateXYChart({
               snapToDataY={canSnapTooltipToDataY}
               showClosestItem={valueIfUndefined(
                 showClosestItem,
-                xyChart.tooltip.showClosestItem
+                chart.tooltip.showClosestItem
               )}
-              valueOnly={valueIfUndefined(valueOnly, xyChart.tooltip.valueOnly)}
+              valueOnly={valueIfUndefined(valueOnly, chart.tooltip.valueOnly)}
               valueWithText={valueIfUndefined(
                 valueWithText,
-                xyChart.tooltip.valueWithText
+                chart.tooltip.valueWithText
               )}
               shiftTooltipTop={shiftTooltipTop}
               shiftTooltipLeft={shiftTooltipLeft}
               useSingleColor={valueIfUndefined(
                 useSingleColor,
-                xyChart.tooltip.useSingleColor
+                chart.tooltip.useSingleColor
               )}
             />
           )}

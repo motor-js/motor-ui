@@ -1,1 +1,1 @@
-export { default } from './Pie.jsx'
+export { default } from "./Pie";
