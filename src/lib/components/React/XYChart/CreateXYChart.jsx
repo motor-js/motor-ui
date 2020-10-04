@@ -323,6 +323,7 @@ export default function CreateXYChart({
       valueLabelStyle={valueLabelStyle}
       parseDateFormat={parseDateFormat}
       formatTooltipDate={formatTooltipDate}
+      showCrossHair={valueIfUndefined(showCrossHair, chart.showCrossHair)}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} size={size} />}

@@ -252,6 +252,7 @@ export default class ChartProvider extends React.Component {
       valueLabelStyle,
       size,
       // isContinuousAxes,
+      showCrossHair,
       formatTooltipDate,
       parseDateFormat,
     } = this.props;
@@ -290,6 +291,7 @@ export default class ChartProvider extends React.Component {
           // beginSelections,
           // setCurrentSelectionIds,
           // select,
+          showCrossHair,
           size,
           currentSelectionIds,
           legendLabelStyle,

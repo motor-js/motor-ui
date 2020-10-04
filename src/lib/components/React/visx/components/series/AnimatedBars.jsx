@@ -29,9 +29,12 @@ export default function AnimatedBars({
   //   }))
   // );
 
-  const { findNearestData, handleClick, currentSelectionIds } = useContext(
-    ChartContext
-  );
+  const {
+    findNearestData,
+    handleClick,
+    currentSelectionIds,
+    showCrossHair,
+  } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
   // const { selection, nonSelection } = theme;
@@ -80,7 +83,8 @@ export default function AnimatedBars({
               ? 1
               : 0
           }
-          style={{ cursor: "pointer" }}
+          // style={{ cursor: "pointer" }}
+          showCrossHair={showCrossHair}
           onClick={() => {
             const selections = currentSelectionIds.includes(bar.selectionId)
               ? currentSelectionIds.filter(function(value, index, arr) {

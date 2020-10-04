@@ -7,6 +7,7 @@ import Bar from "../shapes/Bar";
 const handleBarStyle = (props) => {
   const {
     isSelected,
+    showCrossHair,
     theme: {
       global: { chart },
       crossHair,
@@ -26,7 +27,7 @@ const handleBarStyle = (props) => {
 
   return css`
     &:hover {
-      ${!crossHair.showVerticalLine ? chart.hover : null};
+      ${!showCrossHair ? chart.hover : null};
     }
   `;
 };
