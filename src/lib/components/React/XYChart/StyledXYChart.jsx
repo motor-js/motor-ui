@@ -141,12 +141,6 @@ function StyledXYChart(props) {
     }
   };
 
-  // const buildSelections = (s) => {
-  //   setSel(...sel, s);
-  // };
-
-  // let keys = [];
-
   useEffect(() => {
     let valid;
     if (qLayout) {
@@ -172,6 +166,7 @@ function StyledXYChart(props) {
       (qData && data === null) ||
       (qData && data && isValid)
     ) {
+
       dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
       measureCount = qLayout.qHyperCube.qMeasureInfo.length;
       singleDimension = dimensionCount === 1;
@@ -242,7 +237,7 @@ function StyledXYChart(props) {
 
       setData(singleDimension ? qData.qMatrix : items);
     }
-  }, [qData]);
+  }, [qData, isValid]);
 
   return (
     <>
