@@ -265,27 +265,27 @@ const base = {
           maxHeight: "50px",
           backgroundColor: "rgb(247, 247, 247)",
           margin: "-16px -16px 0px",
-          padding: "15px 16px 16px",
-          marginBottom: "10px",
+          padding: "15px 20px",
+          marginBottom: "15px",
         },
         title: {
           color: "var(--oc-gray-8)",
           fontSize: {
-            tiny: "16px",
-            small: "18px",
-            medium: "20px",
-            large: "22px",
-            xlarge: "24px",
+            tiny: "14px",
+            small: "16px",
+            medium: "18px",
+            large: "20px",
+            xlarge: "22px",
           },
         },
         subTitle: {
           color: "var(--oc-gray-6)",
           fontSize: {
-            tiny: "12px",
-            small: "14px",
-            medium: "16px",
-            large: "18px",
-            xlarge: "20px",
+            tiny: "10px",
+            small: "12px",
+            medium: "14px",
+            large: "16px",
+            xlarge: "18px",
           },
         },
       },
@@ -963,27 +963,6 @@ const base = {
     size: 50,
     timeout: 5000,
   },
-
-  // column: {
-  //   main: {
-  //     zoomScrollOnColumnWidth: 30,
-  //     columnPadding: 20,
-  //     otherTotalSpec: undefined,
-  //     // if the columns are narrower than zoomScrollOnColumnWidth
-  //     // try apply this padding to inclrease thier size
-  //     columnPaddingNarrow: 10,
-  //     maxWidth: 150,
-  //   },
-  //   columns: {
-  //     stroke: "var(--oc-gray-4)",
-  //     strokeWidth: 0.5,
-  //   },
-  //   overview: {
-  //     opacity: 0.5,
-  //     stroke: "var(--oc-gray-4)",
-  //     strokeWidth: 0.5,
-  //   },
-  // },
   bar: { stroke: "#fff", strokeWidth: 1 },
   stackedArea: { stroke: "#fff", strokeWidth: 1 },
   points: { size: 50, strokeWidth: 2 },
@@ -996,59 +975,6 @@ const base = {
     isDonut: true,
     donutThickness: 50,
   },
-  // bar: {
-  //   main: {
-  //     zoomScrollOnBarHeight: 25,
-  //     barPadding: 20,
-  //     otherTotalSpec: undefined,
-  //     // if the columns are narrower than zoomScrollOnColumnWidth try apply this padding to inclrease thier size
-  //     barPaddingNarrow: 10,
-  //     maxWidth: 100,
-  //   },
-  //   bars: {
-  //     stroke: "var(--oc-gray-4)",
-  //     strokeWidth: 0.5,
-  //   },
-  //   overview: {
-  //     opacity: 0.5,
-  //     stroke: "var(--oc-gray-4)",
-  //     strokeWidth: 0.5,
-  //   },
-  // },
-  // line: {
-  //   main: {
-  //     dataPointsToShow: 100,
-  //     otherTotalSpec: undefined,
-  //     symbol: "circle",
-  //     strokeWidth: 1,
-  //     fillOpacity: 0.7,
-  //   },
-  // },
-  // scatter: {
-  //   main: {
-  //     otherTotalSpec: undefined,
-  //   },
-  //   scatters: {
-  //     fill: "none",
-  //     stroke: "var(--oc-pink-4)",
-  //     strokeWidth: 2,
-  //   },
-  //   markers: {
-  //     main: { radius: 5 },
-  //     overview: { radius: 3 },
-  //   },
-  //   overview: {
-  //     opacity: 1,
-  //     fill: "none",
-  //     stroke: "var(--oc-gray-5)",
-  //     strokeWidth: 0.5,
-  //   },
-  // },
-  // pie: {
-  //   main: {
-  //     otherTotalSpec: { qOtherLabel: "Other", qOtherCount: "9" },
-  //   },
-  // },
   barplot: {
     main: {
       otherTotalSpec: { qOtherLabel: "Other", qOtherCount: "5" },
@@ -1059,56 +985,6 @@ const base = {
       otherTotalSpec: { qOtherLabel: "Other", qOtherCount: "5" },
     },
   },
-  // tooltip: {
-  //   position: "absolute",
-  //   color: "altDark",
-  //   display: "none",
-  //   minWidth: "80px",
-  //   height: "auto",
-  //   background: "none repeat scroll 0 0 #ffffff",
-  //   padding: "6px",
-  //   textAlign: "center",
-  //   opacity: 0.9,
-  //   pointerEvents: "none",
-  //   backgroundColor: "white",
-  //   border: "1px solid var(--oc-gray-2)",
-  //   borderRadius: "6px",
-  //   boxShadow: "4px 4px 12px rgba(0, 0, 0, .5)",
-  // },
-  // xAxis: { color: "altDark" },
-  // yAxis: { color: "altDark" },
-  // axisTitle: { color: "altDark" },
-  // title: {
-  //   textPostion: "middle",
-  //   main: {
-  //     fontColor: "altDark",
-  //     fontWeight: null,
-  //     padding: 2,
-  //   },
-  //   sub: {
-  //     fontColor: "altGray6",
-  //     opacity: 0.5,
-  //     padding: 2,
-  //   },
-  // },
-  // legend: {
-  //   fill: "white",
-  //   stroke: "white",
-  //   opacity: 1,
-  //   borderRadius: "10px",
-  //   legendGroup: { opacity: "1", userSelect: "none" },
-  //   legendText: { fill: "var(--oc-gray-7)" },
-  //   arrowStyle: {
-  //     fill: "var(--oc-pink-5)",
-  //     stroke: "var(--oc-pink-5)",
-  //     opacity: 0.5,
-  //   },
-  //   arrowDisabledStyle: {
-  //     fill: "var(--oc-pink-1)",
-  //     stroke: "var(--oc-pink-1)",
-  //     opacity: 0.5,
-  //   },
-  // },
   search: {
     color: {
       background: "white",

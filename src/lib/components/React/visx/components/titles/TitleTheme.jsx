@@ -20,6 +20,13 @@ const TitleWrapper = styled.div`
   padding: ${(props) => props.theme.global.chart.titles.wrapper.padding};
   margin-bottom: ${(props) =>
     props.theme.global.chart.titles.wrapper.marginBottom};
+  border-radius: ${(props) =>
+    props.borderRadius ||
+    `${props.theme.global.chart.wrapper.borderRadius}
+     ${props.theme.global.chart.wrapper.borderRadius}
+     0px
+     0px`
+    };
 `;
 
 const Title = styled.h4`
@@ -42,8 +49,8 @@ const SubTitle = styled.h5`
       props.color || props.theme.global.chart.titles.subTitle.color,
       props.theme
     )};
-    font-size: ${({ size, theme }) =>
-      theme.global.chart.titles.subTitle.fontSize[size]};
+  font-size: ${({ size, theme }) =>
+    theme.global.chart.titles.subTitle.fontSize[size]};
   // font-weight: ${(props) => props.fontWeight};
   margin: ${(props) => props.margin};
 `;
