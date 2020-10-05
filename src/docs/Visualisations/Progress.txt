@@ -11,7 +11,7 @@ menu: Visualisations
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import Progress from '../../lib/components/React/Progress/Progress.jsx';
+import Progress from '../../lib/components/Progress/Progress.jsx';
 
 <Playground>
     <Progress 
