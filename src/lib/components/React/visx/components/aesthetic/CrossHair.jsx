@@ -103,11 +103,17 @@ function CrossHair({
   const [xMin, xMax] = extent(xScale.range());
   const [yMin, yMax] = extent(yScale.range());
 
-  const circles = dataKeys || measureInfo.map((d) => d.qFallbackTitle);
+  const circles = chartType.includes("bar")
+    ? [closestDatum.datum[0].qText]
+    : dataKeys || measureInfo.map((d) => d.qFallbackTitle);
+
+  const closestKey = chartType.includes("bar")
+    ? closestDatum.datum[0].qText
+    : closestDatum.key;
 
   const circlePositions = circles.map((d, i) => {
     return {
-      closest: d === closestDatum.key,
+      closest: d === closestKey,
       x: getScaledX(closestDatum.datum[0]),
       y: getScaledY(closestDatum.datum[i + 1]),
     };

@@ -171,7 +171,7 @@ export const validData = (qLayout, theme) => {
 
   const MeasCheck = () => {
     qMeasureInfo.forEach((qData) => {
-      console.log('meas check: ',qData)
+      // console.log('meas check: ',qData)
       /*if (
         (isNaN(qData.qMax) && isNaN(qData.qMin)) ||
         (qData.qMax === 0 && qData.qMin === 0)
