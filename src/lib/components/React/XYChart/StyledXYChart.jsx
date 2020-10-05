@@ -254,24 +254,8 @@ function StyledXYChart(props) {
           )}
           ref={ref}
         >
-          <div
-          // style={{
-          //   position: "relative",
-          //   height,
-          //   // margin: "10px",
-          //   margin: refMargin,
-          // }}
-          >
-            {/* <div
-                className="d3-component"
-                height={height}
-                ref={d3Container}
-                onClick={(e) => e.stopPropagation()}
-              > */}
-            {/* {qData && qLayout && ( */}
+          <div>
             <CreateXYChart
-              // width={width}
-              // height={height}
               width={
                 gridArea
                   ? ref.current.offsetWidth
@@ -288,6 +272,7 @@ function StyledXYChart(props) {
               // qData={data}
               numDimensionTicks={numDimensionTicks}
               theme={theme}
+              borderRadius={borderRadius}
               singleDimension={singleDimension}
               singleMeasure={singleMeasure}
               measureCount={measureCount}

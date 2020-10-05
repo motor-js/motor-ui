@@ -296,6 +296,9 @@ Bar.defaultProps = {
   height: "400px", // 100%
   size: "medium",
   border: true,
+  borderRadius: null,
+  backgroundColor: null,
+  margin: null,
   /** Use dual Y axis on the the chart  */
   dualAxis: false,
   colorTheme: null,

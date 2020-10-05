@@ -31,6 +31,7 @@ import { roundNumber } from "../visx/utils/roundNumber";
 import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
+import { ParentSize } from '@visx/responsive';
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
@@ -60,6 +61,7 @@ export default function CreateXYChart({
   setCurrentSelectionIds,
   currentSelectionIds,
   theme,
+  borderRadius,
   padding,
   colorPalette,
   type,
@@ -118,6 +120,7 @@ export default function CreateXYChart({
   valueOnly,
   valueWithText,
 }) {
+
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
     type ? type : singleDimension && singleMeasure ? "bar" : "groupedbar";
@@ -325,7 +328,7 @@ export default function CreateXYChart({
       formatTooltipDate={formatTooltipDate}
     >
       <EventProvider>
-        {title && <Title title={title} subTitle={subTitle} size={size} />}
+        {title && <Title borderRadius={borderRadius} title={title} subTitle={subTitle} size={size} />}
         {legendTopBottom === "top" && legend}
         <div
           className="container"
