@@ -290,6 +290,7 @@ const base = {
         },
       },
       suppressZero: false,
+      suppressMissing: false,
       otherTotalSpec: undefined,
       showLegend: true,
       showAxisLabels: "both",

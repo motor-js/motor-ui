@@ -62,6 +62,7 @@ function StyledXYChart(props) {
     sortOrder,
     calcCondition,
     suppressZero,
+    suppressMissing,
     otherTotalSpec,
     // tickSpacing,
     gridArea,
@@ -106,8 +107,8 @@ function StyledXYChart(props) {
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
     qSuppressZero: suppressZero || chart.suppressZero,
+    qSuppressMissing: suppressMissing || chart.suppressMissing,
     qOtherTotalSpec: otherTotalSpec || chart.otherTotalSpec,
-    qSuppressZero: true,
   });
 
   const cancelCallback = () => {

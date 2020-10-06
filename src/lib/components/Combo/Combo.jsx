@@ -48,16 +48,18 @@ Combo.propTypes = {
     qCond: PropTypes.string,
     qMsg: PropTypes.string,
   }),
-  /** Supress zeo vlaues in the the chart  */
+  /** Supress zero values in the the chart  */
   suppressZero: PropTypes.bool,
+  /** Supress missing values in the the chart  */
+  suppressMissing: PropTypes.bool,
   /** Combo Sort Order */
   sortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
   /** Combo width */
-  width: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The height of the Combo */
-  height: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
   /** Size of the Combo */

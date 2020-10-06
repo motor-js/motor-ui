@@ -59,7 +59,7 @@ const initialProps = {
   qInterColumnSortOrder: [],
   qSuppressZero: false,
   qSortByExpression: 0,
-  qSuppressMissing: false,
+  qSuppressMissing: true,
   qExpression: null,
   getQRData: false,
   qSortByNumeric: -1,
