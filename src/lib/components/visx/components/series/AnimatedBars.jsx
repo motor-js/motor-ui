@@ -73,13 +73,8 @@ export default function AnimatedBars({
           height={height?.(bar) ?? bar.height}
           fill={bar.color}
           item={bar.key}
-          isSelected={
-            isEmpty(currentSelectionIds)
-              ? -1
-              : currentSelectionIds.includes(bar.selectionId)
-              ? 1
-              : 0
-          }
+          noSelections={isEmpty(currentSelectionIds)}
+          isSelected={currentSelectionIds.includes(bar.selectionId)}
           style={{ cursor: "pointer" }}
           onClick={() => {
             const selections = currentSelectionIds.includes(bar.selectionId)

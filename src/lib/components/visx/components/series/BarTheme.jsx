@@ -7,26 +7,22 @@ import Bar from "../shapes/Bar";
 const handleBarStyle = (props) => {
   const {
     isSelected,
+    noSelections,
     theme: {
       global: { chart },
     },
   } = props;
 
-  if (isSelected === 1) {
+  if (noSelections) {
     return css`
-      ${chart.selection};
-    `;
-  }
-  if (isSelected === 0) {
-    return css`
-      ${chart.nonSelection};
+      &:hover {
+        ${chart.hover};
+      }
     `;
   }
 
   return css`
-    &:hover {
-      ${chart.hover};
-    }
+    ${isSelected ? chart.selection : chart.nonSelection}
   `;
 };
 
