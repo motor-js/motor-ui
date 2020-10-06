@@ -123,6 +123,7 @@ export default function CreateXYChart({
   yAxisStyles,
   xTickStyles,
   yTickStyles,
+  tooltipStyles,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -333,6 +334,7 @@ export default function CreateXYChart({
       yAxisStyles={yAxisStyles}
       xTickStyles={xTickStyles}
       yTickStyles={yTickStyles}
+      tooltipStyles={tooltipStyles}
     >
       <EventProvider>
         {title && (

@@ -18,8 +18,14 @@ export default function Tooltip(
 ) {
   const { tooltipData } = useContext(TooltipContext) || {};
 
-  const { theme, formatValue, size, formatTooltipDate, parseDateFormat } =
-    useContext(ChartContext) || {};
+  const {
+    theme,
+    formatValue,
+    size,
+    formatTooltipDate,
+    parseDateFormat,
+    tooltipStyles,
+  } = useContext(ChartContext) || {};
 
   const parseDate = timeParse(parseDateFormat);
   const formatDate = timeFormat(formatTooltipDate);
@@ -59,6 +65,7 @@ export default function Tooltip(
           "white",
         color:
           selectColor(theme?.tooltip?.tooltipStyles?.color, theme) ?? "#222",
+        ...tooltipStyles,
       }}
     >
       {renderTooltip({ ...tooltipData, colorScale })}

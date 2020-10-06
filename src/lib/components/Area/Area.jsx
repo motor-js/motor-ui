@@ -290,6 +290,16 @@ Area.propTypes = {
   formatAxisDate: PropTypes.string,
   /** Area stroke width */
   strokeWidth: PropTypes.number,
+  /** Styles for the X Axis */
+  xAxisStyles: PropTypes.object,
+  /** Styles for the Y Axis */
+  yAxisStyles: PropTypes.object,
+  /** Styles for the X Axis ticks */
+  xTickStyles: PropTypes.object,
+  /** Styles for the Y Axis ticks */
+  yTickStyles: PropTypes.object,
+  /** Styling for the tooltip */
+  tooltipStyles: PropTypes.object,
 };
 
 Area.defaultProps = {
