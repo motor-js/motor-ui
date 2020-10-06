@@ -31,7 +31,6 @@ import { roundNumber } from "../visx/utils/roundNumber";
 import { PatternLines } from "../visx/components/aesthetic/Patterns";
 import { colorByExpression, selectColor } from "../../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
-import { ParentSize } from '@visx/responsive';
 
 // const Console = (prop) => (
 //   console[Object.keys(prop)[0]](...Object.values(prop)),
@@ -42,8 +41,8 @@ import { ParentSize } from '@visx/responsive';
 
 const legendLabelFormat = (d) => d;
 
-const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
-const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
+const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 65 };
+const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 65 };
 
 export default function CreateXYChart({
   width,
@@ -120,6 +119,8 @@ export default function CreateXYChart({
   valueOnly,
   valueWithText,
 }) {
+
+  console.log('CreateXY:',width, height)
 
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -298,8 +299,6 @@ export default function CreateXYChart({
   };
 
   return (
-    // <div className="container">
-
     <ChartProvider
       theme={themeObj}
       chartType={chartType}
@@ -341,7 +340,7 @@ export default function CreateXYChart({
         >
           <XYChart
             height={height}
-            // width={autoWidth ? undefined : width}
+            //width={width}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }

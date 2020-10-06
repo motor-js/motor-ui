@@ -26,6 +26,8 @@ export default function XYChart(props) {
   } = useContext(ChartContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
 
+  console.log('chart dims: ', width, height)
+  console.log('margin: ', margin)
   // update dimensions in context
   useEffect(() => {
     if (width != null && height != null && width > 0 && height > 0) {

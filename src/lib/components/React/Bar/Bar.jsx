@@ -322,6 +322,7 @@ Bar.defaultProps = {
   numMeasureDualTicks: null,
   showCrossHair: true,
   showTooltip: true,
+  showPoints: false,
 };
 
 export default Bar;
