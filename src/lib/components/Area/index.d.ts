@@ -12,7 +12,7 @@ import {
   colorThemeType,
   showLegendType,
   otherTotalSpecType,
-} from "../../../utils";
+} from "../../utils";
 
 export interface BarProps {
   config?: configType;
