@@ -151,6 +151,7 @@ export default function PieChart(props) {
           <Pie
             data={data}
             pieValue={pieValue}
+            pieSort={() => 1}
             outerRadius={radius}
             innerRadius={isDonut ? radius - donutThickness : 0}
             cornerRadius={cornerRadius}
