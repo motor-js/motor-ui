@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react'
 import PropTypes from "prop-types"
 import Spinner from '../Spinner'
-import { CapabilityContext } from '../../../contexts/CapabilityProvider'
+import { CapabilityContext } from '../../contexts/CapabilityProvider'
 
 const QlikSelections = ({
   height,
