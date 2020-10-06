@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { defaultProps } from "../../../default-props";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { selectColor } from "../../../utils/colors";
+import { defaultProps } from "../../default-props";
+import { globalStyle, borderStyle } from "../../utils/styles";
+import { selectColor } from "../../utils/colors";
 
 const handleAlignmentStyle = (alignment, col) => {
   let textAlignment = null;

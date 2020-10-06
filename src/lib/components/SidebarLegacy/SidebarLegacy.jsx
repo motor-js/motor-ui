@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { StyledSidebarLegacy, SidebarLegacyOverlay } from "./StyledSidebarLegacy";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+import {
+  StyledSidebarLegacy,
+  SidebarLegacyOverlay,
+} from "./StyledSidebarLegacy";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 const SidebarLegacy = ({
   children,

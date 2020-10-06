@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import Box from "../box";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 import {
   ModalWrapper,

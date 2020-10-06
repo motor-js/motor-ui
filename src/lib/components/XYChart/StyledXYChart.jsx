@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import useHyperCube from "../../../hooks/useHyperCube";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+import useHyperCube from "../../hooks/useHyperCube";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
 import {
   XYChartWrapper,
@@ -16,7 +16,7 @@ import {
   validData,
   isNull,
   createColorArray,
-} from "../../../utils";
+} from "../../utils";
 
 import { valueIfUndefined } from "../visx/utils/chartUtils";
 
@@ -165,7 +165,6 @@ function StyledXYChart(props) {
       (qData && data === null) ||
       (qData && data && isValid)
     ) {
-
       dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
       measureCount = qLayout.qHyperCube.qMeasureInfo.length;
       singleDimension = dimensionCount === 1;

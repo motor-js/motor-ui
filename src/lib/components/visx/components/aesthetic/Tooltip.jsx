@@ -4,7 +4,7 @@ import { timeParse, timeFormat } from "d3-time-format";
 
 import TooltipContext from "../../context/TooltipContext";
 import ChartContext from "../../context/ChartContext";
-import { isNull, selectColor } from "../../../../../utils";
+import { isNull, selectColor } from "../../../../utils";
 
 export default function Tooltip({
   snapToDataX,

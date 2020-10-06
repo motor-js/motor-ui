@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Search, Times } from "@styled-icons/fa-solid";
-import { globalStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
+import { globalStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 
 const SearchWrapper = styled.div`
   ${globalStyle};

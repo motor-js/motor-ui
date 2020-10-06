@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { defaultProps } from "../../../default-props";
-import { globalStyle } from "../../../utils/styles";
-import { selectColor } from "../../../utils/colors";
+import { defaultProps } from "../../default-props";
+import { globalStyle } from "../../utils/styles";
+import { selectColor } from "../../utils/colors";
 
 const SelectionModalWrapper = styled.div`
   ${globalStyle}

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { defaultProps } from "../../../../../default-props";
-import { globalStyle, borderStyle } from "../../../../../utils";
-import { selectColor } from "../../../../../utils";
+import { defaultProps } from "../../../../default-props";
+import { globalStyle, borderStyle } from "../../../../utils";
+import { selectColor } from "../../../../utils";
 import { Text } from "@visx/text";
 
 const TitleWrapper = styled.div`
@@ -25,8 +25,7 @@ const TitleWrapper = styled.div`
     `${props.theme.global.chart.wrapper.borderRadius}
      ${props.theme.global.chart.wrapper.borderRadius}
      0px
-     0px`
-    };
+     0px`};
 `;
 
 const Title = styled.h4`

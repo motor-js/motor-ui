@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
-import { hexToRgb } from "../../../utils/hexToRgb";
+import { globalStyle, borderStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
+import { hexToRgb } from "../../utils/hexToRgb";
 
 import Box from "../Box";
 import Grid from "../Grid";

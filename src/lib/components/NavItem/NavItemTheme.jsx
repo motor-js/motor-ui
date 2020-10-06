@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
+import { globalStyle, borderStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 
 // size to be added
 // bordre to be added

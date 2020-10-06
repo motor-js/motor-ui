@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledPie from "./StyledPie";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
-import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
+import { ConfigContext } from "../../contexts/ConfigProvider";
+import { EngineContext } from "../../contexts/EngineProvider";
+import useEngine from "../../hooks/useEngine";
 
 function Pie({ ...rest }) {
   const myConfig = useContext(ConfigContext);

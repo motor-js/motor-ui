@@ -4,7 +4,7 @@ import { Circle } from "@visx/shape";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import { isValidNumber } from "../../utils/chartUtils";
-import useRegisteredData from "../../../../../hooks/useRegisteredData";
+import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
 

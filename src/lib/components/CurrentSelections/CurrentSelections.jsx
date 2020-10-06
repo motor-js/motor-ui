@@ -2,10 +2,10 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import StyledSelections from "./StyledSelections";
-import { EngineContext } from "../../../contexts/EngineProvider";
+import { EngineContext } from "../../contexts/EngineProvider";
 
 function CurrentSelections({ ...rest }) {
-  const { engine } = useContext(EngineContext)
+  const { engine } = useContext(EngineContext);
 
   return <StyledSelections engine={engine} {...rest} />;
 }

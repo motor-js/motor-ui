@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledSelectionModal from "./StyledSelectionModal";
-import defaultTheme from "../../../themes/defaultTheme";
+import defaultTheme from "../../themes/defaultTheme";
 
 function SelectionModal({
   confirmCallback,

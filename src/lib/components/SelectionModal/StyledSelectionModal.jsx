@@ -8,7 +8,7 @@ import {
 // import useOutsideClick from '../../Hooks/useOutsideClick'
 import { ThemeContext } from "styled-components";
 import { Check, Times } from "@styled-icons/fa-solid";
-import defaultTheme from "../../../themes/defaultTheme";
+import defaultTheme from "../../themes/defaultTheme";
 
 function StyledSelectionModal({
   confirmCallback,

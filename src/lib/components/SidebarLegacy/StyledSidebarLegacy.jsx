@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { defaultProps } from "../../../default-props";
+import { defaultProps } from "../../default-props";
 import Box from "../Box";
 
 const collapsableStyle = css`

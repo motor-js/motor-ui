@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { defaultProps } from "../../../default-props";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { componentWidth } from "../../../utils";
+import { defaultProps } from "../../default-props";
+import { globalStyle, borderStyle } from "../../utils/styles";
+import { componentWidth } from "../../utils";
 
 const XYChartWrapper = styled.div`
   ${globalStyle};

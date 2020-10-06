@@ -6,14 +6,14 @@ import React, {
   useRef,
 } from "react";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-import useHyperCube from "../../../hooks/useHyperCube";
+import useHyperCube from "../../hooks/useHyperCube";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import Button from "../Button";
 import SelectionModal from "../SelectionModal";
-import useOutsideClick from "../../../hooks/useOutsideClick";
-import exportData from "../../../utils/exportData";
-import { validData } from "../../../utils";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import exportData from "../../utils/exportData";
+import { validData } from "../../utils";
 import Spinner from "../Spinner";
 import {
   TableWrapper,
@@ -79,7 +79,7 @@ const StyledTable = ({
 
   // destructure cols
   const { dimensions, measures } = columns[0];
- // console.log(dimensions, measures)
+  // console.log(dimensions, measures)
   // calculate the number of columns for HyperCube size
   let numberOfColumns;
   if (dimensions && measures) {

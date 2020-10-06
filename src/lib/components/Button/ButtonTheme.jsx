@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { globalStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
+import { globalStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 
 const ButtonWrapper = styled.button`
   ${globalStyle};

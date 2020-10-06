@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { EngineContext } from "../../../contexts/EngineProvider";
+import { EngineContext } from "../../contexts/EngineProvider";
 import { StyledHeading } from "./HeadingTheme";
 import Spinner from "../Spinner";
 
@@ -18,7 +18,7 @@ const SmartHeading = ({
   asTime,
   addSpace,
 }) => {
-  const { engine, engineError } = useContext(EngineContext)
+  const { engine, engineError } = useContext(EngineContext);
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState(null);
   const [lastReload, setLastReload] = useState(null);

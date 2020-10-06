@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { focusStyles, globalStyle, borderStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
+import { focusStyles, globalStyle, borderStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 
 const ALIGN_MAP = {
   baseline: "baseline",

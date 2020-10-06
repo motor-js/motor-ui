@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
-import defaultTheme from "../../../themes/defaultTheme";
+import defaultTheme from "../../themes/defaultTheme";
 
 import { slide as SlideMenu } from "./menus";
 import { stack as StackMenu } from "./menus";

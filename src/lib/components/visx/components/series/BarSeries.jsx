@@ -3,11 +3,11 @@ import { Text } from "@visx/text";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import { isValidNumber } from "../../utils/chartUtils";
-import useRegisteredData from "../../../../../hooks/useRegisteredData";
+import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
 import AnimatedBars from "./AnimatedBars";
-import { selectColor } from "../../../../../utils";
+import { selectColor } from "../../../../utils";
 
 function BarSeries({
   dataKey,

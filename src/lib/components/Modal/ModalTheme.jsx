@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { globalStyle } from '../../../utils/styles'
-import { defaultProps } from '../../../default-props'
+import styled from "styled-components";
+import { globalStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -9,36 +9,36 @@ const ModalOverlay = styled.div`
   z-index: 1040;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(105,105,105,0.8);
-`
+  background-color: rgba(105, 105, 105, 0.8);
+`;
 const ModalWrapper = styled.div`
   ${globalStyle};
   position: fixed;
-  z-index: ${props => props.zIndex};
+  z-index: ${(props) => props.zIndex};
   background-color: white;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   border-radius: 8px;
   box-shadow: 1px 1px 1px var(--oc-grey-6);
-  left: ${props => (100 - props.numWidth) / 2}%;
-  top: ${props => props.top};
+  left: ${(props) => (100 - props.numWidth) / 2}%;
+  top: ${(props) => props.top};
   box-sizing: border-box;
-`
+`;
 
 const ModalMain = styled.div`
   position: relative;
   margin: 0.2;
   opacity: 1;
   padding: 24px;
-`
+`;
 
-ModalOverlay.defaultProps = {}
-Object.setPrototypeOf(ModalOverlay.defaultProps, defaultProps)
+ModalOverlay.defaultProps = {};
+Object.setPrototypeOf(ModalOverlay.defaultProps, defaultProps);
 
-ModalWrapper.defaultProps = {}
-Object.setPrototypeOf(ModalWrapper.defaultProps, defaultProps)
+ModalWrapper.defaultProps = {};
+Object.setPrototypeOf(ModalWrapper.defaultProps, defaultProps);
 
-ModalMain.defaultProps = {}
-Object.setPrototypeOf(ModalMain.defaultProps, defaultProps)
+ModalMain.defaultProps = {};
+Object.setPrototypeOf(ModalMain.defaultProps, defaultProps);
 
 /*
 const ModalHeader = styled.div`
@@ -66,4 +66,4 @@ export {
   // ModalHeader,
   // ModalBody,
   // ModalFooter,
-}
+};

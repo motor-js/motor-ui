@@ -22,9 +22,9 @@ Check out the props and example usage below 💡
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import Example from '../../lib/components/React/XYCHart/xy-chart/Example.jsx'
-import Motor from '../../lib/components/React/Motor/Motor.jsx'
-import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import Example from '../../lib/components/XYCHart/xy-chart/Example.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import Filter from '../../lib/components/Filter/Filter.jsx'
 import { config } from '../config/config.js'
 
 <Playground>

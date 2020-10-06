@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { globalStyle } from '../../../utils/styles'
-import { defaultProps } from '../../../default-props'
+import { globalStyle } from '../../utils/styles'
+import { defaultProps } from '../../default-props'
 
 const LoginOverlay = styled.div`
   position: fixed;

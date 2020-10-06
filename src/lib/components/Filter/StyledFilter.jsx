@@ -1,8 +1,8 @@
 /* eslint-disable prefer-template */
 import React, { useState, useEffect, useRef } from "react";
-import useListObject from "../../../hooks/useListObject";
-import useOutsideClick from "../../../hooks/useOutsideClick";
-import { validData } from "../../../utils";
+import useListObject from "../../hooks/useListObject";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import { validData } from "../../utils";
 import DropdownList from "./DropdownList";
 import Spinner from "../Spinner";
 import {

@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { Times } from "@styled-icons/fa-solid/Times";
-import { globalStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
+import { globalStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 
 const overflowStyles = css`
   overflow-x-: ${(props) => (props.overflow === "x-axis" ? "scroll" : "auto")};

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
-import { CapabilityContext } from "../../../contexts/CapabilityProvider";
+import { CapabilityContext } from "../../contexts/CapabilityProvider";
 import Spinner from "../Spinner";
 import {
   QlikWrapper,

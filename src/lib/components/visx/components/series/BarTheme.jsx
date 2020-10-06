@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { defaultProps } from "../../../../../default-props";
+import { defaultProps } from "../../../../default-props";
 import Bar from "../shapes/Bar";
 
 // zoom Example : https://codepen.io/wifeo/pen/qzwkb
@@ -7,26 +7,22 @@ import Bar from "../shapes/Bar";
 const handleBarStyle = (props) => {
   const {
     isSelected,
+    noSelections,
     theme: {
       global: { chart },
     },
   } = props;
 
-  if (isSelected === 1) {
+  if (noSelections) {
     return css`
-      ${chart.selection};
-    `;
-  }
-  if (isSelected === 0) {
-    return css`
-      ${chart.nonSelection};
+      &:hover {
+        ${chart.hover};
+      }
     `;
   }
 
   return css`
-    &:hover {
-      ${chart.hover};
-    }
+    ${isSelected ? chart.selection : chart.nonSelection}
   `;
 };
 

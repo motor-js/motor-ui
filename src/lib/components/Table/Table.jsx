@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledTable from "./StyledTable";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
-import defaultTheme from "../../../themes/defaultTheme";
-import { EngineContext } from "../../../contexts/EngineProvider";
+import { ConfigContext } from "../../contexts/ConfigProvider";
+import defaultTheme from "../../themes/defaultTheme";
+import { EngineContext } from "../../contexts/EngineProvider";
 
 const Table = ({ ...rest }) => {
   const myConfig = useContext(ConfigContext);

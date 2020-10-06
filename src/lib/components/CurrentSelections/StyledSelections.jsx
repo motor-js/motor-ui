@@ -1,5 +1,5 @@
 import React from "react";
-import SelectionObject from "../../../hooks/useSelectionObject";
+import SelectionObject from "../../hooks/useSelectionObject";
 import {
   SelectionsWrapper,
   SelectionItem,

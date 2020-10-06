@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import useSearch from '../../../hooks/useSearch';
-import Suggestions from './Suggestions';
-import useOutsideClick from '../../../hooks/useOutsideClick';
+import React, { useState, useEffect, useRef } from "react";
+import useSearch from "../../hooks/useSearch";
+import Suggestions from "./Suggestions";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import {
   SearchWrapper,
   SearchBar,
   SearchInput,
   SearchIcon,
   XIcon,
-} from './SearchTheme';
+} from "./SearchTheme";
 
 const StyledSearch = ({
   engine,
@@ -19,18 +19,18 @@ const StyledSearch = ({
   margin,
   dropHeight,
 }) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [listOpen, setListOpen] = useState(false);
   const [qCount, setQCount] = useState(10);
   const [qGroupItemCount, setQGroupOptions] = useState(10);
   const [loading, setLoading] = useState(true);
   const searchRef = useRef();
 
-  const { 
+  const {
     searchResults,
     select,
-  //  beginSelections,
-  //  endSelections,
+    //  beginSelections,
+    //  endSelections,
   } = useSearch({
     engine,
     searchValue,
@@ -46,7 +46,7 @@ const StyledSearch = ({
 
   // handle opening of suggestions & loading indicator
   useEffect(() => {
-    if (searchValue === '') {
+    if (searchValue === "") {
       setListOpen(false);
       setLoading(true);
     } else {
@@ -64,18 +64,18 @@ const StyledSearch = ({
 
   // clear search icon
   const clearSearch = () => {
-    setSearchValue('');
+    setSearchValue("");
     setListOpen(false);
     setLoading(true);
   };
 
   // handle select, close suggestions and clear search terms
   const handleSelect = (id) => {
-  //  beginSelections();
+    //  beginSelections();
     select(id);
- //   endSelections(true);
+    //   endSelections(true);
     setListOpen(false);
-    setSearchValue('');
+    setSearchValue("");
   };
 
   // outside click functionality
@@ -84,7 +84,7 @@ const StyledSearch = ({
     () => {
       const outsideClick = !searchRef.current.contains(event.target);
       outsideClick &&
-        setSearchValue('') &&
+        setSearchValue("") &&
         setListOpen(false) &&
         setLoading(true);
     },
@@ -104,13 +104,13 @@ const StyledSearch = ({
         <SearchIcon size={15} />
         <SearchInput
           size={size}
-          data-testid='search-bar'
-          type='text'
-          placeholder='Search application...'
+          data-testid="search-bar"
+          type="text"
+          placeholder="Search application..."
           value={searchValue}
           onChange={(e) => handleInputChange(e)}
         />
-        {searchValue !== '' && <XIcon onClick={clearSearch} size={15} />}
+        {searchValue !== "" && <XIcon onClick={clearSearch} size={15} />}
       </SearchBar>
       {listOpen && engine && (
         <Suggestions

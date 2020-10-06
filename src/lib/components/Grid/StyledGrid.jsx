@@ -1,69 +1,68 @@
-import styled, { css } from 'styled-components'
-import { defaultProps } from '../../../default-props'
-import { selectColor } from '../../../utils/colors'
+import styled, { css } from "styled-components";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 
 const JUSTIFY_MAP = {
-  center: 'center',
-  end: 'flex-end',
-  start: 'flex-start',
-  stretch: 'stretch',
-}
+  center: "center",
+  end: "flex-end",
+  start: "flex-start",
+  stretch: "stretch",
+};
 
 const justifyStyle = css`
-  justify-items: ${props => JUSTIFY_MAP[props.justify]};
-`
+  justify-items: ${(props) => JUSTIFY_MAP[props.justify]};
+`;
 
 const JUSTIFY_CONTENT_MAP = {
-  around: 'space-around',
-  between: 'space-between',
-  center: 'center',
-  end: 'flex-end',
-  start: 'flex-start',
-  stretch: 'stretch',
-}
+  around: "space-around",
+  between: "space-between",
+  center: "center",
+  end: "flex-end",
+  start: "flex-start",
+  stretch: "stretch",
+};
 
 const justifyContentStyle = css`
-  justify-content: ${props => JUSTIFY_CONTENT_MAP[props.justifyContent]};
-`
+  justify-content: ${(props) => JUSTIFY_CONTENT_MAP[props.justifyContent]};
+`;
 
 const ALIGN_MAP = {
-  center: 'center',
-  end: 'flex-end',
-  start: 'flex-start',
-  stretch: 'stretch',
-}
+  center: "center",
+  end: "flex-end",
+  start: "flex-start",
+  stretch: "stretch",
+};
 
 const alignStyle = css`
-  align-items: ${props => ALIGN_MAP[props.align]};
-`
+  align-items: ${(props) => ALIGN_MAP[props.align]};
+`;
 
 const ALIGN_CONTENT_MAP = {
-  around: 'space-around',
-  between: 'space-between',
-  center: 'center',
-  end: 'flex-end',
-  start: 'flex-start',
-  stretch: 'stretch',
+  around: "space-around",
+  between: "space-between",
+  center: "center",
+  end: "flex-end",
+  start: "flex-start",
+  stretch: "stretch",
 };
 
 const alignContentStyle = css`
-  align-content: ${props => ALIGN_CONTENT_MAP[props.alignContent]};
+  align-content: ${(props) => ALIGN_CONTENT_MAP[props.alignContent]};
 `;
 
-
 const SIZE_MAP = {
-  flex: '1fr',
-  full: '100%',
-  '1/2': '50%',
-  '1/4': '25%',
-  '2/4': '50%',
-  '3/4': '75%',
-  '1/3': '33.33%',
-  '2/3': '66.66%',
+  flex: "1fr",
+  full: "100%",
+  "1/2": "50%",
+  "1/4": "25%",
+  "2/4": "50%",
+  "3/4": "75%",
+  "1/3": "33.33%",
+  "2/3": "66.66%",
 };
 
-const overflowStyle = overflowProp => {
-  if (typeof overflowProp === 'string') {
+const overflowStyle = (overflowProp) => {
+  if (typeof overflowProp === "string") {
     return css`
       overflow: ${overflowProp};
     `;
@@ -76,14 +75,15 @@ const overflowStyle = overflowProp => {
   `;
 };
 
-const getRepeatCount = count => typeof count === 'number' ? count : `auto-${count}`
+const getRepeatCount = (count) =>
+  typeof count === "number" ? count : `auto-${count}`;
 
 const getRepeatSize = (size, theme) => {
   if (Array.isArray(size)) {
     return `minmax(${theme.global.size[size[0]] || size[0]}, ${theme.global
       .size[size[1]] || size[1]})`;
   }
-  if (size === 'flex') return '1fr';
+  if (size === "flex") return "1fr";
   return `minmax(${theme.global.size[size] || size}, 1fr)`;
 };
 
@@ -92,19 +92,19 @@ const sizeFor = (size, props, isRow) => {
   if (
     isRow &&
     mapped &&
-    (!props.fillContainer || props.fillContainer === 'horizontal')
+    (!props.fillContainer || props.fillContainer === "horizontal")
   ) {
-    console.warn('Grid needs `fill` when using fractional row sizes');
+    console.warn("Grid needs `fill` when using fractional row sizes");
   }
   return mapped || props.theme.global.size[size] || size;
 };
 
-const fillStyle = fill => {
-  if (fill === 'horizontal') {
-    return 'width: 100%;';
+const fillStyle = (fill) => {
+  if (fill === "horizontal") {
+    return "width: 100%;";
   }
-  if (fill === 'vertical') {
-    return 'height: 100%;';
+  if (fill === "vertical") {
+    return "height: 100%;";
   }
   if (fill) {
     return `
@@ -115,21 +115,21 @@ const fillStyle = fill => {
   return undefined;
 };
 
-const areasStyle = props => {
+const areasStyle = (props) => {
   // translate areas objects into grid-template-areas syntax
   if (!Array.isArray(props.rows) || !Array.isArray(props.columns)) {
-    console.warn('Grid `areas` requires `rows` and `columns` to be arrays.');
+    console.warn("Grid `areas` requires `rows` and `columns` to be arrays.");
   }
   if (
     Array.isArray(props.areas) &&
-    props.areas.every(area => Array.isArray(area))
+    props.areas.every((area) => Array.isArray(area))
   ) {
     return `grid-template-areas: ${props.areas
-      .map(area => `"${area.join(' ')}"`)
-      .join(' ')};`;
+      .map((area) => `"${area.join(" ")}"`)
+      .join(" ")};`;
   }
-  const cells = props.rows.map(() => props.columns.map(() => '.'));
-  props.areas.forEach(area => {
+  const cells = props.rows.map(() => props.columns.map(() => "."));
+  props.areas.forEach((area) => {
     for (let row = area.start[1]; row <= area.end[1]; row += 1) {
       for (let column = area.start[0]; column <= area.end[0]; column += 1) {
         cells[row][column] = area.name;
@@ -137,24 +137,24 @@ const areasStyle = props => {
     }
   });
   return `grid-template-areas: ${cells
-    .map(r => `"${r.join(' ')}"`)
-    .join(' ')};`;
+    .map((r) => `"${r.join(" ")}"`)
+    .join(" ")};`;
 };
 
-const columnsStyle = props => {
+const columnsStyle = (props) => {
   if (Array.isArray(props.columns)) {
     return css`
       grid-template-columns: ${props.columns
-        .map(s => {
+        .map((s) => {
           if (Array.isArray(s)) {
             return `minmax(${sizeFor(s[0], props)}, ${sizeFor(s[1], props)})`;
           }
           return sizeFor(s, props);
         })
-        .join(' ')};
+        .join(" ")};
     `;
   }
-  if (typeof props.columns === 'object') {
+  if (typeof props.columns === "object") {
     return css`
       grid-template-columns: repeat(
         ${getRepeatCount(props.columns.count)},
@@ -170,8 +170,8 @@ const columnsStyle = props => {
   `;
 };
 
-const gapStyle = props => {
-  if (typeof props.gap === 'string') {
+const gapStyle = (props) => {
+  if (typeof props.gap === "string") {
     const gapSize = props.gap;
     return `grid-gap: ${gapSize} ${gapSize};`;
   }
@@ -191,24 +191,24 @@ const gapStyle = props => {
       grid-column-gap: ${props.gap.column};
     `;
   }
-  return '';
+  return "";
 };
 
-const rowsStyle = props => {
+const rowsStyle = (props) => {
   if (Array.isArray(props.rows)) {
     return css`
       grid-template-rows: ${props.rows
-        .map(s => {
+        .map((s) => {
           if (Array.isArray(s)) {
             return `minmax(${sizeFor(s[0], props, true)}, ${sizeFor(
               s[1],
               props,
-              true,
+              true
             )})`;
           }
           return sizeFor(s, props, true);
         })
-        .join(' ')};
+        .join(" ")};
     `;
   }
   return css`
@@ -218,20 +218,21 @@ const rowsStyle = props => {
 
 const StyledGrid = styled.div`
   ${fillStyle};
-  ${props => props.areas && areasStyle(props)}
-  ${props => props.rows && rowsStyle(props)}
-  ${props => props.columns && columnsStyle(props)}
-  ${props => props.gap && gapStyle(props)}
-  ${props => props.overflow && overflowStyle(props.overflow)};
-  ${props => props.justify && justifyStyle};
-  ${props => props.justifyContent && justifyContentStyle};
-  ${props => props.align && alignStyle}
-  ${props => props.alignContent && alignContentStyle}
-  background-color: ${props => selectColor(props.backgroundColor, props.theme)};
+  ${(props) => props.areas && areasStyle(props)}
+  ${(props) => props.rows && rowsStyle(props)}
+  ${(props) => props.columns && columnsStyle(props)}
+  ${(props) => props.gap && gapStyle(props)}
+  ${(props) => props.overflow && overflowStyle(props.overflow)};
+  ${(props) => props.justify && justifyStyle};
+  ${(props) => props.justifyContent && justifyContentStyle};
+  ${(props) => props.align && alignStyle}
+  ${(props) => props.alignContent && alignContentStyle}
+  background-color: ${(props) =>
+    selectColor(props.backgroundColor, props.theme)};
   display: grid;
-`
+`;
 
 StyledGrid.defaultProps = {};
 Object.setPrototypeOf(StyledGrid.defaultProps, defaultProps);
 
-export default StyledGrid
+export default StyledGrid;

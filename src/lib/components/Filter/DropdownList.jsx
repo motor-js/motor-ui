@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import FilterListItem from './FilterListItem'
-import { SelectableGroup, createSelectable } from '../../../utils/selectDrag'
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import FilterListItem from "./FilterListItem";
+import { SelectableGroup, createSelectable } from "../../utils/selectDrag";
 import {
   FilterList,
   FilterSearchGroup,
@@ -12,10 +12,10 @@ import {
   XStyle,
   NextButton,
   PrevButton,
-} from './FilterTheme'
-import Spinner from '../Spinner'
+} from "./FilterTheme";
+import Spinner from "../Spinner";
 
-const SelectableFilterList = createSelectable(FilterListItem)
+const SelectableFilterList = createSelectable(FilterListItem);
 
 const DropdownList = ({
   qData,
@@ -36,67 +36,63 @@ const DropdownList = ({
   size,
   page,
 }) => {
-  const [scrollTop, setScrollTop] = useState(0)
+  const [scrollTop, setScrollTop] = useState(0);
   // only load if we are not on the first page
-  const [loading, setLoading] = useState(false)
-  const node = useRef()
-  const rowHeight = itemHeight
+  const [loading, setLoading] = useState(false);
+  const node = useRef();
+  const rowHeight = itemHeight;
 
-  const pageHeight = qPage.qHeight
-  const NoOfPages = Math.ceil(qcy / qPage.qHeight)
-  const ItemsLeft = qcy - qPage.qHeight * page
-  const itemsOnPage = page === NoOfPages ? qcy / page : qPage.qHeight
-  const offset = 0
-  const innerHeight = Math.min(ItemsLeft, pageHeight) * rowHeight + offset
-
+  const pageHeight = qPage.qHeight;
+  const NoOfPages = Math.ceil(qcy / qPage.qHeight);
+  const ItemsLeft = qcy - qPage.qHeight * page;
+  const itemsOnPage = page === NoOfPages ? qcy / page : qPage.qHeight;
+  const offset = 0;
+  const innerHeight = Math.min(ItemsLeft, pageHeight) * rowHeight + offset;
 
   useEffect(() => {
     // logic to remove bug, where scrolling back from a page causes data to
     // initially be populated with zero rows. this is a workaround...
     // If we page backwards, loading is set to TRUE, this is resolved to false after a timeout
-    if (!loading) return
+    if (!loading) return;
     // set loading to false after 0.5 secs so full previous data can render
     const timer = setTimeout(() => {
-      setLoading(false)
-    }, 500)
+      setLoading(false);
+    }, 500);
 
     // reset timer
-    return () => clearTimeout(timer)
-  }, [qData])
+    return () => clearTimeout(timer);
+  }, [qData]);
 
   const nextPage = () => {
-    const top = (qPage.qHeight * page) + qPage.qHeight
-    qTopCallback(top, 'next')
-    node.current.scrollTop = 0
-  }
+    const top = qPage.qHeight * page + qPage.qHeight;
+    qTopCallback(top, "next");
+    node.current.scrollTop = 0;
+  };
 
-  const prevPage = e => {
-    setLoading(true)
-    e.preventDefault()
-    const top = (qPage.qHeight * page) - qPage.qHeight
-    qTopCallback(top, 'prev')
-    node.current.scrollTop = 0
-  }
+  const prevPage = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const top = qPage.qHeight * page - qPage.qHeight;
+    qTopCallback(top, "prev");
+    node.current.scrollTop = 0;
+  };
 
-  const handle = keys => (handleSelCallback(keys))
+  const handle = (keys) => handleSelCallback(keys);
 
-  const handleSearchListObject = e => (searchListCallback(e))
+  const handleSearchListObject = (e) => searchListCallback(e);
 
-  const clear = () => (clearCallback())
+  const clear = () => clearCallback();
 
-  const startIndex = Math.max(
-    0,
-    Math.floor((scrollTop - 40) / rowHeight),
-  )
+  const startIndex = Math.max(0, Math.floor((scrollTop - 40) / rowHeight));
 
   const endIndex = Math.min(
     pageHeight - 1,
     ItemsLeft - 1,
-    Math.floor((scrollTop + viewportHeight) / rowHeight),
-  )
+    Math.floor((scrollTop + viewportHeight) / rowHeight)
+  );
 
   const getItems = () => {
-    const data = []
+    const data = [];
     if (qData) {
       for (let i = startIndex; i <= endIndex; i++) {
         data.push(
@@ -110,15 +106,15 @@ const DropdownList = ({
             i={i}
             size={size}
             itemHeight={itemHeight}
-          />,
-        )
+          />
+        );
       }
 
-      return data
+      return data;
     }
-  }
+  };
 
-  const handleScroll = e => setScrollTop(e.currentTarget.scrollTop)
+  const handleScroll = (e) => setScrollTop(e.currentTarget.scrollTop);
 
   const prevButton = () => {
     if (page !== 0) {
@@ -130,14 +126,16 @@ const DropdownList = ({
         >
           Previous Page
         </PrevButton>
-      )
+      );
     }
 
     return (
       // hide button workaround
-      <PrevButton style={{ position: 'absolute', zIndex: '-1000', border: '0px' }} />
-    )
-  }
+      <PrevButton
+        style={{ position: "absolute", zIndex: "-1000", border: "0px" }}
+      />
+    );
+  };
 
   const nextButton = () => {
     if (NoOfPages !== page + 1) {
@@ -149,14 +147,14 @@ const DropdownList = ({
         >
           Next Page
         </NextButton>
-      )
+      );
     }
 
     return (
       // hide button workaround
-      <NextButton style={{ zIndex: '-1000', border: '0px' }} />
-    )
-  }
+      <NextButton style={{ zIndex: "-1000", border: "0px" }} />
+    );
+  };
 
   return (
     <FilterList
@@ -166,9 +164,9 @@ const DropdownList = ({
       data-testid="dropdown"
       onScroll={handleScroll}
       selections={selections}
-      onClick={e => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
-      { page === 0 &&
+      {page === 0 && (
         <FilterSearchGroup>
           <SearchStyle size={15} />
           <FilterSearch
@@ -179,40 +177,42 @@ const DropdownList = ({
             size={size}
             onChange={handleSearchListObject}
             value={searchListInputValue}
-            onKeyPress={e => acceptListObjectCallback(e)}
+            onKeyPress={(e) => acceptListObjectCallback(e)}
           />
-          { searchListInputValue === ''
-            ? ''
-            : (
-              <XStyle
-                onClick={clear}
-                size={15}
-              />
-            )}
+          {searchListInputValue === "" ? (
+            ""
+          ) : (
+            <XStyle onClick={clear} size={15} />
+          )}
         </FilterSearchGroup>
-      }
-      { prevButton() }
-      { !loading ? (
+      )}
+      {prevButton()}
+      {!loading ? (
         <SelectableGroup
           onSelection={handle}
           style={{
-            position: 'relative',
+            position: "relative",
             height: `${innerHeight}px`,
           }}
         >
-        {getItems()}
-        {searchListInputValue === '' && nextButton()}
-        <div
-          className="ScrollPlaceholder"
-          style={{
-            position: 'absolute', top: `${innerHeight}px`, height: '1px', width: '1px',
-          }}
-        />
-      </SelectableGroup>
-      ) : <Spinner />}
+          {getItems()}
+          {searchListInputValue === "" && nextButton()}
+          <div
+            className="ScrollPlaceholder"
+            style={{
+              position: "absolute",
+              top: `${innerHeight}px`,
+              height: "1px",
+              width: "1px",
+            }}
+          />
+        </SelectableGroup>
+      ) : (
+        <Spinner />
+      )}
     </FilterList>
-  )
-}
+  );
+};
 
 DropdownList.propTypes = {
   /* Data for the dropdown list */
@@ -237,10 +237,10 @@ DropdownList.propTypes = {
   selections: PropTypes.array,
   /* Height of each item row  */
   itemHeight: PropTypes.number.isRequired,
-}
+};
 
 DropdownList.defaultProps = {
   selections: [],
-}
+};
 
-export default DropdownList
+export default DropdownList;

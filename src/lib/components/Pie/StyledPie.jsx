@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import useHyperCube from "../../../hooks/useHyperCube";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+import useHyperCube from "../../hooks/useHyperCube";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
 import { PieWrapper, PieWrapperNoData, PieNoDataContent } from "./PieTheme";
 import Spinner from "../Spinner";
@@ -11,7 +11,7 @@ import {
   isEmpty,
   validData,
   createColorArray,
-} from "../../../utils";
+} from "../../utils";
 
 import { valueIfUndefined } from "../visx/utils/chartUtils";
 

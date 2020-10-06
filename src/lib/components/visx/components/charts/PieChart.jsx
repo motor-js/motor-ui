@@ -11,7 +11,7 @@ import ChartBackground from "../aesthetic/Gradient";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
-import { isEmpty } from "../../../../../utils";
+import { isEmpty } from "../../../../utils";
 
 export default function PieChart(props) {
   const {

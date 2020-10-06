@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledKPI from "./StyledKPI";
-import defaultTheme from "../../../themes/defaultTheme";
-import { EngineContext } from "../../../contexts/EngineProvider";
+import defaultTheme from "../../themes/defaultTheme";
+import { EngineContext } from "../../contexts/EngineProvider";
 
 function KPI({ ...rest }) {
   const theme = useContext(ThemeContext) || defaultTheme;
-  const { engine, engineError } = useContext(EngineContext)
+  const { engine, engineError } = useContext(EngineContext);
 
   return (
     <StyledKPI
@@ -145,7 +145,7 @@ KPI.defaultProps = {
   calcCondition: undefined,
   width: "100%",
   border: true,
-  margin: '0px',
+  margin: "0px",
   justifyContent: "center",
   textAlign: null,
   size: "medium",

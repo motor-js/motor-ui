@@ -3,9 +3,9 @@
 // openbase.io/js/neon-colors
 
 import React, { useRef, useEffect, useState } from "react";
-import UseHyperCube from "../../../hooks/useHyperCube";
-import { roundNumber, validData } from "../../../utils";
-import useScreenSize from "../../../hooks/useScreenSize";
+import UseHyperCube from "../../hooks/useHyperCube";
+import { roundNumber, validData } from "../../utils";
+import useScreenSize from "../../hooks/useScreenSize";
 import {
   KPIWrapper,
   KPIWrapperNoData,

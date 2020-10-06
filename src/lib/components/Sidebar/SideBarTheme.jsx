@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { globalStyle, borderStyle } from "../../../utils/styles";
-import { defaultProps } from "../../../default-props";
-import { selectColor } from "../../../utils/colors";
+import { globalStyle, borderStyle } from "../../utils/styles";
+import { defaultProps } from "../../default-props";
+import { selectColor } from "../../utils/colors";
 import Box from "../Box";
 import Grid from "../Grid";
 import {
@@ -55,7 +55,7 @@ const MenuWrap = styled(Grid)`
       bottom: 0;
       left: ${({ right }) => (right ? "" : 0)};
       z-index:  1100;
-      display: ${({ isOpen }) => !isOpen ? 'none' : null};
+      display: ${({ isOpen }) => (!isOpen ? "none" : null)};
       width: ${({ sideBarWidth, theme }) =>
         sideBarWidth || theme.sidebar.width};
         border-radius: ${(props) =>
@@ -151,11 +151,4 @@ Object.setPrototypeOf(MenuHeader.defaultProps, defaultProps);
 MenuFooter.defaultProps = {};
 Object.setPrototypeOf(MenuFooter.defaultProps, defaultProps);
 
-export {
-  Overlay,
-  MenuWrap,
-  MenuMain,
-  CloseIcon,
-  MenuHeader,
-  MenuFooter,
-};
+export { Overlay, MenuWrap, MenuMain, CloseIcon, MenuHeader, MenuFooter };

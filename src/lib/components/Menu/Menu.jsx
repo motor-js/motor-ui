@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useContextMenu from '../../../hooks/useContextMenu'
+import useContextMenu from '../../hooks/useContextMenu'
 import {
   StyledMenu, StyledListItem, StyledDownload, StyledFileDownload,
 } from './MenuTheme'

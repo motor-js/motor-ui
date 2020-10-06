@@ -3,9 +3,9 @@ import { ChevronUp } from "@styled-icons/fa-solid/ChevronUp";
 import { ChevronDown } from "@styled-icons/fa-solid/ChevronDown";
 import { Search } from "@styled-icons/fa-solid/Search";
 import { Times } from "@styled-icons/fa-solid/Times";
-import { defaultProps } from "../../../default-props";
-import { globalStyle } from "../../../utils/styles";
-import { selectColor } from "../../../utils/colors";
+import { defaultProps } from "../../default-props";
+import { globalStyle } from "../../utils/styles";
+import { selectColor } from "../../utils/colors";
 
 const FilterWrapper = styled.div`
   ${globalStyle};

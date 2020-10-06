@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
-import defaultTheme from "../../../themes/defaultTheme";
+import { ConfigContext } from "../../contexts/ConfigProvider";
+import defaultTheme from "../../themes/defaultTheme";
 import StyledNotConnected from "./StyledNotConnected";
-import { EngineContext } from "../../../contexts/EngineProvider";
-import useEngine from "../../../hooks/useEngine";
+import { EngineContext } from "../../contexts/EngineProvider";
+import useEngine from "../../hooks/useEngine";
 import { NotConnectedWrapper } from "./NotConnectedTheme";
 
 const NotConnected = ({ config, ...rest }) => {

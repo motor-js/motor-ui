@@ -1,5 +1,5 @@
 import * as React from "react";
-import { borderType } from "../../../utils";
+import { borderType } from "../../utils";
 
 export interface SidebarProps {
   backgroundColor?: string;

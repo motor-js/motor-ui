@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import { ConfigContext } from "../../../contexts/ConfigProvider";
-import defaultTheme from "../../../themes/defaultTheme";
+import { ConfigContext } from "../../contexts/ConfigProvider";
+import defaultTheme from "../../themes/defaultTheme";
 import StyledLogin from "./StyledLogin";
-import { EngineContext } from "../../../contexts/EngineProvider";
+import { EngineContext } from "../../contexts/EngineProvider";
 import { LoginWrapper } from "./LoginTheme";
 
 const Login = ({ config, ...rest }) => {
   const myConfig = config || useContext(ConfigContext);
   const myTheme = useContext(ThemeContext) || defaultTheme;
-  const { errorCode } = useContext(EngineContext)
+  const { errorCode } = useContext(EngineContext);
 
   return (
     <LoginWrapper errorCode={errorCode}>

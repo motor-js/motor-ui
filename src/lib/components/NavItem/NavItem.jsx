@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import defaultTheme from "../../../themes/defaultTheme";
+import defaultTheme from "../../themes/defaultTheme";
 import { useLocation } from "react-router-dom";
 
 import { StyledNavItem } from "./NavItemTheme";
