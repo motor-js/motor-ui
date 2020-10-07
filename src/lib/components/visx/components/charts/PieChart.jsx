@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ParentSize } from "@visx/responsive";
 import { Pie } from "@visx/shape";
 import { scaleOrdinal } from "@visx/scale";
@@ -37,6 +37,7 @@ export default function PieChart(props) {
   } = props;
 
   const { containerRef } = useTooltipInPortal();
+  const [hoverId, setHoverId] = useState();
 
   const {
     currentSelectionIds,
@@ -53,7 +54,7 @@ export default function PieChart(props) {
     pieSortValues,
   } = useContext(ChartContext);
 
-  const { colors, selection, nonSelection, valueLabelStyles } = theme;
+  const { colors, selection, nonSelection, hover, valueLabelStyles } = theme;
 
   const pieLabelStyle = {
     ...valueLabelStyles,
@@ -62,6 +63,11 @@ export default function PieChart(props) {
   };
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+
+  const onMouseLeave = () => {
+    hideTooltip();
+    setHoverId(null);
+  };
 
   // accessor functions
   const pieValue = (d) => d.value;
@@ -74,8 +80,10 @@ export default function PieChart(props) {
   });
 
   const getStyle = (selectionId) => {
-    return isEmpty(currentSelectionIds) ||
-      currentSelectionIds.includes(selectionId)
+    return isEmpty(currentSelectionIds) && hoverId === selectionId
+      ? hover
+      : isEmpty(currentSelectionIds) ||
+        currentSelectionIds.includes(selectionId)
       ? selection
       : nonSelection;
   };
@@ -181,7 +189,8 @@ export default function PieChart(props) {
                 getKey={(arc) => arc.data.label}
                 onClickDatum={onClick}
                 onMouseMoveDatum={onMouseMoveDatum}
-                onMouseLeave={hideTooltip}
+                setHoverId={setHoverId}
+                onMouseLeave={onMouseLeave}
                 getColor={(arc) => colorScale(arc.data.label)}
                 getStyle={(arc) => getStyle(arc.data.selectionId)}
                 valPrecision={valPrecision}
@@ -208,6 +217,7 @@ export default function PieChart(props) {
                   getKey={({ data: { letter } }) => letter}
                   onClickDatum={({ data: { letter } }) => console.log(letter)}
                   onMouseMoveDatum={onMouseMoveDatum}
+                  setHoverId={setHoverId}
                   getColor={(arc) => colorScale(arc.data.label)}
                   getStyle={(arc) => getStyle(arc.data.selectionId)}
                   valPrecision={valPrecision}
@@ -255,6 +265,7 @@ function AnimatedPie({
   getStyle,
   onClickDatum,
   onMouseMoveDatum,
+  setHoverId,
   onMouseLeave,
 }) {
   const transitions = useTransition(
@@ -298,6 +309,7 @@ function AnimatedPie({
               stroke={stroke}
               onClick={() => onClickDatum(arc)}
               onMouseMove={(e) => onMouseMoveDatum(e, arc)}
+              onMouseEnter={() => setHoverId(arc.data.selectionId)}
               onMouseLeave={onMouseLeave}
               onTouchStart={() => onClickDatum(arc)}
             />
