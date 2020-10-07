@@ -499,7 +499,7 @@ const base = {
             textAnchor: "middle",
             fontWeight: "normal",
             pointerEvents: "none",
-            dx: "-1.75em", // "-1.5em",
+            dx: "-2.3em", // "-1.5em",
           },
           right: {
             fill: "#212529",
@@ -556,7 +556,7 @@ const base = {
             textAnchor: "middle",
             fontWeight: 200,
             pointerEvents: "none",
-            dy: "-0.25em",
+            dy: "-0.35em",
           },
         },
       },
