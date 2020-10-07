@@ -58,16 +58,18 @@ XYChart.propTypes = {
     qCond: PropTypes.string,
     qMsg: PropTypes.string,
   }),
-  /** Supress zeo vlaues in the the chart  */
+  /** Supress zero values in the the chart  */
   suppressZero: PropTypes.bool,
+  /** Supress missing values in the the chart  */
+  suppressMissing: PropTypes.bool,
   /** Bar Sort Order */
   sortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
   /** Bar width */
-  width: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The height of the Bar */
-  height: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
   /** Size of the Bar */
@@ -299,6 +301,18 @@ XYChart.propTypes = {
   formatAxisDate: PropTypes.string,
   /** Line stroke width */
   strokeWidth: PropTypes.number,
+  /** Line stroke width */
+  strokeWidth: PropTypes.number,
+  /** Styles for the X Axis */
+  xAxisStyles: PropTypes.object,
+  /** Styles for the Y Axis */
+  yAxisStyles: PropTypes.object,
+  /** Styles for the X Axis ticks */
+  xTickStyles: PropTypes.object,
+  /** Styles for the Y Axis ticks */
+  yTickStyles: PropTypes.object,
+  /** Styling for the tooltip */
+  tooltipStyles: PropTypes.object,
 };
 
 XYChart.defaultProps = {

@@ -5,9 +5,19 @@ import ChartContext from "../../context/ChartContext";
 import withDefinedContextScales from "../../enhancers/withDefinedContextScales";
 
 function Axis(props) {
-  const { theme, xScale, yScale, margin, width, height, size } = useContext(
-    ChartContext
-  );
+  const {
+    theme,
+    xScale,
+    yScale,
+    margin,
+    width,
+    height,
+    size,
+    xAxisStyles,
+    yAxisStyles,
+    xTickStyles,
+    yTickStyles,
+  } = useContext(ChartContext);
   const { orientation } = props;
 
   // The biggest difference between Axes is their label + tick label styles
@@ -22,8 +32,13 @@ function Axis(props) {
     themeTickStylesKey,
   ]);
 
+  const ticksPropsStyles =
+    orientation === "left" || orientation === "right"
+      ? yTickStyles
+      : xTickStyles;
+
   const tickLabelProps = useMemo(() => {
-    if (props.tickLabelProps) return props.tickLabelProps;
+    // if (props.tickLabelProps) return props.tickLabelProps;
     const themeTickLabelProps =
       theme?.[themeTickStylesKey]?.label?.[orientation];
 
@@ -34,6 +49,7 @@ function Axis(props) {
           width: margin[orientation],
           fontSize:
             theme?.[themeTickStylesKey]?.label?.[orientation].fontSize[size],
+          ...ticksPropsStyles,
         })
       : undefined;
   }, [theme, props.tickLabelProps, themeTickStylesKey, orientation, margin]);
@@ -55,6 +71,7 @@ function Axis(props) {
       : orientation === "top"
       ? margin.top
       : 0;
+
   const leftOffset =
     orientation === "left"
       ? margin.left
@@ -62,9 +79,15 @@ function Axis(props) {
       ? width - margin.right
       : 0;
 
+  const axisPropsStyles =
+    orientation === "left" || orientation === "right"
+      ? yAxisStyles
+      : xAxisStyles;
+
   const labelProps = {
     ...axisStyles?.label?.[orientation],
     fontSize: axisStyles?.label?.[orientation].fontSize[size],
+    ...axisPropsStyles,
   };
 
   return (

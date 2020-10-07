@@ -35,6 +35,7 @@ export default function Tooltip({
     size,
     formatTooltipDate,
     parseDateFormat,
+    tooltipStyles,
   } = useContext(ChartContext) || {};
 
   // const parseDate = timeParse("%Y%m%d");
@@ -231,6 +232,7 @@ export default function Tooltip({
           "white",
         color:
           selectColor(theme?.tooltip?.tooltipStyles?.color, theme) ?? "#222",
+        ...tooltipStyles,
       }}
     >
       {renderTooltip({ ...tooltipData, colorScale })}

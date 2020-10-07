@@ -18,9 +18,19 @@ const defaultLabelProps = {
 };
 
 function AnimatedAxis(props) {
-  const { theme, xScale, yScale, margin, width, height, size } = useContext(
-    ChartContext
-  );
+  const {
+    theme,
+    xScale,
+    yScale,
+    margin,
+    width,
+    height,
+    size,
+    xAxisStyles,
+    yAxisStyles,
+    xTickStyles,
+    yTickStyles,
+  } = useContext(ChartContext);
   const { orientation } = props;
 
   // The biggest difference between Axes is their label + tick label styles
@@ -35,13 +45,24 @@ function AnimatedAxis(props) {
     themeTickStylesKey,
   ]);
 
+  const ticksPropsStyles =
+    orientation === "left" || orientation === "right"
+      ? yTickStyles
+      : xTickStyles;
+
   const tickLabelProps = useMemo(() => {
-    if (props.tickLabelProps) return props.tickLabelProps;
+    // if (props.tickLabelProps) return props.tickLabelProps;
     const themeTickLabelProps =
       theme?.[themeTickStylesKey]?.label?.[orientation];
     return themeTickLabelProps
       ? // by default, wrap tick labels within the allotted margin space
-        () => ({ ...themeTickLabelProps, width: margin[orientation] })
+        () => ({
+          ...themeTickLabelProps,
+          width: margin[orientation],
+          fontSize:
+            theme?.[themeTickStylesKey]?.label?.[orientation].fontSize[size],
+          ...ticksPropsStyles,
+        })
       : undefined;
   }, [theme, props.tickLabelProps, themeTickStylesKey, orientation, margin]);
 
@@ -72,6 +93,11 @@ function AnimatedAxis(props) {
   const scale =
     orientation === "left" || orientation === "right" ? yScale : xScale;
 
+  const axisPropsStyles =
+    orientation === "left" || orientation === "right"
+      ? yAxisStyles
+      : xAxisStyles;
+
   const tickStroke = props.tickStroke ?? tickStyles?.stroke;
   const tickLength = props.tickLength ?? tickStyles?.tickLength;
   const axisStroke = props.stroke ?? axisStyles?.stroke;
@@ -81,6 +107,7 @@ function AnimatedAxis(props) {
     (props.labelProps || {
       ...axisStyles?.label?.[orientation],
       fontSize: axisStyles?.label?.[orientation].fontSize[size],
+      ...axisPropsStyles,
     }) ??
     defaultLabelProps;
 

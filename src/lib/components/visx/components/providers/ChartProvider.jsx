@@ -254,6 +254,13 @@ export default class ChartProvider extends React.Component {
       // isContinuousAxes,
       formatTooltipDate,
       parseDateFormat,
+      xAxisStyles,
+      yAxisStyles,
+      xTickStyles,
+      yTickStyles,
+      tooltipStyles,
+      pieSort,
+      pieSortValues,
     } = this.props;
 
     const {
@@ -296,6 +303,13 @@ export default class ChartProvider extends React.Component {
           valueLabelStyle,
           parseDateFormat,
           formatTooltipDate,
+          xAxisStyles,
+          yAxisStyles,
+          xTickStyles,
+          yTickStyles,
+          tooltipStyles,
+          pieSort,
+          pieSortValues,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

@@ -58,16 +58,18 @@ Pie.propTypes = {
     qCond: PropTypes.string,
     qMsg: PropTypes.string,
   }),
-  /** Supress zeo vlaues in the the chart  */
+  /** Supress zero values in the the chart  */
   suppressZero: PropTypes.bool,
+  /** Supress missing values in the the chart  */
+  suppressMissing: PropTypes.bool,
   /** Bar Sort Order */
   sortOrder: PropTypes.array,
   /** Sort Ascending or descending */
   sortDirection: PropTypes.string,
   /** Bar width */
-  width: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The height of the Bar */
-  height: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
   /** Size of the Bar */
@@ -248,8 +250,30 @@ Pie.propTypes = {
   isDonut: PropTypes.bool,
   /** Thickness of the donut */
   donutThickness: PropTypes.number,
-  /** Margin of the cahrt */
+  /** Margin of the chart */
   margin: PropTypes.object,
+  /** Sort by Labels */
+  pieSort: PropTypes.oneOf([
+    "asc",
+    "desc",
+    "ASC",
+    "DESC",
+    "Ascending",
+    "ASCENDING",
+    "Descending",
+    "DESCENDING",
+  ]),
+  /** Sort by Values */
+  pieSortValues: PropTypes.oneOf([
+    "asc",
+    "desc",
+    "ASC",
+    "DESC",
+    "Ascending",
+    "ASCENDING",
+    "Descending",
+    "DESCENDING",
+  ]),
 };
 
 Pie.defaultProps = {
@@ -273,6 +297,7 @@ Pie.defaultProps = {
   formatTooltipDate: null,
   strokeWidth: null,
   showTooltip: true,
+  pieSort: "asc",
 };
 
 export default Pie;

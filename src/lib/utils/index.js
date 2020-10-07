@@ -9,7 +9,7 @@ export { numericSortDirection } from "./hyperCubeUtilities";
 export { validData } from "./hyperCubeUtilities";
 export { colorByExpression } from "./colorByExpression";
 export { calcDisplayOption } from "./calcDisplayOption";
-export { isNull, isEmpty } from "./lodash";
+export { isNull, isEmpty, isString } from "./lodash";
 export { legendPosition } from "./legendPosition";
 export { componentWidth } from "./componentWidth";
 export { default as exportData } from "./exportData";

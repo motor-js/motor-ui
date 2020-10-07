@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ParentSize } from "@visx/responsive";
 import { Pie } from "@visx/shape";
 import { scaleOrdinal } from "@visx/scale";
@@ -11,7 +11,7 @@ import ChartBackground from "../aesthetic/Gradient";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
-import { isEmpty } from "../../../../utils";
+import { isEmpty, isString } from "../../../../utils";
 
 export default function PieChart(props) {
   const {
@@ -37,6 +37,7 @@ export default function PieChart(props) {
   } = props;
 
   const { containerRef } = useTooltipInPortal();
+  const [hoverId, setHoverId] = useState();
 
   const {
     currentSelectionIds,
@@ -49,9 +50,11 @@ export default function PieChart(props) {
     valueLabelStyle,
     size,
     showLabels,
+    pieSort,
+    pieSortValues,
   } = useContext(ChartContext);
 
-  const { colors, selection, nonSelection, valueLabelStyles } = theme;
+  const { colors, selection, nonSelection, hover, valueLabelStyles } = theme;
 
   const pieLabelStyle = {
     ...valueLabelStyles,
@@ -60,6 +63,11 @@ export default function PieChart(props) {
   };
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+
+  const onMouseLeave = () => {
+    hideTooltip();
+    setHoverId(null);
+  };
 
   // accessor functions
   const pieValue = (d) => d.value;
@@ -72,8 +80,10 @@ export default function PieChart(props) {
   });
 
   const getStyle = (selectionId) => {
-    return isEmpty(currentSelectionIds) ||
-      currentSelectionIds.includes(selectionId)
+    return isEmpty(currentSelectionIds) && hoverId === selectionId
+      ? hover
+      : isEmpty(currentSelectionIds) ||
+        currentSelectionIds.includes(selectionId)
       ? selection
       : nonSelection;
   };
@@ -151,6 +161,22 @@ export default function PieChart(props) {
           <Pie
             data={data}
             pieValue={pieValue}
+            pieSort={
+              pieSort === undefined
+                ? undefined
+                : isString(pieSort) &&
+                  pieSort.toUpperCase().slice(0, 3) === "ASC"
+                ? (a, b) => a.label.localeCompare(b.label)
+                : (a, b) => b.label.localeCompare(a.label)
+            }
+            pieSortValues={
+              pieSortValues === undefined
+                ? undefined
+                : isString(pieSortValues) &&
+                  pieSortValues.toUpperCase().slice(0, 3) === "ASC"
+                ? (a, b) => a - b
+                : (a, b) => b - a
+            }
             outerRadius={radius}
             innerRadius={isDonut ? radius - donutThickness : 0}
             cornerRadius={cornerRadius}
@@ -163,7 +189,8 @@ export default function PieChart(props) {
                 getKey={(arc) => arc.data.label}
                 onClickDatum={onClick}
                 onMouseMoveDatum={onMouseMoveDatum}
-                onMouseLeave={hideTooltip}
+                setHoverId={setHoverId}
+                onMouseLeave={onMouseLeave}
                 getColor={(arc) => colorScale(arc.data.label)}
                 getStyle={(arc) => getStyle(arc.data.selectionId)}
                 valPrecision={valPrecision}
@@ -190,6 +217,7 @@ export default function PieChart(props) {
                   getKey={({ data: { letter } }) => letter}
                   onClickDatum={({ data: { letter } }) => console.log(letter)}
                   onMouseMoveDatum={onMouseMoveDatum}
+                  setHoverId={setHoverId}
                   getColor={(arc) => colorScale(arc.data.label)}
                   getStyle={(arc) => getStyle(arc.data.selectionId)}
                   valPrecision={valPrecision}
@@ -237,6 +265,7 @@ function AnimatedPie({
   getStyle,
   onClickDatum,
   onMouseMoveDatum,
+  setHoverId,
   onMouseLeave,
 }) {
   const transitions = useTransition(
@@ -280,6 +309,7 @@ function AnimatedPie({
               stroke={stroke}
               onClick={() => onClickDatum(arc)}
               onMouseMove={(e) => onMouseMoveDatum(e, arc)}
+              onMouseEnter={() => setHoverId(arc.data.selectionId)}
               onMouseLeave={onMouseLeave}
               onTouchStart={() => onClickDatum(arc)}
             />
