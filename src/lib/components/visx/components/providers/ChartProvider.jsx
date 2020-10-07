@@ -259,6 +259,8 @@ export default class ChartProvider extends React.Component {
       xTickStyles,
       yTickStyles,
       tooltipStyles,
+      pieSort,
+      pieSortValues,
     } = this.props;
 
     const {
@@ -306,6 +308,8 @@ export default class ChartProvider extends React.Component {
           xTickStyles,
           yTickStyles,
           tooltipStyles,
+          pieSort,
+          pieSortValues,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

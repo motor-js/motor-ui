@@ -63,6 +63,8 @@ export default function CreatePie({
   donutThickness,
   isDonut,
   margin,
+  pieSort,
+  pieSortValues,
 }) {
   const [currData, setCurrData] = useState(data);
 
@@ -120,6 +122,8 @@ export default function CreatePie({
       valueLabelStyle={valueLabelStyle}
       // parseDateFormat={parseDateFormat}
       // formatTooltipDate={formatTooltipDate}
+      pieSort={pieSort}
+      pieSortValues={pieSortValues}
     >
       <EventProvider>
         {title && <Title title={title} subTitle={subTitle} size={size} />}

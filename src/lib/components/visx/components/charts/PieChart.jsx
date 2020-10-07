@@ -11,7 +11,7 @@ import ChartBackground from "../aesthetic/Gradient";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import { useTooltipInPortal } from "@visx/tooltip";
-import { isEmpty } from "../../../../utils";
+import { isEmpty, isString } from "../../../../utils";
 
 export default function PieChart(props) {
   const {
@@ -49,6 +49,8 @@ export default function PieChart(props) {
     valueLabelStyle,
     size,
     showLabels,
+    pieSort,
+    pieSortValues,
   } = useContext(ChartContext);
 
   const { colors, selection, nonSelection, valueLabelStyles } = theme;
@@ -151,7 +153,22 @@ export default function PieChart(props) {
           <Pie
             data={data}
             pieValue={pieValue}
-            pieSort={() => 1}
+            pieSort={
+              pieSort === undefined
+                ? undefined
+                : isString(pieSort) &&
+                  pieSort.toUpperCase().slice(0, 3) === "ASC"
+                ? (a, b) => a.label.localeCompare(b.label)
+                : (a, b) => b.label.localeCompare(a.label)
+            }
+            pieSortValues={
+              pieSortValues === undefined
+                ? undefined
+                : isString(pieSortValues) &&
+                  pieSortValues.toUpperCase().slice(0, 3) === "ASC"
+                ? (a, b) => a - b
+                : (a, b) => b - a
+            }
             outerRadius={radius}
             innerRadius={isDonut ? radius - donutThickness : 0}
             cornerRadius={cornerRadius}

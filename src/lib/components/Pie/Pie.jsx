@@ -250,8 +250,30 @@ Pie.propTypes = {
   isDonut: PropTypes.bool,
   /** Thickness of the donut */
   donutThickness: PropTypes.number,
-  /** Margin of the cahrt */
+  /** Margin of the chart */
   margin: PropTypes.object,
+  /** Sort by Labels */
+  pieSort: PropTypes.oneOf([
+    "asc",
+    "desc",
+    "ASC",
+    "DESC",
+    "Ascending",
+    "ASCENDING",
+    "Descending",
+    "DESCENDING",
+  ]),
+  /** Sort by Values */
+  pieSortValues: PropTypes.oneOf([
+    "asc",
+    "desc",
+    "ASC",
+    "DESC",
+    "Ascending",
+    "ASCENDING",
+    "Descending",
+    "DESCENDING",
+  ]),
 };
 
 Pie.defaultProps = {
@@ -275,6 +297,7 @@ Pie.defaultProps = {
   formatTooltipDate: null,
   strokeWidth: null,
   showTooltip: true,
+  pieSort: "asc",
 };
 
 export default Pie;
