@@ -3,7 +3,7 @@ import { Circle } from "@visx/shape";
 
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
-import { isValidNumber } from "../../utils/chartUtils";
+import { isValidNumber, valueIfUndefined } from "../../utils/chartUtils";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
@@ -24,9 +24,9 @@ function PointSeries({
     colorScale,
     handleClick,
     currentSelectionIds,
+    multiColor,
     // showPoints,
     // showLabels,
-    // theme,
     // formatValue,
   } = useContext(ChartContext);
   const { data, xAccessor, yAccessor, elAccessor } =
@@ -40,6 +40,8 @@ function PointSeries({
     [xScale, xAccessor]
   );
 
+  // console.log(theme.colors);
+
   const getScaledY = useCallback(
     (d) => {
       const y = yScale(yAccessor?.(d));
@@ -52,15 +54,14 @@ function PointSeries({
 
   if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
-  const color = colorScale(dataKey) ?? "#222";
-
-  // console.log(dataKey);
+  const getColor = (d, i) =>
+    valueIfUndefined(
+      d[0].qAttrExps.qValues[2].qText,
+      colorScale(multiColor ? d[0].qText : dataKey)
+    );
 
   // const x = (d) => d[1].qNum;
   // const y = (d) => d[2].qNum;
-
-  // const { scatter } = theme;
-  // console.log(scatter);
 
   return (
     <g className="visx-group line-series">
@@ -71,8 +72,7 @@ function PointSeries({
           cx={getScaledX(point)}
           cy={getScaledY(point)}
           r={3}
-          fill="#f6c431"
-          fill={color}
+          fill={getColor(point, i)}
           style={{ cursor: "pointer " }}
           onClick={() => {
             const selectionId = getElemNumber(point);

@@ -50,7 +50,7 @@ import { config } from '../config/config.js'
     // showPoints='star'
    // type="stackedarea"
       cols={[
-      { qField: 'Supplier Name', qLabel: 'Supplier Name' },
+      { qField: 'Supplier Name', qLabel: 'Supplier Name',qCondChartColor:"=if(Avg(([Supplier Complaints])>12) or (Avg([Supplier Satisfaction Rating])<10),'Red', 'Green')" },
      { qField: '=[Supplier Complaints]/Sum(ClaimCounter)', qLabel: 'Ave Supplier Complaints',
                                    qNumFormat: {
               "qType": "R",
