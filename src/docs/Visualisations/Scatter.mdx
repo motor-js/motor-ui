@@ -53,15 +53,8 @@ import { config } from '../config/config.js'
       cols={[
       { qField: 'Supplier Name', qLabel: 'Supplier Name',qCondChartColor:"=if(Avg(([Supplier Complaints])>12) or (Avg([Supplier Satisfaction Rating])<10),'Red', 'Green')" },
      { qField: '=[Supplier Complaints]/Sum(ClaimCounter)', qLabel: 'Ave Supplier Complaints',
-                                   qNumFormat: {
-              "qType": "R",
-              "qnDec": 14,
-              "qUseThou": 1,
-            //  "qFmt": "##############",
-              "qFmt": '#,##0.00%',
-              "qDec": ".",
-              "qThou": ","
-            },
+            qNumFmt: "#,##0.00%",
+        qNumType:"R"
        },
    { qField: '=Avg([Supplier Satisfaction Rating])', qLabel: 'Ave Supplier Satisfaction Rating' },
     ]}/>

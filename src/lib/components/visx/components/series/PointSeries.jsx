@@ -80,34 +80,35 @@ function PointSeries({
   // const x = (d) => d[1].qNum;
   // const y = (d) => d[2].qNum;
 
-  // const onMouseMoveDatum = (event, point) => {
-  //   const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+  const onMouseMoveDatum = (event, point, color) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
 
-  //   const closestDatum = point
+    const closestDatum = {};
+    closestDatum.key = dataKey;
+    closestDatum.datum = point;
+    closestDatum.color = color;
 
-  //   if (point && showTooltip) {
-  //     showTooltip({
-  //       tooltipData: { ...point, svgMouseX, svgMouseY, colorScale },
-  //     });
-  //   }
-  // };
+    if (point && showTooltip) {
+      showTooltip({
+        tooltipData: { closestDatum, svgMouseX, svgMouseY, colorScale },
+      });
+    }
+  };
 
-  const onMouseMove = useCallback(
-    (event) => {
-      const nearestData = findNearestData(event);
-      console.log(nearestData);
-      if (nearestData.closestDatum && showTooltip) {
-        showTooltip({ tooltipData: { ...nearestData } });
-      }
-    },
-    [findNearestData, showTooltip]
-  );
+  // const onMouseMove = useCallback(
+  //   (event) => {
+  //     const nearestData = findNearestData(event);
+  //     // console.log(nearestData);
+  //     if (nearestData.closestDatum && showTooltip) {
+  //       showTooltip({ tooltipData: { ...nearestData } });
+  //     }
+  //   },
+  //   [findNearestData, showTooltip]
+  // );
 
   return (
     <g className="visx-group line-series">
       {data.map((point, i) => (
-        // const left = getScaledX(d);
-        // const top = getScaledY(d);
         <g key={`area-glyph-${i}`}>
           <Circle
             key={`point-${point[0]}-${i}`}
@@ -128,9 +129,10 @@ function PointSeries({
               handleClick(selections);
             }}
             // onMouseMove={onMouseMove}
-            // onMouseLeave={() => {
-            //   hideTooltip();
-            // }}
+            onMouseMove={(e) => onMouseMoveDatum(e, point, getColor(point, i))}
+            onMouseLeave={() => {
+              hideTooltip();
+            }}
           />
           {showLabels && (
             <Text

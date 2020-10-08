@@ -6,6 +6,7 @@ function Scatter({ cols, stacked, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
       type="scatter"
+      showClosestItem={true}
       cols={cols}
       {...rest}
     />
@@ -260,8 +261,8 @@ Scatter.propTypes = {
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
   valueLabelStyle: PropTypes.object,
-  /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
-  showClosestItem: PropTypes.bool,
+  // /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
+  // showClosestItem: PropTypes.bool,
   /** Only use one color for the toolyip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
   /** Snap to X Axis (normally true for bar or combo) */
@@ -335,6 +336,7 @@ Scatter.defaultProps = {
   showCrossHair: true,
   showTooltip: true,
   showLegend: false,
+  // showClosestItem,true,
 };
 
 export default Scatter;

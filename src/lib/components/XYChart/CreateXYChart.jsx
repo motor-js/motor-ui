@@ -314,7 +314,7 @@ export default function CreateXYChart({
     const valPrecision = valueIfUndefined(precision, chart.precision);
     const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
 
-    if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
+    if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
     let formattedValue = valRoundNum
       ? roundNumber(Math.abs(val), valPrecision)
       : Math.abs(val);
@@ -656,7 +656,7 @@ export default function CreateXYChart({
                 chartShowAxisLabels === "xAxis"
                   ? !isScatter
                     ? dimensionInfo[0].qFallbackTitle
-                    : measureInfo[0].qFallbackTitle
+                    : measureInfo[1].qFallbackTitle
                   : null
               }
               orientation={
