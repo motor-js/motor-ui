@@ -7,6 +7,10 @@ function Scatter({ cols, stacked, ...rest }) {
     <XYChart // width={750} height={400}  events={true}
       type="scatter"
       showClosestItem={true}
+      showAsPercent={false}
+      stacked={false}
+      showLegend={false}
+      dualAxis={false}
       cols={cols}
       {...rest}
     />
@@ -160,10 +164,10 @@ Scatter.propTypes = {
     ]),
     PropTypes.array,
   ]),
-  /** Stacked Chart  */
-  stacked: PropTypes.bool,
-  /** Stacked Chart  */
-  showAsPercent: PropTypes.bool,
+  // /** Stacked Chart  */
+  // stacked: PropTypes.bool,
+  // /** Stacked Chart  */
+  // showAsPercent: PropTypes.bool,
   /** RoundNum of the Scatter */
   roundNum: PropTypes.bool,
   /** Decimai precision for RoundNum of the Scatter */
@@ -172,11 +176,11 @@ Scatter.propTypes = {
   title: PropTypes.string,
   /** Sub Title of the Scatter */
   subTitle: PropTypes.string,
-  /** Legend of the chart */
-  showLegend: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(["right", "bottom"]),
-  ]),
+  // /** Legend of the chart */
+  // showLegend: PropTypes.oneOfType([
+  //   PropTypes.bool,
+  //   PropTypes.oneOf(["right", "bottom"]),
+  // ]),
   /** Show tooltip */
   showTooltip: PropTypes.bool,
   /** SelectionMethod */
@@ -189,8 +193,8 @@ Scatter.propTypes = {
   // // allowZoom: PropTypes.bool, // Descoped to later version
   // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
   // // scrollRatio: PropTypes.number, // Descoped to later version
-  /** Pddding for each bar */
-  padding: PropTypes.number,
+  // /** Pddding for each bar */
+  // padding: PropTypes.number,
   /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
   showPoints: PropTypes.oneOfType([
     PropTypes.bool,
@@ -212,10 +216,10 @@ Scatter.propTypes = {
   includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
   yAxisOrientation: PropTypes.oneOf(["left", "right"]),
-  legendLeftRight: PropTypes.oneOf(["left", "right"]),
-  legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
-  legendDirection: PropTypes.oneOf(["row", "column"]),
-  legendShape: PropTypes.string,
+  // legendLeftRight: PropTypes.oneOf(["left", "right"]),
+  // legendTopBottom: PropTypes.oneOf(["top", "bottom"]),
+  // legendDirection: PropTypes.oneOf(["row", "column"]),
+  // legendShape: PropTypes.string,
   backgroundPattern: PropTypes.oneOf(["Lines", "Circles", "Hexagon", "Waves"]),
   /** BackgroundSTyle */
   /** either : style of one of below or bckgroundFrom and bckgroundTo */
@@ -251,8 +255,8 @@ Scatter.propTypes = {
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
-  /** Use dual Y axis on the the chart  */
-  dualAxis: PropTypes.bool,
+  // /** Use dual Y axis on the the chart  */
+  // dualAxis: PropTypes.bool,
   /** Show CrossHair on the chart  */
   showCrossHair: PropTypes.bool,
   /** Styling of the CrossHair. */
@@ -285,8 +289,8 @@ Scatter.propTypes = {
   numDimensionTicks: PropTypes.number,
   /** Number of ticks for the Y Axis. Leave blank to auto calculate */
   numMeasureTicks: PropTypes.number,
-  /** Number of ticks for the dual Y Axis. Leave blank to auto calculate */
-  numMeasureDualTicks: PropTypes.number,
+  // /** Number of ticks for the dual Y Axis. Leave blank to auto calculate */
+  // numMeasureDualTicks: PropTypes.number,
   /** Format of dates to be displayed on XAxis. */
   formatAxisDate: PropTypes.string,
   /** Line stroke width */
@@ -313,29 +317,29 @@ Scatter.defaultProps = {
   backgroundColor: null,
   margin: null,
   /** Use dual Y axis on the the chart  */
-  dualAxis: false,
+  // dualAxis: false,
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  stacked: false,
-  showAsPercent: false,
+  // stacked: false,
+  // showAsPercent: false,
   gridArea: null,
   xAxisOrientation: "bottom",
   yAxisOrientation: "left",
-  legendLeftRight: "right",
-  legendTopBottom: "top",
-  legendDirection: "row",
-  legendShape: "auto",
+  // legendLeftRight: "right",
+  // legendTopBottom: "top",
+  // legendDirection: "row",
+  // legendShape: "auto",
   parseDateFormat: null,
   formatAxisDate: null,
   formatTooltipDate: null,
   strokeWidth: null,
   numDimensionTicks: null,
   numMeasureTicks: null,
-  numMeasureDualTicks: null,
+  // numMeasureDualTicks: null,
   showCrossHair: true,
   showTooltip: true,
-  showLegend: false,
+  // showLegend: false,
   // showClosestItem,true,
 };
 
