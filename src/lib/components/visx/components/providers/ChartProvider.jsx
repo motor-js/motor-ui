@@ -261,6 +261,7 @@ export default class ChartProvider extends React.Component {
       tooltipStyles,
       pieSort,
       pieSortValues,
+      multiColor,
     } = this.props;
 
     const {
@@ -310,6 +311,7 @@ export default class ChartProvider extends React.Component {
           tooltipStyles,
           pieSort,
           pieSortValues,
+          multiColor,
           handleClick: this.handleClick,
           registerData: this.registerData,
           unregisterData: this.unregisterData,

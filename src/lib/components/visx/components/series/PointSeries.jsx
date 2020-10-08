@@ -22,6 +22,8 @@ function PointSeries({
     xScale,
     yScale,
     colorScale,
+    handleClick,
+    currentSelectionIds,
     // showPoints,
     // showLabels,
     // theme,
@@ -52,8 +54,13 @@ function PointSeries({
 
   const color = colorScale(dataKey) ?? "#222";
 
+  // console.log(dataKey);
+
   // const x = (d) => d[1].qNum;
   // const y = (d) => d[2].qNum;
+
+  // const { scatter } = theme;
+  // console.log(scatter);
 
   return (
     <g className="visx-group line-series">
@@ -61,20 +68,20 @@ function PointSeries({
         <Circle
           key={`point-${point[0]}-${i}`}
           className="dot"
-          // cx={xScale(x(point))}
-          // cy={yScale(y(point))}
           cx={getScaledX(point)}
           cy={getScaledY(point)}
-          // selectionId={getElemNumber(point)}
-          // r={i % 3 === 0 ? 2 : 3}
           r={3}
-          // fill={tooltipData === point ? "white" : "#f6c431"}
           fill="#f6c431"
+          fill={color}
           style={{ cursor: "pointer " }}
           onClick={() => {
-            // setSelectedBar(isSelected ? null : letter);
-            point.selectionId = getElemNumber(point);
-            console.log(point);
+            const selectionId = getElemNumber(point);
+            const selections = currentSelectionIds.includes(selectionId)
+              ? currentSelectionIds.filter(function(value) {
+                  return value !== selectionId;
+                })
+              : [...currentSelectionIds, selectionId];
+            handleClick(selections);
           }}
         />
       ))}

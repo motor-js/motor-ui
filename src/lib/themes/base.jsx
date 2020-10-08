@@ -967,6 +967,7 @@ const base = {
   bar: { stroke: "#fff", strokeWidth: 1 },
   stackedArea: { stroke: "#fff", strokeWidth: 1 },
   points: { size: 50, strokeWidth: 2 },
+  scatter: { size: 50, strokeWidth: 2 },
   pie: {
     margin: { top: 20, right: 20, bottom: 20, left: 20 },
     stroke: "#adb5bd",
