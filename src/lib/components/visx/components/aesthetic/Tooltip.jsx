@@ -24,7 +24,6 @@ export default function Tooltip({
     yScale,
     colorScale,
     dataRegistry,
-    height,
     theme,
     formatValue,
     measureInfo,
@@ -36,6 +35,7 @@ export default function Tooltip({
     formatTooltipDate,
     parseDateFormat,
     tooltipStyles,
+    multiColor,
   } = useContext(ChartContext) || {};
 
   // const parseDate = timeParse("%Y%m%d");
@@ -159,7 +159,10 @@ export default function Tooltip({
             {singleDimension && singleMeasure && dataKeys && (
               <div
                 style={{
-                  color: colorScale(`${closestDatum.datum[0].qText}`),
+                  // color: colorScale(`${closestDatum.datum[0].qText}`),
+                  color: colorScale(
+                    multiColor ? `${closestDatum.datum[0].qText}` : dataKeys[0]
+                  ),
                   textDecoration: "underline solid currentColor",
                 }}
               >
