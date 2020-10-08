@@ -49,6 +49,7 @@ import { config } from '../config/config.js'
           borderRadius: "10px",  background: "pink"}}
     // showPoints='star'
    // type="stackedarea"
+   showCrossHair={false}
       cols={[
       { qField: 'Supplier Name', qLabel: 'Supplier Name',qCondChartColor:"=if(Avg(([Supplier Complaints])>12) or (Avg([Supplier Satisfaction Rating])<10),'Red', 'Green')" },
      { qField: '=[Supplier Complaints]/Sum(ClaimCounter)', qLabel: 'Ave Supplier Complaints',
