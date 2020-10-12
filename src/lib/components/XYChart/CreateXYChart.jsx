@@ -38,6 +38,8 @@ import { ParentSize } from "@visx/responsive";
 //   null // ➜ React components must return something
 // );
 
+/* <Console log={closestDatum.datum[0].qText} /> */
+
 // formatDate(new Date((d - (25567 + 1)) * 86400 * 1000));
 
 const legendLabelFormat = (d) => d;

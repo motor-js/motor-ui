@@ -46,6 +46,7 @@
     "@visx/gradient": "^1.0.0",
     "@visx/grid": "^1.0.0",
     "@visx/group": "^1.0.0",
+    "@visx/heatmap": "^1.0.0",
     "@visx/legend": "^1.0.0",
     "@visx/pattern": "^1.0.0",
     "@visx/point": "^1.0.0",

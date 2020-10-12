@@ -26,13 +26,57 @@ import { colorByExpression, selectColor } from "../../utils";
 import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 import { ParentSize } from "@visx/responsive";
 
+import genBins, { Bin, Bins } from "@visx/mock-data/lib/generators/genBins";
+import { HeatmapCircle, HeatmapRect } from "@visx/heatmap";
+import { scaleLinear } from "@visx/scale";
+
+const hot1 = "#77312f";
+const hot2 = "#f33d15";
+const cool1 = "#122549";
+const cool2 = "#b4fbde";
+export const background = "#28272c";
+
+const binData = genBins(/* length = */ 16, /* height = */ 16);
+
+function max(data, value) {
+  return Math.max(...data.map(value));
+}
+
+function min(data, value) {
+  return Math.min(...data.map(value));
+}
+
+// accessors
+const bins = (d) => d.bins;
+const count = (d) => d.count;
+
+const colorMax = max(binData, (d) => max(bins(d), count));
+const bucketSizeMax = max(binData, (d) => bins(d).length);
+
+// scales
+const xScale = scaleLinear({
+  domain: [0, binData.length],
+});
+const yScale = scaleLinear({
+  domain: [0, bucketSizeMax],
+});
+const circleColorScale = scaleLinear({
+  range: [hot1, hot2],
+  domain: [0, colorMax],
+});
+const rectColorScale = scaleLinear({
+  range: [cool1, cool2],
+  domain: [0, colorMax],
+});
+const opacityScale = scaleLinear({
+  range: [0.1, 1],
+  domain: [0, colorMax],
+});
+
 const legendLabelFormat = (d) => d;
 
-const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
-const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
-
 export default function CreateXYChart({
-  width,
+  // width, //to be reinstated
   height,
   events = false,
   data,
@@ -53,7 +97,7 @@ export default function CreateXYChart({
   type,
   useAnimatedAxes,
   autoWidth,
-  size,
+  // size,
   // renderHorizontally,
   includeZero,
   xAxisOrientation,
@@ -209,23 +253,10 @@ export default function CreateXYChart({
     />
   ) : null;
 
-  const selectedBoxStyle = {
-    fill: "url(#brush_pattern)",
-    stroke: selectColor(chart?.brush.stroke, theme) ?? "#329af0",
-  };
+  const margin = { top: 10, left: 20, right: 20, bottom: 110 };
 
-  const chartHideAxisLine = valueIfUndefined(hideAxisLine, chart.hideAxisLine);
-
-  const chartShowAxisLabels = valueIfUndefined(
-    showAxisLabels,
-    chart.showAxisLabels
-  );
-
-  chartShowAxisLabels === true ||
-  chartShowAxisLabels === "both" ||
-  chartShowAxisLabels === "xAxis"
-    ? (axisBottomMargin.bottom = 60)
-    : (axisBottomMargin.bottom = 40);
+  const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
+  const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
 
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
@@ -233,7 +264,7 @@ export default function CreateXYChart({
     const valPrecision = valueIfUndefined(precision, chart.precision);
     const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
 
-    if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
+    // if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
     let formattedValue = valRoundNum
       ? roundNumber(Math.abs(val), valPrecision)
       : Math.abs(val);
@@ -241,8 +272,27 @@ export default function CreateXYChart({
     return val < 0 ? `-${formattedValue}` : formattedValue;
   };
 
-  const xScale = dateScaleConfig;
-  const yScale = valueScaleConfig;
+  // const xScale = dateScaleConfig;
+  // const yScale = valueScaleConfig;
+  const separation = 20;
+  const width = 500;
+
+  // bounds
+  const size =
+    width > margin.left + margin.right
+      ? width - margin.left - margin.right - separation
+      : width;
+  const xMax = size / 2;
+  const yMax = height - margin.bottom - margin.top;
+
+  const binWidth = xMax / binData.length;
+  const binHeight = yMax / bucketSizeMax;
+  const radius = min([binWidth, binHeight], (d) => d) / 2;
+
+  const Console = (prop) => (
+    console[Object.keys(prop)[0]](...Object.values(prop)),
+    null // ➜ React components must return something
+  );
 
   return (
     // <div className="container">
@@ -317,27 +367,41 @@ export default function CreateXYChart({
             />
             <ChartPattern backgroundPattern={backgroundPattern} />
 
-            {chartType.includes("groupedbar") && (
-              <Group horizontal={false}>
-                {dimensionCount <= 1
-                  ? measureInfo.map((measure, index) => (
-                      <BarSeries
-                        key={measureInfo[index].qFallbackTitle}
-                        dataKey={measureInfo[index].qFallbackTitle}
-                        data={currData}
-                        {...dataAccessors[index]}
+            <HeatmapRect
+              data={binData}
+              xScale={xScale}
+              yScale={yScale}
+              colorScale={rectColorScale}
+              opacityScale={opacityScale}
+              binWidth={binWidth}
+              binHeight={binWidth}
+              gap={2}
+            >
+              {(heatmap) =>
+                heatmap.map((heatmapBins) =>
+                  heatmapBins.map((bin) => (
+                    <>
+                      <Console log={bin} />
+                      <rect
+                        key={`heatmap-rect-${bin.row}-${bin.column}`}
+                        className="visx-heatmap-rect"
+                        width={bin.width}
+                        height={bin.height}
+                        x={bin.x}
+                        y={bin.y}
+                        fill={bin.color}
+                        fillOpacity={bin.opacity}
+                        onClick={() => {
+                          if (!events) return;
+                          const { row, column } = bin;
+                          alert(JSON.stringify({ row, column, bin: bin.bin }));
+                        }}
                       />
-                    ))
-                  : dataKeys.map((measure, index) => (
-                      <BarSeries
-                        key={measure}
-                        dataKey={measure}
-                        data={currData}
-                        {...dataAccessors[index]}
-                      />
-                    ))}
-              </Group>
-            )}
+                    </>
+                  ))
+                )
+              }
+            </HeatmapRect>
           </XYChart>
           {showTooltip && (
             <Tooltip
