@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import { Circle } from "@visx/shape";
 import { localPoint } from "@visx/event";
 import { Text } from "@visx/text";
@@ -10,6 +10,7 @@ import { isValidNumber, valueIfUndefined } from "../../utils/chartUtils";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
+import { isEmpty, isString } from "../../../../utils";
 
 function PointSeries({
   data: _,
@@ -37,6 +38,7 @@ function PointSeries({
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+  const [hoverId, setHoverId] = useState();
 
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
@@ -49,7 +51,7 @@ function PointSeries({
     [xScale, xAccessor]
   );
 
-  const { scatter, valueLabelStyles } = theme;
+  const { scatter, valueLabelStyles, selection, nonSelection, hover } = theme;
 
   const labelProps = {
     ...valueLabelStyles,
@@ -77,8 +79,14 @@ function PointSeries({
 
   const getLabel = (d) => d[0].qText;
 
-  // const x = (d) => d[1].qNum;
-  // const y = (d) => d[2].qNum;
+  const getStyle = (selectionId) => {
+    return isEmpty(currentSelectionIds) && hoverId === selectionId
+      ? hover
+      : isEmpty(currentSelectionIds) ||
+        currentSelectionIds.includes(selectionId)
+      ? selection
+      : nonSelection;
+  };
 
   const onMouseMoveDatum = (event, point, color) => {
     const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
@@ -119,6 +127,7 @@ function PointSeries({
             fill={getColor(point, i)}
             // style={{ cursor: "pointer " }}
             style={{ ...scatter.style }}
+            style={getStyle(getElemNumber(point))}
             onClick={() => {
               const selectionId = getElemNumber(point);
               const selections = currentSelectionIds.includes(selectionId)
@@ -130,8 +139,10 @@ function PointSeries({
             }}
             // onMouseMove={onMouseMove}
             onMouseMove={(e) => onMouseMoveDatum(e, point, getColor(point, i))}
+            onMouseEnter={() => setHoverId(getElemNumber(point))}
             onMouseLeave={() => {
               hideTooltip();
+              setHoverId(null);
             }}
           />
           {showLabels && (
