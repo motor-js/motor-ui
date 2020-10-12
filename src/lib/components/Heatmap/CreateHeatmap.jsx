@@ -53,6 +53,9 @@ const count = (d) => d.count;
 const colorMax = max(binData, (d) => max(bins(d), count));
 const bucketSizeMax = max(binData, (d) => bins(d).length);
 
+// const xScale = dateScaleConfig;
+// const yScale = valueScaleConfig;
+
 // scales
 const xScale = scaleLinear({
   domain: [0, binData.length],
@@ -272,8 +275,6 @@ export default function CreateXYChart({
     return val < 0 ? `-${formattedValue}` : formattedValue;
   };
 
-  // const xScale = dateScaleConfig;
-  // const yScale = valueScaleConfig;
   const separation = 20;
   const width = 500;
 
@@ -288,11 +289,6 @@ export default function CreateXYChart({
   const binWidth = xMax / binData.length;
   const binHeight = yMax / bucketSizeMax;
   const radius = min([binWidth, binHeight], (d) => d) / 2;
-
-  const Console = (prop) => (
-    console[Object.keys(prop)[0]](...Object.values(prop)),
-    null // ➜ React components must return something
-  );
 
   return (
     // <div className="container">
@@ -380,24 +376,21 @@ export default function CreateXYChart({
               {(heatmap) =>
                 heatmap.map((heatmapBins) =>
                   heatmapBins.map((bin) => (
-                    <>
-                      <Console log={bin} />
-                      <rect
-                        key={`heatmap-rect-${bin.row}-${bin.column}`}
-                        className="visx-heatmap-rect"
-                        width={bin.width}
-                        height={bin.height}
-                        x={bin.x}
-                        y={bin.y}
-                        fill={bin.color}
-                        fillOpacity={bin.opacity}
-                        onClick={() => {
-                          if (!events) return;
-                          const { row, column } = bin;
-                          alert(JSON.stringify({ row, column, bin: bin.bin }));
-                        }}
-                      />
-                    </>
+                    <rect
+                      key={`heatmap-rect-${bin.row}-${bin.column}`}
+                      className="visx-heatmap-rect"
+                      width={bin.width}
+                      height={bin.height}
+                      x={bin.x}
+                      y={bin.y}
+                      fill={bin.color}
+                      fillOpacity={bin.opacity}
+                      onClick={() => {
+                        if (!events) return;
+                        const { row, column } = bin;
+                        alert(JSON.stringify({ row, column, bin: bin.bin }));
+                      }}
+                    />
                   ))
                 )
               }
