@@ -97,7 +97,7 @@ export default function CreateXYChart({
   type,
   useAnimatedAxes,
   autoWidth,
-  // size,
+  size,
   // renderHorizontally,
   includeZero,
   xAxisOrientation,
@@ -278,11 +278,11 @@ export default function CreateXYChart({
   const width = 500;
 
   // bounds
-  const size =
+  const heatMapSize =
     width > margin.left + margin.right
       ? width - margin.left - margin.right - separation
       : width;
-  const xMax = size / 2;
+  const xMax = heatMapSize / 2;
   const yMax = height - margin.bottom - margin.top;
 
   const binWidth = xMax / binData.length;
