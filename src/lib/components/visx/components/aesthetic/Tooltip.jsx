@@ -24,7 +24,6 @@ export default function Tooltip({
     yScale,
     colorScale,
     dataRegistry,
-    height,
     theme,
     formatValue,
     measureInfo,
@@ -36,6 +35,8 @@ export default function Tooltip({
     formatTooltipDate,
     parseDateFormat,
     tooltipStyles,
+    multiColor,
+    chartType,
   } = useContext(ChartContext) || {};
 
   // const parseDate = timeParse("%Y%m%d");
@@ -68,10 +69,15 @@ export default function Tooltip({
     data.datum.filter((s) => s.qText === measure)[0].qNum;
 
   function renderTooltip({ closestData, closestDatum, colorScale }) {
-    const seriesKey = closestDatum.key;
+    const isScatter = chartType.includes("scatter");
+
+    const seriesKey = !isScatter
+      ? closestDatum.key
+      : closestDatum.datum[0].qText;
+
     const headingColor = useSingleColor
       ? selectColor(theme?.tooltip?.headingColor, theme)
-      : null;
+      : closestDatum.color;
 
     const color =
       headingColor ||
@@ -79,7 +85,9 @@ export default function Tooltip({
         ? colorScale(`${closestDatum.datum[0].qText}`)
         : colorScale(`${closestDatum.key}`));
 
-    let xVal = closestDatum.datum[0].qText || x0;
+    let xVal = isScatter
+      ? closestDatum.datum[2].qNum
+      : closestDatum.datum[0].qText || x0;
     xVal =
       isNull(parseDate(xVal)) || isNull(formatTooltipDate)
         ? xVal
@@ -96,7 +104,7 @@ export default function Tooltip({
     //      new Date((xVal - (25567 + 1)) * 86400 * 1000)
     //    );
     //  }
-    let valIdx = null;
+    let valIdx = isScatter ? 1 : null;
 
     if (singleDimension) {
       measureInfo.forEach((v, idx) => {
@@ -108,9 +116,13 @@ export default function Tooltip({
       ? closestDatum.datum[valIdx].qNum || "--"
       : closestDatum.datum.filter((d) => d.qText === seriesKey)[0].qNum || "--";
 
-    const yValText = singleDimension
+    const yValText = isScatter
+      ? measureInfo[0].qFallbackTitle
+      : singleDimension
       ? seriesKey || "--"
       : measureInfo[0].qFallbackTitle || "--";
+
+    // console.log(closestDatum.datum);
 
     return (
       <>
@@ -127,13 +139,26 @@ export default function Tooltip({
               </div>
             )}
             <div>
-              <strong style={{ color }}>
-                {dimensionInfo[0].qFallbackTitle}{" "}
-              </strong>
+              {/* <strong style={{ color }}>
+                {isScatter
+                  ? measureInfo[1].qFallbackTitle
+                  : dimensionInfo[0].qFallbackTitle}{" "}
+              </strong> */}
+              {isScatter ? (
+                <span style={{ color }}>{measureInfo[1].qFallbackTitle}</span>
+              ) : (
+                <strong style={{ color }}>
+                  {dimensionInfo[0].qFallbackTitle}
+                </strong>
+              )}{" "}
               {xVal}
             </div>
             <div>
-              <strong style={{ color }}>{yValText} </strong>
+              {isScatter ? (
+                <span style={{ color }}>{yValText}</span>
+              ) : (
+                <strong style={{ color }}>{yValText} </strong>
+              )}{" "}
               {yVal && formatValue(yVal)}
             </div>
             {/*   {data && (
@@ -159,7 +184,10 @@ export default function Tooltip({
             {singleDimension && singleMeasure && dataKeys && (
               <div
                 style={{
-                  color: colorScale(`${closestDatum.datum[0].qText}`),
+                  // color: colorScale(`${closestDatum.datum[0].qText}`),
+                  color: colorScale(
+                    multiColor ? `${closestDatum.datum[0].qText}` : dataKeys[0]
+                  ),
                   textDecoration: "underline solid currentColor",
                 }}
               >

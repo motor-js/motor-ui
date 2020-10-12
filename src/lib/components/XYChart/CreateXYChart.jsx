@@ -124,6 +124,7 @@ export default function CreateXYChart({
   xTickStyles,
   yTickStyles,
   tooltipStyles,
+  multiColor,
 }) {
   // const showTitles = true; // resize height of chart if title shown
   const getChartType = () =>
@@ -147,10 +148,15 @@ export default function CreateXYChart({
 
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
 
+  const isScatter = chartType.includes("scatter");
+
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) => d[0].qText;
-  const getSeriesValues = (d, colIndex) =>
-    isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
+
+  const getSeriesValues = (d, colIndex) => {
+    return isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
+  };
+
   const getElementNumber = (d) => d[0].qElemNumber;
 
   // const getDimension = (d) =>
@@ -162,13 +168,27 @@ export default function CreateXYChart({
 
   /** memoize the accessor functions to prevent re-registering data. */
   function useAccessors(valueAccessor, column, renderHorizontally) {
+    const xAccessor = (d) =>
+      renderHorizontally
+        ? valueAccessor(d, column)
+        : !isScatter
+        ? getDimension(d)
+        : valueAccessor(d, 2);
+
+    const yAccessor = (d) =>
+      renderHorizontally
+        ? !isScatter
+          ? getDimension(d)
+          : valueAccessor(d, 2)
+        : valueAccessor(d, column);
+
+    const elAccessor = (d) => getElementNumber(d);
+
     return useMemo(
       () => ({
-        xAccessor: (d) =>
-          renderHorizontally ? valueAccessor(d, column) : getDimension(d),
-        yAccessor: (d) =>
-          renderHorizontally ? getDimension(d) : valueAccessor(d, column),
-        elAccessor: (d) => getElementNumber(d),
+        xAccessor,
+        yAccessor,
+        elAccessor,
       }),
       [renderHorizontally, valueAccessor]
     );
@@ -249,6 +269,7 @@ export default function CreateXYChart({
     bar: { ...theme.bar },
     points: { ...theme.points },
     stackedArea: { ...theme.stackedArea },
+    scatter: { ...theme.scatter },
     colors,
   };
 
@@ -293,7 +314,7 @@ export default function CreateXYChart({
     const valPrecision = valueIfUndefined(precision, chart.precision);
     const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
 
-    if (showAsPercent) return `${(val * 100).toFixed(valPrecision ? 2 : 0)}%`;
+    if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
     let formattedValue = valRoundNum
       ? roundNumber(Math.abs(val), valPrecision)
       : Math.abs(val);
@@ -301,12 +322,24 @@ export default function CreateXYChart({
     return val < 0 ? `-${formattedValue}` : formattedValue;
   };
 
+  const xScale = renderHorizontally
+    ? valueScaleConfig
+    : !isScatter
+    ? dateScaleConfig
+    : valueScaleConfig;
+
+  const yScale = renderHorizontally
+    ? !isScatter
+      ? dateScaleConfig
+      : valueScaleConfig
+    : valueScaleConfig;
+
   return (
     <ChartProvider
       theme={themeObj}
       chartType={chartType}
-      xScale={renderHorizontally ? valueScaleConfig : dateScaleConfig}
-      yScale={renderHorizontally ? dateScaleConfig : valueScaleConfig}
+      xScale={xScale}
+      yScale={yScale}
       // isContinuousAxes={isContinuousAxes}
       colorScale={colorScaleConfig}
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
@@ -333,6 +366,7 @@ export default function CreateXYChart({
       xTickStyles={xTickStyles}
       yTickStyles={yTickStyles}
       tooltipStyles={tooltipStyles}
+      multiColor={multiColor}
     >
       <EventProvider>
         {title && (
@@ -542,17 +576,15 @@ export default function CreateXYChart({
                     ))}
               </StackedArea>
             )}
-            {chartType.includes("scatter") &&
-              singleDimension &&
-              measureCount === 2 && (
-                // measureInfo.map((measure, index) => (
-                <PointSeries
-                  dataKeys={dataKeys ? dataKeys : null}
-                  dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
-                  data={currData}
-                  {...dataAccessors[0]}
-                />
-              )}
+            {isScatter && singleDimension && measureCount === 2 && (
+              // measureInfo.map((measure, index) => (
+              <PointSeries
+                dataKeys={dataKeys ? dataKeys : null}
+                dataKey={dataKeys ? null : measureInfo[0].qFallbackTitle}
+                data={currData}
+                {...dataAccessors[0]}
+              />
+            )}
             {/* Y axis */}
             <AxisComponent
               label={
@@ -574,7 +606,7 @@ export default function CreateXYChart({
                   : false
               }
               tickFormat={(d) => formatValue(d)}
-              // tickFormat={(d) => `${d * 100}%`}
+              // tickFormat={(d) => `${(d * 100).toFixed(precision)}%`}
               // tickLabelProps={() => ({
               //   fill: "red",
               //   fontSize: 11,
@@ -614,14 +646,15 @@ export default function CreateXYChart({
                 }
               />
             )}
-            {/** Dimension axis */}
+            {/** X axis */}
             <AxisComponent
-              // label={dimensionInfo[0].qFallbackTitle}
               label={
                 chartShowAxisLabels === true ||
                 chartShowAxisLabels === "both" ||
                 chartShowAxisLabels === "xAxis"
-                  ? dimensionInfo[0].qFallbackTitle
+                  ? !isScatter
+                    ? dimensionInfo[0].qFallbackTitle
+                    : measureInfo[1].qFallbackTitle
                   : null
               }
               orientation={

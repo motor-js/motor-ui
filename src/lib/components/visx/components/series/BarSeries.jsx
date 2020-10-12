@@ -31,6 +31,7 @@ function BarSeries({
     formatValue,
     valueLabelStyle,
     size,
+    multiColor,
   } = useContext(ChartContext);
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
@@ -117,7 +118,9 @@ function BarSeries({
 
         const minValue = Math.min(...valueScale.domain());
 
-        const barColor = colorScale(dataKeys ? dataKeys[i] : dataKey);
+        const barColor = colorScale(
+          dataKeys ? (multiColor ? dataKeys[i] : dataKeys[0]) : dataKey
+        );
 
         const minPosition = valueScale(minValue < 0 ? 0 : minValue);
 

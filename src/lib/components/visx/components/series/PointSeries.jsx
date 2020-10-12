@@ -1,9 +1,12 @@
 import React, { useContext, useCallback } from "react";
 import { Circle } from "@visx/shape";
+import { localPoint } from "@visx/event";
+import { Text } from "@visx/text";
 
 import ChartContext from "../../context/ChartContext";
+import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
-import { isValidNumber } from "../../utils/chartUtils";
+import { isValidNumber, valueIfUndefined } from "../../utils/chartUtils";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
@@ -22,11 +25,19 @@ function PointSeries({
     xScale,
     yScale,
     colorScale,
+    handleClick,
+    currentSelectionIds,
+    multiColor,
+    theme,
+    findNearestData,
+    size,
     // showPoints,
-    // showLabels,
-    // theme,
-    // formatValue,
+    showLabels,
+    valueLabelStyle,
   } = useContext(ChartContext);
+
+  const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
 
@@ -37,6 +48,14 @@ function PointSeries({
     },
     [xScale, xAccessor]
   );
+
+  const { scatter, valueLabelStyles } = theme;
+
+  const labelProps = {
+    ...valueLabelStyles,
+    fontSize: valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
+  };
 
   const getScaledY = useCallback(
     (d) => {
@@ -50,33 +69,84 @@ function PointSeries({
 
   if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
 
-  const color = colorScale(dataKey) ?? "#222";
+  const getColor = (d, i) =>
+    valueIfUndefined(
+      d[0].qAttrExps.qValues[2].qText,
+      colorScale(multiColor ? d[0].qText : dataKey)
+    );
+
+  const getLabel = (d) => d[0].qText;
 
   // const x = (d) => d[1].qNum;
   // const y = (d) => d[2].qNum;
 
+  const onMouseMoveDatum = (event, point, color) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+
+    const closestDatum = {};
+    closestDatum.key = dataKey;
+    closestDatum.datum = point;
+    closestDatum.color = color;
+
+    if (point && showTooltip) {
+      showTooltip({
+        tooltipData: { closestDatum, svgMouseX, svgMouseY, colorScale },
+      });
+    }
+  };
+
+  // const onMouseMove = useCallback(
+  //   (event) => {
+  //     const nearestData = findNearestData(event);
+  //     // console.log(nearestData);
+  //     if (nearestData.closestDatum && showTooltip) {
+  //       showTooltip({ tooltipData: { ...nearestData } });
+  //     }
+  //   },
+  //   [findNearestData, showTooltip]
+  // );
+
   return (
     <g className="visx-group line-series">
       {data.map((point, i) => (
-        <Circle
-          key={`point-${point[0]}-${i}`}
-          className="dot"
-          // cx={xScale(x(point))}
-          // cy={yScale(y(point))}
-          cx={getScaledX(point)}
-          cy={getScaledY(point)}
-          // selectionId={getElemNumber(point)}
-          // r={i % 3 === 0 ? 2 : 3}
-          r={3}
-          // fill={tooltipData === point ? "white" : "#f6c431"}
-          fill="#f6c431"
-          style={{ cursor: "pointer " }}
-          onClick={() => {
-            // setSelectedBar(isSelected ? null : letter);
-            point.selectionId = getElemNumber(point);
-            console.log(point);
-          }}
-        />
+        <g key={`area-glyph-${i}`}>
+          <Circle
+            key={`point-${point[0]}-${i}`}
+            className="dot"
+            cx={getScaledX(point)}
+            cy={getScaledY(point)}
+            r={scatter.size}
+            fill={getColor(point, i)}
+            // style={{ cursor: "pointer " }}
+            style={{ ...scatter.style }}
+            onClick={() => {
+              const selectionId = getElemNumber(point);
+              const selections = currentSelectionIds.includes(selectionId)
+                ? currentSelectionIds.filter(function(value) {
+                    return value !== selectionId;
+                  })
+                : [...currentSelectionIds, selectionId];
+              handleClick(selections);
+            }}
+            // onMouseMove={onMouseMove}
+            onMouseMove={(e) => onMouseMoveDatum(e, point, getColor(point, i))}
+            onMouseLeave={() => {
+              hideTooltip();
+            }}
+          />
+          {showLabels && (
+            <Text
+              {...labelProps}
+              key={`line-label-${i}`}
+              x={getScaledX(point)}
+              y={getScaledY(point)}
+              dx={horizontal ? "0.5em" : 0}
+              dy={horizontal ? 0 : "-0.74em"}
+            >
+              {getLabel(point)}
+            </Text>
+          )}
+        </g>
       ))}
     </g>
   );

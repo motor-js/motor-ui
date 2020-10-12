@@ -70,6 +70,7 @@ function CrossHair({
     measureInfo,
     dimensionInfo,
     chartType,
+    multiColor,
   } = useContext(ChartContext) || {};
 
   const { tooltipData } = useContext(TooltipContext) || {};
@@ -124,12 +125,14 @@ function CrossHair({
   const circleColor = (highlightCloset, closest, closestColor, color, i) => {
     if (highlightCloset) {
       if (closest) {
-        return closestColor === "multi" ? colorScale(circles[i]) : closestColor;
+        return closestColor === "multi" && multiColor
+          ? colorScale(circles[i])
+          : closestColor;
       } else {
-        return color === "multi" ? colorScale(circles[i]) : color;
+        return color === "multi" && multiColor ? colorScale(circles[i]) : color;
       }
     }
-    return color === "multi" ? colorScale(circles[i]) : color;
+    return color === "multi" && multiColor ? colorScale(circles[i]) : color;
   };
 
   return (
@@ -177,20 +180,33 @@ function CrossHair({
           const fill = circleColor(
             highlightClosetsCircle,
             closest,
-
-            selectColor(circleClosestFill, theme),
-            selectColor(circleFill, theme),
+            selectColor(
+              multiColor
+                ? circleClosestFill
+                : colorScale(dimensionInfo[0].qText),
+              theme
+            ),
+            selectColor(
+              multiColor ? circleFill : colorScale(dimensionInfo[0].qText),
+              theme
+            ),
             i
           );
           const stroke = circleColor(
             highlightClosetsCircle,
             closest,
-
-            selectColor(circleClosestStroke, theme),
-            selectColor(circleStroke, theme),
+            selectColor(
+              multiColor
+                ? circleClosestStroke
+                : colorScale(dimensionInfo[0].qText),
+              theme
+            ),
+            selectColor(
+              multiColor ? circleStroke : colorScale(dimensionInfo[0].qText),
+              theme
+            ),
             i
           );
-          // circleStroke === "multi" ? colorScale(circles[i]) : circleStroke;
 
           if (!showMultipleCircles && d !== closestDatum.key) return null;
 
