@@ -255,7 +255,6 @@ const base = {
         dimensionErrMsg: "Invalid Dimension.",
         measureErrMsg: "Invalid Measure. No values returned.",
       },
-
       titles: {
         wrapper: {
           display: "flex",

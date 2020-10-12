@@ -14,7 +14,7 @@ import {
   otherTotalSpecType,
 } from "../../utils";
 
-export interface BarProps {
+export interface LineProps {
   config?: configType;
   label?: string;
   cols?: Array<string>;
@@ -52,8 +52,8 @@ export interface BarProps {
   otherTotalSpec?: otherTotalSpecType;
 }
 
-declare const Bar: React.FC<BarProps>;
+declare const Line: React.FC<LineProps>;
 
-export type BarType = BarProps;
+export type LineType = LineProps;
 
-export default Bar;
+export default Line;
