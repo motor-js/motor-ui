@@ -149,7 +149,7 @@ export default function CreatePie({
             padAngle={valueIfUndefined(padAngle, pie.padAngle)}
             isDonut={valueIfUndefined(isDonut, pie.isDonut)}
             strokeWidth={valueIfUndefined(strokeWidth, pie.strokeWidth)}
-            stroke={selectColor(valueIfUndefined(isDonut, pie.stroke), theme)}
+            stroke={selectColor(valueIfUndefined(stroke, pie.stroke), theme)}
             donutThickness={valueIfUndefined(
               donutThickness,
               pie.donutThickness
