@@ -977,7 +977,7 @@ const base = {
     strokeWidth: 0.5,
     cornerRadius: 3,
     padAngle: 0.005,
-    isDonut: true,
+    isDonut: false,
     donutThickness: 50,
   },
   barplot: {

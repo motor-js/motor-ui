@@ -220,7 +220,7 @@ Pie.propTypes = {
   // /**  TealBlue  */
   // fillStyle: PropTypes.object,
 
-  multiColor: PropTypes.bool,
+  // multiColor: PropTypes.bool,
   events: PropTypes.bool,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
