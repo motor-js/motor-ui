@@ -40,6 +40,7 @@ export default function Brush({
     currentSelectionIds,
     dataKeys,
     singleDimension,
+    chartType,
   } = useContext(ChartContext);
 
   const childRef = useRef();
@@ -100,8 +101,11 @@ export default function Brush({
     const { x0, x1, y0, y1 } = domain.extent;
 
     {
+      const data = chartType.includes("scatter")
+        ? [measureInfo[0]]
+        : measureInfo;
       singleDimension
-        ? measureInfo.map((m, i) => {
+        ? data.map((m, i) => {
             const registeredData = dataRegistry[m.qFallbackTitle];
             xAccessor = registeredData.xAccessor;
             yAccessor = registeredData.yAccessor;
