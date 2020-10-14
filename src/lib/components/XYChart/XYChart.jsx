@@ -273,7 +273,7 @@ XYChart.propTypes = {
   valueLabelStyle: PropTypes.object,
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
   showClosestItem: PropTypes.bool,
-  /** Only use one color for the toolyip instead of multi color per item. */
+  /** Only use one color for the tooltip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
   /** Snap to X Axis (normally true for bar or combo) */
   snapToDataX: PropTypes.bool,
@@ -299,8 +299,6 @@ XYChart.propTypes = {
   numMeasureDualTicks: PropTypes.number,
   /** Format of dates to be displayed on XAxis. */
   formatAxisDate: PropTypes.string,
-  /** Line stroke width */
-  strokeWidth: PropTypes.number,
   /** Line stroke width */
   strokeWidth: PropTypes.number,
   /** Styles for the X Axis */

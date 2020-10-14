@@ -81,11 +81,11 @@ function PointSeries({
 
   const getStyle = (selectionId) => {
     return isEmpty(currentSelectionIds) && hoverId === selectionId
-      ? hover
+      ? { ...hover, ...scatter.style }
       : isEmpty(currentSelectionIds) ||
         currentSelectionIds.includes(selectionId)
-      ? selection
-      : nonSelection;
+      ? { ...selection, ...scatter.style }
+      : { ...nonSelection, ...scatter.style };
   };
 
   const onMouseMoveDatum = (event, point, color) => {
@@ -126,8 +126,9 @@ function PointSeries({
             r={scatter.size}
             fill={getColor(point, i)}
             // style={{ cursor: "pointer " }}
-            style={{ ...scatter.style }}
             style={getStyle(getElemNumber(point))}
+            // style={{ cursor: "pointer" }}
+            // style={{ ...scatter.style }}
             onClick={() => {
               const selectionId = getElemNumber(point);
               const selections = currentSelectionIds.includes(selectionId)

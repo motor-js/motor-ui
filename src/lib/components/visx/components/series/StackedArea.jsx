@@ -254,7 +254,7 @@ export default function Stack({ children, glyph }) {
                         ? glyph.strokeWidth
                         : showPoints.strokeWidth || theme.points.strokeWidth
                     }
-                    style={{ cursor: "pointer " }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => {
                       const selections = currentSelectionIds.includes(
                         d.selectionId
