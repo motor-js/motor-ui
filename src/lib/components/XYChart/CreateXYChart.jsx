@@ -771,7 +771,7 @@ export default function CreateXYChart({
                 xAxisOrientation={xAxisOrientation}
                 yAxisOrientation={yAxisOrientation}
                 selectedBoxStyle={selectedBoxStyle}
-                brushDirection={"horizontal"}
+                brushDirection={renderHorizontally ? "vertical" : "horizontal"}
                 brushRegion={"chart"}
                 handleSize={8}
               />
