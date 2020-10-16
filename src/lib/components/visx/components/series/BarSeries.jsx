@@ -48,6 +48,8 @@ function BarSeries({
     yAccessor,
   ]);
 
+  const getValue = useCallback((d) => yAccessor(d), [yScale, yAccessor]);
+
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
   const { valueLabelStyles } = theme;
@@ -127,7 +129,9 @@ function BarSeries({
         const minPosition = valueScale(minValue < 0 ? 0 : minValue);
 
         const key = `bar-${barPosition}`;
-        datum.label = datum[1].qNum;
+        // datum.label = datum[1].qNum;
+        datum.label = getValue(datum);
+        // console.log(getValue(datum));
 
         if (renderLabel && showLabels) {
           const Label = renderLabel({
