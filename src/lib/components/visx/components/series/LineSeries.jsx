@@ -142,8 +142,8 @@ function LineSeries({
                       ? glyph.size
                       : showPoints.size || theme.points.size
                   }
-                  fill={isDefined(glyph) ? glyph.fill : color}
-                  stroke={isDefined(glyph) ? glyph.stroke : color}
+                  fill={isDefined(glyph) ? glyph.fill || color : color}
+                  stroke={isDefined(glyph) ? glyph.stroke || color : color}
                   strokeWidth={
                     isDefined(glyph)
                       ? glyph.strokeWidth
