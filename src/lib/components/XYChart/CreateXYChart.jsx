@@ -156,6 +156,7 @@ export default function CreateXYChart({
   const getDimension = (d) => d[0].qText;
 
   const getSeriesValues = (d, colIndex) => {
+    if (!d) return null;
     return isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
   };
 
@@ -510,6 +511,7 @@ export default function CreateXYChart({
                     key={measure.qFallbackTitle}
                     dataKey={measure.qFallbackTitle}
                     data={currData}
+                    isCombo={true}
                     {...dataAccessors[index]}
                   />
                 ) : (

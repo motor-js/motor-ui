@@ -6,6 +6,7 @@ import { isValidNumber } from "../../utils/chartUtils";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
+import findNearestDatumComboXY from "../../utils/findNearestDatumComboXY";
 import AnimatedBars from "./AnimatedBars";
 import { selectColor } from "../../../../utils";
 
@@ -18,6 +19,7 @@ function BarSeries({
   elAccessor: ____,
   mouseEvents,
   horizontal,
+  isCombo = false,
   barThickness: barThicknessProp,
   ...barProps
 }) {
@@ -190,6 +192,11 @@ function BarSeries({
 
 export default withRegisteredData(BarSeries, {
   legendShape: () => "rect",
-  findNearestDatum: ({ horizontal }) =>
-    horizontal ? findNearestDatumY : findNearestDatumX,
+  findNearestDatum: ({ horizontal, isCombo }) =>
+    // horizontal ? findNearestDatumY : findNearestDatumX,
+    horizontal
+      ? findNearestDatumY
+      : isCombo
+      ? findNearestDatumComboXY
+      : findNearestDatumX,
 });
