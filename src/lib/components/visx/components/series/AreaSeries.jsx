@@ -8,7 +8,12 @@ import withRegisteredData from "../../enhancers/withRegisteredData";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import FillBackground from "../aesthetic/Gradient";
 
-import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
+import {
+  getSymbol,
+  getCurve,
+  isDefined,
+  isValidNumber,
+} from "../../utils/chartUtils";
 
 function AreaSeries({
   data: _,
@@ -19,6 +24,8 @@ function AreaSeries({
   mouseEvents,
   horizontal = false,
   glyph,
+  curveShape,
+  curve,
   fillStyle,
   ...lineProps
 }) {
@@ -134,6 +141,7 @@ function AreaSeries({
         x={getScaledX}
         y={getScaledY}
         yScale={yScale}
+        curve={getCurve(isDefined(curve) ? curve : curveShape)}
         {...lineProps}
       >
         {({ path }) => (

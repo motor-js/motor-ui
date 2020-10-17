@@ -24,7 +24,7 @@ function LineSeries({
   horizontal = false,
   glyph,
   curveShape,
-  curve = null,
+  curve,
   ...lineProps
 }) {
   const {
