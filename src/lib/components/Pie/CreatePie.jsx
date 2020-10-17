@@ -35,7 +35,6 @@ export default function CreatePie({
   legendDirection,
   legendShape,
   backgroundStyle,
-  // fillStyle,
   showLabels,
   roundNum,
   precision,
