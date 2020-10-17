@@ -35,6 +35,7 @@ function PointSeries({
     // showPoints,
     showLabels,
     valueLabelStyle,
+    measureInfo,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -42,6 +43,8 @@ function PointSeries({
 
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
+
+  const sizeByValue = measureInfo.length === 3;
 
   const getScaledX = useCallback(
     (d) => {
@@ -78,6 +81,12 @@ function PointSeries({
     );
 
   const getLabel = (d) => d[0].qText;
+
+  const avgSize = sizeByValue
+    ? (measureInfo[2].qMax + measureInfo[2].qMin) / 2
+    : null;
+
+  const getGlyphSize = (d) => (d[3].qNum / avgSize) * scatter.size;
 
   const getStyle = (selectionId) => {
     return isEmpty(currentSelectionIds) && hoverId === selectionId
@@ -123,7 +132,8 @@ function PointSeries({
             className="dot"
             cx={getScaledX(point)}
             cy={getScaledY(point)}
-            r={scatter.size}
+            // r={scatter.size}
+            r={sizeByValue ? getGlyphSize(point) : scatter.size}
             fill={getColor(point, i)}
             // style={{ cursor: "pointer " }}
             style={getStyle(getElemNumber(point))}

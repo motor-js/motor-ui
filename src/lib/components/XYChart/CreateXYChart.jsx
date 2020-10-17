@@ -582,7 +582,7 @@ export default function CreateXYChart({
                     ))}
               </StackedArea>
             )}
-            {isScatter && singleDimension && measureCount === 2 && (
+            {isScatter && singleDimension && measureCount >= 2 && (
               // measureInfo.map((measure, index) => (
               <PointSeries
                 dataKeys={dataKeys ? dataKeys : null}
