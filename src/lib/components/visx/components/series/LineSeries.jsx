@@ -7,7 +7,12 @@ import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
-import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
+import {
+  getSymbol,
+  getCurve,
+  isDefined,
+  isValidNumber,
+} from "../../utils/chartUtils";
 
 function LineSeries({
   data: _,
@@ -18,6 +23,8 @@ function LineSeries({
   mouseEvents,
   horizontal = false,
   glyph,
+  curveShape,
+  curve = null,
   ...lineProps
 }) {
   const {
@@ -111,7 +118,13 @@ function LineSeries({
 
   return (
     <g className="visx-group line-series">
-      <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
+      <LinePath
+        curve={getCurve(isDefined(curve) ? curve : curveShape)}
+        data={data}
+        x={getScaledX}
+        y={getScaledY}
+        {...lineProps}
+      >
         {({ path }) => (
           <AnimatedPath
             stroke={color}

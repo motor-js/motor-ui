@@ -40,6 +40,7 @@
     "@babel/types": "^7.10.3",
     "@styled-icons/fa-solid": "^10.15.1",
     "@visx/axis": "^1.1.0",
+    "@visx/curve": "^1.0.0",
     "@visx/drag": "^1.0.0",
     "@visx/event": "^1.0.0",
     "@visx/glyph": "^1.0.0",

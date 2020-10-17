@@ -186,7 +186,7 @@ function BarSeries({
       <AnimatedBars
         bars={bars}
         stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
-        strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
+        strokeWidth={theme?.bar.strokeWidth ?? 1}
         {...barProps}
       />
       {Labels.map((Label) => Label)}

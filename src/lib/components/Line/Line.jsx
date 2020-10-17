@@ -235,6 +235,27 @@ Line.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
+  /**  curveShape of the line */
+  curveShape: PropTypes.oneOf([
+    "Basis",
+    "BasisClose",
+    "BasisOpen",
+    "Step",
+    "StepAfter",
+    "StepBefore",
+    "Bundle",
+    "Linear",
+    "LinearClosed",
+    "MonotoneX",
+    "MonotoneY",
+    "Cardinal",
+    "CardinalClosed",
+    "CardinalOpen",
+    "CatmullRom",
+    "CatmullRomClosed",
+    "CatmullRomOpen",
+    "Natural",
+  ]),
   /** Show CrossHair on the chart  */
   showCrossHair: PropTypes.bool,
   /** Styling of the CrossHair. */

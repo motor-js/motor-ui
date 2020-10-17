@@ -205,6 +205,27 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
   ]),
+  /**  curveShape of the line or area */
+  curveShape: PropTypes.oneOf([
+    "Basis",
+    "BasisClose",
+    "BasisOpen",
+    "Step",
+    "StepAfter",
+    "StepBefore",
+    "Bundle",
+    "Linear",
+    "LinearClosed",
+    "MonotoneX",
+    "MonotoneY",
+    "Cardinal",
+    "CardinalClosed",
+    "CardinalOpen",
+    "CatmullRom",
+    "CatmullRomClosed",
+    "CatmullRomOpen",
+    "Natural",
+  ]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,

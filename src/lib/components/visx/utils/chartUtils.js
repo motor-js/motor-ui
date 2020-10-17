@@ -11,6 +11,27 @@ import {
   GlyphWye,
 } from "@visx/glyph";
 
+import {
+  curveBasis,
+  curveStep,
+  curveBasisClose,
+  curveBasisOpen,
+  curveStepAfter,
+  curveStepBefore,
+  curveBundle,
+  curveLinear,
+  curveLinearClosed,
+  curveMonotoneX,
+  curveMonotoneY,
+  curveCardinal,
+  curveCardinalClosed,
+  curveCardinalOpen,
+  curveCatmullRom,
+  curveCatmullRomClosed,
+  curveCatmullRomOpen,
+  curveNatural,
+} from "@visx/curve";
+
 export function callOrValue(maybeFn, ...args) {
   if (typeof maybeFn === "function") {
     return maybeFn(...args);
@@ -165,30 +186,63 @@ export function getSymbol(symbol) {
   switch (symbol) {
     case "circle":
       return (symbol = GlyphCircle);
-      break;
     case "cross":
       return (symbol = GlyphCross);
-      break;
     case "diamond":
       return (symbol = GlyphDiamond);
-      break;
     case "square":
       return (symbol = GlyphSquare);
-      break;
     case "star":
       return (symbol = GlyphStar);
-      break;
     case "triangle":
       return (symbol = GlyphTriangle);
-      break;
     case "wye":
       return (symbol = GlyphWye);
-      break;
     case "custom":
       return (symbol = CustomGlyph);
-      break;
     default:
       return (symbol = GlyphCircle);
-      break;
+  }
+}
+export function getCurve(curve) {
+  switch (curve) {
+    case "Basis":
+      return (curve = curveBasis);
+    case "BasisClose":
+      return (curve = curveBasisClose);
+    case "BasisOpen":
+      return (curve = curveBasisOpen);
+    case "Step":
+      return (curve = curveStep);
+    case "StepAfter":
+      return (curve = curveStepAfter);
+    case "StepBefore":
+      return (curve = curveStepBefore);
+    case "Bundle":
+      return (curve = curveBundle);
+    case "Linear":
+      return (curve = curveLinear);
+    case "LinearClosed":
+      return (curve = curveLinearClosed);
+    case "MonotoneX":
+      return (curve = curveMonotoneX);
+    case "MonotoneY":
+      return (curve = curveMonotoneY);
+    case "Cardinal":
+      return (curve = curveCardinal);
+    case "CardinalClosed":
+      return (curve = curveCardinalClosed);
+    case "CardinalOpen":
+      return (curve = curveCardinalOpen);
+    case "CatmullRom":
+      return (curve = curveCatmullRom);
+    case "CatmullRomClosed":
+      return (curve = curveCatmullRomClosed);
+    case "CatmullRomOpen":
+      return (curve = curveCatmullRomOpen);
+    case "Natural":
+      return (curve = curveNatural);
+    default:
+      return (curve = curveLinear);
   }
 }

@@ -84,6 +84,7 @@ export default function CreateXYChart({
   fillStyle,
   showLabels,
   showPoints,
+  curveShape,
   dualAxis,
   roundNum,
   precision,
@@ -484,6 +485,8 @@ export default function CreateXYChart({
                         key={measureInfo[index].qFallbackTitle}
                         dataKey={measureInfo[index].qFallbackTitle}
                         glyph={measureInfo[index].qShowPoints}
+                        curve={measureInfo[index].qCurve}
+                        curveShape={curveShape}
                         strokeDasharray={measureInfo[index].qLegendShape}
                         data={currData}
                         {...dataAccessors[index]}
@@ -496,6 +499,8 @@ export default function CreateXYChart({
                         dataKey={measure}
                         data={currData}
                         glyph={measure.qShowPoints}
+                        curve={measure.qCurve}
+                        curveShape={curveShape}
                         strokeDasharray={measure.qLegendShape}
                         {...dataAccessors[index]}
                         strokeWidth={strokeWidth}
@@ -519,6 +524,8 @@ export default function CreateXYChart({
                     key={measure.qFallbackTitle}
                     dataKey={measure.qFallbackTitle}
                     glyph={measure.qShowPoints}
+                    curve={measure.qCurve}
+                    curveShape={curveShape}
                     strokeDasharray={measure.qLegendShape}
                     data={currData}
                     {...dataAccessors[index]}
