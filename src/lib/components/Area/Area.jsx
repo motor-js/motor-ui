@@ -233,7 +233,7 @@ Area.propTypes = {
   backgroundStyle: PropTypes.object,
 
   /** fillStyle */
-  /** either : style of one of below or fillFrom and FillTo */
+  /** either : style of one of below or fillFrom and FillTo as object*/
   /**  Linear  */
   /**  Radial  */
   /**  DarkGreen  */
@@ -246,7 +246,7 @@ Area.propTypes = {
   /**  PurpleTeal  */
   /**  SteelPurple  */
   /**  TealBlue  */
-  fillStyle: PropTypes.object,
+  fillStyle: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
