@@ -23,7 +23,6 @@ function LineSeries({
   mouseEvents,
   horizontal = false,
   glyph,
-  curveShape,
   curve,
   ...lineProps
 }) {
@@ -119,7 +118,8 @@ function LineSeries({
   return (
     <g className="visx-group line-series">
       <LinePath
-        curve={getCurve(isDefined(curve) ? curve : curveShape)}
+        // curve={getCurve(isDefined(curve) ? curve : curveShape)}
+        curve={getCurve(curve)}
         data={data}
         x={getScaledX}
         y={getScaledY}
