@@ -265,20 +265,21 @@ XYChart.propTypes = {
   backgroundStyle: PropTypes.object,
 
   /** fillStyle */
-  /** either : style of one of below or fillFrom and FillTo */
-  /**  Linear  */
-  /**  Radial  */
-  /**  DarkGreen  */
-  /**  LightGreen  */
-  /**  OrangeRed  */
-  /**  PinkBlue  */
-  /**  PinkRed  */
-  /**  PurpleOrangle  */
-  /**  PurpleRed  */
-  /**  PurpleTeal  */
-  /**  SteelPurple  */
-  /**  TealBlue  */
-  fillStyle: PropTypes.object,
+  /** either : style of one of below or fillFrom and FillTo as object*/
+  /** {style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"} */
+  fillStyle: PropTypes.oneOf([
+    "DarkGreen",
+    "LightGreen",
+    "OrangeRed",
+    "PinkBlue",
+    "PinkRed",
+    "PurpleOrangle",
+    "PurpleRed",
+    "PurpleTeal",
+    "SteelPurple",
+    "TealBlue",
+    PropTypes.object,
+  ]),
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,

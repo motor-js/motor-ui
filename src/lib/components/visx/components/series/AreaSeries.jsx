@@ -128,8 +128,6 @@ function AreaSeries({
       ? fillStyle.style
       : null;
 
-  //console.log(areaFillStyle, dataKey);
-
   return (
     <g className="visx-group area-series">
       <FillBackground
