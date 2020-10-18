@@ -128,11 +128,14 @@ function AreaSeries({
       ? fillStyle.style
       : null;
 
+  //console.log(areaFillStyle, dataKey);
+
   return (
     <g className="visx-group area-series">
       <FillBackground
         style={areaFillStyle}
-        id="area-gradient"
+        // id="area-gradient"
+        id={`area-gradient-${dataKey.replace(/\s+/g, "-")}`}
         from={fillStyle.fillFrom}
         to={fillStyle.fillTo}
       />
@@ -151,8 +154,16 @@ function AreaSeries({
             onMouseLeave={() => {
               hideTooltip();
             }}
-            stroke={areaFillStyle ? "url(#area-gradient)" : color}
-            fill={areaFillStyle ? "url(#area-gradient)" : color}
+            stroke={
+              areaFillStyle
+                ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                : color
+            }
+            fill={
+              areaFillStyle
+                ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                : color
+            }
             {...lineProps}
             d={path(data) || ""}
           />

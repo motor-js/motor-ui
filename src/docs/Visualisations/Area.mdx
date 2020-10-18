@@ -36,6 +36,7 @@ import { config } from '../config/config.js'
       // parseDateFormat="%d/%m/%Y"
       // showClosestItem={false}
       // useSingleColor
+      stacked
       showCrossHair={false}
       showLabels={true}
       selectionMethod="click"
@@ -43,8 +44,8 @@ import { config } from '../config/config.js'
       // showPoints='star'
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
-   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
-     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar', qFillStyle:"LightGreen"},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qFillStyle:"PurpleOrangle",qShowPoints:{ symbol: 'circle', size: 100} ,  },
     ]}/>
   </Motor>
 </Playground>

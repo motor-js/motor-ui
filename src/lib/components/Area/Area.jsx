@@ -233,19 +233,20 @@ Area.propTypes = {
   backgroundStyle: PropTypes.object,
   /** fillStyle */
   /** either : style of one of below or fillFrom and FillTo as object*/
-  /**  Linear  */
-  /**  Radial  */
-  /**  DarkGreen  */
-  /**  LightGreen  */
-  /**  OrangeRed  */
-  /**  PinkBlue  */
-  /**  PinkRed  */
-  /**  PurpleOrangle  */
-  /**  PurpleRed  */
-  /**  PurpleTeal  */
-  /**  SteelPurple  */
-  /**  TealBlue  */
-  fillStyle: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  /** {style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"} */
+  fillStyle: PropTypes.oneOf([
+    "DarkGreen",
+    "LightGreen",
+    "OrangeRed",
+    "PinkBlue",
+    "PinkRed",
+    "PurpleOrangle",
+    "PurpleRed",
+    "PurpleTeal",
+    "SteelPurple",
+    "TealBlue",
+    PropTypes.object,
+  ]),
   /**  curveShape of the line */
   curveShape: PropTypes.oneOf([
     "Basis",
