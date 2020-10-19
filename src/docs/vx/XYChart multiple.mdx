@@ -40,7 +40,7 @@ import { config } from '../config/config.js'
   <Filter label='Year' dimension={['Year']} />
   <Filter label='OICA region' dimension={['OICA region']} />
       <Button type="clearSelections">Clear Selections</Button>
-     <Combo
+<Combo
         width={750}
         height={400}
         cols={[
@@ -76,6 +76,5 @@ import { config } from '../config/config.js'
             { qField: '[Product Group Desc]', qLabel: 'Product Group'},
             { qField: '=sum([Sales Amount])', qLabel: 'Sales'},
           ]}
-      />
-  </Motor>
+      /></Motor>
 </Playground>
