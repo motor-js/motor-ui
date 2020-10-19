@@ -69,7 +69,45 @@ function LineSeries({
 
   let ChartGlyph = getSymbol(isDefined(glyph) ? glyph.symbol : showPoints);
 
-  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({ tooltipData: { ...nearestData } });
+      }
+    },
+    [findNearestData, showTooltip]
+  );
+
+  const onLineClick = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
+      const selections = currentSelectionIds.includes(selectionId)
+        ? currentSelectionIds.filter(function(value) {
+            return value !== selectionId;
+          })
+        : [...currentSelectionIds, selectionId];
+      handleClick(selections);
+    },
+    [findNearestData]
+  );
+
+  const getValue = useCallback(
+    (d) => {
+      if (singleDimension) {
+        let measureId = null;
+
+        measureInfo.map((d, i) => {
+          if (d.qFallbackTitle === dataKey) measureId = i;
+        });
+        return d[dimensionInfo.length + measureId].qNum;
+      } else {
+        return d.filter((val) => val.qText === dataKey)[0].qNum;
+      }
+    },
+    [measureInfo]
+  );
 
   const color = colorScale(dataKey) ?? "#222";
 
@@ -81,40 +119,7 @@ function LineSeries({
     ...valueLabelStyle,
   };
 
-  const onMouseMove = useCallback(
-    (event) => {
-      const nearestData = findNearestData(event);
-      if (nearestData.closestDatum && showTooltip) {
-        showTooltip({ tooltipData: { ...nearestData } });
-      }
-    },
-    [findNearestData, showTooltip]
-  );
-
-  const onLineClick = (event) => {
-    const nearestData = findNearestData(event);
-    const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
-    const selections = currentSelectionIds.includes(selectionId)
-      ? currentSelectionIds.filter(function(value) {
-          return value !== selectionId;
-        })
-      : [...currentSelectionIds, selectionId];
-    handleClick(selections);
-  };
-
-  const getValue = (d) => {
-    if (singleDimension) {
-      let measureId = null;
-
-      measureInfo.map((d, i) => {
-        if (d.qFallbackTitle === dataKey) measureId = i;
-      });
-      return d[dimensionInfo.length + measureId].qNum;
-    } else {
-      return d.filter((val) => val.qText === dataKey)[0].qNum;
-    }
-  };
-
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
   return (
     <g className="visx-group line-series">
       <LinePath
