@@ -17,7 +17,9 @@ export default function XYChart(props) {
     svgBackground = true,
     onMouseDown,
   } = props;
+
   const { containerRef, TooltipInPortal } = useTooltipInPortal();
+
   const {
     findNearestData,
     setChartDimensions,
