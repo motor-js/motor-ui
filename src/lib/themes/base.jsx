@@ -308,9 +308,7 @@ const base = {
       showPoints: true,
       roundNum: true,
       precision: true,
-
       hideAxisLine: "yAxis",
-
       noData: {
         verticalAlign: "top",
         borderRadius: "10px",
@@ -324,9 +322,7 @@ const base = {
         justifyContent: "center",
         margin: "10px",
       },
-
       baseColor: "#fff",
-
       colors: [
         "#0b7285",
         "#15aabf",
@@ -625,7 +621,6 @@ const base = {
   crossHair: {
     fullHeight: false,
     fullWidth: false,
-
     lineStyles: {
       pointerEvents: "none",
     },

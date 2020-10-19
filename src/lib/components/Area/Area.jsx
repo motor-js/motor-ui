@@ -231,7 +231,6 @@ Area.propTypes = {
   /**  SteelPurple  */
   /**  TealBlue  */
   backgroundStyle: PropTypes.object,
-
   /** fillStyle */
   /** either : style of one of below or fillFrom and FillTo */
   /**  Linear  */
@@ -247,7 +246,6 @@ Area.propTypes = {
   /**  SteelPurple  */
   /**  TealBlue  */
   fillStyle: PropTypes.object,
-
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
