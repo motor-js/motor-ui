@@ -20,6 +20,7 @@ export default function Stack({
   order,
   offset,
   color,
+  fillStyles,
   children,
   ...restProps
 }) {
@@ -37,7 +38,8 @@ export default function Stack({
   const stacks = stack(data);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (children) return <>{children({ stacks, path, stack, color })}</>;
+  if (children)
+    return <>{children({ stacks, path, stack, color, fillStyles })}</>;
 
   return (
     <Group top={top} left={left}>

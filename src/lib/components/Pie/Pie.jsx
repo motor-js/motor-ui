@@ -203,24 +203,7 @@ Pie.propTypes = {
   /**  SteelPurple  */
   /**  TealBlue  */
   backgroundStyle: PropTypes.object,
-
-  // /** fillStyle */
-  // /** either : style of one of below or fillFrom and FillTo */
-  // /**  Linear  */
-  // /**  Radial  */
-  // /**  DarkGreen  */
-  // /**  LightGreen  */
-  // /**  OrangeRed  */
-  // /**  PinkBlue  */
-  // /**  PinkRed  */
-  // /**  PurpleOrangle  */
-  // /**  PurpleRed  */
-  // /**  PurpleTeal  */
-  // /**  SteelPurple  */
-  // /**  TealBlue  */
-  // fillStyle: PropTypes.object,
-
-  multiColor: PropTypes.bool,
+  // multiColor: PropTypes.bool,
   events: PropTypes.bool,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,

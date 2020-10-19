@@ -57,7 +57,6 @@ function StyledPie(props) {
     type,
     backgroundStyle,
     multiColor,
-    // fillStyle,
     showBoxShadow,
     showAsPercent,
     ...rest
@@ -206,7 +205,6 @@ function StyledPie(props) {
               type={type}
               showLegend={valueIfUndefined(showLegend, chart.showLegend)}
               backgroundStyle={backgroundStyle || chart.backgroundStyles}
-              // fillStyle={fillStyle || chart.fillStyles}
               multiColor={valueIfUndefined(multiColor, chart.multiColor)}
               selectionMethod={valueIfUndefined(
                 selectionMethod,

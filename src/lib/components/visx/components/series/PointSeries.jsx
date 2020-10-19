@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import { Circle } from "@visx/shape";
 import { localPoint } from "@visx/event";
 import { Text } from "@visx/text";
@@ -10,6 +10,7 @@ import { isValidNumber, valueIfUndefined } from "../../utils/chartUtils";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
+import { isEmpty, isString } from "../../../../utils";
 
 function PointSeries({
   data: _,
@@ -34,12 +35,16 @@ function PointSeries({
     // showPoints,
     showLabels,
     valueLabelStyle,
+    measureInfo,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
+  const [hoverId, setHoverId] = useState();
 
   const { data, xAccessor, yAccessor, elAccessor } =
     useRegisteredData(dataKey) || {};
+
+  const sizeByValue = measureInfo.length === 3;
 
   const getScaledX = useCallback(
     (d) => {
@@ -49,7 +54,7 @@ function PointSeries({
     [xScale, xAccessor]
   );
 
-  const { scatter, valueLabelStyles } = theme;
+  const { scatter, valueLabelStyles, selection, nonSelection, hover } = theme;
 
   const labelProps = {
     ...valueLabelStyles,
@@ -77,8 +82,20 @@ function PointSeries({
 
   const getLabel = (d) => d[0].qText;
 
-  // const x = (d) => d[1].qNum;
-  // const y = (d) => d[2].qNum;
+  const avgSize = sizeByValue
+    ? (measureInfo[2].qMax + measureInfo[2].qMin) / 2
+    : null;
+
+  const getGlyphSize = (d) => (d[3].qNum / avgSize) * scatter.size;
+
+  const getStyle = (selectionId) => {
+    return isEmpty(currentSelectionIds) && hoverId === selectionId
+      ? { ...hover, ...scatter.style }
+      : isEmpty(currentSelectionIds) ||
+        currentSelectionIds.includes(selectionId)
+      ? { ...selection, ...scatter.style }
+      : { ...nonSelection, ...scatter.style };
+  };
 
   const onMouseMoveDatum = (event, point, color) => {
     const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
@@ -115,10 +132,13 @@ function PointSeries({
             className="dot"
             cx={getScaledX(point)}
             cy={getScaledY(point)}
-            r={scatter.size}
+            // r={scatter.size}
+            r={sizeByValue ? getGlyphSize(point) : scatter.size}
             fill={getColor(point, i)}
             // style={{ cursor: "pointer " }}
-            style={{ ...scatter.style }}
+            style={getStyle(getElemNumber(point))}
+            // style={{ cursor: "pointer" }}
+            // style={{ ...scatter.style }}
             onClick={() => {
               const selectionId = getElemNumber(point);
               const selections = currentSelectionIds.includes(selectionId)
@@ -130,8 +150,10 @@ function PointSeries({
             }}
             // onMouseMove={onMouseMove}
             onMouseMove={(e) => onMouseMoveDatum(e, point, getColor(point, i))}
+            onMouseEnter={() => setHoverId(getElemNumber(point))}
             onMouseLeave={() => {
               hideTooltip();
+              setHoverId(null);
             }}
           />
           {showLabels && (

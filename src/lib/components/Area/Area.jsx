@@ -232,20 +232,42 @@ Area.propTypes = {
   /**  TealBlue  */
   backgroundStyle: PropTypes.object,
   /** fillStyle */
-  /** either : style of one of below or fillFrom and FillTo */
-  /**  Linear  */
-  /**  Radial  */
-  /**  DarkGreen  */
-  /**  LightGreen  */
-  /**  OrangeRed  */
-  /**  PinkBlue  */
-  /**  PinkRed  */
-  /**  PurpleOrangle  */
-  /**  PurpleRed  */
-  /**  PurpleTeal  */
-  /**  SteelPurple  */
-  /**  TealBlue  */
-  fillStyle: PropTypes.object,
+  /** either : style of one of below or fillFrom and FillTo as object*/
+  /** {style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"} */
+  fillStyle: PropTypes.oneOf([
+    "DarkGreen",
+    "LightGreen",
+    "OrangeRed",
+    "PinkBlue",
+    "PinkRed",
+    "PurpleOrangle",
+    "PurpleRed",
+    "PurpleTeal",
+    "SteelPurple",
+    "TealBlue",
+    PropTypes.object,
+  ]),
+  /**  curveShape of the line */
+  curveShape: PropTypes.oneOf([
+    "Basis",
+    "BasisClose",
+    "BasisOpen",
+    "Step",
+    "StepAfter",
+    "StepBefore",
+    "Bundle",
+    "Linear",
+    "LinearClosed",
+    "MonotoneX",
+    "MonotoneY",
+    "Cardinal",
+    "CardinalClosed",
+    "CardinalOpen",
+    "CatmullRom",
+    "CatmullRomClosed",
+    "CatmullRomOpen",
+    "Natural",
+  ]),
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */

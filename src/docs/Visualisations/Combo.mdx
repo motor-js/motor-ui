@@ -23,25 +23,38 @@ import { config } from '../config/config.js'
 
 <Playground>
 <Motor  
- config={config}>  
+   config={{
+  host: "juno-ui.eu.qlikcloud.com",
+  secure: true,
+  port: null,
+  prefix: "",
+  // appId: "e6b8cc66-acce-4fd0-9cff-26ea2e987cde",
+  appId: "39e218c1-42ee-4f38-9451-1b8f850505d5",
+  // appId: "0c07cd52-e6a1-45ff-a605-fd37394f90bf",
+  qcs: true,
+  webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
+}}>  
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
-    <Combo // width={750} height={400}  events={true}
-        colorTheme="bio"
-      // formatTooltipDate="%B %Y"
-      // parseDateFormat="%d/%m/%Y"
-      // showClosestItem={false}
-      // useSingleColor
-      showCrossHair={false}
-      showLabels={true}
-      selectionMethod="click"
-      showPoints={true}
-      // showPoints='star'
-      cols={[
-      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
-   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
-     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
-    ]}/>
+        <Combo
+        width={750}
+        height={400}
+     //  showPoints={false}
+            colorTheme="eco"
+        cols={[
+          { qField: "[Month]", qLabel: "Month" },
+          {
+            qField: "=Sum([Sales Amount])",
+            qLabel: "Sales",
+            qChartType:'line',qShowPoints:{ symbol: 'square', size: 100} 
+          },
+          {
+            qField: "=Sum([Sales Margin Amount])",
+            qLabel: "Margin",
+            qChartType:'bar'
+          },
+        ]}
+      />
   </Motor>
 </Playground>

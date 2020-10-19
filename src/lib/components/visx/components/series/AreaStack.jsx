@@ -19,6 +19,7 @@ export default function AreaStack({
   order,
   offset,
   color,
+  fillStyles,
   children,
   ...restProps
 }) {
@@ -40,6 +41,7 @@ export default function AreaStack({
       order={order}
       offset={offset}
       color={color}
+      fillStyles={fillStyles}
       {...restProps}
     >
       {children ||

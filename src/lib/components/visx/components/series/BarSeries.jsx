@@ -6,6 +6,7 @@ import { isValidNumber } from "../../utils/chartUtils";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import findNearestDatumX from "../../utils/findNearestDatumX";
 import findNearestDatumY from "../../utils/findNearestDatumY";
+import findNearestDatumComboXY from "../../utils/findNearestDatumComboXY";
 import AnimatedBars from "./AnimatedBars";
 import { selectColor } from "../../../../utils";
 
@@ -18,6 +19,7 @@ function BarSeries({
   elAccessor: ____,
   mouseEvents,
   horizontal,
+  isCombo = false,
   barThickness: barThicknessProp,
   ...barProps
 }) {
@@ -45,6 +47,8 @@ function BarSeries({
     yScale,
     yAccessor,
   ]);
+
+  const getValue = useCallback((d) => yAccessor(d), [yScale, yAccessor]);
 
   const getElemNumber = useCallback((d) => elAccessor(d), [elAccessor]);
 
@@ -125,7 +129,9 @@ function BarSeries({
         const minPosition = valueScale(minValue < 0 ? 0 : minValue);
 
         const key = `bar-${barPosition}`;
-        datum.label = datum[1].qNum;
+        // datum.label = datum[1].qNum;
+        datum.label = getValue(datum);
+        // console.log(getValue(datum));
 
         if (renderLabel && showLabels) {
           const Label = renderLabel({
@@ -180,7 +186,7 @@ function BarSeries({
       <AnimatedBars
         bars={bars}
         stroke={selectColor(theme?.bar.stroke, theme) ?? "white"}
-        strokeWidth={selectColor(theme?.bar.strokeWidth, theme) ?? 1}
+        strokeWidth={theme?.bar.strokeWidth ?? 1}
         {...barProps}
       />
       {Labels.map((Label) => Label)}
@@ -190,6 +196,11 @@ function BarSeries({
 
 export default withRegisteredData(BarSeries, {
   legendShape: () => "rect",
-  findNearestDatum: ({ horizontal }) =>
-    horizontal ? findNearestDatumY : findNearestDatumX,
+  findNearestDatum: ({ horizontal, isCombo }) =>
+    // horizontal ? findNearestDatumY : findNearestDatumX,
+    horizontal
+      ? findNearestDatumY
+      : isCombo
+      ? findNearestDatumComboXY
+      : findNearestDatumX,
 });

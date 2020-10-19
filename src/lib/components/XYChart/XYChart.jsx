@@ -205,6 +205,27 @@ XYChart.propTypes = {
     PropTypes.bool,
     PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
   ]),
+  /**  curveShape of the line or area */
+  curveShape: PropTypes.oneOf([
+    "Basis",
+    "BasisClose",
+    "BasisOpen",
+    "Step",
+    "StepAfter",
+    "StepBefore",
+    "Bundle",
+    "Linear",
+    "LinearClosed",
+    "MonotoneX",
+    "MonotoneY",
+    "Cardinal",
+    "CardinalClosed",
+    "CardinalOpen",
+    "CatmullRom",
+    "CatmullRomClosed",
+    "CatmullRomOpen",
+    "Natural",
+  ]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -244,20 +265,21 @@ XYChart.propTypes = {
   backgroundStyle: PropTypes.object,
 
   /** fillStyle */
-  /** either : style of one of below or fillFrom and FillTo */
-  /**  Linear  */
-  /**  Radial  */
-  /**  DarkGreen  */
-  /**  LightGreen  */
-  /**  OrangeRed  */
-  /**  PinkBlue  */
-  /**  PinkRed  */
-  /**  PurpleOrangle  */
-  /**  PurpleRed  */
-  /**  PurpleTeal  */
-  /**  SteelPurple  */
-  /**  TealBlue  */
-  fillStyle: PropTypes.object,
+  /** either : style of one of below or fillFrom and FillTo as object*/
+  /** {style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"} */
+  fillStyle: PropTypes.oneOf([
+    "DarkGreen",
+    "LightGreen",
+    "OrangeRed",
+    "PinkBlue",
+    "PinkRed",
+    "PurpleOrangle",
+    "PurpleRed",
+    "PurpleTeal",
+    "SteelPurple",
+    "TealBlue",
+    PropTypes.object,
+  ]),
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
@@ -273,7 +295,7 @@ XYChart.propTypes = {
   valueLabelStyle: PropTypes.object,
   /** Used for tooltip. If true only show the item that hovered over. If fasle show all items for that stack / group  */
   showClosestItem: PropTypes.bool,
-  /** Only use one color for the toolyip instead of multi color per item. */
+  /** Only use one color for the tooltip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
   /** Snap to X Axis (normally true for bar or combo) */
   snapToDataX: PropTypes.bool,
@@ -299,8 +321,6 @@ XYChart.propTypes = {
   numMeasureDualTicks: PropTypes.number,
   /** Format of dates to be displayed on XAxis. */
   formatAxisDate: PropTypes.string,
-  /** Line stroke width */
-  strokeWidth: PropTypes.number,
   /** Line stroke width */
   strokeWidth: PropTypes.number,
   /** Styles for the X Axis */

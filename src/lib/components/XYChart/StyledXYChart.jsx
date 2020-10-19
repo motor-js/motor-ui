@@ -176,7 +176,7 @@ function StyledXYChart(props) {
       let items = [];
       // let keys = [];
 
-      if (!singleDimension && !type.includes("scatter")) {
+      if (!singleDimension && !type.includes("scatter") && !singleMeasure) {
         qData.qMatrix.forEach((d, i) => {
           if (isNull(dimID)) {
             dimID = d[0].qText;

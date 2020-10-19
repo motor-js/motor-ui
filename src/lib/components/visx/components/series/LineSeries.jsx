@@ -7,7 +7,12 @@ import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
-import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
+import {
+  getSymbol,
+  getCurve,
+  isDefined,
+  isValidNumber,
+} from "../../utils/chartUtils";
 
 function LineSeries({
   data: _,
@@ -18,6 +23,7 @@ function LineSeries({
   mouseEvents,
   horizontal = false,
   glyph,
+  curve,
   ...lineProps
 }) {
   const {
@@ -63,7 +69,45 @@ function LineSeries({
 
   let ChartGlyph = getSymbol(isDefined(glyph) ? glyph.symbol : showPoints);
 
-  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
+  const onMouseMove = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      if (nearestData.closestDatum && showTooltip) {
+        showTooltip({ tooltipData: { ...nearestData } });
+      }
+    },
+    [findNearestData, showTooltip]
+  );
+
+  const onLineClick = useCallback(
+    (event) => {
+      const nearestData = findNearestData(event);
+      const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
+      const selections = currentSelectionIds.includes(selectionId)
+        ? currentSelectionIds.filter(function(value) {
+            return value !== selectionId;
+          })
+        : [...currentSelectionIds, selectionId];
+      handleClick(selections);
+    },
+    [findNearestData]
+  );
+
+  const getValue = useCallback(
+    (d) => {
+      if (singleDimension) {
+        let measureId = null;
+
+        measureInfo.map((d, i) => {
+          if (d.qFallbackTitle === dataKey) measureId = i;
+        });
+        return d[dimensionInfo.length + measureId].qNum;
+      } else {
+        return d.filter((val) => val.qText === dataKey)[0].qNum;
+      }
+    },
+    [measureInfo]
+  );
 
   const color = colorScale(dataKey) ?? "#222";
 
@@ -75,43 +119,17 @@ function LineSeries({
     ...valueLabelStyle,
   };
 
-  const onMouseMove = useCallback(
-    (event) => {
-      const nearestData = findNearestData(event);
-      if (nearestData.closestDatum && showTooltip) {
-        showTooltip({ tooltipData: { ...nearestData } });
-      }
-    },
-    [findNearestData, showTooltip]
-  );
-
-  const onLineClick = (event) => {
-    const nearestData = findNearestData(event);
-    const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
-    const selections = currentSelectionIds.includes(selectionId)
-      ? currentSelectionIds.filter(function(value) {
-          return value !== selectionId;
-        })
-      : [...currentSelectionIds, selectionId];
-    handleClick(selections);
-  };
-
-  const getValue = (d) => {
-    if (singleDimension) {
-      let measureId = null;
-
-      measureInfo.map((d, i) => {
-        if (d.qFallbackTitle === dataKey) measureId = i;
-      });
-      return d[dimensionInfo.length + measureId].qNum;
-    } else {
-      return d.filter((val) => val.qText === dataKey)[0].qNum;
-    }
-  };
-
+  if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
   return (
     <g className="visx-group line-series">
-      <LinePath data={data} x={getScaledX} y={getScaledY} {...lineProps}>
+      <LinePath
+        // curve={getCurve(isDefined(curve) ? curve : curveShape)}
+        curve={getCurve(curve)}
+        data={data}
+        x={getScaledX}
+        y={getScaledY}
+        {...lineProps}
+      >
         {({ path }) => (
           <AnimatedPath
             stroke={color}
@@ -142,8 +160,8 @@ function LineSeries({
                       ? glyph.size
                       : showPoints.size || theme.points.size
                   }
-                  fill={isDefined(glyph) ? glyph.fill : color}
-                  stroke={isDefined(glyph) ? glyph.stroke : color}
+                  fill={isDefined(glyph) ? glyph.fill || color : color}
+                  stroke={isDefined(glyph) ? glyph.stroke || color : color}
                   strokeWidth={
                     isDefined(glyph)
                       ? glyph.strokeWidth

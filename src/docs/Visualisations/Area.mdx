@@ -29,11 +29,15 @@ import { config } from '../config/config.js'
     <Button type="clearSelections">Clear Selections</Button>
     <Area // width={750} height={400}  events={true}
        colorTheme="bio"
+       //   fillStyle={{style:'Linear',fillFrom : '#adb5bd', fillTo : '#ccb5bd'}}
+       // fillStyle={{style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"}}
       // stacked  // add this prop to amke stacked
       // formatTooltipDate="%B %Y"
       // parseDateFormat="%d/%m/%Y"
       // showClosestItem={false}
       // useSingleColor
+      suppressZero
+      stacked
       showCrossHair={false}
       showLabels={true}
       selectionMethod="click"
@@ -41,8 +45,8 @@ import { config } from '../config/config.js'
       // showPoints='star'
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
-   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
-     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar', qFillStyle:{style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"}},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qFillStyle:"PurpleOrangle",qShowPoints:{ symbol: 'circle', size: 100} ,  },
     ]}/>
   </Motor>
 </Playground>

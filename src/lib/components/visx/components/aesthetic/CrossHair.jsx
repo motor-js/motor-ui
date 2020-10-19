@@ -77,12 +77,20 @@ function CrossHair({
 
   const { closestDatum } = tooltipData || {};
 
+  const isScatter = chartType.includes("scatter");
+
   const stackedChart =
     chartType.includes("stackedbar") || chartType.includes("stackedarea");
 
   // accessors
-  const getX = (d) => d && d.qText;
-  const getY = (d) => d && (!stackedChart ? d.qNum : d.qNumCumulative);
+  const getX = (d) => (d && isScatter ? closestDatum.datum[2].qNum : d.qText);
+  const getY = (d) =>
+    d &&
+    (isScatter
+      ? closestDatum.datum[1].qNum
+      : !stackedChart
+      ? d.qNum
+      : d.qNumCumulative);
 
   const getScaledX = (d) =>
     xScale(getX(d) || 0) + (xScale.bandwidth ? xScale.bandwidth() / 2 : 0);
@@ -123,6 +131,7 @@ function CrossHair({
   const closestCircle = circlePositions.filter((d) => d.closest);
 
   const circleColor = (highlightCloset, closest, closestColor, color, i) => {
+    if (isScatter) return colorScale(closestDatum.datum[0].qText);
     if (highlightCloset) {
       if (closest) {
         return closestColor === "multi" && multiColor

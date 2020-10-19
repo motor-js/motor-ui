@@ -12,6 +12,7 @@ import AreaStack from "./AreaStack";
 import ChartContext from "../../context/ChartContext";
 import TooltipContext from "../../context/TooltipContext";
 import { selectColor } from "../../../../utils";
+import FillBackground from "../aesthetic/Gradient";
 
 import { getSymbol, isDefined } from "../../utils/chartUtils";
 
@@ -43,6 +44,12 @@ export default function Stack({ children, glyph }) {
   // extract data keys from child series
   const dataKeys = useMemo(
     () => React.Children.map(children, (child) => child.props.dataKey),
+    [children]
+  );
+
+  // extract fill color from child series
+  const fillStyles = useMemo(
+    () => React.Children.map(children, (child) => child.props.fillStyle),
     [children]
   );
 
@@ -189,6 +196,13 @@ export default function Stack({ children, glyph }) {
     ? measureInfo.map((d) => d.qFallbackTitle)
     : dataKeys;
 
+  const areaFillStyle = (fillStyle) =>
+    typeof fillStyle === "string"
+      ? fillStyle
+      : isDefined(fillStyle.style)
+      ? fillStyle.style
+      : null;
+
   return (
     <Group className={"visx-area-stack"}>
       <AreaStack
@@ -196,29 +210,45 @@ export default function Stack({ children, glyph }) {
         left={margin.left}
         data={combinedData}
         keys={dataKeys}
+        fillStyles={fillStyles}
         x={(d) => xScale(d.data.stack)}
         y0={(d) => yScale(d[0])}
         y1={(d) => yScale(d[1])}
         offset={hasSomeNegativeValues ? "diverging" : undefined}
         color={colorScale}
       >
-        {({ stacks, path, color }) =>
+        {({ stacks, path, color, fillStyles }) =>
           stacks.map((stack, i) => (
             // !path(stack).includes("MNaN") ? (
-            <path
-              key={`stack-${stack.key}`}
-              d={path(stack) || ""}
-              fill={color(stack.key, i)}
-              stroke={selectColor(theme?.stackedArea.stroke, theme) ?? "white"}
-              strokeWidth={
-                selectColor(theme?.stackedArea.strokeWidth, theme) ?? 1
-              }
-              onClick={onClick}
-              onMouseMove={onMouseMove}
-              onMouseLeave={() => {
-                hideTooltip();
-              }}
-            />
+            <React.Fragment key={i}>
+              <FillBackground
+                style={areaFillStyle(fillStyles[i])}
+                id={`area-gradient-${i}`}
+                from={fillStyles[i].fillFrom}
+                to={fillStyles[i].fillTo}
+              />
+              <path
+                key={`stack-${stack.key}`}
+                d={path(stack) || ""}
+                fill={
+                  isDefined(fillStyles[i].style) ||
+                  typeof fillStyles[i] === "string"
+                    ? `url(#area-gradient-${i})`
+                    : color(stack.key, i)
+                }
+                stroke={
+                  selectColor(theme?.stackedArea.stroke, theme) ?? "white"
+                }
+                strokeWidth={
+                  selectColor(theme?.stackedArea.strokeWidth, theme) ?? 1
+                }
+                onClick={onClick}
+                onMouseMove={onMouseMove}
+                onMouseLeave={() => {
+                  hideTooltip();
+                }}
+              />
+            </React.Fragment>
           ))
         }
       </AreaStack>
@@ -254,7 +284,7 @@ export default function Stack({ children, glyph }) {
                         ? glyph.strokeWidth
                         : showPoints.strokeWidth || theme.points.strokeWidth
                     }
-                    style={{ cursor: "pointer " }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => {
                       const selections = currentSelectionIds.includes(
                         d.selectionId

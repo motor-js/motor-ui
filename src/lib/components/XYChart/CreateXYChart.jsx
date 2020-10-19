@@ -38,6 +38,8 @@ import { ParentSize } from "@visx/responsive";
 //   null // ➜ React components must return something
 // );
 
+/* <Console log={closestDatum.datum[0].qText} /> */
+
 // formatDate(new Date((d - (25567 + 1)) * 86400 * 1000));
 
 const legendLabelFormat = (d) => d;
@@ -82,6 +84,7 @@ export default function CreateXYChart({
   fillStyle,
   showLabels,
   showPoints,
+  curveShape,
   dualAxis,
   roundNum,
   precision,
@@ -154,6 +157,7 @@ export default function CreateXYChart({
   const getDimension = (d) => d[0].qText;
 
   const getSeriesValues = (d, colIndex) => {
+    if (!d) return null;
     return isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
   };
 
@@ -479,6 +483,7 @@ export default function CreateXYChart({
                         key={measureInfo[index].qFallbackTitle}
                         dataKey={measureInfo[index].qFallbackTitle}
                         glyph={measureInfo[index].qShowPoints}
+                        curve={measureInfo[index].qCurve || curveShape}
                         strokeDasharray={measureInfo[index].qLegendShape}
                         data={currData}
                         {...dataAccessors[index]}
@@ -491,6 +496,7 @@ export default function CreateXYChart({
                         dataKey={measure}
                         data={currData}
                         glyph={measure.qShowPoints}
+                        curve={measure.qCurve || curveShape}
                         strokeDasharray={measure.qLegendShape}
                         {...dataAccessors[index]}
                         strokeWidth={strokeWidth}
@@ -506,6 +512,7 @@ export default function CreateXYChart({
                     key={measure.qFallbackTitle}
                     dataKey={measure.qFallbackTitle}
                     data={currData}
+                    isCombo={true}
                     {...dataAccessors[index]}
                   />
                 ) : (
@@ -513,6 +520,7 @@ export default function CreateXYChart({
                     key={measure.qFallbackTitle}
                     dataKey={measure.qFallbackTitle}
                     glyph={measure.qShowPoints}
+                    curve={measure.qCurve || curveShape}
                     strokeDasharray={measure.qLegendShape}
                     data={currData}
                     {...dataAccessors[index]}
@@ -528,6 +536,7 @@ export default function CreateXYChart({
                         key={measureInfo[index].qFallbackTitle}
                         dataKey={measureInfo[index].qFallbackTitle}
                         glyph={measureInfo[index].qShowPoints}
+                        curve={measureInfo[index].qCurve || curveShape}
                         strokeDasharray={measureInfo[index].qLegendShape}
                         fillStyle={measureInfo[index].qFillStyle || fillStyle}
                         data={currData}
@@ -541,6 +550,7 @@ export default function CreateXYChart({
                         dataKey={measure}
                         data={currData}
                         glyph={measure.qShowPoints}
+                        curve={measureqCurve || curveShape}
                         fillStyle={measure.qFillStyle || fillStyle}
                         strokeDasharray={measure.qLegendShape}
                         {...dataAccessors[index]}
@@ -557,6 +567,7 @@ export default function CreateXYChart({
                         key={measureInfo[index].qFallbackTitle}
                         dataKey={measureInfo[index].qFallbackTitle}
                         glyph={measureInfo[index].qShowPoints}
+                        curve={measureInfo[index].qCurve || curveShape}
                         fillStyle={measureInfo[index].qFillStyle || fillStyle}
                         data={currData}
                         {...dataAccessors[index]}
@@ -568,6 +579,7 @@ export default function CreateXYChart({
                         key={measure}
                         dataKey={measure}
                         glyph={measureInfo.qShowPoints}
+                        curve={measureInfo.qCurve || curveShape}
                         fillStyle={measureInfo.qFillStyle || fillStyle}
                         data={currData}
                         {...dataAccessors[index]}
@@ -576,7 +588,7 @@ export default function CreateXYChart({
                     ))}
               </StackedArea>
             )}
-            {isScatter && singleDimension && measureCount === 2 && (
+            {isScatter && singleDimension && measureCount >= 2 && (
               // measureInfo.map((measure, index) => (
               <PointSeries
                 dataKeys={dataKeys ? dataKeys : null}
@@ -767,7 +779,7 @@ export default function CreateXYChart({
                 xAxisOrientation={xAxisOrientation}
                 yAxisOrientation={yAxisOrientation}
                 selectedBoxStyle={selectedBoxStyle}
-                brushDirection={"horizontal"}
+                brushDirection={renderHorizontally ? "vertical" : "horizontal"}
                 brushRegion={"chart"}
                 handleSize={8}
               />

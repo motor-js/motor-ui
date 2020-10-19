@@ -185,21 +185,6 @@ Scatter.propTypes = {
   showTooltip: PropTypes.bool,
   /** SelectionMethod */
   selectionMethod: PropTypes.oneOf(["click", "brush", "none"]),
-  // /** Maximum Width of the Scatter */
-  // maxWidth: PropTypes.number,
-  // /** Force supression of Scroll / Overview chart */
-  // suppressScroll: PropTypes.bool,
-  // // /** Allow for bushes to be resized on chart */
-  // // allowZoom: PropTypes.bool, // Descoped to later version
-  // // /** Ratio of the size 0f the scroll bar (Range 0 - 1) */
-  // // scrollRatio: PropTypes.number, // Descoped to later version
-  // /** Pddding for each bar */
-  // padding: PropTypes.number,
-  /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
-  showPoints: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
-  ]),
   /** Show values as Other */
   otherTotalSpec: PropTypes.oneOfType([
     PropTypes.bool,
@@ -236,22 +221,6 @@ Scatter.propTypes = {
   /**  SteelPurple  */
   /**  TealBlue  */
   backgroundStyle: PropTypes.object,
-
-  /** fillStyle */
-  /** either : style of one of below or fillFrom and FillTo */
-  /**  Linear  */
-  /**  Radial  */
-  /**  DarkGreen  */
-  /**  LightGreen  */
-  /**  OrangeRed  */
-  /**  PinkBlue  */
-  /**  PinkRed  */
-  /**  PurpleOrangle  */
-  /**  PurpleRed  */
-  /**  PurpleTeal  */
-  /**  SteelPurple  */
-  /**  TealBlue  */
-  fillStyle: PropTypes.object,
 
   multiColor: PropTypes.bool,
   events: PropTypes.bool,
@@ -316,13 +285,14 @@ Scatter.defaultProps = {
   borderRadius: null,
   backgroundColor: null,
   margin: null,
-  /** Use dual Y axis on the the chart  */
-  // dualAxis: false,
+  crossHairStyles: {
+    showHorizontalLine: true,
+    showVerticalLine: true,
+    showMultipleCircles: false,
+  },
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  // stacked: false,
-  // showAsPercent: false,
   gridArea: null,
   xAxisOrientation: "bottom",
   yAxisOrientation: "left",
@@ -337,7 +307,7 @@ Scatter.defaultProps = {
   numDimensionTicks: null,
   numMeasureTicks: null,
   // numMeasureDualTicks: null,
-  showCrossHair: true,
+  showCrossHair: false,
   showTooltip: true,
   // showLegend: false,
   // showClosestItem,true,

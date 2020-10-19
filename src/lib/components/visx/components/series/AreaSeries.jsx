@@ -8,7 +8,12 @@ import withRegisteredData from "../../enhancers/withRegisteredData";
 import useRegisteredData from "../../../../hooks/useRegisteredData";
 import FillBackground from "../aesthetic/Gradient";
 
-import { getSymbol, isDefined, isValidNumber } from "../../utils/chartUtils";
+import {
+  getSymbol,
+  getCurve,
+  isDefined,
+  isValidNumber,
+} from "../../utils/chartUtils";
 
 function AreaSeries({
   data: _,
@@ -19,6 +24,8 @@ function AreaSeries({
   mouseEvents,
   horizontal = false,
   glyph,
+  curveShape,
+  curve,
   fillStyle,
   ...lineProps
 }) {
@@ -114,11 +121,19 @@ function AreaSeries({
     }
   };
 
+  const areaFillStyle =
+    typeof fillStyle === "string"
+      ? fillStyle
+      : isDefined(fillStyle.style)
+      ? fillStyle.style
+      : null;
+
   return (
     <g className="visx-group area-series">
       <FillBackground
-        style={fillStyle.style}
-        id="area-gradient"
+        style={areaFillStyle}
+        // id="area-gradient"
+        id={`area-gradient-${dataKey.replace(/\s+/g, "-")}`}
         from={fillStyle.fillFrom}
         to={fillStyle.fillTo}
       />
@@ -127,6 +142,7 @@ function AreaSeries({
         x={getScaledX}
         y={getScaledY}
         yScale={yScale}
+        curve={getCurve(isDefined(curve) ? curve : curveShape)}
         {...lineProps}
       >
         {({ path }) => (
@@ -136,8 +152,16 @@ function AreaSeries({
             onMouseLeave={() => {
               hideTooltip();
             }}
-            stroke={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
-            fill={isDefined(fillStyle.style) ? "url(#area-gradient)" : color}
+            stroke={
+              areaFillStyle
+                ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                : color
+            }
+            fill={
+              areaFillStyle
+                ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                : color
+            }
             {...lineProps}
             d={path(data) || ""}
           />
