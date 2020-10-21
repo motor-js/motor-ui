@@ -14,7 +14,7 @@ import {
 import {
   curveBasis,
   curveStep,
-  curveBasisClose,
+  curveBasisClosed,
   curveBasisOpen,
   curveStepAfter,
   curveStepBefore,
@@ -208,8 +208,8 @@ export function getCurve(curve) {
   switch (curve) {
     case "Basis":
       return (curve = curveBasis);
-    case "BasisClose":
-      return (curve = curveBasisClose);
+    case "BasisClosed":
+      return (curve = curveBasisClosed);
     case "BasisOpen":
       return (curve = curveBasisOpen);
     case "Step":
