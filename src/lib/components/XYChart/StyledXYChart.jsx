@@ -18,7 +18,7 @@ import {
   createColorArray,
 } from "../../utils";
 
-import { valueIfUndefined } from "../visx/utils/chartUtils";
+import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 
 let measureCount = null;
 let dimensionCount = null;
@@ -176,7 +176,7 @@ function StyledXYChart(props) {
       let items = [];
       // let keys = [];
 
-      if (!singleDimension && !type.includes("scatter") && !singleMeasure) {
+      if (!singleDimension && !type.includes("scatter")) {
         qData.qMatrix.forEach((d, i) => {
           if (isNull(dimID)) {
             dimID = d[0].qText;
@@ -190,7 +190,7 @@ function StyledXYChart(props) {
             dimID = d[0].qText;
           }
           const measure = d[1];
-          measure.qNum = d[2].qNum;
+          measure.qNum = isDefined(d[2]) ? d[2].qNum : 0;
           if (!keys.includes(measure.qText)) {
             keys.push(measure.qText);
           }
