@@ -1,7 +1,6 @@
 export { default as Area } from "./components/Area";
 export { default as Bar } from "./components/Bar";
 export { default as Line } from "./components/Line";
-export { default as Area } from "./components/Area";
 export { default as Combo } from "./components/Combo";
 export { default as Box } from "./components/Box";
 export { default as Button } from "./components/Button";
