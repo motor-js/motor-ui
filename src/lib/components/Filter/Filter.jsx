@@ -6,7 +6,7 @@ import StyledFilter from "./StyledFilter";
 import defaultTheme from "../../themes/defaultTheme";
 import { EngineContext } from "../../contexts/EngineProvider";
 
-function Filter({ config, ...rest }) {
+function Filter({ ...rest }) {
   const myTheme = useContext(ThemeContext) || defaultTheme;
   const { engine, engineError } = useContext(EngineContext);
 

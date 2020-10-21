@@ -14,7 +14,7 @@ import {
   otherTotalSpecType,
 } from "../../utils";
 
-export interface BarProps {
+export interface ComboProps {
   config?: configType;
   label?: string;
   cols?: Array<string>;
@@ -52,8 +52,8 @@ export interface BarProps {
   otherTotalSpec?: otherTotalSpecType;
 }
 
-declare const Bar: React.FC<BarProps>;
+declare const Combo: React.FC<ComboProps>;
 
-export type BarType = BarProps;
+export type ComboType = ComboProps;
 
-export default Bar;
+export default Combo;

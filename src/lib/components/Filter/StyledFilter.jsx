@@ -92,6 +92,7 @@ function StyledFilter({
     }
   }, [qData, qLayout]);
 
+
   useOutsideClick(
     filterRef,
     () => {
