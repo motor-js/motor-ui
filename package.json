@@ -3,10 +3,10 @@
   "version": "2.3.6-beta.0",
   "description": "The React Framework for Qlik Sense Mashups",
   "author": "Motor JS",
-  "license": "https://motor-js.io/license",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/motor-js/motor-ui"
   },
   "homepage": "https://motor-js.io",
   "main": "dist/index.js",

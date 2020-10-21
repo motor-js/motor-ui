@@ -44,8 +44,8 @@ import { ParentSize } from "@visx/responsive";
 
 const legendLabelFormat = (d) => d;
 
-const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 50 };
-const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 50 };
+const axisTopMargin = { top: 40, right: 50, bottom: 30, left: 65 };
+const axisBottomMargin = { top: 30, right: 50, bottom: 40, left: 65 };
 
 export default function CreateXYChart({
   width,
@@ -339,8 +339,6 @@ export default function CreateXYChart({
     : valueScaleConfig;
 
   return (
-    // <div className="container">
-
     <ChartProvider
       theme={themeObj}
       chartType={chartType}
@@ -395,7 +393,7 @@ export default function CreateXYChart({
         >
           <XYChart
             height={height}
-            // width={autoWidth ? undefined : width}
+            //width={width}
             margin={
               xAxisOrientation === "top" ? axisTopMargin : axisBottomMargin
             }

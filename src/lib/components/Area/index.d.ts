@@ -14,7 +14,7 @@ import {
   otherTotalSpecType,
 } from "../../utils";
 
-export interface BarProps {
+export interface AreaProps {
   config?: configType;
   label?: string;
   cols?: Array<string>;
@@ -52,8 +52,8 @@ export interface BarProps {
   otherTotalSpec?: otherTotalSpecType;
 }
 
-declare const Bar: React.FC<BarProps>;
+declare const Area: React.FC<AreaProps>;
 
-export type BarType = BarProps;
+export type AreaType = AreaProps;
 
-export default Bar;
+export default Area;

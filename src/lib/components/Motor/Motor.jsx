@@ -1,30 +1,24 @@
-import React, { useState } from "react";
-import { ThemeContext } from "../../contexts/ThemeProvider";
-import { EngineContext } from "../../contexts/EngineProvider";
-import { ConfigContext } from "../../contexts/ConfigProvider";
-import { CapabilityContext } from "../../contexts/CapabilityProvider";
-import { deepMerge } from "../../utils/object";
-import defaultTheme from "../../themes/defaultTheme";
-import Login from "../Login";
-import NotConnected from "../NotConnected";
-import useEngine from "../../hooks/useEngine";
-import useCapability from "../../hooks/useCapability";
+import React, { useState } from 'react'
+import { ThemeContext } from '../../contexts/ThemeProvider'
+import { EngineContext } from '../../contexts/EngineProvider'
+import { ConfigContext } from '../../contexts/ConfigProvider'
+import { CapabilityContext } from '../../contexts/CapabilityProvider'
+import { deepMerge } from '../../utils/object'
+import defaultTheme from '../../themes/defaultTheme'
+import Login from '../Login'
+import NotConnected from '../NotConnected'
+import useEngine from '../../hooks/useEngine'
+import useCapability from '../../hooks/useCapability'
 
 function Motor({
-  children,
-  theme,
-  config,
-  logo,
-  logoWidth,
-  logoHeight,
-  capabilityAPI,
+  children, theme, config, logo, logoWidth, logoHeight, capabilityAPI,
 }) {
-  const [myTheme, setMyTheme] = useState(defaultTheme);
-  const [myConfig, setMyConfig] = useState(config);
-  const nextTheme = deepMerge(myTheme, theme);
+  const [myTheme, setMyTheme] = useState(defaultTheme)
+  const [myConfig, setMyConfig] = useState(config)
+  const nextTheme = deepMerge(myTheme, theme)
 
-  const engine = useEngine(myConfig);
-  const app = capabilityAPI ? useCapability(myConfig) : {};
+  const engine = useEngine(myConfig)
+  const app = capabilityAPI ? useCapability(myConfig) : {}
 
   // eslint-disable-next-line react/react-in-jsx-scope
   return (
@@ -39,7 +33,7 @@ function Motor({
         </ConfigContext.Provider>
       </CapabilityContext.Provider>
     </EngineContext.Provider>
-  );
+  )
 }
 
-export default Motor;
+export default Motor
