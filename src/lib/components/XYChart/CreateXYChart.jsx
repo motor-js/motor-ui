@@ -12,6 +12,8 @@ import {
   XYChart,
 } from "../visx";
 
+import { colorByExpression, selectColor } from "../../utils";
+
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
 
@@ -27,7 +29,24 @@ export default function CreateXYChart({
   xAxisOrientation,
   yAxisOrientation,
   renderHorizontally,
+  // theme,
 }) {
+  // Check if conditionalColors and if so get the returned color pallette
+  // const colors = colorByExpression(qHyperCube, data, colorPalette);
+  // const {
+  //   global: { chart },
+  //   crossHair: crossHairStyle,
+  // } = theme;
+
+  // const themeObj = {
+  //   ...theme.global.chart,
+  //   bar: { ...theme.bar },
+  //   points: { ...theme.points },
+  //   stackedArea: { ...theme.stackedArea },
+  //   scatter: { ...theme.scatter },
+  //   colors,
+  // };
+
   const accessors = useMemo(
     () => ({
       x: {

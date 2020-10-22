@@ -258,7 +258,7 @@ function StyledXYChart(props) {
     //         qLayout={qLayout}
     //         // qData={data}
     //         numDimensionTicks={numDimensionTicks}
-    //         theme={theme}
+    theme,
     //         borderRadius={borderRadius}
     //         singleDimension={singleDimension}
     //         singleMeasure={singleMeasure}
