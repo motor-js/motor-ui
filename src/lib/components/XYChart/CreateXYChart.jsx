@@ -196,6 +196,12 @@ export default function CreateXYChart({
       }),
       [renderHorizontally, valueAccessor]
     );
+
+    // return {
+    //   xAccessor,
+    //   yAccessor,
+    //   elAccessor,
+    // };
   }
 
   const canSnapTooltipToDataX = valueIfUndefined(
