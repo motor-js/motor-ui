@@ -15,7 +15,12 @@ import {
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
 
-export default function CreateXYChart({ height }) {
+export default function CreateXYChart({
+  height,
+  xAxisOrientation,
+  yAxisOrientation,
+}) {
+  console.log(xAxisOrientation, yAxisOrientation);
   return (
     <ExampleControls>
       {({
@@ -38,8 +43,8 @@ export default function CreateXYChart({ height }) {
         snapTooltipToDatumX,
         snapTooltipToDatumY,
         theme,
-        xAxisOrientation,
-        yAxisOrientation,
+        //  xAxisOrientation,
+        //  yAxisOrientation,
       }) => (
         <DataProvider theme={theme} xScale={config.x} yScale={config.y}>
           <XYChart height={Math.min(400, height)}>

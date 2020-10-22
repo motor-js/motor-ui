@@ -308,7 +308,7 @@ function StyledXYChart(props) {
       <>
         <ParentSize>
           {({ width, height }) => (
-            <CreateXYChart width={width} height={height} />
+            <CreateXYChart width={width} height={height} {...otherProps} />
           )}
         </ParentSize>
       </>

@@ -31,8 +31,6 @@ export default function ExampleControls({ children }) {
   const [animationTrajectory, setAnimationTrajectory] = useState("center");
   const [gridProps, setGridProps] = useState([false, false]);
   const [showGridRows, showGridColumns] = gridProps;
-  const [xAxisOrientation, setXAxisOrientation] = useState("bottom");
-  const [yAxisOrientation, setYAxisOrientation] = useState("right");
   const [renderHorizontally, setRenderHorizontally] = useState(false);
   const [showTooltip, setShowTooltip] = useState(true);
   const [showVerticalCrosshair, setShowVerticalCrosshair] = useState(true);
@@ -42,31 +40,22 @@ export default function ExampleControls({ children }) {
   const [sharedTooltip, setSharedTooltip] = useState(true);
   const [renderBarStackOrGroup, setRenderBarStackOrGroup] = useState("group");
   const [renderLineSeries, setRenderLineSeries] = useState(false);
-  const [negativeValues, setNegativeValues] = useState(false);
 
   const accessors = useMemo(
     () => ({
       x: {
-        "San Francisco": renderHorizontally
-          ? negativeValues
-            ? getNegativeSFTemperature
-            : getSfTemperature
-          : getDate,
+        "San Francisco": renderHorizontally ? getSfTemperature : getDate,
         "New York": renderHorizontally ? getNyTemperature : getDate,
         Austin: renderHorizontally ? getAustinTemperature : getDate,
       },
       y: {
-        "San Francisco": renderHorizontally
-          ? getDate
-          : negativeValues
-          ? getNegativeSFTemperature
-          : getSfTemperature,
+        "San Francisco": renderHorizontally ? getDate : getSfTemperature,
         "New York": renderHorizontally ? getDate : getNyTemperature,
         Austin: renderHorizontally ? getDate : getAustinTemperature,
       },
       date: getDate,
     }),
-    [renderHorizontally, negativeValues]
+    [renderHorizontally]
   );
 
   const config = useMemo(
@@ -101,8 +90,6 @@ export default function ExampleControls({ children }) {
         snapTooltipToDatumY:
           renderBarStackOrGroup !== "stack" && snapTooltipToDatumY,
         theme,
-        xAxisOrientation,
-        yAxisOrientation,
       })}
       <div className="controls">
         {/** theme */}
@@ -152,44 +139,6 @@ export default function ExampleControls({ children }) {
               checked={renderHorizontally}
             />{" "}
             horizontal
-          </label>
-        </div>
-
-        {/** axes */}
-        <div>
-          <strong>axes</strong>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setXAxisOrientation("bottom")}
-              checked={xAxisOrientation === "bottom"}
-            />{" "}
-            bottom
-          </label>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setXAxisOrientation("top")}
-              checked={xAxisOrientation === "top"}
-            />{" "}
-            top
-          </label>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <label>
-            <input
-              type="radio"
-              onChange={() => setYAxisOrientation("left")}
-              checked={yAxisOrientation === "left"}
-            />{" "}
-            left
-          </label>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setYAxisOrientation("right")}
-              checked={yAxisOrientation === "right"}
-            />{" "}
-            right
           </label>
         </div>
 
@@ -360,18 +309,6 @@ export default function ExampleControls({ children }) {
               checked={renderBarStackOrGroup === "group"}
             />{" "}
             bar group
-          </label>
-        </div>
-        {/** data */}
-        <div>
-          <strong>data</strong>
-          <label>
-            <input
-              type="checkbox"
-              onChange={() => setNegativeValues(!negativeValues)}
-              checked={negativeValues}
-            />{" "}
-            negative values (SF)
           </label>
         </div>
       </div>
