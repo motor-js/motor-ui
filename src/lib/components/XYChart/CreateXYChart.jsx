@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import {
   AnimatedAxis,
@@ -15,24 +15,56 @@ import {
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
 
+const dateScaleConfig = { type: "band", paddingInner: 0.3 };
+const temperatureScaleConfig = { type: "linear" };
+const getDate = (d) => d.date;
+const getSfTemperature = (d) => Number(d["San Francisco"]);
+const getNyTemperature = (d) => Number(d["New York"]);
+const getAustinTemperature = (d) => Number(d.Austin);
+
 export default function CreateXYChart({
   height,
   xAxisOrientation,
   yAxisOrientation,
+  renderHorizontally,
 }) {
-  console.log(xAxisOrientation, yAxisOrientation);
+  const accessors = useMemo(
+    () => ({
+      x: {
+        "San Francisco": renderHorizontally ? getSfTemperature : getDate,
+        "New York": renderHorizontally ? getNyTemperature : getDate,
+        Austin: renderHorizontally ? getAustinTemperature : getDate,
+      },
+      y: {
+        "San Francisco": renderHorizontally ? getDate : getSfTemperature,
+        "New York": renderHorizontally ? getDate : getNyTemperature,
+        Austin: renderHorizontally ? getDate : getAustinTemperature,
+      },
+      date: getDate,
+    }),
+    [renderHorizontally]
+  );
+
+  const config = useMemo(
+    () => ({
+      x: renderHorizontally ? temperatureScaleConfig : dateScaleConfig,
+      y: renderHorizontally ? dateScaleConfig : temperatureScaleConfig,
+    }),
+    [renderHorizontally]
+  );
+
   return (
     <ExampleControls>
       {({
-        accessors,
+        // accessors,
         animationTrajectory,
-        config,
+        // config,
         data,
         numTicks,
         renderBarGroup,
         renderBarSeries,
         renderBarStack,
-        renderHorizontally,
+        // renderHorizontally,
         renderLineSeries,
         sharedTooltip,
         showGridColumns,

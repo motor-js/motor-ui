@@ -2,7 +2,6 @@
 import React, { useMemo, useState } from "react";
 import { lightTheme, darkTheme } from "../visx";
 import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
-// import customTheme from "./customTheme";
 import { buildChartTheme } from "../visx";
 
 const customTheme = () =>
@@ -15,16 +14,9 @@ const customTheme = () =>
     tickLength: 8,
   });
 
-const dateScaleConfig = { type: "band", paddingInner: 0.3 };
-const temperatureScaleConfig = { type: "linear" };
 const numTicks = 4;
 const data = cityTemperature.slice(200, 275);
 const dataSmall = data.slice(0, 25);
-const getDate = (d) => d.date;
-const getSfTemperature = (d) => Number(d["San Francisco"]);
-const getNegativeSFTemperature = (d) => -getSfTemperature(d);
-const getNyTemperature = (d) => Number(d["New York"]);
-const getAustinTemperature = (d) => Number(d.Austin);
 
 export default function ExampleControls({ children }) {
   const [theme, setTheme] = useState(darkTheme);
@@ -41,43 +33,16 @@ export default function ExampleControls({ children }) {
   const [renderBarStackOrGroup, setRenderBarStackOrGroup] = useState("group");
   const [renderLineSeries, setRenderLineSeries] = useState(false);
 
-  const accessors = useMemo(
-    () => ({
-      x: {
-        "San Francisco": renderHorizontally ? getSfTemperature : getDate,
-        "New York": renderHorizontally ? getNyTemperature : getDate,
-        Austin: renderHorizontally ? getAustinTemperature : getDate,
-      },
-      y: {
-        "San Francisco": renderHorizontally ? getDate : getSfTemperature,
-        "New York": renderHorizontally ? getDate : getNyTemperature,
-        Austin: renderHorizontally ? getDate : getAustinTemperature,
-      },
-      date: getDate,
-    }),
-    [renderHorizontally]
-  );
-
-  const config = useMemo(
-    () => ({
-      x: renderHorizontally ? temperatureScaleConfig : dateScaleConfig,
-      y: renderHorizontally ? dateScaleConfig : temperatureScaleConfig,
-    }),
-    [renderHorizontally]
-  );
-
   return (
     <>
       {children({
-        accessors,
         animationTrajectory,
-        config,
         data: renderBarStackOrGroup === "bar" ? data : dataSmall,
         numTicks,
         renderBarGroup: renderBarStackOrGroup === "group",
         renderBarSeries: renderBarStackOrGroup === "bar",
         renderBarStack: renderBarStackOrGroup === "stack",
-        renderHorizontally,
+        // renderHorizontally,
         renderLineSeries: renderBarStackOrGroup === "bar" && renderLineSeries,
         sharedTooltip,
         showGridColumns,
