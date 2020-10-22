@@ -1,25 +1,24 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useMemo, useState } from "react";
-import { lightTheme, darkTheme } from "../visx";
+// import { lightTheme, darkTheme } from "../visx";
 import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
-import { buildChartTheme } from "../visx";
+// import { buildChartTheme } from "../visx";
 
-const customTheme = () =>
-  buildChartTheme({
-    backgroundColor: "#f09ae9",
-    colors: ["rgba(255,231,143,0.8)", "#6a097d", "#d6e0f0"],
-    gridColor: "#336d88",
-    gridColorDark: "#1d1b38",
-    labelStyles: { fill: "#1d1b38" },
-    tickLength: 8,
-  });
+// const customTheme = () =>
+//   buildChartTheme({
+//     backgroundColor: "#f09ae9",
+//     colors: ["rgba(255,231,143,0.8)", "#6a097d", "#d6e0f0"],
+//     gridColor: "#336d88",
+//     gridColorDark: "#1d1b38",
+//     labelStyles: { fill: "#1d1b38" },
+//     tickLength: 8,
+//   });
 
 const numTicks = 4;
 const data = cityTemperature.slice(200, 275);
 const dataSmall = data.slice(0, 25);
 
 export default function ExampleControls({ children }) {
-  const [theme, setTheme] = useState(darkTheme);
   const [animationTrajectory, setAnimationTrajectory] = useState("center");
   const [gridProps, setGridProps] = useState([false, false]);
   const [showGridRows, showGridColumns] = gridProps;
@@ -54,38 +53,9 @@ export default function ExampleControls({ children }) {
           renderBarStackOrGroup !== "stack" && snapTooltipToDatumX,
         snapTooltipToDatumY:
           renderBarStackOrGroup !== "stack" && snapTooltipToDatumY,
-        theme,
+        // theme,
       })}
       <div className="controls">
-        {/** theme */}
-        <div>
-          <strong>theme</strong>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setTheme(lightTheme)}
-              checked={theme === lightTheme}
-            />{" "}
-            light
-          </label>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setTheme(darkTheme)}
-              checked={theme === darkTheme}
-            />{" "}
-            dark
-          </label>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setTheme(customTheme)}
-              checked={theme === customTheme}
-            />{" "}
-            custom
-          </label>
-        </div>
-
         {/** series orientation */}
         <div>
           <strong>series orientation</strong>

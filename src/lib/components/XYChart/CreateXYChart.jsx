@@ -13,6 +13,8 @@ import {
 } from "../visx";
 
 import { colorByExpression, selectColor } from "../../utils";
+import { buildChartTheme } from "../visx";
+import { lightTheme, darkTheme } from "../visx";
 
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
@@ -26,10 +28,14 @@ const getAustinTemperature = (d) => Number(d.Austin);
 
 export default function CreateXYChart({
   height,
+  qLayout: {
+    qHyperCube,
+    qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
+  },
   xAxisOrientation,
   yAxisOrientation,
   renderHorizontally,
-  // theme,
+  theme,
 }) {
   // Check if conditionalColors and if so get the returned color pallette
   // const colors = colorByExpression(qHyperCube, data, colorPalette);
@@ -38,14 +44,15 @@ export default function CreateXYChart({
   //   crossHair: crossHairStyle,
   // } = theme;
 
-  // const themeObj = {
-  //   ...theme.global.chart,
-  //   bar: { ...theme.bar },
-  //   points: { ...theme.points },
-  //   stackedArea: { ...theme.stackedArea },
-  //   scatter: { ...theme.scatter },
-  //   colors,
-  // };
+  const chartTheme = {
+    ...theme.global.chart,
+    bar: { ...theme.bar },
+    points: { ...theme.points },
+    stackedArea: { ...theme.stackedArea },
+    scatter: { ...theme.scatter },
+    ...darkTheme,
+    // colors,
+  };
 
   const accessors = useMemo(
     () => ({
@@ -97,7 +104,7 @@ export default function CreateXYChart({
         //  xAxisOrientation,
         //  yAxisOrientation,
       }) => (
-        <DataProvider theme={theme} xScale={config.x} yScale={config.y}>
+        <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
           <XYChart height={Math.min(400, height)}>
             {/* <XYChart height={height}> */}
             <CustomChartBackground />
