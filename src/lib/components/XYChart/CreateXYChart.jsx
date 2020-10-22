@@ -43,6 +43,7 @@ export default function CreateXYChart({ height }) {
       }) => (
         <DataProvider theme={theme} xScale={config.x} yScale={config.y}>
           <XYChart height={Math.min(400, height)}>
+            {/* <XYChart height={height}> */}
             <CustomChartBackground />
             <AnimatedGrid
               key={`grid-${animationTrajectory}`} // force animate on update

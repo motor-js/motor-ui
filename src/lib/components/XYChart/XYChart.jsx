@@ -282,7 +282,7 @@ XYChart.propTypes = {
   ]),
 
   multiColor: PropTypes.bool,
-  events: PropTypes.bool,
+  // events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
   /** Show CrossHair on the chart  */
@@ -337,8 +337,8 @@ XYChart.propTypes = {
 
 XYChart.defaultProps = {
   calcCondition: undefined,
-  width: "100%",
-  height: "400px", // 100%
+  // width: "100%",
+  // height: "400", // 100%
   size: "medium",
   border: true,
   /** Use dual Y axis on the the chart  */

@@ -16,8 +16,34 @@ Check out the props and example usage below 💡
 import { Props } from 'docz'
 import { Playground } from 'docz'
 import XYChart from '../../lib/components/XYChart/XYChart.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import Filter from '../../lib/components/Filter/Filter.jsx'
+import Button from '../../lib/components/Button/Button.jsx'
+import { config } from '../config/config.js'
 
 <Playground>
-    <XYChart  width={750} height={450}  events={true}
-    colorTheme="bio"/>
+<Motor  
+ config={config}>  
+  <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
+  <Filter label='Forcast Day' dimension={['Forcast Day']} />
+    <Button type="clearSelections">Clear Selections</Button>
+    <XYChart 
+  //   width={750} 
+   //  height={500}  
+    colorTheme="bio"
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+     showLabels={true}
+     selectionMethod='click'
+     showPoints={true}
+    // showPoints='star'
+    type="stackedarea"
+      cols={[
+      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+    ]}/>
+  </Motor>
 </Playground>

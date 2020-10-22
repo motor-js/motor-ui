@@ -2,7 +2,18 @@
 import React, { useMemo, useState } from "react";
 import { lightTheme, darkTheme } from "../visx";
 import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
-import customTheme from "./customTheme";
+// import customTheme from "./customTheme";
+import { buildChartTheme } from "../visx";
+
+const customTheme = () =>
+  buildChartTheme({
+    backgroundColor: "#f09ae9",
+    colors: ["rgba(255,231,143,0.8)", "#6a097d", "#d6e0f0"],
+    gridColor: "#336d88",
+    gridColorDark: "#1d1b38",
+    labelStyles: { fill: "#1d1b38" },
+    tickLength: 8,
+  });
 
 const dateScaleConfig = { type: "band", paddingInner: 0.3 };
 const temperatureScaleConfig = { type: "linear" };
@@ -364,18 +375,6 @@ export default function ExampleControls({ children }) {
           </label>
         </div>
       </div>
-      <style jsx>{`
-        .controls {
-          font-size: 13px;
-          line-height: 1.5em;
-        }
-        label {
-          font-size: 11px;
-        }
-        input[type="radio"] {
-          height: 10px;
-        }
-      `}</style>
     </>
   );
 }

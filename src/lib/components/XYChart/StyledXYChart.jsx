@@ -86,11 +86,9 @@ function StyledXYChart(props) {
     ...rest
   } = props;
 
-  console.log(height);
-
-  // const {
-  //   global: { colorTheme: globalColorTheme, chart },
-  // } = theme;
+  const {
+    global: { colorTheme: globalColorTheme, chart },
+  } = theme;
 
   // // if the prop is undefined, use the base theme
   // const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
@@ -244,21 +242,80 @@ function StyledXYChart(props) {
   //   }
   // }, [qData, isValid]);
 
-  // return (
-  //   <>
-  //     <ParentSize>
-  //       {({ width, height }) => <CreateXYChart width={width} height={height} />}
-  //     </ParentSize>
-  //   </>
-  // );
+  const otherProps = {
+    // width={
+    //           gridArea
+    //             ? ref.current.offsetWidth
+    //             : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+    //         }
+    //         height={
+    //           gridArea
+    //             ? ref.current.offsetHeight -
+    //               parseInt(margin || chart.margin, 10)
+    //             : parseInt(height, 10)
+    //         }
+    //         events={events || chart.events}
+    //         qLayout={qLayout}
+    //         // qData={data}
+    //         numDimensionTicks={numDimensionTicks}
+    //         theme={theme}
+    //         borderRadius={borderRadius}
+    //         singleDimension={singleDimension}
+    //         singleMeasure={singleMeasure}
+    //         measureCount={measureCount}
+    //         dimensionCount={dimensionCount}
+    //         data={data}
+    //         keys={keys}
+    //         dataKeys={dataKeys}
+    //         beginSelections={beginSelections}
+    //         select={select}
+    //         // refreshChart={refreshChart}
+    //         // setRefreshChart={setRefreshChart}
+    //         setCurrentSelectionIds={setCurrentSelectionIds}
+    //         currentSelectionIds={currentSelectionIds}
+    //         // useSelectionColours={useSelectionColours}
+    //         colorPalette={colorPalette}
+    //         size={size}
+    //         type={type}
+    //         padding={padding || chart.padding}
+    //         useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
+    //         autoWidth={autoWidth || chart.autoWidth}
+    renderHorizontally: renderHorizontally || chart.renderHorizontally,
+
+    //         includeZero={includeZero || chart.includeZero}
+    //         showLegend={
+    //           // showLegend === undefined ? chart.showLegend : showLegend
+    //           valueIfUndefined(showLegend, chart.showLegend)
+    //         }
+    //         backgroundPattern={
+    //           backgroundPattern || chart.backgroundStyles.pattern
+    //         }
+    //         backgroundStyle={backgroundStyle || chart.backgroundStyles}
+    //         fillStyle={fillStyle || chart.fillStyles}
+    //         multiColor={valueIfUndefined(multiColor, chart.multiColor)}
+    //         selectionMethod={valueIfUndefined(
+    //           selectionMethod,
+    //           chart.selectionMethod
+    //         )}
+    //         enableBrush={enableBrush}
+    //         showAsPercent={showAsPercent}
+    //         showBrush={showBrush}
+    ...rest,
+  };
 
   if (width == null || height == null) {
     return (
-      <ParentSize>{(dims) => <CreateXYChart {...dims} {...rest} />}</ParentSize>
+      <>
+        <ParentSize>
+          {({ width, height }) => (
+            <CreateXYChart width={width} height={height} />
+          )}
+        </ParentSize>
+      </>
     );
   }
 
-  return <CreateXYChart width={width} height={height} {...rest} />;
+  return <CreateXYChart width={width} height={height} {...otherProps} />;
 }
 
 export default StyledXYChart;

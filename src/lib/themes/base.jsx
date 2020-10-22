@@ -302,7 +302,6 @@ const base = {
       autoWidth: false,
       renderHorizontally: false,
       allowSelections: true, //captureEvents if captureevents true the cannot make selections
-      events: false,
       color,
       showLabels: true,
       showPoints: true,
