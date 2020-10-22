@@ -1,4 +1,7 @@
-import { isBoolean } from "../components/visx/utils/chartUtils";
+// import { isBoolean } from "../components/visx/utils/chartUtils";
+export function isBoolean(val) {
+  return typeof val === "boolean";
+}
 
 export function roundNumber(numb, precision) {
   let num = numb;
