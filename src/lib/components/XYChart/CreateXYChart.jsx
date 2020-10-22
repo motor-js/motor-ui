@@ -12,12 +12,15 @@ import {
   XYChart,
 } from "../visx";
 
+import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
+
 import { colorByExpression, selectColor } from "../../utils";
 import { buildChartTheme } from "../visx";
 import { lightTheme, darkTheme } from "../visx";
 
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
+import CustomChartPattern from "./CustomChartPattern";
 
 const dateScaleConfig = { type: "band", paddingInner: 0.3 };
 const temperatureScaleConfig = { type: "linear" };
@@ -25,6 +28,11 @@ const getDate = (d) => d.date;
 const getSfTemperature = (d) => Number(d["San Francisco"]);
 const getNyTemperature = (d) => Number(d["New York"]);
 const getAustinTemperature = (d) => Number(d.Austin);
+
+const data = cityTemperature.slice(200, 275);
+const dataSmall = data.slice(0, 25);
+
+// console.log(data);
 
 export default function CreateXYChart({
   height,
@@ -35,14 +43,24 @@ export default function CreateXYChart({
   xAxisOrientation,
   yAxisOrientation,
   renderHorizontally,
+  beginSelections,
+  select,
+  setCurrentSelectionIds,
+  currentSelectionIds,
+  colorPalette,
   theme,
+  size,
+  backgroundPattern,
+  backgroundStyle,
 }) {
   // Check if conditionalColors and if so get the returned color pallette
-  // const colors = colorByExpression(qHyperCube, data, colorPalette);
+  const colors = colorByExpression(qHyperCube, data, colorPalette);
   // const {
   //   global: { chart },
   //   crossHair: crossHairStyle,
   // } = theme;
+
+  // console.log(darkTheme);
 
   const chartTheme = {
     ...theme.global.chart,
@@ -84,13 +102,10 @@ export default function CreateXYChart({
       {({
         // accessors,
         animationTrajectory,
-        // config,
-        data,
         numTicks,
         renderBarGroup,
         renderBarSeries,
         renderBarStack,
-        // renderHorizontally,
         renderLineSeries,
         sharedTooltip,
         showGridColumns,
@@ -100,14 +115,16 @@ export default function CreateXYChart({
         showVerticalCrosshair,
         snapTooltipToDatumX,
         snapTooltipToDatumY,
-        theme,
-        //  xAxisOrientation,
-        //  yAxisOrientation,
       }) => (
         <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
           <XYChart height={Math.min(400, height)}>
             {/* <XYChart height={height}> */}
-            <CustomChartBackground />
+            <CustomChartBackground
+              style={backgroundStyle.style}
+              from={backgroundStyle.styleFrom}
+              to={backgroundStyle.styleTo}
+            />
+            <CustomChartPattern backgroundPattern={backgroundPattern} />
             <AnimatedGrid
               key={`grid-${animationTrajectory}`} // force animate on update
               rows={showGridRows}

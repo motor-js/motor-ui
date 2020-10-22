@@ -1,28 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useMemo, useState } from "react";
-// import { lightTheme, darkTheme } from "../visx";
-import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
-// import { buildChartTheme } from "../visx";
-
-// const customTheme = () =>
-//   buildChartTheme({
-//     backgroundColor: "#f09ae9",
-//     colors: ["rgba(255,231,143,0.8)", "#6a097d", "#d6e0f0"],
-//     gridColor: "#336d88",
-//     gridColorDark: "#1d1b38",
-//     labelStyles: { fill: "#1d1b38" },
-//     tickLength: 8,
-//   });
+import React, { useState } from "react";
 
 const numTicks = 4;
-const data = cityTemperature.slice(200, 275);
-const dataSmall = data.slice(0, 25);
 
 export default function ExampleControls({ children }) {
   const [animationTrajectory, setAnimationTrajectory] = useState("center");
   const [gridProps, setGridProps] = useState([false, false]);
   const [showGridRows, showGridColumns] = gridProps;
-  const [renderHorizontally, setRenderHorizontally] = useState(false);
   const [showTooltip, setShowTooltip] = useState(true);
   const [showVerticalCrosshair, setShowVerticalCrosshair] = useState(true);
   const [showHorizontalCrosshair, setShowHorizontalCrosshair] = useState(false);
@@ -36,12 +20,10 @@ export default function ExampleControls({ children }) {
     <>
       {children({
         animationTrajectory,
-        data: renderBarStackOrGroup === "bar" ? data : dataSmall,
         numTicks,
         renderBarGroup: renderBarStackOrGroup === "group",
         renderBarSeries: renderBarStackOrGroup === "bar",
         renderBarStack: renderBarStackOrGroup === "stack",
-        // renderHorizontally,
         renderLineSeries: renderBarStackOrGroup === "bar" && renderLineSeries,
         sharedTooltip,
         showGridColumns,
@@ -56,27 +38,6 @@ export default function ExampleControls({ children }) {
         // theme,
       })}
       <div className="controls">
-        {/** series orientation */}
-        <div>
-          <strong>series orientation</strong>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setRenderHorizontally(false)}
-              checked={!renderHorizontally}
-            />{" "}
-            vertical
-          </label>
-          <label>
-            <input
-              type="radio"
-              onChange={() => setRenderHorizontally(true)}
-              checked={renderHorizontally}
-            />{" "}
-            horizontal
-          </label>
-        </div>
-
         {/** grid */}
         <div>
           <strong>grid</strong>

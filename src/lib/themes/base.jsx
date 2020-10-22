@@ -362,8 +362,8 @@ const base = {
       },
       backgroundStyles: {
         pattern: null,
-        stroke: "#adb5bd",
-        strokeWidth: 0.5,
+        stroke: "#ced4da",
+        strokeWidth: 1,
         style: undefined,
         styleFrom: undefined,
         styleTo: undefined,

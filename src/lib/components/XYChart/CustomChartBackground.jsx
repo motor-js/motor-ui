@@ -1,43 +1,82 @@
 import React, { useContext } from "react";
-import { PatternLines } from "@visx/pattern";
+import {
+  LinearGradient,
+  RadialGradient,
+  GradientDarkgreenGreen,
+  GradientLightgreenGreen,
+  GradientOrangeRed,
+  GradientPinkBlue,
+  GradientPinkRed,
+  GradientPurpleOrange,
+  GradientPurpleRed,
+  GradientPurpleTeal,
+  GradientSteelPurple,
+  GradientTealBlue,
+} from "@visx/gradient";
+
 import { DataContext } from "../visx";
 
-const patternId = "xy-chart-pattern";
+const backgroundId = "visx-background-gradient";
 
-export default function CustomChartBackground() {
-  const { theme, margin, width, height, innerWidth, innerHeight } = useContext(
-    DataContext
-  );
+function Gradient({ style, from, to }) {
+  const { width, height } = useContext(DataContext);
 
-  // early return values not available in context
-  if (width == null || height == null || margin == null || theme == null)
-    return null;
+  let Gradient = null;
 
-  return (
+  switch (style) {
+    case "Linear":
+      Gradient = LinearGradient;
+      break;
+    case "Radial":
+      Gradient = RadialGradient;
+      break;
+    case "DarkGreen":
+      Gradient = GradientDarkgreenGreen;
+      break;
+    case "LightGreen":
+      Gradient = GradientLightgreenGreen;
+      break;
+    case "OrangeRed":
+      Gradient = GradientOrangeRed;
+      break;
+    case "PinkBlue":
+      Gradient = GradientPinkBlue;
+      break;
+    case "PinkRed":
+      Gradient = GradientPinkRed;
+      break;
+    case "PurpleOrangle":
+      Gradient = GradientPurpleOrange;
+      break;
+    case "PurpleRed":
+      Gradient = GradientPurpleRed;
+      break;
+    case "PurpleTeal":
+      Gradient = GradientPurpleTeal;
+      break;
+    case "SteelPurple":
+      Gradient = GradientSteelPurple;
+      break;
+    case "TealBlue":
+      Gradient = GradientTealBlue;
+      break;
+    default:
+      Gradient = null;
+      break;
+  }
+  return Gradient ? (
     <>
-      <PatternLines
-        id={patternId}
-        width={16}
-        height={16}
-        orientation={["diagonal"]}
-        stroke={theme?.gridStyles?.stroke}
-        strokeWidth={1}
-      />
+      <Gradient id={backgroundId} from={from} to={to} />{" "}
       <rect
         x={0}
         y={0}
         width={width}
         height={height}
-        fill={theme?.backgroundColor ?? "#fff"}
-      />
-      <rect
-        x={margin.left}
-        y={margin.top}
-        width={innerWidth}
-        height={innerHeight}
-        fill={`url(#${patternId})`}
-        fillOpacity={0.3}
+        fill="url(#visx-background-gradient)"
+        rx={14}
       />
     </>
-  );
+  ) : null;
 }
+
+export default Gradient;

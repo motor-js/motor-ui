@@ -91,7 +91,7 @@ function StyledXYChart(props) {
   } = theme;
 
   // // if the prop is undefined, use the base theme
-  // const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
+  const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
   // const refMargin = "10px";
 
@@ -115,29 +115,29 @@ function StyledXYChart(props) {
     qOtherTotalSpec: otherTotalSpec || chart.otherTotalSpec,
   });
 
-  // const cancelCallback = () => {
-  //   endSelections(false);
-  //   setCurrentSelectionIds([]);
-  //   setShowBrush(false);
-  // };
+  const cancelCallback = () => {
+    endSelections(false);
+    setCurrentSelectionIds([]);
+    setShowBrush(false);
+  };
 
-  // const confirmCallback = async () => {
-  //   await endSelections(true);
-  //   setCurrentSelectionIds([]);
-  //   setShowBrush(false);
-  // };
+  const confirmCallback = async () => {
+    await endSelections(true);
+    setCurrentSelectionIds([]);
+    setShowBrush(false);
+  };
 
-  // useOutsideClick(ref, () => {
-  //   if (
-  //     event.target.classList.contains("cancelSelections") ||
-  //     event.target.parentNode.classList.contains("cancelSelections")
-  //   )
-  //     return;
-  //   if (!isEmpty(currentSelectionIds)) {
-  //     const outsideClick = !ref.current.contains(event.target);
-  //     if (outsideClick && selections) confirmCallback();
-  //   }
-  // });
+  useOutsideClick(ref, () => {
+    if (
+      event.target.classList.contains("cancelSelections") ||
+      event.target.parentNode.classList.contains("cancelSelections")
+    )
+      return;
+    if (!isEmpty(currentSelectionIds)) {
+      const outsideClick = !ref.current.contains(event.target);
+      if (outsideClick && selections) confirmCallback();
+    }
+  });
 
   // const handleResize = () => {
   //   if (typeof calcCond === "undefined" && dataError.length === 0) {
@@ -266,15 +266,13 @@ function StyledXYChart(props) {
     //         data={data}
     //         keys={keys}
     //         dataKeys={dataKeys}
-    //         beginSelections={beginSelections}
-    //         select={select}
-    //         // refreshChart={refreshChart}
-    //         // setRefreshChart={setRefreshChart}
+    beginSelections,
+    select,
     //         setCurrentSelectionIds={setCurrentSelectionIds}
     //         currentSelectionIds={currentSelectionIds}
     //         // useSelectionColours={useSelectionColours}
-    //         colorPalette={colorPalette}
-    //         size={size}
+    colorPalette,
+    size,
     //         type={type}
     //         padding={padding || chart.padding}
     //         useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
@@ -286,10 +284,9 @@ function StyledXYChart(props) {
     //           // showLegend === undefined ? chart.showLegend : showLegend
     //           valueIfUndefined(showLegend, chart.showLegend)
     //         }
-    //         backgroundPattern={
-    //           backgroundPattern || chart.backgroundStyles.pattern
-    //         }
-    //         backgroundStyle={backgroundStyle || chart.backgroundStyles}
+    backgroundPattern: backgroundPattern || chart.backgroundStyles.pattern,
+
+    backgroundStyle: backgroundStyle || chart.backgroundStyles,
     //         fillStyle={fillStyle || chart.fillStyles}
     //         multiColor={valueIfUndefined(multiColor, chart.multiColor)}
     //         selectionMethod={valueIfUndefined(
@@ -331,8 +328,30 @@ function StyledXYChart(props) {
                 )}
               </ParentSize>
             ) : (
-              <CreateXYChart width={width} height={height} {...otherProps} />
-            )}
+              <CreateXYChart
+                width={width}
+                height={height}
+                // width={
+                //   gridArea
+                //     ? ref.current.offsetWidth
+                //     : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+                // }
+                // height={
+                //   gridArea
+                //     ? ref.current.offsetHeight -
+                //       parseInt(margin || chart.margin, 10)
+                //     : parseInt(height, 10)
+                // }
+                {...otherProps}
+              />
+            )}{" "}
+            <SelectionModal
+              isOpen={!isEmpty(currentSelectionIds)}
+              cancelCallback={cancelCallback}
+              confirmCallback={confirmCallback}
+              offsetX={0}
+              // width={width}
+            />
           </div>
         </XYChartWrapper>
       ) : (
