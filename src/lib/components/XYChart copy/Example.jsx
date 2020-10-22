@@ -10,7 +10,7 @@ import {
   LineSeries,
   Tooltip,
   XYChart,
-} from "../visx-xychart";
+} from "../visx";
 
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";

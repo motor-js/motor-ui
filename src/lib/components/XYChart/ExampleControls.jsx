@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useMemo, useState } from "react";
-import { lightTheme, darkTheme } from "../visx-xychart";
+import { lightTheme, darkTheme } from "../visx";
 import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
 import customTheme from "./customTheme";
 

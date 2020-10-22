@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { PatternLines } from "@visx/pattern";
-import { DataContext } from "../visx-xychart";
+import { DataContext } from "../visx";
 
 const patternId = "xy-chart-pattern";
 

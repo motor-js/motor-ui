@@ -10,12 +10,12 @@ import {
   LineSeries,
   Tooltip,
   XYChart,
-} from "../visx-xychart";
+} from "../visx";
 
 import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
 
-export default function Example({ height }) {
+export default function CreateXYChart({ height }) {
   return (
     <ExampleControls>
       {({
