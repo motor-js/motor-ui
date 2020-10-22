@@ -45,46 +45,48 @@ function StyledXYChart(props) {
   // const [showBrush, setShowBrush] = useState(false);
   // const enableBrush = () => setShowBrush(true);
 
-  // // props
-  // const {
-  //   engine,
-  //   engineError,
-  //   theme,
-  //   cols,
-  //   width,
-  //   height,
-  //   events,
-  //   margin,
-  //   size,
-  //   border,
-  //   borderRadius,
-  //   backgroundColor,
-  //   colorTheme,
-  //   showLegend,
-  //   selectionMethod,
-  //   sortDirection,
-  //   sortOrder,
-  //   calcCondition,
-  //   suppressZero,
-  //   suppressMissing,
-  //   otherTotalSpec,
-  //   // tickSpacing,
-  //   gridArea,
-  //   type,
-  //   padding,
-  //   useAnimatedAxes,
-  //   autoWidth,
-  //   renderHorizontally,
-  //   includeZero,
-  //   backgroundPattern,
-  //   backgroundStyle,
-  //   multiColor,
-  //   fillStyle,
-  //   showBoxShadow,
-  //   showAsPercent,
-  //   numDimensionTicks,
-  //   ...rest
-  // } = props;
+  // props
+  const {
+    engine,
+    engineError,
+    theme,
+    cols,
+    width,
+    height,
+    events,
+    margin,
+    size,
+    border,
+    borderRadius,
+    backgroundColor,
+    colorTheme,
+    showLegend,
+    selectionMethod,
+    sortDirection,
+    sortOrder,
+    calcCondition,
+    suppressZero,
+    suppressMissing,
+    otherTotalSpec,
+    // tickSpacing,
+    gridArea,
+    type,
+    padding,
+    useAnimatedAxes,
+    autoWidth,
+    renderHorizontally,
+    includeZero,
+    backgroundPattern,
+    backgroundStyle,
+    multiColor,
+    fillStyle,
+    showBoxShadow,
+    showAsPercent,
+    numDimensionTicks,
+    ...rest
+  } = props;
+
+  console.log(height);
 
   // const {
   //   global: { colorTheme: globalColorTheme, chart },
@@ -242,13 +244,21 @@ function StyledXYChart(props) {
   //   }
   // }, [qData, isValid]);
 
-  return (
-    <>
-      <ParentSize>
-        {({ width, height }) => <CreateXYChart width={width} height={height} />}
-      </ParentSize>
-    </>
-  );
+  // return (
+  //   <>
+  //     <ParentSize>
+  //       {({ width, height }) => <CreateXYChart width={width} height={height} />}
+  //     </ParentSize>
+  //   </>
+  // );
+
+  if (width == null || height == null) {
+    return (
+      <ParentSize>{(dims) => <CreateXYChart {...dims} {...rest} />}</ParentSize>
+    );
+  }
+
+  return <CreateXYChart width={width} height={height} {...rest} />;
 }
 
 export default StyledXYChart;
