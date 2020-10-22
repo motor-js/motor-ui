@@ -74,23 +74,6 @@ Bar.propTypes = {
   // /** Spacing of Ticks on Y Axis */
   // tickSpacing: PropTypes.oneOf(["wide", "normal", "narrow"]),
   /** Display Axis and ticks  */
-<<<<<<< HEAD:src/lib/components/React/XYChart/XYChart.jsx
-  showAxis: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
-  ]),
-  // /** Max length of chart axis (in pixels) */
-  // maxAxisLength: PropTypes.number,
-  // /** Allow for the Y axis to be dsiapleyd at 45 degrees */
-  // allowSlantedYAxis: PropTypes.bool,
-  // /** Show gridlines on Axis */
-  // showGridlines: PropTypes.oneOfType([
-  //   PropTypes.bool,
-  //   PropTypes.oneOf(["solid", "dashes", "dots", "none"]),
-  // ]),
-  // /** Color of the Bar label */
-  // fontColor: PropTypes.string,
-=======
   hideAxisLine: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
@@ -101,7 +84,6 @@ Bar.propTypes = {
   gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   /** Show shadow around Bar Chart */
   showBoxShadow: PropTypes.bool,
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/Bar/Bar.jsx
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
     PropTypes.bool,

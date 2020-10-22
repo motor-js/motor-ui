@@ -146,7 +146,6 @@ export default function Group({
       });
 
       registerData(dataToRegister);
-      console.log("aaa");
       return () => unregisterData(Object.keys(dataToRegister));
     },
     // @TODO fix findNearestDatum

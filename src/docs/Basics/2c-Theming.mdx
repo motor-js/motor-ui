@@ -1,0 +1,64 @@
+---
+name: Theming
+route: /theming
+menu: Basics
+---
+
+## Theming with React
+
+A big part of Motor UI is its theming framework. There are a lot of things you can customize. This page aims to explain it all.
+
+If you're working in React, the recommended path to creating a new theme, is to pass it to the Motor component.
+
+```javascript
+
+import { Motor } from 'motor-ui';
+
+const myTheme = {
+  global: {
+    colors: {
+      brand: 'red',
+    },
+  },
+};
+
+<Motor value={myTheme}>
+  ...
+</Motor>
+
+```
+
+This is just an example of using the theme to replace the app's brand color. There are a couple of things you should know:
+
+There is a base theme and the customizations you add will merge with it if you use the deepMerge function. As a result, you only need to pass what you need to change, not the entire theme object. These changes will only affect the children of the Theme component.
+
+<br />
+
+
+## Theming with Web Components
+
+<br />
+
+## Structure
+
+The structure of the JSON object is divided into two parts: global and each component entry, for example:
+
+```javascript
+
+const myTheme = {
+  global: {
+    // changes here will affect more than one component at a time
+  },
+  filter: {
+    // changes here will affect the Filter component only
+  },
+  ...
+}
+
+```
+
+## API
+
+This section documents each of the theme entries so that you know what is possible to customize in each component. 
+For simplicity sake, we will reduce the JSON notation to dot signs, so global.animation.duration will translate to:
+

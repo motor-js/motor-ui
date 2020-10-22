@@ -5,11 +5,6 @@ import ChartContext from "../../context/ChartContext";
 import withDefinedContextScales from "../../enhancers/withDefinedContextScales";
 
 function Axis(props) {
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/Axis.jsx
-  const { theme, xScale, yScale, margin, width, height, showAxis } = useContext(
-    ChartContext
-  );
-=======
   const {
     theme,
     xScale,
@@ -23,7 +18,6 @@ function Axis(props) {
     xTickStyles,
     yTickStyles,
   } = useContext(ChartContext);
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/aesthetic/Axis.jsx
   const { orientation } = props;
 
   // The biggest difference between Axes is their label + tick label styles
@@ -85,21 +79,6 @@ function Axis(props) {
       ? width - margin.right
       : 0;
 
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/Axis.jsx
-  switch (showAxis) {
-    case false:
-    case "none":
-      theme.xAxisStyles.strokeWidth = 0;
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-    case "yAxis":
-      theme.xAxisStyles.strokeWidth = 0;
-      break;
-    case "xAxis":
-      theme.yAxisStyles.strokeWidth = 0;
-      break;
-  }
-=======
   const axisPropsStyles =
     orientation === "left" || orientation === "right"
       ? yAxisStyles
@@ -110,7 +89,6 @@ function Axis(props) {
     fontSize: axisStyles?.label?.[orientation].fontSize[size],
     ...axisPropsStyles,
   };
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/aesthetic/Axis.jsx
 
   return (
     <BaseAxis

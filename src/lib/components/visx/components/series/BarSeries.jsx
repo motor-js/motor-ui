@@ -1,15 +1,4 @@
 import React, { useContext, useCallback, useMemo } from "react";
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/series/BarSeries.jsx
-// import ChartContext from "../../context/ChartContext";
-// import withRegisteredData from "../../enhancers/withRegisteredData";
-import isValidNumber from "../../typeguards/isValidNumber";
-// import useRegisteredData from "../../hooks/useRegisteredData";
-import findNearestDatumX from "../../util/findNearestDatumX";
-import findNearestDatumY from "../../util/findNearestDatumY";
-import AnimatedBars from "./AnimatedBars";
-import { Text } from "@vx/text";
-import formatValue from "../../util/formatValue";
-=======
 import { Text } from "@visx/text";
 import ChartContext from "../../context/ChartContext";
 import withRegisteredData from "../../enhancers/withRegisteredData";
@@ -20,42 +9,18 @@ import findNearestDatumY from "../../utils/findNearestDatumY";
 import findNearestDatumComboXY from "../../utils/findNearestDatumComboXY";
 import AnimatedBars from "./AnimatedBars";
 import { selectColor } from "../../../../utils";
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/series/BarSeries.jsx
 
 function BarSeries({
   dataKey,
   dataKeys,
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/series/BarSeries.jsx
-  data,
-  // xAccessor,
-  // yAccessor,
-=======
   data: _,
   xAccessor: __,
   yAccessor: ___,
   elAccessor: ____,
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/series/BarSeries.jsx
   mouseEvents,
   horizontal,
   isCombo = false,
   barThickness: barThicknessProp,
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/series/BarSeries.jsx
-  showLabels,
-  roundNum,
-  precision,
-  xScale,
-  yScale,
-  theme,
-  ...barProps
-}) {
-  //   const { colorScale, xScale, yScale } = useContext(ChartContext);
-  // const { xAccessor, yAccessor } = useRegisteredData(dataKey);
-
-  const xAccessor = (d) => d[0].qText;
-  const yAccessor = (d, colIndex) => Number(d[colIndex].qNum);
-
-  // console.log("props", props);
-=======
   ...barProps
 }) {
   const {
@@ -73,17 +38,12 @@ function BarSeries({
 
   const { data, xAccessor, yAccessor, elAccessor } = useRegisteredData(dataKey);
 
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/series/BarSeries.jsx
   const getScaledX = useCallback((d) => xScale(xAccessor(d)), [
     xScale,
     xAccessor,
   ]);
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/series/BarSeries.jsx
-  const getScaledY = useCallback((d) => yScale(yAccessor(d, 1)), [
-=======
 
   const getScaledY = useCallback((d) => yScale(yAccessor(d)), [
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/series/BarSeries.jsx
     yScale,
     yAccessor,
   ]);
@@ -102,9 +62,7 @@ function BarSeries({
 
   const renderLabel = ({ datum, labelProps }) =>
     datum.label ? (
-      <Text {...labelProps}>
-        {formatValue(datum.label, roundNum, precision)}
-      </Text>
+      <Text {...labelProps}>{formatValue(datum.label)}</Text>
     ) : null;
 
   const [xMin, xMax] = xScale.range();
@@ -164,14 +122,9 @@ function BarSeries({
 
         const minValue = Math.min(...valueScale.domain());
 
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/series/BarSeries.jsx
-        // const barColor = colorScale(dataKeys ? dataKeys[i] : dataKey);
-        const barColor = "red";
-=======
         const barColor = colorScale(
           dataKeys ? (multiColor ? dataKeys[i] : dataKeys[0]) : dataKey
         );
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/series/BarSeries.jsx
 
         const minPosition = valueScale(minValue < 0 ? 0 : minValue);
 
@@ -241,14 +194,6 @@ function BarSeries({
   );
 }
 
-<<<<<<< HEAD:src/lib/components/React/XYChart/xy-chart/components/series/BarSeries.jsx
-// export default withRegisteredData(BarSeries, {
-//   legendShape: () => "rect",
-//   findNearestDatum: ({ horizontal }) =>
-//     horizontal ? findNearestDatumY : findNearestDatumX,
-// });
-export default BarSeries;
-=======
 export default withRegisteredData(BarSeries, {
   legendShape: () => "rect",
   findNearestDatum: ({ horizontal, isCombo }) =>
@@ -259,4 +204,3 @@ export default withRegisteredData(BarSeries, {
       ? findNearestDatumComboXY
       : findNearestDatumX,
 });
->>>>>>> c5e5508d531a7ee168b90232147cdef6eba4c64f:src/lib/components/visx/components/series/BarSeries.jsx
