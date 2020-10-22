@@ -1,0 +1,39 @@
+---
+name: Grid
+route: /grid
+menu: Layout
+---
+
+
+<h1 style={{ margin: '0px' }}>Grid</h1>
+<h3 style={{ margin: '0px' }}><em>A CSS Grid Layout Component</em></h3>
+
+<br />
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Grid from '../../lib/components/Grid/Grid.jsx'
+
+<Playground>
+    <Grid
+    rows={["minmax(100px, auto)"]}
+  cols={["repeat(9, 1fr)"]}
+  areas={[["hd hd hd hd   hd   hd   hd   hd   hd"], ["sd sd sd main main main main main main"], ["ft ft ft ft   ft   ft   ft   ft   ft"]]}
+  backgroundColor="altGray1"
+>
+   <div style={{ gridArea: 'hd' }} class="header">Header</div>
+    <div style={{ gridArea: 'sd' }}  class="sidebar">Sidebar</div>
+    <div style={{ gridArea: 'main' }} class="content">Content</div>
+    <div style={{ gridArea: 'ft' }} class="footer">Footer</div>
+
+</Grid>
+</Playground>
+
+<br />
+
+
+## Props
+
+<Props of={Grid} />
+
+<br />

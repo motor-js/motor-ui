@@ -7,6 +7,7 @@ const SenseUtilities = require("enigma.js/sense-utilities");
 const MAX_RETRIES = 3;
 
 function useEngine(config) {
+
   const responseInterceptors = [
     {
       // We only want to handle failed responses from QIX Engine:

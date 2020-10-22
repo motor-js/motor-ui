@@ -1,7 +1,7 @@
 ---
 name: XYChart Ordinal
 route: /xychartOrdinal
-menu: vx
+menu: visx
 ---
 
 <h1 style={{ margin: '0px' }}>XYChart</h1>
@@ -15,10 +15,10 @@ Check out the props and example usage below 💡
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import Column from '../../lib/components/React/Column/Column.jsx'
-import XYChart from '../../lib/components/React/XYChart/XYChart.jsx'
-import Motor from '../../lib/components/React/Motor/Motor.jsx'
-import Filter from '../../lib/components/React/Filter/Filter.jsx'
+import XYChart from '../../lib/components/XYChart/XYChart.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import Filter from '../../lib/components/Filter/Filter.jsx'
+import Button from '../../lib/components/Button/Button.jsx'
 import { config } from '../config/config.js'
 
 <Playground>
@@ -28,18 +28,32 @@ import { config } from '../config/config.js'
     secure: false,
     port: 19077,
     prefix: '',
-    appId: '5c8ddda7-d4a8-4ee1-b994-922fca34830c',
+    appId: '62160fbb-1fcc-4852-9edb-42dd048f6a3e',
   }}>  
-  {/* <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
-  <Filter label='Forcast Day' dimension={['Forcast Day']} /> */}
+  <Filter label='Year' dimension={['Year']} />
+  <Filter label='OICA region' dimension={['OICA region']} />
+      <Button type="clearSelections">Clear Selections</Button>
     <XYChart // width={750} height={400}  events={true}
+    title="test"
+    subTitle="subTitle"
     colorTheme="bio"
-  //  type="groupedbar"
+    selectionMethod="none"
+    showClosestItem={false}
+    showTooltip={true}
+    showLabels={true}
+    showPoints={true}
+    // useSingleColor
+    // snapToDataX={true}
+    // snapToDataY={true}
+    // shiftTooltipTop={-40}
+  //  showCrossHair={false}
+  //  renderHorizontally
+   type="stackedbar"
     cols={[
       { qField: '[Year]', qLabel: 'Year' },
-   //   { qField: '[OICA region]', qLabel: 'OICA region' },
+{ qField: '[OICA region]', qLabel: 'OICA region' },
       { qField: '=Sum([Car sales])*if(Year=2011,-1,1)', qLabel: 'Car sales' },
-   //    { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car ales' },
+ //    { qField: '=Sum([Car sales])*if(Year=2011,1,1)', qLabel: 'Car ales' },
     ]}/>
   </Motor>
 </Playground>

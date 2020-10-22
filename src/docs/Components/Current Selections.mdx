@@ -1,0 +1,108 @@
+---
+name: Current Selections
+route: /currentselections
+menu: Components
+---
+
+<h1 style={{ margin: '0px' }}>Current Selections</h1>
+<h3 style={{ margin: '0px' }}><em>Current Selections toolbar to view and clear selected values in your app</em></h3>
+
+<br />
+
+## Import
+
+```javascript
+  import { CurrentSelections } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+Track the selections made in your app. The library currently only supports one instance of this object per page.
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import CurrentSelections from '../../lib/components/CurrentSelections/CurrentSelections.jsx'
+import Filter from '../../lib/components/Filter/Filter.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import Box from '../../lib/components/Box/Box.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+  <Motor 
+    config={config}
+  >
+    <div style={{ display: 'flex', height: '50px' }}>
+    <Filter
+      label='Province'
+      dimension={['province']}
+      size='small'
+    />
+    <Filter
+      label='Country'
+      dimension={['country']}
+      size='small'
+    />
+    <Filter
+      label='Region'
+      dimension={['region_1']}
+      size='small'
+    />
+    </div>
+    <Box>
+    <CurrentSelections size='small' />
+    </Box>
+  </Motor>
+</Playground>
+
+<br />
+
+## Props
+
+<Props of={CurrentSelections} />
+
+<br />
+
+## Theming
+
+
+### Entry Point
+
+```javascript
+theme.selections
+```
+
+### Object
+
+Example below is taken from the Motor Theme.
+
+```javascript
+
+selections: {
+  color: {
+    // if null takes global.color.brand
+    defaultFont: null,
+    // if null takes global.color.fontLight,
+    fontTitle: null,
+    item: "white",
+    clear: "white",
+  },
+  wrapper: {
+    border: "1px solid",
+    // if null takes global.backgroundColor
+    backgroundColor: null,
+    // if null takes global.color.brand 
+    borderColor: null,
+    radius: "15px"
+  },
+  item: {
+    border: "",
+    borderColor: "",
+    radius: "15px",
+    backgroundColor: null,
+  },
+}
+
+```
+

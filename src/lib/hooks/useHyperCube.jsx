@@ -8,11 +8,14 @@ const initialState = {
   selections: null,
 };
 
+// details used to determine chart type for combo chart
+
 function reducer(state, action) {
   const {
     payload: { qData, qRData, qLayout, selections },
     type,
   } = action;
+
   switch (type) {
     case "update":
       return {
@@ -45,7 +48,7 @@ const initialProps = {
   qInterColumnSortOrder: [],
   qSuppressZero: false,
   qSortByExpression: 0,
-  qSuppressMissing: false,
+  qSuppressMissing: true,
   qExpression: null,
   getQRData: false,
   qSortByNumeric: -1,
@@ -290,6 +293,11 @@ const useHyperCube = (props) => {
                 id: "colorTheme",
               },
             ],
+            qChartType: col.qChartType,
+            qShowPoints: col.qShowPoints,
+            qCurve: col.qCurve,
+            qFillStyle: col.qFillStyle,
+            qLegendShape: col.qLegendShape,
           };
         }
 
@@ -351,38 +359,57 @@ const useHyperCube = (props) => {
     []
   );
 
-  const update = useCallback(async () => {
-    const _qLayout = await getLayout();
-    const _qData = await getData();
-    if (_qData && _isMounted.current) {
-      const _selections = _qData.qMatrix.filter((row) => row[0].qState === "S");
-      dispatch({
-        type: "update",
-        payload: {
-          qData: _qData,
-          qLayout: _qLayout,
-          selections: _selections,
-        },
-      });
-    } else if (_isMounted.current) {
-      dispatch({
-        type: "update",
-        payload: {
-          qData: _qData,
-          qLayout: _qLayout,
-        },
-      });
-    }
-    if (getQRData) {
-      const _qRData = await getReducedData();
-      if (_isMounted.current) {
+  const update = useCallback(
+    async (measureInfo) => {
+      const _qLayout = await getLayout();
+      const _qData = await getData();
+      if (_qData && _isMounted.current) {
+        const _selections = _qData.qMatrix.filter(
+          (row) => row[0].qState === "S"
+        );
+
+        if (measureInfo) {
+          measureInfo.map((d, i) => {
+            if (_qLayout.qHyperCube.qMeasureInfo[i]) {
+              _qLayout.qHyperCube.qMeasureInfo[i].qChartType = d.qChartType;
+              _qLayout.qHyperCube.qMeasureInfo[i].qShowPoints = d.qShowPoints;
+              _qLayout.qHyperCube.qMeasureInfo[i].qCurve = d.qCurve;
+              _qLayout.qHyperCube.qMeasureInfo[i].qFillStyle = d.qFillStyle;
+              _qLayout.qHyperCube.qMeasureInfo[i].qLegendShape =
+                d.qLegendShape === "dashed" ? "5,2" : null;
+            }
+          });
+        }
+
         dispatch({
-          type: "updateReducedData",
-          payload: { qRData: _qRData },
+          type: "update",
+          payload: {
+            qData: _qData,
+            qLayout: _qLayout,
+            selections: _selections,
+          },
+        });
+      } else if (_isMounted.current) {
+        dispatch({
+          type: "update",
+          payload: {
+            qData: _qData,
+            qLayout: _qLayout,
+          },
         });
       }
-    }
-  }, [getData, getLayout, getQRData, getReducedData]);
+      if (getQRData) {
+        const _qRData = await getReducedData();
+        if (_isMounted.current) {
+          dispatch({
+            type: "updateReducedData",
+            payload: { qRData: _qRData },
+          });
+        }
+      }
+    },
+    [getData, getLayout, getQRData, getReducedData]
+  );
 
   const changePage = useCallback(
     (newPage) => {
@@ -440,9 +467,9 @@ const useHyperCube = (props) => {
         const qDoc = await myEngine;
         qObject.current = await qDoc.createSessionObject(qProp);
         qObject.current.on("changed", () => {
-          update();
+          update(qProp.qHyperCubeDef.qMeasures);
         });
-        update();
+        update(qProp.qHyperCubeDef.qMeasures);
       })();
     }
   }, [generateQProp, myEngine, update]);

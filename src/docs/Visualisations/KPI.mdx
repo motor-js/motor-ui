@@ -1,0 +1,32 @@
+---
+name: KPI
+route: /kpi
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>KPI</h1>
+<h3 style={{ margin: '0px' }}><em>KPI object</em></h3>
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import KPI from '../../lib/components/KPI/KPI.jsx';
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+ <Motor  
+ config={config}>  
+    <KPI
+                      cols={[
+              {
+                qField:'=Sum([Hours])',                qLabel: "Hours",
+              //  qNumType: "M",qNumFmt: "£#,##0",
+              },
+            ]}
+            roundNum={true}
+        label='Sum of Hours'
+        size='medium'
+        border={{color:'brand'}}
+    />
+  </Motor>
+</Playground>

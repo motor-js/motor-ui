@@ -6,35 +6,6 @@ import utility from '../utils/CapApiUtils'
 let capabilityApisPromise
 let capApiSAASPromise
 
-/*
-const _deserialize = response => (response.status !== 200 ? false : response.json())
-
-function getTenant() {
-  return _request('/api/v1/tenants/me').then(_deserialize);
-}
-
-function getUser() {
-  return _request('/api/v1/users/me').then(_deserialize);
-}
-
-function _request(url, config, method = 'GET', payload = null) {
-  if (config) {
-    const tenantUrl = config.host
-    const webIntegrationId = config.webIntId
-
-    return fetch(`https://${tenantUrl}${url}`, {
-      method,
-      mode: 'cors', // cors must be enabled
-      credentials: 'include', // credentials must be included
-      headers: {
-        'Content-Type': 'application/json',
-        'qlik-web-integration-id': webIntegrationId, // needed in order to whitelist your domain
-      },
-      body: payload,
-    })
-  }
-} */
-
 const loadCapSAAS = async config => {
   try {
     if (capApiSAASPromise) {
@@ -104,7 +75,7 @@ const loadCapabilityApis = async config => {
 }
 
 function useCapability(config) {
-  const [viz, setViz] = useState(() => {
+  const [app, setApp] = useState(() => {
     (async () => {
       if (config && config.qcs) {
         const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
@@ -131,7 +102,7 @@ function useCapability(config) {
             app.theme.get().then(theme => {
               theme.apply()
             })
-            setViz(app)
+            setApp(app)
 
             return 1
           })
@@ -163,7 +134,7 @@ function useCapability(config) {
               app.theme.get().then(theme => {
                 theme.apply()
               })
-              setViz(app)
+              setApp(app)
             } else {
               window.require(['js/qlik'], q => {
                 utility.globals.qlik = q
@@ -171,7 +142,7 @@ function useCapability(config) {
                   q.resize()
                 }
                 const app = q.openApp(config.appId, { ...config, isSecure: config.secure, prefix })
-                setViz(app)
+                setApp(app)
 
                 return 1
               })
@@ -184,7 +155,7 @@ function useCapability(config) {
     })()
   }, [])
 
-  return { viz }
+  return { app }
 }
 
 export default useCapability

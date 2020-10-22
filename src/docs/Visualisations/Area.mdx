@@ -1,0 +1,52 @@
+---
+name: Area
+route: /Area
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>XYChart</h1>
+
+<br />
+
+## Usage
+
+Here is a bar chart.
+Check out the props and example usage below 💡
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Area from '../../lib/components/Area/Area.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import Filter from '../../lib/components/Filter/Filter.jsx'
+import Button from '../../lib/components/Button/Button.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+<Motor  
+ config={config}>  
+  <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
+  <Filter label='Forcast Day' dimension={['Forcast Day']} />
+    <Button type="clearSelections">Clear Selections</Button>
+    <Area // width={750} height={400}  events={true}
+       colorTheme="bio"
+       //   fillStyle={{style:'Linear',fillFrom : '#adb5bd', fillTo : '#ccb5bd'}}
+       // fillStyle={{style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"}}
+      // stacked  // add this prop to amke stacked
+      // formatTooltipDate="%B %Y"
+      // parseDateFormat="%d/%m/%Y"
+      // showClosestItem={false}
+      // useSingleColor
+      suppressZero
+      stacked
+      showCrossHair={false}
+      showLabels={true}
+      selectionMethod="click"
+      showPoints={true}
+      // showPoints='star'
+      cols={[
+      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar', qFillStyle:{style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"}},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qFillStyle:"PurpleOrangle",qShowPoints:{ symbol: 'circle', size: 100} ,  },
+    ]}/>
+  </Motor>
+</Playground>

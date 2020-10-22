@@ -130,6 +130,8 @@ dodge
 electric
 */
 
+const fontFamily = "Inter, sans-serif"; /* 'Roboto, sans-serif' */
+
 const base = {
   global: {
     login: {
@@ -151,7 +153,8 @@ const base = {
       buttonColor: "brand",
     },
     backgroundColor: "white",
-    fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
+    // fontFamily: "Inter, sans-serif" /* 'Roboto, sans-serif' */,
+    fontFamily,
     colorTheme: "motor",
     color,
     overlay: {
@@ -217,7 +220,7 @@ const base = {
     },
     responsiveBreakpoints: {
       mobile: "400px",
-      tablet: "840px",
+      tablet: "640px",
       desktop: "1024px",
     },
     focus: {
@@ -227,123 +230,85 @@ const base = {
       },
     },
     chart: {
-      allowSelections: true,
-      allowSlantedYAxis: false,
-      backgroundColor: "white",
-      borderRadius: "10px",
-      margin: "10px",
-      userSelect: "none",
-      suppressZero: false,
-      suppressScroll: false,
-      allowZoom: false,
-      showLabels: "none",
-      showLegend: true,
-      textOnAxis: "both",
-      showAxis: "both",
-      showGridlines: "solid",
-      tickSpacing: "wide",
-      maxAxisLength: 80,
-      display: "inline-block",
-      boxSizing: "border-box",
       border: {
         color: "var(--oc-gray-4)",
         size: "1px",
         style: "solid",
-        radius: "8px",
       },
-      gridlines: {
-        stroke: "var(--oc-gray-4)",
-        strokeDasharray: null,
+      wrapper: {
+        borderRadius: "10px",
+        backgroundColor: "white",
+        userSelect: "none", // add to props
+        display: "flex", // add to props
+        boxSizing: "border-box",
+        position: "relative",
+        padding: "16px 16px 0px",
+        fontWeight: "normal",
+        minHeight: "200px",
+        textDecoration: "none",
+        showBoxShadow: true,
+        boxShadow: "rgba(0, 0, 0, 0.1) -2px 2px 8px 0px",
+        flexDirection: "column",
       },
-      size: {
-        tiny: {
-          padding: "5px 10px",
-          mobile: {
-            label: "8px",
-          },
-          tablet: {
-            label: "8px",
-          },
-          desktop: {
-            label: "10px",
-          },
-          largeDesktop: {
-            label: "10px",
+      error: {
+        // dataErrorMsg: 'Invalid Dimension or Measure.',
+        dimensionErrMsg: "Invalid Dimension.",
+        measureErrMsg: "Invalid Measure. No values returned.",
+      },
+      titles: {
+        wrapper: {
+          display: "flex",
+          flexDirection: "column",
+          webkitBoxPack: "justify",
+          justifyContent: "space-between",
+          maxHeight: "50px",
+          backgroundColor: "rgb(247, 247, 247)",
+          margin: "-16px -16px 0px",
+          padding: "15px 20px",
+          marginBottom: "15px",
+        },
+        title: {
+          color: "var(--oc-gray-8)",
+          fontSize: {
+            tiny: "14px",
+            small: "16px",
+            medium: "18px",
+            large: "20px",
+            xlarge: "22px",
           },
         },
-        small: {
-          padding: "5px 10px",
-          mobile: {
-            label: "10px",
-          },
-          tablet: {
-            label: "10px",
-          },
-          desktop: {
-            label: "12px",
-          },
-          largeDesktop: {
-            label: "12px",
-          },
-        },
-        medium: {
-          padding: "5px 10px",
-          mobile: {
-            label: "12px",
-          },
-          tablet: {
-            label: "12px",
-          },
-          desktop: {
-            label: "14px",
-          },
-          largeDesktop: {
-            label: "14px",
-          },
-        },
-        large: {
-          padding: "5px 10px",
-          mobile: {
-            label: "14px",
-          },
-          tablet: {
-            label: "14px",
-          },
-          desktop: {
-            label: "16px",
-          },
-          largeDesktop: {
-            label: "16px",
-          },
-        },
-        xlarge: {
-          padding: "5px 10px",
-          mobile: {
-            label: "16px",
-          },
-          tablet: {
-            label: "16px",
-          },
-          desktop: {
-            label: "18px",
-          },
-          largeDesktop: {
-            label: "18px",
+        subTitle: {
+          color: "var(--oc-gray-6)",
+          fontSize: {
+            tiny: "10px",
+            small: "12px",
+            medium: "14px",
+            large: "16px",
+            xlarge: "18px",
           },
         },
       },
-      selection: {
-        opacity: 1,
-        stroke: "black",
-        strokeWidth: "1px",
-      },
-      nonSelection: {
-        opacity: 0.5,
-        background: "var(--oc-gray-1)",
-      },
-      label: {
-        fontColor: "fontAlt",
-      },
+      suppressZero: false,
+      suppressMissing: false,
+      otherTotalSpec: undefined,
+      showLegend: true,
+      showAxisLabels: "both",
+      margin: "10px",
+      padding: 0.2, // Padding between bars
+      useAnimatedAxes: false,
+      includeZero: true,
+      multiColor: true,
+      selectionMethod: "brush",
+      autoWidth: false,
+      renderHorizontally: false,
+      allowSelections: true, //captureEvents if captureevents true the cannot make selections
+      events: false,
+      color,
+      showLabels: true,
+      showPoints: true,
+      roundNum: true,
+      precision: true,
+      hideAxisLine: "yAxis",
       noData: {
         verticalAlign: "top",
         borderRadius: "10px",
@@ -357,12 +322,328 @@ const base = {
         justifyContent: "center",
         margin: "10px",
       },
-      error: {
-        // dataErrorMsg: 'Invalid Dimension or Measure.',
-        dimensionErrMsg: "Invalid Dimension.",
-        measureErrMsg: "Invalid Measure. No values returned.",
+      baseColor: "#fff",
+      colors: [
+        "#0b7285",
+        "#15aabf",
+        "#fcc419",
+        "#ff8787",
+        "#6741d9",
+        "#e599f7",
+      ],
+      brush: {
+        stroke: null,
+        patternStroke: null,
+        patternWidth: null,
+        patternHeight: null,
+      },
+      legendStyles: {
+        backgroundColor: "#fff",
+        // stroke: "white",
+        // opacity: 1,
+        // borderRadius: "10px",
+        // legendGroup: { opacity: "1", userSelect: "none" },
+        // legendText: { fill: "var(--oc-gray-7)" },
+      },
+      legendLabelStyles: {
+        fill: "#212529",
+        stroke: "none",
+        fontFamily,
+        fontSize: {
+          tiny: "10px",
+          small: "12px",
+          medium: "14px",
+          large: "16px",
+          xlarge: "18px",
+        },
+        letterSpacing: 0.4,
+        textAnchor: "middle",
+        fontWeight: "normal",
+        pointerEvents: "none",
+      },
+      backgroundStyles: {
+        pattern: null,
+        stroke: "#adb5bd",
+        strokeWidth: 0.5,
+        style: undefined,
+        styleFrom: undefined,
+        styleTo: undefined,
+      },
+      fillStyles: {
+        style: undefined,
+        styleFrom: undefined,
+        styleTo: undefined,
+      },
+      gridStyles: {
+        rows: {
+          stroke: "#adb5bd",
+          strokeWidth: 1,
+          strokeDasharray: "5,3",
+          numTicks: 10,
+          lineStyle: null,
+          // offset: null,
+          tickValues: null,
+        },
+        columns: {
+          stroke: "#adb5bd",
+          strokeWidth: 1,
+          strokeDasharray: "5,3",
+          numTicks: 10,
+          lineStyle: null,
+          // offset: null,
+          tickValues: null,
+        },
+      },
+      selection: {
+        opacity: 1,
+        cursor: "pointer",
+        // stroke: "black",
+        // strokeWidth: "1px",
+      },
+      nonSelection: {
+        opacity: 0.5,
+        cursor: "pointer",
+        // background: "var(--oc-gray-1)",
+      },
+      hover: {
+        opacity: 0.5,
+        cursor: "pointer",
+        // background: "var(--oc-gray-1)",
+      },
+
+      tooltip: {
+        // snapToDataX: false,
+        // snapToDataX: false,
+        valueOnly: false,
+        valueWithText: false,
+        showClosestItem: true, // Used for tooltip
+        useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
+        headingColor: "altDark",
+        tooltipStyles: {
+          borderRadius: "3px",
+          boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+          fontSize: {
+            tiny: "10px",
+            small: "12px",
+            medium: "14px",
+            large: "16px",
+            xlarge: "18px",
+          },
+          lineHeight: "1em",
+          padding: ".3rem .5rem",
+          pointerEvents: "none",
+          position: "absolute",
+          backgroundColor: "#fff",
+          color: "altDark",
+          textAlign: null,
+        },
+      },
+      xAxisStyles: {
+        stroke: "#adb5bd",
+        strokeWidth: 1,
+        label: {
+          bottom: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "10px",
+              small: "12px",
+              medium: "14px",
+              large: "16px",
+              xlarge: "18px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: "normal",
+            pointerEvents: "none",
+            // dy: "-0.25em",
+            dy: "0.25em",
+          },
+          top: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "10px",
+              small: "12px",
+              medium: "14px",
+              large: "16px",
+              xlarge: "18px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: "normal",
+            pointerEvents: "none",
+            dy: "-0.25em",
+          },
+        },
+      },
+      yAxisStyles: {
+        stroke: "#adb5bd",
+        strokeWidth: 1,
+        label: {
+          left: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "10px",
+              small: "12px",
+              medium: "14px",
+              large: "16px",
+              xlarge: "18px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: "normal",
+            pointerEvents: "none",
+            dx: "-2.3em", // "-1.5em",
+          },
+          right: {
+            fill: "#212529",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "10px",
+              small: "12px",
+              medium: "14px",
+              large: "16px",
+              xlarge: "18px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: "normal",
+            pointerEvents: "none",
+            dx: "1.5em",
+          },
+        },
+      },
+      xTickStyles: {
+        stroke: "#adb5bd",
+        tickLength: 4,
+        label: {
+          bottom: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "8px",
+              small: "10px",
+              medium: "12px",
+              large: "14px",
+              xlarge: "16px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dy: "0.125em",
+          },
+          top: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "8px",
+              small: "10px",
+              medium: "12px",
+              large: "14px",
+              xlarge: "16px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "middle",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dy: "-0.35em",
+          },
+        },
+      },
+      yTickStyles: {
+        stroke: "#adb5bd",
+        tickLength: 4,
+        label: {
+          left: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "8px",
+              small: "10px",
+              medium: "12px",
+              large: "14px",
+              xlarge: "16px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "end",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dx: "-0.25em",
+            dy: "0.25em",
+          },
+          right: {
+            fill: "#495057",
+            stroke: "none",
+            fontFamily,
+            fontSize: {
+              tiny: "8px",
+              small: "10px",
+              medium: "12px",
+              large: "14px",
+              xlarge: "16px",
+            },
+            letterSpacing: 0.4,
+            textAnchor: "start",
+            fontWeight: 200,
+            pointerEvents: "none",
+            dx: "0.25em",
+            dy: "0.25em",
+          },
+        },
+      },
+      valueLabelStyles: {
+        fill: "#495057",
+        stroke: "#fff",
+        fontFamily,
+        fontSize: {
+          tiny: "8px",
+          small: "10px",
+          medium: "12px",
+          large: "14px",
+          xlarge: "16px",
+        },
+        letterSpacing: 0.4,
+        strokeWidth: 2,
+        fontWeight: "normal",
+        textAnchor: "middle",
+        pointerEvents: "none",
+        paintOrder: "stroke",
       },
     },
+  },
+  crossHair: {
+    fullHeight: false,
+    fullWidth: false,
+    lineStyles: {
+      pointerEvents: "none",
+    },
+    showCircle: true,
+    showMultipleCircles: true,
+    showHorizontalLine: true,
+    showVerticalLine: true,
+    stroke: "multi",
+    strokeDasharray: "5,2",
+    strokeWidth: 1,
+    circleSize: 5,
+    circleStyles: {
+      pointerEvents: "none",
+    },
+    circleFill: "white",
+    circleClosestFill: "multi",
+    circleStroke: "multi",
+    circleClosestStroke: "multi",
+    circleStrokeWidth: 1,
+    highlightClosetsCircle: true,
   },
   filter: {
     color: {
@@ -680,333 +961,25 @@ const base = {
     size: 50,
     timeout: 5000,
   },
-  xyChart: {
-    borderRadius: "10px",
-    backgroundColor: "white",
-    suppressZero: false,
-    otherTotalSpec: undefined,
-    showLegend: true,
-    margin: "10px",
-    padding: 0.2,
-    useAnimatedAxes: false,
-    includeZero: true,
-    multiColor: true,
-    autoWidth: false,
-    renderHorizontally: false,
-    events: false,
-    backgroundPattern: null,
-    boxSizing: "border-box",
-    userSelect: "none", // add to props
-    display: "inline-block", // add to props
-    showLabels: true,
-    showPoints: false,
-    roundNum: true,
-    precision: true,
-    showVerticalCrosshair: true,
-    showAxis: "none",
-    noData: {
-      verticalAlign: "top",
-      borderRadius: "10px",
-      // backgroundColor: "var(--oc-gray-1)",
-      backgroundColor: "white",
-      // borderCollapse: "collapse",
-    },
-    noDataContent: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      margin: "10px",
-    },
-    defaultTheme: {
-      baseColor: "#fff",
-      colors: [
-        "#0b7285",
-        "#15aabf",
-        "#fcc419",
-        "#ff8787",
-        "#6741d9",
-        "#e599f7",
-      ],
-      labelStyles: {
-        // Used for legend
-        fill: "#212529",
-        stroke: "none",
-        fontFamily:
-          "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-        fontSize: 12,
-        letterSpacing: 0.4,
-        textAnchor: "middle",
-        fontWeight: 700,
-        pointerEvents: "none",
-      },
-      gridStyles: { stroke: "#adb5bd", strokeWidth: 1 },
-      xAxisStyles: {
-        stroke: "#adb5bd",
-        strokeWidth: 1,
-        label: {
-          bottom: {
-            fill: "#212529",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 700,
-            pointerEvents: "none",
-            dy: "-0.25em",
-          },
-          top: {
-            fill: "#212529",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 700,
-            pointerEvents: "none",
-            dy: "-0.25em",
-          },
-        },
-      },
-      yAxisStyles: {
-        stroke: "#adb5bd",
-        strokeWidth: 1,
-        label: {
-          left: {
-            fill: "#212529",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 700,
-            pointerEvents: "none",
-            dx: "-1.5em",
-          },
-          right: {
-            fill: "#212529",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 700,
-            pointerEvents: "none",
-            dx: "1.5em",
-          },
-        },
-      },
-      xTickStyles: {
-        stroke: "#adb5bd",
-        tickLength: 4,
-        label: {
-          bottom: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 10,
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 200,
-            pointerEvents: "none",
-            dy: "0.125em",
-          },
-          top: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 10,
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 200,
-            pointerEvents: "none",
-            dy: "-0.25em",
-          },
-        },
-      },
-      yTickStyles: {
-        stroke: "#adb5bd",
-        tickLength: 4,
-        label: {
-          left: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 10,
-            letterSpacing: 0.4,
-            textAnchor: "end",
-            fontWeight: 200,
-            pointerEvents: "none",
-            dx: "-0.25em",
-            dy: "0.25em",
-          },
-          right: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily:
-              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 10,
-            letterSpacing: 0.4,
-            textAnchor: "start",
-            fontWeight: 200,
-            pointerEvents: "none",
-            dx: "0.25em",
-            dy: "0.25em",
-          },
-        },
-      },
-      svgLabel: {
-        baseLabel: {
-          fill: "#495057",
-          stroke: "none",
-          fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-          fontSize: 12,
-          letterSpacing: 0.4,
-          fontWeight: 700,
-          textAnchor: "middle",
-          pointerEvents: "none",
-        },
-        baseTickLabel: {
-          fill: "#495057",
-          stroke: "none",
-          fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-          fontSize: 12,
-          letterSpacing: 0.4,
-          fontWeight: 200,
-          textAnchor: "middle",
-          pointerEvents: "none",
-        },
-        tickLabels: {
-          top: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            fontWeight: 200,
-            textAnchor: "middle",
-            pointerEvents: "none",
-            dy: "-0.25em",
-          },
-          right: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            fontWeight: 200,
-            textAnchor: "start",
-            pointerEvents: "none",
-            dx: "0.25em",
-            dy: "0.25em",
-          },
-          bottom: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            fontWeight: 200,
-            textAnchor: "middle",
-            pointerEvents: "none",
-            dy: "0.25em",
-          },
-          left: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily: "BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontSize: 12,
-            letterSpacing: 0.4,
-            fontWeight: 200,
-            textAnchor: "end",
-            pointerEvents: "none",
-            dx: "-0.25em",
-            dy: "0.25em",
-          },
-        },
-      },
-    },
-  },
-
-  column: {
-    main: {
-      zoomScrollOnColumnWidth: 30,
-      columnPadding: 20,
-      otherTotalSpec: undefined,
-      // if the columns are narrower than zoomScrollOnColumnWidth
-      // try apply this padding to inclrease thier size
-      columnPaddingNarrow: 10,
-      maxWidth: 150,
-    },
-    columns: {
-      stroke: null,
-      strokeWidth: 0,
-    },
-    overview: {
-      opacity: 0,
-      stroke: null,
-      strokeWidth: 0,
-    },
-  },
-  bar: {
-    main: {
-      zoomScrollOnBarHeight: 25,
-      barPadding: 20,
-      otherTotalSpec: undefined,
-      // if the columns are narrower than zoomScrollOnColumnWidth try apply this padding to inclrease thier size
-      barPaddingNarrow: 10,
-      maxWidth: 100,
-    },
-    bars: {
-      stroke: "var(--oc-gray-4)",
-      strokeWidth: 0.5,
-    },
-    overview: {
-      opacity: 0.5,
-      stroke: "var(--oc-gray-4)",
-      strokeWidth: 0.5,
-    },
-  },
-  line: {
-    main: {
-      dataPointsToShow: 100,
-      otherTotalSpec: undefined,
-      symbol: "circle",
-      strokeWidth: 1,
-      fillOpacity: 0.7,
-    },
-  },
+  bar: { stroke: "#fff", strokeWidth: 1 },
+  stackedArea: { stroke: "#fff", strokeWidth: 1 },
+  points: { size: 50, strokeWidth: 2 },
   scatter: {
-    main: {
-      otherTotalSpec: undefined,
-    },
-    scatters: {
-      fill: "none",
-      stroke: "var(--oc-pink-4)",
-      strokeWidth: 2,
-    },
-    markers: {
-      main: { radius: 5 },
-      overview: { radius: 3 },
-    },
-    overview: {
-      opacity: 1,
-      fill: "none",
-      stroke: "var(--oc-gray-5)",
-      strokeWidth: 0.5,
+    size: 5,
+    style: {
+      strokeWidth: null,
+      stroke: null,
+      // cursor: "pointer",
     },
   },
   pie: {
-    main: {
-      otherTotalSpec: { qOtherLabel: "Other", qOtherCount: "9" },
-    },
+    margin: { top: 20, right: 20, bottom: 20, left: 20 },
+    stroke: "#adb5bd",
+    strokeWidth: 0.5,
+    cornerRadius: 3,
+    padAngle: 0.005,
+    isDonut: false,
+    donutThickness: 50,
   },
   barplot: {
     main: {
@@ -1016,56 +989,6 @@ const base = {
   wordcloud: {
     main: {
       otherTotalSpec: { qOtherLabel: "Other", qOtherCount: "5" },
-    },
-  },
-  tooltip: {
-    position: "absolute",
-    color: "altDark",
-    display: "none",
-    minWidth: "80px",
-    height: "auto",
-    background: "none repeat scroll 0 0 #ffffff",
-    padding: "6px",
-    textAlign: "center",
-    opacity: 0.9,
-    pointerEvents: "none",
-    backgroundColor: "white",
-    border: "1px solid var(--oc-gray-2)",
-    borderRadius: "6px",
-    boxShadow: "4px 4px 12px rgba(0, 0, 0, .5)",
-  },
-  xAxis: { color: "altDark" },
-  yAxis: { color: "altDark" },
-  axisTitle: { color: "altDark" },
-  title: {
-    textPostion: "middle",
-    main: {
-      fontColor: "altDark",
-      fontWeight: null,
-      padding: 2,
-    },
-    sub: {
-      fontColor: "altGray6",
-      opacity: 0.5,
-      padding: 2,
-    },
-  },
-  legend: {
-    fill: "white",
-    stroke: "white",
-    opacity: 1,
-    borderRadius: "10px",
-    legendGroup: { opacity: "1", userSelect: "none" },
-    legendText: { fill: "var(--oc-gray-7)" },
-    arrowStyle: {
-      fill: "var(--oc-pink-5)",
-      stroke: "var(--oc-pink-5)",
-      opacity: 0.5,
-    },
-    arrowDisabledStyle: {
-      fill: "var(--oc-pink-1)",
-      stroke: "var(--oc-pink-1)",
-      opacity: 0.5,
     },
   },
   search: {
@@ -1093,6 +1016,8 @@ const base = {
   modal: {
     radius: "8px",
   },
+  QlikObject: {},
+  QlikSelections: {},
 };
 
 export default base;

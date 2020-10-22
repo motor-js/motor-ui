@@ -1,1 +1,0 @@
-export { wrap } from './Axis'

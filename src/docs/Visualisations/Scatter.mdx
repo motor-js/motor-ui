@@ -1,0 +1,61 @@
+---
+name: Scatter
+route: /scatter
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>XYChart</h1>
+
+<br />
+
+## Usage
+
+Here is a bar chart.
+Check out the props and example usage below 💡
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Scatter from '../../lib/components/Scatter/Scatter.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import Filter from '../../lib/components/Filter/Filter.jsx'
+import Button from '../../lib/components/Button/Button.jsx'
+import { config } from '../config/config.js'
+
+<Playground>
+<Motor  
+   config={{
+   host: "juno-ui.eu.qlikcloud.com",
+   secure: true,
+   port: null,
+   prefix: "",
+    appId: '0c07cd52-e6a1-45ff-a605-fd37394f90bf',
+   qcs: true,
+   webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
+  }}>  
+  <Filter label='Supplier Name' dimension={['Supplier Name']} />
+  <Filter label='Forcast Day' dimension={['Forcast Day']} />
+    <Button type="clearSelections">Clear Selections</Button>
+    <Scatter // width={750} height={400}  events={true}
+    colorTheme="bio"
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+     showLabels={true}
+     selectionMethod='click'
+     showPoints={true}
+       xAxisStyles={{stroke: "red"}}
+             tooltipStyles= {{
+          borderRadius: "10px",  background: "pink"}}
+  // showCrossHair={true}
+      cols={[
+      { qField: 'Supplier Name', qLabel: 'Supplier Name',qCondChartColor:"=if(Avg(([Supplier Complaints])>12) or (Avg([Supplier Satisfaction Rating])<10),'Red', 'Green')" },
+     { qField: '=[Supplier Complaints]/Sum(ClaimCounter)', qLabel: 'Ave Supplier Complaints',
+            qNumFmt: "#,##0.00%",
+        qNumType:"R"
+       },
+   { qField: '=Avg([Supplier Satisfaction Rating])', qLabel: 'Ave Supplier Satisfaction Rating' },
+   { qField: '=Len([Supplier Name])', qLabel: 'Ave Satisfaction Rating' },
+    ]}/>
+  </Motor>
+</Playground>

@@ -1,35 +1,35 @@
-export const isObject = item => item && typeof item === 'object' && !Array.isArray(item)
+export const isObject = (item) =>
+  item && typeof item === "object" && !Array.isArray(item);
 
-export const deepFreeze = obj => {
+export const deepFreeze = (obj) => {
   Object.keys(obj).forEach(
-    key => key && isObject(obj[key]) && Object.freeze(obj[key]),
-  )
+    (key) => key && isObject(obj[key]) && Object.freeze(obj[key])
+  );
 
-  return Object.freeze(obj)
-}
+  return Object.freeze(obj);
+};
 
 export const deepMerge = (target, ...sources) => {
-  // console.log('Merge: ',target, ...sources)
   if (!sources.length) {
-    return target
+    return target;
   }
   // making sure to not change target (immutable)
-  const output = { ...target }
-  sources.forEach(source => {
+  const output = { ...target };
+  sources.forEach((source) => {
     if (isObject(source)) {
-      Object.keys(source).forEach(key => {
+      Object.keys(source).forEach((key) => {
         if (isObject(source[key])) {
           if (!output[key]) {
-            output[key] = { ...source[key] }
+            output[key] = { ...source[key] };
           } else {
-            output[key] = deepMerge(output[key], source[key])
+            output[key] = deepMerge(output[key], source[key]);
           }
         } else {
-          output[key] = source[key]
+          output[key] = source[key];
         }
-      })
+      });
     }
-  })
+  });
 
-  return output
-}
+  return output;
+};

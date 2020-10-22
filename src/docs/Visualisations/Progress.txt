@@ -1,0 +1,29 @@
+---
+name: Progress Chart
+route: /progress
+menu: Visualisations
+---
+
+<h1 style={{ margin: '0px' }}>Progress Chart</h1>
+<h3 style={{ margin: '0px' }}><em>Progress Chart either radial or linear</em></h3>
+
+<br />
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Progress from '../../lib/components/Progress/Progress.jsx';
+
+<Playground>
+    <Progress 
+        config={{
+            host: "localhost",
+            secure: false,
+            port: 19077,
+            prefix: "",
+            app: "34732db9-df5a-4948-a7f9-179efa620003.qvf"
+        }}
+        cols={["=Count(distinct country)"]}
+        size='medium'
+        type='radial'
+    />
+</Playground>
