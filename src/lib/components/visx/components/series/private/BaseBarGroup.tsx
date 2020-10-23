@@ -130,14 +130,15 @@ export default function BaseBarGroup<
   const barThickness = getScaleBandwidth(groupScale);
 
   const bars = registryEntries.flatMap(({ xAccessor, yAccessor, data, key }) => {
+
     const getLength = (d: Datum) =>
       horizontal
         ? (xScale(xAccessor(d)) ?? 0) - xZeroPosition
-        : (yScale(yAccessor(d)) ?? 0) - yZeroPosition;
+        : (yScale(yAccessor(d,key)) ?? 0) - yZeroPosition;
 
     const getGroupPosition = horizontal
       ? (d: Datum) => yScale(yAccessor(d)) ?? 0
-      : (d: Datum) => xScale(xAccessor(d)) ?? 0;
+      : (d: Datum) => xScale(xAccessor(d,key)) ?? 0;
 
     const withinGroupPosition = groupScale(key) ?? 0;
 

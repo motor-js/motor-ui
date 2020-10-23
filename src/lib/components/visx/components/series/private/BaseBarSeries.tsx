@@ -46,8 +46,9 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0 } = useContext(
     DataContext,
   );
+  const key=1;
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
-  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor), [yScale, yAccessor]);
+  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor,dataKey), [yScale, yAccessor]);
   const scaleBandwidth = getScaleBandwidth(horizontal ? yScale : xScale);
   const barThickness =
     scaleBandwidth ||
@@ -63,7 +64,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
     const yOffset = horizontal ? -barThickness / 2 : 0;
     return data.map((datum, index) => {
       const x = getScaledX(datum) + xOffset;
-      const y = getScaledY(datum) + yOffset;
+      const y = getScaledY(datum,dataKey) + yOffset;
       const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
 
       return {

@@ -73,6 +73,10 @@ export default function CreateXYChart({
   type,
   backgroundPattern,
   backgroundStyle,
+  singleDimension,
+  singleMeasure,
+  measureCount,
+  dimensionCount,
 
   animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
@@ -218,7 +222,7 @@ export default function CreateXYChart({
         )}
         {chartType === "bargroup" && (
           <BarGroup horizontal={renderHorizontally}>
-            <BarSeries
+            {/* <BarSeries
               dataKey="New York"
               data={data}
               xAccessor={accessors.x["New York"]}
@@ -235,7 +239,32 @@ export default function CreateXYChart({
               data={data}
               xAccessor={accessors.x.Austin}
               yAccessor={accessors.y.Austin}
-            />
+            /> */}
+            {singleDimension
+              ? measureInfo.map((measure, index) => (
+                  <BarSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    // dataKey={measureInfo[index].qFallbackTitle}
+                    // data={currData}
+                    // {...dataAccessors[index]}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={data}
+                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                  />
+                ))
+              : dataKeys.map((measure, index) => (
+                  <BarSeries
+                    key={measure}
+                    // dataKey={measure}
+                    // data={currData}
+                    // {...dataAccessors[index]}
+                    dataKey={measure}
+                    data={data}
+                    xAccessor={accessors.x[measure]}
+                    yAccessor={accessors.y[measure]}
+                  />
+                ))}
           </BarGroup>
         )}
         {chartType === "bar" && (

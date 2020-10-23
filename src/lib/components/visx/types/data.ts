@@ -1,7 +1,7 @@
-import { AxisScale } from '@visx/axis';
-import { ScaleTypeToD3Scale, ScaleInput } from '@visx/scale';
-import DataRegistry from '../classes/DataRegistry';
-import { XYChartTheme } from './theme';
+import { AxisScale } from "@visx/axis";
+import { ScaleTypeToD3Scale, ScaleInput } from "@visx/scale";
+import DataRegistry from "../classes/DataRegistry";
+import { XYChartTheme } from "./theme";
 
 export type Margin = {
   top: number;
@@ -10,9 +10,13 @@ export type Margin = {
   left: number;
 };
 
-export type LegendShape = 'rect' | 'line' | 'dashed-line' | 'circle';
+export type LegendShape = "rect" | "line" | "dashed-line" | "circle";
 
-export interface DataRegistryEntry<XScale extends AxisScale, YScale extends AxisScale, Datum> {
+export interface DataRegistryEntry<
+  XScale extends AxisScale,
+  YScale extends AxisScale,
+  Datum
+> {
   /** unique data key */
   key: string;
   /** array of data for the key. */
@@ -20,7 +24,7 @@ export interface DataRegistryEntry<XScale extends AxisScale, YScale extends Axis
   /** function that returns the x value of a datum. */
   xAccessor: (d: Datum) => ScaleInput<XScale>;
   /** function that returns the y value of a datum. */
-  yAccessor: (d: Datum) => ScaleInput<YScale>;
+  yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
   /** whether the entry supports mouse events. */
   mouseEvents?: boolean;
   /** Optionally update the xScale. */
@@ -38,17 +42,26 @@ export interface DataContextType<
 > {
   xScale: XScale;
   yScale: YScale;
-  colorScale: ScaleTypeToD3Scale<string, string>['ordinal'];
+  colorScale: ScaleTypeToD3Scale<string, string>["ordinal"];
   width: number;
   height: number;
   innerWidth: number;
   innerHeight: number;
   margin: Margin;
-  dataRegistry: Omit<DataRegistry<XScale, YScale, Datum>, 'registry' | 'registryKeys'>;
+  dataRegistry: Omit<
+    DataRegistry<XScale, YScale, Datum>,
+    "registry" | "registryKeys"
+  >;
   registerData: (
-    data: DataRegistryEntry<XScale, YScale, Datum> | DataRegistryEntry<XScale, YScale, Datum>[],
+    data:
+      | DataRegistryEntry<XScale, YScale, Datum>
+      | DataRegistryEntry<XScale, YScale, Datum>[]
   ) => void;
   unregisterData: (keyOrKeys: string | string[]) => void;
-  setDimensions: (dims: { width: number; height: number; margin: Margin }) => void;
+  setDimensions: (dims: {
+    width: number;
+    height: number;
+    margin: Margin;
+  }) => void;
   theme: XYChartTheme;
 }

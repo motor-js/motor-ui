@@ -1,19 +1,25 @@
-import { AxisScale } from '@visx/axis';
-import { ScaleInput } from '@visx/scale';
-import isValidNumber from '../typeguards/isValidNumber';
-import getScaleBandwidth from './getScaleBandwidth';
+import { AxisScale } from "@visx/axis";
+import { ScaleInput } from "@visx/scale";
+import isValidNumber from "../typeguards/isValidNumber";
+import getScaleBandwidth from "./getScaleBandwidth";
 
 /** Returns a function that takes a Datum as input and returns a scaled value, correcting for the scale's bandwidth if applicable. */
-export default function getScaledValueFactory<Scale extends AxisScale, Datum>(
+export default function getScaledValueFactory<
+  Scale extends AxisScale,
+  Datum,
+  String
+>(
   scale: Scale,
-  accessor: (d: Datum) => ScaleInput<Scale>,
-  align: 'start' | 'center' | 'end' = 'center',
+  accessor: (d: Datum, s?: String) => ScaleInput<Scale>,
+  dataKey?: String,
+  align: "start" | "center" | "end" = "center"
 ) {
-  return (d: Datum) => {
-    const scaledValue = scale(accessor(d));
+  return (d: Datum, s?: String) => {
+    const scaledValue = scale(accessor(d, dataKey));
     if (isValidNumber(scaledValue)) {
       const bandwidthOffset =
-        (align === 'start' ? 0 : getScaleBandwidth(scale)) / (align === 'center' ? 2 : 1);
+        (align === "start" ? 0 : getScaleBandwidth(scale)) /
+        (align === "center" ? 2 : 1);
       return scaledValue + bandwidthOffset;
     }
     // @TODO: NaNs cause react-spring to throw, but the return value of this must be number

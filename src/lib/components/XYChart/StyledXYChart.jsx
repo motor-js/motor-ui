@@ -259,10 +259,10 @@ function StyledXYChart(props) {
     //         numDimensionTicks={numDimensionTicks}
     theme,
     //         borderRadius={borderRadius}
-    //         singleDimension={singleDimension}
-    //         singleMeasure={singleMeasure}
-    //         measureCount={measureCount}
-    //         dimensionCount={dimensionCount}
+    singleDimension,
+    singleMeasure,
+    measureCount,
+    dimensionCount,
     data,
     //         keys={keys}
     //         dataKeys={dataKeys}
