@@ -26,6 +26,7 @@ import { config } from '../config/config.js'
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
     <XYChart 
+    type="barstack"
      width={750} 
      height={500}  
     colorTheme="bio"
@@ -39,7 +40,7 @@ import { config } from '../config/config.js'
      selectionMethod='click'
      showPoints={true}
     // showPoints='star'
-    type="stackedarea"
+    //type="stackedarea"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},

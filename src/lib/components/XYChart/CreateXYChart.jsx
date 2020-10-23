@@ -199,6 +199,24 @@ export default function CreateXYChart({
             />
           </>
         )}
+        {chartType === "combo" && (
+          <>
+            <BarSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
+              horizontal={renderHorizontally}
+            />
+            <LineSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+              horizontal={renderHorizontally}
+            />
+          </>
+        )}
         <AnimatedAxis
           key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
           orientation={renderHorizontally ? yAxisOrientation : xAxisOrientation}

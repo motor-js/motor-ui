@@ -5,7 +5,7 @@ import XYChart from "../XYChart";
 function Area({ cols, stacked, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
-      type={cols.length !== 2 && stacked ? "stackedarea" : "area"}
+      type={cols.length !== 2 && stacked ? "areastack" : "area"}
       cols={cols}
       {...rest}
     />
