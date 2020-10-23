@@ -18,7 +18,6 @@ import { colorByExpression, selectColor } from "../../utils";
 import { buildChartTheme } from "../visx";
 import { lightTheme, darkTheme } from "../visx";
 
-import ExampleControls from "./ExampleControls";
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
 
@@ -217,6 +216,60 @@ export default function CreateXYChart({
             />
           </>
         )}
+        {chartType === "area" && (
+          <>
+            <BarSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
+              horizontal={renderHorizontally}
+            />
+            <LineSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+              horizontal={renderHorizontally}
+            />
+          </>
+        )}
+        {chartType === "areastack" && (
+          <>
+            <BarSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
+              horizontal={renderHorizontally}
+            />
+            <LineSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+              horizontal={renderHorizontally}
+            />
+          </>
+        )}
+        {chartType === "scatter" && (
+          <>
+            <BarSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
+              horizontal={renderHorizontally}
+            />
+            <LineSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+              horizontal={renderHorizontally}
+            />
+          </>
+        )}
         <AnimatedAxis
           key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
           orientation={renderHorizontally ? yAxisOrientation : xAxisOrientation}
@@ -267,7 +320,7 @@ export default function CreateXYChart({
                         }}
                       >
                         {city}
-                      </em>{" "}
+                      </em>
                       {tooltipData?.nearestDatum?.datum
                         ? accessors[renderHorizontally ? "x" : "y"][city](
                             tooltipData?.nearestDatum?.datum
