@@ -263,7 +263,7 @@ function StyledXYChart(props) {
     //         singleMeasure={singleMeasure}
     //         measureCount={measureCount}
     //         dimensionCount={dimensionCount}
-    //         data={data}
+    data,
     //         keys={keys}
     //         dataKeys={dataKeys}
     beginSelections,

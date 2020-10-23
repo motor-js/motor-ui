@@ -29,7 +29,7 @@ import { lightTheme, darkTheme } from "../visx";
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
 
-console.log(data);
+import { isDefined } from "../visx/typeguards/isDefined";
 
 const dateScaleConfig = { type: "band", paddingInner: 0.3 };
 // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
@@ -45,15 +45,13 @@ const valueScaleConfig = { type: "linear" };
 //    [includeZero]
 //  );
 
-const getDate = (d) => d.date;
-const getSfTemperature = (d) => Number(d["San Francisco"]);
-const getNyTemperature = (d) => Number(d["New York"]);
-const getAustinTemperature = (d) => Number(d.Austin);
+// const getDate = (d) => d.date;
+// const getSfTemperature = (d) => Number(d["San Francisco"]);
+// const getNyTemperature = (d) => Number(d["New York"]);
+// const getAustinTemperature = (d) => Number(d.Austin);
 
-const data = cityTemperature.slice(200, 275);
-const dataSmall = data.slice(0, 25);
-
-// console.log(data);
+// const data = cityTemperature.slice(200, 275);
+// const dataSmall = data.slice(0, 25);
 
 export default function CreateXYChart({
   height,
@@ -61,6 +59,7 @@ export default function CreateXYChart({
     qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
+  data,
   xAxisOrientation,
   yAxisOrientation,
   renderHorizontally,
@@ -95,7 +94,24 @@ export default function CreateXYChart({
   // } = theme;
 
   // console.log(darkTheme);
-  // console.log(type);
+  // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
+
+  const isScatter = chartType.includes("scatter");
+
+  // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
+  const getDimension = (d) => d[0].qText;
+
+  const getSeriesValues = (d, dataKey) => {
+    if (!d) return null;
+    let colIndex;
+    measureInfo.some(function(x, i) {
+      if (x.qFallbackTitle === dataKey) return (colIndex = i);
+    });
+    colIndex += dimensionInfo.length;
+    return isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
+  };
+
+  const getElementNumber = (d) => d[0].qElemNumber;
 
   const chartTheme = {
     ...theme.global.chart,
@@ -107,19 +123,48 @@ export default function CreateXYChart({
     // colors,
   };
 
+  //  const accessors = useMemo(
+  //    () => ({
+  //      x: {
+  //        "San Francisco": renderHorizontally ? getSfTemperature : getDate,
+  //        "New York": renderHorizontally ? getNyTemperature : getDate,
+  //        Austin: renderHorizontally ? getAustinTemperature : getDate,
+  //      },
+  //      y: {
+  //        "San Francisco": renderHorizontally ? getDate : getSfTemperature,
+  //        "New York": renderHorizontally ? getDate : getNyTemperature,
+  //        Austin: renderHorizontally ? getDate : getAustinTemperature,
+  //      },
+  //      date: getDate,
+  //    }),
+  //    [renderHorizontally]
+  //  );
+
+  // console.log(data);
+
+  const xAaccessors = measureInfo
+    .map((measure) => {
+      return {
+        id: [measure.qFallbackTitle],
+        function: renderHorizontally ? getSeriesValues : getDimension,
+      };
+    })
+    .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
+
+  const yAaccessors = measureInfo
+    .map((measure) => {
+      return {
+        id: [measure.qFallbackTitle],
+        function: renderHorizontally ? getDimension : getSeriesValues,
+      };
+    })
+    .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
+
   const accessors = useMemo(
     () => ({
-      x: {
-        "San Francisco": renderHorizontally ? getSfTemperature : getDate,
-        "New York": renderHorizontally ? getNyTemperature : getDate,
-        Austin: renderHorizontally ? getAustinTemperature : getDate,
-      },
-      y: {
-        "San Francisco": renderHorizontally ? getDate : getSfTemperature,
-        "New York": renderHorizontally ? getDate : getNyTemperature,
-        Austin: renderHorizontally ? getDate : getAustinTemperature,
-      },
-      date: getDate,
+      x: xAaccessors,
+      y: yAaccessors,
+      date: getDimension,
     }),
     [renderHorizontally]
   );
@@ -195,10 +240,10 @@ export default function CreateXYChart({
         )}
         {chartType === "bar" && (
           <BarSeries
-            dataKey="New York"
+            dataKey={measureInfo[0].qFallbackTitle}
             data={data}
-            xAccessor={accessors.x["New York"]}
-            yAccessor={accessors.y["New York"]}
+            xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
+            yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             horizontal={renderHorizontally}
           />
         )}
