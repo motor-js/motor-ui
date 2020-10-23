@@ -20,10 +20,8 @@ import {
   XYChart,
 } from "../visx";
 
-import cityTemperature from "@visx/mock-data/lib/mocks/cityTemperature";
-
 import { colorByExpression, selectColor } from "../../utils";
-import { buildChartTheme } from "../visx";
+// import { buildChartTheme } from "../visx";
 import { lightTheme, darkTheme } from "../visx";
 
 import CustomChartBackground from "./CustomChartBackground";
@@ -44,14 +42,6 @@ const valueScaleConfig = { type: "linear" };
 //    }),
 //    [includeZero]
 //  );
-
-// const getDate = (d) => d.date;
-// const getSfTemperature = (d) => Number(d["San Francisco"]);
-// const getNyTemperature = (d) => Number(d["New York"]);
-// const getAustinTemperature = (d) => Number(d.Austin);
-
-// const data = cityTemperature.slice(200, 275);
-// const dataSmall = data.slice(0, 25);
 
 export default function CreateXYChart({
   height,
@@ -127,25 +117,6 @@ export default function CreateXYChart({
     // colors,
   };
 
-  //  const accessors = useMemo(
-  //    () => ({
-  //      x: {
-  //        "San Francisco": renderHorizontally ? getSfTemperature : getDate,
-  //        "New York": renderHorizontally ? getNyTemperature : getDate,
-  //        Austin: renderHorizontally ? getAustinTemperature : getDate,
-  //      },
-  //      y: {
-  //        "San Francisco": renderHorizontally ? getDate : getSfTemperature,
-  //        "New York": renderHorizontally ? getDate : getNyTemperature,
-  //        Austin: renderHorizontally ? getDate : getAustinTemperature,
-  //      },
-  //      date: getDate,
-  //    }),
-  //    [renderHorizontally]
-  //  );
-
-  // console.log(data);
-
   const xAaccessors = measureInfo
     .map((measure) => {
       return {
@@ -200,53 +171,10 @@ export default function CreateXYChart({
         />
         {chartType === "barstack" && (
           <BarStack horizontal={renderHorizontally}>
-            <BarSeries
-              dataKey="New York"
-              data={data}
-              xAccessor={accessors.x["New York"]}
-              yAccessor={accessors.y["New York"]}
-            />
-            <BarSeries
-              dataKey="San Francisco"
-              data={data}
-              xAccessor={accessors.x["San Francisco"]}
-              yAccessor={accessors.y["San Francisco"]}
-            />
-            <BarSeries
-              dataKey="Austin"
-              data={data}
-              xAccessor={accessors.x.Austin}
-              yAccessor={accessors.y.Austin}
-            />
-          </BarStack>
-        )}
-        {chartType === "bargroup" && (
-          <BarGroup horizontal={renderHorizontally}>
-            {/* <BarSeries
-              dataKey="New York"
-              data={data}
-              xAccessor={accessors.x["New York"]}
-              yAccessor={accessors.y["New York"]}
-            />
-            <BarSeries
-              dataKey="San Francisco"
-              data={data}
-              xAccessor={accessors.x["San Francisco"]}
-              yAccessor={accessors.y["San Francisco"]}
-            />
-            <BarSeries
-              dataKey="Austin"
-              data={data}
-              xAccessor={accessors.x.Austin}
-              yAccessor={accessors.y.Austin}
-            /> */}
             {singleDimension
               ? measureInfo.map((measure, index) => (
                   <BarSeries
                     key={measureInfo[index].qFallbackTitle}
-                    // dataKey={measureInfo[index].qFallbackTitle}
-                    // data={currData}
-                    // {...dataAccessors[index]}
                     dataKey={measureInfo[index].qFallbackTitle}
                     data={data}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
@@ -256,9 +184,29 @@ export default function CreateXYChart({
               : dataKeys.map((measure, index) => (
                   <BarSeries
                     key={measure}
-                    // dataKey={measure}
-                    // data={currData}
-                    // {...dataAccessors[index]}
+                    dataKey={measure}
+                    data={data}
+                    xAccessor={accessors.x[measure]}
+                    yAccessor={accessors.y[measure]}
+                  />
+                ))}
+          </BarStack>
+        )}
+        {chartType === "bargroup" && (
+          <BarGroup horizontal={renderHorizontally}>
+            {singleDimension
+              ? measureInfo.map((measure, index) => (
+                  <BarSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={data}
+                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                  />
+                ))
+              : dataKeys.map((measure, index) => (
+                  <BarSeries
+                    key={measure}
                     dataKey={measure}
                     data={data}
                     xAccessor={accessors.x[measure]}
