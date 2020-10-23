@@ -5,7 +5,7 @@ import XYChart from "../XYChart";
 function Bar({ cols, stacked, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
-      type={cols.length === 2 ? "bar" : stacked ? "stackedbar" : "groupedbar"}
+      type={cols.length === 2 ? "bar" : stacked ? "barstack" : "bargroup"}
       cols={cols}
       {...rest}
     />

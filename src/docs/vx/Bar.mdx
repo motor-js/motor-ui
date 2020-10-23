@@ -1,6 +1,6 @@
 ---
-name: XYChart
-route: /xychart
+name: Bar
+route: /bar
 menu: visx
 ---
 
@@ -13,7 +13,7 @@ Check out the props and example usage below 💡
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import XYChart from '../../lib/components/XYChart/XYChart.jsx'
+import Bar from '../../lib/components/Bar/Bar.jsx'
 import Motor from '../../lib/components/Motor/Motor.jsx'
 import Filter from '../../lib/components/Filter/Filter.jsx'
 import Button from '../../lib/components/Button/Button.jsx'
@@ -25,7 +25,7 @@ import { config } from '../config/config.js'
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
-    <XYChart 
+    <Bar
      width={750} 
      height={500}  
     colorTheme="bio"
@@ -39,7 +39,6 @@ import { config } from '../config/config.js'
      selectionMethod='click'
      showPoints={true}
     // showPoints='star'
-    type="stackedarea"
       cols={[
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},

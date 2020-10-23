@@ -50,17 +50,31 @@ export default function CreateXYChart({
   colorPalette,
   theme,
   size,
+  type,
   backgroundPattern,
   backgroundStyle,
+
+  animationTrajectory = "center", // "outside","min","max"
+  numTicks = 4,
+  sharedTooltip = true,
+  showGridColumns = true,
+  showGridRows = true,
+  showHorizontalCrosshair = false,
+  showTooltip = true,
+  showVerticalCrosshair = true,
+  snapTooltipToDatumX = false,
+  snapTooltipToDatumY = false,
 }) {
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
+  const chartType = type;
   // const {
   //   global: { chart },
   //   crossHair: crossHairStyle,
   // } = theme;
 
   // console.log(darkTheme);
+  // console.log(type);
 
   const chartTheme = {
     ...theme.global.chart,
@@ -98,181 +112,157 @@ export default function CreateXYChart({
   );
 
   return (
-    <ExampleControls>
-      {({
-        // accessors,
-        animationTrajectory,
-        numTicks,
-        renderBarGroup,
-        renderBarSeries,
-        renderBarStack,
-        renderLineSeries,
-        sharedTooltip,
-        showGridColumns,
-        showGridRows,
-        showHorizontalCrosshair,
-        showTooltip,
-        showVerticalCrosshair,
-        snapTooltipToDatumX,
-        snapTooltipToDatumY,
-      }) => (
-        <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
-          <XYChart height={Math.min(400, height)}>
-            {/* <XYChart height={height}> */}
-            <CustomChartBackground
-              style={backgroundStyle.style}
-              from={backgroundStyle.styleFrom}
-              to={backgroundStyle.styleTo}
+    <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
+      <XYChart height={Math.min(400, height)}>
+        {/* <XYChart height={height}> */}
+        <CustomChartBackground
+          style={backgroundStyle.style}
+          from={backgroundStyle.styleFrom}
+          to={backgroundStyle.styleTo}
+        />
+        <CustomChartPattern backgroundPattern={backgroundPattern} />
+        <AnimatedGrid
+          key={`grid-${animationTrajectory}`} // force animate on update
+          rows={showGridRows}
+          columns={showGridColumns}
+          animationTrajectory={animationTrajectory}
+          numTicks={numTicks}
+        />
+        {chartType === "barstack" && (
+          <BarStack horizontal={renderHorizontally}>
+            <BarSeries
+              dataKey="New York"
+              data={data}
+              xAccessor={accessors.x["New York"]}
+              yAccessor={accessors.y["New York"]}
             />
-            <CustomChartPattern backgroundPattern={backgroundPattern} />
-            <AnimatedGrid
-              key={`grid-${animationTrajectory}`} // force animate on update
-              rows={showGridRows}
-              columns={showGridColumns}
-              animationTrajectory={animationTrajectory}
-              numTicks={numTicks}
+            <BarSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
             />
-            {renderBarStack && (
-              <BarStack horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey="New York"
-                  data={data}
-                  xAccessor={accessors.x["New York"]}
-                  yAccessor={accessors.y["New York"]}
-                />
-                <BarSeries
-                  dataKey="San Francisco"
-                  data={data}
-                  xAccessor={accessors.x["San Francisco"]}
-                  yAccessor={accessors.y["San Francisco"]}
-                />
-                <BarSeries
-                  dataKey="Austin"
-                  data={data}
-                  xAccessor={accessors.x.Austin}
-                  yAccessor={accessors.y.Austin}
-                />
-              </BarStack>
-            )}
-            {renderBarGroup && (
-              <BarGroup horizontal={renderHorizontally}>
-                <BarSeries
-                  dataKey="New York"
-                  data={data}
-                  xAccessor={accessors.x["New York"]}
-                  yAccessor={accessors.y["New York"]}
-                />
-                <BarSeries
-                  dataKey="San Francisco"
-                  data={data}
-                  xAccessor={accessors.x["San Francisco"]}
-                  yAccessor={accessors.y["San Francisco"]}
-                />
-                <BarSeries
-                  dataKey="Austin"
-                  data={data}
-                  xAccessor={accessors.x.Austin}
-                  yAccessor={accessors.y.Austin}
-                />
-              </BarGroup>
-            )}
-            {renderBarSeries && (
-              <BarSeries
-                dataKey="New York"
-                data={data}
-                xAccessor={accessors.x["New York"]}
-                yAccessor={accessors.y["New York"]}
-                horizontal={renderHorizontally}
-              />
-            )}
-            {renderLineSeries && (
+            <BarSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+            />
+          </BarStack>
+        )}
+        {chartType === "bargroup" && (
+          <BarGroup horizontal={renderHorizontally}>
+            <BarSeries
+              dataKey="New York"
+              data={data}
+              xAccessor={accessors.x["New York"]}
+              yAccessor={accessors.y["New York"]}
+            />
+            <BarSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
+            />
+            <BarSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+            />
+          </BarGroup>
+        )}
+        {chartType === "bar" && (
+          <BarSeries
+            dataKey="New York"
+            data={data}
+            xAccessor={accessors.x["New York"]}
+            yAccessor={accessors.y["New York"]}
+            horizontal={renderHorizontally}
+          />
+        )}
+        {chartType === "line" && (
+          <>
+            <LineSeries
+              dataKey="San Francisco"
+              data={data}
+              xAccessor={accessors.x["San Francisco"]}
+              yAccessor={accessors.y["San Francisco"]}
+              horizontal={!renderHorizontally}
+            />
+            <LineSeries
+              dataKey="Austin"
+              data={data}
+              xAccessor={accessors.x.Austin}
+              yAccessor={accessors.y.Austin}
+              horizontal={!renderHorizontally}
+            />
+          </>
+        )}
+        <AnimatedAxis
+          key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
+          orientation={renderHorizontally ? yAxisOrientation : xAxisOrientation}
+          numTicks={numTicks}
+          animationTrajectory={animationTrajectory}
+        />
+        <AnimatedAxis
+          key={`temp-axis-${animationTrajectory}-${renderHorizontally}`}
+          label="Temperature (°F)"
+          orientation={renderHorizontally ? xAxisOrientation : yAxisOrientation}
+          numTicks={numTicks}
+          animationTrajectory={animationTrajectory}
+        />
+        {showTooltip && (
+          <Tooltip
+            showHorizontalCrosshair={showHorizontalCrosshair}
+            showVerticalCrosshair={showVerticalCrosshair}
+            snapTooltipToDatumX={snapTooltipToDatumX}
+            snapTooltipToDatumY={snapTooltipToDatumY}
+            showDatumGlyph={
+              (snapTooltipToDatumX || snapTooltipToDatumY) &&
+              chartType !== "bargroup"
+            }
+            showSeriesGlyphs={sharedTooltip && chartType !== "bargroup"}
+            renderTooltip={({ tooltipData, colorScale }) => (
               <>
-                <LineSeries
-                  dataKey="San Francisco"
-                  data={renderBarStack ? data : data}
-                  xAccessor={accessors.x["San Francisco"]}
-                  yAccessor={accessors.y["San Francisco"]}
-                  horizontal={!renderHorizontally}
-                />
-                <LineSeries
-                  dataKey="Austin"
-                  data={renderBarStack ? data : data}
-                  xAccessor={accessors.x.Austin}
-                  yAccessor={accessors.y.Austin}
-                  horizontal={!renderHorizontally}
-                />
+                {/** date */}
+                {(tooltipData?.nearestDatum?.datum &&
+                  accessors.date(tooltipData?.nearestDatum?.datum)) ||
+                  "No date"}
+                <br />
+                <br />
+                {/** temperatures */}
+                {(sharedTooltip
+                  ? Object.keys(tooltipData?.datumByKey ?? {})
+                  : [tooltipData?.nearestDatum?.key]
+                )
+                  .filter((city) => city)
+                  .map((city) => (
+                    <div key={city}>
+                      <em
+                        style={{
+                          color: colorScale?.(city),
+                          textDecoration:
+                            tooltipData?.nearestDatum?.key === city
+                              ? "underline"
+                              : undefined,
+                        }}
+                      >
+                        {city}
+                      </em>{" "}
+                      {tooltipData?.nearestDatum?.datum
+                        ? accessors[renderHorizontally ? "x" : "y"][city](
+                            tooltipData?.nearestDatum?.datum
+                          )
+                        : "–"}
+                      ° F
+                    </div>
+                  ))}
               </>
             )}
-            <AnimatedAxis
-              key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
-              orientation={
-                renderHorizontally ? yAxisOrientation : xAxisOrientation
-              }
-              numTicks={numTicks}
-              animationTrajectory={animationTrajectory}
-            />
-            <AnimatedAxis
-              key={`temp-axis-${animationTrajectory}-${renderHorizontally}`}
-              label="Temperature (°F)"
-              orientation={
-                renderHorizontally ? xAxisOrientation : yAxisOrientation
-              }
-              numTicks={numTicks}
-              animationTrajectory={animationTrajectory}
-            />
-            {showTooltip && (
-              <Tooltip
-                showHorizontalCrosshair={showHorizontalCrosshair}
-                showVerticalCrosshair={showVerticalCrosshair}
-                snapTooltipToDatumX={snapTooltipToDatumX}
-                snapTooltipToDatumY={snapTooltipToDatumY}
-                showDatumGlyph={
-                  (snapTooltipToDatumX || snapTooltipToDatumY) &&
-                  !renderBarGroup
-                }
-                showSeriesGlyphs={sharedTooltip && !renderBarGroup}
-                renderTooltip={({ tooltipData, colorScale }) => (
-                  <>
-                    {/** date */}
-                    {(tooltipData?.nearestDatum?.datum &&
-                      accessors.date(tooltipData?.nearestDatum?.datum)) ||
-                      "No date"}
-                    <br />
-                    <br />
-                    {/** temperatures */}
-                    {(sharedTooltip
-                      ? Object.keys(tooltipData?.datumByKey ?? {})
-                      : [tooltipData?.nearestDatum?.key]
-                    )
-                      .filter((city) => city)
-                      .map((city) => (
-                        <div key={city}>
-                          <em
-                            style={{
-                              color: colorScale?.(city),
-                              textDecoration:
-                                tooltipData?.nearestDatum?.key === city
-                                  ? "underline"
-                                  : undefined,
-                            }}
-                          >
-                            {city}
-                          </em>{" "}
-                          {tooltipData?.nearestDatum?.datum
-                            ? accessors[renderHorizontally ? "x" : "y"][city](
-                                tooltipData?.nearestDatum?.datum
-                              )
-                            : "–"}
-                          ° F
-                        </div>
-                      ))}
-                  </>
-                )}
-              />
-            )}
-          </XYChart>
-        </DataProvider>
-      )}
-    </ExampleControls>
+          />
+        )}
+      </XYChart>
+    </DataProvider>
   );
 }

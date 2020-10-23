@@ -13,7 +13,7 @@ export default function ExampleControls({ children }) {
   const [snapTooltipToDatumX, setSnapTooltipToDatumX] = useState(true);
   const [snapTooltipToDatumY, setSnapTooltipToDatumY] = useState(true);
   const [sharedTooltip, setSharedTooltip] = useState(true);
-  const [renderBarStackOrGroup, setRenderBarStackOrGroup] = useState("group");
+  const [renderBarStackOrGroup, setRenderBarStackOrGroup] = useState("stack");
   const [renderLineSeries, setRenderLineSeries] = useState(false);
 
   return (

@@ -270,22 +270,19 @@ function StyledXYChart(props) {
     select,
     //         setCurrentSelectionIds={setCurrentSelectionIds}
     //         currentSelectionIds={currentSelectionIds}
-    //         // useSelectionColours={useSelectionColours}
     colorPalette,
     size,
-    //         type={type}
+    type,
     //         padding={padding || chart.padding}
     //         useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
     //         autoWidth={autoWidth || chart.autoWidth}
     renderHorizontally: renderHorizontally || chart.renderHorizontally,
-
     //         includeZero={includeZero || chart.includeZero}
     //         showLegend={
     //           // showLegend === undefined ? chart.showLegend : showLegend
     //           valueIfUndefined(showLegend, chart.showLegend)
     //         }
     backgroundPattern: backgroundPattern || chart.backgroundStyles.pattern,
-
     backgroundStyle: backgroundStyle || chart.backgroundStyles,
     //         fillStyle={fillStyle || chart.fillStyles}
     //         multiColor={valueIfUndefined(multiColor, chart.multiColor)}
