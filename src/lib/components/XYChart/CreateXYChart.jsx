@@ -1,9 +1,17 @@
 import React, { useMemo } from "react";
 
 import {
+  AnimatedAreaSeries,
   AnimatedAxis,
+  AnimatedBarGroup,
+  AnimatedBarSeries,
+  AnimatedBarStack,
+  AnimatedGlyphSeries,
   AnimatedGrid,
+  AnimatedLineSeries,
+  AreaSeries,
   DataProvider,
+  GlyphSeries,
   BarGroup,
   BarSeries,
   BarStack,
@@ -21,8 +29,22 @@ import { lightTheme, darkTheme } from "../visx";
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
 
+console.log(data);
+
 const dateScaleConfig = { type: "band", paddingInner: 0.3 };
-const temperatureScaleConfig = { type: "linear" };
+// const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+const valueScaleConfig = { type: "linear" };
+//  const valueScaleConfig = useMemo(
+//    () => ({
+//      type: "linear",
+//      clamp: true,
+//      nice: true,
+//      domain: undefined,
+//      includeZero,
+//    }),
+//    [includeZero]
+//  );
+
 const getDate = (d) => d.date;
 const getSfTemperature = (d) => Number(d["San Francisco"]);
 const getNyTemperature = (d) => Number(d["New York"]);
@@ -104,8 +126,8 @@ export default function CreateXYChart({
 
   const config = useMemo(
     () => ({
-      x: renderHorizontally ? temperatureScaleConfig : dateScaleConfig,
-      y: renderHorizontally ? dateScaleConfig : temperatureScaleConfig,
+      x: renderHorizontally ? valueScaleConfig : dateScaleConfig,
+      y: renderHorizontally ? dateScaleConfig : valueScaleConfig,
     }),
     [renderHorizontally]
   );
@@ -218,20 +240,24 @@ export default function CreateXYChart({
         )}
         {chartType === "area" && (
           <>
-            <BarSeries
-              dataKey="San Francisco"
-              data={data}
-              xAccessor={accessors.x["San Francisco"]}
-              yAccessor={accessors.y["San Francisco"]}
-              horizontal={renderHorizontally}
-            />
-            <LineSeries
-              dataKey="Austin"
-              data={data}
-              xAccessor={accessors.x.Austin}
-              yAccessor={accessors.y.Austin}
-              horizontal={renderHorizontally}
-            />
+            <>
+              <AreaSeries
+                dataKey="Austin"
+                data={data}
+                xAccessor={accessors.x.Austin}
+                yAccessor={accessors.y.Austin}
+                horizontal={renderHorizontally}
+                fillOpacity={0.3}
+              />
+              <AreaSeries
+                dataKey="San Francisco"
+                data={data}
+                xAccessor={accessors.x["San Francisco"]}
+                yAccessor={accessors.y["San Francisco"]}
+                horizontal={renderHorizontally}
+                fillOpacity={0.3}
+              />
+            </>
           </>
         )}
         {chartType === "areastack" && (
@@ -253,22 +279,13 @@ export default function CreateXYChart({
           </>
         )}
         {chartType === "scatter" && (
-          <>
-            <BarSeries
-              dataKey="San Francisco"
-              data={data}
-              xAccessor={accessors.x["San Francisco"]}
-              yAccessor={accessors.y["San Francisco"]}
-              horizontal={renderHorizontally}
-            />
-            <LineSeries
-              dataKey="Austin"
-              data={data}
-              xAccessor={accessors.x.Austin}
-              yAccessor={accessors.y.Austin}
-              horizontal={renderHorizontally}
-            />
-          </>
+          <GlyphSeries
+            dataKey="San Francisco"
+            data={data}
+            xAccessor={accessors.x["San Francisco"]}
+            yAccessor={accessors.y["San Francisco"]}
+            renderGlyph={renderGlyph}
+          />
         )}
         <AnimatedAxis
           key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
