@@ -145,6 +145,14 @@ function StyledXYChart(props) {
   //   }
   // };
 
+  const handleClick = (selectionValue) => {
+    beginSelections();
+
+    setCurrentSelectionIds(selectionValue);
+
+    select(0, selectionValue);
+  };
+
   useEffect(() => {
     let valid;
     if (qLayout) {
@@ -264,12 +272,13 @@ function StyledXYChart(props) {
     measureCount,
     dimensionCount,
     data,
+    handleClick,
     //         keys={keys}
     //         dataKeys={dataKeys}
-    beginSelections,
-    select,
+    // beginSelections,
+    // select,
     //         setCurrentSelectionIds={setCurrentSelectionIds}
-    //         currentSelectionIds={currentSelectionIds}
+    currentSelectionIds,
     colorPalette,
     size,
     type,

@@ -59,8 +59,9 @@ export default function CreateXYChart({
   xAxisOrientation,
   yAxisOrientation,
   renderHorizontally,
-  beginSelections,
-  select,
+  handleClick,
+  // beginSelections,
+  // select,
   setCurrentSelectionIds,
   currentSelectionIds,
   colorPalette,
@@ -170,12 +171,7 @@ export default function CreateXYChart({
   );
 
   return (
-    <DataProvider
-      theme={chartTheme}
-      xScale={config.x}
-      yScale={config.y}
-      currentSelectionIds={currentSelectionIds}
-    >
+    <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -247,6 +243,8 @@ export default function CreateXYChart({
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
+            currentSelectionIds={currentSelectionIds}
+            handleClick={handleClick}
             horizontal={renderHorizontally}
           />
         )}

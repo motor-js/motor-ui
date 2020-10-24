@@ -16,7 +16,11 @@ export type SeriesProps<
   /** Given a Datum, returns the y-scale value. */
   yAccessor: (d: Datum) => ScaleInput<YScale>;
   /** Given a Datum, returns the elementid value. */
-  elAccessor: (d: Datum) => number;
+  elAccessor: (d: Datum) => string;
+  /** Array of slection ids. */
+  currentSelectionIds: Array<string>;
+  /** Given a Datum, returns the elementid value. */
+  handleClick: (d: Datum) => any;
 };
 
 /** Bar shape. */

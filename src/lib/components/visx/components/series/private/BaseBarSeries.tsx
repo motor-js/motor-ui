@@ -40,10 +40,10 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   horizontal,
   xAccessor,
   xScale,
-  yAccessor,elAccessor,
+  yAccessor,elAccessor,currentSelectionIds,handleClick,
   yScale,
 }: BaseBarSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
-  const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0 ,currentSelectionIds} = useContext(
+  const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0} = useContext(
     DataContext,
   );
   const key=1;
@@ -61,14 +61,14 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
 
   const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? '#222';
 
-  const handleMouseClick = () => {
-    console.log('ffff')
-        // const selections = currentSelectionIds.includes(bar.id)
-        //       ? currentSelectionIds.filter(function(value, index, arr) {
-        //           return value !== bar.id;
-        //         })
-        //       : [...currentSelectionIds, bar.id];
-        //     handleClick(selections);
+  const handleMouseClick = (id:string) => {
+    const selectionId = Number(id)
+    const selections = currentSelectionIds.includes(selectionId)
+    ? currentSelectionIds.filter(function(value, index, arr) {
+      return value !== selectionId;
+    })
+    : [...currentSelectionIds, selectionId];
+    handleClick(selections);
 
   } 
 
@@ -92,17 +92,9 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         height: horizontal ? barThickness : Math.abs(barLength),
         fill: color, // @TODO allow prop overriding
         //       noSelections={isEmpty(currentSelectionIds)}
-        // isSelected={currentSelectionIds.includes(bar.id)}
+        // isSelected={currentSelectionIds.includes(id)}
         // style={{ cursor: "pointer" }}
-        onClick : ()=> handleMouseClick()
-          // onClick:() => {
-          //   const selections = currentSelectionIds.includes(bar.id)
-          //     ? currentSelectionIds.filter(function(value, index, arr) {
-          //         return value !== bar.id;
-          //       })
-          //     : [...currentSelectionIds, bar.id];
-          //   handleClick(selections);
-          // }
+        onClick : ()=> handleMouseClick(id)
       };
     });
   }, [barThickness, color, data, getScaledX, getScaledY, horizontal, xZeroPosition, yZeroPosition]);
@@ -118,7 +110,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
           xScale,
           yScale,
           xAccessor,
-          yAccessor,elAccessor,
+          yAccessor,
           width,
           height,
         });
@@ -131,7 +123,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         }
       }
     },
-    [dataKey, data, horizontal, xScale, yScale, xAccessor, yAccessor, elAccessor,width, height, showTooltip],
+    [dataKey, data, horizontal, xScale, yScale, xAccessor, yAccessor, elAccessor,currentSelectionIds,width, height, showTooltip],
   );
 
   useEventEmitter('mousemove', handleMouseMove);
