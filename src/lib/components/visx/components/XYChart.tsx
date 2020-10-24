@@ -17,6 +17,7 @@ type Props = {
   width?: number;
   height?: number;
   margin?: Margin;
+  captureEvents?: boolean;
   children: React.ReactNode;
 };
 
@@ -27,6 +28,7 @@ export default function XYChart(props: Props) {
     width,
     height,
     margin = DEFAULT_MARGIN,
+    captureEvents=false,
   } = props;
   const { setDimensions } = useContext(DataContext);
   const tooltipContext = useContext(TooltipContext);
@@ -71,17 +73,24 @@ export default function XYChart(props: Props) {
     <svg width={width} height={height} aria-label={accessibilityLabel}>
       {children}
       {/** capture all mouse/touch events and emit them. */}
+         {captureEvents &&
       <rect
         x={margin.left}
         y={margin.top}
         width={width - margin.left - margin.right}
+              // width={
+              // width -
+              // margin.left -
+              // margin.right -
+              // `${dualAxis ? margin.left : 0}`
+              // }
         height={height - margin.top - margin.bottom}
         fill="transparent"
         onMouseMove={handleMouseTouchMove}
         onTouchMove={handleMouseTouchMove}
         onMouseOut={handleMouseOutTouchEnd}
         onTouchEnd={handleMouseOutTouchEnd}
-      />
+      />}
     </svg>
   ) : null;
 }

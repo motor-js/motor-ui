@@ -6,14 +6,14 @@ export default function Bars({
   bars,
   horizontal,
   xScale,
-  yScale,
+  yScale,id,
   ...rectProps
 }: BarsProps<any, any>) {
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {bars.map(({ key, ...barProps }) => (
-        <rect key={key} {...barProps} {...rectProps} />
+      {bars.map(({ key, id, ...barProps }) => (
+        <rect key={key} id={id} {...barProps} {...rectProps} />
       ))}
     </>
   );

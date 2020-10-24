@@ -1,6 +1,6 @@
-import { AxisScale } from '@visx/axis';
-import { ScaleInput } from '@visx/scale';
-import { Series, SeriesPoint } from 'd3-shape';
+import { AxisScale } from "@visx/axis";
+import { ScaleInput } from "@visx/scale";
+import { Series, SeriesPoint } from "d3-shape";
 
 export type SeriesProps<
   XScale extends AxisScale,
@@ -15,6 +15,8 @@ export type SeriesProps<
   xAccessor: (d: Datum) => ScaleInput<XScale>;
   /** Given a Datum, returns the y-scale value. */
   yAccessor: (d: Datum) => ScaleInput<YScale>;
+  /** Given a Datum, returns the elementid value. */
+  elAccessor: (d: Datum) => number;
 };
 
 /** Bar shape. */
@@ -22,6 +24,7 @@ export type Bar = {
   key: string;
   x: number;
   y: number;
+  id: string;
   width: number;
   height: number;
   fill?: string;
@@ -33,21 +36,33 @@ export type BarsProps<XScale extends AxisScale, YScale extends AxisScale> = {
   xScale: XScale;
   yScale: YScale;
   horizontal?: boolean;
-} & Omit<React.SVGProps<SVGRectElement>, 'x' | 'y' | 'width' | 'height' | 'ref'>;
-
-// BarStack transforms its child series Datum into CombinedData<XScale, YScale>
-export type BarStackDatum<XScale extends AxisScale, YScale extends AxisScale> = SeriesPoint<
-  CombinedStackData<XScale, YScale>
+  id: string;
+} & Omit<
+  React.SVGProps<SVGRectElement>,
+  "x" | "y" | "width" | "height" | "ref"
 >;
 
-export type BarStackData<XScale extends AxisScale, YScale extends AxisScale> = Series<
-  CombinedStackData<XScale, YScale>,
-  string
->[];
+// BarStack transforms its child series Datum into CombinedData<XScale, YScale>
+export type BarStackDatum<
+  XScale extends AxisScale,
+  YScale extends AxisScale
+> = SeriesPoint<CombinedStackData<XScale, YScale>>;
 
-export type CombinedStackData<XScale extends AxisScale, YScale extends AxisScale> = {
+export type BarStackData<
+  XScale extends AxisScale,
+  YScale extends AxisScale
+> = Series<CombinedStackData<XScale, YScale>, string>[];
+
+export type CombinedStackData<
+  XScale extends AxisScale,
+  YScale extends AxisScale
+> = {
   [dataKey: string]: ScaleInput<XScale> | ScaleInput<YScale>;
-} & { stack: ScaleInput<XScale> | ScaleInput<YScale>; positiveSum: number; negativeSum: number };
+} & {
+  stack: ScaleInput<XScale> | ScaleInput<YScale>;
+  positiveSum: number;
+  negativeSum: number;
+};
 
 /** Glyphs */
 

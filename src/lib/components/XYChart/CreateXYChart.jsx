@@ -31,6 +31,12 @@ import { isDefined } from "../visx/typeguards/isDefined";
 
 const dateScaleConfig = { type: "band", paddingInner: 0.3 };
 // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+// const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
+
+// const dateScaleConfig = useMemo(
+//   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
+//   []
+// );
 const valueScaleConfig = { type: "linear" };
 //  const valueScaleConfig = useMemo(
 //    () => ({
@@ -67,6 +73,7 @@ export default function CreateXYChart({
   singleMeasure,
   measureCount,
   dimensionCount,
+  selectionMethod,
 
   animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
@@ -75,7 +82,7 @@ export default function CreateXYChart({
   showGridRows = true,
   showHorizontalCrosshair = false,
   showTooltip = true,
-  showVerticalCrosshair = true,
+  showVerticalCrosshair = false,
   snapTooltipToDatumX = false,
   snapTooltipToDatumY = false,
 }) {
@@ -135,10 +142,20 @@ export default function CreateXYChart({
     })
     .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
 
+  const elAaccessors = measureInfo
+    .map((measure) => {
+      return {
+        id: [measure.qFallbackTitle],
+        function: getElementNumber,
+      };
+    })
+    .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
+
   const accessors = useMemo(
     () => ({
       x: xAaccessors,
       y: yAaccessors,
+      el: elAaccessors,
       date: getDimension,
     }),
     [renderHorizontally]
@@ -153,8 +170,16 @@ export default function CreateXYChart({
   );
 
   return (
-    <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
-      <XYChart height={Math.min(400, height)}>
+    <DataProvider
+      theme={chartTheme}
+      xScale={config.x}
+      yScale={config.y}
+      currentSelectionIds={currentSelectionIds}
+    >
+      <XYChart
+        height={Math.min(400, height)}
+        captureEvents={selectionMethod === "none"}
+      >
         {/* <XYChart height={height}> */}
         <CustomChartBackground
           style={backgroundStyle.style}
@@ -221,6 +246,7 @@ export default function CreateXYChart({
             data={data}
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
+            elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
             horizontal={renderHorizontally}
           />
         )}

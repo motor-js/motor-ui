@@ -40,15 +40,17 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   horizontal,
   xAccessor,
   xScale,
-  yAccessor,
+  yAccessor,elAccessor,
   yScale,
 }: BaseBarSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
-  const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0 } = useContext(
+  const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0 ,currentSelectionIds} = useContext(
     DataContext,
   );
   const key=1;
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
   const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor,dataKey), [yScale, yAccessor]);
+  const getElemNumber= useCallback(elAccessor, [elAccessor]);
+
   const scaleBandwidth = getScaleBandwidth(horizontal ? yScale : xScale);
   const barThickness =
     scaleBandwidth ||
@@ -59,21 +61,48 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
 
   const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? '#222';
 
+  const handleMouseClick = () => {
+    console.log('ffff')
+        // const selections = currentSelectionIds.includes(bar.id)
+        //       ? currentSelectionIds.filter(function(value, index, arr) {
+        //           return value !== bar.id;
+        //         })
+        //       : [...currentSelectionIds, bar.id];
+        //     handleClick(selections);
+
+  } 
+
+
+
   const bars = useMemo(() => {
     const xOffset = horizontal ? 0 : -barThickness / 2;
     const yOffset = horizontal ? -barThickness / 2 : 0;
     return data.map((datum, index) => {
       const x = getScaledX(datum) + xOffset;
       const y = getScaledY(datum,dataKey) + yOffset;
+      const id = getElemNumber(datum);
       const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
 
       return {
         key: `${index}`,
         x: horizontal ? xZeroPosition + Math.min(0, barLength) : x,
         y: horizontal ? y : yZeroPosition + Math.min(0, barLength),
+        id,
         width: horizontal ? Math.abs(barLength) : barThickness,
         height: horizontal ? barThickness : Math.abs(barLength),
         fill: color, // @TODO allow prop overriding
+        //       noSelections={isEmpty(currentSelectionIds)}
+        // isSelected={currentSelectionIds.includes(bar.id)}
+        // style={{ cursor: "pointer" }}
+        onClick : ()=> handleMouseClick()
+          // onClick:() => {
+          //   const selections = currentSelectionIds.includes(bar.id)
+          //     ? currentSelectionIds.filter(function(value, index, arr) {
+          //         return value !== bar.id;
+          //       })
+          //     : [...currentSelectionIds, bar.id];
+          //   handleClick(selections);
+          // }
       };
     });
   }, [barThickness, color, data, getScaledX, getScaledY, horizontal, xZeroPosition, yZeroPosition]);
@@ -89,7 +118,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
           xScale,
           yScale,
           xAccessor,
-          yAccessor,
+          yAccessor,elAccessor,
           width,
           height,
         });
@@ -102,8 +131,9 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         }
       }
     },
-    [dataKey, data, horizontal, xScale, yScale, xAccessor, yAccessor, width, height, showTooltip],
+    [dataKey, data, horizontal, xScale, yScale, xAccessor, yAccessor, elAccessor,width, height, showTooltip],
   );
+
   useEventEmitter('mousemove', handleMouseMove);
   useEventEmitter('mouseout', hideTooltip);
 
