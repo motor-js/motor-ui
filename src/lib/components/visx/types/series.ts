@@ -18,9 +18,9 @@ export type SeriesProps<
   /** Given a Datum, returns the elementid value. */
   elAccessor: (d: Datum) => string;
   /** Array of slection ids. */
-  currentSelectionIds: Array<string>;
+  currentSelectionIds: Array<number>;
   /** Given a Datum, returns the elementid value. */
-  handleClick: (d: Datum) => any;
+  handleClick: (d: Array<number>) => any;
 };
 
 /** Bar shape. */

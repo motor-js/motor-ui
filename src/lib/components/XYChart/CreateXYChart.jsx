@@ -62,7 +62,7 @@ export default function CreateXYChart({
   handleClick,
   // beginSelections,
   // select,
-  setCurrentSelectionIds,
+  // setCurrentSelectionIds,
   currentSelectionIds,
   colorPalette,
   theme,

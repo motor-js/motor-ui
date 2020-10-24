@@ -64,7 +64,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   const handleMouseClick = (id:string) => {
     const selectionId = Number(id)
     const selections = currentSelectionIds.includes(selectionId)
-    ? currentSelectionIds.filter(function(value, index, arr) {
+    ? currentSelectionIds.filter(function(value:number, index, arr) {
       return value !== selectionId;
     })
     : [...currentSelectionIds, selectionId];
@@ -93,7 +93,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         fill: color, // @TODO allow prop overriding
         //       noSelections={isEmpty(currentSelectionIds)}
         // isSelected={currentSelectionIds.includes(id)}
-        // style={{ cursor: "pointer" }}
+        style:{ cursor: "pointer" },
         onClick : ()=> handleMouseClick(id)
       };
     });
