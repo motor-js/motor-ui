@@ -40,7 +40,6 @@ export type BarsProps<XScale extends AxisScale, YScale extends AxisScale> = {
   xScale: XScale;
   yScale: YScale;
   horizontal?: boolean;
-  id: string;
 } & Omit<
   React.SVGProps<SVGRectElement>,
   "x" | "y" | "width" | "height" | "ref"

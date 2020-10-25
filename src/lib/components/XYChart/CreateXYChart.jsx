@@ -190,6 +190,18 @@ export default function CreateXYChart({
           animationTrajectory={animationTrajectory}
           numTicks={numTicks}
         />
+        {chartType === "bar" && (
+          <BarSeries
+            dataKey={measureInfo[0].qFallbackTitle}
+            data={data}
+            xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
+            yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
+            elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
+            currentSelectionIds={currentSelectionIds}
+            handleClick={handleClick}
+            horizontal={renderHorizontally}
+          />
+        )}
         {chartType === "barstack" && (
           <BarStack horizontal={renderHorizontally}>
             {singleDimension
@@ -251,18 +263,6 @@ export default function CreateXYChart({
                   />
                 ))}
           </BarGroup>
-        )}
-        {chartType === "bar" && (
-          <BarSeries
-            dataKey={measureInfo[0].qFallbackTitle}
-            data={data}
-            xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
-            yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
-            elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
-            currentSelectionIds={currentSelectionIds}
-            handleClick={handleClick}
-            horizontal={renderHorizontally}
-          />
         )}
         {chartType === "line" && (
           <>

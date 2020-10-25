@@ -32,7 +32,7 @@ export type configType = {
   appId: string;
 };
 export type calcCondType = { qCond: string; qMsg: string };
-// export interface isEmpty = (d: Array<number>) => boolean;
+export function isEmpty(d: Array<number>): boolean;
 export type showLabelsType = "top" | "none" | "inside";
 export type textOnAxisType = boolean | "both" | "yAxis" | "xAxis" | "none";
 export type tickSpacingType = "wide" | "normal" | "narrow";

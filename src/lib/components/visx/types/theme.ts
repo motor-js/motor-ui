@@ -1,11 +1,19 @@
-import React, { CSSProperties } from 'react';
-import { TextProps } from '@visx/text/lib/Text';
+import React, { CSSProperties } from "react";
+import { TextProps } from "@visx/text/lib/Text";
 
-export type HTMLTextStyles = React.HTMLAttributes<HTMLDivElement>['style'];
+export type HTMLTextStyles = React.HTMLAttributes<HTMLDivElement>["style"];
 
-export type LineStyles = Omit<React.SVGAttributes<SVGLineElement>, 'Key'>;
+export type LineStyles = Omit<React.SVGAttributes<SVGLineElement>, "Key">;
 
 export type GridStyles = CSSProperties;
+
+export type HoverStyles = CSSProperties;
+
+export type SelectionStyles = CSSProperties;
+
+export type NonSelectionStyles = CSSProperties;
+
+export type NoSelectionStyles = CSSProperties;
 
 export type SVGTextProps = TextProps;
 
@@ -43,4 +51,8 @@ export interface XYChartTheme {
       right: AxisStyle;
     };
   };
+  hover: HoverStyles;
+  selection: SelectionStyles;
+  nonSelection: NonSelectionStyles;
+  noSelections: NoSelectionStyles;
 }

@@ -2,10 +2,14 @@
   "compilerOptions": {
     "declaration": true,
     "declarationDir": "./dist",
+    "allowSyntheticDefaultImports": true,
     "module": "es6",
     "noImplicitAny": true,
     "outDir": "./dist",
     "target": "es6",
+      "lib": [
+        "es2019"
+      ],
     "moduleResolution": "node",
     "jsx": "react",
   },

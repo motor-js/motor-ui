@@ -100,7 +100,6 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         width: horizontal ? Math.abs(barLength) : barThickness,
         height: horizontal ? barThickness : Math.abs(barLength),
         fill:    color,  // @TODO allow prop overriding
-        // style: Number(id) === hoverId && isEmpty(currentSelectionIds) ? hover :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
         style: Number(id) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
         onClick : ()=> handleMouseClick(id),
         onMouseEnter: ()=> setHoverId(Number(id)),
