@@ -67,6 +67,8 @@ export default function DataProvider<
     yRange: [height - margin.bottom, margin.top],
   });
 
+  const { hover, selection, nonSelection, noSelections } = propsTheme;
+
   const registryKeys = dataRegistry.keys();
 
   const colorScale = useMemo(
@@ -85,6 +87,19 @@ export default function DataProvider<
 
     select(0, selectionValue);
   };
+
+  const setBarStyle = (
+    id: string,
+    normalMode: boolean,
+    hoverId: number // Is the user making slections ?
+  ) =>
+    Number(id) === hoverId && normalMode
+      ? hover
+      : normalMode
+      ? noSelections
+      : currentSelectionIds.includes(Number(id))
+      ? selection
+      : nonSelection;
 
   return (
     <DataContext.Provider
@@ -106,6 +121,7 @@ export default function DataProvider<
         currentSelectionIds,
         showTooltip,
         setDimensions,
+        setBarStyle,
       }}
     >
       {children}

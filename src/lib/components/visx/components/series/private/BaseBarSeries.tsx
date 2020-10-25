@@ -62,7 +62,7 @@ function BaseBarSeries<
     innerHeight = 0,
     currentSelectionIds,
     handleClick,
-    showTooltip: hasTooltip,
+    setBarStyle,
   } = useContext(DataContext);
   const key = 1;
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
@@ -74,9 +74,8 @@ function BaseBarSeries<
     [yScale, yAccessor]
   );
   const getElemNumber = useCallback(elAccessor, [elAccessor]);
-  const [hoverId, setHoverId] = useState(0);
 
-  const { hover, selection, nonSelection, noSelections } = theme;
+  const [hoverId, setHoverId] = useState(null);
 
   const scaleBandwidth = getScaleBandwidth(horizontal ? yScale : xScale);
   const barThickness =
@@ -150,14 +149,7 @@ function BaseBarSeries<
         width: horizontal ? Math.abs(barLength) : barThickness,
         height: horizontal ? barThickness : Math.abs(barLength),
         fill: color, // @TODO allow prop overriding
-        style:
-          Number(id) === hoverId && isEmpty(currentSelectionIds)
-            ? hover
-            : isEmpty(currentSelectionIds)
-            ? noSelections
-            : currentSelectionIds.includes(Number(id))
-            ? selection
-            : nonSelection,
+        style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
         onClick: () => handleMouseClick(id),
         onMouseEnter: () => setHoverId(Number(id)),
         onMouseMove: onMouseMove,

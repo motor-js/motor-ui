@@ -58,6 +58,7 @@ export default function BaseBarGroup<
     height,
     currentSelectionIds,
     handleClick,
+    setBarStyle,
   } = (useContext(DataContext) as unknown) as DataContextType<
     XScale,
     YScale,
@@ -225,15 +226,11 @@ export default function BaseBarGroup<
         width: getWidth(datum),
         height: getHeight(datum),
         fill: colorScale(key),
-        style:
-          Number(getElemNumber(datum)) === hoverId &&
-          isEmpty(currentSelectionIds)
-            ? hover
-            : isEmpty(currentSelectionIds)
-            ? noSelections
-            : currentSelectionIds.includes(Number(getElemNumber(datum)))
-            ? selection
-            : nonSelection,
+        style: setBarStyle(
+          Number(getElemNumber(datum)),
+          isEmpty(currentSelectionIds),
+          hoverId
+        ),
         onClick: () => handleMouseClick(getElemNumber(datum)),
         onMouseEnter: () => setHoverId(Number(getElemNumber(datum))),
         onMouseLeave: () => setHoverId(null),

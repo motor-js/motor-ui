@@ -51,6 +51,7 @@ export interface DataContextType<
   innerHeight: number;
   currentSelectionIds: Array<number>;
   handleClick: (d: Array<number>) => any;
+  setBarStyle: Function;
   showTooltip: boolean;
   margin: Margin;
   dataRegistry: Omit<

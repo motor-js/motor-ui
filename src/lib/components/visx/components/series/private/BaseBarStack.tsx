@@ -70,15 +70,14 @@ function BaseBarStack<
     height,
     currentSelectionIds,
     handleClick,
+    setBarStyle,
   } = (useContext(DataContext) as unknown) as DataContextType<
     XScale,
     YScale,
     BarStackDatum<XScale, YScale>
   >;
 
-  const [hoverId, setHoverId] = useState(0);
-
-  const { hover, selection, nonSelection, noSelections } = theme;
+  const [hoverId, setHoverId] = useState(null);
 
   const barSeriesChildren = useMemo(
     () =>
@@ -278,14 +277,7 @@ function BaseBarStack<
           width: getWidth(bar),
           height: getHeight(bar),
           fill: colorScale(barStack.key),
-          style:
-            Number(barId) === hoverId && isEmpty(currentSelectionIds)
-              ? hover
-              : isEmpty(currentSelectionIds)
-              ? noSelections
-              : currentSelectionIds.includes(Number(barId))
-              ? selection
-              : nonSelection,
+          style: setBarStyle(barId, isEmpty(currentSelectionIds), hoverId),
           onClick: () => handleMouseClick(barId),
           onMouseEnter: () => setHoverId(Number(barId)),
           onMouseLeave: () => setHoverId(null),
