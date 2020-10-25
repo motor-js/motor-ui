@@ -23,6 +23,7 @@ export type DataProviderProps<
   beginSelections:Function,
   select:Function,
   setCurrentSelectionIds:Function,
+  showTooltip:boolean,
   children: React.ReactNode;
 };
 
@@ -38,7 +39,7 @@ export default function DataProvider<
         currentSelectionIds,
       beginSelections,
       select,
-      setCurrentSelectionIds,
+      setCurrentSelectionIds,showTooltip,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -98,7 +99,7 @@ export default function DataProvider<
         height,
         margin,
         innerWidth,
-        innerHeight,handleClick,currentSelectionIds,
+        innerHeight,handleClick,currentSelectionIds,showTooltip,
         setDimensions,
       }}
     >

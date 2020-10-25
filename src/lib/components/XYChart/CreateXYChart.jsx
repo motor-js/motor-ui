@@ -82,7 +82,7 @@ export default function CreateXYChart({
   showGridColumns = true,
   showGridRows = true,
   showHorizontalCrosshair = false,
-  showTooltip = true,
+  showTooltip = false,
   showVerticalCrosshair = false,
   snapTooltipToDatumX = false,
   snapTooltipToDatumY = false,
@@ -179,6 +179,7 @@ export default function CreateXYChart({
       beginSelections={beginSelections}
       select={select}
       setCurrentSelectionIds={setCurrentSelectionIds}
+      showTooltip={showTooltip}
     >
       <XYChart
         height={Math.min(400, height)}

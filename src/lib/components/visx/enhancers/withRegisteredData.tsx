@@ -38,13 +38,13 @@ export default function withRegisteredData<
         | keyof WithRegisteredDataProps<XScale, YScale, Datum>
       >,
   ) {
-    const { dataKey, data, xAccessor, yAccessor } = props;
+    const { dataKey, data, xAccessor, yAccessor,elAccessor } = props;
     const { xScale, yScale, dataRegistry } = (useContext(
       DataContext,
     ) as unknown) as DataContextType<XScale, YScale, Datum>;
 
     useEffect(() => {
-      if (dataRegistry) dataRegistry.registerData({ key: dataKey, data, xAccessor, yAccessor });
+      if (dataRegistry) dataRegistry.registerData({ key: dataKey, data, xAccessor, yAccessor ,elAccessor});
       return () => dataRegistry?.unregisterData(dataKey);
     }, [dataRegistry, dataKey, data, xAccessor, yAccessor]);
 

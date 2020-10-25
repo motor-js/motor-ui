@@ -184,7 +184,7 @@ export default function BaseBarGroup<
       style: Number(getElemNumber(datum)) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(getElemNumber(datum))) ? selection : nonSelection ,
       onClick : ()=> handleMouseClick(getElemNumber(datum)),
       onMouseEnter: ()=> setHoverId(Number(getElemNumber(datum))),
-      onMouseLeave: ()=> setHoverId(0)
+      onMouseLeave: ()=> setHoverId(-1)
     }));
   });
 

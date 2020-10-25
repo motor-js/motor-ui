@@ -11,6 +11,7 @@ import useEventEmitter, { HandlerParams } from '../../../hooks/useEventEmitter';
 import TooltipContext from '../../../context/TooltipContext';
 import getScaleBaseline from '../../../utils/getScaleBaseline';
 import { isEmpty } from "../../../../../utils";
+import { localPoint } from '@visx/event';
 
 
 export type BaseBarSeriesProps<
@@ -46,7 +47,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   yScale,
   elAccessor,
 }: BaseBarSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
-  const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0,  currentSelectionIds,  handleClick} = useContext(
+  const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0,  currentSelectionIds,  handleClick,showTooltip:hasTooltip} = useContext(
     DataContext,
   );
   const key=1;
@@ -89,6 +90,31 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
       const y = getScaledY(datum,dataKey) + yOffset;
       const id = getElemNumber(datum);
       const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
+      const onMouseMove =  (params?: HandlerParams) => {
+        const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
+      const svgPoint = {x: svgMouseX,y:svgMouseY};
+      if (svgPoint && width && height && showTooltip) {
+        const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+          point: svgPoint,
+          data,
+          xScale,
+          yScale,
+          xAccessor,
+          yAccessor,
+          width,
+          height,
+        });
+        if (datum) {
+          showTooltip({
+            key: dataKey,
+            ...datum,
+            svgPoint,
+          });
+        }
+      }
+    };
+
+    const onMouseLeave = () => {hideTooltip();setHoverId(-1)}
 
       return {
         key: `${index}`,
@@ -101,7 +127,8 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         style: Number(id) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
         onClick : ()=> handleMouseClick(id),
         onMouseEnter: ()=> setHoverId(Number(id)),
-        onMouseLeave: ()=> setHoverId(0)
+        onMouseMove:onMouseMove,
+        onMouseLeave:onMouseLeave,
       };
     });
   }, [barThickness, color, data, getScaledX, getScaledY, hoverId,horizontal, xZeroPosition, yZeroPosition]);

@@ -245,7 +245,7 @@ function BaseBarStack<
              style: Number(barId) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(barId)) ? selection : nonSelection ,
           onClick : ()=> handleMouseClick(barId),
       onMouseEnter: ()=> setHoverId(Number(barId)),
-      onMouseLeave: ()=> setHoverId(0)
+      onMouseLeave: ()=> setHoverId(-1)
         };
       });
     })
