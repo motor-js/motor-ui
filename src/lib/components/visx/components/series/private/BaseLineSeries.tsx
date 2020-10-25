@@ -27,7 +27,7 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
   xAccessor,
   xScale,
   yAccessor,
-  yScale,
+  yScale, elAccessor,
   horizontal,
   PathComponent = 'path',
   ...lineProps
@@ -35,7 +35,7 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
   const { colorScale, theme, width, height } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
-  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor), [yScale, yAccessor]);
+  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor,dataKey), [yScale, yAccessor]);
   const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? '#222';
 
   const handleMouseMove = useCallback(
@@ -66,6 +66,23 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
   useEventEmitter('mousemove', handleMouseMove);
   useEventEmitter('mouseout', hideTooltip);
 
+  //   const onClick = useCallback(
+  //   (event) => {
+  //     const nearestData = findNearestData(event);
+  //     const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
+  //     const selections = currentSelectionIds.includes(selectionId)
+  //       ? currentSelectionIds.filter(function(value) {
+  //           return value !== selectionId;
+  //         })
+  //       : [...currentSelectionIds, selectionId];
+  //     handleClick(selections);
+  //   },
+  //   [findNearestData]
+  // );
+  
+    const onClick = 
+    (event: MouseEvent) => {console.log(event)}
+
   return (
     <LinePath
       data={data}
@@ -80,6 +97,7 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
           stroke={color}
           strokeWidth={2}
           fill="transparent"
+          onClick={onClick}
           {...lineProps}
           d={path(data) || ''}
         />
