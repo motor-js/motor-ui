@@ -180,7 +180,7 @@ export default function BaseBarGroup<
     ({ xAccessor, yAccessor, elAccessor, data, key }) => {
       const getLength = (d: Datum) =>
         horizontal
-          ? (xScale(xAccessor(d)) ?? 0) - xZeroPosition
+          ? (xScale(xAccessor(d, key)) ?? 0) - xZeroPosition
           : (yScale(yAccessor(d, key)) ?? 0) - yZeroPosition;
 
       const getGroupPosition = horizontal

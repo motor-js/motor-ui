@@ -23,6 +23,7 @@ import {
 import { colorByExpression, selectColor } from "../../utils";
 // import { buildChartTheme } from "../visx";
 import { lightTheme, darkTheme } from "../visx";
+import { valueIfUndefined } from "../visx/typeguards/valueIfUndefined";
 
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
@@ -75,6 +76,7 @@ export default function CreateXYChart({
   measureCount,
   dimensionCount,
   selectionMethod,
+  showLabels,
 
   animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
@@ -90,10 +92,11 @@ export default function CreateXYChart({
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
-  // const {
-  //   global: { chart },
-  //   crossHair: crossHairStyle,
-  // } = theme;
+
+  const {
+    global: { chart },
+    crossHair: crossHairStyle,
+  } = theme;
 
   // console.log(darkTheme);
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
@@ -181,6 +184,7 @@ export default function CreateXYChart({
       setCurrentSelectionIds={setCurrentSelectionIds}
       showTooltip={showTooltip}
       horizontal={renderHorizontally}
+      showLabels={valueIfUndefined(showLabels, chart.showLabels)}
     >
       <XYChart
         height={Math.min(400, height)}

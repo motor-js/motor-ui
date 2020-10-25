@@ -22,7 +22,7 @@ export interface DataRegistryEntry<
   /** array of data for the key. */
   data: Datum[];
   /** function that returns the x value of a datum. */
-  xAccessor: (d: Datum) => ScaleInput<XScale>;
+  xAccessor: (d: Datum, s?: String) => ScaleInput<XScale>;
   /** function that returns the y value of a datum. */
   yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
   /** Given a Datum, returns the elementid value. */
@@ -53,6 +53,7 @@ export interface DataContextType<
   handleClick: (d: Array<number>) => any;
   setBarStyle: Function;
   showTooltip: boolean;
+  horizontal: boolean;
   margin: Margin;
   dataRegistry: Omit<
     DataRegistry<XScale, YScale, Datum>,
