@@ -393,9 +393,17 @@ const base = {
           tickValues: null,
         },
       },
+      noSelections: {
+        opacity: 1,
+        cursor: "pointer",
+        // fill: "orange",
+        // stroke: "black",
+        // strokeWidth: "1px",
+      },
       selection: {
         opacity: 1,
         cursor: "pointer",
+        fill: "orange",
         // stroke: "black",
         // strokeWidth: "1px",
       },

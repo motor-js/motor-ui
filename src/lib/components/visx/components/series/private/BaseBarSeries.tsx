@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from 'react';
+import React, { useContext, useCallback, useMemo ,useState} from 'react';
 import { AxisScale } from '@visx/axis';
 import DataContext from '../../../context/DataContext';
 import { BarsProps, SeriesProps } from '../../../types';
@@ -10,6 +10,8 @@ import findNearestDatumY from '../../../utils/findNearestDatumY';
 import useEventEmitter, { HandlerParams } from '../../../hooks/useEventEmitter';
 import TooltipContext from '../../../context/TooltipContext';
 import getScaleBaseline from '../../../utils/getScaleBaseline';
+import { isEmpty } from "../../../../../utils";
+
 
 export type BaseBarSeriesProps<
   XScale extends AxisScale,
@@ -50,6 +52,12 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
   const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor,dataKey), [yScale, yAccessor]);
   const getElemNumber= useCallback(elAccessor, [elAccessor]);
+  const [hoverId, setHoverId] = useState(0);
+
+  const  {
+      hover,    selection,
+    nonSelection,noSelections,
+  } = theme;
 
   const scaleBandwidth = getScaleBandwidth(horizontal ? yScale : xScale);
   const barThickness =
@@ -69,9 +77,7 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
     })
     : [...currentSelectionIds, selectionId];
     handleClick(selections);
-
   } 
-
 
 
   const bars = useMemo(() => {
@@ -90,14 +96,14 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         id,
         width: horizontal ? Math.abs(barLength) : barThickness,
         height: horizontal ? barThickness : Math.abs(barLength),
-        fill: color, // @TODO allow prop overriding
-        //       noSelections={isEmpty(currentSelectionIds)}
-        // isSelected={currentSelectionIds.includes(id)}
-        style:{ cursor: "pointer" },
-        onClick : ()=> handleMouseClick(id)
+        fill:    color,  // @TODO allow prop overriding
+        // style: Number(id) === hoverId && isEmpty(currentSelectionIds) ? hover :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
+        style: Number(id) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
+        onClick : ()=> handleMouseClick(id),
+        onMouseEnter: ()=> setHoverId(Number(id))
       };
     });
-  }, [barThickness, color, data, getScaledX, getScaledY, horizontal, xZeroPosition, yZeroPosition]);
+  }, [barThickness, color, data, getScaledX, getScaledY, hoverId,horizontal, xZeroPosition, yZeroPosition]);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const handleMouseMove = useCallback(
