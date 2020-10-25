@@ -1,14 +1,16 @@
-import React, { useContext, useCallback } from 'react';
-import LinePath from '@visx/shape/lib/shapes/LinePath';
-import { AxisScale } from '@visx/axis';
-import DataContext from '../../../context/DataContext';
-import { SeriesProps } from '../../../types';
-import withRegisteredData, { WithRegisteredDataProps } from '../../../enhancers/withRegisteredData';
-import getScaledValueFactory from '../../../utils/getScaledValueFactory';
-import useEventEmitter, { HandlerParams } from '../../../hooks/useEventEmitter';
-import findNearestDatumX from '../../../utils/findNearestDatumX';
-import TooltipContext from '../../../context/TooltipContext';
-import findNearestDatumY from '../../../utils/findNearestDatumY';
+import React, { useContext, useCallback } from "react";
+import LinePath from "@visx/shape/lib/shapes/LinePath";
+import { AxisScale } from "@visx/axis";
+import DataContext from "../../../context/DataContext";
+import { SeriesProps } from "../../../types";
+import withRegisteredData, {
+  WithRegisteredDataProps,
+} from "../../../enhancers/withRegisteredData";
+import getScaledValueFactory from "../../../utils/getScaledValueFactory";
+import useEventEmitter, { HandlerParams } from "../../../hooks/useEventEmitter";
+import findNearestDatumX from "../../../utils/findNearestDatumX";
+import TooltipContext from "../../../context/TooltipContext";
+import findNearestDatumY from "../../../utils/findNearestDatumY";
 
 export type BaseLineSeriesProps<
   XScale extends AxisScale,
@@ -18,25 +20,42 @@ export type BaseLineSeriesProps<
   /** Whether line should be rendered horizontally instead of vertically. */
   horizontal?: boolean;
   /** Rendered component which is passed path props by BaseLineSeries after processing. */
-  PathComponent?: React.FC<Omit<React.SVGProps<SVGPathElement>, 'ref'>> | 'path';
-} & Omit<React.SVGProps<SVGPathElement>, 'x' | 'y' | 'x0' | 'x1' | 'y0' | 'y1' | 'ref'>;
+  PathComponent?:
+    | React.FC<Omit<React.SVGProps<SVGPathElement>, "ref">>
+    | "path";
+} & Omit<
+    React.SVGProps<SVGPathElement>,
+    "x" | "y" | "x0" | "x1" | "y0" | "y1" | "ref"
+  >;
 
-function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datum extends object>({
+function BaseLineSeries<
+  XScale extends AxisScale,
+  YScale extends AxisScale,
+  Datum extends object
+>({
   data,
   dataKey,
   xAccessor,
   xScale,
   yAccessor,
-  yScale, elAccessor,
+  yScale,
+  elAccessor,
   horizontal,
-  PathComponent = 'path',
+  PathComponent = "path",
   ...lineProps
-}: BaseLineSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
+}: BaseLineSeriesProps<XScale, YScale, Datum> &
+  WithRegisteredDataProps<XScale, YScale, Datum>) {
   const { colorScale, theme, width, height } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
-  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
-  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor,dataKey), [yScale, yAccessor]);
-  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? '#222';
+  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
+    xScale,
+    xAccessor,
+  ]);
+  const getScaledY = useCallback(
+    getScaledValueFactory(yScale, yAccessor, dataKey),
+    [yScale, yAccessor]
+  );
+  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
 
   const handleMouseMove = useCallback(
     (params?: HandlerParams) => {
@@ -61,10 +80,21 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
         }
       }
     },
-    [dataKey, data, xScale, yScale, xAccessor, yAccessor, width, height, showTooltip, horizontal],
+    [
+      dataKey,
+      data,
+      xScale,
+      yScale,
+      xAccessor,
+      yAccessor,
+      width,
+      height,
+      showTooltip,
+      horizontal,
+    ]
   );
-  useEventEmitter('mousemove', handleMouseMove);
-  useEventEmitter('mouseout', hideTooltip);
+  useEventEmitter("mousemove", handleMouseMove);
+  useEventEmitter("mouseout", hideTooltip);
 
   //   const onClick = useCallback(
   //   (event) => {
@@ -79,9 +109,10 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
   //   },
   //   [findNearestData]
   // );
-  
-    const onClick = 
-    (event: MouseEvent) => {console.log(event)}
+
+  const onClick = (event: MouseEvent) => {
+    console.log(event);
+  };
 
   return (
     <LinePath
@@ -99,7 +130,7 @@ function BaseLineSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
           fill="transparent"
           onClick={onClick}
           {...lineProps}
-          d={path(data) || ''}
+          d={path(data) || ""}
         />
       )}
     </LinePath>
