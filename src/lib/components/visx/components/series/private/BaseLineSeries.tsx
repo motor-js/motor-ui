@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import LinePath from "@visx/shape/lib/shapes/LinePath";
 import { AxisScale } from "@visx/axis";
 import DataContext from "../../../context/DataContext";
@@ -12,6 +12,7 @@ import findNearestDatumX from "../../../utils/findNearestDatumX";
 import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
 import { localPoint } from "@visx/event";
+import { isEmpty } from "../../../../../utils";
 
 export type BaseLineSeriesProps<
   XScale extends AxisScale,
@@ -53,12 +54,14 @@ function BaseLineSeries<
     height,
     currentSelectionIds,
     handleClick,
+    setBarStyle,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
     xScale,
     xAccessor,
   ]);
+  const [hoverId, setHoverId] = useState(null);
   const getScaledY = useCallback(
     getScaledValueFactory(yScale, yAccessor, dataKey),
     [yScale, yAccessor]
@@ -159,6 +162,7 @@ function BaseLineSeries<
 
   const onMouseLeave = () => {
     hideTooltip();
+    setHoverId(null);
   };
 
   return (
@@ -175,7 +179,9 @@ function BaseLineSeries<
           stroke={color}
           strokeWidth={2}
           fill="transparent"
+          style={setBarStyle(hoverId, isEmpty(currentSelectionIds), hoverId)}
           onClick={onClick}
+          onMouseEnter={() => setHoverId(Number(data))}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}
           {...lineProps}
