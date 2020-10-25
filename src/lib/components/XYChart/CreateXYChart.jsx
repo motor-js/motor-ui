@@ -262,40 +262,56 @@ export default function CreateXYChart({
                 ))}
           </BarGroup>
         )}
+        {chartType === "combo" &&
+          !singleMeasure &&
+          measureInfo.map((measure, index) =>
+            measure.qChartType === "bar" ? (
+              <BarSeries
+                key={measureInfo[index].qFallbackTitle}
+                dataKey={measureInfo[index].qFallbackTitle}
+                data={data}
+                xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                horizontal={renderHorizontally}
+              />
+            ) : (
+              <LineSeries
+                key={measureInfo[index].qFallbackTitle}
+                dataKey={measureInfo[index].qFallbackTitle}
+                data={data}
+                xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                horizontal={renderHorizontally}
+              />
+            )
+          )}
         {chartType === "line" && (
           <>
-            <LineSeries
-              dataKey="San Francisco"
-              data={data}
-              xAccessor={accessors.x["San Francisco"]}
-              yAccessor={accessors.y["San Francisco"]}
-              horizontal={!renderHorizontally}
-            />
-            <LineSeries
-              dataKey="Austin"
-              data={data}
-              xAccessor={accessors.x.Austin}
-              yAccessor={accessors.y.Austin}
-              horizontal={!renderHorizontally}
-            />
-          </>
-        )}
-        {chartType === "combo" && (
-          <>
-            <BarSeries
-              dataKey="San Francisco"
-              data={data}
-              xAccessor={accessors.x["San Francisco"]}
-              yAccessor={accessors.y["San Francisco"]}
-              horizontal={renderHorizontally}
-            />
-            <LineSeries
-              dataKey="Austin"
-              data={data}
-              xAccessor={accessors.x.Austin}
-              yAccessor={accessors.y.Austin}
-              horizontal={renderHorizontally}
-            />
+            {singleDimension
+              ? measureInfo.map((measure, index) => (
+                  <LineSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={data}
+                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    horizontal={renderHorizontally}
+                  />
+                ))
+              : dataKeys.map((measure, index) => (
+                  <LineSeries
+                    key={measure}
+                    dataKey={measure}
+                    data={data}
+                    xAccessor={accessors.x[measure]}
+                    yAccessor={accessors.y[measure]}
+                    elAccessor={accessors.el[measure]}
+                    horizontal={renderHorizontally}
+                  />
+                ))}
           </>
         )}
         {chartType === "area" && (

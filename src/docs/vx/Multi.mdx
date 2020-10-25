@@ -1,18 +1,20 @@
 ---
-name: Line
-route: /line
+name: Multi
+route: /multi
 menu: visx
 ---
 
-<h1 style={{ margin: '0px' }}>LineChart</h1>
+<h1 style={{ margin: '0px' }}>Combo Chart</h1>
 
 <br />
 
-Here is a line chart.
+Here is a bar chart.
 Check out the props and example usage below 💡
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
+import Combo from '../../lib/components/Combo/Combo.jsx'
+import Bar from '../../lib/components/Bar/Bar.jsx'
 import Line from '../../lib/components/Line/Line.jsx'
 import Motor from '../../lib/components/Motor/Motor.jsx'
 import Filter from '../../lib/components/Filter/Filter.jsx'
@@ -25,7 +27,27 @@ import { config } from '../config/config.js'
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
-    <Line
+    <Combo
+    suppressZero
+     width={750} 
+     height={500}  
+    colorTheme="bio"
+    backgroundPattern="Lines"
+  //   backgroundStyle={{ style: 'LightGreen', size: 100}}
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+     showLabels={true}
+     selectionMethod='click'
+     showPoints={true}
+    // showPoints='star'
+      cols={[
+      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+    ]}/>
+        <Bar
     suppressZero
      width={750} 
      height={500}  
