@@ -103,7 +103,8 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
         // style: Number(id) === hoverId && isEmpty(currentSelectionIds) ? hover :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
         style: Number(id) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
         onClick : ()=> handleMouseClick(id),
-        onMouseEnter: ()=> setHoverId(Number(id))
+        onMouseEnter: ()=> setHoverId(Number(id)),
+        onMouseLeave: ()=> setHoverId(0)
       };
     });
   }, [barThickness, color, data, getScaledX, getScaledY, hoverId,horizontal, xZeroPosition, yZeroPosition]);

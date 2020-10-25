@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo, useEffect } from 'react';
+import React, { useContext, useCallback, useMemo, useEffect ,useState} from 'react';
 import { PositionScale } from '@visx/shape/lib/types';
 import { scaleBand } from '@visx/scale';
 import isChildWithProps from '../../../typeguards/isChildWithProps';
@@ -11,6 +11,7 @@ import findNearestDatumX from '../../../utils/findNearestDatumX';
 import useEventEmitter, { HandlerParams } from '../../../hooks/useEventEmitter';
 import TooltipContext from '../../../context/TooltipContext';
 import getScaleBaseline from '../../../utils/getScaleBaseline';
+import { isEmpty } from "../../../../../utils";
 
 export type BaseBarGroupProps<XScale extends PositionScale, YScale extends PositionScale> = {
   /** Whether to render the Stack horizontally instead of vertically. */
@@ -39,13 +40,20 @@ export default function BaseBarGroup<
   const {
     xScale,
     yScale,
-    colorScale,
+    colorScale,theme,
     dataRegistry,
     registerData,
     unregisterData,
     width,
-    height,
+    height
   } = (useContext(DataContext) as unknown) as DataContextType<XScale, YScale, Datum>;
+
+    const [hoverId, setHoverId] = useState(0);
+
+      const  {
+      hover,    selection,
+    nonSelection,noSelections,
+  } = theme;
 
   const barSeriesChildren = useMemo(
     () =>
@@ -64,8 +72,8 @@ export default function BaseBarGroup<
   // register all child data
   useEffect(() => {
     const dataToRegister = barSeriesChildren.map(child => {
-      const { dataKey: key, data, xAccessor, yAccessor,elAccessor } = child.props;
-      return { key, data, xAccessor, yAccessor ,elAccessor};
+      const { dataKey: key, data, xAccessor, yAccessor,elAccessor,currentSelectionIds,handleClick } = child.props;
+      return { key, data, xAccessor, yAccessor ,elAccessor,currentSelectionIds,handleClick};
     });
 
     registerData(dataToRegister);
@@ -129,7 +137,7 @@ export default function BaseBarGroup<
 
   const barThickness = getScaleBandwidth(groupScale);
 
-  const bars = registryEntries.flatMap(({ xAccessor, yAccessor, elAccessor,data, key }) => {
+  const bars = registryEntries.flatMap(({ xAccessor, yAccessor, elAccessor,currentSelectionIds,handleClick,data, key }) => {
 
     const getLength = (d: Datum) =>
       horizontal
@@ -156,8 +164,6 @@ export default function BaseBarGroup<
     const getHeight = horizontal ? () => barThickness : (d: Datum) => Math.abs(getLength(d));
 
       const handleMouseClick = (id:string) => {
-        console.log(id)
-        return;
     const selectionId = Number(id)
     const selections = currentSelectionIds.includes(selectionId)
     ? currentSelectionIds.filter(function(value:number, index, arr) {
@@ -175,9 +181,10 @@ export default function BaseBarGroup<
       width: getWidth(datum),
       height: getHeight(datum),
       fill: colorScale(key),
-        //      style: Number(id) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
-        onClick : ()=> handleMouseClick(getElemNumber(datum)),
-        // onMouseEnter: ()=> setHoverId(Number(id))
+      style: Number(getElemNumber(datum)) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(getElemNumber(datum))) ? selection : nonSelection ,
+      onClick : ()=> handleMouseClick(getElemNumber(datum)),
+      onMouseEnter: ()=> setHoverId(Number(getElemNumber(datum))),
+      onMouseLeave: ()=> setHoverId(0)
     }));
   });
 
