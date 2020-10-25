@@ -11,6 +11,7 @@ import useEventEmitter, { HandlerParams } from "../../../hooks/useEventEmitter";
 import findNearestDatumX from "../../../utils/findNearestDatumX";
 import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
+import { localPoint } from "@visx/event";
 
 export type BaseLineSeriesProps<
   XScale extends AxisScale,
@@ -45,7 +46,14 @@ function BaseLineSeries<
   ...lineProps
 }: BaseLineSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
-  const { colorScale, theme, width, height } = useContext(DataContext);
+  const {
+    colorScale,
+    theme,
+    width,
+    height,
+    currentSelectionIds,
+    handleClick,
+  } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
     xScale,
@@ -93,25 +101,64 @@ function BaseLineSeries<
       horizontal,
     ]
   );
+
   useEventEmitter("mousemove", handleMouseMove);
   useEventEmitter("mouseout", hideTooltip);
 
-  //   const onClick = useCallback(
-  //   (event) => {
-  //     const nearestData = findNearestData(event);
-  //     const selectionId = nearestData.closestDatum.datum[0].qElemNumber;
-  //     const selections = currentSelectionIds.includes(selectionId)
-  //       ? currentSelectionIds.filter(function(value) {
-  //           return value !== selectionId;
-  //         })
-  //       : [...currentSelectionIds, selectionId];
-  //     handleClick(selections);
-  //   },
-  //   [findNearestData]
-  // );
-
   const onClick = (event: MouseEvent) => {
-    console.log(event);
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    if (svgPoint && width && height) {
+      const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+        point: svgPoint,
+        data,
+        xScale,
+        yScale,
+        xAccessor,
+        yAccessor,
+        width,
+        height,
+      });
+
+      if (datum) {
+        const selectionId = Number(elAccessor(datum.datum));
+
+        const selections = currentSelectionIds.includes(selectionId)
+          ? currentSelectionIds.filter(function(value: number, index, arr) {
+              return value !== selectionId;
+            })
+          : [...currentSelectionIds, selectionId];
+        handleClick(selections);
+      }
+    }
+  };
+
+  const onMouseMove = (event: MouseEvent) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    if (svgPoint && width && height && showTooltip) {
+      const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+        point: svgPoint,
+        data,
+        xScale,
+        yScale,
+        xAccessor,
+        yAccessor,
+        width,
+        height,
+      });
+      if (datum) {
+        showTooltip({
+          key: dataKey,
+          ...datum,
+          svgPoint,
+        });
+      }
+    }
+  };
+
+  const onMouseLeave = () => {
+    hideTooltip();
   };
 
   return (
@@ -129,6 +176,8 @@ function BaseLineSeries<
           strokeWidth={2}
           fill="transparent"
           onClick={onClick}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
           {...lineProps}
           d={path(data) || ""}
         />

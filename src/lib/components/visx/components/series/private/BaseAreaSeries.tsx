@@ -13,6 +13,7 @@ import findNearestDatumX from "../../../utils/findNearestDatumX";
 import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
 import getScaleBaseline from "../../../utils/getScaleBaseline";
+import { localPoint } from "@visx/event";
 
 export type BaseAreaSeriesProps<
   XScale extends AxisScale,
@@ -56,7 +57,14 @@ function BaseAreaSeries<
   ...areaProps
 }: BaseAreaSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
-  const { colorScale, theme, width, height } = useContext(DataContext);
+  const {
+    colorScale,
+    theme,
+    width,
+    height,
+    currentSelectionIds,
+    handleClick,
+  } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
     xScale,
@@ -125,6 +133,62 @@ function BaseAreaSeries<
       }
     : { y0: numericScaleBaseline, y1: getScaledY };
 
+  const onClick = (event: MouseEvent) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    if (svgPoint && width && height) {
+      const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+        point: svgPoint,
+        data,
+        xScale,
+        yScale,
+        xAccessor,
+        yAccessor,
+        width,
+        height,
+      });
+
+      if (datum) {
+        const selectionId = Number(elAccessor(datum.datum));
+
+        const selections = currentSelectionIds.includes(selectionId)
+          ? currentSelectionIds.filter(function(value: number, index, arr) {
+              return value !== selectionId;
+            })
+          : [...currentSelectionIds, selectionId];
+        handleClick(selections);
+      }
+    }
+  };
+
+  const onMouseMove = (event: MouseEvent) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    if (svgPoint && width && height && showTooltip) {
+      const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+        point: svgPoint,
+        data,
+        xScale,
+        yScale,
+        xAccessor,
+        yAccessor,
+        width,
+        height,
+      });
+      if (datum) {
+        showTooltip({
+          key: dataKey,
+          ...datum,
+          svgPoint,
+        });
+      }
+    }
+  };
+
+  const onMouseLeave = () => {
+    hideTooltip();
+  };
+
   return (
     <>
       <Area data={data} {...xAccessors} {...yAccessors} {...areaProps}>
@@ -151,6 +215,9 @@ function BaseAreaSeries<
               fill="transparent"
               stroke={color}
               strokeWidth={2}
+              onClick={onClick}
+              onMouseMove={onMouseMove}
+              onMouseLeave={onMouseLeave}
               {...lineProps}
               d={path(data) || ""}
             />
