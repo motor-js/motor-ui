@@ -64,8 +64,8 @@ export default function BaseBarGroup<
   // register all child data
   useEffect(() => {
     const dataToRegister = barSeriesChildren.map(child => {
-      const { dataKey: key, data, xAccessor, yAccessor } = child.props;
-      return { key, data, xAccessor, yAccessor };
+      const { dataKey: key, data, xAccessor, yAccessor,elAccessor } = child.props;
+      return { key, data, xAccessor, yAccessor ,elAccessor};
     });
 
     registerData(dataToRegister);
@@ -129,7 +129,7 @@ export default function BaseBarGroup<
 
   const barThickness = getScaleBandwidth(groupScale);
 
-  const bars = registryEntries.flatMap(({ xAccessor, yAccessor, data, key }) => {
+  const bars = registryEntries.flatMap(({ xAccessor, yAccessor, elAccessor,data, key }) => {
 
     const getLength = (d: Datum) =>
       horizontal
@@ -150,16 +150,34 @@ export default function BaseBarGroup<
       ? (d: Datum) => getGroupPosition(d) + withinGroupPosition
       : (d: Datum) => yZeroPosition + Math.min(0, getLength(d));
 
+    const getElemNumber= (d: Datum) => elAccessor(d) ?? 0;
+
     const getWidth = horizontal ? (d: Datum) => Math.abs(getLength(d)) : () => barThickness;
     const getHeight = horizontal ? () => barThickness : (d: Datum) => Math.abs(getLength(d));
+
+      const handleMouseClick = (id:string) => {
+        console.log(id)
+        return;
+    const selectionId = Number(id)
+    const selections = currentSelectionIds.includes(selectionId)
+    ? currentSelectionIds.filter(function(value:number, index, arr) {
+      return value !== selectionId;
+    })
+    : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  } 
 
     return data.map((datum, index) => ({
       key: `${key}-${index}`,
       x: getX(datum),
       y: getY(datum),
+      id : getElemNumber(datum),
       width: getWidth(datum),
       height: getHeight(datum),
       fill: colorScale(key),
+        //      style: Number(id) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(id)) ? selection : nonSelection ,
+        onClick : ()=> handleMouseClick(getElemNumber(datum)),
+        // onMouseEnter: ()=> setHoverId(Number(id))
     }));
   });
 

@@ -223,6 +223,10 @@ export default function CreateXYChart({
                     data={data}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    currentSelectionIds={currentSelectionIds}
+                    handleClick={handleClick}
+                    horizontal={renderHorizontally}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -232,6 +236,10 @@ export default function CreateXYChart({
                     data={data}
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
+                    elAccessor={accessors.el[measure]}
+                    currentSelectionIds={currentSelectionIds}
+                    handleClick={handleClick}
+                    horizontal={renderHorizontally}
                   />
                 ))}
           </BarGroup>

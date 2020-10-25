@@ -42,8 +42,11 @@ function BaseBarSeries<XScale extends AxisScale, YScale extends AxisScale, Datum
   horizontal,
   xAccessor,
   xScale,
-  yAccessor,elAccessor,currentSelectionIds,handleClick,
+  yAccessor,
   yScale,
+  elAccessor,
+  currentSelectionIds,
+  handleClick,
 }: BaseBarSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
   const { colorScale, theme, width, height, innerWidth = 0, innerHeight = 0} = useContext(
     DataContext,
