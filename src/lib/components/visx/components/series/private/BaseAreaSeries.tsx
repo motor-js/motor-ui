@@ -1,16 +1,18 @@
-import React, { useContext, useCallback, useMemo } from 'react';
-import { AxisScale } from '@visx/axis';
-import Area from '@visx/shape/lib/shapes/Area';
-import LinePath, { LinePathProps } from '@visx/shape/lib/shapes/LinePath';
-import DataContext from '../../../context/DataContext';
-import { SeriesProps } from '../../../types';
-import withRegisteredData, { WithRegisteredDataProps } from '../../../enhancers/withRegisteredData';
-import getScaledValueFactory from '../../../utils/getScaledValueFactory';
-import useEventEmitter, { HandlerParams } from '../../../hooks/useEventEmitter';
-import findNearestDatumX from '../../../utils/findNearestDatumX';
-import TooltipContext from '../../../context/TooltipContext';
-import findNearestDatumY from '../../../utils/findNearestDatumY';
-import getScaleBaseline from '../../../utils/getScaleBaseline';
+import React, { useContext, useCallback, useMemo } from "react";
+import { AxisScale } from "@visx/axis";
+import Area from "@visx/shape/lib/shapes/Area";
+import LinePath, { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
+import DataContext from "../../../context/DataContext";
+import { SeriesProps } from "../../../types";
+import withRegisteredData, {
+  WithRegisteredDataProps,
+} from "../../../enhancers/withRegisteredData";
+import getScaledValueFactory from "../../../utils/getScaledValueFactory";
+import useEventEmitter, { HandlerParams } from "../../../hooks/useEventEmitter";
+import findNearestDatumX from "../../../utils/findNearestDatumX";
+import TooltipContext from "../../../context/TooltipContext";
+import findNearestDatumY from "../../../utils/findNearestDatumY";
+import getScaleBaseline from "../../../utils/getScaleBaseline";
 
 export type BaseAreaSeriesProps<
   XScale extends AxisScale,
@@ -22,12 +24,24 @@ export type BaseAreaSeriesProps<
   /** Whether to render a Line on top of the Area shape (fill only). */
   renderLine?: boolean;
   /** Props to be passed to the Line, if rendered. */
-  lineProps?: Omit<LinePathProps<Datum>, 'data' | 'x' | 'y' | 'children' | 'defined'>;
+  lineProps?: Omit<
+    LinePathProps<Datum>,
+    "data" | "x" | "y" | "children" | "defined"
+  >;
   /** Rendered component which is passed path props by BaseAreaSeries after processing. */
-  PathComponent?: React.FC<Omit<React.SVGProps<SVGPathElement>, 'ref'>> | 'path';
-} & Omit<React.SVGProps<SVGPathElement>, 'x' | 'y' | 'x0' | 'x1' | 'y0' | 'y1' | 'ref'>;
+  PathComponent?:
+    | React.FC<Omit<React.SVGProps<SVGPathElement>, "ref">>
+    | "path";
+} & Omit<
+    React.SVGProps<SVGPathElement>,
+    "x" | "y" | "x0" | "x1" | "y0" | "y1" | "ref"
+  >;
 
-function BaseAreaSeries<XScale extends AxisScale, YScale extends AxisScale, Datum extends object>({
+function BaseAreaSeries<
+  XScale extends AxisScale,
+  YScale extends AxisScale,
+  Datum extends object
+>({
   data,
   dataKey,
   horizontal,
@@ -35,16 +49,24 @@ function BaseAreaSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
   xScale,
   yAccessor,
   yScale,
+  elAccessor,
   renderLine = true,
-  PathComponent = 'path',
+  PathComponent = "path",
   lineProps,
   ...areaProps
-}: BaseAreaSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
+}: BaseAreaSeriesProps<XScale, YScale, Datum> &
+  WithRegisteredDataProps<XScale, YScale, Datum>) {
   const { colorScale, theme, width, height } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
-  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
-  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor), [yScale, yAccessor]);
-  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? '#222';
+  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
+    xScale,
+    xAccessor,
+  ]);
+  const getScaledY = useCallback(
+    getScaledValueFactory(yScale, yAccessor, dataKey),
+    [yScale, yAccessor]
+  );
+  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
 
   const handleMouseMove = useCallback(
     (params?: HandlerParams) => {
@@ -69,16 +91,26 @@ function BaseAreaSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
         }
       }
     },
-    [dataKey, data, xScale, yScale, xAccessor, yAccessor, width, height, showTooltip, horizontal],
+    [
+      dataKey,
+      data,
+      xScale,
+      yScale,
+      xAccessor,
+      yAccessor,
+      width,
+      height,
+      showTooltip,
+      horizontal,
+    ]
   );
-  useEventEmitter('mousemove', handleMouseMove);
-  useEventEmitter('mouseout', hideTooltip);
+  useEventEmitter("mousemove", handleMouseMove);
+  useEventEmitter("mouseout", hideTooltip);
 
-  const numericScaleBaseline = useMemo(() => getScaleBaseline(horizontal ? xScale : yScale), [
-    horizontal,
-    xScale,
-    yScale,
-  ]);
+  const numericScaleBaseline = useMemo(
+    () => getScaleBaseline(horizontal ? xScale : yScale),
+    [horizontal, xScale, yScale]
+  );
 
   const xAccessors = horizontal
     ? {
@@ -97,7 +129,12 @@ function BaseAreaSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
     <>
       <Area data={data} {...xAccessors} {...yAccessors} {...areaProps}>
         {({ path }) => (
-          <PathComponent stroke="transparent" fill={color} {...areaProps} d={path(data) || ''} />
+          <PathComponent
+            stroke="transparent"
+            fill={color}
+            {...areaProps}
+            d={path(data) || ""}
+          />
         )}
       </Area>
       {renderLine && (
@@ -115,7 +152,7 @@ function BaseAreaSeries<XScale extends AxisScale, YScale extends AxisScale, Datu
               stroke={color}
               strokeWidth={2}
               {...lineProps}
-              d={path(data) || ''}
+              d={path(data) || ""}
             />
           )}
         </LinePath>

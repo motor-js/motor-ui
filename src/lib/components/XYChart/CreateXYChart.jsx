@@ -317,25 +317,50 @@ export default function CreateXYChart({
         )}
         {chartType === "area" && (
           <>
-            <>
-              <AreaSeries
-                dataKey="Austin"
-                data={data}
-                xAccessor={accessors.x.Austin}
-                yAccessor={accessors.y.Austin}
-                horizontal={renderHorizontally}
-                fillOpacity={0.3}
-              />
-              <AreaSeries
-                dataKey="San Francisco"
-                data={data}
-                xAccessor={accessors.x["San Francisco"]}
-                yAccessor={accessors.y["San Francisco"]}
-                horizontal={renderHorizontally}
-                fillOpacity={0.3}
-              />
-            </>
+            {singleDimension
+              ? measureInfo.map((measure, index) => (
+                  <AreaSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    data={data}
+                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    fillOpacity={0.3}
+                  />
+                ))
+              : dataKeys.map((measure, index) => (
+                  <AreaSeries
+                    key={measure}
+                    dataKey={measure}
+                    data={data}
+                    xAccessor={accessors.x[measure]}
+                    yAccessor={accessors.y[measure]}
+                    elAccessor={accessors.el[measure]}
+                    fillOpacity={0.3}
+                  />
+                ))}
           </>
+          // <>
+          //   <>
+          //     <AreaSeries
+          //       dataKey="Austin"
+          //       data={data}
+          //       xAccessor={accessors.x.Austin}
+          //       yAccessor={accessors.y.Austin}
+          //       horizontal={renderHorizontally}
+          //       fillOpacity={0.3}
+          //     />
+          //     <AreaSeries
+          //       dataKey="San Francisco"
+          //       data={data}
+          //       xAccessor={accessors.x["San Francisco"]}
+          //       yAccessor={accessors.y["San Francisco"]}
+          //       horizontal={renderHorizontally}
+          //       fillOpacity={0.3}
+          //     />
+          //   </>
+          // </>
         )}
         {chartType === "areastack" && (
           <>

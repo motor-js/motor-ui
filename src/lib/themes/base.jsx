@@ -288,7 +288,7 @@ const base = {
           },
         },
       },
-      suppressZero: false,
+      suppressZero: true,
       suppressMissing: false,
       otherTotalSpec: undefined,
       showLegend: true,
