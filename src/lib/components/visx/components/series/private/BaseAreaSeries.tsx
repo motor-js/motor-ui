@@ -21,8 +21,6 @@ export type BaseAreaSeriesProps<
   YScale extends AxisScale,
   Datum extends object
 > = SeriesProps<XScale, YScale, Datum> & {
-  /** Whether area should be rendered horizontally instead of vertically. */
-  horizontal?: boolean;
   /** Whether to render a Line on top of the Area shape (fill only). */
   renderLine?: boolean;
   /** Props to be passed to the Line, if rendered. */
@@ -46,7 +44,6 @@ function BaseAreaSeries<
 >({
   data,
   dataKey,
-  horizontal,
   xAccessor,
   xScale,
   yAccessor,
@@ -65,6 +62,7 @@ function BaseAreaSeries<
     height,
     currentSelectionIds,
     handleClick,
+    horizontal,
     setBarStyle,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};

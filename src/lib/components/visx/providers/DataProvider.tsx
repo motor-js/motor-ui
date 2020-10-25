@@ -24,6 +24,7 @@ export type DataProviderProps<
   select: Function;
   setCurrentSelectionIds: Function;
   showTooltip: boolean;
+  horizontal?: boolean;
   children: React.ReactNode;
 };
 
@@ -41,6 +42,7 @@ export default function DataProvider<
   select,
   setCurrentSelectionIds,
   showTooltip,
+  horizontal,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -120,6 +122,7 @@ export default function DataProvider<
         handleClick,
         currentSelectionIds,
         showTooltip,
+        horizontal,
         setDimensions,
         setBarStyle,
       }}

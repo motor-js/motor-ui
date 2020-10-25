@@ -180,6 +180,7 @@ export default function CreateXYChart({
       select={select}
       setCurrentSelectionIds={setCurrentSelectionIds}
       showTooltip={showTooltip}
+      horizontal={renderHorizontally}
     >
       <XYChart
         height={Math.min(400, height)}
@@ -206,7 +207,6 @@ export default function CreateXYChart({
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
-            horizontal={renderHorizontally}
           />
         )}
         {chartType === "barstack" && (
@@ -220,7 +220,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    horizontal={renderHorizontally}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -231,7 +230,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    horizontal={renderHorizontally}
                   />
                 ))}
           </BarStack>
@@ -247,7 +245,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    horizontal={renderHorizontally}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -258,7 +255,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    horizontal={renderHorizontally}
                   />
                 ))}
           </BarGroup>
@@ -274,7 +270,6 @@ export default function CreateXYChart({
                 xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                 yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                 elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                horizontal={renderHorizontally}
               />
             ) : (
               <LineSeries
@@ -284,7 +279,6 @@ export default function CreateXYChart({
                 xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                 yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                 elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                horizontal={renderHorizontally}
               />
             )
           )}
@@ -299,7 +293,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    horizontal={renderHorizontally}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -310,7 +303,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    horizontal={renderHorizontally}
                   />
                 ))}
           </>
@@ -326,7 +318,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    horizontal={renderHorizontally}
                     fillOpacity={0.3}
                   />
                 ))
@@ -338,31 +329,10 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    horizontal={renderHorizontally}
                     fillOpacity={0.3}
                   />
                 ))}
           </>
-          // <>
-          //   <>
-          //     <AreaSeries
-          //       dataKey="Austin"
-          //       data={data}
-          //       xAccessor={accessors.x.Austin}
-          //       yAccessor={accessors.y.Austin}
-          //       horizontal={renderHorizontally}
-          //       fillOpacity={0.3}
-          //     />
-          //     <AreaSeries
-          //       dataKey="San Francisco"
-          //       data={data}
-          //       xAccessor={accessors.x["San Francisco"]}
-          //       yAccessor={accessors.y["San Francisco"]}
-          //       horizontal={renderHorizontally}
-          //       fillOpacity={0.3}
-          //     />
-          //   </>
-          // </>
         )}
         {chartType === "areastack" && (
           <>
@@ -371,14 +341,12 @@ export default function CreateXYChart({
               data={data}
               xAccessor={accessors.x["San Francisco"]}
               yAccessor={accessors.y["San Francisco"]}
-              horizontal={renderHorizontally}
             />
             <LineSeries
               dataKey="Austin"
               data={data}
               xAccessor={accessors.x.Austin}
               yAccessor={accessors.y.Austin}
-              horizontal={renderHorizontally}
             />
           </>
         )}

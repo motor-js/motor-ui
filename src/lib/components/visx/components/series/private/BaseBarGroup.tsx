@@ -23,8 +23,6 @@ export type BaseBarGroupProps<
   XScale extends PositionScale,
   YScale extends PositionScale
 > = {
-  /** Whether to render the Stack horizontally instead of vertically. */
-  horizontal?: boolean;
   /** `BarSeries` elements */
   children: JSX.Element | JSX.Element[];
   /** Group band scale padding, [0, 1] where 0 = no padding, 1 = no bar. */
@@ -41,7 +39,6 @@ export default function BaseBarGroup<
   Datum extends object
 >({
   children,
-  horizontal,
   padding = 0.1,
   sortBars,
   BarsComponent,
@@ -58,6 +55,7 @@ export default function BaseBarGroup<
     height,
     currentSelectionIds,
     handleClick,
+    horizontal,
     setBarStyle,
   } = (useContext(DataContext) as unknown) as DataContextType<
     XScale,

@@ -19,8 +19,6 @@ export type BaseLineSeriesProps<
   YScale extends AxisScale,
   Datum extends object
 > = SeriesProps<XScale, YScale, Datum> & {
-  /** Whether line should be rendered horizontally instead of vertically. */
-  horizontal?: boolean;
   /** Rendered component which is passed path props by BaseLineSeries after processing. */
   PathComponent?:
     | React.FC<Omit<React.SVGProps<SVGPathElement>, "ref">>
@@ -42,7 +40,6 @@ function BaseLineSeries<
   yAccessor,
   yScale,
   elAccessor,
-  horizontal,
   PathComponent = "path",
   ...lineProps
 }: BaseLineSeriesProps<XScale, YScale, Datum> &
@@ -55,6 +52,7 @@ function BaseLineSeries<
     currentSelectionIds,
     handleClick,
     setBarStyle,
+    horizontal,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
