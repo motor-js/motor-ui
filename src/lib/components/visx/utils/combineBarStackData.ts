@@ -30,10 +30,10 @@ export default function combineBarStackData<
   } = {};
 
   barSeriesChildren.forEach((child) => {
-    const { dataKey, data, xAccessor, yAccessor } = child.props;
+    const { dataKey, data, xAccessor, yAccessor, elAccessor } = child.props;
 
     // this should exist but double check
-    if (!xAccessor || !yAccessor) return;
+    if (!xAccessor || !yAccessor || !elAccessor) return;
 
     const [stackFn, valueFn] = horizontal
       ? [yAccessor, xAccessor]
@@ -47,6 +47,7 @@ export default function combineBarStackData<
         dataByStackValue[stackKey] = { stack, positiveSum: 0, negativeSum: 0 };
       }
       dataByStackValue[stackKey][dataKey] = numericValue;
+      dataByStackValue[stackKey]["id"] = elAccessor(d);
       dataByStackValue[stackKey][
         numericValue >= 0 ? "positiveSum" : "negativeSum"
       ] += numericValue;

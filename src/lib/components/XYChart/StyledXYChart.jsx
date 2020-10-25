@@ -145,13 +145,13 @@ function StyledXYChart(props) {
   //   }
   // };
 
-  const handleClick = (selectionValue) => {
-    beginSelections();
+  // const handleClick = (selectionValue) => {
+  //   beginSelections();
 
-    setCurrentSelectionIds(selectionValue);
+  //   setCurrentSelectionIds(selectionValue);
 
-    select(0, selectionValue);
-  };
+  //   select(0, selectionValue);
+  // };
 
   useEffect(() => {
     let valid;
@@ -272,12 +272,12 @@ function StyledXYChart(props) {
     measureCount,
     dimensionCount,
     data,
-    handleClick,
+    // handleClick,
     //         keys={keys}
     //         dataKeys={dataKeys}
-    // beginSelections,
-    // select,
-    //         setCurrentSelectionIds={setCurrentSelectionIds}
+    beginSelections,
+    select,
+    setCurrentSelectionIds,
     currentSelectionIds,
     colorPalette,
     size,

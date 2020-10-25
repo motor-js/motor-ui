@@ -25,6 +25,8 @@ export interface DataRegistryEntry<
   xAccessor: (d: Datum) => ScaleInput<XScale>;
   /** function that returns the y value of a datum. */
   yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
+  /** Given a Datum, returns the elementid value. */
+  elAccessor: (d: Datum) => string;
   /** whether the entry supports mouse events. */
   mouseEvents?: boolean;
   /** Optionally update the xScale. */
@@ -47,6 +49,8 @@ export interface DataContextType<
   height: number;
   innerWidth: number;
   innerHeight: number;
+  currentSelectionIds: Array<number>;
+  handleClick: (d: Array<number>) => any;
   margin: Margin;
   dataRegistry: Omit<
     DataRegistry<XScale, YScale, Datum>,

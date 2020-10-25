@@ -60,9 +60,9 @@ export default function CreateXYChart({
   yAxisOrientation,
   renderHorizontally,
   handleClick,
-  // beginSelections,
-  // select,
-  // setCurrentSelectionIds,
+  beginSelections,
+  select,
+  setCurrentSelectionIds,
   currentSelectionIds,
   colorPalette,
   theme,
@@ -171,7 +171,15 @@ export default function CreateXYChart({
   );
 
   return (
-    <DataProvider theme={chartTheme} xScale={config.x} yScale={config.y}>
+    <DataProvider
+      theme={chartTheme}
+      xScale={config.x}
+      yScale={config.y}
+      currentSelectionIds={currentSelectionIds}
+      beginSelections={beginSelections}
+      select={select}
+      setCurrentSelectionIds={setCurrentSelectionIds}
+    >
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -197,8 +205,6 @@ export default function CreateXYChart({
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
-            currentSelectionIds={currentSelectionIds}
-            handleClick={handleClick}
             horizontal={renderHorizontally}
           />
         )}
@@ -213,8 +219,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    currentSelectionIds={currentSelectionIds}
-                    handleClick={handleClick}
                     horizontal={renderHorizontally}
                   />
                 ))
@@ -226,8 +230,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    currentSelectionIds={currentSelectionIds}
-                    handleClick={handleClick}
                     horizontal={renderHorizontally}
                   />
                 ))}
@@ -244,8 +246,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    currentSelectionIds={currentSelectionIds}
-                    handleClick={handleClick}
                     horizontal={renderHorizontally}
                   />
                 ))
@@ -257,8 +257,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    currentSelectionIds={currentSelectionIds}
-                    handleClick={handleClick}
                     horizontal={renderHorizontally}
                   />
                 ))}

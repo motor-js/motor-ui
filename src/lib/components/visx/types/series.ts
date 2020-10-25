@@ -14,13 +14,13 @@ export type SeriesProps<
   /** Given a Datum, returns the x-scale value. */
   xAccessor: (d: Datum) => ScaleInput<XScale>;
   /** Given a Datum, returns the y-scale value. */
-  yAccessor: (d: Datum) => ScaleInput<YScale>;
+  yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
   /** Given a Datum, returns the elementid value. */
   elAccessor: (d: Datum) => string;
-  /** Array of slection ids. */
-  currentSelectionIds: Array<number>;
-  /** Given a Datum, returns the elementid value. */
-  handleClick: (d: Array<number>) => any;
+  // /** Array of slection ids. */
+  // currentSelectionIds: Array<number>;
+  // /** Given a Datum, returns the elementid value. */
+  // handleClick: (d: Array<number>) => any;
 };
 
 /** Bar shape. */

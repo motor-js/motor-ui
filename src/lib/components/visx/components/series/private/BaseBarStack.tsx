@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo, useEffect } from 'react';
+import React, { useContext, useCallback, useMemo, useEffect ,useState} from 'react';
 import { SeriesPoint, stack as d3stack } from 'd3-shape';
 import { PositionScale, StackPathConfig } from '@visx/shape/lib/types';
 import { getFirstItem, getSecondItem } from '@visx/shape/lib/util/accessors';
@@ -17,6 +17,7 @@ import isChildWithProps from '../../../typeguards/isChildWithProps';
 import combineBarBarStackData, { getStackValue } from '../../../utils/combineBarStackData';
 import getBarStackRegistryData from '../../../utils/getBarStackRegistryData';
 import findNearestStackDatum from '../../../utils/findNearestStackDatum';
+import { isEmpty } from "../../../../../utils";
 
 export type BaseBarStackProps<
   XScale extends PositionScale,
@@ -46,17 +47,24 @@ function BaseBarStack<
   const {
     xScale,
     yScale,
-    colorScale,
+    colorScale,theme,
     dataRegistry,
     registerData,
     unregisterData,
     width,
-    height,
+    height,currentSelectionIds,handleClick,
   } = (useContext(DataContext) as unknown) as DataContextType<
     XScale,
     YScale,
     BarStackDatum<XScale, YScale>
   >;
+
+    const [hoverId, setHoverId] = useState(0);
+
+          const  {
+      hover,    selection,
+    nonSelection,noSelections,
+  } = theme;
 
   const barSeriesChildren = useMemo(
     () =>
@@ -204,6 +212,16 @@ function BaseBarStack<
     getY = bar => yScale(getSecondItem(bar));
   }
 
+  const handleMouseClick = (id:string) => {
+    const selectionId = Number(id)
+    const selections = currentSelectionIds.includes(selectionId)
+    ? currentSelectionIds.filter(function(value:number, index, arr) {
+      return value !== selectionId;
+    })
+    : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  } 
+
   const bars = stackedData
     .flatMap((barStack, stackIndex) => {
       const entry = dataRegistry.get(barStack.key);
@@ -214,14 +232,20 @@ function BaseBarStack<
         if (!isValidNumber(barX)) return null;
         const barY = getY(bar);
         if (!isValidNumber(barY)) return null;
+        const barId = bar.data.id;
 
         return {
           key: `${stackIndex}-${barStack.key}-${index}`,
           x: barX,
           y: barY,
+          id:barId,
           width: getWidth(bar),
           height: getHeight(bar),
           fill: colorScale(barStack.key),
+             style: Number(barId) === hoverId && isEmpty(currentSelectionIds)? hover : isEmpty(currentSelectionIds) ? noSelections :  currentSelectionIds.includes(Number(barId)) ? selection : nonSelection ,
+          onClick : ()=> handleMouseClick(barId),
+      onMouseEnter: ()=> setHoverId(Number(barId)),
+      onMouseLeave: ()=> setHoverId(0)
         };
       });
     })

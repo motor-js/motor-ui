@@ -45,7 +45,7 @@ export default function BaseBarGroup<
     registerData,
     unregisterData,
     width,
-    height
+    height,currentSelectionIds,handleClick,
   } = (useContext(DataContext) as unknown) as DataContextType<XScale, YScale, Datum>;
 
     const [hoverId, setHoverId] = useState(0);
@@ -72,8 +72,8 @@ export default function BaseBarGroup<
   // register all child data
   useEffect(() => {
     const dataToRegister = barSeriesChildren.map(child => {
-      const { dataKey: key, data, xAccessor, yAccessor,elAccessor,currentSelectionIds,handleClick } = child.props;
-      return { key, data, xAccessor, yAccessor ,elAccessor,currentSelectionIds,handleClick};
+      const { dataKey: key, data, xAccessor, yAccessor,elAccessor } = child.props;
+      return { key, data, xAccessor, yAccessor ,elAccessor};
     });
 
     registerData(dataToRegister);
@@ -137,7 +137,7 @@ export default function BaseBarGroup<
 
   const barThickness = getScaleBandwidth(groupScale);
 
-  const bars = registryEntries.flatMap(({ xAccessor, yAccessor, elAccessor,currentSelectionIds,handleClick,data, key }) => {
+  const bars = registryEntries.flatMap(({ xAccessor, yAccessor, elAccessor,data, key }) => {
 
     const getLength = (d: Datum) =>
       horizontal
@@ -146,7 +146,7 @@ export default function BaseBarGroup<
 
     const getGroupPosition = horizontal
       ? (d: Datum) => yScale(yAccessor(d)) ?? 0
-      : (d: Datum) => xScale(xAccessor(d,key)) ?? 0;
+      : (d: Datum) => xScale(xAccessor(d)) ?? 0;
 
     const withinGroupPosition = groupScale(key) ?? 0;
 
@@ -158,7 +158,7 @@ export default function BaseBarGroup<
       ? (d: Datum) => getGroupPosition(d) + withinGroupPosition
       : (d: Datum) => yZeroPosition + Math.min(0, getLength(d));
 
-    const getElemNumber= (d: Datum) => elAccessor(d) ?? 0;
+    const getElemNumber= (d: Datum) => elAccessor(d) ?? null;
 
     const getWidth = horizontal ? (d: Datum) => Math.abs(getLength(d)) : () => barThickness;
     const getHeight = horizontal ? () => barThickness : (d: Datum) => Math.abs(getLength(d));

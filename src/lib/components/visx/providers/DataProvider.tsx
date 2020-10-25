@@ -19,6 +19,10 @@ export type DataProviderProps<
   theme?: XYChartTheme;
   xScale: XScaleConfig;
   yScale: YScaleConfig;
+  currentSelectionIds: Array<number>;
+  beginSelections:Function,
+  select:Function,
+  setCurrentSelectionIds:Function,
   children: React.ReactNode;
 };
 
@@ -31,6 +35,10 @@ export default function DataProvider<
   theme: propsTheme,
   xScale: xScaleConfig,
   yScale: yScaleConfig,
+        currentSelectionIds,
+      beginSelections,
+      select,
+      setCurrentSelectionIds,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -66,6 +74,15 @@ export default function DataProvider<
     [registryKeys, theme.colors],
   );
 
+  const handleClick = (selectionValue :Array<number>) => {
+
+    beginSelections();
+
+    setCurrentSelectionIds(selectionValue);
+
+    select(0, selectionValue);
+  };
+
   return (
     <DataContext.Provider
       // everthing returned here should be memoized between renders
@@ -81,7 +98,7 @@ export default function DataProvider<
         height,
         margin,
         innerWidth,
-        innerHeight,
+        innerHeight,handleClick,currentSelectionIds,
         setDimensions,
       }}
     >
