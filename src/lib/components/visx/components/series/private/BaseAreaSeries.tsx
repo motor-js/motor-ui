@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from "react";
+import React, { useContext, useCallback, useMemo, useState } from "react";
 import { AxisScale } from "@visx/axis";
 import Area from "@visx/shape/lib/shapes/Area";
 import LinePath, { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
@@ -14,6 +14,7 @@ import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
 import getScaleBaseline from "../../../utils/getScaleBaseline";
 import { localPoint } from "@visx/event";
+import { isEmpty } from "../../../../../utils";
 
 export type BaseAreaSeriesProps<
   XScale extends AxisScale,
@@ -64,12 +65,14 @@ function BaseAreaSeries<
     height,
     currentSelectionIds,
     handleClick,
+    setBarStyle,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
   const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
     xScale,
     xAccessor,
   ]);
+  const [hoverId, setHoverId] = useState(null);
   const getScaledY = useCallback(
     getScaledValueFactory(yScale, yAccessor, dataKey),
     [yScale, yAccessor]
@@ -187,6 +190,7 @@ function BaseAreaSeries<
 
   const onMouseLeave = () => {
     hideTooltip();
+    setHoverId(null);
   };
 
   return (
@@ -215,7 +219,13 @@ function BaseAreaSeries<
               fill="transparent"
               stroke={color}
               strokeWidth={2}
+              style={setBarStyle(
+                hoverId,
+                isEmpty(currentSelectionIds),
+                hoverId
+              )}
               onClick={onClick}
+              onMouseEnter={() => setHoverId(Number(data))}
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
               {...lineProps}
