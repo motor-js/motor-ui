@@ -64,8 +64,6 @@ function BaseBarSeries<
   } = useContext(DataContext);
   const key = 1;
 
-  console.log("ere");
-
   const getScaledX = useCallback(
     getScaledValueFactory(xScale, xAccessor, dataKey),
     [xScale, xAccessor]

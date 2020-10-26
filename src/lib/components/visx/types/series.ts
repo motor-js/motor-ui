@@ -12,7 +12,7 @@ export type SeriesProps<
   /** Data for the Series. */
   data: Datum[];
   /** Given a Datum, returns the x-scale value. */
-  xAccessor: (d: Datum) => ScaleInput<XScale>;
+  xAccessor: (d: Datum, s?: String) => ScaleInput<XScale>;
   /** Given a Datum, returns the y-scale value. */
   yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
   /** Given a Datum, returns the elementid value. */
