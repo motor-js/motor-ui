@@ -283,11 +283,11 @@ function StyledXYChart(props) {
     colorPalette,
     size,
     type,
-    //         padding={padding || chart.padding}
+    padding: padding || chart.padding,
     //         useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
     //         autoWidth={autoWidth || chart.autoWidth}
     renderHorizontally: renderHorizontally || chart.renderHorizontally,
-    //         includeZero={includeZero || chart.includeZero}
+    includeZero: includeZero || chart.includeZero,
     //         showLegend={
     //           // showLegend === undefined ? chart.showLegend : showLegend
     //           valueIfUndefined(showLegend, chart.showLegend)

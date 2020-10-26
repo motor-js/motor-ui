@@ -25,6 +25,7 @@ export type DataProviderProps<
   setCurrentSelectionIds: Function;
   showTooltip: boolean;
   horizontal?: boolean;
+  includeZero?: boolean;
   children: React.ReactNode;
 };
 
@@ -43,6 +44,7 @@ export default function DataProvider<
   setCurrentSelectionIds,
   showTooltip,
   horizontal,
+  includeZero,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -67,6 +69,7 @@ export default function DataProvider<
     yScaleConfig,
     xRange: [margin.left, width - margin.right],
     yRange: [height - margin.bottom, margin.top],
+    includeZero,
   });
 
   const { hover, selection, nonSelection, noSelections } = propsTheme;

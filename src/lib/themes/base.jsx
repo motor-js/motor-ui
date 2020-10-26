@@ -294,7 +294,7 @@ const base = {
       showLegend: true,
       showAxisLabels: "both",
       margin: "10px",
-      padding: 0.2, // Padding between bars
+      padding: 0.3, // Padding between bars
       useAnimatedAxes: false,
       includeZero: true,
       multiColor: true,

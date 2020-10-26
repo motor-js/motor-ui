@@ -34,26 +34,6 @@ import CustomChartPattern from "./CustomChartPattern";
 
 import { isDefined } from "../visx/typeguards/isDefined";
 
-const dateScaleConfig = { type: "band", paddingInner: 0.3 };
-// const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
-// const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
-
-// const dateScaleConfig = useMemo(
-//   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
-//   []
-// );
-const valueScaleConfig = { type: "linear" };
-//  const valueScaleConfig = useMemo(
-//    () => ({
-//      type: "linear",
-//      clamp: true,
-//      nice: true,
-//      domain: undefined,
-//      includeZero,
-//    }),
-//    [includeZero]
-//  );
-
 export default function CreateXYChart({
   height,
   qLayout: {
@@ -72,6 +52,7 @@ export default function CreateXYChart({
   colorPalette,
   theme,
   dataKeys,
+  includeZero,
   size,
   type,
   backgroundPattern,
@@ -82,6 +63,7 @@ export default function CreateXYChart({
   dimensionCount,
   selectionMethod,
   showLabels,
+  padding,
   // showBrush,
   // enableBrush,
 
@@ -99,6 +81,26 @@ export default function CreateXYChart({
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
+
+  const dateScaleConfig = { type: "band", paddingInner: padding };
+  // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
+  // const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
+
+  // const dateScaleConfig = useMemo(
+  //   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
+  //   []
+  // );
+  const valueScaleConfig = { type: "linear" };
+  //  const valueScaleConfig = useMemo(
+  //    () => ({
+  //      type: "linear",
+  //      clamp: true,
+  //      nice: true,
+  //      domain: undefined,
+  //      includeZero,
+  //    }),
+  //    [includeZero]
+  //  );
 
   const {
     global: { chart },
@@ -229,6 +231,7 @@ export default function CreateXYChart({
       showTooltip={showTooltip}
       horizontal={renderHorizontally}
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
+      includeZero={includeZero}
     >
       <XYChart
         height={Math.min(400, height)}

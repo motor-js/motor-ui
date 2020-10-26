@@ -1,6 +1,6 @@
 import { AxisScaleOutput, AxisScale } from "@visx/axis";
 import { ScaleConfig, createScale, ScaleInput } from "@visx/scale";
-import { extent as d3Extent } from "d3-array";
+import { extent as d3Extent, min as d3Min, max as d3Max } from "d3-array";
 import { useMemo } from "react";
 import DataRegistry from "../classes/DataRegistry";
 
@@ -15,6 +15,7 @@ export default function useScales<
   dataRegistry,
   xRange,
   yRange,
+  includeZero,
 }: {
   xScaleConfig: ScaleConfig<AxisScaleOutput>;
   yScaleConfig: ScaleConfig<AxisScaleOutput>;
@@ -24,6 +25,7 @@ export default function useScales<
   >;
   xRange: [number, number];
   yRange: [number, number];
+  includeZero: boolean;
 }) {
   // pull out memoization keys that are less likely to change
   const registryKeys = dataRegistry.keys();
@@ -80,7 +82,11 @@ export default function useScales<
 
     const yType = yScaleConfig.type;
     const yDomain =
-      yType === "band" || yType === "ordinal" ? yValues : d3Extent(yValues);
+      yType === "band" || yType === "ordinal"
+        ? yValues
+        : includeZero
+        ? d3Extent([0, d3Max(yValues)])
+        : d3Extent(yValues);
 
     yScale.range(yScaleConfig.range || [yMin, yMax]);
     yScale.domain(yScaleConfig.domain || yDomain);
