@@ -23,10 +23,6 @@ export type BaseAreaSeriesProps<
 > = SeriesProps<XScale, YScale, Datum> & {
   /** Whether to render a Line on top of the Area shape (fill only). */
   renderLine?: boolean;
-  singleDimension?: boolean;
-  dimensionInfo: Array<object>;
-  measureInfo: Array<number>;
-  dataKeys: Array<string>;
   /** Props to be passed to the Line, if rendered. */
   lineProps?: Omit<
     LinePathProps<Datum>,
@@ -55,10 +51,6 @@ function BaseAreaSeries<
   elAccessor,
   renderLine = true,
   PathComponent = "path",
-  singleDimension,
-  dimensionInfo,
-  measureInfo,
-  dataKeys,
   index,
   lineProps,
   ...areaProps

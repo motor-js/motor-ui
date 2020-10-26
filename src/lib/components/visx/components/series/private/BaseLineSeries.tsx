@@ -54,10 +54,6 @@ function BaseLineSeries<
     handleClick,
     setBarStyle,
     horizontal,
-    singleDimension,
-    dimensionInfo,
-    measureInfo,
-    dataKeys,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
 

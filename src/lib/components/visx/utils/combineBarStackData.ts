@@ -30,17 +30,6 @@ export default function combineBarStackData<
     [stackValue: string]: CombinedStackData<XScale, YScale>;
   } = {};
 
-  // const {
-  //   singleDimension,
-  //   dimensionInfo,
-  //   measureInfo,
-  //   dataKeys: Keys,
-  // } = (useContext(DataContext) as unknown) as DataContextType<
-  //   XScale,
-  //   YScale,
-  //   BarStackDatum<XScale, YScale>
-  // >;
-
   barSeriesChildren.forEach((child) => {
     const {
       dataKey,

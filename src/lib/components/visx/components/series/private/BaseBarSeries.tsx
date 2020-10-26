@@ -63,10 +63,6 @@ function BaseBarSeries<
     horizontal,
     setBarStyle,
     multiColor,
-    singleDimension,
-    dimensionInfo,
-    measureInfo,
-    dataKeys,
   } = useContext(DataContext);
   const key = 1;
 

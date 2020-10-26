@@ -57,10 +57,6 @@ export default function BaseBarGroup<
     handleClick,
     horizontal,
     setBarStyle,
-    singleDimension,
-    dimensionInfo,
-    measureInfo,
-    dataKeys: Keys,
   } = (useContext(DataContext) as unknown) as DataContextType<
     XScale,
     YScale,

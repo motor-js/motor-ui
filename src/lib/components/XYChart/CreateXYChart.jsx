@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 
 import {
-  AnimatedAreaSeries,
+  // AnimatedAreaSeries,
   AnimatedAxis,
-  AnimatedBarGroup,
-  AnimatedBarSeries,
-  AnimatedBarStack,
-  AnimatedGlyphSeries,
+  // AnimatedBarGroup,
+  // AnimatedBarSeries,
+  // AnimatedBarStack,
+  // AnimatedGlyphSeries,
   AnimatedGrid,
-  AnimatedLineSeries,
+  // AnimatedLineSeries,
   AreaSeries,
   DataProvider,
   GlyphSeries,
@@ -24,9 +24,10 @@ import {
 // import Brush from "../visx/selection/Brush";
 
 import { colorByExpression, selectColor } from "../../utils";
-import { PatternLines } from "@visx/pattern";
+// import { PatternLines } from "@visx/pattern";
 // import { buildChartTheme } from "../visx";
-import { lightTheme, darkTheme } from "../visx";
+// import { lightTheme, darkTheme } from "../visx";
+import { darkTheme } from "../visx";
 import { valueIfUndefined } from "../visx/typeguards/valueIfUndefined";
 
 import CustomChartBackground from "./CustomChartBackground";
@@ -226,11 +227,6 @@ export default function CreateXYChart({
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
       multiColor={multiColor ? dataKeys : null}
-      singleDimension={singleDimension}
-      dimensionInfo={dimensionInfo}
-      singleMeasure={singleMeasure}
-      measureInfo={measureInfo}
-      dataKeys={dataKeys}
     >
       <XYChart
         height={Math.min(400, height)}

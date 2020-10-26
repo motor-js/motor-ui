@@ -27,11 +27,6 @@ export type DataProviderProps<
   horizontal?: boolean;
   multiColor: Array<string>;
   includeZero?: boolean;
-  singleDimension?: boolean;
-  singleMeasure?: boolean;
-  dimensionInfo: Array<object>;
-  measureInfo: Array<number>;
-  dataKeys: Array<string>;
   children: React.ReactNode;
 };
 
@@ -52,11 +47,6 @@ export default function DataProvider<
   horizontal,
   includeZero,
   multiColor,
-  singleDimension,
-  singleMeasure,
-  dimensionInfo,
-  measureInfo,
-  dataKeys,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -139,11 +129,6 @@ export default function DataProvider<
         showTooltip,
         horizontal,
         multiColor,
-        singleDimension,
-        singleMeasure,
-        dimensionInfo,
-        measureInfo,
-        dataKeys,
         setDimensions,
         setBarStyle,
       }}
