@@ -22,6 +22,7 @@ import {
 
 // import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
 import { valueIfUndefined } from "../visx/typeguards/valueIfUndefined";
+import { isDefined } from "../visx/typeguards/isDefined";
 // import { XYChart } from "../visx";
 
 let measureCount = null;
@@ -274,7 +275,7 @@ function StyledXYChart(props) {
     data,
     // handleClick,
     //         keys={keys}
-    //         dataKeys={dataKeys}
+    dataKeys,
     beginSelections,
     select,
     setCurrentSelectionIds,

@@ -21,7 +21,7 @@ import {
 } from "../visx";
 
 // import { Brush } from "@visx/brush";
-// import { Brush } from "../visx/selection/Brush";
+// import Brush from "../visx/selection/Brush";
 
 import { colorByExpression, selectColor } from "../../utils";
 import { PatternLines } from "@visx/pattern";
@@ -71,6 +71,7 @@ export default function CreateXYChart({
   currentSelectionIds,
   colorPalette,
   theme,
+  dataKeys,
   size,
   type,
   backgroundPattern,
@@ -81,8 +82,8 @@ export default function CreateXYChart({
   dimensionCount,
   selectionMethod,
   showLabels,
-  showBrush,
-  enableBrush,
+  // showBrush,
+  // enableBrush,
 
   animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
@@ -201,7 +202,7 @@ export default function CreateXYChart({
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
-        onMouseDown={selectionMethod === "brush" ? enableBrush : null}
+        // onMouseDown={selectionMethod === "brush" ? enableBrush : null}
       >
         {/* <XYChart height={height}> */}
         <CustomChartBackground
@@ -210,7 +211,7 @@ export default function CreateXYChart({
           to={backgroundStyle.styleTo}
         />
         <CustomChartPattern backgroundPattern={backgroundPattern} />
-        {showBrush && (
+        {/* {showBrush && (
           <PatternLines
             id="brush_pattern"
             height={chart?.brush.patternHeight ?? 12}
@@ -219,7 +220,7 @@ export default function CreateXYChart({
             strokeWidth={1}
             orientation={["diagonal"]}
           />
-        )}
+        )} */}
         <AnimatedGrid
           key={`grid-${animationTrajectory}`} // force animate on update
           rows={showGridRows}
@@ -451,6 +452,10 @@ export default function CreateXYChart({
         )}
         {/* {showBrush && (
           <Brush
+            chartType={chartType}
+            measureInfo={measureInfo}
+            dataKeys={dataKeys}
+            singleDimension={singleDimension}
             xAxisOrientation={xAxisOrientation}
             yAxisOrientation={yAxisOrientation}
             selectedBoxStyle={selectedBoxStyle}

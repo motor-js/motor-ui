@@ -66,10 +66,12 @@ function BaseAreaSeries<
     setBarStyle,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
+
   const getScaledX = useCallback(
     getScaledValueFactory(xScale, xAccessor, dataKey),
     [xScale, xAccessor]
   );
+
   const [hoverId, setHoverId] = useState(null);
   const getScaledY = useCallback(
     getScaledValueFactory(yScale, yAccessor, dataKey),

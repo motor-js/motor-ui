@@ -29,7 +29,7 @@ export default function XYChart(props: Props) {
     height,
     margin = DEFAULT_MARGIN,
     captureEvents = false,
-    onMouseDown,
+    // onMouseDown,
   } = props;
   const { setDimensions } = useContext(DataContext);
   const tooltipContext = useContext(TooltipContext);
@@ -83,7 +83,7 @@ export default function XYChart(props: Props) {
       width={width}
       height={height}
       aria-label={accessibilityLabel}
-      onMouseDown={onMouseDown}
+      // onMouseDown={onMouseDown}
     >
       {children}
       {/** capture all mouse/touch events and emit them. */}
