@@ -21,10 +21,12 @@ export interface DataRegistryEntry<
   key: string;
   /** array of data for the key. */
   data: Datum[];
+  /** index of data for the key. */
+  index: Number;
   /** function that returns the x value of a datum. */
-  xAccessor: (d: Datum, s?: String) => ScaleInput<XScale>;
+  xAccessor: (d: Datum, n?: Number) => ScaleInput<XScale>;
   /** function that returns the y value of a datum. */
-  yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
+  yAccessor: (d: Datum, n?: Number) => ScaleInput<YScale>;
   /** Given a Datum, returns the elementid value. */
   elAccessor: (d: Datum) => string;
   /** whether the entry supports mouse events. */
@@ -50,11 +52,16 @@ export interface DataContextType<
   innerWidth: number;
   innerHeight: number;
   currentSelectionIds: Array<number>;
-  multiColor: Array<string>;
   handleClick: (d: Array<number>) => any;
   setBarStyle: Function;
   showTooltip: boolean;
   horizontal: boolean;
+  multiColor: Array<string>;
+  singleDimension?: boolean;
+  singleMeasure?: boolean;
+  dimensionInfo: Array<object>;
+  measureInfo: Array<number>;
+  dataKeys: Array<string>;
   margin: Margin;
   dataRegistry: Omit<
     DataRegistry<XScale, YScale, Datum>,

@@ -48,6 +48,7 @@ function BaseBarSeries<
   yAccessor,
   yScale,
   elAccessor,
+  index,
 }: BaseBarSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
   const {
@@ -62,16 +63,20 @@ function BaseBarSeries<
     horizontal,
     setBarStyle,
     multiColor,
+    singleDimension,
+    dimensionInfo,
+    measureInfo,
+    dataKeys,
   } = useContext(DataContext);
   const key = 1;
 
   const getScaledX = useCallback(
-    getScaledValueFactory(xScale, xAccessor, dataKey),
+    getScaledValueFactory(xScale, xAccessor, index),
     [xScale, xAccessor]
   );
 
   const getScaledY = useCallback(
-    getScaledValueFactory(yScale, yAccessor, dataKey),
+    getScaledValueFactory(yScale, yAccessor, index),
     [yScale, yAccessor]
   );
 

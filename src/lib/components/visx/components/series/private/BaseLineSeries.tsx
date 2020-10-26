@@ -41,6 +41,7 @@ function BaseLineSeries<
   yScale,
   elAccessor,
   PathComponent = "path",
+  index,
   ...lineProps
 }: BaseLineSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
@@ -53,16 +54,20 @@ function BaseLineSeries<
     handleClick,
     setBarStyle,
     horizontal,
+    singleDimension,
+    dimensionInfo,
+    measureInfo,
+    dataKeys,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
 
   const getScaledX = useCallback(
-    getScaledValueFactory(xScale, xAccessor, dataKey),
+    getScaledValueFactory(xScale, xAccessor, index),
     [xScale, xAccessor]
   );
   const [hoverId, setHoverId] = useState(null);
   const getScaledY = useCallback(
-    getScaledValueFactory(yScale, yAccessor, dataKey),
+    getScaledValueFactory(yScale, yAccessor, index),
     [yScale, yAccessor]
   );
   const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
@@ -109,7 +114,10 @@ function BaseLineSeries<
 
   const onClick = (event: MouseEvent) => {
     const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
-    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    const svgPoint = {
+      x: svgMouseX,
+      y: svgMouseY,
+    };
     if (svgPoint && width && height) {
       const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
         point: svgPoint,
@@ -137,7 +145,10 @@ function BaseLineSeries<
 
   const onMouseMove = (event: MouseEvent) => {
     const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
-    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    const svgPoint = {
+      x: svgMouseX,
+      y: svgMouseY,
+    };
     if (svgPoint && width && height && showTooltip) {
       const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
         point: svgPoint,

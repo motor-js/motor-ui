@@ -116,20 +116,12 @@ export default function CreateXYChart({
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) => d[0].qText;
 
-  const getSeriesValues = (d, dataKey) => {
-    if (!d) return null;
+  const getSeriesValues = (d, i) => (isDefined(d[i]) ? Number(d[i].qNum) : 0);
 
-    let colIndex;
-    singleDimension
-      ? measureInfo.some(function(x, i) {
-          if (x.qFallbackTitle === dataKey) return (colIndex = i);
-        })
-      : dataKeys.some(function(x, i) {
-          if (x === dataKey) return (colIndex = i);
-        });
-    colIndex += singleDimension ? dimensionInfo.length : 1;
-    return isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
-  };
+  // const getSeriesValues = (d, index) => {
+  //   if (!d) return null;
+  //   return isDefined(d[index]) ? Number(d[index].qNum) : 0;
+  // };
 
   const getElementNumber = (d) => d[0].qElemNumber;
 
@@ -234,6 +226,11 @@ export default function CreateXYChart({
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
       multiColor={multiColor ? dataKeys : null}
+      singleDimension={singleDimension}
+      dimensionInfo={dimensionInfo}
+      singleMeasure={singleMeasure}
+      measureInfo={measureInfo}
+      dataKeys={dataKeys}
     >
       <XYChart
         height={Math.min(400, height)}
@@ -268,6 +265,7 @@ export default function CreateXYChart({
           <BarSeries
             dataKey={measureInfo[0].qFallbackTitle}
             data={data}
+            index={dimensionInfo.length}
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
@@ -280,6 +278,7 @@ export default function CreateXYChart({
                   <BarSeries
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
+                    index={index + dimensionInfo.length}
                     data={data}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
@@ -290,6 +289,7 @@ export default function CreateXYChart({
                   <BarSeries
                     key={measure}
                     dataKey={measure}
+                    index={index + 1}
                     data={data}
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
@@ -306,6 +306,7 @@ export default function CreateXYChart({
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
                     data={data}
+                    index={index + dimensionInfo.length}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
@@ -316,6 +317,7 @@ export default function CreateXYChart({
                     key={measure}
                     dataKey={measure}
                     data={data}
+                    index={index + 1}
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
@@ -331,6 +333,7 @@ export default function CreateXYChart({
                 key={measureInfo[index].qFallbackTitle}
                 dataKey={measureInfo[index].qFallbackTitle}
                 data={data}
+                index={index + dimensionInfo.length}
                 xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                 yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                 elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
@@ -340,6 +343,7 @@ export default function CreateXYChart({
                 key={measureInfo[index].qFallbackTitle}
                 dataKey={measureInfo[index].qFallbackTitle}
                 data={data}
+                index={index + dimensionInfo.length}
                 xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                 yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                 elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
@@ -353,6 +357,7 @@ export default function CreateXYChart({
                   <LineSeries
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
+                    index={index + dimensionInfo.length}
                     data={data}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
@@ -363,6 +368,7 @@ export default function CreateXYChart({
                   <LineSeries
                     key={measure}
                     dataKey={measure}
+                    index={index + 1}
                     data={data}
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
@@ -379,6 +385,7 @@ export default function CreateXYChart({
                     key={measureInfo[index].qFallbackTitle}
                     dataKey={measureInfo[index].qFallbackTitle}
                     data={data}
+                    index={index + dimensionInfo.length}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
@@ -390,6 +397,7 @@ export default function CreateXYChart({
                     key={measure}
                     dataKey={measure}
                     data={data}
+                    index={index + 1}
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}

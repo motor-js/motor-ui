@@ -1,6 +1,6 @@
 import { AxisScaleOutput, AxisScale } from "@visx/axis";
 import { ScaleConfig, createScale, ScaleInput } from "@visx/scale";
-import { extent as d3Extent, min as d3Min, max as d3Max } from "d3-array";
+import { extent as d3Extent, max as d3Max } from "d3-array";
 import { useMemo } from "react";
 import DataRegistry from "../classes/DataRegistry";
 
@@ -15,7 +15,7 @@ export default function useScales<
   dataRegistry,
   xRange,
   yRange,
-  includeZero,
+  includeZero = true,
 }: {
   xScaleConfig: ScaleConfig<AxisScaleOutput>;
   yScaleConfig: ScaleConfig<AxisScaleOutput>;
@@ -42,7 +42,7 @@ export default function useScales<
       (combined, entry) =>
         entry
           ? combined.concat(
-              entry.data.map((d: Datum) => entry.xAccessor(d, entry.key))
+              entry.data.map((d: Datum) => entry.xAccessor(d, entry.index))
             )
           : combined,
       []
@@ -74,7 +74,7 @@ export default function useScales<
       (combined, entry) =>
         entry
           ? combined.concat(
-              entry.data.map((d: Datum) => entry.yAccessor(d, entry.key))
+              entry.data.map((d: Datum) => entry.yAccessor(d, entry.index))
             )
           : combined,
       []

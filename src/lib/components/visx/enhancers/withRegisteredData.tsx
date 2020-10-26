@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from 'react';
-import { AxisScale } from '@visx/axis';
-import DataContext from '../context/DataContext';
-import { DataContextType, SeriesProps } from '../types';
+import React, { useContext, useEffect } from "react";
+import { AxisScale } from "@visx/axis";
+import DataContext from "../context/DataContext";
+import { DataContextType, SeriesProps } from "../types";
 
 export type WithRegisteredDataProps<
   XScale extends AxisScale,
   YScale extends AxisScale,
   Datum extends object
-> = Pick<DataContextType<XScale, YScale, Datum>, 'xScale' | 'yScale'>;
+> = Pick<DataContextType<XScale, YScale, Datum>, "xScale" | "yScale">;
 
 /**
  * An HOC that handles registering the Series's data and renders the
@@ -36,17 +36,25 @@ export default function withRegisteredData<
         BaseComponentProps,
         | keyof SeriesProps<XScale, YScale, Datum>
         | keyof WithRegisteredDataProps<XScale, YScale, Datum>
-      >,
+      >
   ) {
-    const { dataKey, data, xAccessor, yAccessor,elAccessor } = props;
+    const { dataKey, index, data, xAccessor, yAccessor, elAccessor } = props;
     const { xScale, yScale, dataRegistry } = (useContext(
-      DataContext,
+      DataContext
     ) as unknown) as DataContextType<XScale, YScale, Datum>;
 
     useEffect(() => {
-      if (dataRegistry) dataRegistry.registerData({ key: dataKey, data, xAccessor, yAccessor ,elAccessor});
+      if (dataRegistry)
+        dataRegistry.registerData({
+          key: dataKey,
+          index,
+          data,
+          xAccessor,
+          yAccessor,
+          elAccessor,
+        });
       return () => dataRegistry?.unregisterData(dataKey);
-    }, [dataRegistry, dataKey, data, xAccessor, yAccessor]);
+    }, [dataRegistry, dataKey, data, index, xAccessor, yAccessor]);
 
     const registryEntry = dataRegistry?.get(dataKey);
 
@@ -55,7 +63,8 @@ export default function withRegisteredData<
 
     // TODO coercion might be avoidable with variadic tuples in TS 4
     const BaseComponent = (BaseSeriesComponent as unknown) as React.ComponentType<
-      SeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>
+      SeriesProps<XScale, YScale, Datum> &
+        WithRegisteredDataProps<XScale, YScale, Datum>
     >;
 
     // otherwise pass props + over-write data/accessors

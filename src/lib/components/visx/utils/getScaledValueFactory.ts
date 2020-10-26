@@ -7,15 +7,15 @@ import getScaleBandwidth from "./getScaleBandwidth";
 export default function getScaledValueFactory<
   Scale extends AxisScale,
   Datum,
-  String
+  Number
 >(
   scale: Scale,
-  accessor: (d: Datum, s?: String) => ScaleInput<Scale>,
-  dataKey?: String,
+  accessor: (d: Datum, n?: Number) => ScaleInput<Scale>,
+  index?: Number,
   align: "start" | "center" | "end" = "center"
 ) {
-  return (d: Datum, s?: String) => {
-    const scaledValue = scale(accessor(d, dataKey));
+  return (d: Datum, n?: Number) => {
+    const scaledValue = scale(accessor(d, index));
     if (isValidNumber(scaledValue)) {
       const bandwidthOffset =
         (align === "start" ? 0 : getScaleBandwidth(scale)) /

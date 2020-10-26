@@ -23,6 +23,10 @@ export type BaseAreaSeriesProps<
 > = SeriesProps<XScale, YScale, Datum> & {
   /** Whether to render a Line on top of the Area shape (fill only). */
   renderLine?: boolean;
+  singleDimension?: boolean;
+  dimensionInfo: Array<object>;
+  measureInfo: Array<number>;
+  dataKeys: Array<string>;
   /** Props to be passed to the Line, if rendered. */
   lineProps?: Omit<
     LinePathProps<Datum>,
@@ -51,6 +55,11 @@ function BaseAreaSeries<
   elAccessor,
   renderLine = true,
   PathComponent = "path",
+  singleDimension,
+  dimensionInfo,
+  measureInfo,
+  dataKeys,
+  index,
   lineProps,
   ...areaProps
 }: BaseAreaSeriesProps<XScale, YScale, Datum> &
@@ -68,13 +77,13 @@ function BaseAreaSeries<
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
 
   const getScaledX = useCallback(
-    getScaledValueFactory(xScale, xAccessor, dataKey),
+    getScaledValueFactory(xScale, xAccessor, index),
     [xScale, xAccessor]
   );
 
   const [hoverId, setHoverId] = useState(null);
   const getScaledY = useCallback(
-    getScaledValueFactory(yScale, yAccessor, dataKey),
+    getScaledValueFactory(yScale, yAccessor, index),
     [yScale, yAccessor]
   );
   const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AxisScale } from "@visx/axis";
 import { BaseBarSeriesProps } from "../components/series/private/BaseBarSeries";
 import { CombinedStackData } from "../types";
+import DataContext from "../context/DataContext";
 
 /** Returns the value which forms a stack group. */
 export const getStackValue = <
@@ -29,8 +30,26 @@ export default function combineBarStackData<
     [stackValue: string]: CombinedStackData<XScale, YScale>;
   } = {};
 
+  // const {
+  //   singleDimension,
+  //   dimensionInfo,
+  //   measureInfo,
+  //   dataKeys: Keys,
+  // } = (useContext(DataContext) as unknown) as DataContextType<
+  //   XScale,
+  //   YScale,
+  //   BarStackDatum<XScale, YScale>
+  // >;
+
   barSeriesChildren.forEach((child) => {
-    const { dataKey, data, xAccessor, yAccessor, elAccessor } = child.props;
+    const {
+      dataKey,
+      data,
+      xAccessor,
+      yAccessor,
+      elAccessor,
+      index,
+    } = child.props;
 
     // this should exist but double check
     if (!xAccessor || !yAccessor || !elAccessor) return;
@@ -41,7 +60,7 @@ export default function combineBarStackData<
 
     data.forEach((d) => {
       const stack = stackFn(d);
-      const numericValue = valueFn(d, dataKey);
+      const numericValue = valueFn(d, index);
       const stackKey = String(stack);
       if (!dataByStackValue[stackKey]) {
         dataByStackValue[stackKey] = { stack, positiveSum: 0, negativeSum: 0 };

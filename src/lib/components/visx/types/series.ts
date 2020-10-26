@@ -11,10 +11,12 @@ export type SeriesProps<
   dataKey: string;
   /** Data for the Series. */
   data: Datum[];
+  /** Number for the Series. */
+  index: Number;
   /** Given a Datum, returns the x-scale value. */
-  xAccessor: (d: Datum, s?: String) => ScaleInput<XScale>;
+  xAccessor: (d: Datum, n?: Number) => ScaleInput<XScale>;
   /** Given a Datum, returns the y-scale value. */
-  yAccessor: (d: Datum, s?: String) => ScaleInput<YScale>;
+  yAccessor: (d: Datum, n?: Number) => ScaleInput<YScale>;
   /** Given a Datum, returns the elementid value. */
   elAccessor: (d: Datum) => string;
   // /** Array of slection ids. */

@@ -57,6 +57,10 @@ export default function BaseBarGroup<
     handleClick,
     horizontal,
     setBarStyle,
+    singleDimension,
+    dimensionInfo,
+    measureInfo,
+    dataKeys: Keys,
   } = (useContext(DataContext) as unknown) as DataContextType<
     XScale,
     YScale,
@@ -90,11 +94,12 @@ export default function BaseBarGroup<
       const {
         dataKey: key,
         data,
+        index,
         xAccessor,
         yAccessor,
         elAccessor,
       } = child.props;
-      return { key, data, xAccessor, yAccessor, elAccessor };
+      return { key, data, index, xAccessor, yAccessor, elAccessor };
     });
 
     registerData(dataToRegister);
@@ -177,11 +182,11 @@ export default function BaseBarGroup<
   const barThickness = getScaleBandwidth(groupScale);
 
   const bars = registryEntries.flatMap(
-    ({ xAccessor, yAccessor, elAccessor, data, key }) => {
+    ({ xAccessor, yAccessor, elAccessor, data, key, index }) => {
       const getLength = (d: Datum) =>
         horizontal
-          ? (xScale(xAccessor(d, key)) ?? 0) - xZeroPosition
-          : (yScale(yAccessor(d, key)) ?? 0) - yZeroPosition;
+          ? (xScale(xAccessor(d, index)) ?? 0) - xZeroPosition
+          : (yScale(yAccessor(d, index)) ?? 0) - yZeroPosition;
 
       const getGroupPosition = horizontal
         ? (d: Datum) => yScale(yAccessor(d)) ?? 0
