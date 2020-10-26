@@ -296,9 +296,9 @@ function StyledXYChart(props) {
     //         fillStyle={fillStyle || chart.fillStyles}
     //         multiColor={valueIfUndefined(multiColor, chart.multiColor)}
     selectionMethod: valueIfUndefined(selectionMethod, chart.selectionMethod),
-    //         enableBrush={enableBrush}
+    enableBrush,
     //         showAsPercent={showAsPercent}
-    //         showBrush={showBrush}
+    showBrush,
     ...rest,
   };
 

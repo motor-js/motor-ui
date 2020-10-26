@@ -20,7 +20,11 @@ import {
   XYChart,
 } from "../visx";
 
+// import { Brush } from "@visx/brush";
+// import { Brush } from "../visx/selection/Brush";
+
 import { colorByExpression, selectColor } from "../../utils";
+import { PatternLines } from "@visx/pattern";
 // import { buildChartTheme } from "../visx";
 import { lightTheme, darkTheme } from "../visx";
 import { valueIfUndefined } from "../visx/typeguards/valueIfUndefined";
@@ -77,6 +81,8 @@ export default function CreateXYChart({
   dimensionCount,
   selectionMethod,
   showLabels,
+  showBrush,
+  enableBrush,
 
   animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
@@ -108,6 +114,7 @@ export default function CreateXYChart({
 
   const getSeriesValues = (d, dataKey) => {
     if (!d) return null;
+
     let colIndex;
     measureInfo.some(function(x, i) {
       if (x.qFallbackTitle === dataKey) return (colIndex = i);
@@ -117,6 +124,11 @@ export default function CreateXYChart({
   };
 
   const getElementNumber = (d) => d[0].qElemNumber;
+
+  const selectedBoxStyle = {
+    fill: "url(#brush_pattern)",
+    stroke: selectColor(chart?.brush.stroke, theme) ?? "#329af0",
+  };
 
   const chartTheme = {
     ...theme.global.chart,
@@ -189,6 +201,7 @@ export default function CreateXYChart({
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
+        onMouseDown={selectionMethod === "brush" ? enableBrush : null}
       >
         {/* <XYChart height={height}> */}
         <CustomChartBackground
@@ -197,6 +210,16 @@ export default function CreateXYChart({
           to={backgroundStyle.styleTo}
         />
         <CustomChartPattern backgroundPattern={backgroundPattern} />
+        {showBrush && (
+          <PatternLines
+            id="brush_pattern"
+            height={chart?.brush.patternHeight ?? 12}
+            width={chart?.brush.patternWidth ?? 12}
+            stroke={selectColor(chart?.brush.patternStroke, theme) ?? "#a3daff"}
+            strokeWidth={1}
+            orientation={["diagonal"]}
+          />
+        )}
         <AnimatedGrid
           key={`grid-${animationTrajectory}`} // force animate on update
           rows={showGridRows}
@@ -426,6 +449,16 @@ export default function CreateXYChart({
             )}
           />
         )}
+        {/* {showBrush && (
+          <Brush
+            xAxisOrientation={xAxisOrientation}
+            yAxisOrientation={yAxisOrientation}
+            selectedBoxStyle={selectedBoxStyle}
+            brushDirection={renderHorizontally ? "vertical" : "horizontal"}
+            brushRegion={"chart"}
+            handleSize={8}
+          />
+        )} */}
       </XYChart>
     </DataProvider>
   );

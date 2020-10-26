@@ -63,19 +63,23 @@ function BaseBarSeries<
     setBarStyle,
   } = useContext(DataContext);
   const key = 1;
-  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
-    xScale,
-    xAccessor,
-  ]);
+
+  const getScaledX = useCallback(
+    getScaledValueFactory(xScale, xAccessor, dataKey),
+    [xScale, xAccessor]
+  );
+
   const getScaledY = useCallback(
     getScaledValueFactory(yScale, yAccessor, dataKey),
     [yScale, yAccessor]
   );
+
   const getElemNumber = useCallback(elAccessor, [elAccessor]);
 
   const [hoverId, setHoverId] = useState(null);
 
   const scaleBandwidth = getScaleBandwidth(horizontal ? yScale : xScale);
+
   const barThickness =
     scaleBandwidth ||
     getFallbackBandwidth(
@@ -107,7 +111,8 @@ function BaseBarSeries<
     const yOffset = horizontal ? -barThickness / 2 : 0;
     return data.map((datum, index) => {
       const x = getScaledX(datum) + xOffset;
-      const y = getScaledY(datum, dataKey) + yOffset;
+      // const y = getScaledY(datum, dataKey) + yOffset;
+      const y = getScaledY(datum) + yOffset;
       const id = getElemNumber(datum);
       const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
       const onMouseMove = (params?: HandlerParams) => {

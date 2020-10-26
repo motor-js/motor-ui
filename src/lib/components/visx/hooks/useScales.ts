@@ -39,7 +39,9 @@ export default function useScales<
     const xValues = registryEntries.reduce<XScaleInput[]>(
       (combined, entry) =>
         entry
-          ? combined.concat(entry.data.map((d: Datum) => entry.xAccessor(d)))
+          ? combined.concat(
+              entry.data.map((d: Datum) => entry.xAccessor(d, entry.key))
+            )
           : combined,
       []
     );
