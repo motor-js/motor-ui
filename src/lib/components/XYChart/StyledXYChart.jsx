@@ -20,10 +20,7 @@ import {
   createColorArray,
 } from "../../utils";
 
-// import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
-import { valueIfUndefined } from "../visx/typeguards/valueIfUndefined";
-import { isDefined } from "../visx/typeguards/isDefined";
-// import { XYChart } from "../visx";
+import { isDefined, valueIfUndefined } from "../../utils";
 
 let measureCount = null;
 let dimensionCount = null;

@@ -23,17 +23,19 @@ import {
 // import { Brush } from "@visx/brush";
 // import Brush from "../visx/selection/Brush";
 
-import { colorByExpression, selectColor } from "../../utils";
+import {
+  colorByExpression,
+  selectColor,
+  valueIfUndefined,
+  isDefined,
+} from "../../utils";
 // import { PatternLines } from "@visx/pattern";
 // import { buildChartTheme } from "../visx";
 // import { lightTheme, darkTheme } from "../visx";
 import { darkTheme } from "../visx";
-import { valueIfUndefined } from "../visx/typeguards/valueIfUndefined";
 
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
-
-import { isDefined } from "../visx/typeguards/isDefined";
 
 export default function CreateXYChart({
   height,

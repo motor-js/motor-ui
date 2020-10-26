@@ -10,8 +10,7 @@ import {
 } from "../visx";
 
 import { roundNumber } from "../visx/utils/roundNumber";
-import { colorByExpression, selectColor } from "../../utils";
-import { valueIfUndefined } from "../visx/utils/chartUtils";
+import { colorByExpression, selectColor, valueIfUndefined } from "../../utils";
 
 export default function CreatePie({
   width,

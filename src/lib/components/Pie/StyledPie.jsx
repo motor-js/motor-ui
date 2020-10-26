@@ -11,9 +11,8 @@ import {
   isEmpty,
   validData,
   createColorArray,
+  valueIfUndefined,
 } from "../../utils";
-
-import { valueIfUndefined } from "../visx/utils/chartUtils";
 
 let measureCount = null;
 let dimensionCount = null;
