@@ -117,10 +117,14 @@ export default function CreateXYChart({
     if (!d) return null;
 
     let colIndex;
-    measureInfo.some(function(x, i) {
-      if (x.qFallbackTitle === dataKey) return (colIndex = i);
-    });
-    colIndex += dimensionInfo.length;
+    singleDimension
+      ? measureInfo.some(function(x, i) {
+          if (x.qFallbackTitle === dataKey) return (colIndex = i);
+        })
+      : dataKeys.some(function(x, i) {
+          if (x === dataKey) return (colIndex = i);
+        });
+    colIndex += singleDimension ? dimensionInfo.length : 1;
     return isDefined(d[colIndex]) ? Number(d[colIndex].qNum) : 0;
   };
 
@@ -141,32 +145,59 @@ export default function CreateXYChart({
     // colors,
   };
 
-  const xAaccessors = measureInfo
-    .map((measure) => {
-      return {
-        id: [measure.qFallbackTitle],
-        function: renderHorizontally ? getSeriesValues : getDimension,
-      };
-    })
-    .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
+  const xAaccessors = singleDimension
+    ? measureInfo
+        .map((measure) => {
+          return {
+            id: [measure.qFallbackTitle],
+            function: renderHorizontally ? getSeriesValues : getDimension,
+          };
+        })
+        .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {})
+    : dataKeys
+        .map((key) => {
+          return {
+            id: [key],
+            function: renderHorizontally ? getSeriesValues : getDimension,
+          };
+        })
+        .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
 
-  const yAaccessors = measureInfo
-    .map((measure) => {
-      return {
-        id: [measure.qFallbackTitle],
-        function: renderHorizontally ? getDimension : getSeriesValues,
-      };
-    })
-    .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
+  const yAaccessors = singleDimension
+    ? measureInfo
+        .map((measure) => {
+          return {
+            id: [measure.qFallbackTitle],
+            function: renderHorizontally ? getDimension : getSeriesValues,
+          };
+        })
+        .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {})
+    : dataKeys
+        .map((key) => {
+          return {
+            id: [key],
+            function: renderHorizontally ? getDimension : getSeriesValues,
+          };
+        })
+        .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
 
-  const elAaccessors = measureInfo
-    .map((measure) => {
-      return {
-        id: [measure.qFallbackTitle],
-        function: getElementNumber,
-      };
-    })
-    .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
+  const elAaccessors = singleDimension
+    ? measureInfo
+        .map((measure) => {
+          return {
+            id: [measure.qFallbackTitle],
+            function: getElementNumber,
+          };
+        })
+        .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {})
+    : dataKeys
+        .map((key) => {
+          return {
+            id: [key],
+            function: getElementNumber,
+          };
+        })
+        .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {});
 
   const accessors = useMemo(
     () => ({
