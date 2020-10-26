@@ -415,6 +415,7 @@ const base = {
       hover: {
         opacity: 0.5,
         cursor: "pointer",
+        // fill: "orange",
         // background: "var(--oc-gray-1)",
       },
 

@@ -64,6 +64,7 @@ export default function CreateXYChart({
   selectionMethod,
   showLabels,
   padding,
+  multiColor,
   // showBrush,
   // enableBrush,
 
@@ -232,6 +233,7 @@ export default function CreateXYChart({
       horizontal={renderHorizontally}
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
+      multiColor={multiColor ? dataKeys : null}
     >
       <XYChart
         height={Math.min(400, height)}

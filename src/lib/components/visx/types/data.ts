@@ -50,6 +50,7 @@ export interface DataContextType<
   innerWidth: number;
   innerHeight: number;
   currentSelectionIds: Array<number>;
+  multiColor: Array<string>;
   handleClick: (d: Array<number>) => any;
   setBarStyle: Function;
   showTooltip: boolean;

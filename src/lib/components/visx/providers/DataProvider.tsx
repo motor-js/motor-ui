@@ -20,6 +20,7 @@ export type DataProviderProps<
   xScale: XScaleConfig;
   yScale: YScaleConfig;
   currentSelectionIds: Array<number>;
+  multiColor: Array<string>;
   beginSelections: Function;
   select: Function;
   setCurrentSelectionIds: Function;
@@ -45,6 +46,7 @@ export default function DataProvider<
   showTooltip,
   horizontal,
   includeZero,
+  multiColor,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -126,6 +128,7 @@ export default function DataProvider<
         currentSelectionIds,
         showTooltip,
         horizontal,
+        multiColor,
         setDimensions,
         setBarStyle,
       }}

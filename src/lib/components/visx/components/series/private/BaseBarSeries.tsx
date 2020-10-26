@@ -61,6 +61,7 @@ function BaseBarSeries<
     handleClick,
     horizontal,
     setBarStyle,
+    multiColor,
   } = useContext(DataContext);
   const key = 1;
 
@@ -94,7 +95,7 @@ function BaseBarSeries<
     yScale,
   ]);
 
-  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
+  // const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
 
   const handleMouseClick = (id: string) => {
     const selectionId = Number(id);
@@ -151,7 +152,10 @@ function BaseBarSeries<
         id,
         width: horizontal ? Math.abs(barLength) : barThickness,
         height: horizontal ? barThickness : Math.abs(barLength),
-        fill: color, // @TODO allow prop overriding
+        // fill: color, // @TODO allow prop overriding
+        fill: multiColor
+          ? colorScale?.(multiColor[index])
+          : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222", // @TODO allow prop overriding
         style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
         onClick: () => handleMouseClick(id),
         onMouseEnter: () => setHoverId(Number(id)),
@@ -161,7 +165,7 @@ function BaseBarSeries<
     });
   }, [
     barThickness,
-    color,
+    // color,
     data,
     getScaledX,
     getScaledY,
