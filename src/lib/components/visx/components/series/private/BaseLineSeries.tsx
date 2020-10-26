@@ -55,10 +55,11 @@ function BaseLineSeries<
     horizontal,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
-  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [
-    xScale,
-    xAccessor,
-  ]);
+
+  const getScaledX = useCallback(
+    getScaledValueFactory(xScale, xAccessor, dataKey),
+    [xScale, xAccessor]
+  );
   const [hoverId, setHoverId] = useState(null);
   const getScaledY = useCallback(
     getScaledValueFactory(yScale, yAccessor, dataKey),
