@@ -30,6 +30,7 @@ import {
   selectColor,
   valueIfUndefined,
   isDefined,
+  roundNumber,
 } from "../../utils";
 // import { PatternLines } from "@visx/pattern";
 // import { buildChartTheme } from "../visx";
@@ -49,7 +50,6 @@ export default function CreateXYChart({
   xAxisOrientation,
   yAxisOrientation,
   renderHorizontally,
-  handleClick,
   beginSelections,
   select,
   setCurrentSelectionIds,
@@ -65,21 +65,32 @@ export default function CreateXYChart({
   singleDimension,
   singleMeasure,
   measureCount,
-  dimensionCount,
+  // dimensionCount,
   selectionMethod,
   showLabels,
   padding,
   multiColor,
   showClosestItem,
-  // showBrush,
-  // enableBrush,
+  useAnimatedAxes,
+  useAnimatedGrid,
+  animationTrajectory,
+  dualAxis,
+  roundNum,
+  precision,
+  showGridColumns,
+  showGridRows,
+  showAsPercent,
+  hideAxisLine,
+  showAxisLabels,
+  numDimensionTicks,
+  numMeasureTicks,
+  numMeasureDualTicks,
+  parseDateFormat,
+  formatAxisDate,
 
   //-----
 
   // borderRadius,
-  useAnimatedAxes,
-  useAnimatedGrid,
-  animationTrajectory,
   // autoWidth,
   // showLegend,
   // legendLeftRight,
@@ -89,27 +100,15 @@ export default function CreateXYChart({
   // fillStyle,
   // showPoints,
   // curveShape,
-  // dualAxis,
-  // roundNum,
-  // precision,
   // crossHairStyles,
-  // hideAxisLine,
-  // gridRows,
-  // gridColumns,
   // enableBrush,
   // showBrush,
-  // showAsPercent,
-  // showAxisLabels,
   // title,
   // subTitle,
   // legendLabelStyle,
   // valueLabelStyle,
   // useSingleColor,
-  // numDimensionTicks,
-  // numMeasureTicks,
-  // numMeasureDualTicks,
-  // parseDateFormat,
-  // formatAxisDate,
+
   // formatTooltipDate,
   // strokeWidth,
   // showCrossHair,
@@ -129,8 +128,6 @@ export default function CreateXYChart({
 
   numTicks = 4,
 
-  showGridColumns = true,
-  showGridRows = true,
   showHorizontalCrosshair = false,
   showTooltip = false,
   showVerticalCrosshair = false,
@@ -142,8 +139,40 @@ export default function CreateXYChart({
   const chartType = type;
   const sharedTooltip = !showClosestItem;
 
+  const {
+    global: { chart },
+    crossHair: crossHairStyle,
+  } = theme;
+
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
+
+  const chartHideAxisLine = valueIfUndefined(hideAxisLine, chart.hideAxisLine);
+
+  const chartShowAxisLabels = valueIfUndefined(
+    showAxisLabels,
+    chart.showAxisLabels
+  );
+
+  // chartShowAxisLabels === true ||  // AG
+  // chartShowAxisLabels === "both" ||
+  // chartShowAxisLabels === "xAxis"
+  //   ? (axisBottomMargin.bottom = 60)
+  //   : (axisBottomMargin.bottom = 40);
+
+  const formatValue = (val) => {
+    // if (val === 0) return roundNumber(Math.abs(val), 0);
+
+    const valPrecision = valueIfUndefined(precision, chart.precision);
+    const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
+
+    if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
+    let formattedValue = valRoundNum
+      ? roundNumber(Math.abs(val), valPrecision)
+      : Math.abs(val);
+
+    return val < 0 ? `-${formattedValue}` : formattedValue;
+  };
 
   const dateScaleConfig = {
     type: "band",
@@ -168,15 +197,10 @@ export default function CreateXYChart({
   //    [includeZero]
   //  );
 
-  const {
-    global: { chart },
-    crossHair: crossHairStyle,
-  } = theme;
-
   // console.log(darkTheme);
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
 
-  const isScatter = chartType.includes("scatter");
+  // const isScatter = chartType.includes("scatter");
 
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) => d[0].qText;
@@ -460,7 +484,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    fillOpadatum={0.3}
+                    opacity={0.3}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -472,12 +496,12 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    fillOpadatum={0.3}
+                    opacity={0.3}
                   />
                 ))}
           </>
         )}
-        {/* {chartType === "areastack" && (
+        {chartType === "areastack" && (
           <>
             <BarSeries
               dataKey="San Francisco"
@@ -492,8 +516,8 @@ export default function CreateXYChart({
               yAccessor={accessors.y.Austin}
             />
           </>
-        )} */}
-        {/* {chartType === "scatter" && (
+        )}
+        {chartType === "scatter" && singleDimension && measureCount >= 2 && (
           <GlyphSeries
             dataKey="San Francisco"
             data={data}
@@ -501,20 +525,86 @@ export default function CreateXYChart({
             yAccessor={accessors.y["San Francisco"]}
             renderGlyph={renderGlyph}
           />
-        )} */}
+        )}
+        {/** X axis */}
         <AxisComponent
           key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
+          label={
+            chartShowAxisLabels === true ||
+            chartShowAxisLabels === "both" ||
+            chartShowAxisLabels === "xAxis"
+              ? chartType !== "scatter"
+                ? dimensionInfo[0].qFallbackTitle
+                : measureInfo[1].qFallbackTitle
+              : null
+          }
           orientation={renderHorizontally ? yAxisOrientation : xAxisOrientation}
-          numTicks={numTicks}
+          hideAxisLine={
+            chartHideAxisLine === true ||
+            chartHideAxisLine === "both" ||
+            chartHideAxisLine === "xAxis"
+              ? true
+              : false
+          }
+          tickValues={
+            numDimensionTicks === null
+              ? null
+              : data
+                  .filter(
+                    (d, i, arr) =>
+                      i % Math.round((arr.length - 1) / numDimensionTicks) === 0
+                  )
+                  .map((d) => getDimension(d))
+          }
+          tickFormat={(d) =>
+            parseDateFormat && formatAxisDate ? dateFormatter(d) : d
+          }
           animationTrajectory={animationTrajectory}
+          // width > 400 || isContinuousAxes ? dateFormatter(d) : null
         />
+        {/* Y axis */}
         <AxisComponent
           key={`temp-axis-${animationTrajectory}-${renderHorizontally}`}
-          label="Temperature (°F)"
+          label={
+            chartShowAxisLabels === true ||
+            chartShowAxisLabels === "both" ||
+            chartShowAxisLabels === "yAxis"
+              ? measureInfo[0].qFallbackTitle
+              : null
+          }
           orientation={renderHorizontally ? xAxisOrientation : yAxisOrientation}
-          numTicks={numTicks}
+          numTicks={numMeasureTicks}
+          hideAxisLine={
+            chartHideAxisLine === true ||
+            chartHideAxisLine === "both" ||
+            chartHideAxisLine === "yAxis"
+              ? true
+              : false
+          }
+          tickFormat={(d) => formatValue(d)}
           animationTrajectory={animationTrajectory}
         />
+        {/* Y axis (dual)*/}
+        {dualAxis && (
+          <AxisComponent
+            label={
+              chartShowAxisLabels === true ||
+              chartShowAxisLabels === "both" ||
+              chartShowAxisLabels === "yAxis"
+                ? measureInfo[1].qFallbackTitle
+                : null
+            }
+            orientation="right"
+            numTicks={numMeasureDualTicks}
+            hideAxisLine={
+              chartHideAxisLine === true ||
+              chartHideAxisLine === "both" ||
+              chartHideAxisLine === "yAxis"
+                ? true
+                : false
+            }
+          />
+        )}
         {showTooltip && (
           <Tooltip
             showHorizontalCrosshair={showHorizontalCrosshair}

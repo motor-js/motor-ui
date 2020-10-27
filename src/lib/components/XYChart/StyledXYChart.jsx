@@ -264,13 +264,13 @@ function StyledXYChart(props) {
     //         }
     //         events={events || chart.events}
     qLayout,
-    //         numDimensionTicks={numDimensionTicks}
+    numDimensionTicks,
     theme,
     //         borderRadius={borderRadius}
     singleDimension,
     singleMeasure,
     measureCount,
-    dimensionCount,
+    // dimensionCount,
     data,
     // handleClick,
     //         keys={keys}

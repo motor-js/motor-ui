@@ -79,9 +79,9 @@ Bar.propTypes = {
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Show gridline rows on Axis */
-  gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showGridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show gridline columns on Axis */
-  gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showGridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show shadow around Bar Chart */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
