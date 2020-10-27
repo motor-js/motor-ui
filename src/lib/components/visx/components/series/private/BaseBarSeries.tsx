@@ -222,7 +222,7 @@ function BaseBarSeries<
   useEventEmitter("mouseout", hideTooltip);
 
   return (
-    <g className="vx-bar-series">
+    <g className="visx-bar-series">
       <BarsComponent
         bars={bars}
         horizontal={horizontal}

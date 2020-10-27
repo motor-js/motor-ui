@@ -172,29 +172,31 @@ function BaseLineSeries<
   };
 
   return (
-    <LinePath
-      data={data}
-      x={getScaledX}
-      y={getScaledY}
-      stroke={color}
-      strokeWidth={2}
-      {...lineProps}
-    >
-      {({ path }) => (
-        <PathComponent
-          stroke={color}
-          strokeWidth={2}
-          fill="none"
-          style={setBarStyle(hoverId, isEmpty(currentSelectionIds), hoverId)}
-          onClick={onClick}
-          onMouseEnter={() => setHoverId(Number(data))}
-          onMouseMove={onMouseMove}
-          onMouseLeave={onMouseLeave}
-          {...lineProps}
-          d={path(data) || ""}
-        />
-      )}
-    </LinePath>
+    <g className="visx-line-series">
+      <LinePath
+        data={data}
+        x={getScaledX}
+        y={getScaledY}
+        stroke={color}
+        strokeWidth={2}
+        {...lineProps}
+      >
+        {({ path }) => (
+          <PathComponent
+            stroke={color}
+            strokeWidth={2}
+            fill="none"
+            style={setBarStyle(hoverId, isEmpty(currentSelectionIds), hoverId)}
+            onClick={onClick}
+            onMouseEnter={() => setHoverId(Number(data))}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+            {...lineProps}
+            d={path(data) || ""}
+          />
+        )}
+      </LinePath>
+    </g>
   );
 }
 

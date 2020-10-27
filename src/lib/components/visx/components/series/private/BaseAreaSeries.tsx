@@ -196,45 +196,47 @@ function BaseAreaSeries<
 
   return (
     <>
-      <Area data={data} {...xAccessors} {...yAccessors} {...areaProps}>
-        {({ path }) => (
-          <PathComponent
-            stroke="transparent"
-            fill={color}
-            {...areaProps}
-            d={path(data) || ""}
-          />
-        )}
-      </Area>
-      {renderLine && (
-        <LinePath<Datum>
-          data={data}
-          x={getScaledX}
-          y={getScaledY}
-          stroke={color}
-          strokeWidth={2}
-          {...lineProps}
-        >
+      <g className="visxx-area-series">
+        <Area data={data} {...xAccessors} {...yAccessors} {...areaProps}>
           {({ path }) => (
             <PathComponent
-              fill="transparent"
-              stroke={color}
-              strokeWidth={2}
-              style={setBarStyle(
-                hoverId,
-                isEmpty(currentSelectionIds),
-                hoverId
-              )}
-              onClick={onClick}
-              onMouseEnter={() => setHoverId(Number(data))}
-              onMouseMove={onMouseMove}
-              onMouseLeave={onMouseLeave}
-              {...lineProps}
+              stroke="transparent"
+              fill={color}
+              {...areaProps}
               d={path(data) || ""}
             />
           )}
-        </LinePath>
-      )}
+        </Area>
+        {renderLine && (
+          <LinePath<Datum>
+            data={data}
+            x={getScaledX}
+            y={getScaledY}
+            stroke={color}
+            strokeWidth={2}
+            {...lineProps}
+          >
+            {({ path }) => (
+              <PathComponent
+                fill="transparent"
+                stroke={color}
+                strokeWidth={2}
+                style={setBarStyle(
+                  hoverId,
+                  isEmpty(currentSelectionIds),
+                  hoverId
+                )}
+                onClick={onClick}
+                onMouseEnter={() => setHoverId(Number(data))}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                {...lineProps}
+                d={path(data) || ""}
+              />
+            )}
+          </LinePath>
+        )}
+      </g>
     </>
   );
 }
