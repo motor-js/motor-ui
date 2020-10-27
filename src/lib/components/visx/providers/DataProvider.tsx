@@ -23,7 +23,6 @@ export type DataProviderProps<
   beginSelections: Function;
   select: Function;
   setCurrentSelectionIds: Function;
-  showTooltip: boolean;
   horizontal?: boolean;
   multiColor: Array<string>;
   includeZero?: boolean;
@@ -43,7 +42,6 @@ export default function DataProvider<
   beginSelections,
   select,
   setCurrentSelectionIds,
-  showTooltip,
   horizontal,
   includeZero,
   multiColor,
@@ -126,7 +124,6 @@ export default function DataProvider<
         innerHeight,
         handleClick,
         currentSelectionIds,
-        showTooltip,
         horizontal,
         multiColor,
         setDimensions,

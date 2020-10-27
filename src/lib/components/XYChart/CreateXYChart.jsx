@@ -92,6 +92,7 @@ export default function CreateXYChart({
   formatAxisDate,
   title,
   subTitle,
+  showTooltip,
 
   //-----
 
@@ -130,7 +131,7 @@ export default function CreateXYChart({
   //-----
 
   showHorizontalCrosshair = false,
-  showTooltip = false,
+
   showVerticalCrosshair = false,
   snapTooltipToDatumX = false,
   snapTooltipToDatumY = false,
@@ -324,7 +325,6 @@ export default function CreateXYChart({
       beginSelections={beginSelections}
       select={select}
       setCurrentSelectionIds={setCurrentSelectionIds}
-      showTooltip={showTooltip}
       horizontal={renderHorizontally}
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
