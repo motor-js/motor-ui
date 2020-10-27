@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
-import { CommonGridProps } from '@visx/grid/lib/types';
-import { AllGridRowsProps } from '@visx/grid/lib/grids/GridRows';
-import { GridColumnsProps } from '@visx/grid/lib/grids/GridColumns';
-import { AxisScale } from '@visx/axis';
-import DataContext from '../../context/DataContext';
+import React, { useContext } from "react";
+import { CommonGridProps } from "@visx/grid/lib/types";
+import { AllGridRowsProps } from "@visx/grid/lib/grids/GridRows";
+import { GridColumnsProps } from "@visx/grid/lib/grids/GridColumns";
+import { AxisScale } from "@visx/axis";
+import DataContext from "../../context/DataContext";
 
 export type BaseGridProps = {
   /** Whether to render GridRows. */
   rows?: boolean;
   /** Whether to render GridColumns. */
   columns?: boolean;
+  /** Number of Rows for the Grid. */
+  numGridRows?: number;
+  /** Number of Columns for the Grid. */
+  numGridColumns?: number;
   /** Rendered GridRows component which is passed GridRowProps by BaseGrid. */
   GridRowsComponent: React.FC<AllGridRowsProps<AxisScale>>;
   /** Rendered GridColumns component which is passed GridColumnsProps by BaseGrid. */
@@ -22,6 +26,8 @@ export default function BaseGrid({
   columns = true,
   GridRowsComponent,
   GridColumnsComponent,
+  numGridRows,
+  numGridColumns,
   ...props
 }: BaseGridProps) {
   const {
@@ -43,6 +49,7 @@ export default function BaseGrid({
           lineStyle={gridLineStyles}
           width={innerWidth}
           scale={rowsScale}
+          numTicks={numGridRows}
           {...props}
         />
       )}
@@ -52,6 +59,7 @@ export default function BaseGrid({
           lineStyle={gridLineStyles}
           height={innerHeight}
           scale={columnsScale}
+          numTicks={numGridColumns}
           {...props}
         />
       )}

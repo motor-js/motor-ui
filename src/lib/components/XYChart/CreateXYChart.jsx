@@ -93,10 +93,10 @@ export default function CreateXYChart({
   title,
   subTitle,
   showTooltip,
+  borderRadius,
 
   //-----
 
-  borderRadius,
   // showLegend,
   // legendLeftRight,
   // legendTopBottom,
@@ -108,11 +108,9 @@ export default function CreateXYChart({
   // crossHairStyles,
   // enableBrush,
   // showBrush,
-
   // legendLabelStyle,
   // valueLabelStyle,
   // useSingleColor,
-
   // formatTooltipDate,
   // strokeWidth,
   // showCrossHair,
@@ -140,8 +138,6 @@ export default function CreateXYChart({
   const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
   const sharedTooltip = !showClosestItem;
-
-  console.log(showTooltip);
 
   const {
     global: { chart },

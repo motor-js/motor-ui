@@ -9,15 +9,22 @@ export type GridProps = Omit<
   "GridRowsComponent" | "GridColumnsComponent"
 > & {
   /** Animation trjectory of grid lines. */
-  animationTrajectory?: AnimationTrajectory;
+  animationTrajectory?: AnimationTrajectory /** Number of Grid Rows. */;
+  numGridRows?: number;
+  /** Number of Grid Columns. */
+  numGridColumns?: number;
 };
 
 export default function Grid({
   animationTrajectory = null,
+  numGridRows,
+  numGridColumns,
   ...props
 }: GridProps) {
   return (
     <BaseGrid
+      numGridRows={numGridRows}
+      numGridColumns={numGridColumns}
       GridRowsComponent={GridRows}
       GridColumnsComponent={GridColumns}
       {...props}
