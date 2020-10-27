@@ -184,7 +184,7 @@ function BaseLineSeries<
         <PathComponent
           stroke={color}
           strokeWidth={2}
-          fill="transparent"
+          fill="none"
           style={setBarStyle(hoverId, isEmpty(currentSelectionIds), hoverId)}
           onClick={onClick}
           onMouseEnter={() => setHoverId(Number(data))}

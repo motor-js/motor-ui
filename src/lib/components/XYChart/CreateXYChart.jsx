@@ -215,6 +215,17 @@ export default function CreateXYChart({
     [renderHorizontally]
   );
 
+  const valueIndex = (key) =>
+    singleDimension
+      ? measureInfo
+          .reduce(
+            (combined, entry) =>
+              entry ? combined.concat(entry.qFallbackTitle) : combined,
+            []
+          )
+          .indexOf(key) + dimensionInfo.length
+      : dataKeys.indexOf(key) + 1;
+
   return (
     <DataProvider
       theme={chartTheme}
@@ -479,13 +490,13 @@ export default function CreateXYChart({
                         }}
                       >
                         {city}
-                      </em>
+                      </em>{" "}
                       {tooltipData?.nearestDatum?.datum
                         ? accessors[renderHorizontally ? "x" : "y"][city](
-                            tooltipData?.nearestDatum?.datum
+                            tooltipData?.nearestDatum?.datum,
+                            valueIndex(city)
                           )
                         : "–"}
-                      ° F
                     </div>
                   ))}
               </>
