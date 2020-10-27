@@ -398,7 +398,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    fillOpacity={0.3}
+                    fillOpadatum={0.3}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -410,7 +410,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    fillOpacity={0.3}
+                    fillOpadatum={0.3}
                   />
                 ))}
           </>
@@ -477,28 +477,28 @@ export default function CreateXYChart({
                   ? Object.keys(tooltipData?.datumByKey ?? {})
                   : [tooltipData?.nearestDatum?.key]
                 )
-                  .filter((city) => city)
-                  .map((city) => (
-                    <div key={city}>
+                  .filter((datum) => datum)
+                  .map((datum) => (
+                    <div key={datum}>
                       <em
                         style={{
                           color: dataKeys
                             ? colorScale?.(
                                 accessors.date(tooltipData?.nearestDatum?.datum)
                               )
-                            : colorScale?.(city),
+                            : colorScale?.(datum),
                           textDecoration:
-                            tooltipData?.nearestDatum?.key === city
+                            tooltipData?.nearestDatum?.key === datum
                               ? "underline"
                               : undefined,
                         }}
                       >
-                        {city}
+                        {datum}
                       </em>{" "}
                       {tooltipData?.nearestDatum?.datum
-                        ? accessors[renderHorizontally ? "x" : "y"][city](
+                        ? accessors[renderHorizontally ? "x" : "y"][datum](
                             tooltipData?.nearestDatum?.datum,
-                            valueIndex(city)
+                            valueIndex(datum)
                           )
                         : "–"}
                     </div>
