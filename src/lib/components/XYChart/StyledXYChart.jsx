@@ -266,7 +266,7 @@ function StyledXYChart(props) {
     qLayout,
     numDimensionTicks,
     theme,
-    //         borderRadius={borderRadius}
+    borderRadius,
     singleDimension,
     singleMeasure,
     measureCount,

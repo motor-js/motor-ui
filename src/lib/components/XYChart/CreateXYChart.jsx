@@ -19,6 +19,7 @@ import {
   BarStack,
   LineSeries,
   Tooltip,
+  Title,
   XYChart,
 } from "../visx";
 
@@ -90,7 +91,7 @@ export default function CreateXYChart({
 
   //-----
 
-  // borderRadius,
+  borderRadius,
   // autoWidth,
   // showLegend,
   // legendLeftRight,
@@ -103,8 +104,8 @@ export default function CreateXYChart({
   // crossHairStyles,
   // enableBrush,
   // showBrush,
-  // title,
-  // subTitle,
+  title,
+  subTitle,
   // legendLabelStyle,
   // valueLabelStyle,
   // useSingleColor,
@@ -327,6 +328,14 @@ export default function CreateXYChart({
       includeZero={includeZero}
       multiColor={multiColor}
     >
+      {title && (
+        <Title
+          borderRadius={borderRadius}
+          title={title}
+          subTitle={subTitle}
+          size={size}
+        />
+      )}
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
