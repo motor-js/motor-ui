@@ -262,9 +262,9 @@ export default function BaseBarGroup<
         ),
         onClick: () => handleMouseClick(getElemNumber(datum)),
         onMouseEnter: () => setHoverId(Number(getElemNumber(datum))),
-        onMouseLeave: () => setHoverId(null),
+        // onMouseLeave: () => setHoverId(null),
         onMouseMove: onMouseMove,
-        // onMouseLeave: onMouseLeave,
+        onMouseLeave: onMouseLeave,
       }));
     }
   );

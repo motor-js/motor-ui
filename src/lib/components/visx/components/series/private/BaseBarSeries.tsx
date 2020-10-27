@@ -162,8 +162,8 @@ function BaseBarSeries<
         onClick: () => handleMouseClick(id),
         onMouseEnter: () => setHoverId(Number(id)),
         onMouseMove: onMouseMove,
-        // onMouseLeave: onMouseLeave,
-        onMouseLeave: () => setHoverId(null),
+        onMouseLeave: onMouseLeave,
+        // onMouseLeave: () => setHoverId(null),
       };
     });
   }, [
