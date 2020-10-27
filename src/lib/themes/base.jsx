@@ -297,6 +297,8 @@ const base = {
       padding: 0.3, // Padding between bars
       useAnimatedAxes: true,
       useAnimatedGrid: true,
+      numGridRows: 4,
+      numGridColumns: 4,
       animationTrajectory: "center",
       includeZero: true,
       multiColor: true,

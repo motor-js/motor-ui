@@ -86,13 +86,16 @@ export default function CreateXYChart({
   numDimensionTicks,
   numMeasureTicks,
   numMeasureDualTicks,
+  numGridRows,
+  numGridColumns,
   parseDateFormat,
   formatAxisDate,
+  title,
+  subTitle,
 
   //-----
 
   borderRadius,
-  // autoWidth,
   // showLegend,
   // legendLeftRight,
   // legendTopBottom,
@@ -104,8 +107,7 @@ export default function CreateXYChart({
   // crossHairStyles,
   // enableBrush,
   // showBrush,
-  title,
-  subTitle,
+
   // legendLabelStyle,
   // valueLabelStyle,
   // useSingleColor,
@@ -127,8 +129,6 @@ export default function CreateXYChart({
 
   //-----
 
-  numTicks = 4,
-
   showHorizontalCrosshair = false,
   showTooltip = false,
   showVerticalCrosshair = false,
@@ -139,6 +139,8 @@ export default function CreateXYChart({
   const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
   const sharedTooltip = !showClosestItem;
+
+  console.log(showTooltip);
 
   const {
     global: { chart },
@@ -363,7 +365,11 @@ export default function CreateXYChart({
           rows={showGridRows}
           columns={showGridColumns}
           animationTrajectory={animationTrajectory}
-          numTicks={numTicks}
+          numGridRows={valueIfUndefined(numGridRows, chart.numGridRows)}
+          numGridColumns={valueIfUndefined(
+            numGridColumns,
+            chart.numGridColumns
+          )}
         />
         {chartType === "bar" && (
           <BarSeries

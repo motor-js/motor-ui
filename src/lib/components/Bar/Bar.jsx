@@ -265,6 +265,10 @@ Bar.propTypes = {
   shiftTooltipTop: PropTypes.number,
   /** Reposition the tooltip. */
   shiftTooltipLeft: PropTypes.number,
+  /** Number of ticks for the Grid Rows. Leave blank to auto calculate */
+  numGridRows: PropTypes.number, // NEW
+  /** Number of ticks for the Grid Columns. Leave blank to auto calculate */
+  numGridColumns: PropTypes.number, // NEW
   /** Number of ticks for the X Axis. Leave blank to auto calculate */
   numDimensionTicks: PropTypes.number,
   /** Number of ticks for the Y Axis. Leave blank to auto calculate */
