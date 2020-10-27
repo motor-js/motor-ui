@@ -2,16 +2,18 @@ import React, { useMemo } from "react";
 
 import {
   // AnimatedAreaSeries,
+  Axis,
   AnimatedAxis,
   // AnimatedBarGroup,
   // AnimatedBarSeries,
   // AnimatedBarStack,
   // AnimatedGlyphSeries,
+  Grid,
   AnimatedGrid,
   // AnimatedLineSeries,
   AreaSeries,
   DataProvider,
-  GlyphSeries,
+  // GlyphSeries,
   BarGroup,
   BarSeries,
   BarStack,
@@ -75,7 +77,8 @@ export default function CreateXYChart({
   //-----
 
   // borderRadius,
-  // useAnimatedAxes,
+  useAnimatedAxes,
+  useAnimatedGrid,
   // autoWidth,
   // showLegend,
   // legendLeftRight,
@@ -138,6 +141,9 @@ export default function CreateXYChart({
   const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
   const sharedTooltip = !showClosestItem;
+
+  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
+  const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
 
   const dateScaleConfig = {
     type: "band",
@@ -319,7 +325,7 @@ export default function CreateXYChart({
             orientation={["diagonal"]}
           />
         )} */}
-        <AnimatedGrid
+        <GridComponent
           key={`grid-${animationTrajectory}`} // force animate on update
           rows={showGridRows}
           columns={showGridColumns}
@@ -471,7 +477,7 @@ export default function CreateXYChart({
                 ))}
           </>
         )}
-        {chartType === "areastack" && (
+        {/* {chartType === "areastack" && (
           <>
             <BarSeries
               dataKey="San Francisco"
@@ -486,8 +492,8 @@ export default function CreateXYChart({
               yAccessor={accessors.y.Austin}
             />
           </>
-        )}
-        {chartType === "scatter" && (
+        )} */}
+        {/* {chartType === "scatter" && (
           <GlyphSeries
             dataKey="San Francisco"
             data={data}
@@ -495,14 +501,14 @@ export default function CreateXYChart({
             yAccessor={accessors.y["San Francisco"]}
             renderGlyph={renderGlyph}
           />
-        )}
-        <AnimatedAxis
+        )} */}
+        <AxisComponent
           key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
           orientation={renderHorizontally ? yAxisOrientation : xAxisOrientation}
           numTicks={numTicks}
           animationTrajectory={animationTrajectory}
         />
-        <AnimatedAxis
+        <AxisComponent
           key={`temp-axis-${animationTrajectory}-${renderHorizontally}`}
           label="Temperature (°F)"
           orientation={renderHorizontally ? xAxisOrientation : yAxisOrientation}

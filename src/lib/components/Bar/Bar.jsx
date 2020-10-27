@@ -206,6 +206,7 @@ Bar.propTypes = {
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
   useAnimatedAxes: PropTypes.bool,
+  useAnimatedGrid: PropTypes.bool, // NEW
   autoWidth: PropTypes.bool,
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,

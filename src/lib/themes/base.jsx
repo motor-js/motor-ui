@@ -296,6 +296,7 @@ const base = {
       margin: "10px",
       padding: 0.3, // Padding between bars
       useAnimatedAxes: false,
+      useAnimatedGrid: false,
       includeZero: true,
       multiColor: true,
       selectionMethod: "brush",

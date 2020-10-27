@@ -71,6 +71,7 @@ function StyledXYChart(props) {
     type,
     padding,
     useAnimatedAxes,
+    useAnimatedGrid,
     autoWidth,
     renderHorizontally,
     includeZero,
@@ -281,7 +282,8 @@ function StyledXYChart(props) {
     size,
     type,
     padding: padding || chart.padding,
-    //         useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
+    useAnimatedAxes: useAnimatedAxes || chart.useAnimatedAxes,
+    useAnimatedGrid: useAnimatedGrid || chart.useAnimatedGrid,
     //         autoWidth={autoWidth || chart.autoWidth}
     renderHorizontally: renderHorizontally || chart.renderHorizontally,
     includeZero: includeZero || chart.includeZero,
