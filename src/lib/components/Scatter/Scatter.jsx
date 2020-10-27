@@ -198,7 +198,7 @@ Scatter.propTypes = {
   useAnimatedAxes: PropTypes.bool,
   useAnimatedGrid: PropTypes.bool, // NEW
   animationTrajectory: PropTypes.oneOf(["center", "outside", "min", "max"]), // NEW
-  autoWidth: PropTypes.bool,
+  // autoWidth: PropTypes.bool, // REMOVED
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),

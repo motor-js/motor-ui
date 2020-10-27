@@ -301,7 +301,7 @@ const base = {
       includeZero: true,
       multiColor: true,
       selectionMethod: "brush",
-      autoWidth: false,
+      // autoWidth: false, // REMOVED
       renderHorizontally: false,
       allowSelections: true, //captureEvents if captureevents true the cannot make selections
       color,

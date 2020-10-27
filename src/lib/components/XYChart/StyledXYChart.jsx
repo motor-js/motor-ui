@@ -73,7 +73,6 @@ function StyledXYChart(props) {
     useAnimatedAxes,
     useAnimatedGrid,
     animationTrajectory,
-    autoWidth,
     renderHorizontally,
     includeZero,
     backgroundPattern,
@@ -286,7 +285,6 @@ function StyledXYChart(props) {
     useAnimatedAxes: useAnimatedAxes || chart.useAnimatedAxes,
     useAnimatedGrid: useAnimatedGrid || chart.useAnimatedGrid,
     animationTrajectory: animationTrajectory || chart.animationTrajectory,
-    //         autoWidth={autoWidth || chart.autoWidth}
     renderHorizontally: renderHorizontally || chart.renderHorizontally,
     includeZero: includeZero || chart.includeZero,
     //         showLegend={
