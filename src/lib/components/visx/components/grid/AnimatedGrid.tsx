@@ -28,8 +28,8 @@ export default function AnimatedGrid({
   const RowsComponent = useMemo(
     () => (rowProps: GridRowsProps<AxisScale>) => (
       <AnimatedGridRows
-        numTicks={numGridRows}
         {...rowProps}
+        numTicks={numGridRows}
         animationTrajectory={animationTrajectory}
       />
     ),
@@ -38,8 +38,8 @@ export default function AnimatedGrid({
   const ColumnsComponent = useMemo(
     () => (rowProps: GridColumnsProps<AxisScale>) => (
       <AnimatedGridColumns
-        numTicks={numGridColumns}
         {...rowProps}
+        numTicks={numGridColumns}
         animationTrajectory={animationTrajectory}
       />
     ),
