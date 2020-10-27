@@ -117,6 +117,7 @@ function BaseBarSeries<
       const y = getScaledY(datum) + yOffset;
       const id = getElemNumber(datum);
       const barLength = horizontal ? x - xZeroPosition : y - yZeroPosition;
+
       const onMouseMove = (params?: HandlerParams) => {
         const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
         const svgPoint = { x: svgMouseX, y: svgMouseY };
@@ -161,7 +162,8 @@ function BaseBarSeries<
         onClick: () => handleMouseClick(id),
         onMouseEnter: () => setHoverId(Number(id)),
         onMouseMove: onMouseMove,
-        onMouseLeave: onMouseLeave,
+        // onMouseLeave: onMouseLeave,
+        onMouseLeave: () => setHoverId(null),
       };
     });
   }, [

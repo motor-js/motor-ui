@@ -18,6 +18,7 @@ import useEventEmitter, { HandlerParams } from "../../../hooks/useEventEmitter";
 import TooltipContext from "../../../context/TooltipContext";
 import getScaleBaseline from "../../../utils/getScaleBaseline";
 import { isEmpty } from "../../../../../utils";
+import { localPoint } from "@visx/event";
 
 export type BaseBarGroupProps<
   XScale extends PositionScale,
@@ -217,6 +218,35 @@ export default function BaseBarGroup<
         handleClick(selections);
       };
 
+      const onMouseMove = (params?: HandlerParams) => {
+        const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
+        const svgPoint = { x: svgMouseX, y: svgMouseY };
+        if (svgPoint && width && height && showTooltip) {
+          const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+            point: svgPoint,
+            data,
+            xScale,
+            yScale,
+            xAccessor,
+            yAccessor,
+            width,
+            height,
+          });
+          if (datum) {
+            showTooltip({
+              key,
+              ...datum,
+              svgPoint,
+            });
+          }
+        }
+      };
+
+      const onMouseLeave = () => {
+        hideTooltip();
+        setHoverId(null);
+      };
+
       return data.map((datum, index) => ({
         key: `${key}-${index}`,
         x: getX(datum),
@@ -233,6 +263,8 @@ export default function BaseBarGroup<
         onClick: () => handleMouseClick(getElemNumber(datum)),
         onMouseEnter: () => setHoverId(Number(getElemNumber(datum))),
         onMouseLeave: () => setHoverId(null),
+        onMouseMove: onMouseMove,
+        // onMouseLeave: onMouseLeave,
       }));
     }
   );
