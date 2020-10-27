@@ -493,8 +493,8 @@ export default function CreateXYChart({
                               : undefined,
                         }}
                       >
-                        {datum}
-                      </em>{" "}
+                        {`${datum} `}
+                      </em>
                       {tooltipData?.nearestDatum?.datum
                         ? accessors[renderHorizontally ? "x" : "y"][datum](
                             tooltipData?.nearestDatum?.datum,
