@@ -295,8 +295,9 @@ const base = {
       showAxisLabels: "both",
       margin: "10px",
       padding: 0.3, // Padding between bars
-      useAnimatedAxes: false,
-      useAnimatedGrid: false,
+      useAnimatedAxes: true,
+      useAnimatedGrid: true,
+      animationTrajectory: "center",
       includeZero: true,
       multiColor: true,
       selectionMethod: "brush",

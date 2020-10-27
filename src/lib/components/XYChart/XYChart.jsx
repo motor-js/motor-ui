@@ -239,6 +239,7 @@ XYChart.propTypes = {
   type: PropTypes.string,
   useAnimatedAxes: PropTypes.bool,
   useAnimatedGrid: PropTypes.bool, // NEW
+  animationTrajectory: PropTypes.oneOf(["center", "outside", "min", "max"]), // NEW
   autoWidth: PropTypes.bool,
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,

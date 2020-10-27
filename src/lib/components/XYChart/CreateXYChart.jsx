@@ -79,6 +79,7 @@ export default function CreateXYChart({
   // borderRadius,
   useAnimatedAxes,
   useAnimatedGrid,
+  animationTrajectory,
   // autoWidth,
   // showLegend,
   // legendLeftRight,
@@ -126,7 +127,6 @@ export default function CreateXYChart({
 
   //-----
 
-  animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
 
   showGridColumns = true,
