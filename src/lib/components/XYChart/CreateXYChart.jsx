@@ -68,12 +68,64 @@ export default function CreateXYChart({
   showLabels,
   padding,
   multiColor,
+  showClosestItem,
   // showBrush,
   // enableBrush,
 
+  //-----
+
+  // borderRadius,
+  // useAnimatedAxes,
+  // autoWidth,
+  // showLegend,
+  // legendLeftRight,
+  // legendTopBottom,
+  // legendDirection,
+  // legendShape,
+  // fillStyle,
+  // showPoints,
+  // curveShape,
+  // dualAxis,
+  // roundNum,
+  // precision,
+  // crossHairStyles,
+  // hideAxisLine,
+  // gridRows,
+  // gridColumns,
+  // enableBrush,
+  // showBrush,
+  // showAsPercent,
+  // showAxisLabels,
+  // title,
+  // subTitle,
+  // legendLabelStyle,
+  // valueLabelStyle,
+  // useSingleColor,
+  // numDimensionTicks,
+  // numMeasureTicks,
+  // numMeasureDualTicks,
+  // parseDateFormat,
+  // formatAxisDate,
+  // formatTooltipDate,
+  // strokeWidth,
+  // showCrossHair,
+  // snapToDataX,
+  // snapToDataY,
+  // shiftTooltipTop,
+  // shiftTooltipLeft,
+  // valueOnly,
+  // valueWithText,
+  // xAxisStyles,
+  // yAxisStyles,
+  // xTickStyles,
+  // yTickStyles,
+  // tooltipStyles,
+
+  //-----
+
   animationTrajectory = "center", // "outside","min","max"
   numTicks = 4,
-  sharedTooltip = true,
+
   showGridColumns = true,
   showGridRows = true,
   showHorizontalCrosshair = false,
@@ -85,8 +137,12 @@ export default function CreateXYChart({
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
+  const sharedTooltip = !showClosestItem;
 
-  const dateScaleConfig = { type: "band", paddingInner: padding };
+  const dateScaleConfig = {
+    type: "band",
+    paddingInner: padding,
+  };
   // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
   // const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
 
