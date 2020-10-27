@@ -287,10 +287,7 @@ function StyledXYChart(props) {
     animationTrajectory: animationTrajectory || chart.animationTrajectory,
     renderHorizontally: renderHorizontally || chart.renderHorizontally,
     includeZero: includeZero || chart.includeZero,
-    //         showLegend={
-    //           // showLegend === undefined ? chart.showLegend : showLegend
-    //           valueIfUndefined(showLegend, chart.showLegend)
-    //         }
+    showLegend: valueIfUndefined(showLegend, chart.showLegend),
     backgroundPattern: backgroundPattern || chart.backgroundStyles.pattern,
     backgroundStyle: backgroundStyle || chart.backgroundStyles,
     //         fillStyle={fillStyle || chart.fillStyles}

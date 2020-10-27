@@ -23,6 +23,7 @@ import {
   XYChart,
 } from "../visx";
 
+import Legend from "../visx/components/Legend";
 // import { Brush } from "@visx/brush";
 // import Brush from "../visx/selection/Brush";
 
@@ -97,11 +98,11 @@ export default function CreateXYChart({
 
   //-----
 
-  // showLegend,
-  // legendLeftRight,
-  // legendTopBottom,
-  // legendDirection,
-  // legendShape,
+  showLegend,
+  legendLeftRight,
+  legendTopBottom,
+  legendDirection,
+  legendShape,
   // fillStyle,
   // showPoints,
   // curveShape,
@@ -144,8 +145,25 @@ export default function CreateXYChart({
     crossHair: crossHairStyle,
   } = theme;
 
+  const legendLabelFormat = (d) => d;
+
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
+
+  const legend = showLegend ? (
+    <Legend
+      labelFormat={legendLabelFormat}
+      alignLeft={legendLeftRight === "left"}
+      direction={legendDirection}
+      shape={
+        legendShape === "auto"
+          ? undefined
+          : legendShape === "custom"
+          ? CustomLegendShape
+          : legendShape
+      }
+    />
+  ) : null;
 
   const chartHideAxisLine = valueIfUndefined(hideAxisLine, chart.hideAxisLine);
 
@@ -334,6 +352,7 @@ export default function CreateXYChart({
           size={size}
         />
       )}
+      {legendTopBottom === "top" && legend}
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -685,6 +704,7 @@ export default function CreateXYChart({
           />
         )} */}
       </XYChart>
+      {legendTopBottom === "bottom" && legend}
     </DataProvider>
   );
 }
