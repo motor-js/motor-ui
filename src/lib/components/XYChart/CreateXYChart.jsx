@@ -239,7 +239,7 @@ export default function CreateXYChart({
       horizontal={renderHorizontally}
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
-      multiColor={multiColor ? dataKeys : null}
+      multiColor={multiColor}
     >
       <XYChart
         height={Math.min(400, height)}
@@ -472,7 +472,7 @@ export default function CreateXYChart({
                   "No date"}
                 <br />
                 <br />
-                {/** temperatures */}
+                {/** values */}
                 {(sharedTooltip
                   ? Object.keys(tooltipData?.datumByKey ?? {})
                   : [tooltipData?.nearestDatum?.key]
@@ -482,7 +482,11 @@ export default function CreateXYChart({
                     <div key={city}>
                       <em
                         style={{
-                          color: colorScale?.(city),
+                          color: dataKeys
+                            ? colorScale?.(
+                                accessors.date(tooltipData?.nearestDatum?.datum)
+                              )
+                            : colorScale?.(city),
                           textDecoration:
                             tooltipData?.nearestDatum?.key === city
                               ? "underline"

@@ -292,7 +292,9 @@ function StyledXYChart(props) {
     backgroundPattern: backgroundPattern || chart.backgroundStyles.pattern,
     backgroundStyle: backgroundStyle || chart.backgroundStyles,
     //         fillStyle={fillStyle || chart.fillStyles}
-    multiColor: valueIfUndefined(multiColor, chart.multiColor),
+    multiColor: valueIfUndefined(multiColor, chart.multiColor)
+      ? dataKeys
+      : null,
     selectionMethod: valueIfUndefined(selectionMethod, chart.selectionMethod),
     enableBrush,
     //         showAsPercent={showAsPercent}
