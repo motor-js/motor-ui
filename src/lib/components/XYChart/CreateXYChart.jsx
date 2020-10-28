@@ -104,7 +104,7 @@ export default function CreateXYChart({
   legendTopBottom,
   legendDirection,
   legendShape,
-  // legendLabelStyle,
+  legendLabelStyle,
   // fillStyle,
   // showPoints,
   // curveShape,
@@ -336,6 +336,7 @@ export default function CreateXYChart({
       showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
       multiColor={multiColor}
+      legendLabelStyle={legendLabelStyle}
     >
       {title && (
         <Title

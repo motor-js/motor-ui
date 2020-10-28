@@ -24,7 +24,8 @@ export type DataProviderProps<
   select: Function;
   setCurrentSelectionIds: Function;
   horizontal?: boolean;
-  multiColor: Array<string>;
+  multiColor?: Array<string>;
+  legendLabelStyle?: object;
   includeZero?: boolean;
   children: React.ReactNode;
 };
@@ -45,6 +46,7 @@ export default function DataProvider<
   horizontal,
   includeZero,
   multiColor,
+  legendLabelStyle,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -126,6 +128,7 @@ export default function DataProvider<
         currentSelectionIds,
         horizontal,
         multiColor,
+        legendLabelStyle,
         setDimensions,
         setBarStyle,
       }}
