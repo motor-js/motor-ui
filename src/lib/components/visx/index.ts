@@ -3,7 +3,7 @@ export { default as AnimatedAxis } from "./components/axis/AnimatedAxis";
 export { default as AnimatedGrid } from "./components/grid/AnimatedGrid";
 export { default as Axis } from "./components/axis/Axis";
 export { default as Grid } from "./components/grid/Grid";
-export { default as Tooltip } from "./components/Tooltip";
+export { default as Tooltip } from "./components/tooltip/Tooltip";
 export { default as XYChart } from "./components/XYChart";
 export { default as Title } from "./components/titles/Title";
 

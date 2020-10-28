@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { LegendOrdinal } from "@visx/legend";
 import createOrdinalScale from "@visx/scale/lib/scales/ordinal";
 
 import {
@@ -24,7 +25,6 @@ import {
   XYChart,
 } from "../visx";
 
-import Legend from "../visx/components/legend/Legend";
 // import { Brush } from "@visx/brush";
 // import Brush from "../visx/selection/Brush";
 
@@ -99,11 +99,11 @@ export default function CreateXYChart({
 
   //-----
 
-  showLegend,
-  legendLeftRight,
-  legendTopBottom,
-  legendDirection,
-  legendShape,
+  // showLegend,
+  // legendLeftRight,
+  // legendTopBottom,
+  // legendDirection,
+  // legendShape,
   // fillStyle,
   // showPoints,
   // curveShape,
@@ -145,8 +145,6 @@ export default function CreateXYChart({
     global: { chart },
     crossHair: crossHairStyle,
   } = theme;
-
-  const legendLabelFormat = (d) => d;
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
@@ -207,7 +205,7 @@ export default function CreateXYChart({
   // const isScatter = chartType.includes("scatter");
 
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
-  const getDimension = (d) => (d[0] ? d[0].qText : null);
+  const getDimension = (d) => d[0].qText;
 
   const getSeriesValues = (d, i) => (isDefined(d[i]) ? Number(d[i].qNum) : 0);
 
@@ -316,14 +314,16 @@ export default function CreateXYChart({
           .indexOf(key) + dimensionInfo.length
       : dataKeys.indexOf(key) + 1;
 
-  // const colorScale = createOrdinalScale({
-  //   domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
-  //   range: colors,
-  // });
+  const colorScale = useMemo(
+    () =>
+      createOrdinalScale({
+        domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
+        range: colors,
+      }),
+    [measureInfo, colors]
+  );
 
-  // // console.log(chart.legendLabelStyles, chart.legendStyles);
-
-  // const legendGlyphSize = 15;
+  const legendLabelFormat = (d) => d;
 
   return (
     <DataProvider
@@ -347,7 +347,18 @@ export default function CreateXYChart({
           size={size}
         />
       )}
-      {/* {legendTopBottom === "top" && Legend} */}
+      <LegendOrdinal
+        scale={colorScale}
+        direction="row"
+        labelMargin="0 15px 0 0"
+        // shape={
+        //   legendShape === "auto"
+        //     ? undefined
+        //     : legendShape === "custom"
+        //     ? CustomLegendShape
+        //     : legendShape
+        // }
+      />
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -389,7 +400,6 @@ export default function CreateXYChart({
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
-            legendShape="dashed-line"
           />
         )}
         {chartType === "barstack" && (
@@ -483,7 +493,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    // legendShape={index == 0 ? "dashed-line" : "rect"}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -701,7 +710,6 @@ export default function CreateXYChart({
           />
         )} */}
       </XYChart>
-      {legendTopBottom === "bottom" && legend}
     </DataProvider>
   );
 }
