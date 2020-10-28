@@ -322,6 +322,13 @@ export default function CreateXYChart({
 
   // // console.log(chart.legendLabelStyles, chart.legendStyles);
 
+  const shape =
+    legendShape === "auto"
+      ? type === "line" || type === "area"
+        ? "line"
+        : "rect"
+      : legendShape;
+
   return (
     <DataProvider
       theme={chartTheme}
@@ -344,7 +351,7 @@ export default function CreateXYChart({
           size={size}
         />
       )}
-      {legendTopBottom === "top" && <Legend></Legend>}
+      {legendTopBottom === "top" && <Legend shape={shape} size={size}></Legend>}
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -386,7 +393,7 @@ export default function CreateXYChart({
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
-            legendShape="dashed-line"
+            // legendShape="dashed-line"
           />
         )}
         {chartType === "barstack" && (
@@ -480,7 +487,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    // legendShape={index == 0 ? "dashed-line" : "rect"}
                   />
                 ))
               : dataKeys.map((measure, index) => (

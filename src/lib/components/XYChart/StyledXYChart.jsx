@@ -319,43 +319,39 @@ function StyledXYChart(props) {
           )}
           ref={ref}
         >
-          <div>
-            {width == null || height == null ? (
-              <ParentSize>
-                {({ width, height }) => (
-                  <CreateXYChart
-                    width={width}
-                    height={height}
-                    {...otherProps}
-                  />
-                )}
-              </ParentSize>
-            ) : (
-              <CreateXYChart
-                width={width}
-                height={height}
-                // width={
-                //   gridArea
-                //     ? ref.current.offsetWidth
-                //     : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
-                // }
-                // height={
-                //   gridArea
-                //     ? ref.current.offsetHeight -
-                //       parseInt(margin || chart.margin, 10)
-                //     : parseInt(height, 10)
-                // }
-                {...otherProps}
-              />
-            )}{" "}
-            <SelectionModal
-              isOpen={!isEmpty(currentSelectionIds)}
-              cancelCallback={cancelCallback}
-              confirmCallback={confirmCallback}
-              offsetX={0}
-              // width={width}
+          {/* <div> */}
+          {width == null || height == null ? (
+            <ParentSize>
+              {({ width, height }) => (
+                <CreateXYChart width={width} height={height} {...otherProps} />
+              )}
+            </ParentSize>
+          ) : (
+            <CreateXYChart
+              width={width}
+              height={height}
+              // width={
+              //   gridArea
+              //     ? ref.current.offsetWidth
+              //     : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+              // }
+              // height={
+              //   gridArea
+              //     ? ref.current.offsetHeight -
+              //       parseInt(margin || chart.margin, 10)
+              //     : parseInt(height, 10)
+              // }
+              {...otherProps}
             />
-          </div>
+          )}{" "}
+          <SelectionModal
+            isOpen={!isEmpty(currentSelectionIds)}
+            cancelCallback={cancelCallback}
+            confirmCallback={confirmCallback}
+            offsetX={0}
+            // width={width}
+          />
+          {/* </div> */}
         </XYChartWrapper>
       ) : (
         <XYChartWrapperNoData

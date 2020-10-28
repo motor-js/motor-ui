@@ -4,25 +4,47 @@ import { LegendOrdinal, LegendItem, LegendLabel } from "@visx/legend";
 import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import DataContext from "../../context/DataContext";
-import { selectColor, isDefined } from "../../../../utils";
+import { selectColor } from "../../../../utils";
 
-const legendGlyphSize = 15;
-
-export default function Legend({
-  alignLeft = true,
-  direction = "row",
-  // shape: Shape,
-  style,
-  ...props
-}) {
+export default function Legend({ shape: Shape, style, ...props }) {
   const {
     theme,
+    theme: { legendStyles: legendStyle },
     margin,
     colorScale,
     dataRegistry,
     legendLabelStyle,
-    size = "small",
+    size = "medium",
   } = useContext(DataContext);
+
+  const direction = legendStyle ? legendStyle.direction : "row";
+  const alignLeft = legendStyle ? legendStyle.alignLeft : false;
+  const legendGlyphSize = legendStyle ? legendStyle.legendGlyphSize : 15;
+
+  const legendStyles = useMemo(
+    () => ({
+      display: "flex",
+      flexDirection: direction,
+      background: legendStyle
+        ? selectColor(legendStyle.backgroundColor, theme)
+        : "white",
+      color: legendLabelStyle
+        ? selectColor(legendLabelStyle.fill, theme)
+        : selectColor(theme?.legendLabelStyles?.fill, theme),
+      paddingLeft: legendStyle ? legendStyle.margin.left : margin.left,
+      paddingRight: legendStyle ? legendStyle.margin.right : margin.right,
+      paddingBottom: legendStyle
+        ? legendStyle.margin.bottom
+        : `${Math.min(10, parseInt(margin.bottom, 10))}px`,
+
+      [direction === "row" || direction === "row-reverse"
+        ? "justifyContent"
+        : "alignItems"]: alignLeft ? "flex-start" : "flex-end",
+      style,
+      overflow: "hidden",
+    }),
+    [theme, margin, alignLeft, direction, style, legendLabelStyle]
+  );
 
   const legendLabelProps = useMemo(
     () => ({
@@ -33,29 +55,75 @@ export default function Legend({
     [theme]
   );
 
+  const isUpperCase = legendStyle ? legendStyle.upperCase : false;
+
+  const LegendComponent = LegendOrdinal;
+
+  const renderText = (label) => (isUpperCase ? label.toUpperCase() : label);
+
+  const renderShape = useCallback(
+    (legendGlyphSize, value) => {
+      switch (Shape) {
+        case "circle":
+          return (
+            <CircleShape
+              fill={value}
+              width={legendGlyphSize}
+              height={legendGlyphSize}
+            />
+          );
+        case "line":
+          return (
+            <LineShape
+              fill={value}
+              width={legendGlyphSize}
+              height={legendGlyphSize}
+            />
+          );
+        case "dashed-line":
+          return (
+            <LineShape
+              fill={value}
+              width={legendGlyphSize}
+              height={legendGlyphSize}
+              style={{ strokeDasharray: "5,3" }}
+              fill={value}
+              width={legendGlyphSize}
+              height={legendGlyphSize}
+            />
+          );
+        case "rect":
+        default:
+          return (
+            <RectShape
+              fill={value}
+              width={legendGlyphSize}
+              height={legendGlyphSize}
+              style={style}
+            />
+          );
+      }
+    },
+    [dataRegistry, Shape]
+  );
+
   return props.scale || colorScale ? (
-    <LegendOrdinal
+    <LegendComponent
       scale={colorScale}
-      labelFormat={(label) => `${label.toUpperCase()}`}
+      labelFormat={(label) => `${renderText(label)}`}
     >
       {(labels) => (
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div className="visx-legend" style={legendStyles}>
           {labels.map((label, i) => (
             <LegendItem
               key={`legend-quantile-${i}`}
               margin="0 5px"
-              onClick={() => {
-                // if (events) alert(`clicked: ${JSON.stringify(label)}`);
-                console.log(`clicked: ${JSON.stringify(label)}`);
-              }}
+              // onClick={() => {
+              //   // if (events) alert(`clicked: ${JSON.stringify(label)}`);
+              //   console.log(`clicked: ${JSON.stringify(label)}`);
+              // }}
             >
-              <svg width={legendGlyphSize} height={legendGlyphSize}>
-                <rect
-                  fill={label.value}
-                  width={legendGlyphSize}
-                  height={legendGlyphSize}
-                />
-              </svg>
+              {renderShape(legendGlyphSize, label.value)}
               <LegendLabel align="left" style={legendLabelProps}>
                 {label.text}
               </LegendLabel>
@@ -63,6 +131,6 @@ export default function Legend({
           ))}
         </div>
       )}
-    </LegendOrdinal>
+    </LegendComponent>
   ) : null;
 }

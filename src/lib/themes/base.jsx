@@ -342,6 +342,11 @@ const base = {
       },
       legendStyles: {
         backgroundColor: "#fff",
+        direction: "row",
+        margin: { left: "5px", right: "5px", bottom: "5px" },
+        upperCase: true,
+        alignLeft: false,
+        legendGlyphSize: 15,
         // stroke: "white",
         // opacity: 1,
         // borderRadius: "10px",
