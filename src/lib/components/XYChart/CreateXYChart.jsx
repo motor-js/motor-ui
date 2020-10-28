@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import createOrdinalScale from "@visx/scale/lib/scales/ordinal";
 
 import {
   // AnimatedAreaSeries,
@@ -323,8 +322,6 @@ export default function CreateXYChart({
 
   // // console.log(chart.legendLabelStyles, chart.legendStyles);
 
-  // const legendGlyphSize = 15;
-
   return (
     <DataProvider
       theme={chartTheme}
@@ -347,7 +344,7 @@ export default function CreateXYChart({
           size={size}
         />
       )}
-      {/* {legendTopBottom === "top" && Legend} */}
+      {legendTopBottom === "top" && <Legend></Legend>}
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}

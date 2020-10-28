@@ -349,6 +349,7 @@ const base = {
         // legendText: { fill: "var(--oc-gray-7)" },
       },
       legendLabelStyles: {
+        margin: "0 0 0 4px",
         fill: "#212529",
         stroke: "none",
         fontFamily,
