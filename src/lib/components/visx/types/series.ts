@@ -88,6 +88,7 @@ export type GlyphProps<Datum extends object> = {
   index: number;
   x: number;
   y: number;
+  id: number;
   size: number;
   color: string;
 };

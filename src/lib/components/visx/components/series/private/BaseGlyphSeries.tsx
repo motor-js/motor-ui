@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from "react";
+import React, { useContext, useCallback, useMemo, useState } from "react";
 import { AxisScale } from "@visx/axis";
 import DataContext from "../../../context/DataContext";
 import { GlyphProps, GlyphsProps, SeriesProps } from "../../../types";
@@ -41,6 +41,7 @@ function BaseGlyphSeries<
   horizontal,
   size = 8,
   renderGlyphs,
+  elAccessor,
   index,
 }: BaseGlyphSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
@@ -56,6 +57,10 @@ function BaseGlyphSeries<
   );
   // @TODO allow override
   const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
+
+  const getElemNumber = useCallback(elAccessor, [elAccessor]);
+
+  const [hoverId, setHoverId] = useState(null);
 
   const handleMouseMove = useCallback(
     (params?: HandlerParams) => {
@@ -87,6 +92,7 @@ function BaseGlyphSeries<
       yScale,
       xAccessor,
       yAccessor,
+      elAccessor,
       width,
       height,
       showTooltip,
@@ -104,10 +110,14 @@ function BaseGlyphSeries<
           if (!isValidNumber(x)) return null;
           const y = getScaledY(datum);
           if (!isValidNumber(y)) return null;
+          const id = Number(getElemNumber(datum));
+          if (!isValidNumber(id)) return null;
+          console.log(id);
           return {
             key: `${i}`,
             x,
             y,
+            id,
             color,
             size: typeof size === "function" ? size(datum) : size,
             datum,

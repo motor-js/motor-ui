@@ -358,7 +358,7 @@ export default function CreateXYChart({
       : false;
 
   const renderGlyph = useCallback(
-    ({ size, color, x, y }) => {
+    ({ size, color, x, y, id }) => {
       if (glyphComponent === "star") {
         return (
           <GlyphStar
@@ -367,6 +367,7 @@ export default function CreateXYChart({
             size={size * 8}
             top={y}
             left={x}
+            id={id}
           />
         );
       }
@@ -378,6 +379,7 @@ export default function CreateXYChart({
             r={size / 2}
             top={y}
             left={x}
+            id={id}
           />
         );
       }
@@ -389,11 +391,12 @@ export default function CreateXYChart({
             size={size * 8}
             top={y}
             left={x}
+            id={id}
           />
         );
       }
       return (
-        <text dx="-0.75em" dy="0.25em" fontSize={14} y={y} x={x}>
+        <text dx="-0.75em" dy="0.25em" fontSize={14} y={y} x={x} id={id}>
           🍍
         </text>
       );
@@ -628,14 +631,6 @@ export default function CreateXYChart({
           </>
         )}
         {chartType === "scatter" && singleDimension && !singleMeasure && (
-          // <GlyphSeries
-          //   dataKey="San Francisco"
-          //   data={data}
-          //   xAccessor={accessors.x["San Francisco"]}
-          //   yAccessor={accessors.y["San Francisco"]}
-          //   renderGlyph={renderGlyph}
-
-          // />
           <>
             {singleDimension
               ? measureInfo.map((measure, index) => (
