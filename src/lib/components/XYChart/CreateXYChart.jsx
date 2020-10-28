@@ -646,7 +646,9 @@ export default function CreateXYChart({
             />
           </>
         )}
-        {chartType === "scatter" && singleDimension && !singleMeasure && (
+        {((chartType === "scatter" && singleDimension && !singleMeasure) ||
+          chartType === "line" ||
+          chartType === "area") && (
           <>
             {singleDimension
               ? measureInfo.map((measure, index) => (

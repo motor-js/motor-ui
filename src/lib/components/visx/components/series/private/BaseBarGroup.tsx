@@ -189,6 +189,12 @@ export default function BaseBarGroup<
         ? (d: Datum) => yScale(yAccessor(d)) ?? 0
         : (d: Datum) => xScale(xAccessor(d)) ?? 0;
 
+      // const getGroupPosition = horizontal
+      //   ? (d: Datum) =>
+      //       isDefined(yAccessor) ? yScale(yAccessor(d)) : null
+      //   : (d: Datum) =>
+      //       isDefined(xAccessor) ? xScale(xAccessor(d)) : null;
+
       const withinGroupPosition = groupScale(key) ?? 0;
 
       const getX = horizontal

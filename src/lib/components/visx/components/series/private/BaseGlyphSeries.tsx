@@ -143,7 +143,9 @@ function BaseGlyphSeries<
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>{renderGlyphs({ glyphs, xScale, yScale, horizontal })}</>
+    <g className="visx-glyph-series">
+      {renderGlyphs({ glyphs, xScale, yScale, horizontal })}
+    </g>
   );
 }
 
