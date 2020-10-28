@@ -6,7 +6,13 @@ import { RectShape, LineShape, CircleShape } from "@visx/legend";
 import DataContext from "../../context/DataContext";
 import { selectColor } from "../../../../utils";
 
-export default function Legend({ shape: Shape, style, ...props }) {
+export default function Legend({
+  shape: Shape,
+  legendLeftRight,
+  legendDirection,
+  style,
+  ...props
+}) {
   const {
     theme,
     theme: { legendStyles: legendStyle },
@@ -17,8 +23,20 @@ export default function Legend({ shape: Shape, style, ...props }) {
     size = "medium",
   } = useContext(DataContext);
 
-  const direction = legendStyle ? legendStyle.direction : "row";
-  const alignLeft = legendStyle ? legendStyle.alignLeft : false;
+  const direction = legendDirection
+    ? legendDirection
+    : legendStyle
+    ? legendStyle.direction
+    : "row";
+
+  const alignLeft = legendLeftRight
+    ? legendLeftRight === "left"
+      ? true
+      : false
+    : legendStyle
+    ? legendStyle.alignLeft
+    : false;
+
   const legendGlyphSize = legendStyle ? legendStyle.legendGlyphSize : 15;
 
   const legendStyles = useMemo(

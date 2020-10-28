@@ -4,20 +4,21 @@ import {
   // AnimatedAreaSeries,
   Axis,
   AnimatedAxis,
-  // AnimatedBarGroup,
-  // AnimatedBarSeries,
-  // AnimatedBarStack,
-  // AnimatedGlyphSeries,
   Grid,
   AnimatedGrid,
-  // AnimatedLineSeries,
   AreaSeries,
   DataProvider,
   // GlyphSeries,
   BarGroup,
+  // AnimatedBarGroup,
   BarSeries,
+  // AnimatedBarSeries,
   BarStack,
+  // AnimatedBarStack,
+  // GlyphSeries,
+  // AnimatedGlyphSeries,
   LineSeries,
+  // AnimatedLineSeries,
   Tooltip,
   Title,
   XYChart,
@@ -103,13 +104,13 @@ export default function CreateXYChart({
   legendTopBottom,
   legendDirection,
   legendShape,
+  // legendLabelStyle,
   // fillStyle,
   // showPoints,
   // curveShape,
   // crossHairStyles,
   // enableBrush,
   // showBrush,
-  // legendLabelStyle,
   // valueLabelStyle,
   // useSingleColor,
   // formatTooltipDate,
@@ -315,13 +316,6 @@ export default function CreateXYChart({
           .indexOf(key) + dimensionInfo.length
       : dataKeys.indexOf(key) + 1;
 
-  // const colorScale = createOrdinalScale({
-  //   domain: dataKeys ? dataKeys : measureInfo.map((d) => d.qFallbackTitle),
-  //   range: colors,
-  // });
-
-  // // console.log(chart.legendLabelStyles, chart.legendStyles);
-
   const shape =
     legendShape === "auto"
       ? type === "line" || type === "area"
@@ -351,7 +345,14 @@ export default function CreateXYChart({
           size={size}
         />
       )}
-      {legendTopBottom === "top" && <Legend shape={shape} size={size}></Legend>}
+      {showLegend && legendTopBottom === "top" && (
+        <Legend
+          shape={shape}
+          size={size}
+          legendLeftRight={legendLeftRight}
+          legendDirection={legendDirection}
+        ></Legend>
+      )}
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -704,7 +705,14 @@ export default function CreateXYChart({
           />
         )} */}
       </XYChart>
-      {legendTopBottom === "bottom" && legend}
+      {showLegend && legendTopBottom === "bottom" && (
+        <Legend
+          shape={shape}
+          size={size}
+          legendLeftRight={legendLeftRight}
+          legendDirection={legendDirection}
+        ></Legend>
+      )}
     </DataProvider>
   );
 }
