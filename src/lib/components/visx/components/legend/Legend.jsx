@@ -1,5 +1,4 @@
 import React, { useContext, useCallback, useMemo } from "react";
-// import { Legend as BaseLegend } from "@visx/legend";
 import { LegendOrdinal, LegendItem, LegendLabel } from "@visx/legend";
 import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
@@ -11,6 +10,7 @@ export default function Legend({
   legendLeftRight,
   legendDirection,
   style,
+  size = "medium",
   ...props
 }) {
   const {
@@ -20,7 +20,6 @@ export default function Legend({
     colorScale,
     dataRegistry,
     legendLabelStyle,
-    size = "medium",
   } = useContext(DataContext);
 
   const direction = legendDirection

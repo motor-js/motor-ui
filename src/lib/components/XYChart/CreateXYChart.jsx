@@ -141,6 +141,8 @@ export default function CreateXYChart({
   const chartType = type;
   const sharedTooltip = !showClosestItem;
 
+  console.log(size);
+
   const {
     global: { chart },
     crossHair: crossHairStyle,
