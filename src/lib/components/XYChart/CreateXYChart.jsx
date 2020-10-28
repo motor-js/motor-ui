@@ -407,7 +407,7 @@ export default function CreateXYChart({
             stroke={themeBackground}
             fill={color}
           >
-            {y}
+            {formatValue(y)}
           </text>
         );
       }
