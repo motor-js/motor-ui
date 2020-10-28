@@ -375,8 +375,9 @@ const useHyperCube = (props) => {
               _qLayout.qHyperCube.qMeasureInfo[i].qShowPoints = d.qShowPoints;
               _qLayout.qHyperCube.qMeasureInfo[i].qCurve = d.qCurve;
               _qLayout.qHyperCube.qMeasureInfo[i].qFillStyle = d.qFillStyle;
-              _qLayout.qHyperCube.qMeasureInfo[i].qLegendShape =
-                d.qLegendShape === "dashed" ? "5,2" : null;
+              _qLayout.qHyperCube.qMeasureInfo[i].qLegendShape = d.qLegendShape;
+              // _qLayout.qHyperCube.qMeasureInfo[i].qLegendShape =
+              //   d.qLegendShape === "dashed" ? "5,2" : null;
             }
           });
         }

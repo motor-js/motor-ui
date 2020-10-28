@@ -4,6 +4,7 @@ import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import DataContext from "../../context/DataContext";
 import { selectColor } from "../../../../utils";
+import { array } from "prop-types";
 
 export default function Legend({
   shape: Shape,
@@ -79,8 +80,8 @@ export default function Legend({
   const renderText = (label) => (isUpperCase ? label.toUpperCase() : label);
 
   const renderShape = useCallback(
-    (legendGlyphSize, value) => {
-      switch (Shape) {
+    (legendGlyphSize, value, customShape = null) => {
+      switch (customShape || Shape) {
         case "circle":
           return (
             <CircleShape
@@ -140,7 +141,13 @@ export default function Legend({
               //   console.log(`clicked: ${JSON.stringify(label)}`);
               // }}
             >
-              {renderShape(legendGlyphSize, label.value)}
+              {renderShape(
+                legendGlyphSize,
+                label.value,
+                typeof Shape === "object" && Shape[i] != undefined
+                  ? Shape[i]
+                  : null
+              )}
               <LegendLabel align="left" style={legendLabelProps}>
                 {label.text}
               </LegendLabel>

@@ -315,33 +315,18 @@ export default function CreateXYChart({
           .indexOf(key) + dimensionInfo.length
       : dataKeys.indexOf(key) + 1;
 
-  let legendShapes = singleDimension
+  const legendShapes = singleDimension
     ? measureInfo.map((measure, index) => measureInfo[index].qLegendShape)
     : [dimensionInfo[1].qLegendShape];
 
-  legendShapes =
-    legendShapes.filter((x) => x !== null && x != undefined).length !==
-      measureInfo.length &&
-    legendShapes.filter((x) => x !== null && x != undefined).length !== 0
-      ? legendShapes.map((shape) =>
-          typeof shape !== "undefined"
-            ? shape
-            : legendShape === "auto"
-            ? type === "line" || type === "area"
-              ? "line"
-              : "rect"
-            : legendShape
-        )
-      : legendShapes;
-
   const shape =
-    legendShapes.filter((x) => x !== null && x != undefined).length !== 0
-      ? legendShapes
-      : legendShape === "auto"
-      ? type === "line" || type === "area"
-        ? "line"
-        : "rect"
-      : legendShape;
+    legendShapes.filter((x) => x !== null && x != undefined).length === 0
+      ? legendShape === "auto"
+        ? type === "line" || type === "area"
+          ? "line"
+          : "rect"
+        : legendShape
+      : legendShapes;
 
   return (
     <DataProvider
