@@ -64,7 +64,7 @@ export default function BaseBarGroup<
     Datum
   >;
 
-  const [hoverId, setHoverId] = useState(0);
+  const [hoverId, setHoverId] = useState(null);
 
   const { hover, selection, nonSelection, noSelections } = theme;
 
