@@ -208,14 +208,10 @@ export default function CreateXYChart({
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) => (d[0] ? d[0].qText : null);
 
-  const getSeriesValues = (d, i) => (isDefined(d[i]) ? Number(d[i].qNum) : 0);
+  const getSeriesValues = (d, i) =>
+    isDefined(d[i]) ? Number(d[i].qNum) : null;
 
-  // const getSeriesValues = (d, index) => {
-  //   if (!d) return null;
-  //   return isDefined(d[index]) ? Number(d[index].qNum) : 0;
-  // };
-
-  const getElementNumber = (d) => d[0].qElemNumber;
+  const getElementNumber = (d) => (d[0] ? d[0].qElemNumber : null);
 
   const selectedBoxStyle = {
     fill: "url(#brush_pattern)",

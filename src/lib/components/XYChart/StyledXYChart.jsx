@@ -201,7 +201,8 @@ function StyledXYChart(props) {
             dimID = d[0].qText;
           }
           const measure = d[1];
-          measure.qNum = isDefined(d[2]) ? d[2].qNum : 0;
+          // measure.qNum = isDefined(d[2]) ? d[2].qNum : 0;
+          measure.qNum = d[2].qNum;
           if (!keys.includes(measure.qText)) {
             keys.push(measure.qText);
           }
