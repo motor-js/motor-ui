@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
+import { GlyphCross, GlyphDot, GlyphStar } from "@visx/glyph";
 
 import {
   // AnimatedAreaSeries,
@@ -8,14 +9,13 @@ import {
   AnimatedGrid,
   AreaSeries,
   DataProvider,
-  // GlyphSeries,
   BarGroup,
   // AnimatedBarGroup,
   BarSeries,
   // AnimatedBarSeries,
   BarStack,
   // AnimatedBarStack,
-  // GlyphSeries,
+  GlyphSeries,
   // AnimatedGlyphSeries,
   LineSeries,
   // AnimatedLineSeries,
@@ -349,6 +349,34 @@ export default function CreateXYChart({
   //       : "rect"
   //     : legendShape;
 
+  const glyphComponent = "circle";
+  // const themeBackground = theme.backgroundColor;
+  const themeBackground = "red";
+
+  const renderGlyph = useCallback(
+    ({ size, color }) => {
+      if (glyphComponent === "star") {
+        return (
+          <GlyphStar stroke={themeBackground} fill={color} size={size * 8} />
+        );
+      }
+      if (glyphComponent === "circle") {
+        return <GlyphDot stroke={themeBackground} fill={color} r={size / 2} />;
+      }
+      if (glyphComponent === "cross") {
+        return (
+          <GlyphCross stroke={themeBackground} fill={color} size={size * 8} />
+        );
+      }
+      return (
+        <text dx="-0.75em" dy="0.25em" fontSize={14}>
+          🍍
+        </text>
+      );
+    },
+    [glyphComponent, themeBackground]
+  );
+
   return (
     <DataProvider
       theme={chartTheme}
@@ -575,14 +603,42 @@ export default function CreateXYChart({
             />
           </>
         )}
-        {chartType === "scatter" && singleDimension && measureCount >= 2 && (
-          <GlyphSeries
-            dataKey="San Francisco"
-            data={data}
-            xAccessor={accessors.x["San Francisco"]}
-            yAccessor={accessors.y["San Francisco"]}
-            renderGlyph={renderGlyph}
-          />
+        {chartType === "scatter" && singleDimension && !singleMeasure && (
+          // <GlyphSeries
+          //   dataKey="San Francisco"
+          //   data={data}
+          //   xAccessor={accessors.x["San Francisco"]}
+          //   yAccessor={accessors.y["San Francisco"]}
+          //   renderGlyph={renderGlyph}
+
+          // />
+          <>
+            {singleDimension
+              ? measureInfo.map((measure, index) => (
+                  <GlyphSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    index={index + dimensionInfo.length}
+                    data={data}
+                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    renderGlyph={renderGlyph}
+                  />
+                ))
+              : dataKeys.map((measure, index) => (
+                  <GlyphSeries
+                    key={measure}
+                    dataKey={measure}
+                    index={index + 1}
+                    data={data}
+                    xAccessor={accessors.x[measure]}
+                    yAccessor={accessors.y[measure]}
+                    elAccessor={accessors.el[measure]}
+                    renderGlyph={renderGlyph}
+                  />
+                ))}
+          </>
         )}
         {/** X axis */}
         <AxisComponent
