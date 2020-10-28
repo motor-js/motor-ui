@@ -102,6 +102,16 @@ function BaseGlyphSeries<
   useEventEmitter("mousemove", handleMouseMove);
   useEventEmitter("mouseout", hideTooltip);
 
+  // const handleMouseClick = (id: string) => {
+  //   const selectionId = Number(id);
+  //   const selections = currentSelectionIds.includes(selectionId)
+  //     ? currentSelectionIds.filter(function(value: number, index, arr) {
+  //         return value !== selectionId;
+  //       })
+  //     : [...currentSelectionIds, selectionId];
+  //   handleClick(selections);
+  // };
+
   const glyphs = useMemo(
     () =>
       data
@@ -121,6 +131,10 @@ function BaseGlyphSeries<
             color,
             size: typeof size === "function" ? size(datum) : size,
             datum,
+            // onClick: () => handleMouseClick(id),
+            // onMouseEnter: () => setHoverId(Number(id)),
+            // onMouseMove: onMouseMove,
+            // onMouseLeave: onMouseLeave,
           };
         })
         .filter((point) => point) as GlyphProps<Datum>[],

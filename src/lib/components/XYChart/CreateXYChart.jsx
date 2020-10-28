@@ -395,6 +395,22 @@ export default function CreateXYChart({
           />
         );
       }
+      if (glyphComponent === "text") {
+        return (
+          <text
+            dx="-0.75em"
+            dy="0.25em"
+            fontSize={14}
+            y={y}
+            x={x}
+            id={id}
+            stroke={themeBackground}
+            fill={color}
+          >
+            {y}
+          </text>
+        );
+      }
       return (
         <text dx="-0.75em" dy="0.25em" fontSize={14} y={y} x={x} id={id}>
           🍍

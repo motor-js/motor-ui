@@ -16,6 +16,7 @@ import { Playground } from 'docz'
 import Combo from '../../lib/components/Combo/Combo.jsx'
 import Bar from '../../lib/components/Bar/Bar.jsx'
 import Line from '../../lib/components/Line/Line.jsx'
+import Scatter from '../../lib/components/Scatter/Scatter.jsx'
 import Motor from '../../lib/components/Motor/Motor.jsx'
 import Filter from '../../lib/components/Filter/Filter.jsx'
 import Button from '../../lib/components/Button/Button.jsx'
@@ -67,6 +68,25 @@ import { config } from '../config/config.js'
       { qField: 'Issue Type', qLabel: 'Issue Type' },
       { qField: '=Sum([Hours])', qLabel: 'Hours', qChartType: 'bar' },
       //  { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
+    ]}/>
+        <Scatter
+     width={750} 
+     height={500}  
+    colorTheme="bio"
+    backgroundPattern="Lines"
+  //   backgroundStyle={{ style: 'LightGreen', size: 100}}
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+     showLabels={true}
+     selectionMethod='click'
+     showPoints={true}
+    // showPoints='star'
+      cols={[
+      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
+     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
     ]}/>
   </Motor>
 </Playground>
