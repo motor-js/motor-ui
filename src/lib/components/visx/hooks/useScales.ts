@@ -3,6 +3,7 @@ import { ScaleConfig, createScale, ScaleInput } from "@visx/scale";
 import { extent as d3Extent, max as d3Max } from "d3-array";
 import { useMemo } from "react";
 import DataRegistry from "../classes/DataRegistry";
+import isDefined from "../typeguards/isDefined";
 
 /** A hook for creating memoized x- and y-scales. */
 export default function useScales<
@@ -42,7 +43,11 @@ export default function useScales<
       (combined, entry) =>
         entry
           ? combined.concat(
-              entry.data.map((d: Datum) => entry.xAccessor(d, entry.index))
+              entry.data.map((d: Datum) =>
+                isDefined(entry.xAccessor)
+                  ? entry.xAccessor(d, entry.index)
+                  : null
+              )
             )
           : combined,
       []
@@ -74,7 +79,11 @@ export default function useScales<
       (combined, entry) =>
         entry
           ? combined.concat(
-              entry.data.map((d: Datum) => entry.yAccessor(d, entry.index))
+              entry.data.map((d: Datum) =>
+                isDefined(entry.yAccessor)
+                  ? entry.yAccessor(d, entry.index)
+                  : null
+              )
             )
           : combined,
       []

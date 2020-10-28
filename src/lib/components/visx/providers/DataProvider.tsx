@@ -79,7 +79,7 @@ export default function DataProvider<
   const colorScale = useMemo(
     () =>
       createOrdinalScale({
-        domain: registryKeys,
+        domain: multiColor || registryKeys,
         range: theme.colors,
       }),
     [registryKeys, theme.colors]

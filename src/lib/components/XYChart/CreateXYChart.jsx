@@ -23,7 +23,7 @@ import {
   XYChart,
 } from "../visx";
 
-import Legend from "../visx/components/Legend";
+// import Legend from "../visx/components/Legend";
 // import { Brush } from "@visx/brush";
 // import Brush from "../visx/selection/Brush";
 
@@ -150,20 +150,20 @@ export default function CreateXYChart({
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
 
-  const legend = showLegend ? (
-    <Legend
-      labelFormat={legendLabelFormat}
-      alignLeft={legendLeftRight === "left"}
-      direction={legendDirection}
-      shape={
-        legendShape === "auto"
-          ? undefined
-          : legendShape === "custom"
-          ? CustomLegendShape
-          : legendShape
-      }
-    />
-  ) : null;
+  // const legend = showLegend ? (
+  //   <Legend
+  //     labelFormat={legendLabelFormat}
+  //     alignLeft={legendLeftRight === "left"}
+  //     direction={legendDirection}
+  //     shape={
+  //       legendShape === "auto"
+  //         ? undefined
+  //         : legendShape === "custom"
+  //         ? CustomLegendShape
+  //         : legendShape
+  //     }
+  //   />
+  // ) : null;
 
   const chartHideAxisLine = valueIfUndefined(hideAxisLine, chart.hideAxisLine);
 
@@ -221,7 +221,7 @@ export default function CreateXYChart({
   // const isScatter = chartType.includes("scatter");
 
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
-  const getDimension = (d) => d[0].qText;
+  const getDimension = (d) => (d[0] ? d[0].qText : null);
 
   const getSeriesValues = (d, i) => (isDefined(d[i]) ? Number(d[i].qNum) : 0);
 
@@ -352,7 +352,7 @@ export default function CreateXYChart({
           size={size}
         />
       )}
-      {legendTopBottom === "top" && legend}
+      {/* {legendTopBottom === "top" && legend} */}
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
@@ -394,6 +394,7 @@ export default function CreateXYChart({
             xAccessor={accessors.x[measureInfo[0].qFallbackTitle]}
             yAccessor={accessors.y[measureInfo[0].qFallbackTitle]}
             elAccessor={accessors.el[measureInfo[0].qFallbackTitle]}
+            legendShape="dashed-line"
           />
         )}
         {chartType === "barstack" && (
@@ -487,6 +488,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    // legendShape={index == 0 ? "dashed-line" : "rect"}
                   />
                 ))
               : dataKeys.map((measure, index) => (

@@ -55,7 +55,15 @@ export default function Legend({
     (shapeProps) => {
       if (Shape && typeof Shape !== "string") return <Shape {...shapeProps} />;
 
-      const legendShape = Shape || dataRegistry?.[shapeProps.item]?.legendShape;
+      const legendShape =
+        Shape || isDefined(dataRegistry.entries()[0])
+          ? dataRegistry.entries().length === 1
+            ? dataRegistry.entries()[0].legendShape
+            : dataRegistry
+                .entries()
+                .filter((item) => item.key === shapeProps.item)[0].legendShape
+          : null;
+
       switch (legendShape) {
         case "circle":
           return <CircleShape {...shapeProps} />;
