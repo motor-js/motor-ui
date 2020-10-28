@@ -1,14 +1,16 @@
-import React, { useContext, useCallback, useMemo } from 'react';
-import { AxisScale } from '@visx/axis';
-import DataContext from '../../../context/DataContext';
-import { GlyphProps, GlyphsProps, SeriesProps } from '../../../types';
-import withRegisteredData, { WithRegisteredDataProps } from '../../../enhancers/withRegisteredData';
-import getScaledValueFactory from '../../../utils/getScaledValueFactory';
-import useEventEmitter, { HandlerParams } from '../../../hooks/useEventEmitter';
-import findNearestDatumX from '../../../utils/findNearestDatumX';
-import TooltipContext from '../../../context/TooltipContext';
-import findNearestDatumY from '../../../utils/findNearestDatumY';
-import isValidNumber from '../../../typeguards/isValidNumber';
+import React, { useContext, useCallback, useMemo } from "react";
+import { AxisScale } from "@visx/axis";
+import DataContext from "../../../context/DataContext";
+import { GlyphProps, GlyphsProps, SeriesProps } from "../../../types";
+import withRegisteredData, {
+  WithRegisteredDataProps,
+} from "../../../enhancers/withRegisteredData";
+import getScaledValueFactory from "../../../utils/getScaledValueFactory";
+import useEventEmitter, { HandlerParams } from "../../../hooks/useEventEmitter";
+import findNearestDatumX from "../../../utils/findNearestDatumX";
+import TooltipContext from "../../../context/TooltipContext";
+import findNearestDatumY from "../../../utils/findNearestDatumY";
+import isValidNumber from "../../../typeguards/isValidNumber";
 
 export type BaseGlyphSeriesProps<
   XScale extends AxisScale,
@@ -20,10 +22,16 @@ export type BaseGlyphSeriesProps<
   /** The size of a `Glyph`, a `number` or a function which takes a `Datum` and returns a `number`. */
   size?: number | ((d: Datum) => number);
   /** Function which handles rendering glyphs. */
-  renderGlyphs: (glyphsProps: GlyphsProps<XScale, YScale, Datum>) => React.ReactNode;
+  renderGlyphs: (
+    glyphsProps: GlyphsProps<XScale, YScale, Datum>
+  ) => React.ReactNode;
 };
 
-function BaseGlyphSeries<XScale extends AxisScale, YScale extends AxisScale, Datum extends object>({
+function BaseGlyphSeries<
+  XScale extends AxisScale,
+  YScale extends AxisScale,
+  Datum extends object
+>({
   data,
   dataKey,
   xAccessor,
@@ -33,13 +41,21 @@ function BaseGlyphSeries<XScale extends AxisScale, YScale extends AxisScale, Dat
   horizontal,
   size = 8,
   renderGlyphs,
-}: BaseGlyphSeriesProps<XScale, YScale, Datum> & WithRegisteredDataProps<XScale, YScale, Datum>) {
+  index,
+}: BaseGlyphSeriesProps<XScale, YScale, Datum> &
+  WithRegisteredDataProps<XScale, YScale, Datum>) {
   const { colorScale, theme, width, height } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
-  const getScaledX = useCallback(getScaledValueFactory(xScale, xAccessor), [xScale, xAccessor]);
-  const getScaledY = useCallback(getScaledValueFactory(yScale, yAccessor), [yScale, yAccessor]);
+  const getScaledX = useCallback(
+    getScaledValueFactory(xScale, xAccessor, index),
+    [xScale, xAccessor]
+  );
+  const getScaledY = useCallback(
+    getScaledValueFactory(yScale, yAccessor, index),
+    [yScale, yAccessor]
+  );
   // @TODO allow override
-  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? '#222';
+  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
 
   const handleMouseMove = useCallback(
     (params?: HandlerParams) => {
@@ -64,10 +80,21 @@ function BaseGlyphSeries<XScale extends AxisScale, YScale extends AxisScale, Dat
         }
       }
     },
-    [dataKey, data, xScale, yScale, xAccessor, yAccessor, width, height, showTooltip, horizontal],
+    [
+      dataKey,
+      data,
+      xScale,
+      yScale,
+      xAccessor,
+      yAccessor,
+      width,
+      height,
+      showTooltip,
+      horizontal,
+    ]
   );
-  useEventEmitter('mousemove', handleMouseMove);
-  useEventEmitter('mouseout', hideTooltip);
+  useEventEmitter("mousemove", handleMouseMove);
+  useEventEmitter("mouseout", hideTooltip);
 
   const glyphs = useMemo(
     () =>
@@ -82,12 +109,12 @@ function BaseGlyphSeries<XScale extends AxisScale, YScale extends AxisScale, Dat
             x,
             y,
             color,
-            size: typeof size === 'function' ? size(datum) : size,
+            size: typeof size === "function" ? size(datum) : size,
             datum,
           };
         })
-        .filter(point => point) as GlyphProps<Datum>[],
-    [getScaledX, getScaledY, data, size, color],
+        .filter((point) => point) as GlyphProps<Datum>[],
+    [getScaledX, getScaledY, data, size, color]
   );
 
   return (

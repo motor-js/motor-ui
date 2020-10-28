@@ -105,7 +105,7 @@ export default function CreateXYChart({
   legendShape,
   legendLabelStyle,
   // fillStyle,
-  // showPoints,
+  showPoints,
   // curveShape,
   // crossHairStyles,
   // enableBrush,
@@ -233,7 +233,11 @@ export default function CreateXYChart({
         .map((measure) => {
           return {
             id: [measure.qFallbackTitle],
-            function: renderHorizontally ? getSeriesValues : getDimension,
+            function: renderHorizontally
+              ? getSeriesValues
+              : chartType !== "scatter"
+              ? getDimension
+              : getSeriesValues,
           };
         })
         .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {})
@@ -340,41 +344,61 @@ export default function CreateXYChart({
       : legendShape;
   }, [legendShape]);
 
-  // const shape =
-  //   legendShapes.filter((x) => x !== null && x != undefined).length !== 0
-  //     ? legendShapes
-  //     : legendShape === "auto"
-  //     ? type === "line" || type === "area"
-  //       ? "line"
-  //       : "rect"
-  //     : legendShape;
-
-  const glyphComponent = "circle";
-  // const themeBackground = theme.backgroundColor;
   const themeBackground = "red";
 
+  const glyphComponent =
+    typeof showPoints === "string"
+      ? showPoints
+      : typeof chart.showPoints === "string"
+      ? chart.showPoints
+      : showPoints
+      ? "circle"
+      : chart.showPoints
+      ? "cirlce"
+      : false;
+
   const renderGlyph = useCallback(
-    ({ size, color }) => {
+    ({ size, color, x, y }) => {
       if (glyphComponent === "star") {
         return (
-          <GlyphStar stroke={themeBackground} fill={color} size={size * 8} />
+          <GlyphStar
+            stroke={themeBackground}
+            fill={color}
+            size={size * 8}
+            top={y}
+            left={x}
+          />
         );
       }
       if (glyphComponent === "circle") {
-        return <GlyphDot stroke={themeBackground} fill={color} r={size / 2} />;
+        return (
+          <GlyphDot
+            stroke={themeBackground}
+            fill={color}
+            r={size / 2}
+            top={y}
+            left={x}
+          />
+        );
       }
       if (glyphComponent === "cross") {
         return (
-          <GlyphCross stroke={themeBackground} fill={color} size={size * 8} />
+          <GlyphCross
+            stroke={themeBackground}
+            fill={color}
+            size={size * 8}
+            top={y}
+            left={x}
+          />
         );
       }
       return (
-        <text dx="-0.75em" dy="0.25em" fontSize={14}>
+        <text dx="-0.75em" dy="0.25em" fontSize={14} y={y} x={x}>
           🍍
         </text>
       );
     },
-    [glyphComponent, themeBackground]
+    [showPoints, themeBackground]
   );
 
   return (
