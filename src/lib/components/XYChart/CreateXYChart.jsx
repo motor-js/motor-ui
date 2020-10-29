@@ -470,8 +470,9 @@ export default function CreateXYChart({
       if (glyphComponent === "text") {
         return (
           <text
-            dx="-0.75em"
-            dy="0.25em"
+            // dx="-0.75em"
+            dy="-0.35em"
+            textAnchor="middle"
             fontSize={14}
             y={y}
             x={x}
@@ -484,12 +485,51 @@ export default function CreateXYChart({
         );
       }
       return (
-        <text dx="-0.75em" dy="0.25em" fontSize={14} y={y} x={x} id={id}>
+        <text
+          // dx="-0.75em"
+          dy="-0.35em"
+          textAnchor="middle"
+          fontSize={14}
+          y={y}
+          x={x}
+          id={id}
+        >
           🍍
         </text>
       );
     },
     [showPoints, themeBackground]
+  );
+
+  const renderLabel = useCallback(
+    ({
+      size,
+      color,
+      x,
+      y,
+      id,
+      // onClick,
+      // onMouseEnter,
+      // onMouseMove,
+      // onMouseLeave,
+    }) => {
+      return (
+        <text
+          // dx="-0.75em"
+          dy="-0.35em"
+          textAnchor="middle"
+          fontSize={14}
+          y={y}
+          x={x}
+          id={id}
+          stroke={themeBackground}
+          fill={color}
+        >
+          {formatValue(y)}
+        </text>
+      );
+    },
+    [themeBackground]
   );
 
   const singleColor = valueIfUndefined(
@@ -507,7 +547,7 @@ export default function CreateXYChart({
       select={select}
       setCurrentSelectionIds={setCurrentSelectionIds}
       horizontal={renderHorizontally}
-      showLabels={valueIfUndefined(showLabels, chart.showLabels)}
+      // showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
       multiColor={multiColor}
       legendLabelStyle={legendLabelStyle}
@@ -751,6 +791,35 @@ export default function CreateXYChart({
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
                     renderGlyph={renderGlyph}
+                  />
+                ))}
+          </>
+        )}
+        {valueIfUndefined(showLabels, chart.showLabels) && (
+          <>
+            {singleDimension
+              ? measureInfo.map((measure, index) => (
+                  <GlyphSeries
+                    key={measureInfo[index].qFallbackTitle}
+                    dataKey={measureInfo[index].qFallbackTitle}
+                    index={index + dimensionInfo.length}
+                    data={data}
+                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    renderGlyph={renderLabel}
+                  />
+                ))
+              : dataKeys.map((measure, index) => (
+                  <GlyphSeries
+                    key={measure}
+                    dataKey={measure}
+                    index={index + 1}
+                    data={data}
+                    xAccessor={accessors.x[measure]}
+                    yAccessor={accessors.y[measure]}
+                    elAccessor={accessors.el[measure]}
+                    renderGlyph={renderLabel}
                   />
                 ))}
           </>
