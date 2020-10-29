@@ -473,6 +473,7 @@ export default function CreateXYChart({
             // dx="-0.75em"
             dy="-0.35em"
             textAnchor="middle"
+            cursor="default"
             fontSize={14}
             y={y}
             x={x}
@@ -490,6 +491,7 @@ export default function CreateXYChart({
           dy="-0.35em"
           textAnchor="middle"
           fontSize={14}
+          cursor="default"
           y={y}
           x={x}
           id={id}
@@ -523,6 +525,7 @@ export default function CreateXYChart({
           x={x}
           id={id}
           stroke={themeBackground}
+          cursor="default"
           fill={color}
         >
           {formatValue(y)}
