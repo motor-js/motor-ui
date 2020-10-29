@@ -7,8 +7,8 @@ import ChartContext from "../../context/ChartContext";
 import { isNull, selectColor } from "../../../../utils";
 
 export default function Tooltip({
-  snapToDataX,
-  snapToDataY,
+  snapTooltipToDatumX,
+  snapTooltipToDatumY,
   shiftTooltipTop = 0,
   shiftTooltipLeft = 0,
   showClosestItem,
@@ -53,13 +53,13 @@ export default function Tooltip({
 
   const { xAccessor, yAccessor } = dataRegistry[closestDatum.key];
 
-  const xCoord = snapToDataX
+  const xCoord = snapTooltipToDatumX
     ? xScale(xAccessor(closestDatum.datum)) +
       (xScale.bandwidth?.() ?? 0) / 2 +
       shiftTooltipLeft
     : svgMouseX + shiftTooltipLeft;
 
-  const yCoord = snapToDataY
+  const yCoord = snapTooltipToDatumY
     ? yScale(yAccessor(closestDatum.datum)) -
       (yScale.bandwidth?.() ?? 0) / 2 +
       shiftTooltipTop

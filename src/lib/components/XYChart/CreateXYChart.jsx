@@ -113,19 +113,21 @@ export default function CreateXYChart({
   legendDirection,
   legendShape,
   legendLabelStyle,
-  // fillStyle,
   showPoints,
+  valueLabelStyle,
+  useSingleColor,
+  snapTooltipToDatumX,
+  snapTooltipToDatumY,
+  showHorizontalCrosshair,
+  showVerticalCrosshair,
+  // fillStyle,
   // curveShape,
   // crossHairStyles,
   // enableBrush,
   // showBrush,
-  valueLabelStyle,
-  useSingleColor,
   // formatTooltipDate,
   // strokeWidth,
-  // showCrossHair,
-  // snapToDataX,
-  // snapToDataY,
+
   // shiftTooltipTop,
   // shiftTooltipLeft,
   // valueOnly,
@@ -137,12 +139,6 @@ export default function CreateXYChart({
   // tooltipStyles,
 
   //-----
-
-  showHorizontalCrosshair = false,
-
-  showVerticalCrosshair = false,
-  snapTooltipToDatumX = false,
-  snapTooltipToDatumY = false,
 }) {
   // Check if conditionalColors and if so get the returned color pallette
   const colors = colorByExpression(qHyperCube, data, colorPalette);

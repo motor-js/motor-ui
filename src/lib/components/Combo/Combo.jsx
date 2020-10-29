@@ -237,8 +237,12 @@ Combo.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
-  /** Show CrossHair on the chart  */
-  showCrossHair: PropTypes.bool,
+  // /** Show CrossHair on the chart  */
+  // showCrossHair: PropTypes.bool, // REMOVED
+  /** Show Horizontal CrossHair on the chart  */
+  showHorizontalCrosshair: PropTypes.bool, // ADDED
+  /** Show Vertical CrossHair on the chart  */
+  showVerticalCrosshair: PropTypes.bool, // ADDED
   /** Styling of the CrossHair. */
   crossHairStyles: PropTypes.object,
   /** Styling of the Legend labels. */
@@ -250,9 +254,9 @@ Combo.propTypes = {
   /** Only use one color for the toolyip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
   /** Snap to X Axis (normally true for bar or combo) */
-  snapToDataX: PropTypes.bool,
+  snapTooltipToDatumX: PropTypes.bool,
   /** Snap to Y Axis (normally true for bar or combo) */
-  snapToDataY: PropTypes.bool,
+  snapTooltipToDatumY: PropTypes.bool,
   /** Show value only for Tooltip */
   valueOnly: PropTypes.bool,
   /** Show single line fo text and value for tooltip */
@@ -318,7 +322,9 @@ Combo.defaultProps = {
   numDimensionTicks: null,
   numMeasureTicks: null,
   numMeasureDualTicks: null,
-  showCrossHair: true,
+  // showCrossHair: true,
+  showHorizontalCrosshair: false,
+  showVerticalCrosshair: false,
   showTooltip: true,
 };
 

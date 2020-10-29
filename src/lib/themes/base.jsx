@@ -430,8 +430,8 @@ const base = {
       },
 
       tooltip: {
-        // snapToDataX: false,
-        // snapToDataX: false,
+        // snapTooltipToDatumX: false,
+        // snapTooltipToDatumX: false,
         valueOnly: false,
         valueWithText: false,
         showClosestItem: true, // Used for tooltip
