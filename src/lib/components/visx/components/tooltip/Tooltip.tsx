@@ -154,6 +154,8 @@ export default function Tooltip<Datum extends object>({
   const nearestDatum = tooltipContext?.tooltipData?.nearestDatum;
   const nearestDatumKey = nearestDatum?.key ?? "";
 
+  console.log(nearestDatum);
+
   // snap x- or y-coord to the actual data point (not event coordinates)
   if (
     showTooltip &&

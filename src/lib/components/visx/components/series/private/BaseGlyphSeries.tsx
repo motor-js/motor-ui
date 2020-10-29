@@ -163,19 +163,25 @@ function BaseGlyphSeries<
   //   }
   // };
 
-  const onMouseMoveDatum = (event: MouseEvent, datum: any, color: string) => {
+  const onMouseMoveDatum = (event: MouseEvent, datum: any) => {
     const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+    // console.log(svgMouseX, svgMouseY);
 
-    const closestDatum: any = {};
-    closestDatum.key = dataKey;
-    closestDatum.datum = datum;
-    closestDatum.color = color;
+    const nearestDatum: any = {};
+    nearestDatum.key = dataKey;
+    nearestDatum.datum = datum;
+    // nearestDatum.color = color;
 
-    console.log(closestDatum);
+    console.log(nearestDatum);
 
     if (datum && showTooltip) {
       showTooltip({
-        tooltipData: { closestDatum, svgMouseX, svgMouseY, colorScale },
+        // tooltipData: { closestDatum, svgMouseX, svgMouseY, colorScale },
+        // key: dataKey,
+        // ...datum,
+        // nearestDatum,
+        ...nearestDatum,
+        // svgPoint: [100, 100],
       });
     }
   };
@@ -211,14 +217,7 @@ function BaseGlyphSeries<
             onClick: () => handleMouseClick(id),
             onMouseEnter: () => setHoverId(Number(id)),
             // onMouseMove: (e) => onMouseMoveDatum(e, datum, getColor(datum, i))
-            onMouseMove: (e: MouseEvent) =>
-              onMouseMoveDatum(
-                e,
-                datum,
-                multiColor
-                  ? colorScale?.(multiColor[i])
-                  : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222"
-              ),
+            onMouseMove: (e: MouseEvent) => onMouseMoveDatum(e, datum),
             onMouseLeave: onMouseLeave,
           };
         })
