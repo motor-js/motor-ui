@@ -180,6 +180,7 @@ export default function BaseBarGroup<
 
   const bars = registryEntries.flatMap(
     ({ xAccessor, yAccessor, elAccessor, data, key, index }) => {
+      // if (!data || !xAccessor || !yAccessor || !elAccessor) return null;
       const getLength = (d: Datum) =>
         horizontal
           ? (xScale(xAccessor(d, index)) ?? 0) - xZeroPosition

@@ -1,4 +1,10 @@
-import React, { useContext, useCallback, useMemo, useState } from "react";
+import React, {
+  useContext,
+  useCallback,
+  useMemo,
+  useState,
+  EventHandler,
+} from "react";
 import { AxisScale } from "@visx/axis";
 import DataContext from "../../../context/DataContext";
 import { GlyphProps, GlyphsProps, SeriesProps } from "../../../types";
@@ -132,28 +138,45 @@ function BaseGlyphSeries<
     handleClick(selections);
   };
 
-  const onMouseMove = (params?: HandlerParams) => {
-    const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
-    const svgPoint = { x: svgMouseX, y: svgMouseY };
-    if (svgPoint && width && height && showTooltip) {
-      const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
-        point: svgPoint,
-        data,
-        xScale,
-        yScale,
-        xAccessor,
-        yAccessor,
-        width,
-        height,
+  // const onMouseMove = (params?: HandlerParams) => {
+  //   const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
+  //   const svgPoint = { x: svgMouseX, y: svgMouseY };
+  //   if (svgPoint && width && height && showTooltip) {
+  //     const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+  //       point: svgPoint,
+  //       data,
+  //       xScale,
+  //       yScale,
+  //       xAccessor,
+  //       yAccessor,
+  //       width,
+  //       height,
+  //     });
+  //     console.log(datum);
+  //     if (datum) {
+  //       showTooltip({
+  //         key: dataKey,
+  //         ...datum,
+  //         svgPoint,
+  //       });
+  //     }
+  //   }
+  // };
+
+  const onMouseMoveDatum = (event: MouseEvent, datum: any, color: string) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
+
+    const closestDatum: any = {};
+    closestDatum.key = dataKey;
+    closestDatum.datum = datum;
+    closestDatum.color = color;
+
+    console.log(closestDatum);
+
+    if (datum && showTooltip) {
+      showTooltip({
+        tooltipData: { closestDatum, svgMouseX, svgMouseY, colorScale },
       });
-      console.log(datum);
-      if (datum) {
-        showTooltip({
-          key: dataKey,
-          ...datum,
-          svgPoint,
-        });
-      }
     }
   };
 
@@ -184,10 +207,18 @@ function BaseGlyphSeries<
             // size: typeof size === "function" ? size(datum) : size,
             size: sizeByValue ? getGlyphSize(datum) : size,
             datum,
-            style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
+            // style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
             onClick: () => handleMouseClick(id),
             onMouseEnter: () => setHoverId(Number(id)),
-            onMouseMove: onMouseMove,
+            // onMouseMove: (e) => onMouseMoveDatum(e, datum, getColor(datum, i))
+            onMouseMove: (e: MouseEvent) =>
+              onMouseMoveDatum(
+                e,
+                datum,
+                multiColor
+                  ? colorScale?.(multiColor[i])
+                  : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222"
+              ),
             onMouseLeave: onMouseLeave,
           };
         })
