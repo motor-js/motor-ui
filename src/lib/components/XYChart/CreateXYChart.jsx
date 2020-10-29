@@ -119,7 +119,7 @@ export default function CreateXYChart({
   // enableBrush,
   // showBrush,
   // valueLabelStyle,
-  // useSingleColor,
+  useSingleColor,
   // formatTooltipDate,
   // strokeWidth,
   // showCrossHair,
@@ -492,6 +492,11 @@ export default function CreateXYChart({
     [showPoints, themeBackground]
   );
 
+  const singleColor = valueIfUndefined(
+    useSingleColor,
+    chart.tooltip.useSingleColor
+  );
+
   return (
     <DataProvider
       theme={chartTheme}
@@ -858,11 +863,14 @@ export default function CreateXYChart({
                     <div key={datum}>
                       <em
                         style={{
-                          color: dataKeys
+                          color: singleColor
+                            ? selectColor(theme?.tooltip?.headingColor, theme)
+                            : dataKeys
                             ? colorScale?.(
                                 accessors.date(tooltipData?.nearestDatum?.datum)
                               )
                             : colorScale?.(datum),
+
                           textDecoration:
                             tooltipData?.nearestDatum?.key === datum
                               ? "underline"

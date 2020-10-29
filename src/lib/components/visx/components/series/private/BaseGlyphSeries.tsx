@@ -17,7 +17,6 @@ import findNearestDatumX from "../../../utils/findNearestDatumX";
 import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
 import isValidNumber from "../../../typeguards/isValidNumber";
-import { isEmpty } from "../../../../../utils";
 import { localPoint } from "@visx/event";
 
 export type BaseGlyphSeriesProps<
