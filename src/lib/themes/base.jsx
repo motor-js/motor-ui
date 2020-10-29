@@ -636,6 +636,7 @@ const base = {
         textAnchor: "middle",
         pointerEvents: "none",
         paintOrder: "stroke",
+        dy: "-0.55em",
       },
     },
   },

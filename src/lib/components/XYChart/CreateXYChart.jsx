@@ -118,7 +118,7 @@ export default function CreateXYChart({
   // crossHairStyles,
   // enableBrush,
   // showBrush,
-  // valueLabelStyle,
+  valueLabelStyle,
   useSingleColor,
   // formatTooltipDate,
   // strokeWidth,
@@ -365,7 +365,11 @@ export default function CreateXYChart({
       ? "cirlce"
       : false;
 
-  // const GlyphComponent =
+  const labelProps = {
+    ...theme.global.chart.valueLabelStyles,
+    fontSize: theme.global.chart.valueLabelStyles.fontSize[size],
+    ...valueLabelStyle,
+  };
 
   const renderGlyph = useCallback(
     ({
@@ -471,15 +475,16 @@ export default function CreateXYChart({
         return (
           <text
             // dx="-0.75em"
-            dy="-0.35em"
-            textAnchor="middle"
-            cursor="default"
-            fontSize={14}
+            // dy="-0.35em"
+            // textAnchor="middle"
+            // cursor="default"
+            // fontSize={14}
             y={y}
             x={x}
             id={id}
-            stroke={themeBackground}
-            fill={color}
+            {...labelProps}
+            // stroke={themeBackground}
+            // fill={color}
           >
             {formatValue(y)}
           </text>
@@ -488,13 +493,14 @@ export default function CreateXYChart({
       return (
         <text
           // dx="-0.75em"
-          dy="-0.35em"
-          textAnchor="middle"
-          fontSize={14}
-          cursor="default"
+          // dy="-0.35em"
+          // textAnchor="middle"
+          // fontSize={14}
+          // cursor="default"
           y={y}
           x={x}
           id={id}
+          {...labelProps}
         >
           🍍
         </text>
@@ -502,6 +508,8 @@ export default function CreateXYChart({
     },
     [showPoints, themeBackground]
   );
+
+  // const { valueLabelStyles } = theme;
 
   const renderLabel = useCallback(
     ({
@@ -518,15 +526,16 @@ export default function CreateXYChart({
       return (
         <text
           // dx="-0.75em"
-          dy="-0.35em"
-          textAnchor="middle"
-          fontSize={14}
+          // dy="-0.35em"
+          // textAnchor="middle"
+          // fontSize={14}
           y={y}
           x={x}
           id={id}
-          stroke={themeBackground}
-          cursor="default"
-          fill={color}
+          // stroke={themeBackground}
+          // cursor="default"
+          // fill={color}
+          {...labelProps}
         >
           {formatValue(y)}
         </text>
@@ -550,7 +559,6 @@ export default function CreateXYChart({
       select={select}
       setCurrentSelectionIds={setCurrentSelectionIds}
       horizontal={renderHorizontally}
-      // showLabels={valueIfUndefined(showLabels, chart.showLabels)}
       includeZero={includeZero}
       multiColor={multiColor}
       legendLabelStyle={legendLabelStyle}
