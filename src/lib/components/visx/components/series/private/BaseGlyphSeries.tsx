@@ -27,8 +27,11 @@ export type BaseGlyphSeriesProps<
   /** Whether line should be rendered horizontally instead of vertically. */
   horizontal?: boolean;
   /** The size of a `Glyph`, a `number` or a function which takes a `Datum` and returns a `number`. */
-  // size?: number | ((d: Datum) => number);
   size?: number;
+  // The style of a `Glyph`;
+  style?: object;
+  // The type of a `Glyph`;
+  type?: string;
   /** Function which handles rendering glyphs. */
   renderGlyphs: (
     glyphsProps: GlyphsProps<XScale, YScale, Datum>
