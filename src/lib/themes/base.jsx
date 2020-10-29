@@ -982,14 +982,12 @@ const base = {
   },
   bar: { stroke: "#fff", strokeWidth: 1 },
   stackedArea: { stroke: "#fff", strokeWidth: 1 },
-  points: { size: 50, strokeWidth: 2 },
+  points: { size: 50, strokeWidth: 2, cursor: "pointer" },
   scatter: {
-    size: 5,
-    style: {
-      strokeWidth: null,
-      stroke: null,
-      // cursor: "pointer",
-    },
+    size: 75,
+    strokeWidth: null,
+    stroke: null,
+    cursor: "pointer",
   },
   pie: {
     margin: { top: 20, right: 20, bottom: 20, left: 20 },

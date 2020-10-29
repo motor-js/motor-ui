@@ -47,10 +47,12 @@ function BaseGlyphSeries<
   yAccessor,
   yScale,
   horizontal,
-  size = 8,
+  size = 12,
   renderGlyphs,
   elAccessor,
   index,
+  style,
+  type,
 }: BaseGlyphSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
   const {
@@ -81,11 +83,46 @@ function BaseGlyphSeries<
     ? (measureInfo[2].qMax + measureInfo[2].qMin) / 2
     : null;
 
-  const getGlyphSize = (d: any) => Number(d[3].qNum / avgSize) * size;
+  const {
+    scatter,
+    valueLabelStyles,
+    selection,
+    nonSelection,
+    hover,
+    points,
+  } = theme;
+
+  const glyphSize =
+    type === "scatter" ? scatter.size || size : points.size || size;
+
+  const getGlyphSize = (d: any) => Number(d[3].qNum / avgSize) * glyphSize;
 
   const getElemNumber = useCallback(elAccessor, [elAccessor]);
 
   const [hoverId, setHoverId] = useState(null);
+
+  let styleProps: object = null;
+
+  switch (type) {
+    case "text":
+      styleProps = {
+        ...valueLabelStyles,
+        fontSize: valueLabelStyles.fontSize[size],
+        ...style,
+      };
+      break;
+    case "scatter":
+      styleProps = {
+        ...scatter,
+        ...style,
+      };
+      break;
+    default:
+      styleProps = {
+        ...points,
+        ...style,
+      };
+  }
 
   const handleMouseMove = useCallback(
     (params?: HandlerParams) => {
@@ -174,11 +211,12 @@ function BaseGlyphSeries<
             x,
             y,
             id,
+            styleProps,
             color: multiColor
               ? colorScale?.(multiColor[i])
               : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222", // @TODO allow prop overriding
             // size: typeof size === "function" ? size(datum) : size,
-            size: sizeByValue ? getGlyphSize(datum) : size,
+            size: sizeByValue ? getGlyphSize(datum) : glyphSize,
             datum,
             // style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
             onClick: () => handleMouseClick(id),

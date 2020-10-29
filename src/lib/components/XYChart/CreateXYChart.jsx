@@ -7,6 +7,7 @@ import {
   GlyphSquare,
   GlyphTriangle,
   GlyphWye,
+  GlyphCircle,
 } from "@visx/glyph";
 
 import {
@@ -152,8 +153,6 @@ export default function CreateXYChart({
     global: { chart },
     crossHair: crossHairStyle,
   } = theme;
-
-  const legendLabelFormat = (d) => d;
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
@@ -352,8 +351,6 @@ export default function CreateXYChart({
       : legendShape;
   }, [legendShape]);
 
-  const themeBackground = "red";
-
   const glyphComponent =
     typeof showPoints === "string"
       ? showPoints
@@ -365,11 +362,37 @@ export default function CreateXYChart({
       ? "cirlce"
       : false;
 
-  const labelProps = {
-    ...theme.global.chart.valueLabelStyles,
-    fontSize: theme.global.chart.valueLabelStyles.fontSize[size],
-    ...valueLabelStyle,
-  };
+  let GlyphComponent = null;
+
+  switch (glyphComponent) {
+    // case "dot":
+    //   GlyphComponent = GlyphDot;
+    //   break;
+    case "star":
+      GlyphComponent = GlyphStar;
+      break;
+    case "circle":
+      GlyphComponent = GlyphCircle;
+      break;
+    case "cross":
+      GlyphComponent = GlyphCross;
+      break;
+    case "diamond":
+      GlyphComponent = GlyphDiamond;
+      break;
+    case "square":
+      GlyphComponent = GlyphSquare;
+      break;
+    case "tringle":
+      GlyphComponent = GlyphTriangle;
+      break;
+    case "wye":
+      GlyphComponent = GlyphWye;
+      break;
+    default:
+      GlyphComponent = GlyphCircle;
+      break;
+  }
 
   const renderGlyph = useCallback(
     ({
@@ -378,29 +401,19 @@ export default function CreateXYChart({
       x,
       y,
       id,
+      styleProps,
       onClick,
       onMouseEnter,
       onMouseMove,
       onMouseLeave,
     }) => {
-      if (glyphComponent === "star") {
+      if (GlyphComponent) {
         return (
-          <GlyphStar
-            stroke={themeBackground}
+          <GlyphComponent
             fill={color}
-            size={size * 8}
-            top={y}
-            left={x}
-            id={id}
-          />
-        );
-      }
-      if (glyphComponent === "circle") {
-        return (
-          <GlyphDot
-            stroke={themeBackground}
-            fill={color}
-            r={size / 2}
+            {...styleProps}
+            // r={size}
+            size={size}
             top={y}
             left={x}
             id={id}
@@ -411,138 +424,22 @@ export default function CreateXYChart({
           />
         );
       }
-      if (glyphComponent === "cross") {
-        return (
-          <GlyphCross
-            stroke={themeBackground}
-            fill={color}
-            size={size * 8}
-            top={y}
-            left={x}
-            id={id}
-          />
-        );
-      }
-      if (glyphComponent === "diamond") {
-        return (
-          <GlyphDiamond
-            stroke={themeBackground}
-            fill={color}
-            size={size * 8}
-            top={y}
-            left={x}
-            id={id}
-          />
-        );
-      }
-      if (glyphComponent === "square") {
-        return (
-          <GlyphSquare
-            stroke={themeBackground}
-            fill={color}
-            size={size * 8}
-            top={y}
-            left={x}
-            id={id}
-          />
-        );
-      }
-      if (glyphComponent === "triangle") {
-        return (
-          <GlyphTriangle
-            stroke={themeBackground}
-            fill={color}
-            size={size * 8}
-            top={y}
-            left={x}
-            id={id}
-          />
-        );
-      }
-      if (glyphComponent === "wye") {
-        return (
-          <GlyphWye
-            stroke={themeBackground}
-            fill={color}
-            size={size * 8}
-            top={y}
-            left={x}
-            id={id}
-          />
-        );
-      }
-      if (glyphComponent === "text") {
-        return (
-          <text
-            // dx="-0.75em"
-            // dy="-0.35em"
-            // textAnchor="middle"
-            // cursor="default"
-            // fontSize={14}
-            y={y}
-            x={x}
-            id={id}
-            {...labelProps}
-            // stroke={themeBackground}
-            // fill={color}
-          >
-            {formatValue(y)}
-          </text>
-        );
-      }
       return (
-        <text
-          // dx="-0.75em"
-          // dy="-0.35em"
-          // textAnchor="middle"
-          // fontSize={14}
-          // cursor="default"
-          y={y}
-          x={x}
-          id={id}
-          {...labelProps}
-        >
+        <text y={y} x={x} id={id} {...styleProps}>
           🍍
         </text>
       );
     },
-    [showPoints, themeBackground]
+    [showPoints]
   );
 
-  // const { valueLabelStyles } = theme;
-
-  const renderLabel = useCallback(
-    ({
-      size,
-      color,
-      x,
-      y,
-      id,
-      // onClick,
-      // onMouseEnter,
-      // onMouseMove,
-      // onMouseLeave,
-    }) => {
-      return (
-        <text
-          // dx="-0.75em"
-          // dy="-0.35em"
-          // textAnchor="middle"
-          // fontSize={14}
-          y={y}
-          x={x}
-          id={id}
-          // stroke={themeBackground}
-          // cursor="default"
-          // fill={color}
-          {...labelProps}
-        >
-          {formatValue(y)}
-        </text>
-      );
-    },
-    [themeBackground]
-  );
+  const renderLabel = ({ x, y, id, styleProps }) => {
+    return (
+      <text y={y} x={x} id={id} {...styleProps}>
+        {formatValue(y)}
+      </text>
+    );
+  };
 
   const singleColor = valueIfUndefined(
     useSingleColor,
@@ -789,6 +686,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    type={chartType}
                     renderGlyph={renderGlyph}
                   />
                 ))
@@ -801,6 +699,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
+                    type={chartType}
                     renderGlyph={renderGlyph}
                   />
                 ))}
@@ -815,10 +714,13 @@ export default function CreateXYChart({
                     dataKey={measureInfo[index].qFallbackTitle}
                     index={index + dimensionInfo.length}
                     data={data}
+                    size={size}
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
                     renderGlyph={renderLabel}
+                    style={valueLabelStyle}
+                    type="text"
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -827,10 +729,13 @@ export default function CreateXYChart({
                     dataKey={measure}
                     index={index + 1}
                     data={data}
+                    size={size}
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
                     renderGlyph={renderLabel}
+                    style={valueLabelStyle}
+                    type="text"
                   />
                 ))}
           </>
