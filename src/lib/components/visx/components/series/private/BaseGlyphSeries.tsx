@@ -137,31 +137,6 @@ function BaseGlyphSeries<
     handleClick(selections);
   };
 
-  // const onMouseMove = (params?: HandlerParams) => {
-  //   const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
-  //   const svgPoint = { x: svgMouseX, y: svgMouseY };
-  //   if (svgPoint && width && height && showTooltip) {
-  //     const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
-  //       point: svgPoint,
-  //       data,
-  //       xScale,
-  //       yScale,
-  //       xAccessor,
-  //       yAccessor,
-  //       width,
-  //       height,
-  //     });
-  //     console.log(datum);
-  //     if (datum) {
-  //       showTooltip({
-  //         key: dataKey,
-  //         ...datum,
-  //         svgPoint,
-  //       });
-  //     }
-  //   }
-  // };
-
   const onMouseMoveDatum = (event: MouseEvent, datum: any) => {
     const { x, y } = localPoint(event) || {};
 

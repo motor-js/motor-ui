@@ -203,7 +203,7 @@ XYChart.propTypes = {
   /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
   showPoints: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
+    PropTypes.string, // { symbol : "dot","circle","cross","diamond","square","star","triangle","wye","none", size}
   ]),
   /**  curveShape of the line or area */
   curveShape: PropTypes.oneOf([
