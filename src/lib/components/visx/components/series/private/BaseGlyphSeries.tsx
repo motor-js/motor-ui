@@ -11,6 +11,8 @@ import findNearestDatumX from "../../../utils/findNearestDatumX";
 import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
 import isValidNumber from "../../../typeguards/isValidNumber";
+import { isEmpty } from "../../../../../utils";
+import { localPoint } from "@visx/event";
 
 export type BaseGlyphSeriesProps<
   XScale extends AxisScale,
@@ -20,7 +22,8 @@ export type BaseGlyphSeriesProps<
   /** Whether line should be rendered horizontally instead of vertically. */
   horizontal?: boolean;
   /** The size of a `Glyph`, a `number` or a function which takes a `Datum` and returns a `number`. */
-  size?: number | ((d: Datum) => number);
+  // size?: number | ((d: Datum) => number);
+  size?: number;
   /** Function which handles rendering glyphs. */
   renderGlyphs: (
     glyphsProps: GlyphsProps<XScale, YScale, Datum>
@@ -45,18 +48,35 @@ function BaseGlyphSeries<
   index,
 }: BaseGlyphSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
-  const { colorScale, theme, width, height } = useContext(DataContext);
+  const {
+    colorScale,
+    theme,
+    width,
+    height,
+    currentSelectionIds,
+    handleClick,
+    setBarStyle,
+    multiColor,
+    measureInfo,
+  } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
+
   const getScaledX = useCallback(
     getScaledValueFactory(xScale, xAccessor, index),
     [xScale, xAccessor]
   );
+
   const getScaledY = useCallback(
     getScaledValueFactory(yScale, yAccessor, index),
     [yScale, yAccessor]
   );
-  // @TODO allow override
-  const color = colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222";
+
+  const sizeByValue = measureInfo.length === 3;
+  const avgSize = sizeByValue
+    ? (measureInfo[2].qMax + measureInfo[2].qMin) / 2
+    : null;
+
+  const getGlyphSize = (d: any) => Number(d[3].qNum / avgSize) * size;
 
   const getElemNumber = useCallback(elAccessor, [elAccessor]);
 
@@ -102,15 +122,46 @@ function BaseGlyphSeries<
   useEventEmitter("mousemove", handleMouseMove);
   useEventEmitter("mouseout", hideTooltip);
 
-  // const handleMouseClick = (id: string) => {
-  //   const selectionId = Number(id);
-  //   const selections = currentSelectionIds.includes(selectionId)
-  //     ? currentSelectionIds.filter(function(value: number, index, arr) {
-  //         return value !== selectionId;
-  //       })
-  //     : [...currentSelectionIds, selectionId];
-  //   handleClick(selections);
-  // };
+  const handleMouseClick = (id: string) => {
+    const selectionId = Number(id);
+    const selections = currentSelectionIds.includes(selectionId)
+      ? currentSelectionIds.filter(function(value: number, index, arr) {
+          return value !== selectionId;
+        })
+      : [...currentSelectionIds, selectionId];
+    handleClick(selections);
+  };
+
+  const onMouseMove = (params?: HandlerParams) => {
+    const { x: svgMouseX, y: svgMouseY } = localPoint(params) || {};
+    const svgPoint = { x: svgMouseX, y: svgMouseY };
+    if (svgPoint && width && height && showTooltip) {
+      const datum = (horizontal ? findNearestDatumY : findNearestDatumX)({
+        point: svgPoint,
+        data,
+        xScale,
+        yScale,
+        xAccessor,
+        yAccessor,
+        width,
+        height,
+      });
+      console.log(datum);
+      if (datum) {
+        showTooltip({
+          key: dataKey,
+          ...datum,
+          svgPoint,
+        });
+      }
+    }
+  };
+
+  const onMouseLeave = () => {
+    hideTooltip();
+    console.log("hoverid", hoverId);
+    setHoverId(null);
+  };
 
   const glyphs = useMemo(
     () =>
@@ -120,25 +171,28 @@ function BaseGlyphSeries<
           if (!isValidNumber(x)) return null;
           const y = getScaledY(datum);
           if (!isValidNumber(y)) return null;
-          const id = Number(getElemNumber(datum));
+          const id = getElemNumber(datum);
           if (!isValidNumber(id)) return null;
-          console.log(id);
           return {
             key: `${i}`,
             x,
             y,
             id,
-            color,
-            size: typeof size === "function" ? size(datum) : size,
+            color: multiColor
+              ? colorScale?.(multiColor[i])
+              : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222", // @TODO allow prop overriding
+            // size: typeof size === "function" ? size(datum) : size,
+            size: sizeByValue ? getGlyphSize(datum) : size,
             datum,
-            // onClick: () => handleMouseClick(id),
-            // onMouseEnter: () => setHoverId(Number(id)),
-            // onMouseMove: onMouseMove,
-            // onMouseLeave: onMouseLeave,
+            style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
+            onClick: () => handleMouseClick(id),
+            onMouseEnter: () => setHoverId(Number(id)),
+            onMouseMove: onMouseMove,
+            onMouseLeave: onMouseLeave,
           };
         })
         .filter((point) => point) as GlyphProps<Datum>[],
-    [getScaledX, getScaledY, data, size, color]
+    [getScaledX, getScaledY, data, size]
   );
 
   return (

@@ -85,10 +85,10 @@ export type GlyphsProps<
 export type GlyphProps<Datum extends object> = {
   key: string;
   datum: Datum;
-  index: number;
+  // index: number;
   x: number;
   y: number;
-  id: number;
+  id: string;
   size: number;
   color: string;
 };

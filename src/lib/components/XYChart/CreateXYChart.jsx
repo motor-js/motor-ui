@@ -1,5 +1,13 @@
 import React, { useMemo, useCallback } from "react";
-import { GlyphCross, GlyphDot, GlyphStar } from "@visx/glyph";
+import {
+  GlyphCross,
+  GlyphDot,
+  GlyphStar,
+  GlyphDiamond,
+  GlyphSquare,
+  GlyphTriangle,
+  GlyphWye,
+} from "@visx/glyph";
 
 import {
   // AnimatedAreaSeries,
@@ -357,8 +365,20 @@ export default function CreateXYChart({
       ? "cirlce"
       : false;
 
+  // const GlyphComponent =
+
   const renderGlyph = useCallback(
-    ({ size, color, x, y, id }) => {
+    ({
+      size,
+      color,
+      x,
+      y,
+      id,
+      onClick,
+      onMouseEnter,
+      onMouseMove,
+      onMouseLeave,
+    }) => {
       if (glyphComponent === "star") {
         return (
           <GlyphStar
@@ -380,12 +400,64 @@ export default function CreateXYChart({
             top={y}
             left={x}
             id={id}
+            onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
           />
         );
       }
       if (glyphComponent === "cross") {
         return (
           <GlyphCross
+            stroke={themeBackground}
+            fill={color}
+            size={size * 8}
+            top={y}
+            left={x}
+            id={id}
+          />
+        );
+      }
+      if (glyphComponent === "diamond") {
+        return (
+          <GlyphDiamond
+            stroke={themeBackground}
+            fill={color}
+            size={size * 8}
+            top={y}
+            left={x}
+            id={id}
+          />
+        );
+      }
+      if (glyphComponent === "square") {
+        return (
+          <GlyphSquare
+            stroke={themeBackground}
+            fill={color}
+            size={size * 8}
+            top={y}
+            left={x}
+            id={id}
+          />
+        );
+      }
+      if (glyphComponent === "triangle") {
+        return (
+          <GlyphTriangle
+            stroke={themeBackground}
+            fill={color}
+            size={size * 8}
+            top={y}
+            left={x}
+            id={id}
+          />
+        );
+      }
+      if (glyphComponent === "wye") {
+        return (
+          <GlyphWye
             stroke={themeBackground}
             fill={color}
             size={size * 8}
@@ -434,6 +506,7 @@ export default function CreateXYChart({
       includeZero={includeZero}
       multiColor={multiColor}
       legendLabelStyle={legendLabelStyle}
+      measureInfo={measureInfo}
     >
       {title && (
         <Title

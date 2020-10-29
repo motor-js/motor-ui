@@ -26,6 +26,7 @@ export type DataProviderProps<
   horizontal?: boolean;
   multiColor?: Array<string>;
   legendLabelStyle?: object;
+  measureInfo?: object;
   includeZero?: boolean;
   children: React.ReactNode;
 };
@@ -47,6 +48,7 @@ export default function DataProvider<
   includeZero,
   multiColor,
   legendLabelStyle,
+  measureInfo,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -129,6 +131,7 @@ export default function DataProvider<
         horizontal,
         multiColor,
         legendLabelStyle,
+        measureInfo,
         setDimensions,
         setBarStyle,
       }}

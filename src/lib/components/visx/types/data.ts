@@ -60,8 +60,8 @@ export interface DataContextType<
   legendLabelStyle: object;
   singleDimension?: boolean;
   singleMeasure?: boolean;
-  dimensionInfo: Array<object>;
-  measureInfo: Array<number>;
+  dimensionInfo: Array<any>;
+  measureInfo: any;
   dataKeys: Array<string>;
   margin: Margin;
   dataRegistry: Omit<
