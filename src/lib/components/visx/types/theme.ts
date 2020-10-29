@@ -15,6 +15,12 @@ export type NonSelectionStyles = CSSProperties;
 
 export type NoSelectionStyles = CSSProperties;
 
+export type ScatterStyles = any;
+
+export type ValueLabelStyles = any;
+
+export type PointsStyles = any;
+
 export type SVGTextProps = TextProps;
 
 interface AxisStyle {
@@ -55,4 +61,7 @@ export interface XYChartTheme {
   selection: SelectionStyles;
   nonSelection: NonSelectionStyles;
   noSelections: NoSelectionStyles;
+  scatter: ScatterStyles;
+  valueLabelStyles: ValueLabelStyles;
+  points: PointsStyles;
 }

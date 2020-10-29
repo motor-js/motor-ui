@@ -65,7 +65,6 @@ function BaseGlyphSeries<
     height,
     currentSelectionIds,
     handleClick,
-    setBarStyle,
     multiColor,
     measureInfo,
   } = useContext(DataContext);
@@ -86,14 +85,7 @@ function BaseGlyphSeries<
     ? (measureInfo[2].qMax + measureInfo[2].qMin) / 2
     : null;
 
-  const {
-    scatter,
-    valueLabelStyles,
-    selection,
-    nonSelection,
-    hover,
-    points,
-  } = theme;
+  const { scatter, valueLabelStyles, points } = theme;
 
   const glyphSize =
     type === "scatter" ? scatter.size || size : points.size || size;
@@ -101,8 +93,6 @@ function BaseGlyphSeries<
   const getGlyphSize = (d: any) => Number(d[3].qNum / avgSize) * glyphSize;
 
   const getElemNumber = useCallback(elAccessor, [elAccessor]);
-
-  const [hoverId, setHoverId] = useState(null);
 
   let styleProps: object = null;
 
@@ -195,8 +185,6 @@ function BaseGlyphSeries<
 
   const onMouseLeave = () => {
     hideTooltip();
-    // console.log("hoverid", hoverId);
-    setHoverId(null);
   };
 
   const glyphs = useMemo(
@@ -221,10 +209,7 @@ function BaseGlyphSeries<
             // size: typeof size === "function" ? size(datum) : size,
             size: sizeByValue ? getGlyphSize(datum) : glyphSize,
             datum,
-            // style: setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
             onClick: () => handleMouseClick(id),
-            onMouseEnter: () => setHoverId(Number(id)),
-            // onMouseMove: (e) => onMouseMoveDatum(e, datum, getColor(datum, i))
             onMouseMove: (e: MouseEvent) => onMouseMoveDatum(e, datum),
             onMouseLeave: onMouseLeave,
           };

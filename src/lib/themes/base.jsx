@@ -982,7 +982,7 @@ const base = {
   },
   bar: { stroke: "#fff", strokeWidth: 1 },
   stackedArea: { stroke: "#fff", strokeWidth: 1 },
-  points: { size: 50, strokeWidth: 2, cursor: "pointer" },
+  points: { size: 75, strokeWidth: 2, cursor: "pointer" },
   scatter: {
     size: 75,
     strokeWidth: null,
