@@ -164,31 +164,24 @@ function BaseGlyphSeries<
   // };
 
   const onMouseMoveDatum = (event: MouseEvent, datum: any) => {
-    const { x: svgMouseX, y: svgMouseY } = localPoint(event) || {};
-    // console.log(svgMouseX, svgMouseY);
+    const { x, y } = localPoint(event) || {};
 
     const nearestDatum: any = {};
     nearestDatum.key = dataKey;
     nearestDatum.datum = datum;
-    // nearestDatum.color = color;
-
-    console.log(nearestDatum);
+    nearestDatum.index = datum[0].qElemNumber;
+    nearestDatum.svgPoint = { x, y };
 
     if (datum && showTooltip) {
       showTooltip({
-        // tooltipData: { closestDatum, svgMouseX, svgMouseY, colorScale },
-        // key: dataKey,
-        // ...datum,
-        // nearestDatum,
         ...nearestDatum,
-        // svgPoint: [100, 100],
       });
     }
   };
 
   const onMouseLeave = () => {
     hideTooltip();
-    console.log("hoverid", hoverId);
+    // console.log("hoverid", hoverId);
     setHoverId(null);
   };
 
