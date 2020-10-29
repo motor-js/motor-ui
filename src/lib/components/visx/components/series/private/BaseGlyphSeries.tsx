@@ -28,10 +28,6 @@ export type BaseGlyphSeriesProps<
   horizontal?: boolean;
   /** The size of a `Glyph`, a `number` or a function which takes a `Datum` and returns a `number`. */
   size?: number;
-  // The style of a `Glyph`;
-  style?: object;
-  // The type of a `Glyph`;
-  type?: string;
   /** Function which handles rendering glyphs. */
   renderGlyphs: (
     glyphsProps: GlyphsProps<XScale, YScale, Datum>
@@ -54,8 +50,6 @@ function BaseGlyphSeries<
   renderGlyphs,
   elAccessor,
   index,
-  style,
-  type,
 }: BaseGlyphSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
   const {
@@ -85,37 +79,17 @@ function BaseGlyphSeries<
     ? (measureInfo[2].qMax + measureInfo[2].qMin) / 2
     : null;
 
-  const { scatter, valueLabelStyles, points } = theme;
+  const { scatter } = theme;
 
-  const glyphSize =
-    type === "scatter" ? scatter.size || size : points.size || size;
+  const glyphSize = scatter.size || size;
 
   const getGlyphSize = (d: any) => Number(d[3].qNum / avgSize) * glyphSize;
 
   const getElemNumber = useCallback(elAccessor, [elAccessor]);
 
-  let styleProps: object = null;
-
-  switch (type) {
-    case "text":
-      styleProps = {
-        ...valueLabelStyles,
-        fontSize: valueLabelStyles.fontSize[size],
-        ...style,
-      };
-      break;
-    case "scatter":
-      styleProps = {
-        ...scatter,
-        ...style,
-      };
-      break;
-    default:
-      styleProps = {
-        ...points,
-        ...style,
-      };
-  }
+  const styleProps = {
+    ...scatter,
+  };
 
   const handleMouseMove = useCallback(
     (params?: HandlerParams) => {
