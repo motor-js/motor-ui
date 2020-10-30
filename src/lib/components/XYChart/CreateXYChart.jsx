@@ -308,18 +308,21 @@ export default function CreateXYChart({
   );
 
   // Gets the index of teh dataKey for use in the yAccessor
-  const valueIndex = (key) =>
-    singleDimension
-      ? measureInfo
-          .reduce(
-            (combined, entry) =>
-              entry ? combined.concat(entry.qFallbackTitle) : combined,
-            []
-          )
-          .indexOf(key) + dimensionInfo.length
-      : dataKeys.indexOf(key) + 1;
+  const valueIndex = useCallback(
+    (key) =>
+      singleDimension
+        ? measureInfo
+            .reduce(
+              (combined, entry) =>
+                entry ? combined.concat(entry.qFallbackTitle) : combined,
+              []
+            )
+            .indexOf(key) + dimensionInfo.length
+        : dataKeys.indexOf(key) + 1,
+    [singleDimension, measureInfo, dataKeys]
+  );
 
-  const shape = useMemo(() => {
+  const shape = useCallback(() => {
     let legendShapes = singleDimension
       ? measureInfo.map((measure, index) => measureInfo[index].qLegendShape)
       : [dimensionInfo[1].qLegendShape];
