@@ -390,50 +390,32 @@ export default function CreateXYChart({
       break;
   }
 
-  const renderGlyph = useCallback(
-    ({
-      size,
-      color,
-      x,
-      y,
-      id,
-      styleProps,
-      onClick,
-      onMouseEnter,
-      onMouseMove,
-      onMouseLeave,
-    }) => {
-      if (GlyphComponent) {
-        return (
-          <GlyphComponent
-            fill={color}
-            {...styleProps}
-            // r={size}
-            size={size}
-            top={y}
-            left={x}
-            id={id}
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseMove={onMouseMove}
-            onMouseLeave={onMouseLeave}
-          />
-        );
-      }
-      return (
-        <text y={y} x={x} id={id} {...styleProps}>
-          🍍
-        </text>
-      );
-    },
-    [showPoints]
-  );
-
-  const renderLabel = ({ x, y, id, styleProps }) => {
+  const renderGlyph = ({
+    size,
+    color,
+    x,
+    y,
+    id,
+    styleProps,
+    onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+  }) => {
     return (
-      <text y={y} x={x} id={id} {...styleProps}>
-        {formatValue(y)}
-      </text>
+      <GlyphCircle
+        fill={color}
+        {...styleProps}
+        // r={size}
+        size={size}
+        top={y}
+        left={x}
+        id={id}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+      />
     );
   };
 
@@ -671,9 +653,7 @@ export default function CreateXYChart({
             />
           </>
         )}
-        {((chartType === "scatter" && singleDimension && !singleMeasure) ||
-          chartType === "line" ||
-          chartType === "area") && (
+        {chartType === "scatter" && (
           <>
             {singleDimension
               ? measureInfo.map((measure, index) => (
@@ -685,7 +665,6 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    type={chartType}
                     renderGlyph={renderGlyph}
                   />
                 ))
@@ -698,43 +677,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
-                    type={chartType}
                     renderGlyph={renderGlyph}
-                  />
-                ))}
-          </>
-        )}
-        {valueIfUndefined(showLabels, chart.showLabels) && (
-          <>
-            {singleDimension
-              ? measureInfo.map((measure, index) => (
-                  <GlyphSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    index={index + dimensionInfo.length}
-                    data={data}
-                    size={size}
-                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
-                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
-                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    renderGlyph={renderLabel}
-                    style={valueLabelStyle}
-                    type="text"
-                  />
-                ))
-              : dataKeys.map((measure, index) => (
-                  <GlyphSeries
-                    key={measure}
-                    dataKey={measure}
-                    index={index + 1}
-                    data={data}
-                    size={size}
-                    xAccessor={accessors.x[measure]}
-                    yAccessor={accessors.y[measure]}
-                    elAccessor={accessors.el[measure]}
-                    renderGlyph={renderLabel}
-                    style={valueLabelStyle}
-                    type="text"
                   />
                 ))}
           </>
