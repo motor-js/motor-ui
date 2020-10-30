@@ -720,41 +720,45 @@ export default function CreateXYChart({
                 ))}
           </>
         )}
-        {valueIfUndefined(showLabels, chart.showLabels) && (
-          <>
-            {singleDimension
-              ? measureInfo.map((measure, index) => (
-                  <GlyphSeries
-                    key={measureInfo[index].qFallbackTitle}
-                    dataKey={measureInfo[index].qFallbackTitle}
-                    index={index + dimensionInfo.length}
-                    data={data}
-                    size={size}
-                    xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
-                    yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
-                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
-                    renderGlyph={renderLabel}
-                    style={valueLabelStyle}
-                    type="text"
-                  />
-                ))
-              : dataKeys.map((measure, index) => (
-                  <GlyphSeries
-                    key={measure}
-                    dataKey={measure}
-                    index={index + 1}
-                    data={data}
-                    size={size}
-                    xAccessor={accessors.x[measure]}
-                    yAccessor={accessors.y[measure]}
-                    elAccessor={accessors.el[measure]}
-                    renderGlyph={renderLabel}
-                    style={valueLabelStyle}
-                    type="text"
-                  />
-                ))}
-          </>
-        )}
+        {valueIfUndefined(showLabels, chart.showLabels) &&
+          chartType !== "barstack" &&
+          chartType !== "bargroup" && (
+            <>
+              {singleDimension
+                ? measureInfo.map((measure, index) => (
+                    <GlyphSeries
+                      key={measureInfo[index].qFallbackTitle}
+                      dataKey={measureInfo[index].qFallbackTitle}
+                      index={index + dimensionInfo.length}
+                      data={data}
+                      size={size}
+                      xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
+                      yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
+                      elAccessor={
+                        accessors.el[measureInfo[index].qFallbackTitle]
+                      }
+                      renderGlyph={renderLabel}
+                      style={valueLabelStyle}
+                      type="text"
+                    />
+                  ))
+                : dataKeys.map((measure, index) => (
+                    <GlyphSeries
+                      key={measure}
+                      dataKey={measure}
+                      index={index + 1}
+                      data={data}
+                      size={size}
+                      xAccessor={accessors.x[measure]}
+                      yAccessor={accessors.y[measure]}
+                      elAccessor={accessors.el[measure]}
+                      renderGlyph={renderLabel}
+                      style={valueLabelStyle}
+                      type="text"
+                    />
+                  ))}
+            </>
+          )}
         {/** X axis */}
         <AxisComponent
           key={`time-axis-${animationTrajectory}-${renderHorizontally}`}
