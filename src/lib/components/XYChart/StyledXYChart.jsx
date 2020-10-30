@@ -213,13 +213,16 @@ function StyledXYChart(props) {
       }
 
       dataKeys =
-        singleDimension &&
-        singleMeasure &&
-        type === "bar" &&
-        valueIfUndefined(multiColor, chart.multiColor)
+        (singleDimension &&
+          singleMeasure &&
+          type === "bar" &&
+          valueIfUndefined(multiColor, chart.multiColor)) ||
+        (valueIfUndefined(multiColor, chart.multiColor) && type === "scatter")
           ? qData.qMatrix.map((d) => d[0].qText)
           : !singleDimension
           ? keys
+          : type === "scatter"
+          ? [qLayout.qHyperCube.qDimensionInfo[0].qFallbackTitle]
           : qLayout.qHyperCube.qMeasureInfo.map((m) => m.qFallbackTitle);
 
       // dimensionTicks = Math.min(
@@ -296,7 +299,8 @@ function StyledXYChart(props) {
     backgroundStyle: backgroundStyle || chart.backgroundStyles,
     //         fillStyle={fillStyle || chart.fillStyles}
     multiColor:
-      valueIfUndefined(multiColor, chart.multiColor) && type == "bar"
+      valueIfUndefined(multiColor, chart.multiColor) &&
+      (type == "bar" || type == "scatter")
         ? dataKeys
         : null,
     selectionMethod: valueIfUndefined(selectionMethod, chart.selectionMethod),

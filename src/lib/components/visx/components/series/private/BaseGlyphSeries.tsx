@@ -67,6 +67,7 @@ function BaseGlyphSeries<
     handleClick,
     multiColor,
     measureInfo,
+    dataKeys,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
 
@@ -205,6 +206,8 @@ function BaseGlyphSeries<
             styleProps,
             color: multiColor
               ? colorScale?.(multiColor[i])
+              : dataKeys.length === 1
+              ? colorScale(colorScale.domain()[0])
               : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222", // @TODO allow prop overriding
             // size: typeof size === "function" ? size(datum) : size,
             size: sizeByValue ? getGlyphSize(datum) : glyphSize,
