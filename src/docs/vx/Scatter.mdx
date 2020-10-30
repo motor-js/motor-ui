@@ -28,6 +28,7 @@ import { config } from '../config/config.js'
     <Scatter
      width={750} 
      height={500}  
+     multiColor={false}
     colorTheme="bio"
     backgroundPattern="Lines"
   //   backgroundStyle={{ style: 'LightGreen', size: 100}}
@@ -43,6 +44,37 @@ import { config } from '../config/config.js'
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
      { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
-    ]}/>
+    ]}  />  <Scatter
+ // multiColor={false}
+    width={750}
+    height={500}
+    colorTheme="bio"
+    backgroundPattern="Lines"
+    //   backgroundStyle={{ style: 'LightGreen', size: 100}}
+    // formatTooltipDate="%B %Y"
+    // parseDateFormat="%d/%m/%Y"
+    // showClosestItem={false}
+    // useSingleColor
+    showLabels={false}
+    selectionMethod="click"
+    showPoints={true}
+    // showPoints='star'
+    cols={[
+      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+      { qField: '=Sum([Hours])', qLabel: 'Hours', qChartType: 'bar' },
+      {
+        qField: '=Sum([Forcast Day])',
+        qLabel: 'Forcast Day',
+        qChartType: 'line',
+        qShowPoints: { symbol: 'circle', size: 100 },
+      },
+            {
+        qField: '=Sum([Hours])',
+        qLabel: 'Forcst Day',
+        qChartType: 'line',
+        qShowPoints: { symbol: 'circle', size: 100 },
+      },
+    ]}
+  />
   </Motor>
 </Playground>
