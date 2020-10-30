@@ -438,6 +438,7 @@ export default function CreateXYChart({
       multiColor={multiColor}
       legendLabelStyle={legendLabelStyle}
       measureInfo={measureInfo}
+      dataKeys={dataKeys}
     >
       {title && (
         <Title
@@ -450,6 +451,8 @@ export default function CreateXYChart({
       {showLegend && legendTopBottom === "top" && (
         <Legend
           shape={shape}
+          // multiColor={multiColor}
+          dataKeys={dataKeys}
           size={size}
           legendLeftRight={legendLeftRight}
           legendDirection={legendDirection}
@@ -789,7 +792,7 @@ export default function CreateXYChart({
                         style={{
                           color: singleColor
                             ? selectColor(theme?.tooltip?.headingColor, theme)
-                            : dataKeys
+                            : multiColor
                             ? colorScale?.(
                                 accessors.date(tooltipData?.nearestDatum?.datum)
                               )

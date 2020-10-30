@@ -6,10 +6,13 @@ import DataContext from "../../context/DataContext";
 import { selectColor } from "../../../../utils";
 import { array } from "prop-types";
 
+import createOrdinalScale from "@visx/scale/lib/scales/ordinal";
+
 export default function Legend({
   shape: Shape,
   legendLeftRight,
   legendDirection,
+  dataKeys,
   style,
   size = "medium",
   ...props
@@ -18,10 +21,19 @@ export default function Legend({
     theme,
     theme: { legendStyles: legendStyle },
     margin,
-    colorScale,
-    dataRegistry,
+    // colorScale,
+    // dataRegistry,
     legendLabelStyle,
   } = useContext(DataContext);
+
+  const colorScale = useMemo(
+    () =>
+      createOrdinalScale({
+        domain: dataKeys,
+        range: theme.colors,
+      }),
+    [dataKeys, theme.colors]
+  );
 
   const direction = legendDirection
     ? legendDirection
@@ -122,7 +134,7 @@ export default function Legend({
           );
       }
     },
-    [dataRegistry, Shape]
+    [Shape]
   );
 
   return props.scale || colorScale ? (

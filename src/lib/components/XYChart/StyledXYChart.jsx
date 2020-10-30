@@ -213,11 +213,14 @@ function StyledXYChart(props) {
       }
 
       dataKeys =
-        singleDimension && singleMeasure && type === "bar"
+        singleDimension &&
+        singleMeasure &&
+        type === "bar" &&
+        valueIfUndefined(multiColor, chart.multiColor)
           ? qData.qMatrix.map((d) => d[0].qText)
           : !singleDimension
           ? keys
-          : null;
+          : qLayout.qHyperCube.qMeasureInfo.map((m) => m.qFallbackTitle);
 
       // dimensionTicks = Math.min(
       //   numDimensionTicks ||
