@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { DOMElement, useCallback, useContext } from "react";
 import { useTooltipInPortal, defaultStyles } from "@visx/tooltip";
 import { TooltipProps as BaseTooltipProps } from "@visx/tooltip/lib/tooltips/Tooltip";
 import { PickD3Scale } from "@visx/scale";
@@ -101,6 +101,7 @@ export default function Tooltip<Datum extends object>({
     xScale,
     yScale,
     dataRegistry,
+    valueIndex,
   } = useContext(DataContext) || {};
   const tooltipContext = useContext(TooltipContext) as TooltipContextType<
     Datum
@@ -115,7 +116,7 @@ export default function Tooltip<Datum extends object>({
   // To correctly position itself in a Portal, the tooltip must know its container bounds
   // this is done by rendering an invisible node whose ref can be used to find its parentElement
   const setContainerRef = useCallback(
-    (ownRef: HTMLElement | SVGElement | null) => {
+    (ownRef: any | SVGElement | null) => {
       containerRef(ownRef?.parentElement ?? null);
     },
     [containerRef]
@@ -138,13 +139,16 @@ export default function Tooltip<Datum extends object>({
       const entry = dataRegistry?.get(key);
       const xAccessor = entry?.xAccessor;
       const yAccessor = entry?.yAccessor;
+
       const left =
         xScale && xAccessor
-          ? Number(xScale(xAccessor(datum))) + xScaleBandwidth / 2 ?? 0
+          ? Number(xScale(xAccessor(datum, valueIndex(key)))) +
+              xScaleBandwidth / 2 ?? 0
           : undefined;
       const top =
         yScale && yAccessor
-          ? Number(yScale(yAccessor(datum))) + yScaleBandwidth / 2 ?? 0
+          ? Number(yScale(yAccessor(datum, valueIndex(key)))) +
+              yScaleBandwidth / 2 ?? 0
           : undefined;
       return { left, top };
     },

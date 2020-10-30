@@ -307,6 +307,7 @@ export default function CreateXYChart({
     [renderHorizontally]
   );
 
+  // Gets the index of teh dataKey for use in the yAccessor
   const valueIndex = (key) =>
     singleDimension
       ? measureInfo
@@ -457,6 +458,7 @@ export default function CreateXYChart({
       legendLabelStyle={legendLabelStyle}
       measureInfo={measureInfo}
       dataKeys={dataKeys}
+      valueIndex={valueIndex}
     >
       {title && (
         <Title

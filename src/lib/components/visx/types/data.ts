@@ -62,6 +62,7 @@ export interface DataContextType<
   singleMeasure?: boolean;
   dimensionInfo: Array<any>;
   measureInfo: any;
+  valueIndex: Function;
   dataKeys: Array<string>;
   margin: Margin;
   dataRegistry: Omit<

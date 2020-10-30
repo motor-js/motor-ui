@@ -29,6 +29,7 @@ export type DataProviderProps<
   measureInfo?: object;
   dataKeys?: Array<string>;
   includeZero?: boolean;
+  valueIndex: Function;
   children: React.ReactNode;
 };
 
@@ -51,6 +52,7 @@ export default function DataProvider<
   legendLabelStyle,
   measureInfo,
   dataKeys,
+  valueIndex,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -135,6 +137,7 @@ export default function DataProvider<
         legendLabelStyle,
         measureInfo,
         dataKeys,
+        valueIndex,
         setDimensions,
         setBarStyle,
       }}
