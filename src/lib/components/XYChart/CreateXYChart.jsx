@@ -120,18 +120,28 @@ export default function CreateXYChart({
   snapTooltipToDatumY,
   showHorizontalCrosshair,
   showVerticalCrosshair,
-  // fillStyle,
-  // curveShape,
-  // crossHairStyles,
-  // enableBrush,
-  // showBrush,
+  // debounce,                    // Tooltip
+  // detectBounds,                // Tooltip
+  // horizontalCrosshairStyle,    // Tooltip
+  // glyphStyle,                  // Tooltip
+  // resizeObserverPolyfill,      // Tooltip
+  // scroll = true,               // Tooltip
+  // showDatumGlyph = false,      // Tooltip
+  // showSeriesGlyphs = false,    // Tooltip
+  // verticalCrosshairStyle,      // Tooltip
   // formatTooltipDate,
-  // strokeWidth,
-
   // shiftTooltipTop,
   // shiftTooltipLeft,
   // valueOnly,
   // valueWithText,
+
+  // fillStyle,                   // Area
+  // curveShape,                  // Area and Line
+  // crossHairStyles,
+  // enableBrush,
+  // showBrush,
+  // strokeWidth,
+
   // xAxisStyles,
   // yAxisStyles,
   // xTickStyles,
@@ -407,7 +417,7 @@ export default function CreateXYChart({
       onMouseMove,
       onMouseLeave,
     }) => {
-      if (GlyphComponent) {
+      if (GlyphComponent && showPoints) {
         return (
           <GlyphComponent
             fill={color}
@@ -424,6 +434,7 @@ export default function CreateXYChart({
           />
         );
       }
+      if (!showPoints) return;
       return (
         <text y={y} x={x} id={id} {...styleProps}>
           🍍
