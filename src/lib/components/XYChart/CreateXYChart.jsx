@@ -11,6 +11,27 @@ import {
 } from "@visx/glyph";
 
 import {
+  curveBasis,
+  curveStep,
+  curveBasisClosed,
+  curveBasisOpen,
+  curveStepAfter,
+  curveStepBefore,
+  curveBundle,
+  curveLinear,
+  curveLinearClosed,
+  curveMonotoneX,
+  curveMonotoneY,
+  curveCardinal,
+  curveCardinalClosed,
+  curveCardinalOpen,
+  curveCatmullRom,
+  curveCatmullRomClosed,
+  curveCatmullRomOpen,
+  curveNatural,
+} from "@visx/curve";
+
+import {
   // AnimatedAreaSeries,
   Axis,
   AnimatedAxis,
@@ -136,7 +157,7 @@ export default function CreateXYChart({
   // valueWithText,
 
   // fillStyle,                   // Area
-  // curveShape,                  // Area and Line
+  curveShape, // Area and Line
   // crossHairStyles,
   // enableBrush,
   // showBrush,
@@ -169,6 +190,49 @@ export default function CreateXYChart({
     showAxisLabels,
     chart.showAxisLabels
   );
+
+  function getCurve(curve) {
+    switch (curve) {
+      case "Basis":
+        return (curve = curveBasis);
+      case "BasisClosed":
+        return (curve = curveBasisClosed);
+      case "BasisOpen":
+        return (curve = curveBasisOpen);
+      case "Step":
+        return (curve = curveStep);
+      case "StepAfter":
+        return (curve = curveStepAfter);
+      case "StepBefore":
+        return (curve = curveStepBefore);
+      case "Bundle":
+        return (curve = curveBundle);
+      case "Linear":
+        return (curve = curveLinear);
+      case "LinearClosed":
+        return (curve = curveLinearClosed);
+      case "MonotoneX":
+        return (curve = curveMonotoneX);
+      case "MonotoneY":
+        return (curve = curveMonotoneY);
+      case "Cardinal":
+        return (curve = curveCardinal);
+      case "CardinalClosed":
+        return (curve = curveCardinalClosed);
+      case "CardinalOpen":
+        return (curve = curveCardinalOpen);
+      case "CatmullRom":
+        return (curve = curveCatmullRom);
+      case "CatmullRomClosed":
+        return (curve = curveCatmullRomClosed);
+      case "CatmullRomOpen":
+        return (curve = curveCatmullRomOpen);
+      case "Natural":
+        return (curve = curveNatural);
+      default:
+        return (curve = curveLinear);
+    }
+  }
 
   // chartShowAxisLabels === true ||  // AG
   // chartShowAxisLabels === "both" ||
@@ -627,6 +691,9 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    curve={getCurve(
+                      accessors.el[measureInfo[index].qCurve] || curveShape
+                    )}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -638,6 +705,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
+                    curve={getCurve(accessors.el[measure].qCurve || curveShape)}
                   />
                 ))}
           </>
@@ -654,6 +722,9 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    curve={getCurve(
+                      accessors.el[measureInfo[index].qCurve] || curveShape
+                    )}
                     opacity={0.3}
                   />
                 ))
@@ -666,6 +737,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
+                    curve={getCurve(accessors.el[measure].qCurve || curveShape)}
                     opacity={0.3}
                   />
                 ))}

@@ -1,6 +1,26 @@
 import { AxisScale } from "@visx/axis";
 import { ScaleInput } from "@visx/scale";
 import { Series, SeriesPoint } from "d3-shape";
+import {
+  curveBasis,
+  curveStep,
+  curveBasisClosed,
+  curveBasisOpen,
+  curveStepAfter,
+  curveStepBefore,
+  curveBundle,
+  curveLinear,
+  curveLinearClosed,
+  curveMonotoneX,
+  curveMonotoneY,
+  curveCardinal,
+  curveCardinalClosed,
+  curveCardinalOpen,
+  curveCatmullRom,
+  curveCatmullRomClosed,
+  curveCatmullRomOpen,
+  curveNatural,
+} from "@visx/curve";
 
 export type SeriesProps<
   XScale extends AxisScale,
@@ -11,6 +31,26 @@ export type SeriesProps<
   dataKey: string;
   /** Data for the Series. */
   data: Datum[];
+  /** Curve for the Series. */
+  curve:
+    | typeof curveBasis
+    | typeof curveLinear
+    | typeof curveCardinal
+    | typeof curveStep
+    | typeof curveBasisClosed
+    | typeof curveBasisOpen
+    | typeof curveStepAfter
+    | typeof curveStepBefore
+    | typeof curveBundle
+    | typeof curveLinearClosed
+    | typeof curveMonotoneX
+    | typeof curveMonotoneY
+    | typeof curveCardinalClosed
+    | typeof curveCardinalOpen
+    | typeof curveCatmullRom
+    | typeof curveCatmullRomClosed
+    | typeof curveCatmullRomOpen
+    | typeof curveNatural;
   /** Number for the Series. */
   index: Number;
   /** Given a Datum, returns the x-scale value. */

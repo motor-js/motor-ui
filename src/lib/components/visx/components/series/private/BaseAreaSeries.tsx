@@ -42,6 +42,7 @@ function BaseAreaSeries<
   YScale extends AxisScale,
   Datum extends object
 >({
+  curve,
   data,
   dataKey,
   xAccessor,
@@ -214,6 +215,7 @@ function BaseAreaSeries<
             y={getScaledY}
             stroke={color}
             strokeWidth={2}
+            curve={curve}
             {...lineProps}
           >
             {({ path }) => (
