@@ -53,6 +53,7 @@ export default function DataProvider<
   measureInfo,
   dataKeys,
   valueIndex,
+  chartType,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
@@ -140,6 +141,7 @@ export default function DataProvider<
         valueIndex,
         setDimensions,
         setBarStyle,
+        chartType,
       }}
     >
       {children}

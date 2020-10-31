@@ -54,9 +54,9 @@ import {
   XYChart,
 } from "../visx";
 
+import Brush from "../visx/components/brush/Brush";
+
 import Legend from "../visx/components/legend/Legend";
-// import { Brush } from "@visx/brush";
-// import Brush from "../visx/selection/Brush";
 
 import {
   colorByExpression,
@@ -159,8 +159,8 @@ export default function CreateXYChart({
   // fillStyle,                   // Area
   curveShape, // Area and Line
   // crossHairStyles,
-  // enableBrush,
-  // showBrush,
+  enableBrush,
+  showBrush,
   // strokeWidth,
 
   // xAxisStyles,
@@ -537,6 +537,7 @@ export default function CreateXYChart({
       measureInfo={measureInfo}
       dataKeys={dataKeys}
       valueIndex={valueIndex}
+      chartType={chartType}
     >
       {title && (
         <Title
@@ -559,7 +560,7 @@ export default function CreateXYChart({
       <XYChart
         height={Math.min(400, height)}
         captureEvents={selectionMethod === "none"}
-        // onMouseDown={selectionMethod === "brush" ? enableBrush : null}
+        onMouseDown={selectionMethod === "brush" ? enableBrush : null}
       >
         {/* <XYChart height={height}> */}
         <CustomChartBackground
@@ -967,12 +968,8 @@ export default function CreateXYChart({
             )}
           />
         )}
-        {/* {showBrush && (
+        {showBrush && (
           <Brush
-            chartType={chartType}
-            measureInfo={measureInfo}
-            dataKeys={dataKeys}
-            singleDimension={singleDimension}
             xAxisOrientation={xAxisOrientation}
             yAxisOrientation={yAxisOrientation}
             selectedBoxStyle={selectedBoxStyle}
@@ -980,7 +977,7 @@ export default function CreateXYChart({
             brushRegion={"chart"}
             handleSize={8}
           />
-        )} */}
+        )}
       </XYChart>
       {showLegend && legendTopBottom === "bottom" && (
         <Legend
