@@ -203,7 +203,7 @@ export default function Tooltip<Datum extends object>({
         fill:
           (nearestDatumKey && colorScale?.(nearestDatumKey)) ??
           null ??
-          theme?.gridStyles?.stroke ??
+          theme?.gridStyles?.rows.stroke ??
           theme?.htmlLabelStyles?.color ??
           "#222",
         radius,
@@ -238,7 +238,7 @@ export default function Tooltip<Datum extends object>({
                   y2={innerHeight}
                   strokeWidth={1.5}
                   stroke={
-                    theme?.gridStyles?.stroke ??
+                    theme?.gridStyles?.columns.stroke ??
                     theme?.htmlLabelStyles?.color ??
                     "#222"
                   }
@@ -265,7 +265,7 @@ export default function Tooltip<Datum extends object>({
                   y2={0}
                   strokeWidth={1.5}
                   stroke={
-                    theme?.gridStyles?.stroke ??
+                    theme?.gridStyles?.rows.stroke ??
                     theme?.htmlLabelStyles?.color ??
                     "#222"
                   }
