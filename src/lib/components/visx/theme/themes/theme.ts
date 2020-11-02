@@ -15,17 +15,35 @@ export const chartTheme = (theme, colorTheme) => {
       ? chart.backgroundColor[colorTheme]
       : theme.backgroundColor;
 
+  const tickLabelStyles =
+    chart.tickLabelStyles !== undefined
+      ? chart.tickLabelStyles[colorTheme]
+      : theme.tickLabelStyles;
+  const labelStyles =
+    chart.labelStyles !== undefined
+      ? chart.labelStyles[colorTheme]
+      : theme.labelStyles;
+
+  console.log(grayColors[0], grayColors[9]);
+
   return buildChartTheme({
-    backgroundColor,
+    backgroundColor:
+      chart.backgroundColor !== undefined
+        ? chart.backgroundColor[colorTheme]
+        : theme.backgroundColor,
     colors: colorPalette,
     tickLength: 4, // OS
     tickLabelStyles: {
-      // OS
-      fill: grayColors[2],
+      fill:
+        chart.tickLabelStyles !== undefined
+          ? chart.tickLabelStyles[colorTheme]
+          : theme.tickLabelStyles,
     },
     labelStyles: {
-      // OS
-      fill: grayColors[0],
+      fill:
+        chart.labelStyles !== undefined
+          ? chart.labelStyles[colorTheme]
+          : theme.labelStyles,
     },
     // gridColor: "#ced4da", // OS
     // gridColorDark: "#f1f3f5", // OS
