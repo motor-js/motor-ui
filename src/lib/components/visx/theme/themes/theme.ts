@@ -1,4 +1,4 @@
-import { allColors, grayColors } from "../colors";
+// import { allColors, grayColors } from "../colors";
 import buildChartTheme from "../buildChartTheme";
 
 import { createColorArray } from "../../../../utils";
@@ -21,15 +21,16 @@ export const chartTheme = (theme, colorTheme) => {
     tickLength: 4, // OS
     tickLabelStyles: {
       // OS
-      fill: grayColors[2],
+      fill: "#e9ecef",
     },
     labelStyles: {
       // OS
-      fill: grayColors[0],
+      fill: "#f8f9fa",
     },
-    gridColor: grayColors[4], // OS
-    gridColorDark: grayColors[1], // OS
+    // gridColor: "#ced4da", // OS
+    // gridColorDark: "#f1f3f5", // OS
     chart: theme.global.chart, // OS
+    gridStyles: theme.global.chart.gridStyles, // OS
     // colorTheme: theme.global.colorTheme, // OS
     scatter: theme.scatter, // OS
     bar: theme.bar, // OS

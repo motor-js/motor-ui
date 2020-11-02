@@ -46,7 +46,7 @@ export default function BaseGrid({
       {rows && rowsScale && innerWidth != null && (
         <GridRowsComponent
           left={margin?.left}
-          lineStyle={gridLineStyles}
+          lineStyle={theme?.gridStyles.rows}
           width={innerWidth}
           scale={rowsScale}
           numTicks={numGridRows}
@@ -56,7 +56,7 @@ export default function BaseGrid({
       {columns && columnsScale && innerHeight != null && (
         <GridColumnsComponent
           top={margin?.top}
-          lineStyle={gridLineStyles}
+          lineStyle={theme?.gridStyles.columns}
           height={innerHeight}
           scale={columnsScale}
           numTicks={numGridColumns}

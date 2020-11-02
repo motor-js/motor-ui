@@ -46,8 +46,6 @@ export type ThemeConfig = {
 
 /** Provides a simplified API to build a full XYChartTheme. */
 export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
-  console.log(config);
-
   const defaultLabelStyles = {
     fontFamily:
       "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
@@ -80,6 +78,8 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
     ...config.htmlLabelStyles,
   };
 
+  console.log("config", config);
+
   return {
     ...config.chart,
     backgroundColor: config.backgroundColor,
@@ -88,8 +88,6 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
       ...baseHtmlLabel,
     },
     gridStyles: {
-      stroke: config.gridColor,
-      strokeWidth: 1,
       ...config.gridStyles,
     },
     axisStyles: {
