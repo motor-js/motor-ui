@@ -30,6 +30,7 @@ export type DataProviderProps<
   dataKeys?: Array<string>;
   includeZero?: boolean;
   valueIndex: Function;
+  chartType: string;
   children: React.ReactNode;
 };
 

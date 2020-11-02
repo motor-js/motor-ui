@@ -18,7 +18,7 @@ type Props = {
   height?: number;
   margin?: Margin;
   captureEvents?: boolean;
-  onMouseDown?: MouseEvent;
+  onMouseDown?: any;
   children: React.ReactNode;
 };
 

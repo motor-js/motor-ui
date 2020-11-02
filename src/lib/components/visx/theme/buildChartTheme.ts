@@ -1,6 +1,11 @@
-import { CSSProperties } from 'react';
-import { SVGTextProps, HTMLTextStyles, LineStyles, XYChartTheme } from '../types/theme';
-import { textColor } from './colors';
+import { CSSProperties } from "react";
+import {
+  SVGTextProps,
+  HTMLTextStyles,
+  LineStyles,
+  XYChartTheme,
+} from "../types/theme";
+import { textColor } from "./colors";
 
 export type ThemeConfig = {
   backgroundColor: string;
@@ -27,11 +32,12 @@ export type ThemeConfig = {
 };
 
 const defaultLabelStyles = {
-  fontFamily: '-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif',
+  fontFamily:
+    "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
   fontWeight: 700,
   fontSize: 12,
-  textAnchor: 'middle',
-  pointerEvents: 'none',
+  textAnchor: "middle",
+  pointerEvents: "none",
   letterSpacing: 0.4,
 } as const;
 
@@ -40,7 +46,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
   const baseSvgLabel: SVGTextProps = {
     ...defaultLabelStyles,
     fill: textColor,
-    stroke: 'none',
+    stroke: "none",
     ...config.labelStyles,
   } as const;
 
@@ -49,7 +55,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
     fontWeight: 200,
     fontSize: 11,
     fill: textColor,
-    stroke: 'none',
+    stroke: "none",
     ...config.tickLabelStyles,
   } as const;
 
@@ -75,7 +81,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         top: {
           axisLabel: {
             ...baseSvgLabel,
-            dy: '-0.25em', // needs to include font-size
+            dy: "-0.25em", // needs to include font-size
           },
           axisLine: {
             stroke: config.gridColorDark,
@@ -84,7 +90,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           },
           tickLabel: {
             ...baseTickLabel,
-            dy: '-0.25em', // needs to include font-size
+            dy: "-0.25em", // needs to include font-size
           },
           tickLength: config.tickLength,
           tickLine: {
@@ -96,7 +102,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         bottom: {
           axisLabel: {
             ...baseSvgLabel,
-            dy: '-0.25em',
+            dy: "-0.25em",
           },
           axisLine: {
             stroke: config.gridColorDark,
@@ -105,7 +111,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           },
           tickLabel: {
             ...baseTickLabel,
-            dy: '0.125em',
+            dy: "0.125em",
           },
           tickLength: config.tickLength,
           tickLine: {
@@ -119,7 +125,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         left: {
           axisLabel: {
             ...baseSvgLabel,
-            dx: '-1.25em',
+            dx: "-1.25em",
           },
           axisLine: {
             stroke: config.gridColor,
@@ -128,9 +134,9 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           },
           tickLabel: {
             ...baseTickLabel,
-            textAnchor: 'end',
-            dx: '-0.25em',
-            dy: '0.25em',
+            textAnchor: "end",
+            dx: "-0.25em",
+            dy: "0.25em",
           },
           tickLength: config.tickLength,
           tickLine: {
@@ -142,7 +148,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         right: {
           axisLabel: {
             ...baseSvgLabel,
-            dx: '1.25em',
+            dx: "1.25em",
           },
           axisLine: {
             stroke: config.gridColor,
@@ -151,9 +157,9 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           },
           tickLabel: {
             ...baseTickLabel,
-            textAnchor: 'start',
-            dx: '0.25em',
-            dy: '0.25em',
+            textAnchor: "start",
+            dx: "0.25em",
+            dy: "0.25em",
           },
           tickLength: config.tickLength,
           tickLine: {
@@ -164,5 +170,12 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         },
       },
     },
+    hover: {},
+    selection: {},
+    nonSelection: {},
+    noSelections: {},
+    scatter: {},
+    valueLabelStyles: {},
+    points: {},
   };
 }

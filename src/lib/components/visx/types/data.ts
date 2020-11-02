@@ -65,6 +65,7 @@ export interface DataContextType<
   valueIndex: Function;
   dataKeys: Array<string>;
   margin: Margin;
+  chartType: string;
   dataRegistry: Omit<
     DataRegistry<XScale, YScale, Datum>,
     "registry" | "registryKeys"
