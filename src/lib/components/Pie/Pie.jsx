@@ -150,6 +150,8 @@ Pie.propTypes = {
       "yellow",
       "orange",
       "base",
+      "light",
+      "dark",
     ]),
     PropTypes.array,
   ]),

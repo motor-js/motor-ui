@@ -57,7 +57,7 @@ function StyledXYChart(props) {
     border,
     borderRadius,
     backgroundColor,
-    colorTheme,
+    // colorTheme,
     showLegend,
     selectionMethod,
     sortDirection,
@@ -85,12 +85,14 @@ function StyledXYChart(props) {
     ...rest
   } = props;
 
-  const {
-    global: { colorTheme: globalColorTheme, chart },
-  } = theme;
+  // const {
+  //   global: { colorTheme: globalColorTheme, chart },
+  // } = theme;
 
   // // if the prop is undefined, use the base theme
-  const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
+  // const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
+
+  // return <h1>test</h1>;
 
   // const refMargin = "10px";
 
@@ -109,9 +111,9 @@ function StyledXYChart(props) {
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
-    qSuppressZero: suppressZero || chart.suppressZero,
-    qSuppressMissing: suppressMissing || chart.suppressMissing,
-    qOtherTotalSpec: otherTotalSpec || chart.otherTotalSpec,
+    qSuppressZero: suppressZero || theme.suppressZero,
+    qSuppressMissing: suppressMissing || theme.suppressMissing,
+    qOtherTotalSpec: otherTotalSpec || theme.otherTotalSpec,
   });
 
   const cancelCallback = () => {
@@ -216,8 +218,8 @@ function StyledXYChart(props) {
         (singleDimension &&
           singleMeasure &&
           type === "bar" &&
-          valueIfUndefined(multiColor, chart.multiColor)) ||
-        (valueIfUndefined(multiColor, chart.multiColor) && type === "scatter")
+          valueIfUndefined(multiColor, theme.multiColor)) ||
+        (valueIfUndefined(multiColor, theme.multiColor) && type === "scatter")
           ? qData.qMatrix.map((d) => d[0].qText)
           : !singleDimension
           ? keys
@@ -265,10 +267,10 @@ function StyledXYChart(props) {
     //         height={
     //           gridArea
     //             ? ref.current.offsetHeight -
-    //               parseInt(margin || chart.margin, 10)
+    //               parseInt(margin || theme.margin, 10)
     //             : parseInt(height, 10)
     //         }
-    //         events={events || chart.events}
+    //         events={events || theme.events}
     qLayout,
     numDimensionTicks,
     theme,
@@ -285,25 +287,25 @@ function StyledXYChart(props) {
     select,
     setCurrentSelectionIds,
     currentSelectionIds,
-    colorPalette,
+    colorPalette: theme.colors,
     size,
     type,
-    padding: padding || chart.padding,
-    useAnimatedAxes: useAnimatedAxes || chart.useAnimatedAxes,
-    useAnimatedGrid: useAnimatedGrid || chart.useAnimatedGrid,
-    animationTrajectory: animationTrajectory || chart.animationTrajectory,
-    renderHorizontally: renderHorizontally || chart.renderHorizontally,
-    includeZero: includeZero || chart.includeZero,
-    showLegend: valueIfUndefined(showLegend, chart.showLegend),
-    backgroundPattern: backgroundPattern || chart.backgroundStyles.pattern,
-    backgroundStyle: backgroundStyle || chart.backgroundStyles,
-    //         fillStyle={fillStyle || chart.fillStyles}
+    padding: padding || theme.padding,
+    useAnimatedAxes: useAnimatedAxes || theme.useAnimatedAxes,
+    useAnimatedGrid: useAnimatedGrid || theme.useAnimatedGrid,
+    animationTrajectory: animationTrajectory || theme.animationTrajectory,
+    renderHorizontally: renderHorizontally || theme.renderHorizontally,
+    includeZero: includeZero || theme.includeZero,
+    showLegend: valueIfUndefined(showLegend, theme.showLegend),
+    backgroundPattern: backgroundPattern || theme.backgroundStyles.pattern,
+    backgroundStyle: backgroundStyle || theme.backgroundStyles,
+    //         fillStyle={fillStyle || theme.fillStyles}
     multiColor:
-      valueIfUndefined(multiColor, chart.multiColor) &&
+      valueIfUndefined(multiColor, theme.multiColor) &&
       (type == "bar" || type == "scatter")
         ? dataKeys
         : null,
-    selectionMethod: valueIfUndefined(selectionMethod, chart.selectionMethod),
+    selectionMethod: valueIfUndefined(selectionMethod, theme.selectionMethod),
     enableBrush,
     //         showAsPercent={showAsPercent}
     showBrush,
@@ -318,12 +320,12 @@ function StyledXYChart(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin || chart.margin}
+          margin={margin || theme.margin}
           gridArea={gridArea}
           width={width}
           showBoxShadow={valueIfUndefined(
             showBoxShadow,
-            chart.wrapper.showBoxShadow
+            theme.wrapper.showBoxShadow
           )}
           ref={ref}
         >
@@ -346,7 +348,7 @@ function StyledXYChart(props) {
               // height={
               //   gridArea
               //     ? ref.current.offsetHeight -
-              //       parseInt(margin || chart.margin, 10)
+              //       parseInt(margin || theme.margin, 10)
               //     : parseInt(height, 10)
               // }
               {...otherProps}
@@ -365,11 +367,11 @@ function StyledXYChart(props) {
         <XYChartWrapperNoData
           border={border}
           size={size}
-          margin={margin || chart.margin}
+          margin={margin || theme.margin}
           // height={
           //   gridArea
           //     ? ref.current.offsetHeight -
-          //       parseInt(margin || chart.margin, 10)
+          //       parseInt(margin || theme.margin, 10)
           //     : parseInt(height, 10)
           // }
           gridArea={gridArea}

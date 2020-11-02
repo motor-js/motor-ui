@@ -156,6 +156,8 @@ Line.propTypes = {
       "yellow",
       "orange",
       "base",
+      "light",
+      "dark",
     ]),
     PropTypes.array,
   ]),

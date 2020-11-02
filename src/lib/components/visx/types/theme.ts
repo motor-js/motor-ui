@@ -57,11 +57,15 @@ export interface XYChartTheme {
       right: AxisStyle;
     };
   };
+  // border?: CSSProperties;
+  // wrapper?: CSSProperties;
+  // error?: CSSProperties;
+  // title?: CSSProperties;
   hover: HoverStyles;
   selection: SelectionStyles;
   nonSelection: NonSelectionStyles;
   noSelections: NoSelectionStyles;
   scatter: ScatterStyles;
-  valueLabelStyles: ValueLabelStyles;
+  // valueLabelStyles: ValueLabelStyles;
   points: PointsStyles;
 }

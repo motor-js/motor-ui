@@ -66,8 +66,6 @@ export default function BaseBarGroup<
 
   const [hoverId, setHoverId] = useState(null);
 
-  const { hover, selection, nonSelection, noSelections } = theme;
-
   const barSeriesChildren = useMemo(
     () =>
       React.Children.toArray(children).filter((child) =>

@@ -68,7 +68,7 @@ import {
 // import { PatternLines } from "@visx/pattern";
 // import { buildChartTheme } from "../visx";
 // import { lightTheme, darkTheme } from "../visx";
-import { darkTheme } from "../visx";
+// import { mainTheme } from "../visx";
 
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
@@ -176,19 +176,19 @@ export default function CreateXYChart({
   const chartType = type;
   const sharedTooltip = !showClosestItem;
 
-  const {
-    global: { chart },
-    crossHair: crossHairStyle,
-  } = theme;
+  // const {
+  //   global: { chart },
+  //   crossHair: crossHairStyle,
+  // } = theme;
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
 
-  const chartHideAxisLine = valueIfUndefined(hideAxisLine, chart.hideAxisLine);
+  const chartHideAxisLine = valueIfUndefined(hideAxisLine, theme.hideAxisLine);
 
   const chartShowAxisLabels = valueIfUndefined(
     showAxisLabels,
-    chart.showAxisLabels
+    theme.showAxisLabels
   );
 
   function getCurve(curve) {
@@ -243,8 +243,8 @@ export default function CreateXYChart({
   const formatValue = (val) => {
     // if (val === 0) return roundNumber(Math.abs(val), 0);
 
-    const valPrecision = valueIfUndefined(precision, chart.precision);
-    const valRoundNum = valueIfUndefined(roundNum, chart.roundNum);
+    const valPrecision = valueIfUndefined(precision, theme.precision);
+    const valRoundNum = valueIfUndefined(roundNum, theme.roundNum);
 
     if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
     let formattedValue = valRoundNum
@@ -292,18 +292,18 @@ export default function CreateXYChart({
 
   const selectedBoxStyle = {
     fill: "url(#brush_pattern)",
-    stroke: selectColor(chart?.brush.stroke, theme) ?? "#329af0",
+    stroke: selectColor(theme.brush.stroke, theme) ?? "#329af0",
   };
 
-  const chartTheme = {
-    ...theme.global.chart,
-    bar: { ...theme.bar },
-    points: { ...theme.points },
-    stackedArea: { ...theme.stackedArea },
-    scatter: { ...theme.scatter },
-    ...darkTheme,
-    // colors,
-  };
+  // const chartTheme = {
+  //   ...theme.global.chart,
+  //   // bar: { ...theme.bar },
+  //   // points: { ...theme.points },
+  //   // stackedArea: { ...theme.stackedArea },
+  //   // scatter: { ...theme.scatter },
+  //   ...mainTheme,
+  //   // colors,
+  // };
 
   const xAaccessors = singleDimension
     ? measureInfo
@@ -428,11 +428,11 @@ export default function CreateXYChart({
   const glyphComponent =
     typeof showPoints === "string"
       ? showPoints
-      : typeof chart.showPoints === "string"
-      ? chart.showPoints
+      : typeof theme.showPoints === "string"
+      ? theme.showPoints
       : showPoints
       ? "circle"
-      : chart.showPoints
+      : theme.showPoints
       ? "cirlce"
       : false;
 
@@ -518,12 +518,12 @@ export default function CreateXYChart({
 
   const singleColor = valueIfUndefined(
     useSingleColor,
-    chart.tooltip.useSingleColor
+    theme.tooltip.useSingleColor
   );
 
   return (
     <DataProvider
-      theme={chartTheme}
+      theme={theme}
       xScale={config.x}
       yScale={config.y}
       currentSelectionIds={currentSelectionIds}
@@ -572,9 +572,9 @@ export default function CreateXYChart({
         {/* {showBrush && (
           <PatternLines
             id="brush_pattern"
-            height={chart?.brush.patternHeight ?? 12}
-            width={chart?.brush.patternWidth ?? 12}
-            stroke={selectColor(chart?.brush.patternStroke, theme) ?? "#a3daff"}
+            height={theme.brush.patternHeight ?? 12}
+            width={theme.brush.patternWidth ?? 12}
+            stroke={selectColor(theme.brush.patternStroke, theme) ?? "#a3daff"}
             strokeWidth={1}
             orientation={["diagonal"]}
           />
@@ -584,10 +584,10 @@ export default function CreateXYChart({
           rows={showGridRows}
           columns={showGridColumns}
           animationTrajectory={animationTrajectory}
-          numGridRows={valueIfUndefined(numGridRows, chart.numGridRows)}
+          numGridRows={valueIfUndefined(numGridRows, theme.numGridRows)}
           numGridColumns={valueIfUndefined(
             numGridColumns,
-            chart.numGridColumns
+            theme.numGridColumns
           )}
         />
         {chartType === "bar" && (
@@ -793,7 +793,7 @@ export default function CreateXYChart({
                 ))}
           </>
         )}
-        {valueIfUndefined(showLabels, chart.showLabels) &&
+        {valueIfUndefined(showLabels, theme.showLabels) &&
           chartType !== "barstack" &&
           chartType !== "bargroup" && (
             <>

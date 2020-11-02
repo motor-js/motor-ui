@@ -29,20 +29,35 @@ export type ThemeConfig = {
   gridColor: string;
   gridColorDark: string;
   gridStyles?: CSSProperties;
-};
 
-const defaultLabelStyles = {
-  fontFamily:
-    "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-  fontWeight: 700,
-  fontSize: 12,
-  textAnchor: "middle",
-  pointerEvents: "none",
-  letterSpacing: 0.4,
-} as const;
+  border?: CSSProperties;
+  wrapper?: CSSProperties;
+  error?: CSSProperties;
+  title?: CSSProperties;
+
+  hover?: CSSProperties;
+  selection?: CSSProperties;
+  nonSelection?: CSSProperties;
+  noSelections?: CSSProperties;
+  scatter?: CSSProperties;
+  valueLabelStyles?: CSSProperties;
+  points?: CSSProperties;
+};
 
 /** Provides a simplified API to build a full XYChartTheme. */
 export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
+  console.log(config);
+
+  const defaultLabelStyles = {
+    fontFamily:
+      "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+    fontWeight: 700,
+    fontSize: 12,
+    textAnchor: "middle",
+    pointerEvents: "none",
+    letterSpacing: 0.4,
+  } as const;
+
   const baseSvgLabel: SVGTextProps = {
     ...defaultLabelStyles,
     fill: textColor,
@@ -66,6 +81,7 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
   };
 
   return {
+    ...config.chart,
     backgroundColor: config.backgroundColor,
     colors: [...config.colors],
     htmlLabelStyles: {
@@ -170,12 +186,10 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         },
       },
     },
-    // hover: {},
-    // selection: {},
-    // nonSelection: {},
-    // noSelections: {},
-    // scatter: {},
-    // valueLabelStyles: {},
-    // points: {},
+
+    scatter: config.scatter,
+    bar: config.bar,
+    points: config.points,
+    stackedArea: config.stackedArea,
   };
 }

@@ -1,8 +1,8 @@
-import { defaultColors, grayColors } from '../colors';
-import buildChartTheme from '../buildChartTheme';
+import { defaultColors, grayColors } from "../colors";
+import buildChartTheme from "../buildChartTheme";
 
 export default buildChartTheme({
-  backgroundColor: '#fff',
+  backgroundColor: "#fff",
   colors: defaultColors,
   tickLength: 4,
   tickLabelStyles: {

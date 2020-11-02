@@ -88,6 +88,8 @@ function BaseGlyphSeries<
 
   const { scatter, valueLabelStyles, points } = theme;
 
+  console.log("themen", theme);
+
   const glyphSize =
     type === "scatter" ? scatter.size || size : points.size || size;
 

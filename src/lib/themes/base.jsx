@@ -1,5 +1,24 @@
 import "./colors/open-color.css";
 
+const dark = [
+  "#3bc9db",
+  "#c3fae8",
+  "#ffec99",
+  "#ff8787",
+  "#e599f7",
+  "#be4bdb",
+  "#faa2c1",
+];
+const light = [
+  "#0b7285",
+  "#66d9e8",
+  "#fcc419",
+  "#ff8787",
+  "#9c36b5",
+  "#cc5de8",
+  "#a61e4d",
+];
+
 const motor = [
   "#003f5c",
   "#2f4b7c",
@@ -114,6 +133,8 @@ const color = {
   divergent13,
   eco,
   bio,
+  dark,
+  light,
   /** Below not documented, are they used? */
   gauge: "var(--oc-pink-4)",
   success: "green",
@@ -326,6 +347,15 @@ const base = {
         margin: "10px",
       },
       baseColor: "#fff",
+      backgroundColor: {
+        dark: "#222",
+        motor: "#fff",
+        divergent9: "#fff",
+        divergent13: "#fff",
+        eco: "#fff",
+        bio: "#fff",
+        light: "#fff",
+      },
       colors: [
         "#0b7285",
         "#15aabf",
@@ -365,12 +395,13 @@ const base = {
           large: "16px",
           xlarge: "18px",
         },
-        letterSpacing: 0.4,
-        textAnchor: "middle",
-        fontWeight: "normal",
-        pointerEvents: "none",
+        // letterSpacing: 0.4,
+        // textAnchor: "middle",
+        // fontWeight: "normal",
+        // pointerEvents: "none",
       },
       backgroundStyles: {
+        // AG
         pattern: null,
         stroke: "#ced4da",
         strokeWidth: 1,
@@ -379,6 +410,7 @@ const base = {
         styleTo: undefined,
       },
       fillStyles: {
+        //AG
         style: undefined,
         styleFrom: undefined,
         styleTo: undefined,

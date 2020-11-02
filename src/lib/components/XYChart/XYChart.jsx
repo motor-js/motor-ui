@@ -5,8 +5,9 @@ import StyledXYChart from "./StyledXYChart";
 import { ConfigContext } from "../../contexts/ConfigProvider";
 import { EngineContext } from "../../contexts/EngineProvider";
 import useEngine from "../../hooks/useEngine";
+import { chartTheme } from "../visx";
 
-function XYChart({ ...rest }) {
+function XYChart({ colorTheme, ...rest }) {
   const myConfig = useContext(ConfigContext);
   const theme = useContext(ThemeContext);
   const { engine, engineError } =
@@ -15,7 +16,7 @@ function XYChart({ ...rest }) {
   return (
     <StyledXYChart
       engine={engine}
-      theme={theme}
+      theme={chartTheme(theme, colorTheme || theme.global.colorTheme)}
       engineError={engineError}
       {...rest}
     />
@@ -166,6 +167,8 @@ XYChart.propTypes = {
       "yellow",
       "orange",
       "base",
+      "light",
+      "dark",
     ]),
     PropTypes.array,
   ]),
