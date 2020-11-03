@@ -151,6 +151,55 @@ dodge
 electric
 */
 
+const darkTheme = {
+  color: dark,
+  backgroundColor: "#222",
+  tickLabelStyles: "#e9ecef",
+  labelStyles: "#f8f9fa",
+};
+
+const motorTheme = {
+  color: motor,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+};
+
+const divergent9Theme = {
+  color: divergent9,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+};
+
+const divergent13Theme = {
+  color: divergent13,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+};
+
+const ecoTheme = {
+  color: eco,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+};
+
+const bioTheme = {
+  color: bio,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+};
+
+const lightTheme = {
+  color: light,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+};
+
 const fontFamily = "Inter, sans-serif"; /* 'Roboto, sans-serif' */
 
 const base = {
@@ -251,6 +300,13 @@ const base = {
       },
     },
     chart: {
+      darkTheme,
+      motorTheme,
+      divergent9Theme,
+      divergent13Theme,
+      ecoTheme,
+      bioTheme,
+      lightTheme,
       border: {
         color: "var(--oc-gray-4)",
         size: "1px",
@@ -347,33 +403,33 @@ const base = {
         margin: "10px",
       },
       baseColor: "#fff",
-      backgroundColor: {
-        dark: "#222",
-        motor: "#fff",
-        divergent9: "#fff",
-        divergent13: "#fff",
-        eco: "#fff",
-        bio: "#fff",
-        light: "#fff",
-      },
-      tickLabelStyles: {
-        dark: "#e9ecef",
-        motor: "#495057",
-        divergent9: "#495057",
-        divergent13: "#495057",
-        eco: "#495057",
-        bio: "#495057",
-        light: "#495057",
-      },
-      labelStyles: {
-        dark: "#f8f9fa",
-        motor: "#212529",
-        divergent9: "#212529",
-        divergent13: "#212529",
-        eco: "#212529",
-        bio: "#212529",
-        light: "#212529",
-      },
+      // backgroundColor: {
+      //   dark: "#222",
+      //   motor: "#fff",
+      //   divergent9: "#fff",
+      //   divergent13: "#fff",
+      //   eco: "#fff",
+      //   bio: "#fff",
+      //   light: "#fff",
+      // },
+      // tickLabelStyles: {
+      //   dark: "#e9ecef",
+      //   motor: "#495057",
+      //   divergent9: "#495057",
+      //   divergent13: "#495057",
+      //   eco: "#495057",
+      //   bio: "#495057",
+      //   light: "#495057",
+      // },
+      // labelStyles: {
+      //   dark: "#f8f9fa",
+      //   motor: "#212529",
+      //   divergent9: "#212529",
+      //   divergent13: "#212529",
+      //   eco: "#212529",
+      //   bio: "#212529",
+      //   light: "#212529",
+      // },
       colors: [
         "#0b7285",
         "#15aabf",

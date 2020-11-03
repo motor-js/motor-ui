@@ -10,39 +10,23 @@ export const chartTheme = (theme, colorTheme) => {
     global: { chart },
   } = theme;
 
-  const backgroundColor =
-    chart.backgroundColor !== undefined
-      ? chart.backgroundColor[colorTheme]
-      : theme.backgroundColor;
-
-  const tickLabelStyles =
-    chart.tickLabelStyles !== undefined
-      ? chart.tickLabelStyles[colorTheme]
-      : theme.tickLabelStyles;
-  const labelStyles =
-    chart.labelStyles !== undefined
-      ? chart.labelStyles[colorTheme]
-      : theme.labelStyles;
-
-  console.log(grayColors[0], grayColors[9]);
-
   return buildChartTheme({
     backgroundColor:
-      chart.backgroundColor !== undefined
-        ? chart.backgroundColor[colorTheme]
+      chart[`${colorTheme}Theme`] !== undefined
+        ? chart[`${colorTheme}Theme`].backgroundColor
         : theme.backgroundColor,
     colors: colorPalette,
     tickLength: 4, // OS
     tickLabelStyles: {
       fill:
-        chart.tickLabelStyles !== undefined
-          ? chart.tickLabelStyles[colorTheme]
+        chart[`${colorTheme}Theme`] !== undefined
+          ? chart[`${colorTheme}Theme`].tickLabelStyles
           : theme.tickLabelStyles,
     },
     labelStyles: {
       fill:
-        chart.labelStyles !== undefined
-          ? chart.labelStyles[colorTheme]
+        chart[`${colorTheme}Theme`] !== undefined
+          ? chart[`${colorTheme}Theme`].labelStyles
           : theme.labelStyles,
     },
     // gridColor: "#ced4da", // OS

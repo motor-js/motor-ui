@@ -46,46 +46,72 @@ export type ThemeConfig = {
 
 /** Provides a simplified API to build a full XYChartTheme. */
 export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
-  const defaultLabelStyles = {
-    fontFamily:
-      "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-    fontWeight: 700,
-    fontSize: 12,
-    textAnchor: "middle",
-    pointerEvents: "none",
-    letterSpacing: 0.4,
-  } as const;
+  // const defaultLabelStyles = {
+  //   fontFamily:
+  //     "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+  //   fontWeight: 700,
+  //   fontSize: 12,
+  //   textAnchor: "middle",
+  //   pointerEvents: "none",
+  //   letterSpacing: 0.4,
+  // } as const;
 
-  const baseSvgLabel: SVGTextProps = {
-    ...defaultLabelStyles,
-    fill: textColor,
-    stroke: "none",
-    ...config.labelStyles,
-  } as const;
+  // const baseSvgLabel: SVGTextProps = {
+  //   fontFamily:
+  //     "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+  //   fontWeight: 700,
+  //   fontSize: 12,
+  //   textAnchor: "middle",
+  //   pointerEvents: "none",
+  //   letterSpacing: 0.4,
+  //   fill: textColor,
+  //   stroke: "none",
+  //   ...config.labelStyles,
+  // } as const;
 
-  const baseTickLabel: SVGTextProps = {
-    ...defaultLabelStyles,
-    fontWeight: 200,
-    fontSize: 11,
-    fill: textColor,
-    stroke: "none",
-    ...config.tickLabelStyles,
-  } as const;
+  // const baseTickLabel: SVGTextProps = {
+  //   fontFamily:
+  //     "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+  //   fontWeight: 700,
+  //   fontSize: 12,
+  //   textAnchor: "middle",
+  //   pointerEvents: "none",
+  //   letterSpacing: 0.4,
+  //   fontWeight: 200,
+  //   fontSize: 11,
+  //   fill: textColor,
+  //   stroke: "none",
+  //   ...config.tickLabelStyles,
+  // } as const;
 
-  const baseHtmlLabel: HTMLTextStyles = {
-    color: config.labelStyles?.fill ?? textColor,
-    ...defaultLabelStyles,
-    ...config.htmlLabelStyles,
-  };
+  // const baseHtmlLabel: HTMLTextStyles = {
+  //   color: config.labelStyles?.fill ?? textColor,
+  //   fontFamily:
+  //   "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+  //   fontWeight: 700,
+  //   fontSize: 12,
+  //   textAnchor: "middle",
+  //   pointerEvents: "none",
+  //   letterSpacing: 0.4,
+  //   ...config.htmlLabelStyles,
+  // };
 
-  console.log("config", config);
+  // console.log("config", config);
 
   return {
     ...config.chart,
     backgroundColor: config.backgroundColor,
     colors: [...config.colors],
     htmlLabelStyles: {
-      ...baseHtmlLabel,
+      color: config.labelStyles?.fill ?? textColor,
+      fontFamily:
+        "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+      fontWeight: 700,
+      fontSize: 12,
+      textAnchor: "middle",
+      pointerEvents: "none",
+      letterSpacing: 0.4,
+      ...config.htmlLabelStyles,
     },
     gridStyles: {
       ...config.gridStyles,
@@ -94,7 +120,16 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
       x: {
         top: {
           axisLabel: {
-            ...baseSvgLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fill: textColor,
+            stroke: "none",
+            ...config.labelStyles,
             dy: "-0.25em", // needs to include font-size
           },
           axisLine: {
@@ -103,7 +138,18 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
             ...config.xAxisLineStyles,
           },
           tickLabel: {
-            ...baseTickLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: 11,
+            fill: textColor,
+            stroke: "none",
+            ...config.tickLabelStyles,
             dy: "-0.25em", // needs to include font-size
           },
           tickLength: config.tickLength,
@@ -115,7 +161,16 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         },
         bottom: {
           axisLabel: {
-            ...baseSvgLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fill: textColor,
+            stroke: "none",
+            ...config.labelStyles,
             dy: "-0.25em",
           },
           axisLine: {
@@ -124,7 +179,18 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
             ...config.xAxisLineStyles,
           },
           tickLabel: {
-            ...baseTickLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: 11,
+            fill: textColor,
+            stroke: "none",
+            ...config.tickLabelStyles,
             dy: "0.125em",
           },
           tickLength: config.tickLength,
@@ -138,7 +204,16 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
       y: {
         left: {
           axisLabel: {
-            ...baseSvgLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fill: textColor,
+            stroke: "none",
+            ...config.labelStyles,
             dx: "-1.25em",
           },
           axisLine: {
@@ -147,7 +222,18 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
             ...config.yAxisLineStyles,
           },
           tickLabel: {
-            ...baseTickLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: 11,
+            fill: textColor,
+            stroke: "none",
+            ...config.tickLabelStyles,
             textAnchor: "end",
             dx: "-0.25em",
             dy: "0.25em",
@@ -161,7 +247,16 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
         },
         right: {
           axisLabel: {
-            ...baseSvgLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fill: textColor,
+            stroke: "none",
+            ...config.labelStyles,
             dx: "1.25em",
           },
           axisLine: {
@@ -170,7 +265,18 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
             ...config.yAxisLineStyles,
           },
           tickLabel: {
-            ...baseTickLabel,
+            fontFamily:
+              "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+            fontWeight: 700,
+            fontSize: 12,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: 11,
+            fill: textColor,
+            stroke: "none",
+            ...config.tickLabelStyles,
             textAnchor: "start",
             dx: "0.25em",
             dy: "0.25em",

@@ -24,6 +24,11 @@ export const createColorArray = (color, theme) => {
   if (Array.isArray(color)) {
     return color;
   }
+  if (theme.global.chart[`${theme}Theme`] !== undefined) {
+    // if string and string matches a theme name
+
+    return theme.global.chart[`${theme}Theme`].color;
+  }
   if (theme.global.color[color] !== undefined) {
     // if string and string matches a theme name
 
