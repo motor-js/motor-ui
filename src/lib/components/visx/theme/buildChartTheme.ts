@@ -28,12 +28,13 @@ export type ThemeConfig = {
   // grid
   gridColor: string;
   gridColorDark: string;
-  gridStyles?: CSSProperties;
+  // gridStyles?: CSSProperties;
 
-  // gridStyles: {
-  //   columns?: {stroke: CSSProperties};
-  //   rows?: CSSProperties;
-  // };
+  gridStyles: {
+    // columns?: {stroke: CSSProperties};
+    columns?: CSSProperties;
+    rows?: CSSProperties;
+  };
 
   border?: CSSProperties;
   wrapper?: CSSProperties;
@@ -55,7 +56,7 @@ export type ThemeConfig = {
 };
 
 /** Provides a simplified API to build a full XYChartTheme. */
-export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
+export default function buildChartTheme(config: any): XYChartTheme {
   // const defaultLabelStyles = {
   //   fontFamily:
   //     "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",

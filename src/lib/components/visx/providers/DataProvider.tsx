@@ -40,7 +40,8 @@ export default function DataProvider<
   Datum extends object
 >({
   initialDimensions,
-  theme: propsTheme,
+  // theme: propsTheme,
+  theme,
   xScale: xScaleConfig,
   yScale: yScaleConfig,
   currentSelectionIds,
@@ -60,8 +61,9 @@ export default function DataProvider<
   // `DataProvider` provides a theme so that `ThemeProvider` is not strictly needed.
   // `props.theme` takes precedent over `context.theme`, which has a default even if
   // a ThemeProvider is not present.
-  const contextTheme = useContext(ThemeContext);
-  const theme = propsTheme || contextTheme;
+  // const contextTheme = useContext(ThemeContext);
+  // const theme = propsTheme || contextTheme;
+
   const [{ width, height, margin }, setDimensions] = useDimensions(
     initialDimensions
   );
@@ -82,7 +84,8 @@ export default function DataProvider<
     includeZero,
   });
 
-  const { hover, selection, nonSelection, noSelections } = propsTheme;
+  // const { hover, selection, nonSelection, noSelections } = propsTheme;
+  const { hover, selection, nonSelection, noSelections } = theme;
 
   const registryKeys = dataRegistry.keys();
 

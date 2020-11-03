@@ -49,12 +49,12 @@ export interface XYChartTheme {
   /** Styles to applied to HMTL labels. */
   htmlLabelStyles: HTMLTextStyles;
   /** Styles to be applied to chart grids. */
-  gridStyles: GridStyles;
+  // gridStyles: GridStyles;
   /** Styles to be applied to chart grids. */
-  // gridStyles: {
-  //   columns: CSSProperties;
-  //   rows: CSSProperties;
-  // };
+  gridStyles: {
+    columns: CSSProperties;
+    rows: CSSProperties;
+  };
   /** Styles to be applied to axes (axis labels, ticks, tick labels). */
   axisStyles: {
     x: {
@@ -70,10 +70,10 @@ export interface XYChartTheme {
   // wrapper?: CSSProperties;
   // error?: CSSProperties;
   // title?: CSSProperties;
-  // hover: HoverStyles;
-  // selection: SelectionStyles;
-  // nonSelection: NonSelectionStyles;
-  // noSelections: NoSelectionStyles;
+  hover: HoverStyles;
+  selection: SelectionStyles;
+  nonSelection: NonSelectionStyles;
+  noSelections: NoSelectionStyles;
   scatter: ScatterStyles;
   bar: BarStyles;
   stackedArea: StackedAreaStyles;
