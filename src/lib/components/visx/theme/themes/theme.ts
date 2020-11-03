@@ -4,7 +4,7 @@ import buildChartTheme from "../buildChartTheme";
 import { createColorArray } from "../../../../utils";
 import { CSSProperties } from "react";
 
-export const chartTheme = (theme, colorTheme: string) => {
+export const chartTheme = (theme: any, colorTheme: string) => {
   const colorPalette = createColorArray(colorTheme, theme);
 
   const {
