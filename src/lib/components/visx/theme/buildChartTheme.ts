@@ -5,7 +5,7 @@ import {
   LineStyles,
   XYChartTheme,
 } from "../types/theme";
-import { textColor } from "./colors";
+// import { textColor } from "./colors";
 
 export type ThemeConfig = {
   backgroundColor: string;
@@ -27,7 +27,7 @@ export type ThemeConfig = {
 
   // grid
   gridColor: string;
-  gridColorDark: string;
+  // gridColorDark: string;
   // gridStyles?: CSSProperties;
 
   gridStyles: {
@@ -109,6 +109,8 @@ export default function buildChartTheme(config: any): XYChartTheme {
 
   // console.log("config", config);
 
+  const textColor = "#495057";
+
   return {
     ...config.chart,
     backgroundColor: config.backgroundColor,
@@ -144,8 +146,8 @@ export default function buildChartTheme(config: any): XYChartTheme {
             dy: "-0.25em", // needs to include font-size
           },
           axisLine: {
-            stroke: config.gridColorDark,
-            strokeWidth: 2,
+            stroke: config.gridColor,
+            strokeWidth: 1,
             ...config.xAxisLineStyles,
           },
           tickLabel: {
@@ -185,8 +187,8 @@ export default function buildChartTheme(config: any): XYChartTheme {
             dy: "-0.25em",
           },
           axisLine: {
-            stroke: config.gridColorDark,
-            strokeWidth: 2,
+            stroke: config.gridColor,
+            strokeWidth: 1,
             ...config.xAxisLineStyles,
           },
           tickLabel: {

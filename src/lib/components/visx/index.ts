@@ -26,13 +26,13 @@ export { default as AnimatedLineSeries } from "./components/series/AnimatedLineS
 // context
 export { default as DataContext } from "./context/DataContext";
 export { default as EventEmitterContext } from "./context/EventEmitterContext";
-export { default as ThemeContext } from "./context/ThemeContext";
+// export { default as ThemeContext } from "./context/ThemeContext";
 export { default as TooltipContext } from "./context/TooltipContext";
 
 // providers
 export { default as DataProvider } from "./providers/DataProvider";
 export { default as EventEmitterProvider } from "./providers/EventEmitterProvider";
-export { default as ThemeProvider } from "./providers/ThemeProvider";
+// export { default as ThemeProvider } from "./providers/ThemeProvider";
 export { default as TooltipProvider } from "./providers/TooltipProvider";
 
 // hooks
@@ -43,7 +43,7 @@ export { default as useEventEmitter } from "./hooks/useEventEmitter";
 // export { default as darkTheme } from "./theme/themes/dark";
 export { chartTheme } from "./theme/themes/theme";
 export { default as buildChartTheme } from "./theme/buildChartTheme";
-export { allColors, grayColors, defaultColors } from "./theme/colors";
+// export { allColors, grayColors, defaultColors } from "./theme/colors";
 
 // types
 export * from "./types";

@@ -156,6 +156,7 @@ const darkTheme = {
   backgroundColor: "#222",
   tickLabelStyles: "#e9ecef",
   labelStyles: "#f8f9fa",
+  gridColor: "#ced4da",
 };
 
 const motorTheme = {
@@ -163,6 +164,7 @@ const motorTheme = {
   backgroundColor: "#fff",
   tickLabelStyles: "#495057",
   labelStyles: "#212529",
+  gridColor: "#adb5bd",
 };
 
 const divergent9Theme = {
@@ -170,6 +172,7 @@ const divergent9Theme = {
   backgroundColor: "#fff",
   tickLabelStyles: "#495057",
   labelStyles: "#212529",
+  gridColor: "#adb5bd",
 };
 
 const divergent13Theme = {
@@ -177,6 +180,7 @@ const divergent13Theme = {
   backgroundColor: "#fff",
   tickLabelStyles: "#495057",
   labelStyles: "#212529",
+  gridColor: "#adb5bd",
 };
 
 const ecoTheme = {
@@ -184,6 +188,7 @@ const ecoTheme = {
   backgroundColor: "#fff",
   tickLabelStyles: "#495057",
   labelStyles: "#212529",
+  gridColor: "#adb5bd",
 };
 
 const bioTheme = {
@@ -191,6 +196,7 @@ const bioTheme = {
   backgroundColor: "#fff",
   tickLabelStyles: "#495057",
   labelStyles: "#212529",
+  gridColor: "#adb5bd",
 };
 
 const lightTheme = {
@@ -198,6 +204,7 @@ const lightTheme = {
   backgroundColor: "#fff",
   tickLabelStyles: "#495057",
   labelStyles: "#212529",
+  gridColor: "#adb5bd",
 };
 
 const fontFamily = "Inter, sans-serif"; /* 'Roboto, sans-serif' */
