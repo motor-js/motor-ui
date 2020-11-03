@@ -62,8 +62,8 @@ export default function buildChartTheme(config: any): XYChartTheme {
     colors: [...config.colors],
     tooltiplLabelStyles: {
       color: config.labelStyles?.fill ?? "#495057",
-      fontSize: config.tooltiplLabelStyles.fontSize[config.size],
       ...config.tooltiplLabelStyles,
+      fontSize: config.tooltiplLabelStyles.fontSize[config.size],
     },
     gridStyles: {
       ...config.gridStyles,
