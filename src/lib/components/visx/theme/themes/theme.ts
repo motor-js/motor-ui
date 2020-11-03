@@ -1,8 +1,7 @@
 import { allColors, grayColors } from "../colors";
 import buildChartTheme from "../buildChartTheme";
 
-import { createColorArray } from "../../../../utils";
-import { CSSProperties } from "react";
+import { createColorArray } from "../createColorArray";
 
 export const chartTheme = (theme: any, colorTheme: string) => {
   const colorPalette = createColorArray(colorTheme, theme);
@@ -38,12 +37,11 @@ export const chartTheme = (theme: any, colorTheme: string) => {
     gridColor: grayColors[4],
     gridColorDark: grayColors[1],
 
-    chart: theme.global.chart, // OS
-    gridStyles: theme.global.chart.gridStyles, // OS
-    // colorTheme: theme.global.colorTheme, // OS
-    scatter: theme.scatter, // OS
-    bar: theme.bar, // OS
-    points: theme.points, // OS
-    stackedArea: theme.stackedArea, // OS
+    chart: theme.global.chart,
+    gridStyles: theme.global.chart.gridStyles,
+    scatter: theme.scatter,
+    bar: theme.bar,
+    points: theme.points,
+    stackedArea: theme.stackedArea,
   });
 };
