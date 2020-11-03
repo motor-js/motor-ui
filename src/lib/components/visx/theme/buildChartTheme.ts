@@ -30,18 +30,28 @@ export type ThemeConfig = {
   gridColorDark: string;
   gridStyles?: CSSProperties;
 
+  // gridStyles: {
+  //   columns?: {stroke: CSSProperties};
+  //   rows?: CSSProperties;
+  // };
+
   border?: CSSProperties;
   wrapper?: CSSProperties;
   error?: CSSProperties;
   title?: CSSProperties;
 
-  hover?: CSSProperties;
-  selection?: CSSProperties;
-  nonSelection?: CSSProperties;
-  noSelections?: CSSProperties;
-  scatter?: CSSProperties;
-  valueLabelStyles?: CSSProperties;
+  // hover?: CSSProperties;
+  // selection?: CSSProperties;
+  // nonSelection?: CSSProperties;
+  // noSelections?: CSSProperties;
+  // scatter?: CSSProperties;
+  // valueLabelStyles?: CSSProperties;
   points?: CSSProperties;
+
+  chart?: CSSProperties;
+  stackedArea?: CSSProperties;
+  bar?: CSSProperties;
+  scatter?: CSSProperties;
 };
 
 /** Provides a simplified API to build a full XYChartTheme. */
@@ -140,8 +150,8 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           tickLabel: {
             fontFamily:
               "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontWeight: 700,
-            fontSize: 12,
+            // fontWeight: 700,
+            // fontSize: 12,
             textAnchor: "middle",
             pointerEvents: "none",
             letterSpacing: 0.4,
@@ -181,8 +191,8 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           tickLabel: {
             fontFamily:
               "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontWeight: 700,
-            fontSize: 12,
+            // fontWeight: 700,
+            // fontSize: 12,
             textAnchor: "middle",
             pointerEvents: "none",
             letterSpacing: 0.4,
@@ -224,9 +234,9 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           tickLabel: {
             fontFamily:
               "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontWeight: 700,
-            fontSize: 12,
-            textAnchor: "middle",
+            // fontWeight: 700,
+            // fontSize: 12,
+            // textAnchor: "middle",
             pointerEvents: "none",
             letterSpacing: 0.4,
             fontWeight: 200,
@@ -267,9 +277,9 @@ export default function buildChartTheme(config: ThemeConfig): XYChartTheme {
           tickLabel: {
             fontFamily:
               "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
-            fontWeight: 700,
-            fontSize: 12,
-            textAnchor: "middle",
+            // fontWeight: 700,
+            // fontSize: 12,
+            // textAnchor: "middle",
             pointerEvents: "none",
             letterSpacing: 0.4,
             fontWeight: 200,

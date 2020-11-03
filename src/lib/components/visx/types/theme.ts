@@ -17,6 +17,10 @@ export type NoSelectionStyles = CSSProperties;
 
 export type ScatterStyles = any;
 
+export type BarStyles = any;
+
+export type StackedAreaStyles = any;
+
 export type ValueLabelStyles = any;
 
 export type PointsStyles = any;
@@ -46,6 +50,11 @@ export interface XYChartTheme {
   htmlLabelStyles: HTMLTextStyles;
   /** Styles to be applied to chart grids. */
   gridStyles: GridStyles;
+  /** Styles to be applied to chart grids. */
+  // gridStyles: {
+  //   columns: CSSProperties;
+  //   rows: CSSProperties;
+  // };
   /** Styles to be applied to axes (axis labels, ticks, tick labels). */
   axisStyles: {
     x: {
@@ -61,11 +70,13 @@ export interface XYChartTheme {
   // wrapper?: CSSProperties;
   // error?: CSSProperties;
   // title?: CSSProperties;
-  hover: HoverStyles;
-  selection: SelectionStyles;
-  nonSelection: NonSelectionStyles;
-  noSelections: NoSelectionStyles;
+  // hover: HoverStyles;
+  // selection: SelectionStyles;
+  // nonSelection: NonSelectionStyles;
+  // noSelections: NoSelectionStyles;
   scatter: ScatterStyles;
+  bar: BarStyles;
+  stackedArea: StackedAreaStyles;
   // valueLabelStyles: ValueLabelStyles;
   points: PointsStyles;
 }

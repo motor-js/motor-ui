@@ -2,8 +2,9 @@ import { allColors, grayColors } from "../colors";
 import buildChartTheme from "../buildChartTheme";
 
 import { createColorArray } from "../../../../utils";
+import { CSSProperties } from "react";
 
-export const chartTheme = (theme, colorTheme) => {
+export const chartTheme = (theme, colorTheme: string) => {
   const colorPalette = createColorArray(colorTheme, theme);
 
   const {
