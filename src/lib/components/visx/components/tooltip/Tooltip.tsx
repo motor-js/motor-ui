@@ -180,7 +180,7 @@ export default function Tooltip<Datum extends object>({
       Object.values(tooltipContext?.tooltipData?.datumByKey ?? {}).forEach(
         ({ key, datum }) => {
           const color =
-            colorScale?.(key) ?? theme?.htmlLabelStyles?.color ?? "#222";
+            colorScale?.(key) ?? theme?.tooltiplLabelStyles?.color ?? "#222";
           const { left, top } = getDatumLeftTop(key, datum);
           glyphProps.push({
             left: left == null ? left : left - radius - strokeWidth,
@@ -204,7 +204,7 @@ export default function Tooltip<Datum extends object>({
           (nearestDatumKey && colorScale?.(nearestDatumKey)) ??
           null ??
           theme?.gridStyles?.rows.stroke ??
-          theme?.htmlLabelStyles?.color ??
+          theme?.tooltiplLabelStyles?.color ??
           "#222",
         radius,
         strokeWidth,
@@ -239,7 +239,7 @@ export default function Tooltip<Datum extends object>({
                   strokeWidth={1.5}
                   stroke={
                     theme?.gridStyles?.columns.stroke ??
-                    theme?.htmlLabelStyles?.color ??
+                    theme?.tooltiplLabelStyles?.color ??
                     "#222"
                   }
                   {...verticalCrosshairStyle}
@@ -266,7 +266,7 @@ export default function Tooltip<Datum extends object>({
                   strokeWidth={1.5}
                   stroke={
                     theme?.gridStyles?.rows.stroke ??
-                    theme?.htmlLabelStyles?.color ??
+                    theme?.tooltiplLabelStyles?.color ??
                     "#222"
                   }
                   {...horizontalCrosshairStyle}
@@ -313,12 +313,12 @@ export default function Tooltip<Datum extends object>({
               ...defaultStyles,
               background: theme?.backgroundColor ?? "white",
               boxShadow: `0 1px 2px ${
-                theme?.htmlLabelStyles?.color
-                  ? `${theme?.htmlLabelStyles?.color}55`
+                theme?.tooltiplLabelStyles?.color
+                  ? `${theme?.tooltiplLabelStyles?.color}55`
                   : "#22222255"
               }`,
 
-              ...theme?.htmlLabelStyles,
+              ...theme?.tooltiplLabelStyles,
             }}
             {...tooltipProps}
           >

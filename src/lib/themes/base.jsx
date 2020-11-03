@@ -545,14 +545,34 @@ const base = {
       tooltip: {
         // snapTooltipToDatumX: false,
         // snapTooltipToDatumX: false,
-        valueOnly: false,
-        valueWithText: false,
-        showClosestItem: true, // Used for tooltip
-        useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
-        headingColor: "altDark",
-        tooltipStyles: {
-          borderRadius: "3px",
-          boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+        // valueOnly: false,
+        // valueWithText: false,
+        // showClosestItem: true, // Used for tooltip
+        // useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
+        // headingColor: "altDark",
+        // tooltipStyles: {
+        //   borderRadius: "3px",
+        //   boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+        //   fontSize: {
+        //     tiny: "10px",
+        //     small: "12px",
+        //     medium: "14px",
+        //     large: "16px",
+        //     xlarge: "18px",
+        //   },
+
+        //   lineHeight: "1em",
+        //   padding: ".3rem .5rem",
+        //   pointerEvents: "none",
+        //   position: "absolute",
+        //   backgroundColor: "#fff",
+        //   color: "altDark",
+        //   textAlign: null,
+        // },
+        tooltiplLabelStyles: {
+          fontFamily:
+            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontWeight: 700,
           fontSize: {
             tiny: "10px",
             small: "12px",
@@ -560,13 +580,9 @@ const base = {
             large: "16px",
             xlarge: "18px",
           },
-          lineHeight: "1em",
-          padding: ".3rem .5rem",
+          textAnchor: "middle",
           pointerEvents: "none",
-          position: "absolute",
-          backgroundColor: "#fff",
-          color: "altDark",
-          textAlign: null,
+          letterSpacing: 0.4,
         },
       },
       // xAxisStyles: {

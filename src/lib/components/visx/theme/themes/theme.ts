@@ -2,7 +2,7 @@ import buildChartTheme from "../buildChartTheme";
 
 import { createColorArray } from "../createColorArray";
 
-export const chartTheme = (theme: any, colorTheme: string) => {
+export const chartTheme = (theme: any, colorTheme: string, size: string) => {
   const colorPalette = createColorArray(colorTheme, theme);
 
   const {
@@ -10,6 +10,7 @@ export const chartTheme = (theme: any, colorTheme: string) => {
   } = theme;
 
   return buildChartTheme({
+    size,
     backgroundColor:
       chart[`${colorTheme}Theme`] !== undefined
         ? chart[`${colorTheme}Theme`].backgroundColor
@@ -33,6 +34,7 @@ export const chartTheme = (theme: any, colorTheme: string) => {
         ? chart[`${colorTheme}Theme`].gridColor
         : theme.gridColor,
     chart: theme.global.chart,
+    tooltiplLabelStyles: chart.tooltip.tooltiplLabelStyles,
     gridStyles: theme.global.chart.gridStyles,
     scatter: theme.scatter,
     bar: theme.bar,

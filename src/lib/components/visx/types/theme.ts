@@ -47,7 +47,7 @@ export interface XYChartTheme {
   /** Ordinal colors to be used for default coloring by series `key`s. */
   colors: string[];
   /** Styles to applied to HMTL labels. */
-  htmlLabelStyles: HTMLTextStyles;
+  tooltiplLabelStyles: HTMLTextStyles;
   /** Styles to be applied to chart grids. */
   // gridStyles: GridStyles;
   /** Styles to be applied to chart grids. */
