@@ -49,6 +49,7 @@ export type ThemeConfig = {
 
 /** Provides a simplified API to build a full XYChartTheme. */
 export default function buildChartTheme(config: any): XYChartTheme {
+  console.log(config.gridColor);
   return {
     ...config.chart,
     backgroundColor: config.backgroundColor,
@@ -88,6 +89,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           axisLine: {
             stroke: config.gridColor,
           },
+
           tickLine: {
             stroke: config.gridColor,
           },
@@ -97,6 +99,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           axisLine: {
             stroke: config.gridColor,
           },
+
           tickLine: {
             stroke: config.gridColor,
           },

@@ -92,6 +92,7 @@ export default function CreateXYChart({
   dataKeys,
   includeZero,
   size,
+  chartMargin,
   type,
   backgroundPattern,
   backgroundStyle,
@@ -561,6 +562,7 @@ export default function CreateXYChart({
       )}
       <XYChart
         height={Math.min(400, height)}
+        margin={chartMargin}
         captureEvents={selectionMethod === "none"}
         onMouseDown={selectionMethod === "brush" ? enableBrush : null}
       >

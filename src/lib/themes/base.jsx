@@ -314,6 +314,7 @@ const base = {
       ecoTheme,
       bioTheme,
       lightTheme,
+      margin: { top: 50, right: 50, bottom: 50, left: 50 },
       border: {
         color: "var(--oc-gray-4)",
         size: "1px",

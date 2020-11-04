@@ -9,8 +9,6 @@ import EventEmitterProvider from "../providers/EventEmitterProvider";
 import TooltipContext from "../context/TooltipContext";
 import TooltipProvider from "../providers/TooltipProvider";
 
-const DEFAULT_MARGIN = { top: 50, right: 50, bottom: 50, left: 50 };
-
 type Props = {
   accessibilityLabel?: string;
   events?: boolean;
@@ -28,7 +26,7 @@ export default function XYChart(props: Props) {
     children,
     width,
     height,
-    margin = DEFAULT_MARGIN,
+    margin,
     captureEvents = false,
     onMouseDown,
   } = props;
