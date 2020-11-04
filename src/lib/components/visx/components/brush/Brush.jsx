@@ -93,7 +93,6 @@ export default function Brush({
       ? width - margin.right
       : 0;
 
-  // const [filteredStock, setFilteredStock] = useState(stock);
   let selectionIds = [];
 
   const onChange = (domain) => {
@@ -105,9 +104,10 @@ export default function Brush({
       const data = chartType.includes("scatter")
         ? [measureInfo[0]]
         : measureInfo;
+
       singleDimension
         ? data.map((m, i) => {
-            const registeredData = dataRegistry.get(m);
+            const registeredData = dataRegistry.get(m.qFallbackTitle);
             xAccessor = registeredData.xAccessor;
             yAccessor = registeredData.yAccessor;
 

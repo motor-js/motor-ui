@@ -534,6 +534,7 @@ export default function CreateXYChart({
       includeZero={includeZero}
       multiColor={multiColor}
       legendLabelStyle={legendLabelStyle}
+      singleDimension={singleDimension}
       measureInfo={measureInfo}
       dataKeys={dataKeys}
       valueIndex={valueIndex}

@@ -4,7 +4,7 @@ import React, { useContext, useMemo } from "react";
 import createOrdinalScale from "@visx/scale/lib/scales/ordinal";
 import { AxisScaleOutput } from "@visx/axis";
 import { XYChartTheme } from "../types";
-import ThemeContext from "../context/ThemeContext";
+// import ThemeContext from "../context/ThemeContext";
 import DataContext from "../context/DataContext";
 import useDataRegistry from "../hooks/useDataRegistry";
 import useDimensions, { Dimensions } from "../hooks/useDimensions";
@@ -29,6 +29,7 @@ export type DataProviderProps<
   measureInfo?: object;
   dataKeys?: Array<string>;
   includeZero?: boolean;
+  singleDimension?: boolean;
   valueIndex: Function;
   chartType: string;
   children: React.ReactNode;
@@ -50,6 +51,7 @@ export default function DataProvider<
   setCurrentSelectionIds,
   horizontal,
   includeZero,
+  singleDimension,
   multiColor,
   legendLabelStyle,
   measureInfo,
@@ -141,6 +143,7 @@ export default function DataProvider<
         multiColor,
         legendLabelStyle,
         measureInfo,
+        singleDimension,
         dataKeys,
         valueIndex,
         setDimensions,
