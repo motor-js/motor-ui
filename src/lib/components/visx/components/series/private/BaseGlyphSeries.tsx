@@ -50,7 +50,7 @@ function BaseGlyphSeries<
   yAccessor,
   yScale,
   horizontal,
-  size = 12,
+  // size = 12,
   renderGlyphs,
   elAccessor,
   index,
@@ -68,6 +68,7 @@ function BaseGlyphSeries<
     multiColor,
     measureInfo,
     dataKeys,
+    size,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
 
@@ -87,8 +88,6 @@ function BaseGlyphSeries<
     : null;
 
   const { scatter, valueLabelStyles, points } = theme;
-
-  console.log("themen", theme);
 
   const glyphSize =
     type === "scatter" ? scatter.size || size : points.size || size;
@@ -110,6 +109,7 @@ function BaseGlyphSeries<
     case "scatter":
       styleProps = {
         ...scatter,
+        fontSize: valueLabelStyles.fontSize[size],
         ...style,
       };
       break;

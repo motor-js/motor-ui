@@ -77,6 +77,6 @@ export interface XYChartTheme {
   scatter: ScatterStyles;
   bar: BarStyles;
   stackedArea: StackedAreaStyles;
-  // valueLabelStyles: ValueLabelStyles;
+  valueLabelStyles: ValueLabelStyles;
   points: PointsStyles;
 }

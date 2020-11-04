@@ -16,7 +16,6 @@ export const chartTheme = (theme: any, colorTheme: string, size: string) => {
         ? chart[`${colorTheme}Theme`].backgroundColor
         : theme.backgroundColor,
     colors: colorPalette,
-    tickLength: 4, // OS
     tickLabelStyles: {
       fill:
         chart[`${colorTheme}Theme`] !== undefined
@@ -35,7 +34,9 @@ export const chartTheme = (theme: any, colorTheme: string, size: string) => {
         : theme.gridColor,
     chart: theme.global.chart,
     tooltiplLabelStyles: chart.tooltip.tooltiplLabelStyles,
-    gridStyles: theme.global.chart.gridStyles,
+    gridStyles: chart.gridStyles,
+    xAxisStyles: chart.xAxisStyles,
+    yAxisStyles: chart.yAxisStyles,
     scatter: theme.scatter,
     bar: theme.bar,
     points: theme.points,

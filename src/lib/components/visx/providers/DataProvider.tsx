@@ -32,6 +32,7 @@ export type DataProviderProps<
   singleDimension?: boolean;
   valueIndex: Function;
   chartType: string;
+  size: string;
   children: React.ReactNode;
 };
 
@@ -41,7 +42,6 @@ export default function DataProvider<
   Datum extends object
 >({
   initialDimensions,
-  // theme: propsTheme,
   theme,
   xScale: xScaleConfig,
   yScale: yScaleConfig,
@@ -57,6 +57,7 @@ export default function DataProvider<
   measureInfo,
   dataKeys,
   valueIndex,
+  size,
   chartType,
   children,
 }: DataProviderProps<XScaleConfig, YScaleConfig>) {
@@ -146,6 +147,7 @@ export default function DataProvider<
         singleDimension,
         dataKeys,
         valueIndex,
+        size,
         setDimensions,
         setBarStyle,
         chartType,

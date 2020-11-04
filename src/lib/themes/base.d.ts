@@ -8,12 +8,6 @@ export interface Theme {
       selection?: CSSProperties;
       nonSelection?: CSSProperties;
       noSelections?: CSSProperties;
-
-      //   border?: CSSProperties;
-      //   wrapper?: CSSProperties;
-      //   error?: CSSProperties;
-      //   title?: CSSProperties;
-      //   valueLabelStyles?: CSSProperties;
     };
   };
   points?: CSSProperties;

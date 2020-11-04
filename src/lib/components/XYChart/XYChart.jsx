@@ -18,6 +18,7 @@ function XYChart({ colorTheme, size, ...rest }) {
       engine={engine}
       theme={chartTheme(theme, colorTheme || theme.global.colorTheme, size)}
       engineError={engineError}
+      size={size}
       {...rest}
     />
   );

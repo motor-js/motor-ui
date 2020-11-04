@@ -539,6 +539,7 @@ export default function CreateXYChart({
       dataKeys={dataKeys}
       valueIndex={valueIndex}
       chartType={chartType}
+      size={size}
     >
       {title && (
         <Title

@@ -66,6 +66,7 @@ export interface DataContextType<
   dataKeys: Array<string>;
   margin: Margin;
   chartType: string;
+  size: string;
   dataRegistry: Omit<
     DataRegistry<XScale, YScale, Datum>,
     "registry" | "registryKeys"
