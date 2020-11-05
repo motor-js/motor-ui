@@ -59,7 +59,7 @@ import Brush from "../visx/components/brush/Brush";
 import Legend from "../visx/components/legend/Legend";
 
 import {
-  colorByExpression,
+  // colorByExpression,
   selectColor,
   valueIfUndefined,
   isDefined,
@@ -76,7 +76,7 @@ import CustomChartPattern from "./CustomChartPattern";
 export default function CreateXYChart({
   height,
   qLayout: {
-    qHyperCube,
+    // qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
   data,
@@ -163,17 +163,12 @@ export default function CreateXYChart({
   enableBrush,
   showBrush,
   // strokeWidth,
-
-  // xAxisStyles,
-  // yAxisStyles,
-  // xTickStyles,
-  // yTickStyles,
   // tooltipStyles,
 
   //-----
 }) {
   // Check if conditionalColors and if so get the returned color pallette
-  const colors = colorByExpression(qHyperCube, data, colorPalette);
+  // const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
   const sharedTooltip = !showClosestItem;
 

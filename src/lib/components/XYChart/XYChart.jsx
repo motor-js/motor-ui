@@ -6,17 +6,36 @@ import { ConfigContext } from "../../contexts/ConfigProvider";
 import { EngineContext } from "../../contexts/EngineProvider";
 import useEngine from "../../hooks/useEngine";
 import { chartTheme } from "../visx";
+import { deepMerge } from "../../utils/object";
 
-function XYChart({ colorTheme, size, chartMargin, ...rest }) {
+function XYChart({
+  colorTheme,
+  size,
+  chartMargin,
+  xAxisStyles,
+  yAxisStyles,
+  ...rest
+}) {
   const myConfig = useContext(ConfigContext);
   const theme = useContext(ThemeContext);
   const { engine, engineError } =
     useContext(EngineContext) || useEngine(myConfig);
 
+  const yAxisStyleProps = {
+    global: { chart: { yAxisStyles: { ...yAxisStyles } } },
+  };
+  const xAxisStyleProps = {
+    global: { chart: { xAxisStyles: { ...xAxisStyles } } },
+  };
+
   return (
     <StyledXYChart
       engine={engine}
-      theme={chartTheme(theme, colorTheme || theme.global.colorTheme, size)}
+      theme={chartTheme(
+        deepMerge(theme, xAxisStyleProps, yAxisStyleProps),
+        colorTheme || theme.global.colorTheme,
+        size
+      )}
       engineError={engineError}
       size={size}
       chartMargin={chartMargin}
@@ -346,10 +365,6 @@ XYChart.propTypes = {
   xAxisStyles: PropTypes.object,
   /** Styles for the Y Axis */
   yAxisStyles: PropTypes.object,
-  /** Styles for the X Axis ticks */
-  xTickStyles: PropTypes.object,
-  /** Styles for the Y Axis ticks */
-  yTickStyles: PropTypes.object,
   /** Styling for the tooltip */
   tooltipStyles: PropTypes.object,
 };
