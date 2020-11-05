@@ -82,6 +82,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           tickLabel: {
             fill: config.tickLabelStyles.fill,
             ...config.xAxisStyles.top.tickLabel,
+            fontSize: config.xAxisStyles.top.tickLabel.fontSize[config.size],
           },
         },
         bottom: {
@@ -103,6 +104,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           tickLabel: {
             fill: config.tickLabelStyles.fill,
             ...config.xAxisStyles.bottom.tickLabel,
+            fontSize: config.xAxisStyles.bottom.tickLabel.fontSize[config.size],
           },
         },
       },
@@ -126,6 +128,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           tickLabel: {
             fill: config.tickLabelStyles.fill,
             ...config.yAxisStyles.left.tickLabel,
+            fontSize: config.yAxisStyles.left.tickLabel.fontSize[config.size],
           },
         },
         right: {
@@ -147,6 +150,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           tickLabel: {
             fill: config.tickLabelStyles.fill,
             ...config.yAxisStyles.right.tickLabel,
+            fontSize: config.yAxisStyles.right.tickLabel.fontSize[config.size],
           },
         },
       },
