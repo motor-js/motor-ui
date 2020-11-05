@@ -49,7 +49,6 @@ export type ThemeConfig = {
 
 /** Provides a simplified API to build a full XYChartTheme. */
 export default function buildChartTheme(config: any): XYChartTheme {
-  console.log(config.gridColor);
   return {
     ...config.chart,
     backgroundColor: config.backgroundColor,
@@ -65,43 +64,85 @@ export default function buildChartTheme(config: any): XYChartTheme {
     axisStyles: {
       x: {
         top: {
-          ...config.xAxisStyles.top,
-          axisLine: {
-            stroke: config.gridColor,
+          // ...config.xAxisStyles.top, //remove
+          axisLabel: {
+            fill: config.labelStyles?.fill ?? "#495057",
+            ...config.xAxisStyles.top.axisLabel,
           },
+          axisLine: {
+            stroke: config.gridColor.stroke,
+            ...config.xAxisStyles.top.axisLine,
+          },
+          tickLength: config.xAxisStyles.top.tickLength,
           tickLine: {
-            stroke: config.gridColor,
+            stroke: config.gridColor.stroke,
+            ...config.xAxisStyles.top.tickLine,
+          },
+          tickLabel: {
+            fill: config.tickLabelStyles.fill,
+            ...config.xAxisStyles.top.tickLabel,
           },
         },
         bottom: {
-          ...config.xAxisStyles.bottom,
-          axisLine: {
-            stroke: config.gridColor,
+          // ...config.xAxisStyles.bottom,
+          axisLabel: {
+            fill: config.labelStyles?.fill ?? "#495057",
+            ...config.xAxisStyles.bottom.axisLabel,
           },
+          axisLine: {
+            stroke: config.gridColor.stroke,
+            ...config.xAxisStyles.bottom.axisLine,
+          },
+          tickLength: config.xAxisStyles.bottom.tickLength,
           tickLine: {
-            stroke: config.gridColor,
+            stroke: config.gridColor.stroke,
+            ...config.xAxisStyles.bottom.tickLine,
+          },
+          tickLabel: {
+            fill: config.tickLabelStyles.fill,
+            ...config.xAxisStyles.bottom.tickLabel,
           },
         },
       },
       y: {
         left: {
-          ...config.yAxisStyles.left,
-          axisLine: {
-            stroke: config.gridColor,
+          // ...config.yAxisStyles.left,
+          axisLabel: {
+            fill: config.labelStyles?.fill ?? "#495057",
+            ...config.yAxisStyles.left.axisLabel,
           },
-
+          axisLine: {
+            stroke: config.gridColor.stroke,
+            ...config.yAxisStyles.left.axisLine,
+          },
+          tickLength: config.yAxisStyles.left.tickLength,
           tickLine: {
-            stroke: config.gridColor,
+            stroke: config.gridColor.stroke,
+            ...config.yAxisStyles.left.tickLine,
+          },
+          tickLabel: {
+            fill: config.tickLabelStyles.fill,
+            ...config.yAxisStyles.left.tickLabel,
           },
         },
         right: {
-          ...config.yAxisStyles.right,
-          axisLine: {
-            stroke: config.gridColor,
+          // ...config.yAxisStyles.right,
+          axisLabel: {
+            fill: config.labelStyles?.fill ?? "#495057",
+            ...config.yAxisStyles.right.axisLabel,
           },
-
+          axisLine: {
+            stroke: config.gridColor.stroke,
+            ...config.yAxisStyles.right.axisLine,
+          },
+          tickLength: config.yAxisStyles.right.tickLength,
           tickLine: {
-            stroke: config.gridColor,
+            stroke: config.gridColor.stroke,
+            ...config.yAxisStyles.right.tickLine,
+          },
+          tickLabel: {
+            fill: config.tickLabelStyles.fill,
+            ...config.yAxisStyles.right.tickLabel,
           },
         },
       },

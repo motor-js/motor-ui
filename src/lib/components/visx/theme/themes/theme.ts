@@ -28,10 +28,12 @@ export const chartTheme = (theme: any, colorTheme: string, size: string) => {
           ? chart[`${colorTheme}Theme`].labelStyles
           : theme.labelStyles,
     },
-    gridColor:
-      chart[`${colorTheme}Theme`] !== undefined
-        ? chart[`${colorTheme}Theme`].gridColor
-        : theme.gridColor,
+    gridColor: {
+      stroke:
+        chart[`${colorTheme}Theme`] !== undefined
+          ? chart[`${colorTheme}Theme`].gridColor
+          : theme.gridColor,
+    },
     chart: theme.global.chart,
     tooltiplLabelStyles: chart.tooltip.tooltiplLabelStyles,
     gridStyles: chart.gridStyles,
