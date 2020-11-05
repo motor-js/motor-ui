@@ -68,6 +68,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           axisLabel: {
             fill: config.labelStyles?.fill ?? "#495057",
             ...config.xAxisStyles.top.axisLabel,
+            fontSize: config.xAxisStyles.top.axisLabel.fontSize[config.size],
           },
           axisLine: {
             stroke: config.gridColor.stroke,
@@ -88,6 +89,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           axisLabel: {
             fill: config.labelStyles?.fill ?? "#495057",
             ...config.xAxisStyles.bottom.axisLabel,
+            fontSize: config.xAxisStyles.bottom.axisLabel.fontSize[config.size],
           },
           axisLine: {
             stroke: config.gridColor.stroke,
@@ -110,6 +112,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           axisLabel: {
             fill: config.labelStyles?.fill ?? "#495057",
             ...config.yAxisStyles.left.axisLabel,
+            fontSize: config.yAxisStyles.left.axisLabel.fontSize[config.size],
           },
           axisLine: {
             stroke: config.gridColor.stroke,
@@ -130,6 +133,7 @@ export default function buildChartTheme(config: any): XYChartTheme {
           axisLabel: {
             fill: config.labelStyles?.fill ?? "#495057",
             ...config.yAxisStyles.right.axisLabel,
+            fontSize: config.yAxisStyles.right.axisLabel.fontSize[config.size],
           },
           axisLine: {
             stroke: config.gridColor.stroke,
