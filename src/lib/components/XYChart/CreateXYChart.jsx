@@ -65,10 +65,7 @@ import {
   isDefined,
   roundNumber,
 } from "../../utils";
-// import { PatternLines } from "@visx/pattern";
-// import { buildChartTheme } from "../visx";
-// import { lightTheme, darkTheme } from "../visx";
-// import { mainTheme } from "../visx";
+import { PatternLines } from "@visx/pattern";
 
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
@@ -76,7 +73,6 @@ import CustomChartPattern from "./CustomChartPattern";
 export default function CreateXYChart({
   height,
   qLayout: {
-    // qHyperCube,
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
   },
   data,
@@ -87,7 +83,6 @@ export default function CreateXYChart({
   select,
   setCurrentSelectionIds,
   currentSelectionIds,
-  colorPalette,
   theme,
   dataKeys,
   includeZero,
@@ -167,8 +162,6 @@ export default function CreateXYChart({
 
   //-----
 }) {
-  // Check if conditionalColors and if so get the returned color pallette
-  // const colors = colorByExpression(qHyperCube, data, colorPalette);
   const chartType = type;
   const sharedTooltip = !showClosestItem;
 
@@ -290,16 +283,6 @@ export default function CreateXYChart({
     fill: "url(#brush_pattern)",
     stroke: selectColor(theme.brush.stroke, theme) ?? "#329af0",
   };
-
-  // const chartTheme = {
-  //   ...theme.global.chart,
-  //   // bar: { ...theme.bar },
-  //   // points: { ...theme.points },
-  //   // stackedArea: { ...theme.stackedArea },
-  //   // scatter: { ...theme.scatter },
-  //   ...mainTheme,
-  //   // colors,
-  // };
 
   const xAaccessors = singleDimension
     ? measureInfo
@@ -568,16 +551,16 @@ export default function CreateXYChart({
           to={backgroundStyle.styleTo}
         />
         <CustomChartPattern backgroundPattern={backgroundPattern} />
-        {/* {showBrush && (
+        {showBrush && (
           <PatternLines
             id="brush_pattern"
             height={theme.brush.patternHeight ?? 12}
             width={theme.brush.patternWidth ?? 12}
             stroke={selectColor(theme.brush.patternStroke, theme) ?? "#a3daff"}
-            strokeWidth={1}
-            orientation={["diagonal"]}
+            strokeWidth={theme.brush.strokeWidth || 1}
+            orientation={theme.brush.orientation || ["diagonal"]}
           />
-        )} */}
+        )}
         <GridComponent
           key={`grid-${animationTrajectory}`} // force animate on update
           rows={showGridRows}

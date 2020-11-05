@@ -451,6 +451,8 @@ const base = {
         patternStroke: null,
         patternWidth: null,
         patternHeight: null,
+        strokeWidth: null,
+        orientation: null, // Array e.g. ["diagonal"]
       },
       legendStyles: {
         backgroundColor: "#fff",
