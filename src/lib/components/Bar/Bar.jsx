@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import XYChart from "../XYChart";
 
+const DEFAULT_MARGIN = { top: 50, right: 50, bottom: 50, left: 50 };
+
 function Bar({ cols, stacked, ...rest }) {
   return (
     <XYChart // width={750} height={400}  events={true}
@@ -62,6 +64,8 @@ Bar.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
+  /** The amount of margin around the chart */
+  chartMargin: PropTypes.object,
   /** Size of the Bar */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),

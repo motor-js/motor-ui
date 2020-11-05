@@ -72,6 +72,8 @@ Pie.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
+  /** The amount of margin around the chart */
+  chartMargin: PropTypes.object,
   /** Size of the Bar */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
