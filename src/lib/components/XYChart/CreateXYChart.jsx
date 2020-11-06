@@ -59,7 +59,6 @@ import Brush from "../visx/components/brush/Brush";
 import Legend from "../visx/components/legend/Legend";
 
 import {
-  // colorByExpression,
   selectColor,
   valueIfUndefined,
   isDefined,
@@ -149,8 +148,8 @@ export default function CreateXYChart({
   // formatTooltipDate,
   // shiftTooltipTop,
   // shiftTooltipLeft,
-  // valueOnly,
-  // valueWithText,
+  valueOnly,
+  valueWithText,
 
   // fillStyle,                   // Area
   curveShape, // Area and Line
@@ -266,7 +265,6 @@ export default function CreateXYChart({
   //    [includeZero]
   //  );
 
-  // console.log(darkTheme);
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
 
   // const isScatter = chartType.includes("scatter");
@@ -906,46 +904,98 @@ export default function CreateXYChart({
             showSeriesGlyphs={sharedTooltip && chartType !== "bargroup"}
             renderTooltip={({ tooltipData, colorScale }) => (
               <>
-                {/** date */}
-                {(tooltipData?.nearestDatum?.datum &&
-                  accessors.date(tooltipData?.nearestDatum?.datum)) ||
-                  "No date"}
-                <br />
-                <br />
-                {/** values */}
-                {(sharedTooltip
-                  ? Object.keys(tooltipData?.datumByKey ?? {})
-                  : [tooltipData?.nearestDatum?.key]
-                )
-                  .filter((datum) => datum)
-                  .map((datum) => (
-                    <div key={datum}>
-                      <em
-                        style={{
-                          color: singleColor
-                            ? selectColor(theme?.tooltip?.headingColor, theme)
-                            : multiColor
-                            ? colorScale?.(
-                                accessors.date(tooltipData?.nearestDatum?.datum)
-                              )
-                            : colorScale?.(datum),
+                {(valueOnly || valueWithText) && (
+                  <>
+                    {" "}
+                    {[tooltipData?.nearestDatum?.key]
+                      .filter((datum) => datum)
+                      .map((datum) => (
+                        <div key={datum}>
+                          {valueWithText && (
+                            <em
+                              style={{
+                                color: singleColor
+                                  ? selectColor(
+                                      theme?.tooltip?.headingColor,
+                                      theme
+                                    )
+                                  : multiColor
+                                  ? colorScale?.(
+                                      accessors.date(
+                                        tooltipData?.nearestDatum?.datum
+                                      )
+                                    )
+                                  : colorScale?.(datum),
 
-                          textDecoration:
-                            tooltipData?.nearestDatum?.key === datum
-                              ? "underline"
-                              : undefined,
-                        }}
-                      >
-                        {`${datum} `}
-                      </em>
-                      {tooltipData?.nearestDatum?.datum
-                        ? accessors[renderHorizontally ? "x" : "y"][datum](
-                            tooltipData?.nearestDatum?.datum,
-                            valueIndex(datum)
-                          )
-                        : "–"}
-                    </div>
-                  ))}
+                                textDecoration:
+                                  tooltipData?.nearestDatum?.key === datum
+                                    ? "underline"
+                                    : undefined,
+                              }}
+                            >
+                              {`${datum} `}
+                            </em>
+                          )}
+                          {tooltipData?.nearestDatum?.datum
+                            ? accessors[renderHorizontally ? "x" : "y"][datum](
+                                tooltipData?.nearestDatum?.datum,
+                                valueIndex(datum)
+                              )
+                            : "–"}
+                        </div>
+                      ))}
+                  </>
+                )}
+                {/** date */}
+                {!(valueOnly || valueWithText) &&
+                  ((tooltipData?.nearestDatum?.datum &&
+                    accessors.date(tooltipData?.nearestDatum?.datum)) ||
+                    "No date")}
+                {!(valueOnly || valueWithText) && (
+                  <>
+                    <br />
+                    <br />
+                    {/** values */}
+                    {(sharedTooltip
+                      ? Object.keys(tooltipData?.datumByKey ?? {})
+                      : [tooltipData?.nearestDatum?.key]
+                    )
+                      .filter((datum) => datum)
+                      .map((datum) => (
+                        <div key={datum}>
+                          <em
+                            style={{
+                              color: singleColor
+                                ? selectColor(
+                                    theme?.tooltip?.headingColor,
+                                    theme
+                                  )
+                                : multiColor
+                                ? colorScale?.(
+                                    accessors.date(
+                                      tooltipData?.nearestDatum?.datum
+                                    )
+                                  )
+                                : colorScale?.(datum),
+
+                              textDecoration:
+                                tooltipData?.nearestDatum?.key === datum
+                                  ? "underline"
+                                  : undefined,
+                            }}
+                          >
+                            {`${datum} `}
+                          </em>
+                          {tooltipData?.nearestDatum?.datum
+                            ? accessors[renderHorizontally ? "x" : "y"][datum](
+                                tooltipData?.nearestDatum?.datum,
+                                valueIndex(datum)
+                              )
+                            : "–"}
+                        </div>
+                      ))}
+                  </>
+                )}
               </>
             )}
           />
