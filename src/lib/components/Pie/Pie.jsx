@@ -223,8 +223,6 @@ Pie.propTypes = {
   // valueWithText: PropTypes.bool,
   // /** Input format of date supplied from engine (in qText) */
   // parseDateFormat: PropTypes.string,
-  // /** Format of dates to be displayed on Tooltip. */
-  // formatTooltipDate: PropTypes.string,
   /** Line stroke width around each segemnt */
   strokeWidth: PropTypes.number,
   /** Line stroke color around each segemnt */
@@ -272,7 +270,6 @@ Pie.defaultProps = {
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  // stacked: false,
   showAsPercent: false,
   gridArea: null,
   showLegend: false,
@@ -281,7 +278,6 @@ Pie.defaultProps = {
   legendDirection: "row",
   legendShape: "auto",
   parseDateFormat: null,
-  formatTooltipDate: null,
   strokeWidth: null,
   showTooltip: true,
   pieSort: "asc",

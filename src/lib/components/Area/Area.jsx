@@ -284,8 +284,10 @@ Area.propTypes = {
   showHorizontalCrosshair: PropTypes.bool, // ADDED
   /** Show Vertical CrossHair on the chart  */
   showVerticalCrosshair: PropTypes.bool, // ADDED
-  /** Styling of the CrossHair. */
-  crossHairStyles: PropTypes.object,
+  /** Horizontal styling of the CrossHair. */
+  horizontalCrosshairStyle: PropTypes.object,
+  /** Vertical styling of the CrossHair. */
+  verticalCrosshairStyle: PropTypes.object,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
@@ -304,8 +306,6 @@ Area.propTypes = {
   valueWithText: PropTypes.bool,
   /** Input format of date supplied from engine (in qText) */
   parseDateFormat: PropTypes.string,
-  /** Format of dates to be displayed on Tooltip. */
-  formatTooltipDate: PropTypes.string,
   /** Reposition the tooltip. */
   shiftTooltipTop: PropTypes.number,
   /** Reposition the tooltip. */
@@ -354,12 +354,10 @@ Area.defaultProps = {
   legendShape: "auto",
   parseDateFormat: null,
   formatAxisDate: null,
-  formatTooltipDate: null,
   strokeWidth: null,
   numDimensionTicks: null,
   numMeasureTicks: null,
   numMeasureDualTicks: null,
-  // showCrossHair: true,
   showHorizontalCrosshair: false,
   showVerticalCrosshair: false,
   showTooltip: true,

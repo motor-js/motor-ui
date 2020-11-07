@@ -51,7 +51,6 @@ export default function CreatePie({
   // showClosestItem,
   // useSingleColor,
   // parseDateFormat,
-  // formatTooltipDate,
   strokeWidth,
   stroke,
   showTooltip,
@@ -120,7 +119,6 @@ export default function CreatePie({
       legendLabelStyle={legendLabelStyle}
       valueLabelStyle={valueLabelStyle}
       // parseDateFormat={parseDateFormat}
-      // formatTooltipDate={formatTooltipDate}
       pieSort={pieSort}
       pieSortValues={pieSortValues}
     >

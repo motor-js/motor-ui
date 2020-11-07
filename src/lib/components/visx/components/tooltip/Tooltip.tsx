@@ -57,6 +57,10 @@ export type TooltipProps<Datum extends object> = {
   horizontalCrosshairStyle?: React.SVGProps<SVGLineElement>;
   /** Optional styles for the point, if visible. */
   glyphStyle?: React.SVGProps<SVGCircleElement>;
+  /** Shift top position of tooltip. */
+  shiftTooltipTop?: number;
+  /** Shift left position of tooltip. */
+  shiftTooltipLeft?: number;
   /**
    * Tooltip depends on ResizeObserver, which may be pollyfilled globally
    * or injected into this component.
@@ -90,6 +94,8 @@ export default function Tooltip<Datum extends object>({
   snapTooltipToDatumX = false,
   snapTooltipToDatumY = false,
   verticalCrosshairStyle,
+  shiftTooltipTop = 0,
+  shiftTooltipLeft = 0,
   ...tooltipProps
 }: TooltipProps<Datum>) {
   const {
@@ -165,8 +171,12 @@ export default function Tooltip<Datum extends object>({
     (snapTooltipToDatumX || snapTooltipToDatumY)
   ) {
     const { left, top } = getDatumLeftTop(nearestDatumKey, nearestDatum.datum);
-    tooltipLeft = snapTooltipToDatumX ? left : tooltipLeft;
-    tooltipTop = snapTooltipToDatumY ? top : tooltipTop;
+    tooltipLeft = snapTooltipToDatumX
+      ? left + shiftTooltipLeft
+      : tooltipLeft + shiftTooltipLeft;
+    tooltipTop = snapTooltipToDatumY
+      ? top + shiftTooltipTop
+      : tooltipTop + shiftTooltipTop;
   }
 
   // collect positions + styles for glyphs; glyphs always snap to Datum, not event coords

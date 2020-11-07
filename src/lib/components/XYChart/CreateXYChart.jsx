@@ -92,8 +92,6 @@ export default function CreateXYChart({
   backgroundStyle,
   singleDimension,
   singleMeasure,
-  measureCount,
-  // dimensionCount,
   selectionMethod,
   showLabels,
   padding,
@@ -121,8 +119,6 @@ export default function CreateXYChart({
   subTitle,
   showTooltip,
   borderRadius,
-
-  //-----
   showLegend,
   legendLeftRight,
   legendTopBottom,
@@ -136,26 +132,26 @@ export default function CreateXYChart({
   snapTooltipToDatumY,
   showHorizontalCrosshair,
   showVerticalCrosshair,
+  horizontalCrosshairStyle,
+  verticalCrosshairStyle,
+  shiftTooltipTop,
+  shiftTooltipLeft,
+  valueOnly,
+  valueWithText,
+  curveShape, // Area and Line
+  enableBrush,
+  showBrush,
+
+  //-----
   // debounce,                    // Tooltip
   // detectBounds,                // Tooltip
-  // horizontalCrosshairStyle,    // Tooltip
   // glyphStyle,                  // Tooltip
   // resizeObserverPolyfill,      // Tooltip
   // scroll = true,               // Tooltip
   // showDatumGlyph = false,      // Tooltip
   // showSeriesGlyphs = false,    // Tooltip
-  // verticalCrosshairStyle,      // Tooltip
   // formatTooltipDate,
-  // shiftTooltipTop,
-  // shiftTooltipLeft,
-  valueOnly,
-  valueWithText,
-
   // fillStyle,                   // Area
-  curveShape, // Area and Line
-  // crossHairStyles,
-  enableBrush,
-  showBrush,
   // strokeWidth,
   // tooltipStyles,
 
@@ -163,11 +159,6 @@ export default function CreateXYChart({
 }) {
   const chartType = type;
   const sharedTooltip = !showClosestItem;
-
-  // const {
-  //   global: { chart },
-  //   crossHair: crossHairStyle,
-  // } = theme;
 
   const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
   const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
@@ -222,15 +213,7 @@ export default function CreateXYChart({
     }
   }
 
-  // chartShowAxisLabels === true ||  // AG
-  // chartShowAxisLabels === "both" ||
-  // chartShowAxisLabels === "xAxis"
-  //   ? (axisBottomMargin.bottom = 60)
-  //   : (axisBottomMargin.bottom = 40);
-
   const formatValue = (val) => {
-    // if (val === 0) return roundNumber(Math.abs(val), 0);
-
     const valPrecision = valueIfUndefined(precision, theme.precision);
     const valRoundNum = valueIfUndefined(roundNum, theme.roundNum);
 
@@ -266,8 +249,6 @@ export default function CreateXYChart({
   //  );
 
   // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
-
-  // const isScatter = chartType.includes("scatter");
 
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) =>
@@ -894,6 +875,10 @@ export default function CreateXYChart({
             showVerticalCrosshair={showVerticalCrosshair}
             snapTooltipToDatumX={snapTooltipToDatumX}
             snapTooltipToDatumY={snapTooltipToDatumY}
+            horizontalCrosshairStyle={horizontalCrosshairStyle}
+            verticalCrosshairStyle={verticalCrosshairStyle}
+            shiftTooltipTop={shiftTooltipTop}
+            shiftTooltipLeft={shiftTooltipLeft}
             showDatumGlyph={
               (snapTooltipToDatumX || snapTooltipToDatumY) &&
               chartType !== "bargroup"
