@@ -95,10 +95,7 @@ export default function DataProvider<
   const colorScale = useMemo(
     () =>
       createOrdinalScale({
-        domain:
-          multiColor || chartType === "scatter"
-            ? [registryKeys[0]]
-            : registryKeys,
+        domain: multiColor || registryKeys,
         range: theme.colors,
       }),
     [registryKeys, theme.colors]

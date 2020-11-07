@@ -36,6 +36,7 @@ function PointSeries({
     showLabels,
     valueLabelStyle,
     measureInfo,
+    chartType,
   } = useContext(ChartContext);
 
   const { showTooltip, hideTooltip } = useContext(TooltipContext) || {};
@@ -77,7 +78,9 @@ function PointSeries({
   const getColor = (d, i) =>
     valueIfUndefined(
       d[0].qAttrExps.qValues[2].qText,
-      colorScale(multiColor ? d[0].qText : dataKey)
+      colorScale(
+        multiColor ? d[0].qText : chartType === "scatter" ? dataKey[0] : dataKey
+      )
     );
 
   const getLabel = (d) => d[0].qText;
