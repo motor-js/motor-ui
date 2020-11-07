@@ -243,8 +243,7 @@ export default function CreateXYChart({
   };
 
   const dateScaleConfig = {
-    type: "linear",
-    // type: chartType === "scatter" ? "linear" : "band",
+    type: chartType !== "scatter" ? "band" : "linear",
     paddingInner: padding,
   };
   // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
@@ -271,7 +270,8 @@ export default function CreateXYChart({
   // const isScatter = chartType.includes("scatter");
 
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
-  const getDimension = (d) => (d[0] ? d[2].qNum : null);
+  const getDimension = (d) =>
+    d[0] ? (chartType === "scatter" ? d[2].qNum : d[0].qText) : null;
 
   const getSeriesValues = (d, i) =>
     isDefined(d[i]) ? Number(d[i].qNum) : null;

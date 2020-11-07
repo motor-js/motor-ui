@@ -9,7 +9,8 @@ import {
   PieTooltip as Tooltip,
 } from "../visx";
 
-import { roundNumber } from "../visx/utils/roundNumber";
+// import { roundNumber } from "../visx/utils/roundNumber";
+import { roundNumber } from "../../utils";
 import { colorByExpression, selectColor, valueIfUndefined } from "../../utils";
 
 export default function CreatePie({
