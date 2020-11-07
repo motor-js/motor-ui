@@ -18,6 +18,7 @@ import TooltipContext from "../../../context/TooltipContext";
 import findNearestDatumY from "../../../utils/findNearestDatumY";
 import isValidNumber from "../../../typeguards/isValidNumber";
 import { localPoint } from "@visx/event";
+import { isEmpty } from "../../../../../utils";
 
 export type BaseGlyphSeriesProps<
   XScale extends AxisScale,
@@ -69,8 +70,11 @@ function BaseGlyphSeries<
     measureInfo,
     dataKeys,
     size,
+    setBarStyle,
   } = useContext(DataContext);
   const { showTooltip, hideTooltip } = useContext(TooltipContext) ?? {};
+
+  const [hoverId, setHoverId] = useState(null);
 
   const getScaledX = useCallback(
     getScaledValueFactory(xScale, xAccessor, index),
@@ -170,8 +174,9 @@ function BaseGlyphSeries<
     handleClick(selections);
   };
 
-  const onMouseMoveDatum = (event: MouseEvent, datum: any) => {
+  const onMouseMoveDatum = (event: MouseEvent, datum: any, id: number) => {
     const { x, y } = localPoint(event) || {};
+    setHoverId(id);
 
     const nearestDatum: any = {};
     nearestDatum.key = dataKey;
@@ -205,17 +210,19 @@ function BaseGlyphSeries<
             x,
             y,
             id,
-            styleProps,
             color: multiColor
               ? colorScale?.(multiColor[i])
               : dataKeys.length === 1
               ? colorScale(colorScale.domain()[0])
               : colorScale?.(dataKey) ?? theme?.colors?.[0] ?? "#222", // @TODO allow prop overriding
-            // size: typeof size === "function" ? size(datum) : size,
+            styleProps: {
+              ...styleProps,
+              ...setBarStyle(id, isEmpty(currentSelectionIds), hoverId),
+            },
             size: sizeByValue ? getGlyphSize(datum) : glyphSize,
             datum,
             onClick: () => handleMouseClick(id),
-            onMouseMove: (e: MouseEvent) => onMouseMoveDatum(e, datum),
+            onMouseMove: (e: MouseEvent) => onMouseMoveDatum(e, datum, id),
             onMouseLeave: onMouseLeave,
           };
         })
