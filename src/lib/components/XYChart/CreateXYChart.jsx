@@ -243,7 +243,7 @@ export default function CreateXYChart({
   };
 
   const dateScaleConfig = {
-    type: "band",
+    type: "linear",
     // type: chartType === "scatter" ? "linear" : "band",
     paddingInner: padding,
   };
@@ -271,7 +271,7 @@ export default function CreateXYChart({
   // const isScatter = chartType.includes("scatter");
 
   // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
-  const getDimension = (d) => (d[0] ? d[0].qText : null);
+  const getDimension = (d) => (d[0] ? d[2].qNum : null);
 
   const getSeriesValues = (d, i) =>
     isDefined(d[i]) ? Number(d[i].qNum) : null;
@@ -288,11 +288,7 @@ export default function CreateXYChart({
         .map((measure) => {
           return {
             id: [measure.qFallbackTitle],
-            function: renderHorizontally
-              ? getSeriesValues
-              : chartType !== "scatter"
-              ? getDimension
-              : getSeriesValues,
+            function: renderHorizontally ? getSeriesValues : getDimension,
           };
         })
         .reduce((acc, cur) => ({ ...acc, [cur.id]: cur.function }), {})
@@ -1006,11 +1002,10 @@ export default function CreateXYChart({
                 Object.keys(tooltipData?.datumByKey ?? {}).map((datum) => (
                   <div key={datum}>
                     {(tooltipData?.nearestDatum?.datum &&
-                      accessors.date(tooltipData?.nearestDatum?.datum)) ||
+                      tooltipData?.nearestDatum?.datum[0].qText) ||
                       "No date"}
                     <br />
                     <br />
-
                     {measureInfo.map((measure, index) =>
                       index <= 1 ? (
                         <React.Fragment key={index}>
