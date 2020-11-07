@@ -244,6 +244,7 @@ export default function CreateXYChart({
 
   const dateScaleConfig = {
     type: "band",
+    // type: chartType === "scatter" ? "linear" : "band",
     paddingInner: padding,
   };
   // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
@@ -902,16 +903,69 @@ export default function CreateXYChart({
               chartType !== "bargroup"
             }
             showSeriesGlyphs={sharedTooltip && chartType !== "bargroup"}
-            renderTooltip={({ tooltipData, colorScale }) => (
-              <>
-                {(valueOnly || valueWithText) && (
-                  <>
-                    {" "}
-                    {[tooltipData?.nearestDatum?.key]
-                      .filter((datum) => datum)
-                      .map((datum) => (
-                        <div key={datum}>
-                          {valueWithText && (
+            renderTooltip={({ tooltipData, colorScale }) =>
+              chartType !== "scatter" ? (
+                <>
+                  {(valueOnly || valueWithText) && (
+                    <>
+                      {[tooltipData?.nearestDatum?.key]
+                        .filter((datum) => datum)
+                        .map((datum) => (
+                          <div key={datum}>
+                            {valueWithText && (
+                              <em
+                                style={{
+                                  color: singleColor
+                                    ? selectColor(
+                                        theme?.tooltip?.headingColor,
+                                        theme
+                                      )
+                                    : multiColor
+                                    ? colorScale?.(
+                                        accessors.date(
+                                          tooltipData?.nearestDatum?.datum
+                                        )
+                                      )
+                                    : colorScale?.(datum),
+
+                                  textDecoration:
+                                    tooltipData?.nearestDatum?.key === datum
+                                      ? "underline"
+                                      : undefined,
+                                }}
+                              >
+                                {`${datum} `}
+                              </em>
+                            )}
+                            {tooltipData?.nearestDatum?.datum
+                              ? accessors[renderHorizontally ? "x" : "y"][
+                                  datum
+                                ](
+                                  tooltipData?.nearestDatum?.datum,
+                                  valueIndex(datum)
+                                )
+                              : "–"}
+                          </div>
+                        ))}
+                    </>
+                  )}
+                  {/** date */}
+                  {!(valueOnly || valueWithText) &&
+                    ((tooltipData?.nearestDatum?.datum &&
+                      accessors.date(tooltipData?.nearestDatum?.datum)) ||
+                      "No date")}
+                  {!(valueOnly || valueWithText) && (
+                    <>
+                      <br />
+                      <br />
+                      {/** values */}
+                      {(sharedTooltip
+                        ? Object.keys(tooltipData?.datumByKey ?? {})
+                        : [tooltipData?.nearestDatum?.key]
+                      )
+                        .filter((datum) => datum)
+                        .map((datum) => (
+                          <div key={datum}>
                             <em
                               style={{
                                 color: singleColor
@@ -935,69 +989,57 @@ export default function CreateXYChart({
                             >
                               {`${datum} `}
                             </em>
-                          )}
-                          {tooltipData?.nearestDatum?.datum
-                            ? accessors[renderHorizontally ? "x" : "y"][datum](
-                                tooltipData?.nearestDatum?.datum,
-                                valueIndex(datum)
-                              )
-                            : "–"}
-                        </div>
-                      ))}
-                  </>
-                )}
-                {/** date */}
-                {!(valueOnly || valueWithText) &&
-                  ((tooltipData?.nearestDatum?.datum &&
-                    accessors.date(tooltipData?.nearestDatum?.datum)) ||
-                    "No date")}
-                {!(valueOnly || valueWithText) && (
-                  <>
+                            {tooltipData?.nearestDatum?.datum
+                              ? accessors[renderHorizontally ? "x" : "y"][
+                                  datum
+                                ](
+                                  tooltipData?.nearestDatum?.datum,
+                                  valueIndex(datum)
+                                )
+                              : "–"}
+                          </div>
+                        ))}
+                    </>
+                  )}
+                </>
+              ) : (
+                Object.keys(tooltipData?.datumByKey ?? {}).map((datum) => (
+                  <div key={datum}>
+                    {(tooltipData?.nearestDatum?.datum &&
+                      accessors.date(tooltipData?.nearestDatum?.datum)) ||
+                      "No date"}
                     <br />
                     <br />
-                    {/** values */}
-                    {(sharedTooltip
-                      ? Object.keys(tooltipData?.datumByKey ?? {})
-                      : [tooltipData?.nearestDatum?.key]
-                    )
-                      .filter((datum) => datum)
-                      .map((datum) => (
-                        <div key={datum}>
+
+                    {measureInfo.map((measure, index) =>
+                      index <= 1 ? (
+                        <React.Fragment key={index}>
                           <em
                             style={{
-                              color: singleColor
-                                ? selectColor(
-                                    theme?.tooltip?.headingColor,
-                                    theme
-                                  )
-                                : multiColor
+                              color: multiColor
                                 ? colorScale?.(
                                     accessors.date(
                                       tooltipData?.nearestDatum?.datum
                                     )
                                   )
-                                : colorScale?.(datum),
-
-                              textDecoration:
-                                tooltipData?.nearestDatum?.key === datum
-                                  ? "underline"
-                                  : undefined,
+                                : colorScale?.([measureInfo[0].qFallbackTitle]),
                             }}
                           >
-                            {`${datum} `}
+                            {`${measureInfo[index].qFallbackTitle} `}
                           </em>
                           {tooltipData?.nearestDatum?.datum
-                            ? accessors[renderHorizontally ? "x" : "y"][datum](
-                                tooltipData?.nearestDatum?.datum,
-                                valueIndex(datum)
-                              )
+                            ? accessors[renderHorizontally ? "x" : "y"][
+                                measureInfo[index].qFallbackTitle
+                              ](tooltipData?.nearestDatum?.datum, index + 1)
                             : "–"}
-                        </div>
-                      ))}
-                  </>
-                )}
-              </>
-            )}
+                          <br />
+                        </React.Fragment>
+                      ) : null
+                    )}
+                  </div>
+                ))
+              )
+            }
           />
         )}
         {showBrush && (
