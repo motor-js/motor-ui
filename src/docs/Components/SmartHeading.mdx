@@ -1,0 +1,26 @@
+---
+name: Smart Heading
+route: /smartheading
+menu: Components
+---
+
+<br />
+<h1 style={{ margin: '0px' }}>Smart Text</h1>
+<h3 style={{ margin: '0px' }}><em>Simple Text component</em></h3>
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import SmartHeading from '../../lib/components/SmartHeading/SmartHeading.jsx';
+import Motor from '../../lib/components/Motor/Motor.jsx';
+import { config } from '../config/config.js'
+
+<Playground>
+  <Motor config={config}>
+    <SmartHeading level={1}></SmartHeading>
+    <SmartHeading level={2}></SmartHeading>
+    <SmartHeading level={3}></SmartHeading>
+    <SmartHeading level={4}></SmartHeading>
+    <SmartHeading level={5}></SmartHeading>
+    <SmartHeading level={6}></SmartHeading>
+  </Motor>
+</Playground>

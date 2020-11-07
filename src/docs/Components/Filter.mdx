@@ -1,0 +1,52 @@
+---
+name: Filter
+route: /filter
+menu: Components
+---
+
+<h1 style={{ margin: '0px' }}>Filter</h1>
+<h3 style={{ margin: '0px' }}><em>Select one or multiple values from a list, to apply filters to your application</em></h3>
+
+<br />
+
+## Import
+
+```javascript
+  import { Filter } from 'motor-ui'
+```
+
+<br />
+
+## Usage
+
+Here is a simple Filter component. Use it to make selections in your app.
+
+import { Props } from 'docz'
+import { Playground } from 'docz'
+import Filter from '../../lib/components/Filter/Filter.jsx'
+import Motor from '../../lib/components/Motor/Motor.jsx'
+import { config } from '../config/config.js'
+import { night } from '../../lib/themes'
+
+<Playground>
+    <div style={{width: "200px"}}>
+    <Motor config={config} theme={night}>
+    <Filter
+        label="Vehicle Type" dimension={['Vehicle Type']}
+        size='small'
+        width='100%'
+    />
+    </Motor>
+    </div>
+</Playground>
+
+<br />
+
+
+## Props
+
+<Props of={Filter} />
+
+<br />
+
+
