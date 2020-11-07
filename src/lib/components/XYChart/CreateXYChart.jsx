@@ -1013,9 +1013,7 @@ export default function CreateXYChart({
                             style={{
                               color: multiColor
                                 ? colorScale?.(
-                                    accessors.date(
-                                      tooltipData?.nearestDatum?.datum
-                                    )
+                                    tooltipData?.nearestDatum?.datum[0].qText
                                   )
                                 : colorScale?.([measureInfo[0].qFallbackTitle]),
                             }}
