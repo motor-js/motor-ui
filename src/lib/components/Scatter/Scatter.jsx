@@ -296,8 +296,6 @@ Scatter.defaultProps = {
   backgroundColor: null,
   margin: null,
   // crossHairStyles: {
-  //   showHorizontalLine: true,
-  //   showVerticalLine: true,
   //   showMultipleCircles: false,
   // },
   colorTheme: null,

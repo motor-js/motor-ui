@@ -141,6 +141,7 @@ export default function CreateXYChart({
   enableBrush,
   showBrush,
   fillStyle,
+  strokeWidth,
 
   //-----
   // debounce,                    // Tooltip
@@ -152,7 +153,6 @@ export default function CreateXYChart({
   // showSeriesGlyphs = false,    // Tooltip
   // formatTooltipDate,
 
-  // strokeWidth,
   // tooltipStyles,
 
   //-----
@@ -635,6 +635,7 @@ export default function CreateXYChart({
                 xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                 yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                 elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                strokeWidth={strokeWidth}
               />
             )
           )}
@@ -653,6 +654,7 @@ export default function CreateXYChart({
                     curve={getCurve(
                       accessors.el[measureInfo[index].qCurve] || curveShape
                     )}
+                    strokeWidth={strokeWidth}
                   />
                 ))
               : dataKeys.map((measure, index) => (
@@ -665,6 +667,7 @@ export default function CreateXYChart({
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
                     curve={getCurve(accessors.el[measure].qCurve || curveShape)}
+                    strokeWidth={strokeWidth}
                   />
                 ))}
           </>
@@ -686,6 +689,7 @@ export default function CreateXYChart({
                     curve={getCurve(
                       accessors.el[measureInfo[index].qCurve] || curveShape
                     )}
+                    strokeWidth={strokeWidth}
                     opacity={0.3}
                   />
                 ))
@@ -700,6 +704,7 @@ export default function CreateXYChart({
                     elAccessor={accessors.el[measure]}
                     fillStyle={measure.qFillStyle || fillStyle}
                     curve={getCurve(accessors.el[measure].qCurve || curveShape)}
+                    strokeWidth={strokeWidth}
                     opacity={0.3}
                   />
                 ))}

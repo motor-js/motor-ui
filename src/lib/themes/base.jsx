@@ -788,8 +788,6 @@ const base = {
     },
     showCircle: true,
     showMultipleCircles: true,
-    showHorizontalLine: true,
-    showVerticalLine: true,
     stroke: "multi",
     strokeDasharray: "5,2",
     strokeWidth: 1,
