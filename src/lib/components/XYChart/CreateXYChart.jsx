@@ -140,6 +140,7 @@ export default function CreateXYChart({
   curveShape,
   enableBrush,
   showBrush,
+  fillStyle,
 
   //-----
   // debounce,                    // Tooltip
@@ -150,7 +151,7 @@ export default function CreateXYChart({
   // showDatumGlyph = false,      // Tooltip
   // showSeriesGlyphs = false,    // Tooltip
   // formatTooltipDate,
-  // fillStyle,                   // Area
+
   // strokeWidth,
   // tooltipStyles,
 
@@ -680,6 +681,8 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measureInfo[index].qFallbackTitle]}
                     yAccessor={accessors.y[measureInfo[index].qFallbackTitle]}
                     elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    elAccessor={accessors.el[measureInfo[index].qFallbackTitle]}
+                    fillStyle={measureInfo[index].qFillStyle || fillStyle}
                     curve={getCurve(
                       accessors.el[measureInfo[index].qCurve] || curveShape
                     )}
@@ -695,6 +698,7 @@ export default function CreateXYChart({
                     xAccessor={accessors.x[measure]}
                     yAccessor={accessors.y[measure]}
                     elAccessor={accessors.el[measure]}
+                    fillStyle={measure.qFillStyle || fillStyle}
                     curve={getCurve(accessors.el[measure].qCurve || curveShape)}
                     opacity={0.3}
                   />

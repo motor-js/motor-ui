@@ -21,6 +21,7 @@ import {
   curveCatmullRomOpen,
   curveNatural,
 } from "@visx/curve";
+import { CSSProperties } from "react";
 
 export type SeriesProps<
   XScale extends AxisScale,
@@ -63,6 +64,7 @@ export type SeriesProps<
   // currentSelectionIds: Array<number>;
   // /** Given a Datum, returns the elementid value. */
   // handleClick: (d: Array<number>) => any;
+  fillStyle: any;
 };
 
 /** Bar shape. */

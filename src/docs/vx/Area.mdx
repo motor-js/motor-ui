@@ -42,6 +42,12 @@ import { config } from '../config/config.js'
       { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
    { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
      { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} ,  },
-    ]}/>
+    ]}
+//         cols={[
+//      { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
+//   { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar', qFillStyle:{style:"Linear", fillFrom : "#c21500",fillTo : "#ffc500"}},
+//     { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qFillStyle:"PurpleOrangle",qShowPoints:{ symbol: 'circle', size: 100} ,  },
+//    ]}
+    />
   </Motor>
 </Playground>

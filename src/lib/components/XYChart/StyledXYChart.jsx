@@ -299,7 +299,7 @@ function StyledXYChart(props) {
     showLegend: valueIfUndefined(showLegend, theme.showLegend),
     backgroundPattern: backgroundPattern || theme.backgroundStyles.pattern,
     backgroundStyle: backgroundStyle || theme.backgroundStyles,
-    //         fillStyle={fillStyle || theme.fillStyles}
+    fillStyle: fillStyle || theme.fillStyles,
     multiColor:
       valueIfUndefined(multiColor, theme.multiColor) &&
       (type == "bar" || type == "scatter")
