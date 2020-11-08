@@ -44,8 +44,8 @@ export interface DataContextType<
   YScale extends AxisScale,
   Datum extends object
 > {
-  xScale: XScale;
-  yScale: YScale;
+  xScale: any;
+  yScale: any;
   colorScale: ScaleTypeToD3Scale<string, string>["ordinal"];
   width: number;
   height: number;

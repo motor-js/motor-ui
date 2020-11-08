@@ -1,8 +1,14 @@
 import React, { useContext, useCallback, useRef, useEffect } from "react";
-import BaseBrush from "./BaseBrush";
+import BaseBrush, { BaseBrushProps } from "./BaseBrush";
 import DataContext from "../../context/DataContext";
 import isValidNumber from "../../typeguards/isValidNumber";
-// import getScaledValueFactory from "../../utils/getScaledValueFactory";
+import {
+  Bounds,
+  PartialBrushStartEnd,
+  MarginShape,
+  ResizeTriggerAreas,
+  Scale,
+} from "./types";
 
 import { isEmpty } from "../../../../utils";
 
@@ -19,6 +25,51 @@ const allResizeTriggers = [
   "bottomRight",
 ];
 
+export type BrushProps = {
+  /** Style object for the Brush selection rect. */
+  selectedBoxStyle: React.SVGProps<SVGRectElement>;
+  /** x-coordinate scale. */
+  xScale: Scale;
+  /** y-coordinate scale. */
+  yScale: Scale;
+  /** Brush stage height. */
+  height: number;
+  /** Brush stage width. */
+  width: number;
+  /** Callback invoked on a change in Brush bounds. */
+  onChange?: (bounds: Bounds | null) => void;
+  /** Callback invoked on initialization of a Brush (not Brush move). */
+  onBrushStart?: BaseBrushProps["onBrushStart"];
+  /** Callback invoked on mouse up when a Brush size is being updated. */
+  onBrushEnd?: (bounds: Bounds | null) => void;
+  /** Callback invoked on mouse move in Brush stage when *not* dragging. */
+  onMouseMove?: BaseBrushProps["onMouseMove"];
+  /** Callback invoked on mouse leave from Brush stage when *not* dragging. */
+  onMouseLeave?: BaseBrushProps["onMouseLeave"];
+  /** Callback invoked on Brush stage click. */
+  onClick?: BaseBrushProps["onClick"];
+  /** Margin subtracted from Brush stage dimensions. */
+  margin?: MarginShape;
+  /** Allowed directions for Brush dimensional change. */
+  brushDirection?: "vertical" | "horizontal" | "both";
+  /** Initial start and end position of the Brush. */
+  initialBrushPosition?: (scales) => BaseBrushProps["initialBrushPosition"];
+  /** Array of rect sides and corners which should be resizeable / can trigger a Brush size change. */
+  resizeTriggerAreas?: any;
+  /** What is being brushed, used for margin subtraction. */
+  brushRegion?: "xAxis" | "yAxis" | "chart";
+  /** Orientation of yAxis if `brushRegion=yAxis`. */
+  yAxisOrientation?: "left" | "right";
+  /** Orientation of xAxis if `brushRegion=xAxis`. */
+  xAxisOrientation?: "top" | "bottom";
+  /** Whether movement of Brush should be disabled. */
+  disableDraggingSelection: boolean;
+  /** Whether to reset the Brush on drag end. */
+  resetOnEnd?: boolean;
+  /** Size of Brush handles, applies to all `resizeTriggerAreas`. */
+  handleSize: number;
+};
+
 export default function Brush({
   brushDirection = "horizontal",
   brushRegion = "chart",
@@ -30,7 +81,7 @@ export default function Brush({
   selectedBoxStyle,
   xAxisOrientation,
   yAxisOrientation,
-}) {
+}: BrushProps) {
   const {
     xScale,
     yScale,
@@ -44,7 +95,7 @@ export default function Brush({
     chartType,
   } = useContext(DataContext);
 
-  const childRef = useRef();
+  const childRef = useRef<any>();
 
   let xAccessor = null;
   let yAccessor = null;
@@ -55,7 +106,7 @@ export default function Brush({
   }, [currentSelectionIds]);
 
   const getScaledX = useCallback(
-    (d) => {
+    (d, i) => {
       const x = xScale(xAccessor?.(d));
       return isValidNumber(x) ? x + (xScale.bandwidth?.() ?? 0) / 2 : null;
     },
@@ -63,7 +114,7 @@ export default function Brush({
   );
 
   const getScaledY = useCallback(
-    (d) => {
+    (d, i) => {
       const y = yScale(yAccessor?.(d));
       return isValidNumber(y) ? y + (yScale.bandwidth?.() ?? 0) / 2 : null;
     },

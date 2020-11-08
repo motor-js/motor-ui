@@ -26,6 +26,9 @@ export { default as AnimatedLineSeries } from "./components/series/AnimatedLineS
 // Legend
 export { default as Legend } from "./components/legend/Legend";
 
+// Brush
+export { default as Brush } from "./components/brush/Brush";
+
 // context
 export { default as DataContext } from "./context/DataContext";
 export { default as EventEmitterContext } from "./context/EventEmitterContext";

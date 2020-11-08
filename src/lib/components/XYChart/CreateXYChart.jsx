@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from "react";
 import {
   GlyphCross,
-  GlyphDot,
+  // GlyphDot,
   GlyphStar,
   GlyphDiamond,
   GlyphSquare,
@@ -53,11 +53,8 @@ import {
   Title,
   XYChart,
   Legend,
+  Brush,
 } from "../visx";
-
-import Brush from "../visx/components/brush/Brush";
-
-// import Legend from "../visx/components/legend/Legend";
 
 import {
   selectColor,
@@ -65,6 +62,7 @@ import {
   isDefined,
   roundNumber,
 } from "../../utils";
+
 import { PatternLines } from "@visx/pattern";
 
 import CustomChartBackground from "./CustomChartBackground";

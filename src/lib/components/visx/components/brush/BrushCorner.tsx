@@ -1,17 +1,35 @@
 /* eslint react/jsx-handler-names: 0 */
 import React from "react";
-import { Drag } from "@visx/drag";
+import Drag, { HandlerArgs as DragArgs } from "@visx/drag/lib/Drag";
+import { BaseBrushState as BrushState, UpdateBrush } from "./BaseBrush";
+import { ResizeTriggerAreas } from "./types";
 
-export default class BrushCorner extends React.Component {
+export type BrushCornerProps = {
+  stageWidth: number;
+  stageHeight: number;
+  brush: BrushState;
+  updateBrush: (update: UpdateBrush) => void;
+  onBrushEnd?: (brush: BrushState) => void;
+  type: ResizeTriggerAreas;
+  style?: React.CSSProperties;
+  corner: { x: number; y: number; width: number; height: number };
+};
+
+export type BrushCornerState = {};
+
+export default class BrushCorner extends React.Component<
+  BrushCornerProps,
+  BrushCornerState
+> {
   static defaultProps = {
     style: {},
   };
 
-  cornerDragMove = (drag) => {
+  cornerDragMove = (drag: DragArgs) => {
     const { updateBrush, type } = this.props;
     if (!drag.isDragging) return;
 
-    updateBrush((prevBrush) => {
+    updateBrush((prevBrush: Readonly<BrushState>) => {
       const { start, end } = prevBrush;
 
       const xMax = Math.max(start.x, end.x);
@@ -90,7 +108,7 @@ export default class BrushCorner extends React.Component {
   cornerDragEnd = () => {
     const { updateBrush, onBrushEnd } = this.props;
 
-    updateBrush((prevBrush) => {
+    updateBrush((prevBrush: Readonly<BrushState>) => {
       const { start, end, extent } = prevBrush;
       start.x = Math.min(extent.x0, extent.x1);
       start.y = Math.min(extent.y0, extent.y0);

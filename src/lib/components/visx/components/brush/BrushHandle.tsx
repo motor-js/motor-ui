@@ -1,14 +1,26 @@
 /* eslint react/jsx-handler-names: 0 */
 import React from "react";
-import { Drag } from "@visx/drag";
+import Drag, { HandlerArgs as DragArgs } from "@visx/drag/lib/Drag";
+import { BaseBrushState as BrushState, UpdateBrush } from "./BaseBrush";
+import { ResizeTriggerAreas } from "./types";
+
+export type BrushHandleProps = {
+  stageWidth: number;
+  stageHeight: number;
+  brush: BrushState;
+  updateBrush: (update: UpdateBrush) => void;
+  onBrushEnd?: (brush: BrushState) => void;
+  type: ResizeTriggerAreas;
+  handle: { x: number; y: number; width: number; height: number };
+};
 
 /** BrushHandle's are placed along the bounds of the brush and handle Drag events which update the passed brush. */
-export default class BrushHandle extends React.Component {
-  handleDragMove = (drag) => {
+export default class BrushHandle extends React.Component<BrushHandleProps> {
+  handleDragMove = (drag: DragArgs) => {
     const { updateBrush, type } = this.props;
     if (!drag.isDragging) return;
 
-    updateBrush((prevBrush) => {
+    updateBrush((prevBrush: BrushState) => {
       const { start, end } = prevBrush;
       let move = 0;
       const xMax = Math.max(start.x, end.x);
@@ -68,13 +80,13 @@ export default class BrushHandle extends React.Component {
 
   handleDragEnd = () => {
     const { updateBrush, onBrushEnd } = this.props;
-    updateBrush((prevBrush) => {
+    updateBrush((prevBrush: BrushState) => {
       const { start, end, extent } = prevBrush;
       start.x = Math.min(extent.x0, extent.x1);
       start.y = Math.min(extent.y0, extent.y0);
       end.x = Math.max(extent.x0, extent.x1);
       end.y = Math.max(extent.y0, extent.y1);
-      const nextBrush = {
+      const nextBrush: BrushState = {
         ...prevBrush,
         start,
         end,
