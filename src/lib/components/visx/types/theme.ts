@@ -25,6 +25,10 @@ export type ValueLabelStyles = any;
 
 export type PointsStyles = any;
 
+export type LegendStyles = any;
+
+export type LegendLabelStyles = any;
+
 export type SVGTextProps = TextProps;
 
 interface AxisStyle {
@@ -68,6 +72,8 @@ export interface XYChartTheme {
   };
   hover: HoverStyles;
   selection: SelectionStyles;
+  legendStyles: LegendStyles;
+  legendLabelStyles: LegendLabelStyles;
   nonSelection: NonSelectionStyles;
   noSelections: NoSelectionStyles;
   scatter: ScatterStyles;

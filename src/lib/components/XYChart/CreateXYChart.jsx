@@ -52,11 +52,12 @@ import {
   Tooltip,
   Title,
   XYChart,
+  Legend,
 } from "../visx";
 
 import Brush from "../visx/components/brush/Brush";
 
-import Legend from "../visx/components/legend/Legend";
+// import Legend from "../visx/components/legend/Legend";
 
 import {
   selectColor,

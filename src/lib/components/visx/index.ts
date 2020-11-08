@@ -23,6 +23,9 @@ export { default as AnimatedBarGroup } from "./components/series/AnimatedBarGrou
 // export { default as AnimatedGlyphSeries } from "./components/series/AnimatedGlyphSeries";
 export { default as AnimatedLineSeries } from "./components/series/AnimatedLineSeries";
 
+// Legend
+export { default as Legend } from "./components/legend/Legend";
+
 // context
 export { default as DataContext } from "./context/DataContext";
 export { default as EventEmitterContext } from "./context/EventEmitterContext";

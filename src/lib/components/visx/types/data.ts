@@ -57,7 +57,7 @@ export interface DataContextType<
   showTooltip: boolean;
   horizontal: boolean;
   multiColor: Array<string>;
-  legendLabelStyle: object;
+  legendLabelStyle: any;
   singleDimension?: boolean;
   singleMeasure?: boolean;
   dimensionInfo: Array<any>;
