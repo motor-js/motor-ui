@@ -20,9 +20,9 @@ export default function getBarStackRegistryData<
   comprehensiveDomain: [number, number],
   horizontal?: boolean
 ) {
-  const [xAccessor, yAccessor] = horizontal
-    ? [getNumericValue, getStack]
-    : [getStack, getNumericValue];
+  const [xAccessor, yAccessor, elAccessor] = horizontal
+    ? [getNumericValue, getStack, null]
+    : [getStack, getNumericValue, null];
   return stackedData
     .map((data, index) => {
       const entry: DataRegistryEntry<
@@ -31,6 +31,8 @@ export default function getBarStackRegistryData<
         BarStackDatum<XScale, YScale>
       > = {
         key: data.key,
+        index,
+        elAccessor,
         data,
         xAccessor,
         yAccessor,

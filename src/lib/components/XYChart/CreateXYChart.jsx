@@ -138,7 +138,7 @@ export default function CreateXYChart({
   shiftTooltipLeft,
   valueOnly,
   valueWithText,
-  curveShape, // Area and Line
+  curveShape,
   enableBrush,
   showBrush,
 

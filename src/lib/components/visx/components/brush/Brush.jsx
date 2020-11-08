@@ -2,7 +2,7 @@ import React, { useContext, useCallback, useRef, useEffect } from "react";
 import BaseBrush from "./BaseBrush";
 import DataContext from "../../context/DataContext";
 import isValidNumber from "../../typeguards/isValidNumber";
-import getScaledValueFactory from "../../utils/getScaledValueFactory";
+// import getScaledValueFactory from "../../utils/getScaledValueFactory";
 
 import { isEmpty } from "../../../../utils";
 

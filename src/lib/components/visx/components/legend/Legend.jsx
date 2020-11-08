@@ -4,7 +4,7 @@ import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import DataContext from "../../context/DataContext";
 import { selectColor } from "../../../../utils";
-import { array } from "prop-types";
+// import { array } from "prop-types";
 
 import createOrdinalScale from "@visx/scale/lib/scales/ordinal";
 
