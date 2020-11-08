@@ -1,4 +1,7 @@
-import { isBoolean } from "../components/visx/utils/chartUtils";
+// import { isBoolean } from "../components/visx/utils/chartUtils";
+export function isBoolean(val) {
+  return typeof val === "boolean";
+}
 
 export function roundNumber(numb, precision) {
   let num = numb;
@@ -11,9 +14,8 @@ export function roundNumber(numb, precision) {
   // check if the string passed is number or contains formatting like 13%
   if (/^[0-9.]+$/.test(num)) {
     num =
-      precision && num > 1000
-        ? parseFloat(num).toFixed(decimals)
-        : Math.round(num);
+      // precision && num > 1000 ? parseFloat(num).toFixed(decimals) : Math.round(num);
+      precision ? parseFloat(num).toFixed(decimals) : Math.round(num);
     if (num >= 1000 && num < 1000000) {
       num = precision
         ? parseFloat(num / 1000).toFixed(decimals)

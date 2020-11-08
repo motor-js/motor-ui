@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
+import ParentSize from "@visx/responsive/lib/components/ParentSize";
+// import { ParentSize } from "@visx/responsive";
 import useHyperCube from "../../hooks/useHyperCube";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import SelectionModal from "../SelectionModal";
@@ -18,7 +20,7 @@ import {
   createColorArray,
 } from "../../utils";
 
-import { valueIfUndefined, isDefined } from "../visx/utils/chartUtils";
+import { isDefined, valueIfUndefined } from "../../utils";
 
 let measureCount = null;
 let dimensionCount = null;
@@ -55,7 +57,7 @@ function StyledXYChart(props) {
     border,
     borderRadius,
     backgroundColor,
-    colorTheme,
+    // colorTheme,
     showLegend,
     selectionMethod,
     sortDirection,
@@ -69,7 +71,8 @@ function StyledXYChart(props) {
     type,
     padding,
     useAnimatedAxes,
-    autoWidth,
+    useAnimatedGrid,
+    animationTrajectory,
     renderHorizontally,
     includeZero,
     backgroundPattern,
@@ -82,16 +85,18 @@ function StyledXYChart(props) {
     ...rest
   } = props;
 
-  const {
-    global: { colorTheme: globalColorTheme, chart },
-  } = theme;
+  // const {
+  //   global: { colorTheme: globalColorTheme, chart },
+  // } = theme;
 
-  // if the prop is undefined, use the base theme
-  const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
+  // // if the prop is undefined, use the base theme
+  // const colorPalette = createColorArray(colorTheme || globalColorTheme, theme);
 
-  const refMargin = "10px";
+  // return <h1>test</h1>;
 
-  // retrieve XYChart data from HyperCube
+  // const refMargin = "10px";
+
+  // // retrieve XYChart data from HyperCube
   const {
     beginSelections,
     endSelections,
@@ -106,9 +111,9 @@ function StyledXYChart(props) {
     qSortByAscii: numericSortDirection(sortDirection, 1),
     qInterColumnSortOrder: sortOrder,
     qCalcCondition: calcCondition,
-    qSuppressZero: suppressZero || chart.suppressZero,
-    qSuppressMissing: suppressMissing || chart.suppressMissing,
-    qOtherTotalSpec: otherTotalSpec || chart.otherTotalSpec,
+    qSuppressZero: suppressZero || theme.suppressZero,
+    qSuppressMissing: suppressMissing || theme.suppressMissing,
+    qOtherTotalSpec: otherTotalSpec || theme.otherTotalSpec,
   });
 
   const cancelCallback = () => {
@@ -135,11 +140,19 @@ function StyledXYChart(props) {
     }
   });
 
-  const handleResize = () => {
-    if (typeof calcCond === "undefined" && dataError.length === 0) {
-      // CreateXYChart({ ...chartSettings, screenWidth: ref.current.offsetWidth });
-    }
-  };
+  // const handleResize = () => {
+  //   if (typeof calcCond === "undefined" && dataError.length === 0) {
+  //     // CreateXYChart({ ...chartSettings, screenWidth: ref.current.offsetWidth });
+  //   }
+  // };
+
+  // const handleClick = (selectionValue) => {
+  //   beginSelections();
+
+  //   setCurrentSelectionIds(selectionValue);
+
+  //   select(0, selectionValue);
+  // };
 
   useEffect(() => {
     let valid;
@@ -190,7 +203,8 @@ function StyledXYChart(props) {
             dimID = d[0].qText;
           }
           const measure = d[1];
-          measure.qNum = isDefined(d[2]) ? d[2].qNum : 0;
+          // measure.qNum = isDefined(d[2]) ? d[2].qNum : 0;
+          measure.qNum = d[2].qNum;
           if (!keys.includes(measure.qText)) {
             keys.push(measure.qText);
           }
@@ -201,11 +215,17 @@ function StyledXYChart(props) {
       }
 
       dataKeys =
-        singleDimension && singleMeasure && type === "bar"
+        (singleDimension &&
+          singleMeasure &&
+          type === "bar" &&
+          valueIfUndefined(multiColor, theme.multiColor)) ||
+        (valueIfUndefined(multiColor, theme.multiColor) && type === "scatter")
           ? qData.qMatrix.map((d) => d[0].qText)
           : !singleDimension
           ? keys
-          : null;
+          : type === "scatter"
+          ? [qLayout.qHyperCube.qDimensionInfo[0].qFallbackTitle]
+          : qLayout.qHyperCube.qMeasureInfo.map((m) => m.qFallbackTitle);
 
       // dimensionTicks = Math.min(
       //   numDimensionTicks ||
@@ -238,6 +258,61 @@ function StyledXYChart(props) {
     }
   }, [qData, isValid]);
 
+  const otherProps = {
+    // width={
+    //           gridArea
+    //             ? ref.current.offsetWidth
+    //             : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+    //         }
+    //         height={
+    //           gridArea
+    //             ? ref.current.offsetHeight -
+    //               parseInt(margin || theme.margin, 10)
+    //             : parseInt(height, 10)
+    //         }
+    //         events={events || theme.events}
+    qLayout,
+    numDimensionTicks,
+    theme,
+    borderRadius,
+    singleDimension,
+    singleMeasure,
+    measureCount,
+    // dimensionCount,
+    data,
+    // handleClick,
+    //         keys={keys}
+    dataKeys,
+    beginSelections,
+    select,
+    setCurrentSelectionIds,
+    currentSelectionIds,
+    colorPalette: theme.colors,
+    size,
+    type,
+    padding: padding || theme.padding,
+    useAnimatedAxes: useAnimatedAxes || theme.useAnimatedAxes,
+    useAnimatedGrid: useAnimatedGrid || theme.useAnimatedGrid,
+    animationTrajectory: animationTrajectory || theme.animationTrajectory,
+    renderHorizontally: renderHorizontally || theme.renderHorizontally,
+    includeZero: includeZero || theme.includeZero,
+    showLegend: valueIfUndefined(showLegend, theme.showLegend),
+    backgroundPattern: backgroundPattern || theme.backgroundStyles.pattern,
+    backgroundStyle: backgroundStyle || theme.backgroundStyles,
+    //         fillStyle={fillStyle || theme.fillStyles}
+    multiColor:
+      valueIfUndefined(multiColor, theme.multiColor) &&
+      (type == "bar" || type == "scatter")
+        ? dataKeys
+        : null,
+    selectionMethod: valueIfUndefined(selectionMethod, theme.selectionMethod),
+    enableBrush,
+    //         showAsPercent={showAsPercent}
+    showBrush,
+    ...rest,
+  };
+
+  // if (width == null || height == null) {
   return (
     <>
       {data && qLayout && !dataError ? (
@@ -245,95 +320,58 @@ function StyledXYChart(props) {
           border={border}
           backgroundColor={backgroundColor}
           borderRadius={borderRadius}
-          margin={margin || chart.margin}
+          margin={margin || theme.margin}
           gridArea={gridArea}
           width={width}
           showBoxShadow={valueIfUndefined(
             showBoxShadow,
-            chart.wrapper.showBoxShadow
+            theme.wrapper.showBoxShadow
           )}
           ref={ref}
         >
-          <div>
-            <CreateXYChart
-              width={
-                gridArea
-                  ? ref.current.offsetWidth
-                  : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
-              }
-              height={
-                gridArea
-                  ? ref.current.offsetHeight -
-                    parseInt(margin || chart.margin, 10)
-                  : parseInt(height, 10)
-              }
-              events={events || chart.events}
-              qLayout={qLayout}
-              // qData={data}
-              numDimensionTicks={numDimensionTicks}
-              theme={theme}
-              borderRadius={borderRadius}
-              singleDimension={singleDimension}
-              singleMeasure={singleMeasure}
-              measureCount={measureCount}
-              dimensionCount={dimensionCount}
-              data={data}
-              keys={keys}
-              dataKeys={dataKeys}
-              beginSelections={beginSelections}
-              select={select}
-              // refreshChart={refreshChart}
-              // setRefreshChart={setRefreshChart}
-              setCurrentSelectionIds={setCurrentSelectionIds}
-              currentSelectionIds={currentSelectionIds}
-              // useSelectionColours={useSelectionColours}
-              colorPalette={colorPalette}
-              size={size}
-              type={type}
-              padding={padding || chart.padding}
-              useAnimatedAxes={useAnimatedAxes || chart.useAnimatedAxes}
-              autoWidth={autoWidth || chart.autoWidth}
-              renderHorizontally={
-                renderHorizontally || chart.renderHorizontally
-              }
-              includeZero={includeZero || chart.includeZero}
-              showLegend={
-                // showLegend === undefined ? chart.showLegend : showLegend
-                valueIfUndefined(showLegend, chart.showLegend)
-              }
-              backgroundPattern={
-                backgroundPattern || chart.backgroundStyles.pattern
-              }
-              backgroundStyle={backgroundStyle || chart.backgroundStyles}
-              fillStyle={fillStyle || chart.fillStyles}
-              multiColor={valueIfUndefined(multiColor, chart.multiColor)}
-              selectionMethod={valueIfUndefined(
-                selectionMethod,
-                chart.selectionMethod
+          {/* <div> */}
+          {width == null || height == null ? (
+            <ParentSize>
+              {({ width, height }) => (
+                <CreateXYChart width={width} height={height} {...otherProps} />
               )}
-              enableBrush={enableBrush}
-              showAsPercent={showAsPercent}
-              showBrush={showBrush}
-              {...rest}
+            </ParentSize>
+          ) : (
+            <CreateXYChart
+              width={width}
+              height={height}
+              // width={
+              //   gridArea
+              //     ? ref.current.offsetWidth
+              //     : parseInt(width, 10) - parseInt(refMargin, 10) * 2 // Adjust for outside padding
+              // }
+              // height={
+              //   gridArea
+              //     ? ref.current.offsetHeight -
+              //       parseInt(margin || theme.margin, 10)
+              //     : parseInt(height, 10)
+              // }
+              {...otherProps}
             />
-            <SelectionModal
-              isOpen={!isEmpty(currentSelectionIds)}
-              cancelCallback={cancelCallback}
-              confirmCallback={confirmCallback}
-              offsetX={0}
-              // width={width}
-            />
-          </div>
+          )}{" "}
+          <SelectionModal
+            isOpen={!isEmpty(currentSelectionIds)}
+            cancelCallback={cancelCallback}
+            confirmCallback={confirmCallback}
+            offsetX={0}
+            // width={width}
+          />
+          {/* </div> */}
         </XYChartWrapper>
       ) : (
         <XYChartWrapperNoData
           border={border}
           size={size}
-          margin={margin || chart.margin}
+          margin={margin || theme.margin}
           // height={
           //   gridArea
           //     ? ref.current.offsetHeight -
-          //       parseInt(margin || chart.margin, 10)
+          //       parseInt(margin || theme.margin, 10)
           //     : parseInt(height, 10)
           // }
           gridArea={gridArea}
@@ -346,6 +384,9 @@ function StyledXYChart(props) {
       )}
     </>
   );
+  // }
+
+  // return <CreateXYChart width={width} height={height} {...otherProps} />;
 }
 
 export default StyledXYChart;

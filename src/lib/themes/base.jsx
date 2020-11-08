@@ -1,5 +1,24 @@
 import "./colors/open-color.css";
 
+const dark = [
+  "#3bc9db",
+  "#c3fae8",
+  "#ffec99",
+  "#ff8787",
+  "#e599f7",
+  "#be4bdb",
+  "#faa2c1",
+];
+const light = [
+  "#0b7285",
+  "#66d9e8",
+  "#fcc419",
+  "#ff8787",
+  "#9c36b5",
+  "#cc5de8",
+  "#a61e4d",
+];
+
 const motor = [
   "#003f5c",
   "#2f4b7c",
@@ -114,6 +133,8 @@ const color = {
   divergent13,
   eco,
   bio,
+  dark,
+  light,
   /** Below not documented, are they used? */
   gauge: "var(--oc-pink-4)",
   success: "green",
@@ -129,6 +150,62 @@ jet
 dodge
 electric
 */
+
+const darkTheme = {
+  color: dark,
+  backgroundColor: "#222",
+  tickLabelStyles: "#e9ecef",
+  labelStyles: "#f8f9fa",
+  gridColor: "#ced4da",
+};
+
+const motorTheme = {
+  color: motor,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+  gridColor: "#adb5bd",
+};
+
+const divergent9Theme = {
+  color: divergent9,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+  gridColor: "#adb5bd",
+};
+
+const divergent13Theme = {
+  color: divergent13,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+  gridColor: "#adb5bd",
+};
+
+const ecoTheme = {
+  color: eco,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+  gridColor: "#adb5bd",
+};
+
+const bioTheme = {
+  color: bio,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+  gridColor: "#adb5bd",
+};
+
+const lightTheme = {
+  color: light,
+  backgroundColor: "#fff",
+  tickLabelStyles: "#495057",
+  labelStyles: "#212529",
+  gridColor: "#adb5bd",
+};
 
 const fontFamily = "Inter, sans-serif"; /* 'Roboto, sans-serif' */
 
@@ -230,6 +307,14 @@ const base = {
       },
     },
     chart: {
+      darkTheme,
+      motorTheme,
+      divergent9Theme,
+      divergent13Theme,
+      ecoTheme,
+      bioTheme,
+      lightTheme,
+      margin: { top: 50, right: 50, bottom: 50, left: 50 },
       border: {
         color: "var(--oc-gray-4)",
         size: "1px",
@@ -288,21 +373,24 @@ const base = {
           },
         },
       },
-      suppressZero: false,
+      suppressZero: true,
       suppressMissing: false,
       otherTotalSpec: undefined,
       showLegend: true,
       showAxisLabels: "both",
       margin: "10px",
-      padding: 0.2, // Padding between bars
-      useAnimatedAxes: false,
+      padding: 0.3, // Padding between bars
+      useAnimatedAxes: true,
+      useAnimatedGrid: true,
+      numGridRows: 4,
+      numGridColumns: 4,
+      animationTrajectory: "center",
       includeZero: true,
       multiColor: true,
       selectionMethod: "brush",
-      autoWidth: false,
+      // autoWidth: false, // REMOVED
       renderHorizontally: false,
       allowSelections: true, //captureEvents if captureevents true the cannot make selections
-      events: false,
       color,
       showLabels: true,
       showPoints: true,
@@ -323,6 +411,33 @@ const base = {
         margin: "10px",
       },
       baseColor: "#fff",
+      // backgroundColor: {
+      //   dark: "#222",
+      //   motor: "#fff",
+      //   divergent9: "#fff",
+      //   divergent13: "#fff",
+      //   eco: "#fff",
+      //   bio: "#fff",
+      //   light: "#fff",
+      // },
+      // tickLabelStyles: {
+      //   dark: "#e9ecef",
+      //   motor: "#495057",
+      //   divergent9: "#495057",
+      //   divergent13: "#495057",
+      //   eco: "#495057",
+      //   bio: "#495057",
+      //   light: "#495057",
+      // },
+      // labelStyles: {
+      //   dark: "#f8f9fa",
+      //   motor: "#212529",
+      //   divergent9: "#212529",
+      //   divergent13: "#212529",
+      //   eco: "#212529",
+      //   bio: "#212529",
+      //   light: "#212529",
+      // },
       colors: [
         "#0b7285",
         "#15aabf",
@@ -336,9 +451,16 @@ const base = {
         patternStroke: null,
         patternWidth: null,
         patternHeight: null,
+        strokeWidth: null,
+        orientation: null, // Array e.g. ["diagonal"]
       },
       legendStyles: {
         backgroundColor: "#fff",
+        direction: "row",
+        margin: { left: "5px", right: "5px", bottom: "5px" },
+        upperCase: true,
+        alignLeft: false,
+        legendGlyphSize: 15,
         // stroke: "white",
         // opacity: 1,
         // borderRadius: "10px",
@@ -346,6 +468,7 @@ const base = {
         // legendText: { fill: "var(--oc-gray-7)" },
       },
       legendLabelStyles: {
+        margin: "0 0 0 4px",
         fill: "#212529",
         stroke: "none",
         fontFamily,
@@ -356,47 +479,57 @@ const base = {
           large: "16px",
           xlarge: "18px",
         },
-        letterSpacing: 0.4,
-        textAnchor: "middle",
-        fontWeight: "normal",
-        pointerEvents: "none",
+        // letterSpacing: 0.4,
+        // textAnchor: "middle",
+        // fontWeight: "normal",
+        // pointerEvents: "none",
       },
       backgroundStyles: {
+        // AG
         pattern: null,
-        stroke: "#adb5bd",
-        strokeWidth: 0.5,
+        stroke: "#ced4da",
+        strokeWidth: 1,
         style: undefined,
         styleFrom: undefined,
         styleTo: undefined,
       },
       fillStyles: {
+        //AG
         style: undefined,
         styleFrom: undefined,
         styleTo: undefined,
       },
       gridStyles: {
         rows: {
-          stroke: "#adb5bd",
+          stroke: "#ced4da",
           strokeWidth: 1,
           strokeDasharray: "5,3",
           numTicks: 10,
           lineStyle: null,
-          // offset: null,
+          yOffset: null,
           tickValues: null,
         },
         columns: {
-          stroke: "#adb5bd",
+          stroke: "#ced4da",
           strokeWidth: 1,
           strokeDasharray: "5,3",
           numTicks: 10,
           lineStyle: null,
-          // offset: null,
+          xOffset: null,
           tickValues: null,
         },
+      },
+      noSelections: {
+        opacity: 1,
+        cursor: "pointer",
+        // fill: "orange",
+        // stroke: "black",
+        // strokeWidth: "1px",
       },
       selection: {
         opacity: 1,
         cursor: "pointer",
+        fill: "orange",
         // stroke: "black",
         // strokeWidth: "1px",
       },
@@ -408,209 +541,234 @@ const base = {
       hover: {
         opacity: 0.5,
         cursor: "pointer",
+        // fill: "orange",
         // background: "var(--oc-gray-1)",
       },
 
       tooltip: {
-        // snapToDataX: false,
-        // snapToDataX: false,
-        valueOnly: false,
-        valueWithText: false,
-        showClosestItem: true, // Used for tooltip
-        useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
-        headingColor: "altDark",
-        tooltipStyles: {
-          borderRadius: "3px",
-          boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+        // snapTooltipToDatumX: false,
+        // snapTooltipToDatumX: false,
+        // valueOnly: false,
+        // valueWithText: false,
+        // showClosestItem: true, // Used for tooltip
+        // useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
+        // headingColor: "altDark",
+        // tooltipStyles: {
+        //   borderRadius: "3px",
+        //   boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+        //   fontSize: {
+        //     tiny: "10px",
+        //     small: "12px",
+        //     medium: "14px",
+        //     large: "16px",
+        //     xlarge: "18px",
+        //   },
+
+        //   lineHeight: "1em",
+        //   padding: ".3rem .5rem",
+        //   pointerEvents: "none",
+        //   position: "absolute",
+        //   backgroundColor: "#fff",
+        //   color: "altDark",
+        //   textAlign: null,
+        // },
+        tooltiplLabelStyles: {
+          fontFamily:
+            "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
+          fontWeight: 700,
           fontSize: {
-            tiny: "10px",
-            small: "12px",
-            medium: "14px",
-            large: "16px",
-            xlarge: "18px",
+            tiny: "8px",
+            small: "10px",
+            medium: "12px",
+            large: "14px",
+            xlarge: "16px",
           },
-          lineHeight: "1em",
-          padding: ".3rem .5rem",
+          textAnchor: "middle",
           pointerEvents: "none",
-          position: "absolute",
-          backgroundColor: "#fff",
-          color: "altDark",
-          textAlign: null,
+          letterSpacing: 0.4,
         },
       },
       xAxisStyles: {
-        stroke: "#adb5bd",
-        strokeWidth: 1,
-        label: {
-          bottom: {
-            fill: "#212529",
-            stroke: "none",
+        top: {
+          axisLabel: {
             fontFamily,
+            fontWeight: 700,
             fontSize: {
-              tiny: "10px",
-              small: "12px",
-              medium: "14px",
-              large: "16px",
-              xlarge: "18px",
+              tiny: 8,
+              small: 10,
+              medium: 12,
+              large: 14,
+              xlarge: 16,
             },
-            letterSpacing: 0.4,
             textAnchor: "middle",
-            fontWeight: "normal",
             pointerEvents: "none",
-            // dy: "-0.25em",
-            dy: "0.25em",
+            letterSpacing: 0.4,
+            stroke: "none",
+            dy: "-0.25em", // needs to include font-size
           },
-          top: {
-            fill: "#212529",
-            stroke: "none",
+          axisLine: {
+            strokeWidth: 1,
+          },
+          tickLabel: {
             fontFamily,
-            fontSize: {
-              tiny: "10px",
-              small: "12px",
-              medium: "14px",
-              large: "16px",
-              xlarge: "18px",
-            },
-            letterSpacing: 0.4,
             textAnchor: "middle",
-            fontWeight: "normal",
             pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: {
+              tiny: 7,
+              small: 9,
+              medium: 11,
+              large: 13,
+              xlarge: 15,
+            },
+            stroke: "none",
+            dy: "-0.25em", // needs to include font-size
+          },
+          tickLength: 4,
+          tickLine: {
+            strokeWidth: 1,
+          },
+        },
+        bottom: {
+          axisLabel: {
+            fontFamily,
+            fontWeight: 700,
+            fontSize: {
+              tiny: 8,
+              small: 10,
+              medium: 12,
+              large: 14,
+              xlarge: 16,
+            },
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            stroke: "none",
             dy: "-0.25em",
+          },
+          axisLine: {
+            strokeWidth: 1,
+          },
+          tickLabel: {
+            fontFamily,
+            textAnchor: "middle",
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: {
+              tiny: 7,
+              small: 9,
+              medium: 11,
+              large: 13,
+              xlarge: 15,
+            },
+            stroke: "none",
+            dy: "0.125em",
+          },
+          tickLength: 4,
+          tickLine: {
+            strokeWidth: 1,
           },
         },
       },
       yAxisStyles: {
-        stroke: "#adb5bd",
-        strokeWidth: 1,
-        label: {
-          left: {
-            fill: "#212529",
-            stroke: "none",
+        left: {
+          axisLabel: {
             fontFamily,
+            fontWeight: 700,
             fontSize: {
-              tiny: "10px",
-              small: "12px",
-              medium: "14px",
-              large: "16px",
-              xlarge: "18px",
+              tiny: 8,
+              small: 10,
+              medium: 12,
+              large: 14,
+              xlarge: 16,
             },
-            letterSpacing: 0.4,
             textAnchor: "middle",
-            fontWeight: "normal",
             pointerEvents: "none",
-            dx: "-2.3em", // "-1.5em",
-          },
-          right: {
-            fill: "#212529",
-            stroke: "none",
-            fontFamily,
-            fontSize: {
-              tiny: "10px",
-              small: "12px",
-              medium: "14px",
-              large: "16px",
-              xlarge: "18px",
-            },
             letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: "normal",
+            stroke: "none",
+            dx: "-1.25em",
+          },
+          axisLine: {
+            strokeWidth: 1,
+          },
+          tickLabel: {
+            fontFamily,
             pointerEvents: "none",
-            dx: "1.5em",
-          },
-        },
-      },
-      xTickStyles: {
-        stroke: "#adb5bd",
-        tickLength: 4,
-        label: {
-          bottom: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily,
-            fontSize: {
-              tiny: "8px",
-              small: "10px",
-              medium: "12px",
-              large: "14px",
-              xlarge: "16px",
-            },
             letterSpacing: 0.4,
-            textAnchor: "middle",
             fontWeight: 200,
-            pointerEvents: "none",
-            dy: "0.125em",
-          },
-          top: {
-            fill: "#495057",
-            stroke: "none",
-            fontFamily,
             fontSize: {
-              tiny: "8px",
-              small: "10px",
-              medium: "12px",
-              large: "14px",
-              xlarge: "16px",
+              tiny: 7,
+              small: 9,
+              medium: 11,
+              large: 13,
+              xlarge: 15,
             },
-            letterSpacing: 0.4,
-            textAnchor: "middle",
-            fontWeight: 200,
-            pointerEvents: "none",
-            dy: "-0.35em",
-          },
-        },
-      },
-      yTickStyles: {
-        stroke: "#adb5bd",
-        tickLength: 4,
-        label: {
-          left: {
-            fill: "#495057",
             stroke: "none",
-            fontFamily,
-            fontSize: {
-              tiny: "8px",
-              small: "10px",
-              medium: "12px",
-              large: "14px",
-              xlarge: "16px",
-            },
-            letterSpacing: 0.4,
             textAnchor: "end",
-            fontWeight: 200,
-            pointerEvents: "none",
             dx: "-0.25em",
             dy: "0.25em",
           },
-          right: {
-            fill: "#495057",
-            stroke: "none",
+          tickLength: 4,
+          tickLine: {
+            strokeWidth: 1,
+          },
+        },
+        right: {
+          axisLabel: {
             fontFamily,
+            fontWeight: 700,
             fontSize: {
-              tiny: "8px",
-              small: "10px",
-              medium: "12px",
-              large: "14px",
-              xlarge: "16px",
+              tiny: 8,
+              small: 10,
+              medium: 12,
+              large: 14,
+              xlarge: 16,
             },
-            letterSpacing: 0.4,
-            textAnchor: "start",
-            fontWeight: 200,
+            textAnchor: "middle",
             pointerEvents: "none",
+            letterSpacing: 0.4,
+            stroke: "none",
+            dx: "1.25em",
+          },
+          axisLine: {
+            strokeWidth: 1,
+          },
+          tickLabel: {
+            fontFamily,
+            pointerEvents: "none",
+            letterSpacing: 0.4,
+            fontWeight: 200,
+            fontSize: {
+              tiny: 7,
+              small: 9,
+              medium: 11,
+              large: 13,
+              xlarge: 15,
+            },
+            stroke: "none",
+            textAnchor: "start",
             dx: "0.25em",
             dy: "0.25em",
           },
+          tickLength: 4,
+          tickLine: {
+            strokeWidth: 1,
+          },
         },
       },
+
       valueLabelStyles: {
         fill: "#495057",
         stroke: "#fff",
         fontFamily,
         fontSize: {
-          tiny: "8px",
-          small: "10px",
-          medium: "12px",
-          large: "14px",
-          xlarge: "16px",
+          tiny: 8,
+          small: 10,
+          medium: 12,
+          large: 14,
+          xlarge: 16,
         },
         letterSpacing: 0.4,
         strokeWidth: 2,
@@ -618,6 +776,7 @@ const base = {
         textAnchor: "middle",
         pointerEvents: "none",
         paintOrder: "stroke",
+        dy: "-0.55em",
       },
     },
   },
@@ -963,14 +1122,12 @@ const base = {
   },
   bar: { stroke: "#fff", strokeWidth: 1 },
   stackedArea: { stroke: "#fff", strokeWidth: 1 },
-  points: { size: 50, strokeWidth: 2 },
+  points: { size: 75, strokeWidth: 2, cursor: "pointer" },
   scatter: {
-    size: 5,
-    style: {
-      strokeWidth: null,
-      stroke: null,
-      // cursor: "pointer",
-    },
+    size: 75,
+    strokeWidth: null,
+    stroke: null,
+    cursor: "pointer",
   },
   pie: {
     margin: { top: 20, right: 20, bottom: 20, left: 20 },

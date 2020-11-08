@@ -5,22 +5,46 @@ import StyledXYChart from "./StyledXYChart";
 import { ConfigContext } from "../../contexts/ConfigProvider";
 import { EngineContext } from "../../contexts/EngineProvider";
 import useEngine from "../../hooks/useEngine";
+import { chartTheme } from "../visx";
+import { deepMerge } from "../../utils/object";
 
-function XYChart({ ...rest }) {
+function XYChart({
+  colorTheme,
+  size,
+  chartMargin,
+  xAxisStyles,
+  yAxisStyles,
+  ...rest
+}) {
   const myConfig = useContext(ConfigContext);
   const theme = useContext(ThemeContext);
   const { engine, engineError } =
     useContext(EngineContext) || useEngine(myConfig);
 
+  const yAxisStyleProps = {
+    global: { chart: { yAxisStyles: { ...yAxisStyles } } },
+  };
+  const xAxisStyleProps = {
+    global: { chart: { xAxisStyles: { ...xAxisStyles } } },
+  };
+
   return (
     <StyledXYChart
       engine={engine}
-      theme={theme}
+      theme={chartTheme(
+        deepMerge(theme, xAxisStyleProps, yAxisStyleProps),
+        colorTheme || theme.global.colorTheme,
+        size
+      )}
       engineError={engineError}
+      size={size}
+      chartMargin={chartMargin}
       {...rest}
     />
   );
 }
+
+const DEFAULT_MARGIN = { top: 50, right: 50, bottom: 50, left: 50 };
 
 const BORDER_SHAPE = PropTypes.shape({
   color: PropTypes.oneOfType([PropTypes.string]),
@@ -72,6 +96,8 @@ XYChart.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
+  /** The amount of margin around the chart */
+  chartMargin: PropTypes.object,
   /** Size of the Bar */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
@@ -89,9 +115,9 @@ XYChart.propTypes = {
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Show gridline rows on Axis */
-  gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showGridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show gridline columns on Axis */
-  gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showGridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show shadow around XYChart */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
@@ -166,6 +192,8 @@ XYChart.propTypes = {
       "yellow",
       "orange",
       "base",
+      "light",
+      "dark",
     ]),
     PropTypes.array,
   ]),
@@ -203,7 +231,7 @@ XYChart.propTypes = {
   /** Shape of the symbol to be used on the line. This will apply to all series on the chart */
   showPoints: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.string, // { symbol : "circle","cross","diamond","square","star","triangle","wye","none", size}
+    PropTypes.string, // { symbol : "dot","circle","cross","diamond","square","star","triangle","wye","none", size}
   ]),
   /**  curveShape of the line or area */
   curveShape: PropTypes.oneOf([
@@ -238,7 +266,9 @@ XYChart.propTypes = {
   gridArea: PropTypes.string,
   type: PropTypes.string,
   useAnimatedAxes: PropTypes.bool,
-  autoWidth: PropTypes.bool,
+  useAnimatedGrid: PropTypes.bool, // NEW
+  animationTrajectory: PropTypes.oneOf(["center", "outside", "min", "max"]), // NEW
+  // autoWidth: PropTypes.bool, // REMOVED
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
@@ -282,13 +312,19 @@ XYChart.propTypes = {
   ]),
 
   multiColor: PropTypes.bool,
-  events: PropTypes.bool,
+  // events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
-  /** Show CrossHair on the chart  */
-  showCrossHair: PropTypes.bool,
-  /** Styling of the CrossHair. */
-  crossHairStyles: PropTypes.object,
+  // /** Show CrossHair on the chart  */
+  // showCrossHair: PropTypes.bool, // REMOVED
+  /** Show Horizontal CrossHair on the chart  */
+  showHorizontalCrosshair: PropTypes.bool, // ADDED
+  /** Show Vertical CrossHair on the chart  */
+  showVerticalCrosshair: PropTypes.bool, // ADDED
+  /** Horizontal styling of the CrossHair. */
+  horizontalCrosshairStyle: PropTypes.object,
+  /** Vertical styling of the CrossHair. */
+  verticalCrosshairStyle: PropTypes.object,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
@@ -298,21 +334,23 @@ XYChart.propTypes = {
   /** Only use one color for the tooltip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
   /** Snap to X Axis (normally true for bar or combo) */
-  snapToDataX: PropTypes.bool,
+  snapTooltipToDatumX: PropTypes.bool,
   /** Snap to Y Axis (normally true for bar or combo) */
-  snapToDataY: PropTypes.bool,
+  snapTooltipToDatumY: PropTypes.bool,
   /** Show value only for Tooltip */
   valueOnly: PropTypes.bool,
   /** Show single line fo text and value for tooltip */
   valueWithText: PropTypes.bool,
   /** Input format of date supplied from engine (in qText) */
   parseDateFormat: PropTypes.string,
-  /** Format of dates to be displayed on Tooltip. */
-  formatTooltipDate: PropTypes.string,
   /** Reposition the tooltip. */
   shiftTooltipTop: PropTypes.number,
   /** Reposition the tooltip. */
   shiftTooltipLeft: PropTypes.number,
+  /** Number of ticks for the Grid Rows. Leave blank to auto calculate */
+  numGridRows: PropTypes.number, // NEW
+  /** Number of ticks for the Grid Columns. Leave blank to auto calculate */
+  numGridColumns: PropTypes.number, // NEW
   /** Number of ticks for the X Axis. Leave blank to auto calculate */
   numDimensionTicks: PropTypes.number,
   /** Number of ticks for the Y Axis. Leave blank to auto calculate */
@@ -327,20 +365,19 @@ XYChart.propTypes = {
   xAxisStyles: PropTypes.object,
   /** Styles for the Y Axis */
   yAxisStyles: PropTypes.object,
-  /** Styles for the X Axis ticks */
-  xTickStyles: PropTypes.object,
-  /** Styles for the Y Axis ticks */
-  yTickStyles: PropTypes.object,
   /** Styling for the tooltip */
   tooltipStyles: PropTypes.object,
 };
 
 XYChart.defaultProps = {
   calcCondition: undefined,
-  width: "100%",
-  height: "400px", // 100%
+  // width: "100%",
+  // height: "400", // 100%
+  chartMargin: DEFAULT_MARGIN,
   size: "medium",
   border: true,
+  snapTooltipToDatumX: false,
+  snapTooltipToDatumY: false,
   /** Use dual Y axis on the the chart  */
   dualAxis: false,
   colorTheme: null,
@@ -358,12 +395,13 @@ XYChart.defaultProps = {
   legendShape: "auto",
   parseDateFormat: null,
   formatAxisDate: null,
-  formatTooltipDate: null,
   strokeWidth: null,
-  numDimensionTicks: null,
-  numMeasureTicks: null,
+  numGridRows: null,
+  numGridColumns: null,
   numMeasureDualTicks: null,
-  showCrossHair: true,
+  // showCrossHair: true,
+  showHorizontalCrosshair: false,
+  showVerticalCrosshair: false,
   showTooltip: true,
 };
 

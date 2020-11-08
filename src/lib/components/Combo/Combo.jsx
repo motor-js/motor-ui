@@ -62,6 +62,8 @@ Combo.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
+  /** The amount of margin around the chart */
+  chartMargin: PropTypes.object,
   /** Size of the Combo */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
@@ -79,9 +81,9 @@ Combo.propTypes = {
     PropTypes.oneOf(["both", "yAxis", "xAxis", "none"]),
   ]),
   /** Show gridline rows on Axis */
-  gridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showGridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show gridline columns on Axis */
-  gridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showGridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show shadow around Combo Chart */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
@@ -156,6 +158,8 @@ Combo.propTypes = {
       "yellow",
       "orange",
       "base",
+      "light",
+      "dark",
     ]),
     PropTypes.array,
   ]),
@@ -206,7 +210,9 @@ Combo.propTypes = {
   /** Name of the parent grid area to place the box */
   gridArea: PropTypes.string,
   useAnimatedAxes: PropTypes.bool,
-  autoWidth: PropTypes.bool,
+  useAnimatedGrid: PropTypes.bool, // NEW
+  animationTrajectory: PropTypes.oneOf(["center", "outside", "min", "max"]), // NEW
+  // autoWidth: PropTypes.bool, // REMOVED
   renderHorizontally: PropTypes.bool,
   includeZero: PropTypes.bool,
   xAxisOrientation: PropTypes.oneOf(["top", "bottom"]),
@@ -235,10 +241,16 @@ Combo.propTypes = {
   events: PropTypes.bool,
   /** Use dual Y axis on the the chart  */
   dualAxis: PropTypes.bool,
-  /** Show CrossHair on the chart  */
-  showCrossHair: PropTypes.bool,
-  /** Styling of the CrossHair. */
-  crossHairStyles: PropTypes.object,
+  // /** Show CrossHair on the chart  */
+  // showCrossHair: PropTypes.bool, // REMOVED
+  /** Show Horizontal CrossHair on the chart  */
+  showHorizontalCrosshair: PropTypes.bool, // ADDED
+  /** Show Vertical CrossHair on the chart  */
+  showVerticalCrosshair: PropTypes.bool, // ADDED
+  /** Horizontal styling of the CrossHair. */
+  horizontalCrosshairStyle: PropTypes.object,
+  /** Vertical styling of the CrossHair. */
+  verticalCrosshairStyle: PropTypes.object,
   /** Styling of the Legend labels. */
   legendLabelStyle: PropTypes.object,
   /** Styling of the Value labels. */
@@ -248,21 +260,23 @@ Combo.propTypes = {
   /** Only use one color for the toolyip instead of multi color per item. */
   useSingleColor: PropTypes.bool,
   /** Snap to X Axis (normally true for bar or combo) */
-  snapToDataX: PropTypes.bool,
+  snapTooltipToDatumX: PropTypes.bool,
   /** Snap to Y Axis (normally true for bar or combo) */
-  snapToDataY: PropTypes.bool,
+  snapTooltipToDatumY: PropTypes.bool,
   /** Show value only for Tooltip */
   valueOnly: PropTypes.bool,
   /** Show single line fo text and value for tooltip */
   valueWithText: PropTypes.bool,
   /** Input format of date supplied from engine (in qText) */
   parseDateFormat: PropTypes.string,
-  /** Format of dates to be displayed on Tooltip. */
-  formatTooltipDate: PropTypes.string,
   /** Reposition the tooltip. */
   shiftTooltipTop: PropTypes.number,
   /** Reposition the tooltip. */
   shiftTooltipLeft: PropTypes.number,
+  /** Number of ticks for the Grid Rows. Leave blank to auto calculate */
+  numGridRows: PropTypes.number, // NEW
+  /** Number of ticks for the Grid Columns. Leave blank to auto calculate */
+  numGridColumns: PropTypes.number, // NEW
   /** Number of ticks for the X Axis. Leave blank to auto calculate */
   numDimensionTicks: PropTypes.number,
   /** Number of ticks for the Y Axis. Leave blank to auto calculate */
@@ -277,10 +291,6 @@ Combo.propTypes = {
   xAxisStyles: PropTypes.object,
   /** Styles for the Y Axis */
   yAxisStyles: PropTypes.object,
-  /** Styles for the X Axis ticks */
-  xTickStyles: PropTypes.object,
-  /** Styles for the Y Axis ticks */
-  yTickStyles: PropTypes.object,
   /** Styling for the tooltip */
   tooltipStyles: PropTypes.object,
 };
@@ -296,7 +306,6 @@ Combo.defaultProps = {
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  // stacked: false,
   showAsPercent: false,
   gridArea: null,
   xAxisOrientation: "bottom",
@@ -307,12 +316,12 @@ Combo.defaultProps = {
   legendShape: "auto",
   parseDateFormat: null,
   formatAxisDate: null,
-  formatTooltipDate: null,
   strokeWidth: null,
   numDimensionTicks: null,
   numMeasureTicks: null,
   numMeasureDualTicks: null,
-  showCrossHair: true,
+  showHorizontalCrosshair: false,
+  showVerticalCrosshair: false,
   showTooltip: true,
 };
 

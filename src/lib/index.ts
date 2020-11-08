@@ -10,7 +10,7 @@ export { default as Grid } from "./components/Grid";
 export { default as KPI } from "./components/KPI";
 export { default as Modal } from "./components/Modal";
 export { default as Motor } from "./components/Motor";
-export { default as Pie } from "./components/Pie";
+// export { default as Pie } from "./components/Pie";
 export { default as XYChart } from "./components/XYChart";
 export { default as Search } from "./components/Search";
 export { default as SelectionModal } from "./components/SelectionModal";

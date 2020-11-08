@@ -72,6 +72,8 @@ Pie.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** The amount of margin around the component */
   margin: PropTypes.string,
+  /** The amount of margin around the chart */
+  chartMargin: PropTypes.object,
   /** Size of the Bar */
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "xlarge"]),
   // showLabels: PropTypes.oneOf(["top", "none", "inside"]),
@@ -150,6 +152,8 @@ Pie.propTypes = {
       "yellow",
       "orange",
       "base",
+      "light",
+      "dark",
     ]),
     PropTypes.array,
   ]),
@@ -219,8 +223,6 @@ Pie.propTypes = {
   // valueWithText: PropTypes.bool,
   // /** Input format of date supplied from engine (in qText) */
   // parseDateFormat: PropTypes.string,
-  // /** Format of dates to be displayed on Tooltip. */
-  // formatTooltipDate: PropTypes.string,
   /** Line stroke width around each segemnt */
   strokeWidth: PropTypes.number,
   /** Line stroke color around each segemnt */
@@ -268,7 +270,6 @@ Pie.defaultProps = {
   colorTheme: null,
   sortOrder: [],
   sortDirection: "",
-  // stacked: false,
   showAsPercent: false,
   gridArea: null,
   showLegend: false,
@@ -277,7 +278,6 @@ Pie.defaultProps = {
   legendDirection: "row",
   legendShape: "auto",
   parseDateFormat: null,
-  formatTooltipDate: null,
   strokeWidth: null,
   showTooltip: true,
   pieSort: "asc",

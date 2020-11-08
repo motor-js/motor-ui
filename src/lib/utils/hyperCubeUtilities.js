@@ -154,7 +154,9 @@ export const validData = (qLayout, theme) => {
   let dataError = "";
   const { qDimensionInfo, qMeasureInfo } =
     qLayout.qHyperCube || qLayout.qListObject;
-  const { dimensionErrMsg, measureErrMsg } = theme.global.chart.error;
+  const { dimensionErrMsg, measureErrMsg } = theme.error
+    ? theme.error
+    : theme.global.chart.error;
 
   const DimCheck = () => {
     //check if an array, to work with HyperCube & ListObject

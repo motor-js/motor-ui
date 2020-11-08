@@ -9,9 +9,9 @@ import {
   PieTooltip as Tooltip,
 } from "../visx";
 
-import { roundNumber } from "../visx/utils/roundNumber";
-import { colorByExpression, selectColor } from "../../utils";
-import { valueIfUndefined } from "../visx/utils/chartUtils";
+// import { roundNumber } from "../visx/utils/roundNumber";
+import { roundNumber } from "../../utils";
+import { colorByExpression, selectColor, valueIfUndefined } from "../../utils";
 
 export default function CreatePie({
   width,
@@ -51,7 +51,6 @@ export default function CreatePie({
   // showClosestItem,
   // useSingleColor,
   // parseDateFormat,
-  // formatTooltipDate,
   strokeWidth,
   stroke,
   showTooltip,
@@ -120,7 +119,6 @@ export default function CreatePie({
       legendLabelStyle={legendLabelStyle}
       valueLabelStyle={valueLabelStyle}
       // parseDateFormat={parseDateFormat}
-      // formatTooltipDate={formatTooltipDate}
       pieSort={pieSort}
       pieSortValues={pieSortValues}
     >
