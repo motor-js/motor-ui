@@ -20,8 +20,14 @@ export { default as AnimatedAreaSeries } from "./components/series/AnimatedAreaS
 export { default as AnimatedBarSeries } from "./components/series/AnimatedBarSeries";
 export { default as AnimatedBarStack } from "./components/series/AnimatedBarStack";
 export { default as AnimatedBarGroup } from "./components/series/AnimatedBarGroup";
-export { default as AnimatedGlyphSeries } from "./components/series/AnimatedGlyphSeries";
+// export { default as AnimatedGlyphSeries } from "./components/series/AnimatedGlyphSeries";
 export { default as AnimatedLineSeries } from "./components/series/AnimatedLineSeries";
+
+// Legend
+export { default as Legend } from "./components/legend/Legend";
+
+// Brush
+export { default as Brush } from "./components/brush/Brush";
 
 // context
 export { default as DataContext } from "./context/DataContext";

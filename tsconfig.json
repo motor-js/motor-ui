@@ -4,7 +4,7 @@
     "declarationDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "module": "es6",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "outDir": "./dist",
     "target": "es6",
       "lib": [

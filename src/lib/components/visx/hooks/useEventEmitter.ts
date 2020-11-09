@@ -27,7 +27,7 @@ export default function useEventEmitter(
   /** wrap emitter.emit so we can enforce stricter type signature */
   const emit = useCallback(
     (type: EventType, event: HandlerParams["event"]) =>
-      emitter?.emit<HandlerParams>(type, {
+      emitter?.emit(type, {
         event,
         svgPoint: localPoint(event),
       }),
@@ -36,8 +36,8 @@ export default function useEventEmitter(
 
   useEffect(() => {
     if (emitter && eventType && handler) {
-      emitter.on<HandlerParams>(eventType, handler);
-      return () => emitter?.off<HandlerParams>(eventType, handler);
+      emitter.on(eventType, handler);
+      return () => emitter?.off(eventType, handler);
     }
     return undefined;
   }, [emitter, eventType, handler]);

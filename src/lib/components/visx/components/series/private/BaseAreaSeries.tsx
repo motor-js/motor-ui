@@ -1,5 +1,19 @@
 import React, { useContext, useCallback, useMemo, useState } from "react";
 import { AxisScale } from "@visx/axis";
+import {
+  LinearGradient,
+  RadialGradient,
+  GradientDarkgreenGreen,
+  GradientLightgreenGreen,
+  GradientOrangeRed,
+  GradientPinkBlue,
+  GradientPinkRed,
+  GradientPurpleOrange,
+  GradientPurpleRed,
+  GradientPurpleTeal,
+  GradientSteelPurple,
+  GradientTealBlue,
+} from "@visx/gradient";
 import Area from "@visx/shape/lib/shapes/Area";
 import LinePath, { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 import DataContext from "../../../context/DataContext";
@@ -15,6 +29,7 @@ import findNearestDatumY from "../../../utils/findNearestDatumY";
 import getScaleBaseline from "../../../utils/getScaleBaseline";
 import { localPoint } from "@visx/event";
 import { isEmpty } from "../../../../../utils";
+import isDefined from "../../../typeguards/isDefined";
 
 export type BaseAreaSeriesProps<
   XScale extends AxisScale,
@@ -54,6 +69,7 @@ function BaseAreaSeries<
   PathComponent = "path",
   index,
   lineProps,
+  fillStyle,
   ...areaProps
 }: BaseAreaSeriesProps<XScale, YScale, Datum> &
   WithRegisteredDataProps<XScale, YScale, Datum>) {
@@ -195,14 +211,85 @@ function BaseAreaSeries<
     setHoverId(null);
   };
 
+  const areaFillStyle =
+    typeof fillStyle === "string"
+      ? fillStyle
+      : isDefined(fillStyle.style)
+      ? fillStyle.style
+      : null;
+
+  function Gradient({ style, id, from, to }) {
+    let Gradient = null;
+
+    switch (style) {
+      case "Linear":
+        Gradient = LinearGradient;
+        break;
+      case "Radial":
+        Gradient = RadialGradient;
+        break;
+      case "DarkGreen":
+        Gradient = GradientDarkgreenGreen;
+        break;
+      case "LightGreen":
+        Gradient = GradientLightgreenGreen;
+        break;
+      case "OrangeRed":
+        Gradient = GradientOrangeRed;
+        break;
+      case "PinkBlue":
+        Gradient = GradientPinkBlue;
+        break;
+      case "PinkRed":
+        Gradient = GradientPinkRed;
+        break;
+      case "PurpleOrangle":
+        Gradient = GradientPurpleOrange;
+        break;
+      case "PurpleRed":
+        Gradient = GradientPurpleRed;
+        break;
+      case "PurpleTeal":
+        Gradient = GradientPurpleTeal;
+        break;
+      case "SteelPurple":
+        Gradient = GradientSteelPurple;
+        break;
+      case "TealBlue":
+        Gradient = GradientTealBlue;
+        break;
+      default:
+        Gradient = null;
+        break;
+    }
+    return Gradient ? <Gradient id={id} from={from} to={to} /> : null;
+  }
+
   return (
     <>
       <g className="visxx-area-series">
+        <Gradient
+          style={areaFillStyle}
+          // id="area-gradient"
+          id={`area-gradient-${dataKey.replace(/\s+/g, "-")}`}
+          from={fillStyle.fillFrom}
+          to={fillStyle.fillTo}
+        />
         <Area data={data} {...xAccessors} {...yAccessors} {...areaProps}>
           {({ path }) => (
             <PathComponent
-              stroke="transparent"
-              fill={color}
+              // stroke="transparent"
+              // fill={color}
+              stroke={
+                areaFillStyle
+                  ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                  : color
+              }
+              fill={
+                areaFillStyle
+                  ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                  : color
+              }
               {...areaProps}
               d={path(data) || ""}
             />
@@ -221,7 +308,11 @@ function BaseAreaSeries<
             {({ path }) => (
               <PathComponent
                 fill="transparent"
-                stroke={color}
+                stroke={
+                  areaFillStyle
+                    ? `url(#area-gradient-${dataKey.replace(/\s+/g, "-")})`
+                    : color
+                }
                 strokeWidth={2}
                 style={setBarStyle(
                   hoverId,

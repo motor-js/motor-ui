@@ -4,7 +4,7 @@ import { RectShape, LineShape, CircleShape } from "@visx/legend";
 
 import DataContext from "../../context/DataContext";
 import { selectColor } from "../../../../utils";
-import { array } from "prop-types";
+// import { array } from "prop-types";
 
 import createOrdinalScale from "@visx/scale/lib/scales/ordinal";
 
@@ -65,7 +65,8 @@ export default function Legend({
       paddingRight: legendStyle ? legendStyle.margin.right : margin.right,
       paddingBottom: legendStyle
         ? legendStyle.margin.bottom
-        : `${Math.min(10, parseInt(margin.bottom, 10))}px`,
+        : // : `${Math.min(10, parseInt(margin.bottom, 10))}px`,
+          `${Math.min(10, margin.bottom)}px`,
 
       [direction === "row" || direction === "row-reverse"
         ? "justifyContent"
@@ -117,9 +118,6 @@ export default function Legend({
               width={legendGlyphSize}
               height={legendGlyphSize}
               style={{ strokeDasharray: "5,3" }}
-              fill={value}
-              width={legendGlyphSize}
-              height={legendGlyphSize}
             />
           );
         case "rect":

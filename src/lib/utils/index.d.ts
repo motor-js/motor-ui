@@ -79,3 +79,6 @@ export type showLegendType = boolean | "right" | "bottom";
 export type otherTotalSpecType =
   | boolean
   | { qOtherLabel: string; qOtherCount: string };
+export function selectColor(color: any, theme: any): void;
+export const globalStyle: any;
+export const borderStyle: any;

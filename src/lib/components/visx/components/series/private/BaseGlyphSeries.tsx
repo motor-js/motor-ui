@@ -208,6 +208,7 @@ function BaseGlyphSeries<
           return {
             key: `${i}`,
             x,
+            index: i,
             y,
             id,
             color: multiColor
