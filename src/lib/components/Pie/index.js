@@ -1,1 +1,1 @@
-export { default } from "./Pie";
+export { default } from "./XYChart";
