@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
-import StyledXYChart from "./StyledXYChart";
+import StyledPie from "./StyledPie";
 import { ConfigContext } from "../../contexts/ConfigProvider";
 import { EngineContext } from "../../contexts/EngineProvider";
 import useEngine from "../../hooks/useEngine";
 import { chartTheme } from "../visx";
 import { deepMerge } from "../../utils/object";
 
-function XYChart({
+function Pie({
   colorTheme,
   size,
   chartMargin,
@@ -29,7 +29,7 @@ function XYChart({
   };
 
   return (
-    <StyledXYChart
+    <StyledPie
       engine={engine}
       theme={chartTheme(
         deepMerge(theme, xAxisStyleProps, yAxisStyleProps),
@@ -74,7 +74,7 @@ const BORDER_SHAPE = PropTypes.shape({
   ]),
 });
 
-XYChart.propTypes = {
+Pie.propTypes = {
   /** cols from Qlik Data Model to render in the Bar  */
   cols: PropTypes.array.isRequired,
   /** Calc condition for the chart  */
@@ -118,7 +118,7 @@ XYChart.propTypes = {
   showGridRows: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
   /** Show gridline columns on Axis */
   showGridColumns: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]), // RENAME
-  /** Show shadow around XYChart */
+  /** Show shadow around Pie */
   showBoxShadow: PropTypes.bool,
   /** Border of the Pie Chart, need desc */
   border: PropTypes.oneOfType([
@@ -369,7 +369,7 @@ XYChart.propTypes = {
   tooltipStyles: PropTypes.object,
 };
 
-XYChart.defaultProps = {
+Pie.defaultProps = {
   calcCondition: undefined,
   // width: "100%",
   // height: "400", // 100%
@@ -386,7 +386,7 @@ XYChart.defaultProps = {
   // stacked: false,
   showAsPercent: false,
   gridArea: null,
-  type: null, // Logic to determine default chart type in CreateXYChart
+  type: null, // Logic to determine default chart type in CreatePie
   xAxisOrientation: "bottom",
   yAxisOrientation: "left",
   legendLeftRight: "right",
@@ -405,4 +405,4 @@ XYChart.defaultProps = {
   showTooltip: true,
 };
 
-export default XYChart;
+export default Pie;

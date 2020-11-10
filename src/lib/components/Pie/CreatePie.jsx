@@ -51,7 +51,7 @@ import {
   // AnimatedLineSeries,
   Tooltip,
   Title,
-  XYChart,
+  Pie,
   Legend,
   Brush,
 } from "../visx";
@@ -68,7 +68,7 @@ import { PatternLines } from "@visx/pattern";
 import CustomChartBackground from "./CustomChartBackground";
 import CustomChartPattern from "./CustomChartPattern";
 
-export default function CreateXYChart({
+export default function CreatePie({
   height,
   qLayout: {
     qHyperCube: { qMeasureInfo: measureInfo, qDimensionInfo: dimensionInfo },
@@ -514,13 +514,13 @@ export default function CreateXYChart({
           legendDirection={legendDirection}
         ></Legend>
       )}
-      <XYChart
+      <Pie
         height={Math.min(400, height)}
         margin={chartMargin}
         captureEvents={selectionMethod === "none"}
         onMouseDown={selectionMethod === "brush" ? enableBrush : null}
       >
-        {/* <XYChart height={height}> */}
+        {/* <Pie height={height}> */}
         <CustomChartBackground
           style={backgroundStyle.style}
           from={backgroundStyle.styleFrom}
@@ -1038,7 +1038,7 @@ export default function CreateXYChart({
             handleSize={8}
           />
         )}
-      </XYChart>
+      </Pie>
       {showLegend && legendTopBottom === "bottom" && (
         <Legend
           shape={shape}

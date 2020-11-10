@@ -3,7 +3,7 @@ import { defaultProps } from "../../default-props";
 import { globalStyle, borderStyle } from "../../utils/styles";
 import { componentWidth } from "../../utils";
 
-const XYChartWrapper = styled.div`
+const PieWrapper = styled.div`
   ${globalStyle};
   ${(props) =>
     props.border &&
@@ -30,7 +30,7 @@ const XYChartWrapper = styled.div`
   flex-direction: ${(props) => props.theme.global.chart.wrapper.flexDirection};
 `;
 
-const XYChartWrapperNoData = styled.div`
+const PieWrapperNoData = styled.div`
   ${globalStyle};
   ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   ${(props) =>
@@ -56,7 +56,7 @@ const XYChartWrapperNoData = styled.div`
   box-shadow: ${(props) => props.theme.global.chart.wrapper.boxShadow};
 `;
 
-const XYChartNoDataContent = styled.div`
+const PieNoDataContent = styled.div`
   ${globalStyle};
   ${(props) => props.gridArea && `grid-area: ${props.gridArea};`};
   display: ${(props) => props.theme.global.chart.noDataContent.display};
@@ -67,13 +67,13 @@ const XYChartNoDataContent = styled.div`
   height: ${(props) => props.height};
 `;
 
-XYChartWrapper.defaultProps = {};
-Object.setPrototypeOf(XYChartWrapper.defaultProps, defaultProps);
+PieWrapper.defaultProps = {};
+Object.setPrototypeOf(PieWrapper.defaultProps, defaultProps);
 
-XYChartWrapperNoData.defaultProps = {};
-Object.setPrototypeOf(XYChartWrapperNoData.defaultProps, defaultProps);
+PieWrapperNoData.defaultProps = {};
+Object.setPrototypeOf(PieWrapperNoData.defaultProps, defaultProps);
 
-XYChartNoDataContent.defaultProps = {};
-Object.setPrototypeOf(XYChartNoDataContent.defaultProps, defaultProps);
+PieNoDataContent.defaultProps = {};
+Object.setPrototypeOf(PieNoDataContent.defaultProps, defaultProps);
 
-export { XYChartWrapper, XYChartWrapperNoData, XYChartNoDataContent };
+export { PieWrapper, PieWrapperNoData, PieNoDataContent };
