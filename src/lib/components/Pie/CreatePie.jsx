@@ -150,97 +150,13 @@ export default function CreatePie({
   const chartType = type;
   const sharedTooltip = !showClosestItem;
 
-  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
-  const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
-
-  const chartHideAxisLine = valueIfUndefined(hideAxisLine, theme.hideAxisLine);
-
-  const chartShowAxisLabels = valueIfUndefined(
-    showAxisLabels,
-    theme.showAxisLabels
-  );
-
-  function getCurve(curve) {
-    switch (curve) {
-      case "Basis":
-        return (curve = curveBasis);
-      case "BasisClosed":
-        return (curve = curveBasisClosed);
-      case "BasisOpen":
-        return (curve = curveBasisOpen);
-      case "Step":
-        return (curve = curveStep);
-      case "StepAfter":
-        return (curve = curveStepAfter);
-      case "StepBefore":
-        return (curve = curveStepBefore);
-      case "Bundle":
-        return (curve = curveBundle);
-      case "Linear":
-        return (curve = curveLinear);
-      case "LinearClosed":
-        return (curve = curveLinearClosed);
-      case "MonotoneX":
-        return (curve = curveMonotoneX);
-      case "MonotoneY":
-        return (curve = curveMonotoneY);
-      case "Cardinal":
-        return (curve = curveCardinal);
-      case "CardinalClosed":
-        return (curve = curveCardinalClosed);
-      case "CardinalOpen":
-        return (curve = curveCardinalOpen);
-      case "CatmullRom":
-        return (curve = curveCatmullRom);
-      case "CatmullRomClosed":
-        return (curve = curveCatmullRomClosed);
-      case "CatmullRomOpen":
-        return (curve = curveCatmullRomOpen);
-      case "Natural":
-        return (curve = curveNatural);
-      default:
-        return (curve = curveLinear);
-    }
-  }
-
-  const formatValue = (val) => {
-    const valPrecision = valueIfUndefined(precision, theme.precision);
-    const valRoundNum = valueIfUndefined(roundNum, theme.roundNum);
-
-    if (showAsPercent) return `${(val * 100).toFixed(valPrecision)}%`;
-    let formattedValue = valRoundNum
-      ? roundNumber(Math.abs(val), valPrecision)
-      : Math.abs(val);
-
-    return val < 0 ? `-${formattedValue}` : formattedValue;
-  };
-
   const dateScaleConfig = {
     type: chartType !== "scatter" ? "band" : "linear",
     paddingInner: padding,
   };
-  // const dateScaleConfig = useMemo(() => ({ type: "band", padding }), []);
-  // const dateScaleConfig = useMemo(() => ({ type: "time" }), []);
 
-  // const dateScaleConfig = useMemo(
-  //   () => (isContinuousAxes ? { type: "time" } : { type: "band", padding }),
-  //   []
-  // );
   const valueScaleConfig = { type: "linear" };
-  //  const valueScaleConfig = useMemo(
-  //    () => ({
-  //      type: "linear",
-  //      clamp: true,
-  //      nice: true,
-  //      domain: undefined,
-  //      includeZero,
-  //    }),
-  //    [includeZero]
-  //  );
 
-  // const isContinuousAxes = dimensionInfo[0].qContinuousAxes || false;
-
-  // const getDimension = (d) => (isContinuousAxes ? d[0].qNum : d[0].qText);
   const getDimension = (d) =>
     d[0] ? (chartType === "scatter" ? d[2].qNum : d[0].qText) : null;
 
@@ -380,78 +296,6 @@ export default function CreatePie({
       : theme.showPoints
       ? "cirlce"
       : false;
-
-  let GlyphComponent = null;
-
-  switch (glyphComponent) {
-    // case "dot":
-    //   GlyphComponent = GlyphDot;
-    //   break;
-    case "star":
-      GlyphComponent = GlyphStar;
-      break;
-    case "circle":
-      GlyphComponent = GlyphCircle;
-      break;
-    case "cross":
-      GlyphComponent = GlyphCross;
-      break;
-    case "diamond":
-      GlyphComponent = GlyphDiamond;
-      break;
-    case "square":
-      GlyphComponent = GlyphSquare;
-      break;
-    case "tringle":
-      GlyphComponent = GlyphTriangle;
-      break;
-    case "wye":
-      GlyphComponent = GlyphWye;
-      break;
-    default:
-      GlyphComponent = GlyphCircle;
-      break;
-  }
-
-  const renderGlyph = useCallback(
-    ({
-      size,
-      color,
-      x,
-      y,
-      id,
-      styleProps,
-      onClick,
-      onMouseEnter,
-      onMouseMove,
-      onMouseLeave,
-    }) => {
-      if (GlyphComponent && showPoints) {
-        return (
-          <GlyphComponent
-            fill={color}
-            {...styleProps}
-            // r={size}
-            size={size}
-            top={y}
-            left={x}
-            id={id}
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseMove={onMouseMove}
-            onMouseLeave={onMouseLeave}
-          />
-        );
-      }
-      if (!showPoints) return;
-      return (
-        <text y={y} x={x} id={id} {...styleProps}>
-          🍍
-        </text>
-      );
-    },
-    [showPoints]
-  );
 
   const singleColor = valueIfUndefined(
     useSingleColor,
