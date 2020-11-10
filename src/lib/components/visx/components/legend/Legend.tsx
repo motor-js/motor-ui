@@ -51,7 +51,7 @@ export default function Legend({
 
   const legendGlyphSize = legendStyle ? legendStyle.legendGlyphSize : 15;
 
-  const legendStyles = useMemo(
+  const legendStyles: any = useMemo(
     () => ({
       display: "flex",
       flexDirection: direction,
@@ -65,8 +65,7 @@ export default function Legend({
       paddingRight: legendStyle ? legendStyle.margin.right : margin.right,
       paddingBottom: legendStyle
         ? legendStyle.margin.bottom
-        : // : `${Math.min(10, parseInt(margin.bottom, 10))}px`,
-          `${Math.min(10, margin.bottom)}px`,
+        : `${Math.min(10, margin.bottom)}px`,
 
       [direction === "row" || direction === "row-reverse"
         ? "justifyContent"
