@@ -11,6 +11,10 @@ const getNumericValue = <XScale extends AxisScale, YScale extends AxisScale>(
   bar: BarStackDatum<XScale, YScale>
 ) => getSecondItem(bar); // corresponds to y1, the upper value (topline).
 
+const getIndex = <XScale extends AxisScale, YScale extends AxisScale>(
+  bar: BarStackDatum<XScale, YScale>
+) => bar?.data?.id;
+
 /** Constructs the `DataRegistryEntry`s for a BarStack, using the stacked data. */
 export default function getBarStackRegistryData<
   XScale extends AxisScale,
@@ -21,8 +25,8 @@ export default function getBarStackRegistryData<
   horizontal?: boolean
 ) {
   const [xAccessor, yAccessor, elAccessor] = horizontal
-    ? [getNumericValue, getStack, null]
-    : [getStack, getNumericValue, null];
+    ? [getNumericValue, getStack, getIndex]
+    : [getStack, getNumericValue, getIndex];
   return stackedData
     .map((data, index) => {
       const entry: DataRegistryEntry<
