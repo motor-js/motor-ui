@@ -154,6 +154,10 @@ function StyledXYChart(props) {
   //   select(0, selectionValue);
   // };
 
+  let series = [];
+  let dimID = null;
+  let items = [];
+
   useEffect(() => {
     let valid;
     if (qLayout) {
@@ -164,29 +168,27 @@ function StyledXYChart(props) {
         setIsValid(valid.isValid);
         setDataError(valid.dataError);
       }
-    }
+      // }
 
-    // window.addEventListener("resize", handleResize);
+      // window.addEventListener("resize", handleResize);
 
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    // qData && data && console.log(qData.qMatrix.length, data.length);
-    // qData && setData(qData);
+      // return () => {
+      //   window.removeEventListener("resize", handleResize);
+      // qData && data && console.log(qData.qMatrix.length, data.length);
+      // qData && setData(qData);
 
-    if (
-      // (qData && data === null) ||
-      // (qData && data && qData.qMatrix.length !== data.length && isValid)
-      (qData && data === null) ||
-      (qData && data && isValid)
-    ) {
+      // if (
+      //   // (qData && data === null) ||
+      //   // (qData && data && qData.qMatrix.length !== data.length && isValid)
+      //   (qData && data === null) ||
+      //   (qData && data && isValid)
+      //   // qData
+      // ) {
       dimensionCount = qLayout.qHyperCube.qDimensionInfo.length;
       measureCount = qLayout.qHyperCube.qMeasureInfo.length;
       singleDimension = dimensionCount === 1;
       singleMeasure = measureCount === 1;
 
-      let series = [];
-      let dimID = null;
-      let items = [];
       // let keys = [];
 
       if (!singleDimension && !type.includes("scatter")) {
@@ -256,7 +258,7 @@ function StyledXYChart(props) {
 
       setData(singleDimension ? qData.qMatrix : items);
     }
-  }, [qData, isValid]);
+  }, [qData, singleDimension, dimensionCount]);
 
   const otherProps = {
     // width={

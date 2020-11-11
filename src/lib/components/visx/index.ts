@@ -5,6 +5,7 @@ export { default as Axis } from "./components/axis/Axis";
 export { default as Grid } from "./components/grid/Grid";
 export { default as Tooltip } from "./components/tooltip/Tooltip";
 export { default as XYChart } from "./components/XYChart";
+// export { default as Pie } from "./components/Pie";
 export { default as Title } from "./components/titles/Title";
 
 // series components
