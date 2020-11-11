@@ -142,15 +142,6 @@ const color = {
   warning: "yellow",
 };
 
-/*
-turbo
-wind
-eco
-jet
-dodge
-electric
-*/
-
 const darkTheme = {
   color: dark,
   backgroundColor: "#222",
@@ -473,11 +464,11 @@ const base = {
         stroke: "none",
         fontFamily,
         fontSize: {
-          tiny: "10px",
-          small: "12px",
-          medium: "14px",
-          large: "16px",
-          xlarge: "18px",
+          tiny: "8px",
+          small: "10px",
+          medium: "12px",
+          large: "14px",
+          xlarge: "16px",
         },
         // letterSpacing: 0.4,
         // textAnchor: "middle",
@@ -546,32 +537,31 @@ const base = {
       },
 
       tooltip: {
-        // snapTooltipToDatumX: false,
-        // snapTooltipToDatumX: false,
-        // valueOnly: false,
-        // valueWithText: false,
-        // showClosestItem: true, // Used for tooltip
-        // useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
-        // headingColor: "altDark",
-        // tooltipStyles: {
-        //   borderRadius: "3px",
-        //   boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
-        //   fontSize: {
-        //     tiny: "10px",
-        //     small: "12px",
-        //     medium: "14px",
-        //     large: "16px",
-        //     xlarge: "18px",
-        //   },
-
-        //   lineHeight: "1em",
-        //   padding: ".3rem .5rem",
-        //   pointerEvents: "none",
-        //   position: "absolute",
-        //   backgroundColor: "#fff",
-        //   color: "altDark",
-        //   textAlign: null,
-        // },
+        /* snapTooltipToDatumX: false,
+        snapTooltipToDatumX: false,
+         valueOnly: false,
+         valueWithText: false,
+         showClosestItem: true, // Used for tooltip
+         useSingleColor: false, // Used for tooltip. True uses colors as per headingColor
+         headingColor: "altDark",
+         tooltipStyles: {
+           borderRadius: "3px",
+           boxShadow: "0 1px 2px rgba(33,33,33,0.2)",
+           fontSize: {
+             tiny: "10px",
+             small: "12px",
+             medium: "14px",
+             large: "16px",
+             xlarge: "18px",
+           },
+           lineHeight: "1em",
+           padding: ".3rem .5rem",
+           pointerEvents: "none",
+           position: "absolute",
+           backgroundColor: "#fff",
+           color: "altDark",
+           textAlign: null,
+         }, */
         tooltiplLabelStyles: {
           fontFamily:
             "-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif",
@@ -618,7 +608,7 @@ const base = {
             fontSize: {
               tiny: 7,
               small: 9,
-              medium: 11,
+              medium: 12,
               large: 13,
               xlarge: 15,
             },
@@ -910,7 +900,6 @@ const base = {
         cancel: "8px",
       },
     },
-
     color: {
       confirm: "white",
       cancel: "white",
