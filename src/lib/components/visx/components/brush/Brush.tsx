@@ -193,7 +193,7 @@ export default function Brush({
                   : y > y0 + topOffset && y < y1 + topOffset;
               })
               .map((obj) => {
-                console.log(obj);
+                //console.log(obj);
                 return registeredData.elAccessor(obj);
               });
             selectionIds = [...selectionIds, ...stockCopy];
