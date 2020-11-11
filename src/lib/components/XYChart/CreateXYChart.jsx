@@ -927,11 +927,13 @@ export default function CreateXYChart({
                               </em>
                             )}
                             {tooltipData?.nearestDatum?.datum
-                              ? accessors[renderHorizontally ? "x" : "y"][
-                                  datum
-                                ](
-                                  tooltipData?.nearestDatum?.datum,
-                                  valueIndex(datum)
+                              ? formatValue(
+                                  accessors[renderHorizontally ? "x" : "y"][
+                                    datum
+                                  ](
+                                    tooltipData?.nearestDatum?.datum,
+                                    valueIndex(datum)
+                                  )
                                 )
                               : "–"}
                           </div>
@@ -979,11 +981,13 @@ export default function CreateXYChart({
                               {`${datum} `}
                             </em>
                             {tooltipData?.nearestDatum?.datum
-                              ? accessors[renderHorizontally ? "x" : "y"][
-                                  datum
-                                ](
-                                  tooltipData?.nearestDatum?.datum,
-                                  valueIndex(datum)
+                              ? formatValue(
+                                  accessors[renderHorizontally ? "x" : "y"][
+                                    datum
+                                  ](
+                                    tooltipData?.nearestDatum?.datum,
+                                    valueIndex(datum)
+                                  )
                                 )
                               : "–"}
                           </div>
@@ -1014,9 +1018,11 @@ export default function CreateXYChart({
                             {`${measureInfo[index].qFallbackTitle} `}
                           </em>
                           {tooltipData?.nearestDatum?.datum
-                            ? accessors[renderHorizontally ? "x" : "y"][
-                                measureInfo[index].qFallbackTitle
-                              ](tooltipData?.nearestDatum?.datum, index + 1)
+                            ? formatValue(
+                                accessors[renderHorizontally ? "x" : "y"][
+                                  measureInfo[index].qFallbackTitle
+                                ](tooltipData?.nearestDatum?.datum, index + 1)
+                              )
                             : "–"}
                           <br />
                         </React.Fragment>
