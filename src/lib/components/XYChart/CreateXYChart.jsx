@@ -170,6 +170,7 @@ export default function CreateXYChart({
     theme.showAxisLabels
   );
 
+
   function getCurve(curve) {
     switch (curve) {
       case "Basis":
