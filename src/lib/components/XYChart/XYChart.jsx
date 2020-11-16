@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ThemeContext } from "styled-components";
 import StyledXYChart from "./StyledXYChart";
-import { ConfigContext } from "../../contexts/ConfigProvider";
 import { EngineContext } from "../../contexts/EngineProvider";
-import useEngine from "../../hooks/useEngine";
 import { chartTheme } from "../visx";
 import { deepMerge } from "../../utils/object";
 
@@ -16,10 +14,8 @@ function XYChart({
   yAxisStyles,
   ...rest
 }) {
-  const myConfig = useContext(ConfigContext);
   const theme = useContext(ThemeContext);
-  const { engine, engineError } =
-    useContext(EngineContext) || useEngine(myConfig);
+  const { engine, engineError } = useContext(EngineContext)
 
   const yAxisStyleProps = {
     global: { chart: { yAxisStyles: { ...yAxisStyles } } },

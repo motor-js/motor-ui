@@ -159,17 +159,16 @@ export default function CreateXYChart({
 }) {
   const chartType = type;
   const sharedTooltip = !showClosestItem;
-
-  const AxisComponent = useAnimatedAxes ? AnimatedAxis : Axis;
-  const GridComponent = useAnimatedGrid ? AnimatedGrid : Grid;
-
+  
+  const AxisComponent = Axis /*useAnimatedAxes ? AnimatedAxis : Axis;*/
+  const GridComponent = Grid /*useAnimatedGrid ? AnimatedGrid : Grid; */
+  
   const chartHideAxisLine = valueIfUndefined(hideAxisLine, theme.hideAxisLine);
 
   const chartShowAxisLabels = valueIfUndefined(
     showAxisLabels,
     theme.showAxisLabels
   );
-
 
   function getCurve(curve) {
     switch (curve) {

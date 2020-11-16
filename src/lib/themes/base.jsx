@@ -951,16 +951,16 @@ const base = {
           value: "16px",
         },
         tablet: {
-          label: "10px",
+          label: "12px",
           value: "20px",
         },
         desktop: {
-          label: "12px",
-          value: "40px",
+          label: "14px",
+          value: "26px",
         },
         largeDesktop: {
-          label: "12px",
-          value: "40px",
+          label: "16px",
+          value: "34px",
         },
       },
       small: {
