@@ -32,8 +32,9 @@ export default (styles) => {
 
     toggleMenu(options = {}) {
       const { isOpen, noStateChange } = options;
+
       const newState = {
-        isOpen: typeof isOpen !== "undefined" ? isOpen : !this.state.isOpen,
+        /* isOpen: typeof isOpen !== "undefined" ?*/ isOpen : !this.state.isOpen,
       };
 
       this.applyWrapperStyles();
@@ -465,6 +466,8 @@ export default (styles) => {
     backgroundColor: null,
     borderRadius: null,
     openIcon: "none",
+    onOpen: () => {},
+    onClose: () => {}
   };
 
   return Menu;
