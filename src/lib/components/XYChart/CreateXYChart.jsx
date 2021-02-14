@@ -463,10 +463,10 @@ export default function CreateXYChart({
     [showPoints]
   );
 
-  const renderLabel = ({ x, y, id, styleProps }) => {
+  const renderLabel = ({ x, y, id, styleProps, datum }) => {
     return (
       <text y={y} x={x} id={id} {...styleProps}>
-        {formatValue(y)}
+        {formatValue(datum[1].qNum)}
       </text>
     );
   };
