@@ -1,5 +1,5 @@
 import React, { useMemo, useContext } from "react";
-import { AxisScale, TickLabelProps } from "@visx/axis";
+import { AxisScale } from "@visx/axis";
 import { AxisProps as VxAxisProps } from "@visx/axis/lib/axis/Axis";
 import { ScaleInput } from "@visx/scale";
 import DataContext from "../../context/DataContext";
@@ -36,7 +36,7 @@ export default function BaseAxis<Scale extends AxisScale>({
     [theme, orientation]
   );
 
-  const tickLabelProps = useMemo<TickLabelProps<ScaleInput<Scale>> | undefined>(
+  const tickLabelProps = useMemo(
     () =>
       props.tickLabelProps || axisStyles // construct from props + theme if possible
         ? (value, index, values) =>
@@ -51,6 +51,7 @@ export default function BaseAxis<Scale extends AxisScale>({
               ...props.tickLabelProps?.(value, index, values),
             })
         : undefined,
+
     [props.tickLabelProps, axisStyles, orientation, margin]
   );
 
