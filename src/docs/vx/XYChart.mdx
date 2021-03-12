@@ -10,32 +10,40 @@ menu: visx
 
 import { Props } from 'docz'
 import { Playground } from 'docz'
-import XYChart from '../../lib/components/XYChart/XYChart.jsx'
+import Bar from '../../lib/components/Bar/Bar.jsx'
+import Line from '../../lib/components/Line/Line.jsx'
 import Motor from '../../lib/components/Motor/Motor.jsx'
 import Filter from '../../lib/components/Filter/Filter.jsx'
+import CurrentSelections from '../../lib/components/CurrentSelections/CurrentSelections.jsx'
 import Button from '../../lib/components/Button/Button.jsx'
 import { config } from '../config/config.js'
 
 <Playground>
 <Motor  
- config={config}>  
+config={{
+   host: "juno-ui.eu.qlikcloud.com",
+  secure: true,
+  port: null,
+  prefix: "",
+  appId: "39e218c1-42ee-4f38-9451-1b8f850505d5",
+  webIntId: "4Tx-ydWxSQEM_q1ajlYBVzGgVUVJUo-i",
+  qcs: true,
+      }}>  
   <Filter label='CanonicalDate' dimension={['CanonicalDate']} />
   <Filter label='Forcast Day' dimension={['Forcast Day']} />
     <Button type="clearSelections">Clear Selections</Button>
-    <XYChart 
-      type="barstack"
-      width={750} 
-      height={500}  
-      colorTheme="bio"
-      backgroundPattern="Lines"
-      showLabels={true}
-      selectionMethod='click'
-      showPoints={true}
-      cols={[
-        { qField: 'CanonicalDate', qLabel: 'Canonical Date' },
-        { qField: '=Sum([Hours])', qLabel: 'Hours' ,qChartType:'bar'},
-        { qField: '=Sum([Forcast Day])', qLabel: 'Forcast Day',qChartType:'line',  qShowPoints:{ symbol: 'circle', size: 100} },
-      ]}
-    />
+      <Line
+          width={900}
+          height={450}
+          useAnimatedAxes={false}
+          colorTheme="divergent13"
+          showLegend
+          showLabels={true}
+          cols={[
+            { qField: "[YearMonth]", qLabel: "Month" },
+            //  { qField: "[Product Group Desc]", qLabel: "Product Group" },
+            { qField: "=sum([Sales Amount])", qLabel: "Sales" },
+          ]}
+        />
   </Motor>
 </Playground>
