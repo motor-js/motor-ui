@@ -42,13 +42,11 @@ const QlikObject = ({
   const outerRef = useRef(null);
 
   const initHeight = parseInt(height, 10);
-  //const urlFix = url => url.split(/(?=http.?:\/\/)(.*)(?=http.?:\/\/)/)[2]
-
+  
   const { app } = useContext(CapabilityContext);
 
   const [qViz, setQViz] = useState(null);
   const [open, setOpen] = useState(false);
-  const [elemHeight, setElemHeight] = useState(height);
 
   const create = async () => {
     const getViz = id
@@ -60,15 +58,15 @@ const QlikObject = ({
   };
 
   const show = () => {
-    qViz.show(node.current, { noSelections, noInteraction });
+    qViz && qViz.show(node.current, { noSelections, noInteraction });
   };
 
   const close = () => {
-    qViz.close();
+    qViz && qViz.close();
   };
 
   const resize = () => {
-    qViz.resize();
+    qViz && qViz.resize()
   };
 
   useEffect(() => {
