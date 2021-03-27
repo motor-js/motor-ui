@@ -74,13 +74,10 @@ const loadCapabilityApis = async config => {
   }
 }
 
-function useCapability(config, engine) {
+function useCapability(config) {
   const [app, setApp] = useState(() => {
     (async () => {
-      // console.log('called!')
-      if (engine.engine) { } else
       if (config && config.qcs) {
-        console.log('Loading CAP API')
 
         const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
 

@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { getCapabilityAPIs } from '../utils/CapApiUtils/ConnectCapAPI'
-import { qApp } from '../utils/CapApiUtils/ConnectCapNew'
+//import { qApp } from '../utils/CapApiUtils/ConnectCapNew'
 
 const enigma = require("enigma.js");
 const schema = require("enigma.js/schemas/12.170.2.json");
 const SenseUtilities = require("enigma.js/sense-utilities");
 
 const MAX_RETRIES = 3;
-// let qlik;
-// let { qlik } = utility.qlobals;
-
 
 function useEngine(config, capabilityAPI) {
 
@@ -106,8 +103,7 @@ function useEngine(config, capabilityAPI) {
         });
         const _global = await session.open();
         const _doc = await _global.openDoc(config.appId);
-        const _app = await capabilityAPI && qApp(config)
-        console.log(_app)
+        const _app = await capabilityAPI && getCapabilityAPIs(config)
         setApp(_app)
         setEngine(_doc);
         seErrorCode(1);
