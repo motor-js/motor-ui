@@ -78,6 +78,7 @@ function useCapability(config) {
   const [app, setApp] = useState(() => {
     (async () => {
       if (config && config.qcs) {
+
         const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
 
         const qConfig = {
@@ -105,7 +106,7 @@ function useCapability(config) {
             setApp(app)
 
             return 1
-          })
+          }) 
         } catch (error) {
           throw new Error(error)
         }
@@ -143,7 +144,7 @@ function useCapability(config) {
                 }
                 const app = q.openApp(config.appId, { ...config, isSecure: config.secure, prefix })
                 setApp(app)
-
+                resolve(app)
                 return 1
               })
             }

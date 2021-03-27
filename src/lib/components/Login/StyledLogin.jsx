@@ -26,6 +26,10 @@ const StyledLogin = ({
   const webIntegrationId = config.webIntId;
 
   const goToLogin = () => {
+    console.log(tenantUri);
+    console.log("returnto", window.location.href);
+    console.log("qlik-web-integration-id", webIntegrationId);
+
     const loginUrl = new URL(`https://${tenantUri}/login`);
     loginUrl.searchParams.append("returnto", window.location.href);
     loginUrl.searchParams.append("qlik-web-integration-id", webIntegrationId);
