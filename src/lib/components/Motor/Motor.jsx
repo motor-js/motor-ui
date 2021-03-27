@@ -19,7 +19,7 @@ function Motor({
 
   const engine = useEngine(myConfig, capabilityAPI)
   //const app = useCapability(myConfig)
-  const { app } = engine ? { app: {}} : engine
+  const { app } = engine ? { app: {} } : engine
  
   // eslint-disable-next-line react/react-in-jsx-scope
   return (
