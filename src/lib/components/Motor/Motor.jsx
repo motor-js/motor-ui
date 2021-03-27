@@ -17,9 +17,11 @@ function Motor({
   const [myConfig, setMyConfig] = useState(config)
   const nextTheme = deepMerge(myTheme, theme)
 
-  const engine = useEngine(myConfig)
-  const app = capabilityAPI ? useCapability(myConfig) : {}
-
+  const engine = useEngine(myConfig, capabilityAPI)
+  const app = useCapability(myConfig)
+  //const { app } = engine && engine
+ 
+  
   // eslint-disable-next-line react/react-in-jsx-scope
   return (
     <EngineContext.Provider value={engine}>

@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { getCapabilityAPIs } from '../utils/CapApiUtils/ConnectCapAPI'
+import { qApp } from '../utils/CapApiUtils/ConnectCapNew'
 
 const enigma = require("enigma.js");
 const schema = require("enigma.js/schemas/12.170.2.json");
 const SenseUtilities = require("enigma.js/sense-utilities");
 
 const MAX_RETRIES = 3;
+// let qlik;
+// let { qlik } = utility.qlobals;
 
-function useEngine(config) {
+
+function useEngine(config, capabilityAPI) {
 
   const responseInterceptors = [
     {
@@ -52,6 +57,7 @@ function useEngine(config) {
   ];
 
   const [engineError, setEngineError] = useState(false);
+  const [app, setApp] = useState(null)
   const [errorCode, seErrorCode] = useState(null);
   const [engine, setEngine] = useState(() => {
     (async () => {
@@ -77,6 +83,7 @@ function useEngine(config) {
         if (csrfToken == null) {
           console.log("Not logged in");
           seErrorCode(-1);
+
           return -1;
         }
         const session = enigma.create({
@@ -94,22 +101,21 @@ function useEngine(config) {
         session.on("closed", () => {
           console.warn("Session was closed");
           seErrorCode(-3);
+
           return -3;
         });
         const _global = await session.open();
         const _doc = await _global.openDoc(config.appId);
+        const _app = await capabilityAPI && qApp(config)
+        console.log(_app)
+        setApp(_app)
         setEngine(_doc);
         seErrorCode(1);
+
         return 1;
       }
       if (config) {
         const myConfig = config;
-        // Make it work for Qlik Core scaling https://github.com/qlik-oss/core-scaling
-        // qlikcore/engine:12.248.0
-        /* if (myConfig.core) {
-          myConfig.subpath = myConfig.prefix ? `${myConfig.prefix}/app` : 'app'
-          myConfig.route = `doc/${myConfig.appId}`
-        } */
         const url = SenseUtilities.buildUrl(myConfig);
         try {
           const session = enigma.create({
@@ -126,29 +132,33 @@ function useEngine(config) {
           session.on("closed", () => {
             console.warn("Session was closed");
             seErrorCode(-3);
+
             return -3;
           });
           const _global = await session.open();
           const _doc = await _global.openDoc(config.appId);
+          const _app = await capabilityAPI && getCapabilityAPIs(config)
+          console.log('_app',_app)
+          setApp(_app)
           setEngine(_doc);
           seErrorCode(1);
+
           return 1;
         } catch (err) {
           console.warn("Captured Error", err);
           if (err.code === 1003) {
             setEngineError("No engine. App Not found.");
-            //  cogoToast.error('App Not Found')
-          } else {
-            //   cogoToast.error('Enigma Error')
           }
           seErrorCode(-2);
+
           return -2;
         }
       }
     })();
   }, []);
 
-  return { engine, engineError, errorCode };
+  return { engine, engineError, errorCode, app }
 }
+
 
 export default useEngine;
