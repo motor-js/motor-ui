@@ -41,7 +41,6 @@ export const loadCapSAAS = async config => {
       return
     }
     const tenantUrl = config.host
-    const webIntegrationId = config.webIntId
 
     const link = document.createElement('link')
     link.rel = 'stylesheet'
@@ -56,7 +55,7 @@ export const loadCapSAAS = async config => {
     script.onload = async () => {
       window.require.config({
         baseUrl: `https://${tenantUrl}/resources`,
-        webIntegrationId,
+        webIntegrationId: config.webIntegrationId,
       })
     }
     document.body.appendChild(script)
@@ -74,7 +73,6 @@ export const loadCapSAAS = async config => {
 export function getCapabilityAPIs(config) {
   (async () => {
     if (config && config.qcs) {
-      console.log('Loading CAP API')
 
       const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
 
@@ -89,6 +87,7 @@ export function getCapabilityAPIs(config) {
 
       try {
         await loadCapSAAS(qConfig)
+
         window.require.config({
           baseUrl: `https://${qConfig.host}/resources`,
           webIntegrationId: config.webIntId,
