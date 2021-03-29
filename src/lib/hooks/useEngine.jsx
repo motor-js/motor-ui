@@ -103,7 +103,7 @@ function useEngine(config, capabilityAPI) {
         });
         const _global = await session.open();
         const _doc = await _global.openDoc(config.appId);
-        const _app = await capabilityAPI && getCapabilityAPIs(config)
+        const _app =  capabilityAPI && await getCapabilityAPIs(config)
         setApp(_app)
         setEngine(_doc);
         seErrorCode(1);

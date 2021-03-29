@@ -10,6 +10,7 @@ import {
   StyledCircle,
 } from "./QlikObjectTheme";
 import Menu from "../Menu";
+import { EngineContext } from "../../contexts/EngineProvider";
 
 const QlikObject = ({
   id,
@@ -43,7 +44,7 @@ const QlikObject = ({
 
   const initHeight = parseInt(height, 10);
   
-  const { app } = useContext(CapabilityContext);
+  const { app } = useContext(EngineContext)
 
   const [qViz, setQViz] = useState(null);
   const [open, setOpen] = useState(false);

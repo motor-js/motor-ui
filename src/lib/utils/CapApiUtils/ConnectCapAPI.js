@@ -70,50 +70,16 @@ export const loadCapSAAS = async config => {
   }
 }
 
-export function getCapabilityAPIs(config) {
-  (async () => {
-    if (config && config.qcs) {
-
-      const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
-
-      const qConfig = {
-        host: config.host,
-        isSecure: config.secure,
-        port: config.port || 443,
-        prefix,
-        appId: config.appId,
-        webIntegrationId: config.webIntId,
-      }
-
+export async function getCapabilityAPIs(config) {
       try {
-        await loadCapSAAS(qConfig)
-
-        window.require.config({
-          baseUrl: `https://${qConfig.host}/resources`,
-          webIntegrationId: config.webIntId,
-        })
-
-        window.require(['js/qlik'], async q => {
-          const app = q.openApp(qConfig.appId, qConfig)
-          // apply theme set in QSE
-          app.theme.get().then(theme => {
-            theme.apply()
-          })
-
-          return app
-        }) 
-      } catch (error) {
-        throw new Error(error)
-      }
-    } else {
-      try {
-        await loadCapabilityApis(config)
+        await loadCapSAAS(config)
         const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
         window.require.config({
           baseUrl: `${(config.secure ? 'https://' : 'http://') + config.host + (config.port ? `:${config.port}` : '') + prefix}resources`,
           paths: {
             qlik: `${(config.secure ? 'https://' : 'http://') + config.host + (config.port ? `:${config.port}` : '') + prefix}resources/js/qlik`,
           },
+          webIntegrationId: config.webIntId,
           config: {
             text: {
               useXhr() {
@@ -130,7 +96,7 @@ export function getCapabilityAPIs(config) {
             app.theme.get().then(theme => {
               theme.apply()
             })
-            return app
+            resolve(app); 
           } else {
             window.require(['js/qlik'], q => {
               utility.globals.qlik = q
@@ -138,14 +104,11 @@ export function getCapabilityAPIs(config) {
                 q.resize()
               }
               const app = q.openApp(config.appId, { ...config, isSecure: config.secure, prefix })
-              return app
-              return 1
+              resolve(app); 
             })
           }
         })
       } catch (error) {
         throw new Error(error)
-      }
     }
-  })()
-}
+  }

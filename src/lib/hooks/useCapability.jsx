@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import utility from '../utils/CapApiUtils'
 
-// let qlik;
-// let { qlik } = utility.qlobals;
 let capabilityApisPromise
 let capApiSAASPromise
 
@@ -74,11 +72,10 @@ const loadCapabilityApis = async config => {
   }
 }
 
-function useCapability(config) {
+function useCapability(config, isLoaded) {
   const [app, setApp] = useState(() => {
     (async () => {
       if (config && config.qcs) {
-
         const prefix = (config.prefix !== '') ? `/${config.prefix}/` : '/'
 
         const qConfig = {

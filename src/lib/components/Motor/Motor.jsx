@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ThemeContext } from '../../contexts/ThemeProvider'
 import { EngineContext } from '../../contexts/EngineProvider'
 import { ConfigContext } from '../../contexts/ConfigProvider'
@@ -9,6 +9,7 @@ import Login from '../Login'
 import NotConnected from '../NotConnected'
 import useEngine from '../../hooks/useEngine'
 import useCapability from '../../hooks/useCapability'
+import { getCapabilityAPIs } from '../../utils/CapApiUtils/ConnectCapAPI'
 
 function Motor({
   children, theme, config, logo, logoWidth, logoHeight, capabilityAPI,
@@ -18,17 +19,15 @@ function Motor({
   const nextTheme = deepMerge(myTheme, theme)
 
   const engine = useEngine(myConfig, capabilityAPI)
-  //const app = useCapability(myConfig)
-  const { app } = engine ? { app: {} } : engine
- 
+  
   // eslint-disable-next-line react/react-in-jsx-scope
   return (
     <EngineContext.Provider value={engine}>
-      <CapabilityContext.Provider value={app}>
+      <CapabilityContext.Provider>
         <ConfigContext.Provider value={myConfig}>
           <ThemeContext.Provider value={nextTheme}>
-            <Login logo={logo} logoHeight={logoHeight} logoWidth={logoWidth} />
-            <NotConnected />
+            {<Login logo={logo} logoHeight={logoHeight} logoWidth={logoWidth} />}
+            {<NotConnected />}
             {children}
           </ThemeContext.Provider>
         </ConfigContext.Provider>
