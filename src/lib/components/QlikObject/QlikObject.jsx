@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
-import { CapabilityContext } from "../../contexts/CapabilityProvider";
+import { EngineContext } from "../../contexts/EngineProvider";
 import Spinner from "../Spinner";
 import {
   QlikWrapper,
@@ -10,7 +10,7 @@ import {
   StyledCircle,
 } from "./QlikObjectTheme";
 import Menu from "../Menu";
-import { EngineContext } from "../../contexts/EngineProvider";
+
 
 const QlikObject = ({
   id,

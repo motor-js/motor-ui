@@ -34,7 +34,6 @@ export { default as useSelectionObject } from "./hooks/useSelectionObject";
 export { default as useSidebar } from "./hooks/useSidebar";
 export { default as useCapability } from "./hooks/useCapability";
 
-export { CapabilityContext } from "./contexts/CapabilityProvider";
 export { EngineContext } from "./contexts/EngineProvider";
 
 // themes

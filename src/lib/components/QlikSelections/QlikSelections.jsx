@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react'
 import PropTypes from "prop-types"
 import Spinner from '../Spinner'
-import { CapabilityContext } from '../../contexts/CapabilityProvider'
+import { EngineContext } from "../../contexts/EngineProvider";
 
 const QlikSelections = ({
   height,
@@ -9,7 +9,7 @@ const QlikSelections = ({
   border,
 }) => {
   const node = useRef(null)
-  const { app } = useContext(CapabilityContext)
+  const { app } = useContext(EngineContext)
 
   useEffect(() => {
     if(app) {
