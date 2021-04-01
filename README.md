@@ -1,4 +1,4 @@
-![Motor Logo](./static/motor_red.png)
+![Motor Logo](./static/motor.png)
 
 # The React Framework for Qlik Sense Mashups
 
