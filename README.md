@@ -1,6 +1,6 @@
 ![Motor Logo](./static/motor.png)
 
-# Note we are no longer enhancing this package, please use @motor-js.engine.
+## Note that we are no longer enhancing this package, please use @motor-js/engine.
 
 # The React Framework for Qlik Sense Mashups
 
