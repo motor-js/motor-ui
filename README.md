@@ -1,5 +1,7 @@
 ![Motor Logo](./static/motor.png)
 
+# Note we are no longer enhancing this package, please use @motor-js.engine.
+
 # The React Framework for Qlik Sense Mashups
 
 Motor JS consists of charts, components and utilities for the 
