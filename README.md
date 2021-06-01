@@ -8,7 +8,7 @@ Motor JS consists of charts, components and utilities for the
 rapid creation of custom dashboards off the Qlik engine.
 
 - Official website: www.motor.so
-- Docs: www.docs.motor.so
+- Docs: https://docs.motor.so
 - Community: https://discord.gg/jmjx78N59b
 - Starter Template: https://github.com/motor-js/motor-starter
 
